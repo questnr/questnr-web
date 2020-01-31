@@ -1,4 +1,56 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background: #eeeeee }
+
+
+.logo {
+  font-weight: 900;
+  font-size: 22px;
+
+}
+.com {
+  font-size: 14px;
+  color: rgb(218, 218, 218);
+}
+
+.spacer{
+  width: 200px;
+  flex: 1;
+}
+mat-icon{
+  padding: 0 20px;
+  cursor: pointer;
+  font-size: 8px;
+  color: #ff6600;
+}
+
+.header-icon div{
+  font-size: 10px;
+  margin: 0 auto;
+  width: fit-content;
+  width: -moz-fit-content;
+  color: #827b7b;
+}
+.no_selection {
+  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+  -moz-user-select: none; /* mozilla browsers */
+  -khtml-user-select: none; /* webkit (konqueror) browsers */
+  -ms-user-select: none; /* IE10+ */
+}
+.viewport{
+  position: relative;
+  top :70px;
+  margin: 0 auto;
+  width: calc(100% - 50px);
+}
+.gapper{
+  padding: 10px;
+}
+.mat-card {
+  background: none ;
+  color: #000000;
+}
+.mat-grid-tile .mat-figure{
+  display: block !important;
+}
