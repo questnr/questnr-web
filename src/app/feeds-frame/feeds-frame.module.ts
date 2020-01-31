@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FeedsComponent} from "./feeds/feeds.component";
+import {FeedsComponent} from './feeds/feeds.component';
 
 
 

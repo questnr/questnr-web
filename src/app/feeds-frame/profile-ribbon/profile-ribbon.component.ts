@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile-ribbon.component.scss']
 })
 export class ProfileRibbonComponent implements OnInit {
-  public user_name:string ="Satish Kumar Gaur";
-  public user_profile:string = "Software Developer @ Neostencil";
+  public user_name = 'Andrew Garfield';
+  public user_profile = 'Software Developer @ Macintosh';
   constructor() { }
 
   ngOnInit() {
