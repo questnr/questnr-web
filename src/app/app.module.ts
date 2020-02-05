@@ -18,7 +18,16 @@ import { TrendingFeedsComponent } from './feeds-frame/feeds/trending-feeds/trend
 import { PostFeedsComponent } from './feeds-frame/feeds/post-feeds/post-feeds.component';
 import {MatCardModule} from "@angular/material/card";
 import { FeedsFrameComponent } from './feeds-frame/feeds-frame.component';
-import {MatDividerModule, MatListModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatChipsModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatListModule,
+  MatTabsModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -33,19 +42,25 @@ import {MatDividerModule, MatListModule} from '@angular/material';
     PostFeedsComponent,
     FeedsFrameComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatSliderModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatGridListModule,
-        MatCardModule,
-        MatDividerModule,
-        MatListModule
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatGridListModule,
+    MatCardModule,
+    MatDividerModule,
+    MatListModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatChipsModule,
+    MatTabsModule,
+    MatButtonModule
 
-    ],
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
