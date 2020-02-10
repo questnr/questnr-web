@@ -12,7 +12,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import { FeedsComponent } from './feeds-frame/feeds/feeds.component';
 import { ProfileRibbonComponent } from './feeds-frame/profile-ribbon/profile-ribbon.component';
 import { FloatingFooterComponent } from './feeds-frame/floating-footer/floating-footer.component';
-import { RecommendedFeedsComponent } from './feeds-frame/feeds/recommended-feeds/recommended-feeds.component';
+import { RecommendedFeedsComponent } from './feeds-frame/recommended-feeds/recommended-feeds.component';
 import { FloatingAdsComponent } from './feeds-frame/floating-ads/floating-ads.component';
 import { TrendingFeedsComponent } from './feeds-frame/feeds/trending-feeds/trending-feeds.component';
 import { PostFeedsComponent } from './feeds-frame/feeds/post-feeds/post-feeds.component';
