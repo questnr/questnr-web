@@ -68,26 +68,42 @@ mat-icon:hover{
   padding: 8px;
   margin: 0 auto;
 }
-.mdl-cell--2{
-  width: 20%;
-  display: inline-block;
-}
 .mdl-cell--1{
   //width: 10%;
   width: auto;
   display: inline-block;
 }
-.mdl-cell--9{
-  width: calc(90% - 4px);
+.mdl-cell--2{
+  width: 20%;
   display: inline-block;
+}
+.mdl-cell--3{
+  width: 30%;
+  display: inline-block;
+}
+.mdl-cell--4{
+  display: inline-block;
+  width: 40%;
+}
+.mdl-cell--5{
+  display: inline-block;
+  width: 50%;
+}
+.mdl-cell--6{
+  display: inline-block;
+  width: 60%;
+}
+.mdl-cell--7{
+  display: inline-block;
+  width: 70%;
 }
 .mdl-cell--8{
   width: 80%;
   display: inline-block;
 }
-.mdl-cell--4{
+.mdl-cell--9{
+  width: calc(90% - 4px);
   display: inline-block;
-  width: 60%;
 }
 .mdl-cell{
   display: block;
@@ -118,7 +134,7 @@ mat-icon:hover{
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: 14px }
 
 .post-card mat-card-title{
   font-size: 14px !important;
