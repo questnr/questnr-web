@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'questnr-front-end';
+
+  test() {
+    alert("parent");
+  }
 }

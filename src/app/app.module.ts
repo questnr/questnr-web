@@ -28,6 +28,7 @@ import {
   MatListModule,
   MatTabsModule
 } from '@angular/material';
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {
     MatInputModule,
     MatChipsModule,
     MatTabsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule
 
   ],
   providers: [],

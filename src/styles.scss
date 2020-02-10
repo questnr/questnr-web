@@ -38,7 +38,7 @@ mat-icon:hover{
   width: -moz-fit-content;
   color: #827b7b;
 }
-.no_selection {
+.no_selection , mat-icon{
   -webkit-user-select: none; /* webkit (safari, chrome) browsers */
   -moz-user-select: none; /* mozilla browsers */
   -khtml-user-select: none; /* webkit (konqueror) browsers */
@@ -48,7 +48,7 @@ mat-icon:hover{
   position: relative;
   top :70px;
   margin: 0 auto;
-  width: calc(100% - 50px);
+  width: calc(80% - 50px);
 }
 .gapper{
   padding: 10px;
@@ -73,11 +73,16 @@ mat-icon:hover{
   display: inline-block;
 }
 .mdl-cell--1{
-  width: 10%;
+  //width: 10%;
+  width: auto;
   display: inline-block;
 }
 .mdl-cell--9{
-  width: 90%;
+  width: calc(90% - 4px);
+  display: inline-block;
+}
+.mdl-cell--8{
+  width: 80%;
   display: inline-block;
 }
 .mdl-cell--4{
@@ -85,7 +90,7 @@ mat-icon:hover{
   width: 60%;
 }
 .mdl-cell{
-  display: inline-block;
+  display: block;
   width: 100%;
 }
 .mat-list-item {
@@ -107,7 +112,8 @@ mat-icon:hover{
   height: 60px !important;
 }
 .user-logo img{
-  width: inherit;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
 }
 
@@ -132,7 +138,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .post-card .actions{
   position: relative;
-  top: -4px;
+  top: 2px;
   cursor: pointer;
 }
 .post-card {
@@ -140,4 +146,62 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .post-card .mat-icon:hover {
   color: #797259;
+}
+
+.commentBox{
+  position: relative;
+  top: -1px;
+  padding: 15px 0 15px 15px!important;
+  font-size: 14px !important;
+  border: 1px solid #b0b0b0 !important;
+  border-radius: 18px;
+  float: left;
+  //margin-right: 8px !important;
+  width: -webkit-fill-available !important;
+  width: -moz-available !important;
+}
+.attachement{
+  position: absolute;
+  padding: 11px !important;
+  text-align: center;
+  //border: 1px solid #b0b0b0;
+  //border-radius: 50%;
+  margin-left: -55px;
+}
+.mat-card-actions{
+  margin-bottom:  0px !important;
+  //padding-top: 17px !important;
+}
+button mat-icon{
+  padding: 0 2px 0 0px !important;
+}
+
+.comment-menu{
+  position: relative;
+  top: -10px;
+  left: 20px;
+}
+.user-comments h1{
+  font-size: 14px;
+  margin: 0px !important;
+}
+.user-comments h3{
+  font-size: 10px;
+  color: rgba(0,0,0,.54);
+  margin: 4px 0;
+}
+
+.comment-text{
+  margin: 0px !important;
+}
+.likes:hover{
+  text-decoration: underline;
+  color: #ff6600;
+  cursor: pointer;
+}
+.replyBox{
+  padding: 0px;
+}
+.user-details{
+  margin-bottom: 10px
 }
