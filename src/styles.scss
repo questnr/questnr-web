@@ -51,7 +51,7 @@ mat-icon:hover{
   width: calc(80% - 50px);
 }
 .gapper{
-  padding: 10px;
+  //padding: 10px;
 }
 .margins{
   margin: 8px 0px;
@@ -220,4 +220,60 @@ button mat-icon{
 }
 .user-details{
   margin-bottom: 10px
+}
+
+.menu{
+  font-size: 14px !important;
+  float: right;
+  padding: 0;
+  margin-right: -13px;
+}
+.header-container, .body-container{
+  padding: 10px;
+  //margin: 0px 10px;
+  font-size: 14px;
+}
+.body-container{
+  padding:  0;
+  //margin: 0px 10px;
+  font-size: 14px;
+}
+
+ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+li{
+  //border: 1px solid #eeeeee;
+  padding: 8px;
+  height: available;
+}
+li:hover{
+  background: #eeeeee;
+}
+li:before {
+  content: '\2605';
+  //margin-left: -10px;
+  //margin-right: 10px;
+  color: #ff6600;
+}
+a{
+  text-decoration: none;
+}
+
+.headings{
+  font-size: 14px;
+  float: right;
+  width: 90%;
+}
+.headings:hover{
+  text-decoration: underline;
+  color: #ff6600;
+}
+.sub-headings{
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.54);
+  padding: 4px 0 0 23px;
+  clear: both;
 }
