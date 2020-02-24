@@ -48,7 +48,7 @@ mat-icon:hover{
   position: relative;
   top :70px;
   margin: 0 auto;
-  width: calc(80% - 50px);
+  width: calc(90% - 50px);
 }
 .gapper{
   //padding: 10px;
@@ -69,8 +69,8 @@ mat-icon:hover{
   margin: 0 auto;
 }
 .mdl-cell--1{
-  //width: 10%;
-  width: auto;
+  width: 11%;
+  //width: calc(10% - 8px);
   display: inline-block;
 }
 .mdl-cell--2{
@@ -102,7 +102,7 @@ mat-icon:hover{
   display: inline-block;
 }
 .mdl-cell--9{
-  width: calc(90% - 4px);
+  width: calc(90% - 8px);
   display: inline-block;
 }
 .mdl-cell{
@@ -209,17 +209,20 @@ button mat-icon{
 
 .comment-text{
   margin: 0px !important;
+  padding: 0 16px 12px 12px;
 }
 .likes:hover{
   text-decoration: underline;
-  color: #ff6600;
+  color: rgb(255, 46, 82) ;
   cursor: pointer;
 }
+
 .replyBox{
   padding: 0px;
 }
 .user-details{
-  margin-bottom: 10px
+  //margin-bottom: 10px
+  padding: 8px 64px 8px 12px;
 }
 
 .menu{
@@ -256,10 +259,11 @@ li:before {
   content: '\2605';
   //margin-left: -10px;
   //margin-right: 10px;
-  color: #ff6600;
+  color: rgb(255, 46, 82);
 }
 a{
   text-decoration: none;
+  color: inherit;
 }
 
 .headings{
@@ -269,11 +273,11 @@ a{
 }
 .headings:hover{
   text-decoration: underline;
-  color: #ff6600;
+  color: rgb(255, 46, 82);
 }
 .sub-headings{
   font-size: 10px;
   color: rgba(0, 0, 0, 0.54);
-  padding: 4px 0 0 23px;
+  padding: 4px 0 0 30px;
   clear: both;
 }
