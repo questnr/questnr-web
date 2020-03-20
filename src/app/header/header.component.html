@@ -4,26 +4,39 @@
   <div class="toolbar" role="banner">
     <div class="logo">Questnr<span class="com">.com</span></div>
     <div class="spacer"></div>
-    <div class="header-icon no_selection" (click)="changeIcon('home_outline','home')">
-      <mat-icon>{{home}}</mat-icon>
-      <div>home</div>
-    </div>
-    <div class="header-icon no_selection" (click)="changeIcon('supervised_user_circle','supervisor_account')">
-      <mat-icon>{{group}}</mat-icon>
-      <div>Network</div>
-    </div>
-    <div class="header-icon no_selection" (click)="changeIcon('chat_bubble_outline','chat')">
-      <mat-icon> {{message}}</mat-icon>
-      <div>Messages</div>
-    </div>
-    <div class="header-icon no_selection" (click)="changeIcon('notifications_none','notifications')">
-      <mat-icon>{{notification}}</mat-icon>
-      <div>Notification</div>
-    </div>
-    <div class="header-icon no_selection" (click)="changeIcon('account_box','account_circle')">
-      <mat-icon>{{account}}</mat-icon>
-      <div>Me </div>
-    </div>
+
+    <button  mat-button class="btn-white">
+      Login
+    </button>
+    <button mat-button class="btn-color">
+      Join Now!
+    </button>
+
+
+
+
+
+    <!--for Logged in users-->
+<!--    <div class="header-icon no_selection" (click)="changeIcon('home_outline','home')">-->
+<!--      <mat-icon>{{home}}</mat-icon>-->
+<!--      <div>home</div>-->
+<!--    </div>-->
+<!--    <div class="header-icon no_selection" (click)="changeIcon('supervised_user_circle','supervisor_account')">-->
+<!--      <mat-icon>{{group}}</mat-icon>-->
+<!--      <div>Network</div>-->
+<!--    </div>-->
+<!--    <div class="header-icon no_selection" (click)="changeIcon('chat_bubble_outline','chat')">-->
+<!--      <mat-icon> {{message}}</mat-icon>-->
+<!--      <div>Messages</div>-->
+<!--    </div>-->
+<!--    <div class="header-icon no_selection" (click)="changeIcon('notifications_none','notifications')">-->
+<!--      <mat-icon>{{notification}}</mat-icon>-->
+<!--      <div>Notification</div>-->
+<!--    </div>-->
+<!--    <div class="header-icon no_selection" (click)="changeIcon('account_box','account_circle')">-->
+<!--      <mat-icon>{{account}}</mat-icon>-->
+<!--      <div>Me </div>-->
+<!--    </div>-->
   </div>
 </header>
 
