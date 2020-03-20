@@ -7,7 +7,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background: 
 .logo {
   font-weight: 900;
   font-size: 22px;
-
+  cursor: pointer;
 }
 .com {
   font-size: 14px;
@@ -252,9 +252,9 @@ li{
   padding: 8px;
   height: available;
 }
-li:hover{
-  background: #eeeeee;
-}
+//li:hover{
+//  background: #eeeeee;
+//}
 li:before {
   content: '\2605';
   //margin-left: -10px;
@@ -280,4 +280,30 @@ a{
   color: rgba(0, 0, 0, 0.54);
   padding: 4px 0 0 30px;
   clear: both;
+}
+
+input,
+textarea {
+  -moz-user-select: text;
+}
+
+body {
+  -webkit-user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.site-frame{
+  margin: 55px auto;
+  width: calc(100% - 150px);
+}
+textarea:focus, input:focus{
+  outline: none;
+}
+
+.container{
+  width: calc(100% - 150px);
+  padding: 40px;
+  margin: 0 auto;
 }
