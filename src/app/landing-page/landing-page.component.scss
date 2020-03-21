@@ -186,6 +186,7 @@ li:before{
 .community-card .members, .community-card .last-seen, .members {
   color: #999999;
   font-size: 12px;
+  line-height: 18px;
 }
 
 .info-graphics h1, .taglines h1 {
@@ -273,4 +274,65 @@ li:before{
   float: right;
   margin-right: 40px;
   font-size: 30px;
+}
+.latest-activity h3{
+  font-size: 32px;
+  line-height: 40px;
+  font-family: Serif, sans-serif;
+}
+.members-list img , .new-activity img{
+  height: 40px;
+  padding: 8px;
+  border: 1px solid #cccccc;
+  width: 40px;
+}
+.members-list .members {
+  color: #999999;
+}
+.members-list .member-name {
+  //margin-top: 8px;
+  font-size: 18px;
+}
+.members-list .display-inline{
+  display: inline-block;
+  padding: 0 10px;
+}
+.members-list .mat-list-item{
+  height: 90px !important;
+}
+.members-list .mat-list-item{
+  border-bottom: 1px solid #cccccc;
+  margin-right: 18px;
+}
+.members-list .member-name{
+  cursor: pointer;
+}
+
+.new-activity .mat-list-item{
+  height: fit-content !important;
+}
+.new-activity .display-inline{
+  //display: inline-block;
+  margin-left: 21px;
+  text-transform: capitalize;
+  margin-top: 13px;
+  position: relative;
+  bottom: 14px;
+}
+
+.comment{
+  font-size: 14px;
+  line-height: 20px;
+  //font-weight: 500;
+  color: #666666;
+}
+.actions{
+  margin-right: 18px;
+  color: #827b7b;
+}
+.actions i {
+  margin-right: 8px;
+}
+.mdl-cell--5{
+  padding: 8px 16px;
 }

@@ -64,7 +64,7 @@ mat-icon:hover{
   display: block !important;
 }
 .mdl-grid{
-  display: flex;
+  //display: flex;
   padding: 8px;
   margin: 0 auto;
 }
@@ -86,8 +86,8 @@ mat-icon:hover{
   width: 40%;
 }
 .mdl-cell--5{
-  display: inline-block;
-  width: 50%;
+  display: inline-grid;
+  width: calc(45% - 10px);
 }
 .mdl-cell--6{
   display: inline-block;
@@ -242,11 +242,11 @@ button mat-icon{
   font-size: 14px;
 }
 
-ul{
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+//ul{
+//  list-style: none;
+//  padding: 0;
+//  margin: 0;
+//}
 li{
   //border: 1px solid #eeeeee;
   padding: 8px;
