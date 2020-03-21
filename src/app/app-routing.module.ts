@@ -14,8 +14,9 @@ import {PostFeedsComponent} from "./feeds-frame/feeds/post-feeds/post-feeds.comp
 
 
 const routes: Routes = [
-  { path: 'home', component: LandingPageComponent },
-  { path: 'feeds',component: FeedsFrameComponent}
+  { path: '', component: LandingPageComponent},
+  { path: 'feeds',component: FeedsFrameComponent},
+  { path: 'header', component: HeaderComponent}
 ];
 
 export interface Tile {

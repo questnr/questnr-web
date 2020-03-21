@@ -260,10 +260,12 @@ li:before{
   padding-left: 8px;
   margin-bottom: 10px;
 }
-
+.footer ul {
+  padding: 0;
+  list-style: none !important;
+}
 .footer .social li{
   float: left;
-  list-style: none;
   margin: 0 8px;
   cursor: pointer;
   color: #ffffff;
@@ -272,7 +274,8 @@ li:before{
 .social{
   color: #ffffff;
   float: right;
-  margin-right: 40px;
+  margin-right: 40px!important;
+  margin: 0px;
   font-size: 30px;
 }
 .latest-activity h3{
