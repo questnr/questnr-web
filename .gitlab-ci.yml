@@ -1,0 +1,23 @@
+image: juristr/angular-ci-build:1.0.0
+stages:
+  - build
+  
+before_script:
+  - npm install
+  - npm --prefix ./functions install
+  
+build:
+  stage: build
+  only:
+    - master
+  tags:
+    - npm
+    - angular
+    - ubuntu
+  artifacts:
+    paths:
+      - dist/
+  script:
+    - npm run build
+    - sudo rm -rf /var/www/html/*
+    - sudo cp -R dist/* /var/www/html/
