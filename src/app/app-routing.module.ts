@@ -14,9 +14,9 @@ import { HomeComponent } from './home/home.component';
 
 
 const routes: Routes = [
-  { path: '', component: LandingPageComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
+  // { path: '', component: LandingPageComponent },
+  { path: 'landing-page', component: LandingPageComponent },
   { path: 'feeds', component: FeedsFrameComponent },
   { path: 'header', component: HeaderComponent }
 ];
