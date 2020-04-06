@@ -1,41 +1,42 @@
 <div class="margins">
   <mat-card class="post-card">
 
-<!--    card starts here-->
-<!--    card headers-->
+    <!--    card starts here-->
+    <!--    card headers-->
     <mat-card-header>
-      <div mat-card-avatar class="user-logo" >
-        <img  src="{{userIcon}}" >
+      <div mat-card-avatar class="user-logo">
+        <img src="{{userIcon}}">
       </div>
       <mat-card-title>{{userName}}</mat-card-title>
       <mat-card-subtitle>{{profileHighlight}}</mat-card-subtitle>
     </mat-card-header>
 
-<!--    header ends here-->
+    <!--    header ends here-->
 
-<!--    Post content start here-->
+    <!--    Post content start here-->
     <mat-card-content>
       <p>
-       {{postContent}}
+        {{postContent}}
       </p>
     </mat-card-content>
-<!--    post content ends here-->
+    <!--    post content ends here-->
 
-<!--    post media starts here-->
-      <img mat-card-image src="{{postMedia}}" alt="{{postContent}}">
-<!--    post media ends here-->
+    <!--    post media starts here-->
+    <img mat-card-image src="{{postMedia}}" alt="{{postContent}}">
+    <!--    post media ends here-->
 
 
-<!--    post reaction count-->
-    <span class="gapper">{{likes}} likes</span> &nbsp;&nbsp;|&nbsp;&nbsp;<span class="gapper">{{comments}} comments</span>
-<!--    post reaction count ends here-->
+    <!--    post reaction count-->
+    <span class="gapper">{{likes}} likes</span> &nbsp;&nbsp;|&nbsp;&nbsp;<span class="gapper">{{comments}}
+      comments</span>
+    <!--    post reaction count ends here-->
 
 
     <div class="mdl-grid">
-      <mat-divider ></mat-divider>
+      <mat-divider></mat-divider>
     </div>
 
-<!--    post actions container starts here-->
+    <!--    post actions container starts here-->
     <mat-card-actions>
       <button mat-button>
         <mat-icon class="actions">thumb_up_alt </mat-icon> like
@@ -44,81 +45,81 @@
         <mat-icon class="actions"> chat_bubble_outline</mat-icon>comment
       </button>
       <button mat-button>
-        <mat-icon class="actions">share</mat-icon>  share
+        <mat-icon class="actions">share</mat-icon> share
       </button>
     </mat-card-actions>
-<!--    post actions container ends here-->
+    <!--    post actions container ends here-->
 
 
-<!--    Post comment starts here-->
-    <div class="mdl-grid commentSection" id="{{postId}}"style="display: none">
+    <!--    Post comment starts here-->
+    <div class="mdl-grid commentSection" id="{{postId}}" style="display: none">
       <div class="mdl-cell--1">
-        <div mat-card-avatar class="user-logo" >
-          <img  src="{{userIcon}}" >
+        <div mat-card-avatar class="user-logo">
+          <img src="{{userIcon}}">
         </div>
       </div>
       <div class="mdl-cell--9">
-        <form action="">
+        <!-- <form action="">
           <input type="text" matInput placeholder="Your Comment.." class="commentBox">
           <mat-icon matSuffix class="attachement">add_a_photo</mat-icon>
-        </form>
+        </form> -->
       </div>
     </div>
-<!--    post comments ends here-->
+    <!--    post comments ends here-->
 
 
-<!--    comment post list starts here-->
+    <!--    comment post list starts here-->
     <div class="comments">
       <div class="mdl-grid">
 
-<!--        commentee icon starts here-->
+        <!--        commentee icon starts here-->
         <div class="mdl-cell--1">
           <div class="user-logo">
             <img src="{{userIcon}}" alt="{{userName}}">
           </div>
         </div>
-<!--        commentee icon ends here-->
+        <!--        commentee icon ends here-->
 
 
-<!--        user comment start here-->
+        <!--        user comment start here-->
         <div class="mdl-cell">
-              <div class="user-comments">
-                <div class="mdl-grid">
-                  <div class="mdl-cell">
-                    <div class="user-details">
-                      <h1>{{userName}}</h1>
-                      <h3>{{profileHighlight}}</h3>
-                    </div>
-                    <p class="comment-text">
-                      {{postContent}}
-                    </p>
-                  </div>
-                  <div class="mdl-cell--1">
-                      <mat-icon [matMenuTriggerFor]="menu"  class="comment-menu">more_horizontal</mat-icon>
-                    <mat-menu #menu="matMenu">
-                      <button mat-menu-item>
-                        <mat-icon>dialpad</mat-icon>
-                        <span>Redial</span>
-                      </button>
-                      <button mat-menu-item disabled>
-                        <mat-icon>voicemail</mat-icon>
-                        <span>Check voice mail</span>
-                      </button>
-                      <button mat-menu-item>
-                        <mat-icon>notifications_off</mat-icon>
-                        <span>Disable alerts</span>
-                      </button>
-                    </mat-menu>
-                  </div>
+          <div class="user-comments">
+            <div class="mdl-grid">
+              <div class="mdl-cell">
+                <div class="user-details">
+                  <h1>{{userName}}</h1>
+                  <h3>{{profileHighlight}}</h3>
                 </div>
+                <p class="comment-text">
+                  {{postContent}}
+                </p>
               </div>
+              <div class="mdl-cell--1">
+                <mat-icon [matMenuTriggerFor]="menu" class="comment-menu">more_horizontal</mat-icon>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                    <mat-icon>dialpad</mat-icon>
+                    <span>Redial</span>
+                  </button>
+                  <button mat-menu-item disabled>
+                    <mat-icon>voicemail</mat-icon>
+                    <span>Check voice mail</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>notifications_off</mat-icon>
+                    <span>Disable alerts</span>
+                  </button>
+                </mat-menu>
+              </div>
+            </div>
+          </div>
           <div class="mdl-grid">
-            <mat-icon >thumb_up_alt</mat-icon> &nbsp;
-            <span (click)="likeDialog()" class="likes">{{likes}} likes </span>  &nbsp; &nbsp;&nbsp; &nbsp;|
+            <mat-icon>thumb_up_alt</mat-icon> &nbsp;
+            <span (click)="likeDialog()" class="likes">{{likes}} likes </span> &nbsp; &nbsp;&nbsp; &nbsp;|
             <mat-icon>chat_bubble_outline</mat-icon>
             <span class="likes" (click)="toggleCommentSection('comment2')">{{comments}} comments</span>
           </div>
-          <div class="mdl-grid replyBox" id="comment{{postId}}"style="display: none">
+          <div class="mdl-grid replyBox" id="comment{{postId}}" style="display: none">
 
 
             <!--comment replies-->
@@ -143,7 +144,8 @@
                       </p>
                     </div>
                     <div class="mdl-cell--1">
-                      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="comment-menu">
+                      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+                        class="comment-menu">
                         <mat-icon>more_horizontal</mat-icon>
                       </button>
                       <mat-menu #menu="matMenu">
@@ -164,7 +166,7 @@
                   </div>
                 </div>
                 <div class="mdl-grid">
-                  <mat-icon >thumb_up_alt</mat-icon> &nbsp;
+                  <mat-icon>thumb_up_alt</mat-icon> &nbsp;
                   <span (click)="likeDialog()" class="likes">{{likes}} likes </span> &nbsp; &nbsp;&nbsp; &nbsp;|
                   <mat-icon>chat_bubble_outline</mat-icon>
                   <span class="likes" (click)="toggleCommentSection('comment2')">{{comments}} comments</span>
@@ -177,27 +179,27 @@
 
             <div class="mdl-grid">
               <div class="mdl-cell--1">
-                <div mat-card-avatar class="user-logo" >
-                  <img  src="{{userIcon}}" >
+                <div mat-card-avatar class="user-logo">
+                  <img src="{{userIcon}}">
                 </div>
               </div>
               <div class="mdl-cell--9 ">
-                <form action="">
+                <!-- <form action="">
                   <input type="text" matInput placeholder="Your Comment.." class="commentBox">
                   <mat-icon matSuffix class="attachement">add_a_photo</mat-icon>
-                </form>
+                </form> -->
               </div>
             </div>
           </div>
 
 
-         </div>
+        </div>
 
-<!--        user comment ends here-->
+        <!--        user comment ends here-->
       </div>
     </div>
 
-<!--   comment posts  list ends here-->
+    <!--   comment posts  list ends here-->
 
   </mat-card>
 

@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   public notification = 'notifications';
-  public  home = 'home';
+  public home = 'home';
   public group = 'supervisor_account';
   public message = 'chat';
   public account = 'account_circle';
