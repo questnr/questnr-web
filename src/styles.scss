@@ -1,8 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background: #eeeeee }
-
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #eeeeee;
+}
 
 .logo {
   font-weight: 900;
@@ -11,101 +17,130 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background: 
 }
 .com {
   font-size: 14px;
-  color: rgb(218, 218, 218);
 }
 
-.spacer{
+.qnr-card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.w-100 {
+  width: 100%;
+}
+
+mat-form-field mat-icon {
+  margin-right: 12px;
+}
+.btn-white {
+  border: 1px solid #cdcdcd !important;
+  width: 112px;
+  height: 32px;
+  line-height: 32px !important;
+  margin-right: 20px !important;
+}
+
+.btn-color {
+  height: 32px;
+  line-height: 32px !important;
+  width: 112px;
+  background: rgb(255, 46, 82) !important;
+  color: #ffffff !important;
+}
+
+.spacer {
   width: 200px;
   flex: 1;
 }
-mat-icon{
-  padding: 0 20px;
-  cursor: pointer;
-  font-size: 8px;
-  color: rgba(0, 0, 0, 0.31);
-}
-.active{
-  color:  rgb(255, 46, 82)
-}
-mat-icon:hover{
-  color:  rgb(255, 46, 82);
-}
 
-.header-icon div{
+// mat-icon {
+//   padding: 0 20px;
+//   cursor: pointer;
+//   font-size: 8px;
+//   color: rgba(0, 0, 0, 0.31);
+// }
+.active {
+  color: rgb(255, 46, 82);
+}
+// mat-icon:hover {
+//   color: rgb(255, 46, 82);
+// }
+
+.header-icon div {
   font-size: 10px;
   margin: 0 auto;
   width: fit-content;
   width: -moz-fit-content;
   color: #827b7b;
 }
-.no_selection , mat-icon{
+.no_selection,
+mat-icon {
   -webkit-user-select: none; /* webkit (safari, chrome) browsers */
   -moz-user-select: none; /* mozilla browsers */
   -khtml-user-select: none; /* webkit (konqueror) browsers */
   -ms-user-select: none; /* IE10+ */
 }
-.viewport{
+.viewport {
   position: relative;
-  top :70px;
+  top: 70px;
   margin: 0 auto;
   width: calc(90% - 50px);
 }
-.gapper{
+.gapper {
   //padding: 10px;
 }
-.margins{
+.margins {
   margin: 8px 0px;
 }
 .mat-card {
   ////background: #ffffff ;
   //color: #000000;
 }
-.mat-grid-tile .mat-figure{
+.mat-grid-tile .mat-figure {
   display: block !important;
 }
-.mdl-grid{
+.mdl-grid {
   //display: flex;
   padding: 8px;
   margin: 0 auto;
 }
-.mdl-cell--1{
+.mdl-cell--1 {
   width: 11%;
   //width: calc(10% - 8px);
   display: inline-block;
 }
-.mdl-cell--2{
+.mdl-cell--2 {
   width: 20%;
   display: inline-block;
 }
-.mdl-cell--3{
+.mdl-cell--3 {
   width: 30%;
   display: inline-block;
 }
-.mdl-cell--4{
+.mdl-cell--4 {
   display: inline-block;
   width: 40%;
 }
-.mdl-cell--5{
+.mdl-cell--5 {
   display: inline-grid;
   width: calc(45% - 10px);
 }
-.mdl-cell--6{
+.mdl-cell--6 {
   display: inline-block;
   width: 60%;
 }
-.mdl-cell--7{
+.mdl-cell--7 {
   display: inline-block;
   width: 70%;
 }
-.mdl-cell--8{
+.mdl-cell--8 {
   width: 80%;
   display: inline-block;
 }
-.mdl-cell--9{
+.mdl-cell--9 {
   width: calc(90% - 8px);
   display: inline-block;
 }
-.mdl-cell{
+.mdl-cell {
   display: block;
   width: 100%;
 }
@@ -115,44 +150,51 @@ mat-icon:hover{
 .mat-divider {
   border-top-color: #eeeeee;
 }
-.right-border{
+.right-border {
   border: 1px solid #eeeeee;
 }
-.center-text{
+.center-text {
   text-align: center;
   color: #eeeeee;
 }
 
-.user-logo{
+.user-logo {
   width: 60px !important;
   height: 60px !important;
 }
-.user-logo img{
+.user-logo img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: 14px }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+}
 
-.post-card mat-card-title{
+.post-card mat-card-title {
   font-size: 14px !important;
   margin-bottom: 8px;
 }
-.post-card mat-card-subtitle{
+.post-card mat-card-subtitle {
   font-size: 12px !important;
 }
-.post-content-container{
+.post-content-container {
   width: 100%;
   height: 300px;
 }
 
-.post-card .mat-icon{
+.post-card .mat-icon {
   font-size: 18px !important;
   padding-right: 4px;
 }
-.post-card .actions{
+.post-card .actions {
   position: relative;
   top: 2px;
   cursor: pointer;
@@ -164,10 +206,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: 
   color: #797259;
 }
 
-.commentBox{
+.commentBox {
   position: relative;
   top: -1px;
-  padding: 15px 0 15px 15px!important;
+  padding: 15px 0 15px 15px !important;
   font-size: 14px !important;
   border: 1px solid #b0b0b0 !important;
   border-radius: 18px;
@@ -176,7 +218,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: 
   width: -webkit-fill-available !important;
   width: -moz-available !important;
 }
-.attachement{
+.attachement {
   position: absolute;
   padding: 11px !important;
   text-align: center;
@@ -184,60 +226,61 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: 
   //border-radius: 50%;
   margin-left: -55px;
 }
-.mat-card-actions{
-  margin-bottom:  0px !important;
+.mat-card-actions {
+  margin-bottom: 0px !important;
   //padding-top: 17px !important;
 }
-button mat-icon{
+button mat-icon {
   padding: 0 2px 0 0px !important;
 }
 
-.comment-menu{
+.comment-menu {
   position: relative;
   top: -10px;
   left: 20px;
 }
-.user-comments h1{
+.user-comments h1 {
   font-size: 14px;
   margin: 0px !important;
 }
-.user-comments h3{
+.user-comments h3 {
   font-size: 10px;
-  color: rgba(0,0,0,.54);
+  color: rgba(0, 0, 0, 0.54);
   margin: 4px 0;
 }
 
-.comment-text{
+.comment-text {
   margin: 0px !important;
   padding: 0 16px 12px 12px;
 }
-.likes:hover{
+.likes:hover {
   text-decoration: underline;
-  color: rgb(255, 46, 82) ;
+  color: rgb(255, 46, 82);
   cursor: pointer;
 }
 
-.replyBox{
+.replyBox {
   padding: 0px;
 }
-.user-details{
+.user-details {
   //margin-bottom: 10px
   padding: 8px 64px 8px 12px;
 }
 
-.menu{
+.menu {
   font-size: 14px !important;
   float: right;
   padding: 0;
   margin-right: -13px;
 }
-.header-container, .body-container{
+.header-container,
+.body-container {
   padding: 10px;
   //margin: 0px 10px;
   font-size: 14px;
 }
-.body-container{
-  padding:  0;
+.body-container {
+  padding: 0;
   //margin: 0px 10px;
   font-size: 14px;
 }
@@ -247,7 +290,7 @@ button mat-icon{
 //  padding: 0;
 //  margin: 0;
 //}
-li{
+li {
   //border: 1px solid #eeeeee;
   padding: 8px;
   height: available;
@@ -256,26 +299,26 @@ li{
 //  background: #eeeeee;
 //}
 li:before {
-  content: '\2605';
+  content: "\2605";
   //margin-left: -10px;
   //margin-right: 10px;
   color: rgb(255, 46, 82);
 }
-a{
+a {
   text-decoration: none;
   color: inherit;
 }
 
-.headings{
+.headings {
   font-size: 14px;
   float: right;
   width: 90%;
 }
-.headings:hover{
+.headings:hover {
   text-decoration: underline;
   color: rgb(255, 46, 82);
 }
-.sub-headings{
+.sub-headings {
   font-size: 10px;
   color: rgba(0, 0, 0, 0.54);
   padding: 4px 0 0 30px;
@@ -294,15 +337,16 @@ body {
   user-select: none;
 }
 
-.site-frame{
+.site-frame {
   margin: 55px auto;
   width: calc(100% - 150px);
 }
-textarea:focus, input:focus{
+textarea:focus,
+input:focus {
   outline: none;
 }
 
-.container{
+.container {
   width: calc(100% - 150px);
   padding: 40px;
   margin: 0 auto;

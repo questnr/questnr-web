@@ -1,0 +1,25 @@
+@import "../../variables";
+
+.or {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+}
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  button {
+    margin: 10px;
+    border-radius: 32px;
+    border: 1px solid $primary;
+    padding: 0 3px;
+    img {
+      max-width: 32px;
+      width: 100%;
+    }
+    .text {
+      padding: 0 15px;
+    }
+  }
+}
