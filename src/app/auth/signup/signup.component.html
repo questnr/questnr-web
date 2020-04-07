@@ -1,47 +1,49 @@
 <form [formGroup]="group">
-  <mat-form-field class="w-100" appearance="fill">
-    <mat-label>First Name</mat-label>
-    <input type="text" matInput [formControl]="firstName" placeholder="Enter your First Name">
-    <mat-error *ngIf="firstName.hasError('required')">First Name is required.</mat-error>
-  </mat-form-field>
+  <div class="row">
+    <mat-form-field class="col-md-6" appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input type="text" matInput [formControl]="firstName" placeholder="Enter your First Name">
+      <mat-error *ngIf="firstName.hasError('required')">First Name is required.</mat-error>
+    </mat-form-field>
 
-  <mat-form-field class="w-100" appearance="fill">
-    <mat-label>Last Name</mat-label>
-    <input type="text" matInput [formControl]="lastName" placeholder="Enter your Last Name">
-    <mat-error *ngIf="lastName.hasError('required')">Last Name is required.</mat-error>
-  </mat-form-field>
+    <mat-form-field class="col-md-6" appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input type="text" matInput [formControl]="lastName" placeholder="Enter your Last Name">
+      <mat-error *ngIf="lastName.hasError('required')">Last Name is required.</mat-error>
+    </mat-form-field>
 
-  <mat-form-field class="w-100" appearance="fill">
-    <mat-label>Email</mat-label>
-    <input type="text" matInput [formControl]="email" placeholder="Enter your Email">
-    <mat-error *ngIf="email.hasError('required')">Email is required.</mat-error>
-    <mat-error *ngIf="email.hasError('pattern')">Email is invalid.</mat-error>
-  </mat-form-field>
+    <mat-form-field class="col-md-6" appearance="fill">
+      <mat-label>Username</mat-label>
+      <input type="text" matInput [formControl]="username" placeholder="Enter your Username">
+      <mat-error *ngIf="username.hasError('required')">Username is required.</mat-error>
+    </mat-form-field>
 
-  <mat-form-field class="w-100" appearance="fill">
-    <mat-label>Username</mat-label>
-    <input type="text" matInput [formControl]="username" placeholder="Enter your Username">
-    <mat-error *ngIf="username.hasError('required')">Username is required.</mat-error>
-  </mat-form-field>
+    <mat-form-field class="col-md-6" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input type="text" matInput [formControl]="email" placeholder="Enter your Email">
+      <mat-error *ngIf="email.hasError('required')">Email is required.</mat-error>
+      <mat-error *ngIf="email.hasError('pattern')">Email is invalid.</mat-error>
+    </mat-form-field>
 
-  <mat-form-field class="w-100" appearance="fill">
-    <mat-label>Password</mat-label>
-    <input type="text" matInput [formControl]="password" placeholder="Enter your password">
-    <mat-error *ngIf="password.hasError('required')">Password is required.</mat-error>
-  </mat-form-field>
 
-  <mat-form-field class="w-100" appearance="fill">
-    <mat-label>Confirm Password</mat-label>
-    <input type="text" matInput [formControl]="confirmPassword" placeholder="Re-Enter your Password">
-    <mat-error *ngIf="confirmPassword.hasError('required')">Please Re-Enter your password.</mat-error>
-    <mat-error *ngIf="confirmPassword.hasError('MatchPassword')">Password does not match.</mat-error>
-  </mat-form-field>
+    <mat-form-field class="col-md-12" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input type="text" matInput [formControl]="password" placeholder="Enter your password">
+      <mat-error *ngIf="password.hasError('required')">Password is required.</mat-error>
+    </mat-form-field>
 
+    <mat-form-field class="col-md-12" appearance="fill">
+      <mat-label>Confirm Password</mat-label>
+      <input type="text" matInput [formControl]="confirmPassword" placeholder="Re-Enter your Password">
+      <mat-error *ngIf="confirmPassword.hasError('required')">Please Re-Enter your password.</mat-error>
+      <mat-error *ngIf="confirmPassword.hasError('MatchPassword')">Password does not match.</mat-error>
+    </mat-form-field>
+  </div>
   <button mat-button class="btn-color" (click)="submit()"> Sign Up </button>
 </form>
 
 <p class="or">OR</p>
-<div class="social">
+<div class="social-logins">
   <button mat-button>
     <img src="assets/google.png" alt="Google">
     <span class="text">Continue with Google </span>

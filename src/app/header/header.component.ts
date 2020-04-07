@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  @Output() btnClick = new EventEmitter<any>();
   public notification = 'notifications';
   public home = 'home';
   public group = 'supervisor_account';
@@ -34,5 +35,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
 
   }
-
+  onClick(val) {
+    this.btnClick.emit(val);
+  }
 }

@@ -50,10 +50,16 @@ export class SignupComponent implements OnInit {
   }
 
   googleLogin() {
-    this.socialAuth.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.socialAuth.signIn(GoogleLoginProvider.PROVIDER_ID).then(socialusers => {
+      console.log(socialusers);
+    });
   }
 
   facebookLogin() {
-    this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID).then(socialusers => {
+      console.log(socialusers);
+    });
   }
+
+
 }

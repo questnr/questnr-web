@@ -1,3 +1,19 @@
+img {
+  max-width: 100%;
+}
+hr {
+  background-color: #cdcdcd;
+}
+.login-wrap {
+  background: rgba(255, 255, 255, 0.95);
+  color: black;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 2rem;
+  max-width: 500px;
+  overflow: auto;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.25);
+}
 .banner-heading {
   font-family: serif;
   height: 154px;
@@ -5,7 +21,7 @@
   color: #f9fcfd;
   margin-top: 125px;
   letter-spacing: 3px;
-  margin-bottom: 0px ;
+  margin-bottom: 0px;
 }
 .banner-subheading {
   font-size: 16px;
@@ -16,7 +32,7 @@
   letter-spacing: 1px;
 }
 
-.search{
+.search {
   margin-top: 33px;
   width: 414px;
   height: 24px;
@@ -26,7 +42,7 @@
   padding: 10px;
   border: none;
 }
-.search::placeholder{
+.search::placeholder {
   width: 66px;
   height: 19px;
   font-size: 16px;
@@ -37,11 +53,17 @@
   letter-spacing: 1px;
   color: #9b9b9b;
 }
-.search-btn{
+.search-btn {
   width: 20px !important;
   height: 45px !important;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-  background-image: -webkit-gradient(linear, right top, left top, color-stop(98%, #ff2d55), color-stop(7%, #ff4500));
+  background-image: -webkit-gradient(
+    linear,
+    right top,
+    left top,
+    color-stop(98%, #ff2d55),
+    color-stop(7%, #ff4500)
+  );
   position: relative;
   top: 4px;
   line-height: 43px;
@@ -49,7 +71,7 @@
 }
 
 .hashtags {
-  padding: 8px 0px !important; ;
+  padding: 8px 0px !important;
   float: left;
   color: #fff;
   list-style: none;
@@ -64,13 +86,13 @@ ul.hashtags li {
   color: #8d8d8d;
   padding: 0 !important;
 }
-li:before{
-  content: '' !important;
+li:before {
+  content: "" !important;
 }
 .myGridList {
   height: 640px;
 }
-.banner_image{
+.banner_image {
   //background-image: url(/assets/banner.jpg);
   //height: inherit;
   //background-size: contain;
@@ -79,8 +101,6 @@ li:before{
   height: 562px;
   margin: 0 auto;
 }
-
-
 
 .login-form {
   background-color: #ffffff;
@@ -134,7 +154,7 @@ li:before{
   font-size: 18px;
   text-decoration: underline;
 }
-.login-form-container .btn-color{
+.login-form-container .btn-color {
   background: #ff2e52 !important;
   color: #ffffff;
 }
@@ -143,24 +163,26 @@ li:before{
   font-family: serif !important;
 }
 
-.top-community .mat-tab-label{
-    //padding: 0 !important;
-    cursor: pointer;
-    justify-content: end !important;
-    align-items: center;
-    white-space: nowrap;
-    position: relative;
+.top-community .mat-tab-label {
+  //padding: 0 !important;
+  cursor: pointer;
+  justify-content: end !important;
+  align-items: center;
+  white-space: nowrap;
+  position: relative;
   min-width: 100px;
 }
 
-.top-community .mat-tab-label, .mat-tab-link {
+.top-community .mat-tab-label,
+.mat-tab-link {
   color: #000000;
   font-size: 18px;
 }
 .top-community .mat-ink-bar {
   background-color: #ff6600;
 }
-.top-community .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+.top-community .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
   background: #ff2d55;
 }
 
@@ -183,13 +205,16 @@ li:before{
   font-weight: 600;
   letter-spacing: 1px;
 }
-.community-card .members, .community-card .last-seen, .members {
+.community-card .members,
+.community-card .last-seen,
+.members {
   color: #999999;
   font-size: 12px;
   line-height: 18px;
 }
 
-.info-graphics h1, .taglines h1 {
+.info-graphics h1,
+.taglines h1 {
   font-family: serif;
   /* font-weight: 600; */
   letter-spacing: 3px;
@@ -203,7 +228,7 @@ li:before{
   line-height: 1.75;
   color: #666666;
 }
-.info-graphics .btn-color{
+.info-graphics .btn-color {
   width: 236px;
   height: 48px;
   color: #ffffff;
@@ -211,7 +236,7 @@ li:before{
   background-image: linear-gradient(to left, #ff2d55 98%, #ff4500 7%);
 }
 
-.landing-header{
+.landing-header {
   font-family: serif;
   font-size: 66px;
   font-weight: 800;
@@ -222,17 +247,17 @@ li:before{
 .our-moto {
   text-align: center;
 }
-.our-moto h3{
+.our-moto h3 {
   font-size: 24px;
   font-stretch: normal;
 }
-.our-moto p{
+.our-moto p {
   font-size: 14px;
   color: #888888;
   letter-spacing: 0px;
   line-height: 20px;
 }
-.our-moto .btn-color{
+.our-moto .btn-color {
   width: 240px;
   height: 50px;
   background-image: linear-gradient(to left, #ff2d55 98%, #ff4500 7%);
@@ -241,21 +266,21 @@ li:before{
   font-size: 18px;
 }
 
-.footer{
+.footer {
   background: rgba(0, 0, 0, 0.87);
   color: #ffffff;
 }
-.footer .register-btn{
+.footer .register-btn {
   width: calc(100% - 250px);
   border: 1px solid #ffffff;
   padding: 16px;
   font-size: 20px;
   text-align: center;
 }
-.footer li{
+.footer li {
   color: #888888;
 }
-.footer h6{
+.footer h6 {
   font-size: 16px;
   padding-left: 8px;
   margin-bottom: 10px;
@@ -264,26 +289,27 @@ li:before{
   padding: 0;
   list-style: none !important;
 }
-.footer .social li{
+.footer .social li {
   float: left;
   margin: 0 8px;
   cursor: pointer;
   color: #ffffff;
 }
 
-.social{
+.social {
   color: #ffffff;
   float: right;
-  margin-right: 40px!important;
+  margin-right: 40px !important;
   margin: 0px;
   font-size: 30px;
 }
-.latest-activity h3{
+.latest-activity h3 {
   font-size: 32px;
   line-height: 40px;
   font-family: Serif, sans-serif;
 }
-.members-list img , .new-activity img{
+.members-list img,
+.new-activity img {
   height: 40px;
   padding: 8px;
   border: 1px solid #cccccc;
@@ -296,25 +322,25 @@ li:before{
   //margin-top: 8px;
   font-size: 18px;
 }
-.members-list .display-inline{
+.members-list .display-inline {
   display: inline-block;
   padding: 0 10px;
 }
-.members-list .mat-list-item{
+.members-list .mat-list-item {
   height: 90px !important;
 }
-.members-list .mat-list-item{
+.members-list .mat-list-item {
   border-bottom: 1px solid #cccccc;
   margin-right: 18px;
 }
-.members-list .member-name{
+.members-list .member-name {
   cursor: pointer;
 }
 
-.new-activity .mat-list-item{
+.new-activity .mat-list-item {
   height: fit-content !important;
 }
-.new-activity .display-inline{
+.new-activity .display-inline {
   //display: inline-block;
   margin-left: 21px;
   text-transform: capitalize;
@@ -323,19 +349,37 @@ li:before{
   bottom: 14px;
 }
 
-.comment{
+.comment {
   font-size: 14px;
   line-height: 20px;
   //font-weight: 500;
   color: #666666;
 }
-.actions{
+.actions {
   margin-right: 18px;
   color: #827b7b;
 }
 .actions i {
   margin-right: 8px;
 }
-.mdl-cell--5{
+.mdl-cell--5 {
   padding: 8px 16px;
+}
+.hashtags-wrap {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+@media only screen and (max-width: 768px) {
+  h1 {
+    font-size: 3rem !important;
+  }
+  .container {
+    max-width: calc(100% - 50px);
+    padding: 20px;
+    margin: 0 auto;
+  }
+  .qnr-card-wrapper {
+    justify-content: center !important;
+  }
 }

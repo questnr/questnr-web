@@ -3,6 +3,8 @@
 html,
 body {
   height: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 body {
   margin: 0;
@@ -22,7 +24,7 @@ body {
 .qnr-card-wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .w-100 {
   width: 100%;
@@ -347,7 +349,7 @@ input:focus {
 }
 
 .container {
-  width: calc(100% - 150px);
+  max-width: calc(100% - 150px);
   padding: 40px;
   margin: 0 auto;
 }

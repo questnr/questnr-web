@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 
 @Component({
@@ -8,6 +8,7 @@ import { ApiService } from '../shared/api.service';
 })
 export class HomeComponent implements OnInit {
   activeAuth = 'login';
+  showSearchBar = false;
   @ViewChild('main', { static: true }) mainContent: ElementRef;
 
   constructor(private api: ApiService) { }

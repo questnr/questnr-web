@@ -19,17 +19,17 @@ header {
 }
 
 .hero-container {
-  padding: 1rem;
+  // padding: 1rem;
   color: $text-white;
   min-height: calc(100vh - 90px);
   display: flex;
   align-items: center;
   border-bottom: 4px solid $primary;
-  .container {
-    display: grid;
-    height: 100%;
-    grid-template-columns: 2fr 1fr;
-  }
+  // .container {
+  //   display: grid;
+  //   height: 100%;
+  //   grid-template-columns: 2fr 1fr;
+  // }
   h1 {
     font-family: serif;
     font-size: 66px;
@@ -112,6 +112,7 @@ header {
     display: flex;
     align-items: center;
     z-index: 99999;
+    display: none;
     img {
       width: 40px;
       margin-right: 10px;
@@ -269,9 +270,6 @@ header {
     position: fixed;
     z-index: 9999;
     width: 100%;
-  }
-  .main-content .top-bar {
-    display: none;
   }
   #main .wrapper {
     grid-template-columns: auto;
