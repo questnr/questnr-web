@@ -11,13 +11,14 @@ import { FloatingAdsComponent } from './feeds-frame/floating-ads/floating-ads.co
 import { TrendingFeedsComponent } from './feeds-frame/feeds/trending-feeds/trending-feeds.component';
 import { PostFeedsComponent } from './feeds-frame/feeds/post-feeds/post-feeds.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuard } from 'auth/auth.guard';
 
 
 const routes: Routes = [
   // { path: '', component: HomeComponent },
   { path: '', component: LandingPageComponent },
   // { path: 'landing-page', component: LandingPageComponent },
-  { path: 'feeds', component: FeedsFrameComponent },
+  { path: 'feeds', component: FeedsFrameComponent, canActivate: [AuthGuard] },
   { path: 'header', component: HeaderComponent }
 ];
 

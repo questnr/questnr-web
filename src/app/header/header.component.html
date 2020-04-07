@@ -2,15 +2,21 @@
 
 <header id="extended-nav" class="nav-main-container">
   <div class="toolbar" role="banner">
-    <div class="logo">Questnr<span class="com">.com</span></div>
+    <div class="logo" routerLink="/">Questnr<span class="com">.com</span></div>
     <div class="spacer"></div>
-
-    <button mat-button class="btn-white" (click)="onClick('login')">
-      Login
-    </button>
-    <button mat-button class="btn-color" (click)="onClick('signup')">
-      Join Now!
-    </button>
+    <ng-container *ngIf="!loginService.loggedIn()">
+      <button mat-button class="btn-white" (click)="onClick('login')">
+        Login
+      </button>
+      <button mat-button class="btn-color" (click)="onClick('signup')">
+        Join Now!
+      </button>
+    </ng-container>
+    <ng-container *ngIf="loginService.loggedIn()">
+      <button mat-button class="btn-white" (click)="signOut()">
+        Sign Out
+      </button>
+    </ng-container>
 
     <!--for Logged in users-->
     <!-- <div class="header-icon no_selection" (click)="changeIcon('home_outline','home')">

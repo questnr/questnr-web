@@ -1,4 +1,5 @@
 <form [formGroup]="group">
+  <div class="alert alert-danger" *ngIf="errMsg"> <strong>Error! </strong> {{errMsg }}</div>
   <div class="row">
     <mat-form-field class="col-md-6" appearance="fill">
       <mat-label>First Name</mat-label>
@@ -28,13 +29,13 @@
 
     <mat-form-field class="col-md-12" appearance="fill">
       <mat-label>Password</mat-label>
-      <input type="text" matInput [formControl]="password" placeholder="Enter your password">
+      <input type="password" matInput [formControl]="password" placeholder="Enter your password">
       <mat-error *ngIf="password.hasError('required')">Password is required.</mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-md-12" appearance="fill">
       <mat-label>Confirm Password</mat-label>
-      <input type="text" matInput [formControl]="confirmPassword" placeholder="Re-Enter your Password">
+      <input type="password" matInput [formControl]="confirmPassword" placeholder="Re-Enter your Password">
       <mat-error *ngIf="confirmPassword.hasError('required')">Please Re-Enter your password.</mat-error>
       <mat-error *ngIf="confirmPassword.hasError('MatchPassword')">Password does not match.</mat-error>
     </mat-form-field>
@@ -44,11 +45,11 @@
 
 <p class="or">OR</p>
 <div class="social-logins">
-  <button mat-button>
+  <button mat-button (click)="googleLogin()">
     <img src="assets/google.png" alt="Google">
     <span class="text">Continue with Google </span>
   </button>
-  <button mat-button>
+  <button mat-button (click)="googleLogin()">
     <img src="assets/facebook.png" alt="Facebook">
     <span class="text">Continue with Facebook</span>
   </button>
