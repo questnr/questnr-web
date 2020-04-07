@@ -11,15 +11,18 @@ export class LandingPageComponent implements OnInit {
   activeAuth = 'login';
 
   communities = [
-    { title: 'Music', src: 'assets/community/music.jpg', detail: 200 },
-    { title: 'Business', src: 'assets/community/business.jpg', detail: 1200 },
-    { title: 'Health', src: 'assets/community/health.jpg', detail: 400 },
-    { title: 'Finance', src: 'assets/community/finance.jpg', detail: 300 },
-    { title: 'Nature', src: 'assets/community/nature.jpg', detail: 550 },
-    { title: 'Technology', src: 'assets/community/technology.jpg', detail: 2300 },
-    // { title: 'Beauty & Cosmetics', src: 'assets/community/beauty.jpg', detail: 300 },
-    { title: 'Transport', src: 'assets/community/transport.jpg', detail: 255 },
-    { title: 'Agriculture', src: 'assets/community/agriculture.jpg', detail: 130 }
+    { title: 'Music', src: 'assets/community/music.png', detail: 200 },
+    { title: 'Business', src: 'assets/community/business.png', detail: 1200 },
+    { title: 'Health', src: 'assets/community/health.png', detail: 400 },
+    { title: 'Finance', src: 'assets/community/finance.png', detail: 300 },
+    { title: 'Nature', src: 'assets/community/nature.png', detail: 550 },
+    { title: 'Technology', src: 'assets/community/technology.png', detail: 2300 },
+    { title: 'Beauty & Cosmetics', src: 'assets/community/beauty&cosmetics.png', detail: 300 },
+    // { title: 'Transport', src: 'assets/community/transportation.png', detail: 255 },
+    { title: 'Corona', src: 'assets/community/corona.png', detail: 1350 },
+    { title: 'Fashion', src: 'assets/community/fashion.png', detail: 400 },
+    // { title: 'Agriculture', src: 'assets/community/agriculture.png', detail: 130 },
+    { title: 'Startup Community', src: 'assets/community/startup-community.png', detail: 530 }
   ];
 
   @ViewChild('main', { static: true }) mainContent: ElementRef;
@@ -53,7 +56,7 @@ export class LandingPageComponent implements OnInit {
       (res: any) => {
         if (res.content) {
           console.log(res);
-          this.users = res.content;
+          this.users = [...res.content].slice(0, 8);
         }
       }, err => { });
     this.api.getTopHashtags().subscribe(

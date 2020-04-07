@@ -40,6 +40,8 @@ import {
 import { environment } from '../environments/environment';
 
 import { MnFullpageModule } from 'ngx-fullpage';
+import { AuthGuard } from 'auth/auth.guard';
+import { LoginService } from 'auth/login.service';
 
 const config = new AuthServiceConfig([
   {
@@ -88,7 +90,7 @@ export function provideConfig() {
     SocialLoginModule,
     MnFullpageModule.forRoot()
   ],
-  providers: [
+  providers: [AuthGuard, LoginService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,

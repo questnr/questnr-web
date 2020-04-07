@@ -15,7 +15,7 @@ import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-logi
 export class LoginComponent implements OnInit {
 
   group: FormGroup;
-
+  errMsg: '';
   email = new FormControl('', [Validators.required, Validators.pattern(REGEX.EMAIL)]);
   password = new FormControl('', Validators.required);
 
@@ -31,11 +31,15 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.errMsg = '';
     if (this.group.valid) {
       this.auth.login(this.group.value).subscribe(
         res => {
           if (res.loginSucces) {
+            localStorage.setItem('token', res.accessToken);
             this.router.navigate(['feeds']);
+          } else {
+            this.errMsg = res.errorMessage;
           }
         },
         err => { }
@@ -44,11 +48,24 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin() {
-    this.socialAuth.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.socialAuth.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
+      console.log(user);
+      this.socialLogin(user);
+    });
   }
 
   facebookLogin() {
-    this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID).then(user => {
+      this.socialLogin(user);
+    });
   }
-
+  socialLogin(user) {
+    this.auth.login(user).subscribe(
+      res => {
+        if (res.loginSucces) {
+          this.router.navigate(['feeds']);
+        }
+      }, err => { }
+    );
+  }
 }

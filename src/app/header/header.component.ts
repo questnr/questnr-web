@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { LoginService } from 'auth/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +15,7 @@ export class HeaderComponent implements OnInit {
   public message = 'chat';
   public account = 'account_circle';
 
-  constructor() { }
+  constructor(public loginService: LoginService, private router: Router) { }
 
   public changeIcon(newIcon: string, oldIcon: string) {
     if (oldIcon == 'notifications') {
@@ -37,5 +39,9 @@ export class HeaderComponent implements OnInit {
   }
   onClick(val) {
     this.btnClick.emit(val);
+  }
+  signOut() {
+    localStorage.clear();
+    this.router.navigate(['/']);
   }
 }

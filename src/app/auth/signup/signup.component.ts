@@ -13,7 +13,7 @@ import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-logi
   styleUrls: ['../login/login.component.scss']
 })
 export class SignupComponent implements OnInit {
-
+  errMsg: '';
   group: FormGroup;
   firstName = new FormControl('', Validators.required);
   lastName = new FormControl('', Validators.required);
@@ -42,7 +42,10 @@ export class SignupComponent implements OnInit {
       this.auth.signUp(this.group.value).subscribe(
         res => {
           if (res.loginSucces) {
+            localStorage.setItem('token', res.accessToken);
             this.router.navigate(['feeds']);
+          } else {
+            this.errMsg = res.errorMessage;
           }
         }, err => { }
       );
@@ -50,16 +53,25 @@ export class SignupComponent implements OnInit {
   }
 
   googleLogin() {
-    this.socialAuth.signIn(GoogleLoginProvider.PROVIDER_ID).then(socialusers => {
-      console.log(socialusers);
+    this.socialAuth.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
+      console.log(user);
+      this.signUp(user);
     });
   }
 
   facebookLogin() {
-    this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID).then(socialusers => {
-      console.log(socialusers);
+    this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID).then(user => {
+      console.log(user);
+      this.signUp(user);
     });
   }
-
-
+  signUp(user) {
+    this.auth.signUp(user).subscribe(
+      res => {
+        if (res.loginSucces) {
+          this.router.navigate(['feeds']);
+        }
+      }, err => { }
+    );
+  }
 }

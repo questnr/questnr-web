@@ -17,14 +17,27 @@ header {
   margin: 0 auto;
   width: calc(100% - 150px);
 }
-
+.join {
+  padding: 5rem;
+}
 .hero-container {
+  background: url("../../assets/questnr-back.jpg") center center/cover no-repeat
+    fixed;
+  position: relative;
+  .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+  }
   // padding: 1rem;
   color: $text-white;
-  min-height: calc(100vh - 90px);
+  margin-top: 54px;
+  min-height: calc(100vh - 54px);
   display: flex;
   align-items: center;
-  border-bottom: 4px solid $primary;
   // .container {
   //   display: grid;
   //   height: 100%;
@@ -32,7 +45,8 @@ header {
   // }
   h1 {
     font-family: serif;
-    font-size: 66px;
+    font-size: 60px;
+    font-weight: 600;
     letter-spacing: 3px;
   }
   h5 {
@@ -69,7 +83,7 @@ header {
   }
 }
 .hashtag-title {
-  opacity: 0.4;
+  opacity: 0.8;
   letter-spacing: 2px;
   margin: 0;
   margin-top: 1.8rem;
@@ -276,5 +290,8 @@ header {
   }
   .auth-wrapper {
     height: auto;
+  }
+  .join {
+    padding: 2rem;
   }
 }

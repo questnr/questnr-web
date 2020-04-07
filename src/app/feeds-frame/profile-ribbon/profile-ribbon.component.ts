@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-profile-ribbon',
@@ -6,8 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile-ribbon.component.scss']
 })
 export class ProfileRibbonComponent implements OnInit {
-  public user_name = 'Andrew Garfield';
-  public user_profile = 'Software Developer @ Macintosh';
+  @Input() user;
+  @Input() profile;
+
   constructor() { }
 
   ngOnInit() {
