@@ -5,8 +5,9 @@
   font-size: 16px;
   font-weight: 500;
 }
-.social {
+.social-logins {
   display: flex;
+  color: $main-bg;
   flex-wrap: wrap;
   justify-content: center;
   button {

@@ -46,7 +46,7 @@
 <section id="main">
   <div class="wrapper">
     <div class="main-content fullpage">
-      <div class="top-bar">
+      <div class="top-bar" [ngClass]="{ active: showSearchBar }">
         <div>
           <img src="assets/logo.png" alt="logo">
         </div>
@@ -72,7 +72,7 @@
           <div>
             <div class="qnr-card-wrapper">
               <qnr-rank-card *ngFor="let user of users; let i=index" [rank]="user.userRank" [title]="user.username"
-                [posts]="user.totalPosts" [followers]="user.totalFollowers">
+                [imgSrc]="user.avatarDTO.avatarLink" [posts]="user.totalPosts" [followers]="user.totalFollowers">
               </qnr-rank-card>
             </div>
           </div>

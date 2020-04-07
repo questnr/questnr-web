@@ -1,11 +1,11 @@
 <div class="card">
-  <div class="profile">
-    <img src="https://steamcdn-a.akamaihd.net/steam/apps/1091500/library_600x900.jpg">
+  <div class="profile" [style.background]="getImgUrl(imgSrc)">
   </div>
   <div class="content">
-    <div class="rank">
-      <span>#</span>{{rank}}</div>
-    <div class="title">User</div>
+    <!-- <div class="rank">
+      <span>#</span>{{rank}}
+    </div> -->
+    <div class="title">{{title}}</div>
     <div class="detail">
       {{followers|number}} Followers <br>
       {{posts | number}} Posts
