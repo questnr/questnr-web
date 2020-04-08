@@ -14,7 +14,7 @@
     <input type="password" matInput [formControl]="password" placeholder="Enter your Password">
     <mat-error *ngIf="password.hasError('required')">Password is required.</mat-error>
   </mat-form-field>
-  <a href="" style="float:right">Forgot your Password?</a>
+  <a href="" class="forgot">Forgot your Password?</a>
   <button mat-button class="btn-color" (click)="login()"> Login </button>
 </form>
 
