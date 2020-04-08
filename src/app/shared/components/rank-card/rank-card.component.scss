@@ -1,10 +1,11 @@
 @import "../../../variables";
 .card {
-  margin: 10px;
+  margin: 4px;
   overflow: hidden;
-  border-radius: 7px;
+  //border-radius: 7px;
   cursor: pointer;
   width: 250px;
+  max-width: 240px;
   position: relative;
   padding: 0;
   background: #fff;
@@ -12,7 +13,7 @@
   transition: 0.2s all ease-in-out;
   display: grid;
   grid-template-columns: 100px auto;
-  border: 1px solid $primary;
+  //border: 1px solid $primary;
   .rank {
     position: absolute;
     right: 5px;
@@ -36,14 +37,18 @@
   }
   .profile {
     overflow: hidden;
+    background-size: cover !important;
+    background-position: center !important;
   }
   transition: 0.2s all ease-in-out;
   &:hover {
-    box-shadow: 0 5px 50px -10px rgba($primary, 0.5);
+    box-shadow: 0 5px 50px -10px rgba(grey, 0.5);
     background: $primary;
     color: #fff;
-    transform: scale(1.02);
+    transform: scale(1.05);
     z-index: 10;
+    //border-left: 4px solid $primary !important;
+    border: none;
     .rank {
       color: rgba(#fff, 0.4);
     }

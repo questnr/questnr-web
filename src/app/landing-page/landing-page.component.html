@@ -1,7 +1,7 @@
 <app-header (btnClick)="goTo($event)"></app-header>
 
 <section id="hero" class="hero-container"
-  style="background: url('assets/questnr-back.jpg') center center/cover no-repeat fixed;">
+         style="background: url('assets/questnr-back.jpg') center center/cover no-repeat fixed;">
   <div class="overlay"></div>
   <div class="row">
     <div class="col-md-6" style="display: flex; align-items: center;">
@@ -18,7 +18,7 @@
           <mat-icon>search</mat-icon>
           <input type="text" placeholder="Search #hashtags">
         </div>
-        <p class="hashtag-title">POPULAR HASHTAGS</p>
+<!--        <p class="hashtag-title">POPULAR HASHTAGS</p>-->
         <div class="hashtags-wrapper">
           <div class="tag" *ngFor="let hash of topHashtags">
             <span>#</span>{{hash.hashTagValue}}
@@ -32,6 +32,7 @@
       <!-- style="background-image: url(/assets/banner.jpg); background-size: contain; justify-content: center;"> -->
       <div class="login-wrap" #main>
         <h4 style="text-transform: uppercase; text-align: center;">{{activeAuth}}</h4>
+        <hr style="width: 64px; border-bottom: 2px solid #ed3a4f;">
         <ng-container *ngIf="activeAuth === 'login'">
           <app-login></app-login>
           <p class="center">Don't have an account?<br>
@@ -56,7 +57,7 @@
       <h1>Community Groups</h1>
       <div class="qnr-card-wrapper">
         <qnr-card *ngFor="let community of communities" [imgSrc]="community.src" [title]="community.title"
-          [detail]="community.detail"></qnr-card>
+                  [detail]="community.detail"></qnr-card>
       </div>
     </div>
   </div>
@@ -64,14 +65,14 @@
 
 
 <section class="latest-activity">
-  <div class="container" style="border-bottom: 1px solid #cccccc;">
+  <div class="container" style="">
     <div class="row">
       <div class="col-md-5">
         <h3>Members Rank</h3>
         <div>
           <div class="qnr-card-wrapper">
             <qnr-rank-card *ngFor="let user of users; let i=index" [rank]="user.userRank" [title]="user.username"
-              [imgSrc]="getImgSrc(user)" [posts]="user.totalPosts" [followers]="user.totalFollowers">
+                           [imgSrc]="getImgSrc(user)" [posts]="user.totalPosts" [followers]="user.totalFollowers">
             </qnr-rank-card>
           </div>
         </div>
@@ -127,19 +128,21 @@
   </div>
 </section>
 
-<section class="info-graphics py-0" style="background: #2c2935">
-  <div class="row">
-    <div class="col-md-6 p-5">
-      <h1 class="banner-heading">Annoyed by Other <br> Social Networks?</h1>
-      <p style="color: #ffffff;">
-        150.000 members have already created their profile <br>and enjoy a network of friends from hell!<br>
-        So... What are you waiting for?
-      </p>
-      <button mat-button class="btn-color">#Join the QuestNr Now!</button>
+<section class="info-graphics py-0" style="background: #2c2935;height: 500px">
+  <div class="row" style="height: inherit">
+    <div class="col-md-6 p-5" >
+      <div class="upside_centered">
+        <h1 class="banner-heading">Annoyed by Other <br> Social Networks?</h1>
+        <p style="color: #ffffff;">
+          150.000 members have already created their profile <br>and enjoy a network of friends from hell!<br>
+          So... What are you waiting for?
+        </p>
+        <button mat-button class="btn-color">#Join the QuestNr Now!</button>
+      </div>
     </div>
     <div class="col-md-6 p-0">
       <div
-        style="background-image: url(/assets/red_man.jpg); background-size: cover; height: 99%; background-repeat: no-repeat; ">
+        style="background-image: url(/assets/red_man.jpg); background-size: cover; height: 100%; background-repeat: no-repeat; ">
         <!--            <img src="assets/red_man.jpg"  alt="section-shop-youth.png">-->
       </div>
     </div>
@@ -188,19 +191,36 @@
 
 <footer class="footer">
 
-  <div class="container">
+  <div class="container-footer">
     <div class="row">
-      <div class="col-md-4">
-        <h6>Company</h6>
-        <ul>
-          <li>Home</li>
-          <li>Blog</li>
-          <li>Comming Soon</li>
-          <li>About Us</li>
-          <li>Terms & conditions</li>
-        </ul>
+      <div class="col-md-3">
+        <div class="footer-list_container">
+          <h6>Company</h6>
+          <ul>
+            <li>Home</li>
+            <li>Blog</li>
+            <li>Comming Soon</li>
+            <li>About Us</li>
+            <li>Terms & conditions</li>
+          </ul>
+        </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
+        <div class="footer-list_container">
+        <h6>Products</h6>
+        <ul>
+          <li>Social Wall</li>
+          <li>Members Swap</li>
+          <li>All Members</li>
+          <li>Community Groups</li>
+          <li>Forums</li>
+        </ul>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="footer-list_container">
+
         <h6>Community</h6>
         <ul>
           <li>Tutorials</li>
@@ -214,28 +234,44 @@
           <li>Current Research</li>
           <li>Open Sourse</li>
         </ul>
+        </div>
       </div>
-      <div class="col-md-4">
-        <h6>Contach</h6>
+<!--      <div class="col-md-2">-->
+<!--        <h6>Community</h6>-->
+<!--        <ul>-->
+<!--          <li>Web &amp; Mobile apps</li>-->
+<!--          <li>Website Hosting</li>-->
+<!--          <li>Big Data</li>-->
+<!--          <li>Managed Services</li>-->
+<!--        </ul>-->
+<!--      </div>-->
+      <div class="col-md-3">
+        <div class="footer-list_container">
+        <h6>Contact</h6>
         <ul>
           <li>Support</li>
           <li>System Status</li>
           <li>suppoer@questnr.com</li>
         </ul>
+        </div>
       </div>
     </div>
   </div>
   <hr>
   <div>
     <div class="row">
-      <div class="col-md-8 d-flex" style="align-items: center;">
-        <img src="assets/logo.png" alt="logo">
-        <span class="ml-3">
+      <div class="col-md-8" style="align-items: center;">
+        <div style="">
+          <img src="assets/logo.png" alt="logo" style="margin: 0">
+          <span class="ml-3">
           <i class="fa fa-copyright"></i>
           <span> 2020 Questnr.com. All rights Reserved.</span>
         </span>
+        </div>
+
       </div>
       <div class="col-md-4">
+        <div style="">
         <ul style="color: #ffffff" class="social">
           <li>
             <i class="fa fa-facebook-f"></i>
@@ -250,6 +286,7 @@
             <i class="fa fa-linkedin"></i>
           </li>
         </ul>
+        </div>
       </div>
     </div>
   </div>
