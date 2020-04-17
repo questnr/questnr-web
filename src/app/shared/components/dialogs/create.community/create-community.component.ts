@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CommunityService} from './create-community.servive';
-import {HttpHeaders} from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { CommunityService } from './create-community.servive';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-community',
@@ -19,14 +19,14 @@ export class CreateCommunityComponent implements OnInit {
   group: FormGroup;
   communityName = new FormControl('', Validators.required);
   description = new FormControl('', Validators.required);
-  file = new FormControl('');
+  avatar = new FormControl(null);
   userCommunityimage: any;
 
   ngOnInit() {
     this.group = this.fb.group({
       communityName: this.communityName,
       description: this.description,
-      file: this.file
+      avatar: this.avatar
     });
   }
 
@@ -42,6 +42,7 @@ export class CreateCommunityComponent implements OnInit {
         this.communityImage = reader.result as string;
         if (event.target.files.length > 0) {
           this.userCommunityimage = event.target.files[0];
+          this.group.get('avatar').updateValueAndValidity();
         }
       };
 
@@ -54,14 +55,13 @@ export class CreateCommunityComponent implements OnInit {
 
   submit() {
     if (this.group.valid) {
-      const name = this.group.controls.communityName.value;
-      const desc = this.group.controls.description.value;
-      const file = this.userCommunityimage;
-      const formdata = new FormData();
-      formdata.append('communityName', name);
-      formdata.append('description', desc);
-      formdata.append('file', file);
-      this.auth.createCommunity(formdata).subscribe();
+      const formData: FormData = new FormData();
+      formData.set('communityName', this.group.get("communityName").value);
+      formData.set('description', this.group.get("description").value);
+      if (this.group.get('avatar').value != null){
+        formData.set('avatar', this.userCommunityimage, this.userCommunityimage.name);
+      }
+      this.auth.createCommunity(formData).subscribe();
     }
   }
 
