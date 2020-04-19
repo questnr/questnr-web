@@ -5,7 +5,6 @@ import { AppRoutingModule, routingComponent } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -72,7 +71,6 @@ export function provideConfig() {
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CarouselModule,
     BrowserAnimationsModule,
     MatSliderModule,
     MatSidenavModule,
