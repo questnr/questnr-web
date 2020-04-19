@@ -12,12 +12,12 @@ import { TrendingFeedsComponent } from './feeds-frame/feeds/trending-feeds/trend
 import { PostFeedsComponent } from './feeds-frame/feeds/post-feeds/post-feeds.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from 'auth/auth.guard';
+import { UserHeaderComponent } from 'feeds-frame/user-header/user-header.component';
+import { SidenavComponent } from 'feeds-frame/sidenav/sidenav.component';
 
 
 const routes: Routes = [
-  // { path: '', component: HomeComponent },
   { path: '', component: LandingPageComponent },
-  // { path: 'landing-page', component: LandingPageComponent },
   { path: 'feeds', component: FeedsFrameComponent, canActivate: [AuthGuard] },
   { path: 'header', component: HeaderComponent }
 ];
@@ -46,5 +46,7 @@ export const routingComponent = [
   PostFeedsComponent,
   FeedsFrameComponent,
   LandingPageComponent,
+  UserHeaderComponent,
+  SidenavComponent
 ];
 

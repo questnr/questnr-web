@@ -1,0 +1,27 @@
+<div class="link-card">
+  <h3>Your Communities</h3>
+  <div class="links" *ngFor="let item of userCommunities">
+    <div class="icon">
+      <img [src]="item.src" alt="">
+    </div>
+    <a class="link" routerLink="">{{item.title}}</a>
+  </div>
+</div>
+<div class="link-card">
+  <h3>Your Hashtags</h3>
+  <div class="links" *ngFor="let item of userHashtags">
+    <a routerLink="" class="link">#{{item.hashTagValue}}</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <a *ngFor="let item of footerLinks" [routerLink]="item.link">{{item.title}}</a>
+  </div>
+  <hr>
+  <div class="copyright">
+    QuestNR <i>Q</i> QuestNr Corporation
+    <mat-icon style="font-size: 15px; padding: 0; width: fit-content; position: relative; top: 3px;">copyright
+    </mat-icon> 2020
+  </div>
+</footer>

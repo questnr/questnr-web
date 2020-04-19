@@ -5,7 +5,7 @@ import { AppRoutingModule, routingComponent } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './header/header.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,6 +31,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SignupComponent } from './auth/signup/signup.component';
 import { RankCardComponent } from './shared/components/rank-card/rank-card.component';
 import { InterceptorService } from './interceptor.service';
+
 
 import {
   SocialLoginModule, AuthServiceConfig,
@@ -71,6 +72,7 @@ export function provideConfig() {
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    CarouselModule,
     BrowserAnimationsModule,
     MatSliderModule,
     MatSidenavModule,

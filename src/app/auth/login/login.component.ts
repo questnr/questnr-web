@@ -35,7 +35,8 @@ export class LoginComponent implements OnInit {
     if (this.group.valid) {
       this.auth.login(this.group.value).subscribe(
         res => {
-          if (res.loginSucces) {
+          if (res.loginSuccess) {
+            console.log('Im IN');
             localStorage.setItem('token', res.accessToken);
             this.router.navigate(['feeds']);
           } else {

@@ -1,0 +1,57 @@
+@import "../../variables";
+
+.link-card {
+  background: #fff;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+  h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .links {
+    display: flex;
+    align-items: center;
+    margin: 15px 10px;
+    .icon {
+      max-width: 25px;
+      margin-right: 10px;
+      border-radius: 50%;
+      overflow: hidden;
+      height: 25px;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .link {
+      font-weight: 500;
+      &:hover {
+        text-decoration: none;
+        color: $primary;
+      }
+    }
+  }
+}
+
+footer {
+  .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    a {
+      font-weight: 500;
+      padding: 5px 10px;
+      &:hover {
+        text-decoration: none;
+        color: $primary;
+      }
+    }
+  }
+  .copyright {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.4;
+  }
+}
