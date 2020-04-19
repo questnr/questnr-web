@@ -56,10 +56,10 @@ export class CreateCommunityComponent implements OnInit {
   submit() {
     if (this.group.valid) {
       const formData: FormData = new FormData();
-      formData.set('communityName', this.group.get("communityName").value);
-      formData.set('description', this.group.get("description").value);
+      formData.set('communityName', this.group.get('communityName').value);
+      formData.set('description', this.group.get('description').value);
       if (this.group.get('avatar').value != null){
-        formData.set('avatar', this.userCommunityimage, this.userCommunityimage.name);
+        formData.set('avatarFile', this.userCommunityimage, this.userCommunityimage.name);
       }
       this.auth.createCommunity(formData).subscribe();
     }
