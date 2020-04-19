@@ -1,14 +1,21 @@
+@import "../variables";
+
 section {
   margin: 2rem 0;
   padding: 1rem 1rem;
 }
 img {
   max-width: 100%;
+  margin-bottom: 20px;
 }
 hr {
   background-color: #cdcdcd;
 }
-
+.container-footer{
+  width: calc(100% - 150px);
+  padding: 40px;
+  margin: 0 auto;
+}
 .login-wrap {
   background: #fff;
   color: black;
@@ -21,7 +28,7 @@ hr {
 }
 .banner-heading {
   font-family: serif;
-  height: 154px;
+  //height: 154px;
   font-size: 66px;
   color: #f9fcfd;
   margin-top: 125px;
@@ -377,7 +384,7 @@ li:before {
 }
 @media only screen and (max-width: 768px) {
   h1 {
-    font-size: 3rem !important;
+    font-size: 2rem !important;
   }
   .container {
     max-width: calc(100% - 50px);
@@ -386,5 +393,57 @@ li:before {
   }
   .qnr-card-wrapper {
     justify-content: center !important;
+  }
+}
+
+.footer-list_container{
+  width: fit-content;
+  width: -moz-fit-content;
+  margin: 0 auto;
+}
+.upside_centered{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+}
+
+.latest-activity h3, .top-community h1{
+  margin-bottom: 20px !important;
+  font-weight: 600;
+  border-left: 3px solid red;
+  padding-left: 10px;
+  font-family: Serif;
+}
+
+
+@media only screen and (max-width : $mobile-large) and (min-width: $mobile-small) {
+  .container{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 100% !important;
+  }
+  .hero-container h5{
+    font-size: 12px !important;
+  }
+  .hero-container .search-wrapper{
+    padding: 8px !important;
+  }
+  .login-wrap{
+    margin: 0 !important;
+    margin-top: 1em !important;
+  }
+  .latest-activity .col-md-7{
+    padding: 40px;
+  }
+  .footer-list_container{
+    margin: 0 !important;
+  }
+  .container-footer{
+    margin: 0 !important;
+    width: 100% !important;
   }
 }

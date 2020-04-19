@@ -1,9 +1,28 @@
+@import "../variables";
 .toolbar {
   height: inherit;
   display: flex;
   align-items: center;
   margin: 0 auto;
   width: calc(100% - 150px);
+}
+
+@media only screen and (max-width : $mobile-large) and (min-width: $mobile-small){
+  .toolbar{
+    width: calc(100% - 20px);
+  }
+  .btn-white {
+    width: 70px;
+    height: 28px;
+    line-height: 25px !important;
+    font-size: 12px !important;
+    margin-left: 25px;
+    margin-right:8px !important;
+  }
+  .btn-color{
+    font-size: 12px !important;
+    width: 140px !important;
+  }
 }
 
 #extended-nav {

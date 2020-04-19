@@ -11,10 +11,10 @@
   flex-wrap: wrap;
   justify-content: center;
   button {
-    margin: 10px;
+    margin: 8px;
     border-radius: 32px;
-    border: 1px solid $primary;
-    padding: 0 3px;
+    border: 1px solid $grey;
+    padding: 4px;
     img {
       max-width: 32px;
       width: 100%;
@@ -22,5 +22,44 @@
     .text {
       padding: 0 15px;
     }
+  }
+}
+
+.forgot{
+  float: right;
+  position: relative;
+  top: 8px;
+}
+mat-form-field{
+  height: 80px;
+}
+
+@media only screen and (max-width: $mobile-large) and (min-width: $mobile-small) {
+  .forgot {
+    text-align: center;
+    position: relative;
+    top: 60px;
+    font-size: 12px;
+    display: block;
+    float: none !important;
+  }
+  .btn-color{
+    width: 100% !important;
+  }
+  .or{
+    position: relative;
+    top: 42px;
+  }
+  .social-logins{
+    margin-top: 40px;
+    button{
+      border: none !important;
+    }
+  }
+  .text{
+    display: none;
+  }
+  .center{
+    padding: 8px !important;
   }
 }
