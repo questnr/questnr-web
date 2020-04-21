@@ -5,6 +5,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {REGEX} from '../shared/constants';
 import {CreateCommunityComponent} from '../shared/components/dialogs/create.community/create-community.component';
 import {MatDialog} from '@angular/material';
+import {DescriptionComponent} from '../shared/components/dialogs/description/description.component';
 
 @Component({
   selector: 'app-community',
@@ -45,10 +46,12 @@ export class CommunityComponent implements OnInit {
     }
   ];
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(CreateCommunityComponent, {
-      // width: '250px',
-      // data: {name: this.name, animal: this.animal}
+  openCommunityDesc(event): void {
+    console.log();
+    // @ts-ignore
+    const dialogRef = this.dialog.open(DescriptionComponent, {
+      width: '500px',
+      data: { desc : event.target.innerText}
     });
 
     dialogRef.afterClosed().subscribe(result => {

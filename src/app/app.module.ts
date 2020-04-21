@@ -47,6 +47,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { CommunityComponent } from './community/community.component';
 import {CreateCommunityComponent} from './shared/components/dialogs/create.community/create-community.component';
 import { MoreOptionComponent } from './shared/components/more-option/more-option.component';
+import { DescriptionComponent } from './shared/components/dialogs/description/description.component';
 
 const config = new AuthServiceConfig([
   {
@@ -75,7 +76,8 @@ export function HttpLoaderFactory(http: HttpClient){
     RankCardComponent,
     CommunityComponent,
     CreateCommunityComponent,
-    MoreOptionComponent
+    MoreOptionComponent,
+    DescriptionComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +114,8 @@ export function HttpLoaderFactory(http: HttpClient){
     MatTooltipModule
   ],
   entryComponents: [
-    CreateCommunityComponent
+    CreateCommunityComponent,
+    DescriptionComponent
   ],
   providers: [AuthGuard, LoginService,
     {

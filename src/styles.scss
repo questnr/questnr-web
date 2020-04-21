@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-// @import "~ngx-owl-carousel-o/lib/styles/scss/owl.carousel";
-// @import "~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default";
+@import "src/app/variables";
 html,
 body {
   height: 100%;
@@ -10,7 +9,7 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  //background: #eeeeee;
+  background: $background;
 }
 button {
   &:active,
