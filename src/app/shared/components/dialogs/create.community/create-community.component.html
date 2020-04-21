@@ -1,0 +1,38 @@
+<div class="container-fluid createCommuCommunity">
+  <div class="row">
+    <div class="col-md-7" style="border-left: 3px solid #ff6600;">
+
+      <div class="page_heading">
+        <h1> Create Community / Groups</h1>
+      </div>
+      <form action="" [formGroup]="group" (ngSubmit)="submit()" >
+        <div class="row">
+          <mat-form-field class="col-md-12" appearance="fill">
+            <mat-label>{{'createCommunity.communityName' | translate}}</mat-label>
+            <input type="text" matInput  [formControl]="communityName" placeholder="Enter your Community Name.">
+            <mat-error *ngIf="communityName.hasError('required')">Community Name is required.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-12" appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput [formControl]="description" placeholder="Describe your Community ..."></textarea>
+            <mat-error *ngIf="description.hasError('required')">Description is required.</mat-error>
+          </mat-form-field>
+          <div class="col-md-12" style="display: none">
+            <div style="padding: 10px; border: 1px solid #eeeeee; margin-bottom: 10px">
+              <input id="imageSrc" type="file" [formControl]="file" (change)="onFileChange($event)">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <button mat-button class="btn-color">CREATE COMMUNITY NOW!</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-5 imagePreviewContainer">
+      <div style="width: fit-content; margin: 0 auto"(click)="previewImage()" matTooltip="Select your community profile picture." right>
+        <img [src]="communityImage" *ngIf="communityImage" style="height: 100%; width: 100%; max-height: 255px;">
+      </div>
+    </div>
+  </div>
+</div>

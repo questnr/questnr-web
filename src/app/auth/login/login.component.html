@@ -2,30 +2,30 @@
 
   <div class="alert alert-danger" *ngIf="errMsg"> <strong>Error! </strong> {{errMsg }}</div>
   <mat-form-field class="w-100" appearance="fill">
-    <mat-label>Email</mat-label>
+    <mat-label>{{'login.email'| translate}}</mat-label>
     <mat-icon matPrefix>email</mat-icon>
-    <input type="text" matInput [formControl]="email" placeholder="Enter your Email/Username">
+    <input type="text" matInput [formControl]="email" placeholder="{{'login.ePlace' | translate}}">
     <mat-error *ngIf="email.hasError('required')">Email is required.</mat-error>
   </mat-form-field>
 
   <mat-form-field class="w-100" appearance="fill">
-    <mat-label>Password</mat-label>
+    <mat-label>{{'login.password' | translate}}</mat-label>
     <mat-icon matPrefix>vpn_key</mat-icon>
-    <input type="password" matInput [formControl]="password" placeholder="Enter your Password">
+    <input type="password" matInput [formControl]="password" placeholder="{{'login.pPlace' | translate}}">
     <mat-error *ngIf="password.hasError('required')">Password is required.</mat-error>
   </mat-form-field>
-  <a href="" class="forgot">Forgot your Password?</a>
-  <button mat-button class="btn-color" (click)="login()"> Login </button>
+  <a href="" class="forgot">{{'login.forgot' | translate}}</a>
+  <button mat-button class="btn-color" (click)="login()"> {{'login.login' | translate}} </button>
 </form>
 
-<p class="or">OR</p>
+<p class="or">{{'login.or' | translate}}</p>
 <div class="social-logins">
   <button mat-button (click)="googleLogin()">
     <img src="assets/google.png" alt="Google">
-    <span class="text">Continue with Google </span>
+    <span class="text">{{'login.google' | translate}} </span>
   </button>
   <button mat-button (click)="facebookLogin()">
     <img src="assets/facebook.png" alt="Facebook">
-    <span class="text">Continue with Facebook</span>
+    <span class="text">{{'login.facebook' | translate}}</span>
   </button>
 </div>

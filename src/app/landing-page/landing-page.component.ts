@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from 'shared/api.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-landing-page',
@@ -45,7 +46,8 @@ export class LandingPageComponent implements OnInit {
   ];
 
   topHashtags = [];
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService){
+  }
   getImgSrc(user) {
     if (user && user.avatarDTO) {
       return user.avatarDTO.avatarLink ? user.avatarDTO.avatarLink : null;

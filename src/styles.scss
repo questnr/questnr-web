@@ -10,7 +10,7 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background: #eeeeee;
+  //background: #eeeeee;
 }
 button {
   &:active,
@@ -307,12 +307,12 @@ li {
 //li:hover{
 //  background: #eeeeee;
 //}
-li:before {
-  content: "\2605";
-  //margin-left: -10px;
-  //margin-right: 10px;
-  color: rgb(255, 46, 82);
-}
+//li:before {
+//  content: "\2605";
+//  //margin-left: -10px;
+//  //margin-right: 10px;
+//  color: rgb(255, 46, 82);
+//}
 a {
   text-decoration: none;
   color: inherit;
