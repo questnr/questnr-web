@@ -1,0 +1,37 @@
+@import "../variables";
+
+.suggestion-container{
+  background: $white;
+  border-radius: 8px;
+  padding: 10px 0;
+  margin-bottom: 20px ;
+}
+
+.com-suggestion {
+  position: relative;
+  h1{
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 400;
+    padding: 0 14px 8px;
+    color: $heading;
+  }
+  ul{
+    list-style: none;
+  }
+  li{
+    font-size: 18px;
+  }
+}
+.com-suggestion ul li::before{
+  content: " ";
+  background-image: url("/assets/default.jpg");
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  left: 5%;
+  background-size: cover;
+  background-position: center;
+  margin-top: 3px;
+}

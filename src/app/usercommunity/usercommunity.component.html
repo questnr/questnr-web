@@ -1,0 +1,31 @@
+<div class="user-com-container">
+  <div class="user-community">
+    <div class="no-community" *ngIf="hasCommunity; else communityList">
+      <p>
+        You haven't created any community yet.
+      </p>
+      <div>
+        <a (click)="createCommunity()"> Create one now.</a>
+      </div>
+    </div>
+    <ng-template #communityList>
+
+      <div class="has-community" >
+        <h1>Your Communities</h1>
+        <div>
+          <ul>
+            <li> <div>Music</div></li>
+            <li> <div>Music</div></li>
+            <li> <div>Music</div></li>
+            <li> <div>Music</div></li>
+          </ul>
+          <div class="createCommBtn">
+            <span (click)="createCommunity()">
+              Create more
+            </span></div>
+        </div>
+      </div>
+    </ng-template>
+
+  </div>
+</div>

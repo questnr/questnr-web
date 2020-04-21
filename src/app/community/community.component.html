@@ -133,9 +133,6 @@
 <!--</div>-->
 
 
-
-
-
 <div class="site-body">
   <div class="container">
     <div class="flex-frame">
@@ -155,36 +152,37 @@
           <!--Community Informations-->
 
           <div class="community-info">
-<!--            <h1>This is the Name of the Community.</h1>-->
-<!--            <div class="com-img-container">-->
-<!--              <img src="assets/red_man.jpg" alt="defaultImage" style="width: 100%; height: 100%" (click)="openDialog()">-->
-<!--            </div>-->
+            <!--            <h1>This is the Name of the Community.</h1>-->
+            <!--            <div class="com-img-container">-->
+            <!--              <img src="assets/red_man.jpg" alt="defaultImage" style="width: 100%; height: 100%" (click)="openDialog()">-->
+            <!--            </div>-->
             <div class="com-det-container">
+              <div class="profile-background">
+
+              </div>
               <div class="com-owner-det">
-                <div class="owner-img">
-                  <a href="/user-profile">
-                  <img src="assets/default.jpg" alt="defaultowner">
-                  </a>
-                  <hr>
-                </div>
+                <a href="/user-profile">
+                  <div class="owner-img">
+                    <img src="assets/default.jpg" alt="defaultowner">
+                  </div>
+                  <div>
+                    <div class="owner-name">
+                      <h5> Satish Kumar Gaur</h5>
+                    </div>
+                  </div>
+                </a>
               </div>
-              <div>
-                <div class="owner-name">
-                  <h5> Satish Kumar Gaur</h5>
-                </div>
+              <hr>
+
+              <div class="user-follower">
+                <mat-icon>people_outline</mat-icon>
+                <span>500 Followers</span>
               </div>
-             <div class="flex-frame">
-               <div class="flex-5">
-                 <div>
-                   500 Posts
-                 </div>
-               </div>
-               <div class="flex-5">
-                 <div>
-                   500 Members
-                 </div>
-               </div>
-             </div>
+
+              <div class="user-follower">
+                <mat-icon>calendar_view_day</mat-icon>
+                <span>66 Posts</span>
+              </div>
             </div>
             <div class="trending-tags">
               <h1>Trending Hashtags</h1>
@@ -235,17 +233,19 @@
             <div class="com-head-container">
               <h1>Test name of this community.</h1>
               <h3 #desc value='this is the demo description for the community and if the whole description is not visible then
-              it can be viewed in and popup dialog' (click)="openCommunityDesc($event)">this is the demo description for the community and if the whole description is not visible then
-              it can be viewed in and popup dialog</h3>
+              it can be viewed in and popup dialog' (click)="openCommunityDesc($event)">this is the demo description for
+                the community and if the whole description is not visible then
+                it can be viewed in and popup dialog</h3>
             </div>
           </div>
         </div>
       </div>
 
 
-
       <div class="flex-3">
-        <mat-card></mat-card>
+        <app-usercommunity></app-usercommunity>
+        <app-suggestion></app-suggestion>
+        <app-sponsered></app-sponsered>
       </div>
     </div>
   </div>

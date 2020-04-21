@@ -1,0 +1,24 @@
+@import "../variables";
+
+.sponsered-container{
+  background: $white;
+  border-radius: 8px;
+  padding: 10px 0;
+  margin-bottom: 20px ;
+}
+
+.sponser-ad-container{
+  h1{
+    font-size: 20px;
+    padding: 10px 10px 0 10px;
+    margin-bottom: 0;
+  }
+  .sponsor-ad{
+    width: inherit;
+    padding: 8px;
+    img{
+      width: 100%;
+      padding: 8px;
+    }
+  }
+}

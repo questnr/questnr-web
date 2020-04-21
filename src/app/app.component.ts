@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+// @ts-ignore
 import {TranslateService} from '@ngx-translate/core';
 // import { TranslateService} from '@ngx-translate/core';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

@@ -48,6 +48,9 @@ import { CommunityComponent } from './community/community.component';
 import {CreateCommunityComponent} from './shared/components/dialogs/create.community/create-community.component';
 import { MoreOptionComponent } from './shared/components/more-option/more-option.component';
 import { DescriptionComponent } from './shared/components/dialogs/description/description.component';
+import { SuggestionComponent } from './suggestion/suggestion.component';
+import { SponseredComponent } from './sponsered/sponsered.component';
+import { UsercommunityComponent } from './usercommunity/usercommunity.component';
 
 const config = new AuthServiceConfig([
   {
@@ -77,7 +80,10 @@ export function HttpLoaderFactory(http: HttpClient){
     CommunityComponent,
     CreateCommunityComponent,
     MoreOptionComponent,
-    DescriptionComponent
+    DescriptionComponent,
+    SuggestionComponent,
+    SponseredComponent,
+    UsercommunityComponent
   ],
   imports: [
     BrowserModule,
