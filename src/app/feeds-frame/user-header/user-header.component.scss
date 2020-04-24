@@ -1,0 +1,118 @@
+@import "../../variables";
+
+.toolbar {
+  height: inherit;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  width: calc(100% - 150px);
+}
+.toggle {
+  display: none;
+}
+#extended-nav {
+  //padding: 0 30px;
+  border-top: none;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  height: 54px;
+  background: #ffffff;
+}
+.nav-main-container {
+  position: fixed;
+  top: 10px;
+  left: 0;
+  height: 45px;
+  width: 100%;
+  z-index: 100;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.nav-main-container {
+  opacity: 1;
+  transform: translateY(-10px);
+}
+
+.nav-main__content {
+  max-width: 1128px;
+  margin: auto;
+}
+.float-right {
+  float: right;
+}
+
+.btn-white {
+  border: 1px solid #cdcdcd !important;
+  width: 112px;
+  height: 32px;
+  line-height: 32px;
+  margin-right: 20px;
+}
+
+.btn-color {
+  height: 32px;
+  line-height: 32px;
+  width: 112px;
+  background: rgb(255, 46, 82) !important;
+  color: #ffffff !important;
+}
+
+.search-wrapper {
+  background: #eee;
+  padding: 5px;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 5px;
+  position: relative;
+  display: flex;
+  mat-icon {
+    font-size: 22px;
+    height: 22px;
+    width: 22px;
+    color: $primary;
+  }
+  input {
+    background: transparent;
+    border: none;
+    padding: 0 1rem;
+    color: #000;
+    width: 100%;
+    letter-spacing: 1px;
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+.profile-btn {
+  padding: 15px 20px;
+  img {
+    margin-right: 10px;
+    max-width: 30px;
+    border-radius: 50%;
+  }
+  .btn-text {
+    display: inline-flex;
+    flex-direction: column;
+    line-height: normal;
+    text-align: left;
+    div:first-child {
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    div:last-child {
+      font-size: 0.6rem;
+      padding-top: 3px;
+      text-transform: uppercase;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .toggle {
+    display: block;
+  }
+  .search-wrapper {
+    display: none;
+  }
+}

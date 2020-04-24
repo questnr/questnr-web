@@ -1,0 +1,25 @@
+.main-wrap {
+  display: grid;
+  grid-template-columns: 300px auto 300px;
+  aside .stick {
+    position: sticky;
+    top: 0;
+  }
+}
+.card img {
+  max-width: 100%;
+  height: auto;
+}
+.feeds {
+  max-width: 100%;
+  overflow: hidden;
+  padding: 20px;
+}
+.feed-wrap {
+  margin: 0.5rem 0;
+}
+@media only screen and (max-width: 600px) {
+  .main-wrap {
+    grid-template-columns: auto;
+  }
+}

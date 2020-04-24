@@ -18,7 +18,6 @@ export class InterceptorService implements HttpInterceptor {
     return throwError(error);
   }
   decodeToken() {
-    // return btoa(`${localStorage.getItem('user')}:${localStorage.getItem('token')}`);
     return localStorage.getItem('token');
   }
 
@@ -27,20 +26,16 @@ export class InterceptorService implements HttpInterceptor {
 
     let headers = new HttpHeaders();
 
-    const authService = this.injector.get(LoginService);
     let contentType = 'application/json';
 
     if (req.body instanceof FormData) {
       contentType = undefined;
     }
 
-    headers = authService.loggedIn() ?
-      headers
-        .set('Authorization', 'Bearer ' + this.decodeToken())
-        .set('Access-Control-Allow-Origin', '*')
-        .set('Content-Type', contentType)
-      : headers.set('Content-Type', contentType)
-        .set('Access-Control-Allow-Origin', '*');
+    headers = this.authService.loggedIn() ?
+      headers.set('Authorization', 'Bearer ' + this.decodeToken())
+        .set('content-type', contentType)
+      : headers.set('content-type', contentType);
 
     const clone = req.clone({
       headers
@@ -51,7 +46,7 @@ export class InterceptorService implements HttpInterceptor {
         map(event => {
           return event;
         }),
-        // retry(1),
+        retry(1),
         catchError(this.handleError)
       );
   }

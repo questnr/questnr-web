@@ -1,20 +1,64 @@
-<app-header></app-header>
+<app-user-header (menuToggle)="toggle(drawer)"></app-user-header>
 
-<div class="viewport">
-  <div class="mdl-grid">
-    <div class="mdl-cell--3">
-      <app-profile-ribbon [user]="" [profile]=""></app-profile-ribbon>
-    </div>
-    <!-- <div class="mdl-cell--6">
-      <app-feeds></app-feeds>
-    </div>
-    <div class="mdl-cell--3">
-      <div>
-        <app-recommended-feeds></app-recommended-feeds>
-        <app-floating-ads></app-floating-ads>
-        <app-floating-footer></app-floating-footer>
+<mat-sidenav-container class="sidenav-container" autosize>
+  <mat-sidenav #drawer class="side" [mode]="sideConfig" [opened]="isSidenavopen">
+    <app-sidenav></app-sidenav>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="container">
+      <div class="main-wrap">
+        <aside *ngIf="!isMobile">
+          <div class="stick">
+            <app-sidenav></app-sidenav>
+          </div>
+        </aside>
+        <div class="feeds">
+          <app-post-feed (postData)="postFeed($event)"></app-post-feed>
+          <owl-carousel-o [options]="customOptions">
+            <ng-container *ngFor="let community of communities;let i=index">
+              <ng-template carouselSlide [id]="i">
+                <qnr-card carouselSlide [imgSrc]="community.src" [title]="community.title" [detail]="community.detail">
+                </qnr-card>
+              </ng-template>
+            </ng-container>
+          </owl-carousel-o>
+          <!-- <div class="qnr-card-wrapper">
+            <qnr-card *ngFor="let community of communities.slice(0,4)" [imgSrc]="community.src"
+              [title]="community.title" [detail]="community.detail"></qnr-card>
+          </div> -->
+          <ng-container *ngIf="userFeeds.length; else noFeeds">
+            <div class="feed-wrap" *ngFor="let feed of userFeeds">
+              <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
+            </div>
+            <p class="text-center" *ngIf="userFeeds.length===1 && userFeeds[0] === null">No Feeds Found...!</p>
+          </ng-container>
+          <ng-template #noFeeds>
+            <p class="text-center">No Feeds Found...!</p>
+          </ng-template>
+        </div>
+        <aside class="right" *ngIf="!isMobile">
+          <div class="stick">
+            <div class="link-card">
+              <h3>Suggested Communities</h3>
+              <div class="links" *ngFor="let item of communities">
+                <div class="icon"> <img [src]="item.src" alt=""> </div>
+                <a class="link" routerLink="">{{item.title}}</a>
+              </div>
+            </div>
+            <div class="card p-2">
+              <p class="m-0">Sponsored</p>
+              <img src="assets/thumb-02_600x600.jpg" alt="">
+            </div>
+          </div>
+        </aside>
       </div>
-    </div> -->
+    </div>
+  </mat-sidenav-content>
 
-  </div>
-</div>
+</mat-sidenav-container>
+
+<!-- <router-outlet></router-outlet> -->
+<!-- <app-profile-ribbon [user]="" [profile]=""></app-profile-ribbon> -->
+<!-- <app-floating-ads></app-floating-ads>
+<app-floating-footer></app-floating-footer> -->

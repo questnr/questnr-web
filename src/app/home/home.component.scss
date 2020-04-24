@@ -7,7 +7,7 @@
 header {
   border-top: none;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-  0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
   height: $nav-height;
   background: #ffffff;
 }
@@ -25,7 +25,8 @@ header {
 }
 
 .hero-container {
-  background: url("../../assets/questnr-back.jpg") center center/cover no-repeat fixed;
+  background: url("../../assets/questnr-back.jpg") center center/cover no-repeat
+    fixed;
   position: relative;
 
   .overlay {
@@ -84,12 +85,12 @@ header {
       border: none;
       padding: 0 1rem;
       font-size: 16px;
-      color: #fff;
+      color: #000;
       width: 100%;
       letter-spacing: 1px;
 
       &::placeholder {
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(0, 0, 0, 0.4);
       }
     }
   }
@@ -280,7 +281,7 @@ header {
 
   &:hover {
     background: $grey;
-    color: #fff;
+    color: #000;
     transform: scale(1.02) translateY(-2px);
     //box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     span {
@@ -346,17 +347,16 @@ header {
   }
 }
 
-
 @media only screen and (max-width: $mobile-large) and (min-width: $mobile-small) {
   .hashtags-wrapper .tag {
     font-size: 12px !important;
     padding: 6px 4px !important;
   }
-  .chips{
+  .chips {
     padding: 8px !important;
     margin: 8px !important;
   }
-  .social{
+  .social {
     font-size: 14px !important;
   }
   .footer .social li {
@@ -364,10 +364,8 @@ header {
     margin-bottom: 10px;
     border-radius: 10px;
   }
-  .footer img{
+  .footer img {
     width: 40px;
     margin-left: 10px;
   }
 }
-
-

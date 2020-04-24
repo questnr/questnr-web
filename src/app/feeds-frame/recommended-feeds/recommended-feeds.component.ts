@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recommended-feeds.component.scss']
 })
 export class RecommendedFeedsComponent implements OnInit {
+  @Input() feed;
 
   constructor() { }
 
