@@ -28,7 +28,12 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { RankCardComponent } from './shared/components/rank-card/rank-card.component';
 import { InterceptorService } from './interceptor.service';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { MessagingService } from './service/messaging.service';
+import { AsyncPipe } from '../../node_modules/@angular/common';
 import {
   SocialLoginModule, AuthServiceConfig,
   GoogleLoginProvider, FacebookLoginProvider
@@ -64,6 +69,10 @@ export function provideConfig() {
     RankCardComponent
   ],
   imports: [
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
     BrowserModule,
     CarouselModule,
     AppRoutingModule,
@@ -86,9 +95,12 @@ export function provideConfig() {
     MatMenuModule,
     MatCheckboxModule,
     SocialLoginModule,
-    MnFullpageModule.forRoot()
+    MnFullpageModule.forRoot(),
   ],
-  providers: [AuthGuard, LoginService,
+  providers: [
+    AsyncPipe,
+    AuthGuard,
+    LoginService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
@@ -97,7 +109,8 @@ export function provideConfig() {
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
-    }
+    },
+    MessagingService
   ],
   bootstrap: [AppComponent]
 })
