@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       const obj = { idToken: user.idToken, source: 'WEB' };
       this.auth.loginWithGoogle(obj).subscribe(
         (res: any) => {
-          if (res.loginSucces) {
+          if (res.loginSuccess) {
             localStorage.setItem('token', res.accessToken);
             this.router.navigate(['feeds']);
           }
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
   socialLogin(user) {
     this.auth.login(user).subscribe(
       res => {
-        if (res.loginSucces) {
+        if (res.loginSuccess) {
           this.router.navigate(['feeds']);
         }
       }, err => { }
