@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from 'auth/auth.guard';
 import { UserHeaderComponent } from 'feeds-frame/user-header/user-header.component';
 import { SidenavComponent } from 'feeds-frame/sidenav/sidenav.component';
+import { PostFeedComponent } from 'feeds-frame/post-feed/post-feed.component';
 
 
 const routes: Routes = [
@@ -47,6 +48,7 @@ export const routingComponent = [
   FeedsFrameComponent,
   LandingPageComponent,
   UserHeaderComponent,
-  SidenavComponent
+  SidenavComponent,
+  PostFeedComponent
 ];
 

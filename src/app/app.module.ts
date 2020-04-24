@@ -10,18 +10,15 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
-import {
-  MatButtonModule,
-  MatChipsModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatListModule,
-  MatTabsModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
-import { LandingPageComponent } from './landing-page/landing-page.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CardComponent } from './shared/components/card/card.component';
 import { HomeComponent } from './home/home.component';
@@ -30,7 +27,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SignupComponent } from './auth/signup/signup.component';
 import { RankCardComponent } from './shared/components/rank-card/rank-card.component';
 import { InterceptorService } from './interceptor.service';
-
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import {
   SocialLoginModule, AuthServiceConfig,
@@ -68,6 +65,7 @@ export function provideConfig() {
   ],
   imports: [
     BrowserModule,
+    CarouselModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,

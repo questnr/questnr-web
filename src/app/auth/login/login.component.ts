@@ -35,8 +35,7 @@ export class LoginComponent implements OnInit {
     if (this.group.valid) {
       this.auth.login(this.group.value).subscribe(
         res => {
-          if (res.loginSuccess) {
-            console.log('Im IN');
+          if (res.accessToken && res.loginSuccess) {
             localStorage.setItem('token', res.accessToken);
             this.router.navigate(['feeds']);
           } else {
@@ -50,8 +49,15 @@ export class LoginComponent implements OnInit {
 
   googleLogin() {
     this.socialAuth.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
-      console.log(user);
-      this.socialLogin(user);
+      const obj = { idToken: user.idToken, source: 'WEB' };
+      this.auth.loginWithGoogle(obj).subscribe(
+        (res: any) => {
+          if (res.loginSucces) {
+            localStorage.setItem('token', res.accessToken);
+            this.router.navigate(['feeds']);
+          }
+        }, err => { }
+      );
     });
   }
 
