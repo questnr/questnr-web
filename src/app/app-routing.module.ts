@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'feeds', component: FeedsFrameComponent, canActivate: [AuthGuard] },
   { path: 'header', component: HeaderComponent },
-  {path: 'community', component: CommunityComponent}
+  {path: 'community/:black', component: CommunityComponent}
 ];
 
 export interface Tile {

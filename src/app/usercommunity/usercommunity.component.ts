@@ -19,7 +19,7 @@ export class UsercommunityComponent implements OnInit {
     console.log();
     // @ts-ignore
     const dialogRef = this.dialog.open(CreateCommunityComponent, {
-      width: '500px',
+      width: '800px',
       // data: { desc : event.target.innerText}
     });
 

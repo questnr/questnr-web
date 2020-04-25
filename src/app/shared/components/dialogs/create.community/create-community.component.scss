@@ -1,45 +1,162 @@
 @import '../questnr-web/src/app/variables';
-
-.createCommuCommunity input{
-  width: 100%;
-  //padding: 20px;
-  font-size: 14px;
-  //background: #ffffff;
-  //border: 1px solid $grey;
-}
-
-.createCommuCommunity button{
-  width: 100%;
-  background: $grey !important;
-  text-transform: capitalize !important;
-  letter-spacing: 1px;
-  font-family: Serif;
-  font-weight: 600;
-}
-.createCommuCommunity button:hover {
-  color: $black !important;
-}
-
-//.backdrop-btn{
+//
+//.createCommuCommunity input{
+//  width: 100%;
+//  //padding: 20px;
+//  font-size: 14px;
+//  //background: #ffffff;
+//  //border: 1px solid $grey;
+//}
+//
+//.createCommuCommunity button{
+//  width: 100%;
+//  background: $grey !important;
+//  text-transform: capitalize !important;
+//  letter-spacing: 1px;
+//  font-family: Serif;
+//  font-weight: 600;
+//}
+//.createCommuCommunity button:hover {
+//  color: $black !important;
+//}
+//
+////.backdrop-btn{
+////  position: absolute;
+////  width: 100%;
+////  height: 100%;
+////  opacity: 0.5;
+////  background: #00000040;
+////  cursor: pointer;
+////}
+//.imagePreviewContainer:hover .backdrop-btn{
 //  position: absolute;
 //  width: 100%;
 //  height: 100%;
 //  opacity: 0.5;
 //  background: #00000040;
 //  cursor: pointer;
+//  transition: all 500ms;
 //}
-.imagePreviewContainer:hover .backdrop-btn{
-  position: absolute;
+//
+//.divide{
+//  display: inline-block;
+//  width: calc(50% - 100px);
+//}
+//
+
+mat-dialog-container{
+  padding: 0 !important;
+}
+.mat-dialog-container{
+ border-radius: 10px;
+  padding: 0px !important;
+}
+
+.cret-com-container{
+  .back-drop{
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    bottom: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+  }
+}
+.com-img-container{
+  display: block;
+  position: relative;
   width: 100%;
-  height: 100%;
-  opacity: 0.5;
-  background: #00000040;
-  cursor: pointer;
-  transition: all 500ms;
+  height: 350px;
+  overflow: hidden;
+  img{
+    width: 100%;
+    object-fit: scale-down;
+    object-position: top;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .com-head-container{
+    position: absolute;
+    width: 100%;
+    //border-left: 4px solid $heading;
+    font-size: 18px;
+    bottom: 0%;
+    //opacity: 0.6;
+    cursor: pointer;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 80% 20%;
+    .com-input-container{
+      padding-left: 15px;
+      //border-left: 4px solid $heading;
+      margin-left: 10px;
+      input{
+        width: 100%;
+        background: transparent;
+        color: $text-white;
+        border: none;
+        //border-left: 4px solid $heading;
+        padding-left: 10px;
+        font-size: 22px;
+      }
+      input::placeholder{
+        color: $grey;
+      }
+    }
+    textarea{
+      resize: none;
+      white-space: nowrap;
+      overflow-x: scroll;
+      background: transparent;
+      color: $text-white;
+      font-size: 16px;
+      border: none;
+      margin-left: 15px;
+    }
+  }
+  button{
+    background: $heading !important;
+  }
+}
+textarea::-webkit-input-placeholder {
+  color: $grey;
 }
 
-.divide{
-  display: inline-block;
-  width: calc(50% - 100px);
+textarea::-moz-placeholder {  /* Firefox 19+ */
+  color: $grey;
+}
+textarea:-ms-input-placeholder {
+  color: $grey;
 }
 
+textarea::placeholder {
+  color: $grey;
+}
+//.com-img-container:hover .com-head-container{
+//  opacity: 1;
+//  z-index: 10;
+//}
+mat-form-field{
+  width: 100%;
+}
+
+#imageSrc{
+  display: none;
+}
+.submit-btn{
+  margin: auto auto;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: $white !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: $text-white !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: $text-white !important;;
+}

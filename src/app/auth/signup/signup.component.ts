@@ -42,7 +42,7 @@ export class SignupComponent implements OnInit {
       this.auth.signUp(this.group.value).subscribe(
         res => {
           if (res.loginSucces) {
-            localStorage.setItem('access_token', res.accessToken);
+            localStorage.setItem('token', res.accessToken);
             this.router.navigate(['feeds']);
           } else {
             this.errMsg = res.errorMessage;

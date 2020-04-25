@@ -13,6 +13,7 @@ import {DescriptionComponent} from '../shared/components/dialogs/description/des
   styleUrls: ['./community.component.scss']
 })
 export class CommunityComponent implements OnInit {
+  isSidenavopen = false;
 
   constructor(public auth: CommunityService, public fb: FormBuilder,public dialog: MatDialog) { }
   cards = [
@@ -60,5 +61,8 @@ export class CommunityComponent implements OnInit {
     });
   }
   ngOnInit() {
+  }
+  toggle(_) {
+    this.isSidenavopen = !this.isSidenavopen;
   }
 }

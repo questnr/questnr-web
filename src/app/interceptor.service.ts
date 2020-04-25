@@ -20,7 +20,7 @@ export class InterceptorService implements HttpInterceptor {
 
   decodeToken() {
     // return btoa(`${localStorage.getItem('user')}:${localStorage.getItem('token')}`);
-    return localStorage.getItem('access_token');
+    return localStorage.getItem('token');
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler):
