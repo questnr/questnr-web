@@ -4,7 +4,9 @@ import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
 import { REGEX } from 'shared/constants';
 import { AuthService } from 'angularx-social-login';
+import { ApiService } from '../../shared/api.service';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import { AngularFireMessaging } from '@angular/fire/messaging';
 
 
 @Component({
@@ -21,7 +23,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder, private auth: LoginService,
-    private router: Router, private socialAuth: AuthService) { }
+    private router: Router, private socialAuth: AuthService,
+    private angularFireMessaging: AngularFireMessaging, private apiService: ApiService) { }
 
   ngOnInit() {
     this.group = this.fb.group({
@@ -37,6 +40,10 @@ export class LoginComponent implements OnInit {
         res => {
           if (res.accessToken && res.loginSuccess) {
             localStorage.setItem('token', res.accessToken);
+            // register token for this user
+            this.angularFireMessaging.getToken.subscribe(token => {
+              this.apiService.registerPushNotificationToken(token).subscribe();
+            });
             this.router.navigate(['feeds']);
           } else {
             this.errMsg = res.errorMessage;

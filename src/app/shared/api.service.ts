@@ -17,4 +17,7 @@ export class ApiService {
   getTopUsers() {
     return this.http.get(this.baseUrl + 'users-with-highest-rank');
   }
+  registerPushNotificationToken(token: string){
+    return this.http.post(this.baseUrl + 'push-notification/token', token);
+  }
 }
