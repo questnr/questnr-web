@@ -5,3 +5,4 @@
     <option  *ngFor ="let lang of translate.getLangs()" [value] ="lang">{{lang}}</option>
   </select>
 </div>
+{{ message | async | json }}

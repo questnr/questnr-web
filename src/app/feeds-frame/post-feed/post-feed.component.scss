@@ -4,35 +4,34 @@
   background: #fff;
   border-radius: 10px;
 }
-.head-wrap {
+.post-wrap {
   display: flex;
   align-items: center;
   padding: 1rem;
-  .profile-icon {
-    overflow: hidden;
-    height: 64px;
-    border-radius: 50%;
-    width: 64px;
+  .icon {
     img {
-      width: auto;
-      height: 100%;
+      max-width: 100%;
+      width: 80px;
+      border-radius: 50%;
     }
   }
-  .profile-detail {
+  textarea {
+    margin: auto 1rem;
     padding: 1rem;
-    .head {
-      font-size: 1rem;
-      font-weight: 600;
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-radius: 5px;
+    &::placeholder {
+      margin: auto 0;
+      color: rgba(0, 0, 0, 0.5);
     }
-    .subhead {
-      color: $primary;
+    &:focus {
+      background: rgba(0, 0, 0, 0.05);
     }
   }
 }
-.text {
-  padding: 1rem;
-}
-.footer-wrap {
+.btn-wrap {
   display: flex;
   justify-content: flex-start;
   padding: 0 1rem;
@@ -49,6 +48,9 @@
     &:hover {
       color: $primary;
     }
+  }
+  button:not(.btn-color) {
+    border-radius: 20px;
   }
   button:first-child {
     margin-left: 0;

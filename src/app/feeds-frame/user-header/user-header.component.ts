@@ -1,5 +1,6 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginService } from 'auth/login.service';
 
 @Component({
   selector: 'app-user-header',
@@ -9,17 +10,27 @@ import { Router } from '@angular/router';
 export class UserHeaderComponent {
 
   @Output() menuToggle = new EventEmitter();
+  user: string;
+  profile;
+  profileImg;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public auth: LoginService) {
+    this.profile = this.auth.getUserProfile();
+    this.auth.getUser().subscribe(
+      (res) => {
+        console.log(res);
+        this.profileImg = res.body;
+      }
+    );
+  }
+
 
   toggleMenu() {
     this.menuToggle.emit();
   }
-  openDialog() {
 
-  }
   logOut() {
     localStorage.clear();
-    this.router.navigateByUrl('auth/login');
+    this.router.navigateByUrl('/');
   }
 }

@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "src/app/variables";
+@import "~ngx-owl-carousel-o/lib/styles/scss/owl.carousel";
+@import "~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default";
 html,
 body {
   height: 100%;
@@ -17,7 +19,9 @@ button {
     outline: none !important;
   }
 }
-
+.mat-drawer-container {
+  margin-top: 64px;
+}
 .logo {
   font-weight: 900;
   font-size: 22px;

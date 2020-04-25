@@ -19,7 +19,6 @@ export class InterceptorService implements HttpInterceptor {
   }
 
   decodeToken() {
-    // return btoa(`${localStorage.getItem('user')}:${localStorage.getItem('token')}`);
     return localStorage.getItem('token');
   }
 
@@ -47,6 +46,7 @@ export class InterceptorService implements HttpInterceptor {
           .set('Access-Control-Allow-Origin', '*');
     }
 
+// <<<<<<< HEAD
     // headers = authService.loggedIn() ?
     //   headers
     //     .set('Authorization', 'Bearer ' + this.decodeToken())
@@ -55,6 +55,12 @@ export class InterceptorService implements HttpInterceptor {
     //   : headers.set('Content-Type', contentType)
     //     .set('Access-Control-Allow-Origin', '*');
     // : headers.set('Access-Control-Allow-Origin', '*');
+// =======
+//     headers = this.authService.loggedIn() ?
+//       headers.set('Authorization', 'Bearer ' + this.decodeToken())
+//         .set('content-type', contentType)
+//       : headers.set('content-type', contentType);
+// >>>>>>> master
 
     const clone = req.clone({
       headers
@@ -65,7 +71,7 @@ export class InterceptorService implements HttpInterceptor {
         map(event => {
           return event;
         }),
-        // retry(1),
+        retry(1),
         catchError(this.handleError)
       );
   }
