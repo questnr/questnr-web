@@ -4,18 +4,7 @@
     <textarea rows="1" placeholder="Post Something...." [formControl]="text"></textarea>
   </div>
   <div class="media" [@expand]="isMediaEnabled ? 'expanded' : 'collapsed'">
-    <div class="form-upload m-2" appDrag (files)="filesDropped($event,'eventphoto')">
-      <input type="file" (change)="filesDropped($event,'eventphoto')" id="fileInputefp" style="display: none" />
-      <div class="py-4" class="dropBox">
-        <i class="fa fa-cloud-upload fa-4x" aria-hidden="true"></i>
-        <br>
-        <b *ngIf="fileProfileCountevent == 0">Select Photos and upload</b>
-        <b *ngIf="fileProfileCountevent > 0">{{fileProfileCountevent}} File Selected </b>
-        <br>
-        <span *ngIf="fileProfileCountevent == 0">Drag and drop file</span>
-        <img class="preview" #eventPreview src="" [ngClass]="{active: fileProfileCountevent > 0}">
-      </div>
-    </div>
+  
   </div>
   <div class="btn-wrap">
     <button mat-button (click)="toggleAddMedia()">

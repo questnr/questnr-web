@@ -89,7 +89,6 @@ export class RecommendedFeedsComponent implements OnInit {
       this.api.dislikePost(id).subscribe(
         res => {
           this.isLoading = false;
-          console.log(res);
           this.feed.postActionMeta.liked = false;
         }
       );

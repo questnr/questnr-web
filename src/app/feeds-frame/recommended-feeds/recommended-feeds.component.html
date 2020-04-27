@@ -57,7 +57,7 @@
             <div class="child-comment" *ngFor="let item of comment.childCommentDTOSet">
               <app-comment-box class="comment-item"
                 [ngClass]="item.userActorDTO?.userId === getUserId()? 'myComment' : ''" [comment]="item"
-                [postId]="feed.postActionId" (update)="getComments()"></app-comment-box>
+                [postId]="feed.postActionId" (update)="getComments(feed.postActionId)"></app-comment-box>
             </div>
           </div>
         </div>

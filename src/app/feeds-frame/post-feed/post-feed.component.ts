@@ -42,7 +42,7 @@ export class PostFeedComponent implements OnInit {
     this.isMediaEnabled = !this.isMediaEnabled;
   }
 
-  filesDropped(files: FileHandle): void {
+  filesDropped(files) {
     console.log(files);
 
   }

@@ -26,17 +26,26 @@ export class CommentBoxComponent {
   constructor(private api: FeedsService) { }
 
   likeComment(id) {
-    this.api.likeComment(id).subscribe(
-      (res: any) => {
-        this.isLoading = false;
-        if (res.likeCommentActionId) {
-          // Update IsLiked here
+    this.isLoading = true;
+    if (this.comment.commentActionMeta.liked) {
+      this.api.dislikeComment(id).subscribe(
+        (res: any) => {
+          this.isLoading = false;
+          this.comment.commentActionMeta.liked = false;
         }
-      }
-    );
+      );
+    } else {
+      this.api.likeComment(id).subscribe(
+        (res: any) => {
+          this.isLoading = false;
+          if (res.likeCommentActionId) {
+            this.comment.commentActionMeta.liked = true;
+          }
+        }
+      );
+    }
   }
   replyToComment(id) {
-    console.log('replying to', id);
     this.isLoading = true;
     const data = {
       postId: this.postId,

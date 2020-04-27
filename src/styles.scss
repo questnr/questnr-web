@@ -371,3 +371,10 @@ input:focus {
 .mat-drawer-container {
   background: transparent !important;
 }
+@media only screen and (max-width: 600px) {
+  .container {
+  max-width: 100%;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+}

@@ -6,14 +6,14 @@
     <div> {{comment.commentObject}} </div>
   </div>
 </div>
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="margin-bottom:-4px"></mat-progress-bar>
 <div class="commmentActions">
-  <a (click)="likeComment(comment.commentActionId)">Like</a>
+  <a (click)="likeComment(comment.commentActionId)" [innerHTML]="comment.commentActionMeta.liked? 'liked':'like'"></a>
   <span></span>
   <a (click)="isReplying = !isReplying">Reply</a>
   <span></span>
   <div [matTooltip]="comment.metaData.timeInUTC | date"> {{comment.metaData.timeString}} ago </div>
 </div>
-<mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="margin-bottom:-4px"></mat-progress-bar>
 <div class="reply-box" [@expand]="isReplying ? 'expanded' : 'collapsed'">
   <div class="comment-wrapper">
     <input type="text" placeholder="Write your Reply..." [formControl]="reply">
