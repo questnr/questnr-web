@@ -26,4 +26,7 @@ export class ApiService {
   getTrendingCommunities() {
     return this.http.get(this.baseUrl + 'community/trending-community-list');
   }
+  registerPushNotificationToken(token: string) {
+    return this.http.post(this.baseUrl + 'push-notification/token', token);
+  }
 }
