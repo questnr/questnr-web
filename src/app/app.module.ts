@@ -48,6 +48,7 @@ import { environment } from '../environments/environment';
 import { MnFullpageModule } from 'ngx-fullpage';
 import { AuthGuard } from 'auth/auth.guard';
 import { LoginService } from 'auth/login.service';
+import { CommentBoxComponent } from './feeds-frame/recommended-feeds/comment-box/comment-box.component';
 
 const config = new AuthServiceConfig([
   {
@@ -70,7 +71,8 @@ export function provideConfig() {
     HomeComponent,
     LoginComponent,
     SignupComponent,
-    RankCardComponent
+    RankCardComponent,
+    CommentBoxComponent
   ],
   imports: [
     AngularFireDatabaseModule,

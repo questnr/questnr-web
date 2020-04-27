@@ -15,14 +15,12 @@
 
     <div class="spacer"></div>
 
-    <button mat-button [matMenuTriggerFor]="menu" class=" d-none d-sm-block d-md-block d-lg-block profile-btn" Z>
-      <img mat-image [src]="profileImg? profileImg: 'assets/default.jpg'" />
-      <div class="btn-text">
-        <div class="btn-text">
-          <div>{{profile?.name}}</div>
-          <div></div>
-          <!-- <div>Rahul</div> -->
+    <button mat-button [matMenuTriggerFor]="menu" class="d-none d-sm-block d-md-block d-lg-block profile-btn" Z>
+      <div>
+        <div class="icon">
+          <img [src]="profileImg? profileImg: 'assets/default.jpg'" />
         </div>
+        <span>{{profile?.name}}</span>
       </div>
     </button>
 

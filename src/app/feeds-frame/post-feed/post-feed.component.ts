@@ -27,7 +27,6 @@ export class PostFeedComponent implements OnInit {
     // this.profileImg = this.login.getUserProfileIcon();
     this.login.getUser().subscribe(
       (res) => {
-        console.log(res);
         this.profileImg = res.avatarLink;
       }
     );
@@ -40,6 +39,11 @@ export class PostFeedComponent implements OnInit {
     this.text.setValue('');
   }
   toggleAddMedia() {
-    // this.isMediaEnabled = !this.isMediaEnabled;
+    this.isMediaEnabled = !this.isMediaEnabled;
+  }
+
+  filesDropped(files: FileHandle): void {
+    console.log(files);
+
   }
 }
