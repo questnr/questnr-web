@@ -1,5 +1,12 @@
 .head-wrap {
   padding: 0.5rem;
+  .profile-icon {
+    height: 50px;
+    width: 50px;
+  }
+  .profile-detail {
+    padding: 0.5rem;
+  }
 }
 .comment-wrapper {
   background: #fff;

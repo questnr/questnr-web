@@ -1,7 +1,7 @@
 <app-header (btnClick)="goTo($event)"></app-header>
 
 <section id="hero" class="hero-container"
-         style="background: url('assets/questnr-back.jpg') center center/cover no-repeat fixed;">
+  style="background: url('assets/questnr-back.jpg') center center/cover no-repeat fixed;">
   <div class="overlay"></div>
   <div class="row">
     <div class="col-md-6" style="display: flex; align-items: center;">
@@ -16,9 +16,14 @@
 
         <div class="search-wrapper">
           <mat-icon>search</mat-icon>
-          <input type="text" placeholder="Search #hashtags">
+          <input type="text" placeholder="Search #hashtags" [formControl]="hashtagInput">
+          <div class="suggestions">
+            <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="height: 2px">
+            </mat-progress-bar>
+            <button class="w-100" mat-button *ngFor="let item of hashtagResults">{{item.hashTagValue}}</button>
+          </div>
         </div>
-<!--        <p class="hashtag-title">POPULAR HASHTAGS</p>-->
+        <!--        <p class="hashtag-title">POPULAR HASHTAGS</p>-->
         <div class="hashtags-wrapper">
           <div class="tag" *ngFor="let hash of topHashtags">
             <span>#</span>{{hash.hashTagValue}}
@@ -57,7 +62,7 @@
       <h1>Community Groups</h1>
       <div class="qnr-card-wrapper">
         <qnr-card *ngFor="let community of communities" [imgSrc]="community.src" [title]="community.title"
-                  [detail]="community.detail"></qnr-card>
+          [detail]="community.detail"></qnr-card>
       </div>
     </div>
   </div>
@@ -72,7 +77,7 @@
         <div>
           <div class="qnr-card-wrapper">
             <qnr-rank-card *ngFor="let user of users; let i=index" [rank]="user.userRank" [title]="user.username"
-                           [imgSrc]="getImgSrc(user)" [posts]="user.totalPosts" [followers]="user.totalFollowers">
+              [imgSrc]="getImgSrc(user)" [posts]="user.totalPosts" [followers]="user.totalFollowers">
             </qnr-rank-card>
           </div>
         </div>
@@ -130,7 +135,7 @@
 
 <section class="info-graphics py-0" style="background: #2c2935;height: 500px">
   <div class="row" style="height: inherit">
-    <div class="col-md-6 p-5" >
+    <div class="col-md-6 p-5">
       <div class="upside_centered">
         <h1 class="banner-heading">Annoyed by Other <br> Social Networks?</h1>
         <p style="color: #ffffff;">
@@ -207,52 +212,52 @@
       </div>
       <div class="col-md-3">
         <div class="footer-list_container">
-        <h6>Products</h6>
-        <ul>
-          <li>Social Wall</li>
-          <li>Members Swap</li>
-          <li>All Members</li>
-          <li>Community Groups</li>
-          <li>Forums</li>
-        </ul>
+          <h6>Products</h6>
+          <ul>
+            <li>Social Wall</li>
+            <li>Members Swap</li>
+            <li>All Members</li>
+            <li>Community Groups</li>
+            <li>Forums</li>
+          </ul>
         </div>
       </div>
 
       <div class="col-md-3">
         <div class="footer-list_container">
 
-        <h6>Community</h6>
-        <ul>
-          <li>Tutorials</li>
-          <li>Meetups</li>
-          <li>Q&A</li>
-          <li>Write for Donations</li>
-          <li>Droplets for Demo</li>
-          <li>Hatch a startup Program</li>
-          <li>Show Swag</li>
-          <li>Research Program</li>
-          <li>Current Research</li>
-          <li>Open Sourse</li>
-        </ul>
+          <h6>Community</h6>
+          <ul>
+            <li>Tutorials</li>
+            <li>Meetups</li>
+            <li>Q&A</li>
+            <li>Write for Donations</li>
+            <li>Droplets for Demo</li>
+            <li>Hatch a startup Program</li>
+            <li>Show Swag</li>
+            <li>Research Program</li>
+            <li>Current Research</li>
+            <li>Open Sourse</li>
+          </ul>
         </div>
       </div>
-<!--      <div class="col-md-2">-->
-<!--        <h6>Community</h6>-->
-<!--        <ul>-->
-<!--          <li>Web &amp; Mobile apps</li>-->
-<!--          <li>Website Hosting</li>-->
-<!--          <li>Big Data</li>-->
-<!--          <li>Managed Services</li>-->
-<!--        </ul>-->
-<!--      </div>-->
+      <!--      <div class="col-md-2">-->
+      <!--        <h6>Community</h6>-->
+      <!--        <ul>-->
+      <!--          <li>Web &amp; Mobile apps</li>-->
+      <!--          <li>Website Hosting</li>-->
+      <!--          <li>Big Data</li>-->
+      <!--          <li>Managed Services</li>-->
+      <!--        </ul>-->
+      <!--      </div>-->
       <div class="col-md-3">
         <div class="footer-list_container">
-        <h6>Contact</h6>
-        <ul>
-          <li>Support</li>
-          <li>System Status</li>
-          <li>suppoer@questnr.com</li>
-        </ul>
+          <h6>Contact</h6>
+          <ul>
+            <li>Support</li>
+            <li>System Status</li>
+            <li>suppoer@questnr.com</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -264,28 +269,28 @@
         <div style="">
           <img src="assets/logo.png" alt="logo" style="margin: 0">
           <span class="ml-3">
-          <i class="fa fa-copyright"></i>
-          <span> 2020 Questnr.com. All rights Reserved.</span>
-        </span>
+            <i class="fa fa-copyright"></i>
+            <span> 2020 Questnr.com. All rights Reserved.</span>
+          </span>
         </div>
 
       </div>
       <div class="col-md-4">
         <div style="">
-        <ul style="color: #ffffff" class="social">
-          <li>
-            <i class="fa fa-facebook-f"></i>
-          </li>
-          <li>
-            <i class="fa fa-twitter"></i>
-          </li>
-          <li>
-            <i class="fa fa-instagram"></i>
-          </li>
-          <li>
-            <i class="fa fa-linkedin"></i>
-          </li>
-        </ul>
+          <ul style="color: #ffffff" class="social">
+            <li>
+              <i class="fa fa-facebook-f"></i>
+            </li>
+            <li>
+              <i class="fa fa-twitter"></i>
+            </li>
+            <li>
+              <i class="fa fa-instagram"></i>
+            </li>
+            <li>
+              <i class="fa fa-linkedin"></i>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
