@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import * as jwtDecode from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,9 @@ import * as jwtDecode from 'jwt-decode';
 export class LoginService {
 
   baseUrl = environment.baseUrl;
+  profileImg;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   checkUsername(val: string) {
     return this.http.post(this.baseUrl + 'check-username', val);
@@ -29,14 +31,29 @@ export class LoginService {
   }
 
   getUser() {
-    return this.http.get<any>(this.baseUrl + 'user/avatar', { observe: 'response' });
+    return this.http.get<any>(this.baseUrl + 'user/avatar');
   }
 
   getUserProfile() {
     const decodedData = jwtDecode(localStorage.getItem('token'));
     return decodedData;
   }
-
+  getUserProfileIcon() {
+    if (this.profileImg) {
+      return this.profileImg;
+    }
+    this.getUser().subscribe(
+      (res: any) => {
+        this.profileImg = res.avatarLink;
+        return this.profileImg;
+      }
+    );
+  }
+  logOut() {
+    this.profileImg = null;
+    localStorage.clear();
+    this.router.navigateByUrl('/');
+  }
   loggedIn() {
     return !!localStorage.getItem('token');
   }

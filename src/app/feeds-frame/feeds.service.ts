@@ -21,10 +21,15 @@ export class FeedsService {
     return this.http.get(this.baseUrl + `user/posts/${postId}/comment`);
   }
   postComment(postId, data) {
-    console.log(postId, data);
     return this.http.post(this.baseUrl + `user/posts/${postId}/comment`, data);
   }
   likePost(postId) {
-    return this.http.get(this.baseUrl + `user/posts/${postId}/like`, {});
+    return this.http.post(this.baseUrl + `user/posts/${postId}/like`, {});
+  }
+  likeComment(commentId) {
+    return this.http.post(this.baseUrl + `user/posts/comment/${commentId}/like`, {});
+  }
+  replyComment(commentId) {
+    return this.http.post(this.baseUrl + `user/posts/comment/${commentId}/comment`, {});
   }
 }

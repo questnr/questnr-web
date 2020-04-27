@@ -45,6 +45,9 @@ button.liked {
   align-items: center;
   padding: 1rem;
   .profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
     height: 64px;
     border-radius: 50%;
@@ -67,7 +70,6 @@ button.liked {
 }
 .text {
   padding: 1rem;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }

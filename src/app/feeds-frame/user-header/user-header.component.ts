@@ -16,10 +16,11 @@ export class UserHeaderComponent {
 
   constructor(private router: Router, public auth: LoginService) {
     this.profile = this.auth.getUserProfile();
+    // this.profileImg = this.auth.getUserProfileIcon
     this.auth.getUser().subscribe(
       (res) => {
         console.log(res);
-        this.profileImg = res.body;
+        this.profileImg = res.avatarLink;
       }
     );
   }

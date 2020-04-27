@@ -42,7 +42,6 @@ export class RecommendedFeedsComponent implements OnInit {
     );
   }
   postComment(id) {
-    console.log('BBBBBBBBBBBBBBBB', id);
     const body = {
       postId: id,
       parentCommentId: 0,
@@ -68,5 +67,17 @@ export class RecommendedFeedsComponent implements OnInit {
   getUserId() {
     const user = this.login.getUserProfile();
     return user.id;
+  }
+
+  likeComment(id) {
+    this.api.likeComment(id).subscribe(
+      res => {
+        this.isLoading = false;
+        this.isLiked = true;
+      }
+    );
+  }
+  replyToComment() {
+
   }
 }

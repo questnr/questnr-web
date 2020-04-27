@@ -1,6 +1,6 @@
 <div class="box">
   <div class="post-wrap">
-    <div class="icon"> <img src="assets/default.jpg" alt=""> </div>
+    <div class="icon"> <img [src]="profileImg? profileImg : 'assets/default.jpg'" alt=""> </div>
     <textarea rows="1" placeholder="Post Something...." [formControl]="text"></textarea>
   </div>
   <div class="media" [@expand]="isMediaEnabled ? 'expanded' : 'collapsed'">

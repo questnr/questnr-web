@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormControl } from '@angular/forms';
+import { LoginService } from 'auth/login.service';
 
 @Component({
   selector: 'app-post-feed',
@@ -17,11 +18,20 @@ import { FormControl } from '@angular/forms';
 export class PostFeedComponent implements OnInit {
 
   text = new FormControl();
+  profileImg;
   @Output() postData = new EventEmitter();
 
   isMediaEnabled = false;
 
-  constructor() { }
+  constructor(private login: LoginService) {
+    // this.profileImg = this.login.getUserProfileIcon();
+    this.login.getUser().subscribe(
+      (res) => {
+        console.log(res);
+        this.profileImg = res.avatarLink;
+      }
+    );
+  }
 
   ngOnInit() {
   }
