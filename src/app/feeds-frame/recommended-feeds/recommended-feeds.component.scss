@@ -4,11 +4,50 @@
   background: #fff;
   border-radius: 10px;
 }
+.comments {
+  overflow: hidden;
+  .wrap {
+    padding: 1rem;
+    .comment-box {
+      border: 1px solid rgba($primary, 0.2);
+      background: rgba($primary, 0.02);
+      margin: 1rem 0;
+      border-radius: 10px;
+      width: 80%;
+      .head-wrap {
+        padding: 0.5rem;
+      }
+      .main-body {
+        padding: 1rem;
+        padding-top: 0;
+      }
+      .profile-icon {
+        height: 50px;
+        width: 50px;
+      }
+      .profile-detail {
+        padding: 0.6rem;
+        .head {
+          font-size: 0.8rem;
+        }
+      }
+      &.myComment {
+        margin-left: auto;
+      }
+    }
+  }
+}
+button.liked {
+  color: $primary;
+}
 .head-wrap {
   display: flex;
   align-items: center;
   padding: 1rem;
   .profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
     height: 64px;
     border-radius: 50%;
@@ -31,13 +70,15 @@
 }
 .text {
   padding: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .footer-wrap {
   display: flex;
-  justify-content: flex-start;
   padding: 0 1rem;
-  .space {
-    flex: 1 1 0;
+  button {
+    flex: auto;
+    justify-content: center;
   }
   button {
     display: flex;
@@ -57,4 +98,23 @@
 .align-center {
   display: flex;
   align-items: center;
+}
+.comment-wrapper {
+  background: #eee;
+  padding: 5px;
+  width: 100%;
+  border-radius: 5px;
+  position: relative;
+  display: flex;
+  input {
+    background: transparent;
+    border: none;
+    padding: 0 1rem;
+    color: #000;
+    width: 100%;
+    letter-spacing: 1px;
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.3);
+    }
+  }
 }

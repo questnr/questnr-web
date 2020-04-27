@@ -14,7 +14,22 @@ export class FeedsService {
   postFeed(data) {
     return this.http.post(this.baseUrl + 'user/posts', data);
   }
-  getFeeds() {
-    return this.http.get(this.baseUrl + 'user/feed');
+  getFeeds(page) {
+    return this.http.get(this.baseUrl + 'user/feed', { params: { page } });
+  }
+  getComments(postId) {
+    return this.http.get(this.baseUrl + `user/posts/${postId}/comment`);
+  }
+  postComment(postId, data) {
+    return this.http.post(this.baseUrl + `user/posts/${postId}/comment`, data);
+  }
+  likePost(postId) {
+    return this.http.post(this.baseUrl + `user/posts/${postId}/like`, {});
+  }
+  likeComment(commentId) {
+    return this.http.post(this.baseUrl + `user/posts/comment/${commentId}/like`, {});
+  }
+  replyComment(commentId) {
+    return this.http.post(this.baseUrl + `user/posts/comment/${commentId}/comment`, {});
   }
 }
