@@ -1,9 +1,10 @@
 .main-wrap {
   display: grid;
   grid-template-columns: 300px auto 300px;
-  aside .stick {
-    position: sticky;
+  aside {
+    height: 100vh;
     top: 0;
+    position: sticky;
   }
 }
 .card img {

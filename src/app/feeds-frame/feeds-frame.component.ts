@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { FeedsService } from './feeds.service';
 import { ApiService } from 'shared/api.service';
@@ -43,14 +43,6 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     nav: false,
     autoplay: true
   };
-  @HostListener('window:scroll', ['$event'])
-  onScroll(event: any) {
-    console.log('????????????????????????????');
-    // visible height + pixel scrolled >= total height
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      console.log('End');
-    }
-  }
 
   constructor(private service: FeedsService, private api: ApiService) {
     if (window.screen.width <= 600) {
@@ -71,7 +63,6 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     formData.append('text', event);
     this.service.postFeed(formData).subscribe(
       res => {
-        console.log(res);
         this.getUserFeeds();
       }, err => { }
     );
@@ -87,7 +78,6 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     window.removeEventListener('scroll', this.scroll, true);
   }
   scroll = (event): void => {
-    console.log('scrolling.....');
     if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
       this.loading = true;
       ++this.page;
@@ -98,6 +88,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     this.service.getFeeds(this.page).subscribe(
       (res: any) => {
         if (res.content.length) {
+          console.log(res.content);
           res.content.forEach(post => {
             this.userFeeds.push(post);
           });
@@ -109,7 +100,6 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   getSuggestedCommunities() {
     this.api.getSuggestedCommunities().subscribe(
       (res: any) => {
-        console.log(res);
         if (res.content.length) {
           this.suggestedCommunities = res.content.map(item => {
             item.title = item.communityName;
@@ -125,7 +115,6 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   getTrendingCommunities() {
     this.api.getTrendingCommunities().subscribe(
       (res: any) => {
-        console.log(res);
         if (res.content.length) {
           this.trendingCommunities = res.content.map(item => {
             item.title = item.communityName;

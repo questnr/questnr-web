@@ -34,7 +34,7 @@
             <p class="text-center" *ngIf="userFeeds.length===1 && userFeeds[0] === null">No Feeds Found...!</p>
           </ng-container>
           <div class="loader">
-            <mat-spinner *ngIf="loading"></mat-spinner>
+            <mat-spinner *ngIf="loading" color="accent"></mat-spinner>
           </div>
           <ng-template #noFeeds>
             <p class="text-center" *ngIf="!loading">No Feeds Found...!</p>

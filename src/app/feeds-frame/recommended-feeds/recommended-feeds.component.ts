@@ -3,6 +3,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { FormControl, Validators } from '@angular/forms';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { LoginService } from 'auth/login.service';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -19,21 +20,47 @@ import { LoginService } from 'auth/login.service';
 export class RecommendedFeedsComponent implements OnInit {
   @Input() feed;
   isCommenting = false;
+  isReplying = false;
   isLoading = false;
   isCommentLoading = false;
-  isLiked = false;
   comment = new FormControl('', Validators.required);
+  replyComment = new FormControl('', Validators.required);
+
+  customOptions: OwlOptions = {
+    loop: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: false,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 1
+      }
+    },
+    nav: false,
+    autoplay: true
+  };
+
   constructor(private api: FeedsService, private login: LoginService) { }
 
   ngOnInit() {
   }
   toggleComments(postId) {
     // this.getComments(postId);
-    this.isCommenting = true;
+    this.isCommenting = !this.isCommenting;
   }
   getComments(postId) {
-    console.log('getting comments');
-    this.isCommentLoading = true;
     this.api.getComments(postId).subscribe(
       (res: any) => {
         this.isCommentLoading = false;
@@ -42,6 +69,7 @@ export class RecommendedFeedsComponent implements OnInit {
     );
   }
   postComment(id) {
+    this.isCommentLoading = true;
     const body = {
       postId: id,
       parentCommentId: 0,
@@ -57,27 +85,27 @@ export class RecommendedFeedsComponent implements OnInit {
   }
   likePost(id) {
     this.isLoading = true;
-    this.api.likePost(id).subscribe(
-      res => {
-        this.isLoading = false;
-        this.isLiked = true;
-      }
-    );
+    if (this.feed.postActionMeta.liked) {
+      this.api.dislikePost(id).subscribe(
+        res => {
+          this.isLoading = false;
+          console.log(res);
+          this.feed.postActionMeta.liked = false;
+        }
+      );
+    } else {
+      this.api.likePost(id).subscribe(
+        (res: any) => {
+          this.isLoading = false;
+          if (res.likeActionId) {
+            this.feed.postActionMeta.liked = true;
+          }
+        }
+      );
+    }
   }
   getUserId() {
     const user = this.login.getUserProfile();
     return user.id;
-  }
-
-  likeComment(id) {
-    this.api.likeComment(id).subscribe(
-      res => {
-        this.isLoading = false;
-        this.isLiked = true;
-      }
-    );
-  }
-  replyToComment() {
-
   }
 }

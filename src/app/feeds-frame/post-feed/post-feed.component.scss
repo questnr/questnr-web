@@ -70,3 +70,25 @@
   display: flex;
   align-items: center;
 }
+.dropBox {
+  position: relative;
+  padding: 20px 0;
+  min-height: 150px;
+  .preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    padding: 2px;
+    border-radius: 8px;
+    transition: opacity 0.4s ease;
+    &.active {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}

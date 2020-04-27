@@ -4,7 +4,9 @@
       feed.communityDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""> </div>
     <div class="profile-detail" *ngIf="feed.communityDTO">
       <div class="head">{{feed.communityDTO?.communityName}}</div>
-      <div class="subhead"> Posted in Community - {{feed.metaData.actionDate}} </div>
+      <div class="subhead"> Posted in Community -
+        <span [matTooltip]="feed.metaData.timeInUTC | date">{{feed.metaData.timeString}} ago</span>
+      </div>
     </div>
   </div>
   <div class="head-wrap" *ngIf="!feed.communityDTO">
@@ -18,15 +20,22 @@
   <div class="main">
     <div class="text" [innerHtml]="feed?.text"> </div>
     <div *ngIf="feed.postMediaDTOList.length">
-      <img class="w-100" [src]="feed.postMediaDTOList[0].postMediaLink" alt="">
+      <owl-carousel-o [options]="customOptions">
+        <ng-container *ngFor="let media of feed.postMediaDTOList;let i=index">
+          <ng-template carouselSlide [id]="i">
+            <img class="w-100" [src]="media.postMediaLink" alt="">
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
     </div>
   </div>
   <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="margin-bottom:-4px">
   </mat-progress-bar>
   <div class="footer-wrap">
-    <button mat-button [disabled]="isLoading" (click)="likePost(feed.postActionId)" [ngClass]="isLiked? 'liked':''">
-      <mat-icon [innerHtml]="isLiked?'favorite' :'favorite_border'"></mat-icon> &nbsp;
-      <span [innerHtml]="isLiked?'Liked' :'Like'"> Like </span>
+    <button mat-button [disabled]="isLoading" (click)="likePost(feed.postActionId)"
+      [ngClass]="feed.postActionMeta.liked? 'liked':''">
+      <mat-icon [innerHtml]="feed.postActionMeta.liked?'favorite' :'favorite_border'"></mat-icon> &nbsp;
+      <span [innerHtml]="feed.postActionMeta.liked?'Liked' :'Like'"> Like </span>
     </button>
     <button mat-button (click)="toggleComments(feed.postActionId)">
       <mat-icon>insert_comment</mat-icon> &nbsp;
@@ -38,30 +47,24 @@
     </button>
   </div>
   <div class="comments" [@expand]="isCommenting ? 'expanded' : 'collapsed'">
-    <hr>
     <div class="wrap">
       <div *ngIf="feed.commentActionDTOList.length && !isCommentLoading;  else noComments">
         <div class="comment-box" *ngFor="let comment of feed.commentActionDTOList"
           [ngClass]="comment.userActorDTO?.userId === getUserId()? 'myComment' : ''">
-          <div class=" head-wrap">
-            <div class="profile-icon"> <img [src]="comment.userActorDTO?.avatarDTO?.avatarLink ?
-              comment.userActorDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""> </div>
-            <div class="profile-detail">
-              <div class=" head">{{comment.userActorDTO?.username | titlecase}}</div>
-              <div class="subhead" [matTooltip]="comment.metaData.timeInUTC | date"> {{comment.metaData.timeString}} ago
-              </div>
+          <app-comment-box class="comment-item" [comment]="comment" [postId]="feed.postActionId"
+            (update)="getComments(feed.postActionId)"></app-comment-box>
+          <div class="subComments" *ngIf="comment.childCommentDTOSet?.length">
+            <div class="child-comment" *ngFor="let item of comment.childCommentDTOSet">
+              <app-comment-box class="comment-item"
+                [ngClass]="item.userActorDTO?.userId === getUserId()? 'myComment' : ''" [comment]="item"
+                [postId]="feed.postActionId" (update)="getComments()"></app-comment-box>
             </div>
           </div>
-          <div class="main-body"> {{comment.commentObject}} </div>
-          <!-- <div class="commmentActions">
-            <a (click)="likeComment(comment.commentId)">Like</a>
-            <a (click)="replyToComment()">Comment</a>
-          </div> -->
         </div>
       </div>
       <ng-template #noComments>
         <div class="loader">
-          <mat-spinner *ngIf="isCommentLoading"></mat-spinner>
+          <mat-spinner *ngIf="isCommentLoading" color="accent"></mat-spinner>
         </div>
         <p class="text-center" *ngIf="!feed?.commentActionDTOList?.length && !isCommentLoading">No Comments Found...!
         </p>
