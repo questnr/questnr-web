@@ -32,4 +32,7 @@ export class FeedsService {
   likeComment(commentId) {
     return this.http.post(this.baseUrl + `user/posts/comment/${commentId}/like`, {});
   }
+  dislikeComment(commentId) {
+    return this.http.delete(this.baseUrl + `user/posts/comment/${commentId}/like`);
+  }
 }
