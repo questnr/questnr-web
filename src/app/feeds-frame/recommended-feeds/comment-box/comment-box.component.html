@@ -7,7 +7,7 @@
   </div>
 </div>
 <div class="commmentActions">
-  <a (click)="likeComment(comment.commentActionId)">Like</a>
+  <a (click)="likeComment(comment.commentActionId)" [innerHTML]="comment.commentActionMeta.liked? 'liked':'like'"></a>
   <span></span>
   <a (click)="isReplying = !isReplying">Reply</a>
   <span></span>

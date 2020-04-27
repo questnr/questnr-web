@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'auth/login.service';
 import { ApiService } from 'shared/api.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-user-header',
@@ -14,6 +15,8 @@ export class UserHeaderComponent {
   user: string;
   profile;
   profileImg;
+  hashtagInput = new FormControl();
+  hashtags = [];
 
   constructor(private router: Router, public auth: LoginService, private api: ApiService) {
     this.profile = this.auth.getUserProfile();
@@ -28,9 +31,9 @@ export class UserHeaderComponent {
     this.menuToggle.emit();
   }
   searchHashtag() {
-    this.api.searchHashtag().subscribe(
+    this.api.searchHashtag(this.hashtagInput.value).subscribe(
       res => {
-        console.log(res)
+        console.log(res);
       }
     );
   }

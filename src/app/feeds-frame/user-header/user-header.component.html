@@ -9,8 +9,11 @@
     <div class="spacer"></div>
 
     <div class="search-wrapper">
-      <input type="text" placeholder="Type here to search...">
-      <mat-icon>search</mat-icon>
+      <input type="text" placeholder="Type here to search..." [formControl]="hashtagInput">
+      <mat-icon (click)="searchHashtag()">search</mat-icon>
+      <div class="suggestions">
+
+      </div>
     </div>
 
     <div class="spacer"></div>

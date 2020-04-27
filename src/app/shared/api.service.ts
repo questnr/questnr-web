@@ -26,8 +26,8 @@ export class ApiService {
   getTrendingCommunities() {
     return this.http.get(this.baseUrl + 'community/trending-community-list');
   }
-  searchHashtag() {
-    return this.http.get(this.baseUrl + 'search/hash-tag');
+  searchHashtag(hashTag) {
+    return this.http.get(this.baseUrl + `search/hash-tag`, { params: { hashTag } });
   }
   registerPushNotificationToken(token: string) {
     return this.http.post(this.baseUrl + 'push-notification/token', token);
