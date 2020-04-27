@@ -16,7 +16,7 @@
         <div class="feeds">
           <app-post-feed (postData)="postFeed($event)"></app-post-feed>
           <owl-carousel-o [options]="customOptions">
-            <ng-container *ngFor="let community of communities;let i=index">
+            <ng-container *ngFor="let community of trendingCommunities;let i=index">
               <ng-template carouselSlide [id]="i">
                 <qnr-card carouselSlide [imgSrc]="community.src" [title]="community.title" [detail]="community.detail">
                 </qnr-card>
@@ -33,15 +33,18 @@
             </div>
             <p class="text-center" *ngIf="userFeeds.length===1 && userFeeds[0] === null">No Feeds Found...!</p>
           </ng-container>
+          <div class="loader">
+            <mat-spinner *ngIf="loading"></mat-spinner>
+          </div>
           <ng-template #noFeeds>
-            <p class="text-center">No Feeds Found...!</p>
+            <p class="text-center" *ngIf="!loading">No Feeds Found...!</p>
           </ng-template>
         </div>
         <aside class="right" *ngIf="!isMobile">
           <div class="stick">
             <div class="link-card">
               <h3>Suggested Communities</h3>
-              <div class="links" *ngFor="let item of communities">
+              <div class="links" *ngFor="let item of suggestedCommunities">
                 <div class="icon"> <img [src]="item.src" alt=""> </div>
                 <a class="link" routerLink="">{{item.title}}</a>
               </div>

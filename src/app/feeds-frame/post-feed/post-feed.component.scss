@@ -4,6 +4,10 @@
   background: #fff;
   border-radius: 10px;
 }
+.media,
+.comments {
+  overflow: hidden;
+}
 .post-wrap {
   display: flex;
   align-items: center;

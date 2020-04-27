@@ -3,8 +3,12 @@
     <div class="icon"> <img src="assets/default.jpg" alt=""> </div>
     <textarea rows="1" placeholder="Post Something...." [formControl]="text"></textarea>
   </div>
+  <div class="media" [@expand]="isMediaEnabled ? 'expanded' : 'collapsed'">
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa facere debitis ducimus quibusdam, nobis dolor unde
+    quos fugit assumenda neque aliquam aperiam magnam perferendis eos deleniti impedit! Optio, ea repellendus.
+  </div>
   <div class="btn-wrap">
-    <button mat-button>
+    <button mat-button (click)="toggleAddMedia()">
       <mat-icon>add_a_photo</mat-icon> &nbsp;
       <span> Photo/Video </span>
     </button>

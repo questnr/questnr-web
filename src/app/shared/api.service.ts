@@ -17,4 +17,13 @@ export class ApiService {
   getTopUsers() {
     return this.http.get(this.baseUrl + 'users-with-highest-rank');
   }
+  getJoinedCommunities() {
+    return this.http.get(this.baseUrl + 'user/community/joined');
+  }
+  getSuggestedCommunities() {
+    return this.http.get(this.baseUrl + 'community/suggested-community-list');
+  }
+  getTrendingCommunities() {
+    return this.http.get(this.baseUrl + 'community/trending-community-list');
+  }
 }

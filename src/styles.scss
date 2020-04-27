@@ -18,6 +18,11 @@ button {
     outline: none !important;
   }
 }
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .mat-drawer-container {
   margin-top: 64px;
 }

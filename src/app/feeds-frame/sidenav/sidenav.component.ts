@@ -8,22 +8,9 @@ import { ApiService } from 'shared/api.service';
 })
 export class SidenavComponent implements OnInit {
 
-  userCommunities = [
-    { title: 'Music', src: 'assets/community/music.png' },
-    { title: 'Business', src: 'assets/community/business.png' },
-    { title: 'Health', src: 'assets/community/health.png' },
-    { title: 'Finance', src: 'assets/community/finance.png' },
-    { title: 'Nature', src: 'assets/community/nature.png' },
-  ];
+  userCommunities = [];
 
-  userHashtags = [
-    { hashTagValue: 'starfish' },
-    { hashTagValue: 'coldplay' },
-    { hashTagValue: 'platform' },
-    { hashTagValue: 'newguy' },
-    { hashTagValue: 'likescomments' },
-    { hashTagValue: 'community' },
-  ];
+  userHashtags = [];
 
   footerLinks = [
     { link: '', title: 'Home' },
@@ -37,11 +24,20 @@ export class SidenavComponent implements OnInit {
     this.api.getTopHashtags().subscribe(
       (res: any) => {
         if (res.content) {
-          console.log(res);
           this.userHashtags = res.content;
           this.userHashtags = [...this.userHashtags].splice(0, 5);
         }
       }, err => { });
+    this.api.getJoinedCommunities().subscribe(
+      (res: any) => {
+        if (res.content.length) {
+          this.userCommunities = res.content.map(item => {
+            item.title = item.communityName,
+              item.src = item.avatarDTO.avatarLink;
+            return item;
+          });
+        }
+      }
+    );
   }
-
 }

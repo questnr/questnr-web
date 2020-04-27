@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CardComponent } from './shared/components/card/card.component';
 import { HomeComponent } from './home/home.component';
@@ -28,6 +29,8 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { RankCardComponent } from './shared/components/rank-card/rank-card.component';
 import { InterceptorService } from './interceptor.service';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import {
   SocialLoginModule, AuthServiceConfig,
@@ -85,6 +88,9 @@ export function provideConfig() {
     MatButtonModule,
     MatMenuModule,
     MatCheckboxModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
     SocialLoginModule,
     MnFullpageModule.forRoot()
   ],

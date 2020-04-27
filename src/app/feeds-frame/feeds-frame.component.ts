@@ -1,44 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { FeedsService } from './feeds.service';
-// import { OwlOptions } from 'ngx-owl-carousel-o';
+import { ApiService } from 'shared/api.service';
 
 @Component({
   selector: 'app-feeds-frame',
   templateUrl: './feeds-frame.component.html',
   styleUrls: ['./feeds-frame.component.scss', './sidenav/sidenav.component.scss']
 })
-export class FeedsFrameComponent implements OnInit {
+export class FeedsFrameComponent implements OnInit, OnDestroy {
   userFeeds = [];
+  page = 0;
   sideConfig = 'side';
   isSidenavopen = false;
   isMobile = false;
-  communities = [
-    { title: 'Music', src: 'assets/community/music.png', detail: 200 },
-    { title: 'Business', src: 'assets/community/business.png', detail: 1200 },
-    { title: 'Health', src: 'assets/community/health.png', detail: 400 },
-    { title: 'Finance', src: 'assets/community/finance.png', detail: 300 },
-    { title: 'Nature', src: 'assets/community/nature.png', detail: 550 },
-    // { title: 'Technology', src: 'assets/community/technology.png', detail: 2300 },
-    // { title: 'Beauty & Cosmetics', src: 'assets/community/beauty&cosmetics.png', detail: 300 },
-    // { title: 'Corona', src: 'assets/community/corona.png', detail: 1350 },
-    // { title: 'Fashion', src: 'assets/community/fashion.png', detail: 400 },
-    // { title: 'Startup Community', src: 'assets/community/startup-community.png', detail: 530 }
-  ];
-  constructor(private service: FeedsService) {
-    if (window.screen.width <= 600) {
-      this.sideConfig = 'over';
-      this.isMobile = true;
-    } else if (window.screen.width >= 1368) {
-      this.isSidenavopen = false;
-      this.sideConfig = 'side';
-    } else if (window.screen.width >= 600 && window.screen.width <= 1368) {
-      this.sideConfig = 'side';
-      this.isSidenavopen = true;
-      this.isMobile = true;
-    }
-  }
-
+  loading = true;
+  communities = [];
+  trendingCommunities = [];
+  suggestedCommunities = [];
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -64,6 +43,29 @@ export class FeedsFrameComponent implements OnInit {
     nav: false,
     autoplay: true
   };
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: any) {
+    console.log('????????????????????????????');
+    // visible height + pixel scrolled >= total height
+    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+      console.log('End');
+    }
+  }
+
+  constructor(private service: FeedsService, private api: ApiService) {
+    if (window.screen.width <= 600) {
+      this.sideConfig = 'over';
+      this.isMobile = true;
+    } else if (window.screen.width >= 1368) {
+      this.isSidenavopen = false;
+      this.sideConfig = 'side';
+    } else if (window.screen.width >= 600 && window.screen.width <= 1368) {
+      this.sideConfig = 'side';
+      this.isSidenavopen = true;
+      this.isMobile = true;
+    }
+  }
+
   postFeed(event) {
     const formData = new FormData();
     formData.append('text', event);
@@ -76,15 +78,61 @@ export class FeedsFrameComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.addEventListener('scroll', this.scroll, true);
     this.getUserFeeds();
+    this.getSuggestedCommunities();
+    this.getTrendingCommunities();
+  }
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.scroll, true);
+  }
+  scroll = (event): void => {
+    console.log('scrolling.....');
+    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+      this.loading = true;
+      ++this.page;
+      this.getUserFeeds();
+    }
+  };
+  getUserFeeds() {
+    this.service.getFeeds(this.page).subscribe(
+      (res: any) => {
+        if (res.content.length) {
+          res.content.forEach(post => {
+            this.userFeeds.push(post);
+          });
+        }
+      }, err => { }
+    );
   }
 
-  getUserFeeds() {
-    this.service.getFeeds().subscribe(
+  getSuggestedCommunities() {
+    this.api.getSuggestedCommunities().subscribe(
       (res: any) => {
         console.log(res);
         if (res.content.length) {
-          this.userFeeds = res.content;
+          this.suggestedCommunities = res.content.map(item => {
+            item.title = item.communityName;
+            item.src = item.avatarDTO.avatarLink;
+            item.detail = item.totalMembers;
+            return item;
+          });
+        }
+      }, err => { }
+    );
+  }
+
+  getTrendingCommunities() {
+    this.api.getTrendingCommunities().subscribe(
+      (res: any) => {
+        console.log(res);
+        if (res.content.length) {
+          this.trendingCommunities = res.content.map(item => {
+            item.title = item.communityName;
+            item.src = item.avatarDTO.avatarLink;
+            item.detail = item.totalMembers;
+            return item;
+          });
         }
       }, err => { }
     );
