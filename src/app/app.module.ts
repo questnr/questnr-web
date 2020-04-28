@@ -42,13 +42,14 @@ import {
   SocialLoginModule, AuthServiceConfig,
   GoogleLoginProvider, FacebookLoginProvider
 } from 'angularx-social-login';
-
+import { MatVideoModule } from 'mat-video';
 import { environment } from '../environments/environment';
 
 import { MnFullpageModule } from 'ngx-fullpage';
 import { AuthGuard } from 'auth/auth.guard';
 import { LoginService } from 'auth/login.service';
 import { CommentBoxComponent } from './feeds-frame/recommended-feeds/comment-box/comment-box.component';
+import { DragDropDirective } from 'drag-drop.directive';
 
 const config = new AuthServiceConfig([
   {
@@ -72,11 +73,13 @@ export function provideConfig() {
     LoginComponent,
     SignupComponent,
     RankCardComponent,
-    CommentBoxComponent
+    CommentBoxComponent,
+    DragDropDirective
   ],
   imports: [
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    MatVideoModule,
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
     BrowserModule,

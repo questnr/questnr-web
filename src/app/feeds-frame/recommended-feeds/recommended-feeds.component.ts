@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormControl, Validators } from '@angular/forms';
 import { FeedsService } from 'feeds-frame/feeds.service';
@@ -9,6 +9,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   selector: 'app-recommended-feeds',
   templateUrl: './recommended-feeds.component.html',
   styleUrls: ['./recommended-feeds.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('expand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),

@@ -3,10 +3,58 @@
 .box {
   background: #fff;
   border-radius: 10px;
-}
-.media,
-.comments {
+  position: relative;
   overflow: hidden;
+}
+.loader {
+  opacity: 0;
+  height: 2px;
+  margin-bottom: -2px;
+  // span {
+  //   max-width: 100%;
+  //   position: absolute;
+  //   font-size: 2rem;
+  //   top: 1rem;
+  //   color: #fff;
+  //   transition: left 0.2s ease;
+  // }
+}
+.loader.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.media {
+  overflow: hidden;
+  .media-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    & > div {
+      width: 180px;
+      height: 100px;
+      margin: 10px;
+      border-radius: 5px;
+    }
+    .media-item {
+      border: 2px solid $primary;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      & > * {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+    .drop-area {
+      padding: 1rem;
+      border: 2px dashed $primary;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }
 .post-wrap {
   display: flex;
@@ -56,7 +104,7 @@
     width: auto;
     height: auto;
     border: rgba(0, 0, 0, 0.4);
-    &:hover {
+    &:not(:disabled):hover {
       color: $primary;
     }
   }
@@ -97,12 +145,11 @@
 @media only screen and (max-width: 600px) {
   .btn-wrap {
     display: block;
-    button{
+    button {
       margin: 0;
     }
-    button.btn-color{
+    button.btn-color {
       margin-left: auto;
     }
-
   }
 }

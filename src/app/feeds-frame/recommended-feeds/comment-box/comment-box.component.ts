@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { FormControl } from '@angular/forms';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -7,6 +7,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   selector: 'app-comment-box',
   templateUrl: './comment-box.component.html',
   styleUrls: ['../recommended-feeds.component.scss', './comment-box.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('expand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
