@@ -19,45 +19,44 @@ button {
     outline: none !important;
   }
 }
-// *::-webkit-scrollbar {
-//   width: 5px !important;
-//   height: 5px !important;
-// }
-// *::-webkit-scrollbar:horizontal {
-//   height: 5px;
-//   background: rbga($primary, 1);
-//   &:hover {
-//     cursor: pointer;
-//     background: rbga($primary, 1);
-//   }
-// }
-// *::-webkit-scrollbar-thumb {
-//   background-color: rbga($primary, 1);
-//   &:hover {
-//     cursor: pointer;
-//     background: rbga($primary, 1);
-//   }
-// }
+
 ::-webkit-scrollbar {
   width: 5px;
-  background: rgba($primary, 0.02);
 }
 ::-webkit-scrollbar:horizontal {
   height: 5px;
-  background: rgba($primary, 0.02);
   z-index: 9999;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
+  &:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
 }
 ::-webkit-scrollbar-thumb {
-  background: $primary;
+  background: rgba($primary, 0.8);
   border-radius: 10px;
   &:hover {
     cursor: pointer;
-    background: darken($primary, 10);
+    background: $primary;
   }
 }
+
+//Video Player UI fixes
+.controls {
+  .menu {
+    margin: auto;
+    width: 100%;
+  }
+  .progress {
+    overflow: visible;
+    background: unset;
+    mat-seek-progress-control {
+      width: 100%;
+    }
+  }
+}
+
 .loader {
   display: flex;
   align-items: center;

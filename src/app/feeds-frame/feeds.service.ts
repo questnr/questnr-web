@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -12,7 +12,8 @@ export class FeedsService {
   constructor(private http: HttpClient) { }
 
   postFeed(data) {
-    return this.http.post(this.baseUrl + 'user/posts', data);
+    const req = new HttpRequest('POST', this.baseUrl + 'user/posts', data, { reportProgress: true });
+    return this.http.request(req);
   }
   getFeeds(page) {
     return this.http.get(this.baseUrl + 'user/feed', { params: { page } });

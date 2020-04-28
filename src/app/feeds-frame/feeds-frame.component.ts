@@ -59,13 +59,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   }
 
   postFeed(event) {
-    const formData = new FormData();
-    formData.append('text', event);
-    this.service.postFeed(formData).subscribe(
-      res => {
-        this.getUserFeeds();
-      }, err => { }
-    );
+    this.getUserFeeds();
   }
 
   ngOnInit(): void {
@@ -85,6 +79,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     }
   };
   getUserFeeds() {
+    this.loading = true;
     this.service.getFeeds(this.page).subscribe(
       (res: any) => {
         if (res.content.length) {
@@ -93,6 +88,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
             this.userFeeds.push(post);
           });
         }
+        this.loading = false;
       }, err => { }
     );
   }

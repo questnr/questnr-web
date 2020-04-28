@@ -23,10 +23,6 @@
               </ng-template>
             </ng-container>
           </owl-carousel-o>
-          <!-- <div class="qnr-card-wrapper">
-            <qnr-card *ngFor="let community of communities.slice(0,4)" [imgSrc]="community.src"
-              [title]="community.title" [detail]="community.detail"></qnr-card>
-          </div> -->
           <ng-container *ngIf="userFeeds.length; else noFeeds">
             <div class="feed-wrap" *ngFor="let feed of userFeeds">
               <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>

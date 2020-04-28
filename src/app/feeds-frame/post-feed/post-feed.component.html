@@ -1,10 +1,31 @@
 <div class="box">
+  <div class="loader" [ngClass]="{'active': isLoading}">
+    <mat-progress-bar *ngIf="!uploading && isLoading" mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar *ngIf="uploading" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+    <!-- <span *ngIf="uploading" [ngStyle]="moveProgressCount()">{{http.uploadProgress}}%</span> -->
+  </div>
   <div class="post-wrap">
     <div class="icon"> <img [src]="profileImg? profileImg : 'assets/default.jpg'" alt=""> </div>
     <textarea rows="1" placeholder="Post Something...." [formControl]="text"></textarea>
   </div>
+
   <div class="media" [@expand]="isMediaEnabled ? 'expanded' : 'collapsed'">
-  
+    <div class="media-wrap">
+      <div class="media-item" *ngFor="let item of addedMedias; let i=index">
+        <img *ngIf="addedMediaSrc[i]?.type.includes('image')" [src]="addedMediaSrc[i]?.src">
+        <video *ngIf="addedMediaSrc[i]?.type.includes('video')">
+          <source [src]="addedMediaSrc[i]?.src" [type]="addedMediaSrc[i].type">
+        </video>
+      </div>
+      <div class="drop-area m-2" appDragDrop (fileDropped)="filesDropped($event)" (click)="fileInput.click()">
+        <input type="file" (change)="selectFiles($event)" #fileInput style="display: none" multiple
+          accept="image/*,video/*" />
+        <div class="text-center">
+          <mat-icon>add_photo_alternate</mat-icon>
+          <div> Drop Image/Video </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="btn-wrap">
     <button mat-button (click)="toggleAddMedia()">
@@ -17,7 +38,7 @@
     </button>
     <!-- <button mat-button>...</button> -->
     <div class="space"></div>
-    <button mat-button class="btn-color" (click)="post()"> Post &nbsp;
+    <button mat-button class="btn-color" (click)="postFeed()" disabled> Post &nbsp;
       <mat-icon>send</mat-icon>
     </button>
   </div>
