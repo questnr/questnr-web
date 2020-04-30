@@ -17,14 +17,14 @@
       <div class="profile-background">
 
       </div>
-      <div class="com-owner-det">
-        <a href="/user-profile">
+      <div class="com-owner-det" [id]="userId">
+        <a [href]="'/user/'+ slug">
           <div class="owner-img">
-            <img src="assets/default.jpg" alt="defaultowner">
+            <img [src]="avatarLink" [alt]="username">
           </div>
           <div>
             <div class="owner-name">
-              <h5> Satish Kumar Gaur</h5>
+              <h5> {{username}}</h5>
             </div>
           </div>
         </a>
@@ -43,7 +43,15 @@
     </div>
     <hr style="margin: 8px">
     <div class="follow-user">
-      <button mat-button> Follow</button>
+      <a [href]="'/user/'+ slug">
+        <button mat-button *ngIf="owner; else public">
+          Profile
+        </button>
+      </a>
+      <ng-template #public>
+        <button mat-button (click)="addUser()" *ngIf="!followed"> Follow</button>
+        <button mat-button *ngIf="followed"> Following</button>
+      </ng-template>
     </div>
   </div>
 

@@ -16,10 +16,11 @@ import {Community, CommunityUsers, OwnerUserDTO} from './community.model';
 export class CommunityComponent implements OnInit {
   isSidenavopen = false;
   url = (window.location.pathname).split('/')[2];
-  response: Community;
-  owner: OwnerUserDTO;
-  comUserList: CommunityUsers[];
+  communityDTO: Community;
+  owner: any;
+  comUserList: any[];
   feeds = [];
+  ownerDTO: OwnerUserDTO;
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog) { }
 
   openCommunityDesc(event): void {
@@ -46,8 +47,9 @@ export class CommunityComponent implements OnInit {
       //   this.userList.push(value);
       //   console.log(this.userList);
       // });
-      this.response = res;
-      console.log(this.response);
+      this.communityDTO = res;
+      this.ownerDTO = res.ownerUserDTO;
+      console.log(this.communityDTO);
     }, error => {
       console.log('oops', error);
     });
@@ -72,6 +74,6 @@ export class CommunityComponent implements OnInit {
       this.feeds = res.content;
     }, error => {
       console.log(error);
-    })
+    });
   }
 }

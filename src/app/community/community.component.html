@@ -91,11 +91,11 @@
             <div class="change-comm-img">
               <mat-icon>camera</mat-icon>
             </div>
-            <img [src]="response.avatarDTO.avatarLink" alt="banner" class="comm-ban-img" onerror="this.onerror=null;this.src='assets/default.jpg';">
+            <img [src]="communityDTO.avatarDTO.avatarLink" alt="banner" class="comm-ban-img" onerror="this.onerror=null;this.src='assets/default.jpg';">
             <div class="com-ban-overlay"></div>
             <div class="com-head-container">
-              <h1>{{response.communityName}}</h1>
-              <h3 #desc (click)="openCommunityDesc($event)">{{response.description}}</h3>
+              <h1>{{communityDTO.communityName}}</h1>
+              <h3 #desc (click)="openCommunityDesc($event)">{{communityDTO.description}}</h3>
             </div>
           </div>
         </div>
@@ -111,7 +111,9 @@
         </div>
         <div class="grid-view">
           <div class="grid-tile">
-            <app-user-profile-card></app-user-profile-card>
+            <app-user-profile-card [avatarLink]="communityDTO.ownerUserDTO.avatarDTO.avatarLink" [relationship]="communityDTO.ownerUserDTO.userMeta.relationShipType"
+            [userId]="communityDTO.ownerUserDTO.userId" [username]="communityDTO.ownerUserDTO.username" [slug]="communityDTO.ownerUserDTO.slug" ></app-user-profile-card>
+            <app-floating-footer></app-floating-footer>
           </div>
           <div class="grid-tile">
             <div class="community-feeds">
@@ -123,9 +125,7 @@
                 <p class="text-center" *ngIf="feeds.length===1 && feeds[0] === null">No Feeds Found...!</p>
               </ng-container>
               <ng-template #noFeeds>
-                <p class="text-center">
-                  <mat-spinner></mat-spinner>
-                </p>
+                <p class="text-center" *ngIf="feeds.length===0 || feeds[0] === null">No Feeds Found...!</p>
               </ng-template>
             </div>
           </div>

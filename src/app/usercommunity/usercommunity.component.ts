@@ -19,6 +19,7 @@ export class UsercommunityComponent implements OnInit {
   @Input() defaultImage = 'assets/default.jpg';
   baseUrl = environment.baseUrl;
   ownedCommunity = [];
+  loader = false;
 
   ngOnInit() {
     this.getUserOwnedCommunity();
@@ -39,10 +40,13 @@ export class UsercommunityComponent implements OnInit {
   }
 
   getUserOwnedCommunity() {
+    this.loader = true;
     this.http.get(this.baseUrl + 'user/community').subscribe((res: any) => {
+      this.loader = false;
       this.ownedCommunity = res.content;
       console.log(res.content);
     }, error => {
+      this.loader = false;
       console.log(error);
     });
   }

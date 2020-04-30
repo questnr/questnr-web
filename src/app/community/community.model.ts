@@ -4,16 +4,27 @@ export class Community {
   description: string;
   rules: string;
   slug: string;
-  ownerUser: OwnerUserDTO;
+  ownerUserDTO: OwnerUserDTO;
   status: string;
   avatarDTO: AvatarDTO;
   communityUsers: CommunityUsers[];
   metaList: MetaList;
   metaData: MetaData;
 }
-
-
+export class UserMeta {
+  relationShipType: string;
+}
 export  class OwnerUserDTO {
+  userId: number;
+  username: string;
+  firstName: string;
+  lastName: string;
+  emailId: string;
+  slug: string;
+  avatarDTO: AvatarDTO;
+  userMeta: UserMeta;
+}
+export  class CommunityUsers {
   userId: number;
   username: string;
   firstName: string;
@@ -23,16 +34,7 @@ export  class OwnerUserDTO {
 }
 export class AvatarDTO {
   avatarLink: string;
-  }
-export  class CommunityUsers {
-  userId: number;
-  username: string;
-  firstName: string;
-  lastName: string;
-  emailId: string;
-  avatarDTO: AvatarDTO;
 }
-
 export class MetaList {
   id: number;
   metaInformation: MetaInformation;

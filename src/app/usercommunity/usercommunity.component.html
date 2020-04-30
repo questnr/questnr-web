@@ -54,61 +54,65 @@
       </ul>
       <p (click)="createCommunity()" >Create community</p>
     </div>
+
+    <div *ngIf="loader">
+      <ul class="o-vertical-spacing o-vertical-spacing--l">
+        <li  class="grid blog-post o-media">
+          <div class="community_image o-media__figure">
+            <span class="skeleton-box media-box"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <span class="skeleton-box desc" style="width:90%;"></span>
+            </div>
+          </div>
+        </li>
+        <li  class="grid blog-post o-media">
+          <div class="community_image o-media__figure">
+            <span class="skeleton-box media-box"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <span class="skeleton-box desc" style="width:90%;"></span>
+            </div>
+          </div>
+        </li>
+        <li  class="grid blog-post o-media">
+          <div class="community_image o-media__figure">
+            <span class="skeleton-box media-box"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <span class="skeleton-box desc" style="width:90%;"></span>
+            </div>
+          </div>
+        </li>
+        <li  class="grid blog-post o-media">
+          <div class="community_image o-media__figure">
+            <span class="skeleton-box media-box"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <span class="skeleton-box desc" style="width:90%;"></span>
+            </div>
+          </div>
+        </li>
+        <li  class="grid blog-post o-media">
+          <div class="community_image o-media__figure">
+            <span class="skeleton-box media-box"></span>
+          </div>
+          <div class="o-media__body">
+            <div class="o-vertical-spacing">
+              <span class="skeleton-box desc" style="width:90%;"></span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
     <ng-template #noCommunity>
-      <div>
-        <ul class="o-vertical-spacing o-vertical-spacing--l">
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <span>You haven't created your first community yet.</span>
+      <p (click)="createCommunity()" >Create community</p>
     </ng-template>
   </div>
 </div>

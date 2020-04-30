@@ -14,6 +14,9 @@
       </ul>
     </div>
     <ng-template #noTrending>
+      <span>Explore Latest community. Nothing Trending Currently.</span>
+    </ng-template>
+    <div *ngIf="loader">
       <div>
         <ul class="o-vertical-spacing o-vertical-spacing--l">
           <li  class="grid blog-post o-media">
@@ -68,6 +71,6 @@
           </li>
         </ul>
       </div>
-    </ng-template>
+    </div>
   </div>
 </div>

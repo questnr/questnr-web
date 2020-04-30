@@ -13,7 +13,7 @@
         </li>
       </ul>
     </div>
-    <ng-template #noSuggesttion>
+    <div *ngIf="loader">
       <div>
         <ul class="o-vertical-spacing o-vertical-spacing--l">
           <li  class="grid blog-post o-media">
@@ -68,6 +68,9 @@
           </li>
         </ul>
       </div>
+    </div>
+    <ng-template #noSuggesttion>
+      <span>Explore the communities. No suggestions yet.</span>
     </ng-template>
   </div>
 </div>

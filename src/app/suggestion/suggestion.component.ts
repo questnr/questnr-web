@@ -14,13 +14,18 @@ export class SuggestionComponent implements OnInit {
   constructor(public auth: HttpClient) { }
   baseUrl = environment.baseUrl;
   suggestedCommunity = [];
+  loader = false;
   ngOnInit() {
     this.getSuggestedCommunity();
   }
 
   getSuggestedCommunity() {
+    this.loader = true;
     this.auth.get<any>(this.baseUrl + 'community/suggested-community-list').subscribe((res: any) => {
+      this.loader = false;
       this.suggestedCommunity = res.content;
+    }, error => {
+      this.loader = false;
     });
   }
 }
