@@ -9,6 +9,7 @@ export class CardComponent implements OnInit {
   @Input() imgSrc = 'assets/default.jpg';
   @Input() title;
   @Input() detail;
+  @Input() slug;
 
   constructor() { }
 

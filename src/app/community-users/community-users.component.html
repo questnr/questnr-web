@@ -1,0 +1,75 @@
+
+<div class="com-members-container">
+  <h1 class="heading">Members</h1>
+  <div *ngIf="communityMemberList.length >1 ; else noMembers">
+    <div class="com-member-det" *ngFor="let i of communityMemberList" [id]="i.userId">
+      <div class="member-avatar">
+        <img [src]="i.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';">
+      </div>
+      <div class="member-name">
+        <a [href]="'/user/' + i.slug">{{i.username}}</a>
+      </div>
+      <div class="action-btn">
+        <button mat-button (click)="sendFollowInvite(i.userId, $event)">
+          Follow
+        </button>
+      </div>
+    </div>
+    <p> View more.</p>
+  </div>
+
+   <ng-template #noMembers>
+     <span> No one following this community yet.</span>
+   </ng-template>
+
+  <div *ngIf="loader">
+       <div class="com-member-det" >
+         <div class="member-avatar skeleton-box">
+           <img >
+         </div>
+         <div class="member-name ">
+           <span class="skeleton-box desc"></span>
+         </div>
+         <div class="action-btn">
+           <button mat-button class="skeleton-box">
+           </button>
+         </div>
+       </div>
+       <div class="com-member-det" >
+         <div class="member-avatar skeleton-box">
+           <img >
+         </div>
+         <div class="member-name ">
+           <span class="skeleton-box desc"></span>
+         </div>
+         <div class="action-btn">
+           <button mat-button class="skeleton-box">
+           </button>
+         </div>
+       </div>
+       <div class="com-member-det" >
+         <div class="member-avatar skeleton-box">
+           <img >
+         </div>
+         <div class="member-name ">
+           <span class="skeleton-box desc"></span>
+         </div>
+         <div class="action-btn">
+           <button mat-button class="skeleton-box">
+           </button>
+         </div>
+       </div>
+       <div class="com-member-det" >
+         <div class="member-avatar skeleton-box">
+           <img >
+         </div>
+         <div class="member-name ">
+           <span class="skeleton-box desc"></span>
+         </div>
+         <div class="action-btn">
+           <button mat-button class="skeleton-box">
+           </button>
+         </div>
+       </div>
+     </div>
+</div>

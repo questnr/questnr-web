@@ -1,0 +1,58 @@
+<div class="community-details">
+  <!--  <div class="default-navs">-->
+  <!--    <ul>-->
+  <!--      <li>-->
+  <!--        <div style="color: orangered;font-weight: 500">Home</div>-->
+  <!--      </li>-->
+  <!--      <li>-->
+  <!--        <div>Explore</div>-->
+  <!--      </li>-->
+  <!--    </ul>-->
+  <!--  </div>-->
+
+  <!--Community Informations-->
+
+  <div class="community-info">
+    <div class="com-det-container">
+      <div class="profile-background">
+
+      </div>
+      <div class="com-owner-det" [id]="userId">
+        <a [href]="'/user/'+ slug">
+          <div class="owner-img">
+            <img [src]="avatarLink" [alt]="username">
+          </div>
+          <div>
+            <div class="owner-name">
+              <h5> {{username}}</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <hr>
+
+      <div class="user-follower">
+        <mat-icon>people_outline</mat-icon>
+        <span>500 Followers</span>
+      </div>
+
+      <div class="user-follower">
+        <mat-icon>calendar_view_day</mat-icon>
+        <span>66 Posts</span>
+      </div>
+    </div>
+    <hr style="margin: 8px">
+    <div class="follow-user">
+      <a [href]="'/user/'+ slug">
+        <button mat-button *ngIf="owner; else public">
+          Profile
+        </button>
+      </a>
+      <ng-template #public>
+        <button mat-button (click)="addUser()" *ngIf="!followed"> Follow</button>
+        <button mat-button *ngIf="followed"> Following</button>
+      </ng-template>
+    </div>
+  </div>
+
+</div>

@@ -24,7 +24,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CardComponent } from './shared/components/card/card.component';
 import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SignupComponent } from './auth/signup/signup.component';
 import { RankCardComponent } from './shared/components/rank-card/rank-card.component';
 import { InterceptorService } from './interceptor.service';
@@ -48,6 +48,25 @@ import { environment } from '../environments/environment';
 import { MnFullpageModule } from 'ngx-fullpage';
 import { AuthGuard } from 'auth/auth.guard';
 import { LoginService } from 'auth/login.service';
+// import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+// import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { CommunityComponent } from './community/community.component';
+import {CreateCommunityComponent} from './shared/components/dialogs/create.community/create-community.component';
+import { MoreOptionComponent } from './shared/components/more-option/more-option.component';
+import { DescriptionComponent } from './shared/components/dialogs/description/description.component';
+import { SuggestionComponent } from './suggestion/suggestion.component';
+import { SponseredComponent } from './sponsered/sponsered.component';
+import { UsercommunityComponent } from './usercommunity/usercommunity.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {MatSelectModule} from '@angular/material/select';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TrendingComponent } from './trending/trending.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { CommunityUsersComponent } from './community-users/community-users.component';
+import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
+
+// import {MatDialogModule, MatSelectModule, MatTooltipModule} from '@angular/material';
 import { CommentBoxComponent } from './feeds-frame/recommended-feeds/comment-box/comment-box.component';
 import { DragDropDirective } from 'drag-drop.directive';
 
@@ -64,6 +83,9 @@ const config = new AuthServiceConfig([
 export function provideConfig() {
   return config;
 }
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +95,16 @@ export function provideConfig() {
     LoginComponent,
     SignupComponent,
     RankCardComponent,
+    CommunityComponent,
+    CreateCommunityComponent,
+    MoreOptionComponent,
+    DescriptionComponent,
+    SuggestionComponent,
+    SponseredComponent,
+    UsercommunityComponent,
+    TrendingComponent,
+    CommunityUsersComponent,
+    UserProfileCardComponent,
     CommentBoxComponent,
     DragDropDirective
   ],
@@ -103,11 +135,28 @@ export function provideConfig() {
     MatButtonModule,
     MatMenuModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
     SocialLoginModule,
     MnFullpageModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    MatSelectModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule
+  ],
+  entryComponents: [
+    CreateCommunityComponent,
+    DescriptionComponent
   ],
   providers: [
     AsyncPipe,

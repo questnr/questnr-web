@@ -36,9 +36,9 @@
   </mat-progress-bar>
   <div class="footer-wrap">
     <button mat-button [disabled]="isLoading" (click)="likePost(feed.postActionId)"
-      [ngClass]="feed.postActionMeta.liked? 'liked':''">
-      <mat-icon [innerHtml]="feed.postActionMeta.liked?'favorite' :'favorite_border'"></mat-icon> &nbsp;
-      <span [innerHtml]="feed.postActionMeta.liked?'Liked' :'Like'"> Like </span>
+      [ngClass]="feed?.postActionMeta?.liked? 'liked':''">
+      <mat-icon [innerHtml]="feed?.postActionMeta?.liked?'favorite' :'favorite_border'"></mat-icon> &nbsp;
+      <span [innerHtml]="feed?.postActionMeta?.liked?'Liked' :'Like'"> Like </span>
     </button>
     <button mat-button (click)="toggleComments(feed.postActionId)">
       <mat-icon>insert_comment</mat-icon> &nbsp;
