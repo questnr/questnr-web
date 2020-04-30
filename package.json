@@ -28,6 +28,7 @@
     "firebase": "^7.14.2",
     "jquery": "^3.4.1",
     "jwt-decode": "^2.2.0",
+    "mat-video": "^2.8.1",
     "ngx-fullpage": "^5.1.0",
     "ngx-owl-carousel-o": "^3.0.0",
     "rxjs": "~6.5.5",

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -12,9 +12,28 @@ export class FeedsService {
   constructor(private http: HttpClient) { }
 
   postFeed(data) {
-    return this.http.post(this.baseUrl + 'user/posts', data);
+    const req = new HttpRequest('POST', this.baseUrl + 'user/posts', data, { reportProgress: true });
+    return this.http.request(req);
   }
-  getFeeds() {
-    return this.http.get(this.baseUrl + 'user/feed');
+  getFeeds(page) {
+    return this.http.get(this.baseUrl + 'user/feed', { params: { page } });
+  }
+  getComments(postId) {
+    return this.http.get(this.baseUrl + `user/posts/${postId}/comment`);
+  }
+  postComment(postId, data) {
+    return this.http.post(this.baseUrl + `user/posts/${postId}/comment`, data);
+  }
+  likePost(postId) {
+    return this.http.post(this.baseUrl + `user/posts/${postId}/like`, {});
+  }
+  dislikePost(postId) {
+    return this.http.delete(this.baseUrl + `user/posts/${postId}/like`);
+  }
+  likeComment(commentId) {
+    return this.http.post(this.baseUrl + `user/posts/comment/${commentId}/like`, {});
+  }
+  dislikeComment(commentId) {
+    return this.http.delete(this.baseUrl + `user/posts/comment/${commentId}/like`);
   }
 }

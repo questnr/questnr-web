@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 // @ts-ignore
 import {TranslateService} from '@ngx-translate/core';
-
 import { MessagingService } from './service/messaging.service';
 @Component({
   // tslint:disable-next-line:component-selector
@@ -9,7 +8,7 @@ import { MessagingService } from './service/messaging.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'questnr-front-end';
   message;
 

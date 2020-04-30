@@ -9,20 +9,22 @@
     <div class="spacer"></div>
 
     <div class="search-wrapper">
-      <input type="text" placeholder="Type here to search...">
-      <mat-icon>search</mat-icon>
+      <input type="text" placeholder="Type here to search..." [formControl]="hashtagInput">
+      <mat-icon (click)="searchHashtag()">search</mat-icon>
+      <div class="suggestions">
+        <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="height: 2px"></mat-progress-bar>
+        <button class="w-100" mat-button *ngFor="let item of hashtags">{{item.hashTagValue}}</button>
+      </div>
     </div>
 
     <div class="spacer"></div>
 
-    <button mat-button [matMenuTriggerFor]="menu" class=" d-none d-sm-block d-md-block d-lg-block profile-btn" Z>
-      <img mat-image [src]="profileImg? profileImg: 'assets/default.jpg'" />
-      <div class="btn-text">
-        <div class="btn-text">
-          <div>{{profile?.name}}</div>
-          <div></div>
-          <!-- <div>Rahul</div> -->
+    <button mat-button [matMenuTriggerFor]="menu" class="d-none d-sm-block d-md-block d-lg-block profile-btn" Z>
+      <div>
+        <div class="icon">
+          <img [src]="profileImg? profileImg: 'assets/default.jpg'" />
         </div>
+        <span>{{profile?.name}}</span>
       </div>
     </button>
 

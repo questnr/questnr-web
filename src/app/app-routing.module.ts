@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProfileRibbonComponent } from './feeds-frame/profile-ribbon/profile-ribbon.component';
 import { FeedsComponent } from './feeds-frame/feeds/feeds.component';
-import { FeedsFrameComponent } from './feeds-frame/feeds-frame.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { HeaderComponent } from './header/header.component';
 import { FloatingFooterComponent } from './feeds-frame/floating-footer/floating-footer.component';
@@ -16,6 +15,7 @@ import { UserHeaderComponent } from 'feeds-frame/user-header/user-header.compone
 import { SidenavComponent } from 'feeds-frame/sidenav/sidenav.component';
 import {CommunityComponent} from './community/community.component';
 import { PostFeedComponent } from 'feeds-frame/post-feed/post-feed.component';
+import { FeedsFrameComponent } from 'feeds-frame/feeds-frame.component';
 
 
 const routes: Routes = [

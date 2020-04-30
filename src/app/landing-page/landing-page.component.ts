@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from 'shared/api.service';
 // import {TranslateService} from '@ngx-translate/core';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,7 +12,9 @@ import { ApiService } from 'shared/api.service';
 
 export class LandingPageComponent implements OnInit {
   activeAuth = 'login';
-
+  isLoading = false;
+  hashtagInput = new FormControl();
+  hashtagResults = [];
   communities = [
     { title: 'Music', src: 'assets/community/music.png', detail: 200 },
     { title: 'Business', src: 'assets/community/business.png', detail: 1200 },
@@ -46,7 +50,21 @@ export class LandingPageComponent implements OnInit {
   ];
 
   topHashtags = [];
-  constructor(private api: ApiService){
+  constructor(private api: ApiService) {
+    this.hashtagInput.valueChanges
+      .pipe(
+        debounceTime(500),
+        tap(() => {
+          this.hashtagResults = [];
+        }),
+        distinctUntilChanged(),
+      )
+      .subscribe((val) => {
+        if (val) {
+          this.isLoading = true;
+          this.searchHashtag();
+        }
+      });
   }
   getImgSrc(user) {
     if (user && user.avatarDTO) {
@@ -69,6 +87,14 @@ export class LandingPageComponent implements OnInit {
           this.topHashtags = [...this.hashtags].splice(0, 5);
         }
       }, err => { });
+  }
+  searchHashtag() {
+    this.api.searchHashtag(this.hashtagInput.value).subscribe(
+      (res: any) => {
+        this.isLoading = false;
+        this.hashtagResults = res;
+      }
+    );
   }
   goTo(val: string) {
     this.activeAuth = val;

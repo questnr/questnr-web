@@ -7,6 +7,16 @@
   margin: 0 auto;
   width: calc(100% - 150px);
 }
+.icon {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  img {
+    height: 100%;
+    width: auto;
+  }
+}
 .toggle {
   display: none;
 }
@@ -65,6 +75,7 @@
   border-radius: 5px;
   position: relative;
   display: flex;
+  border: 1px solid transparent;
   mat-icon {
     font-size: 22px;
     height: 22px;
@@ -82,28 +93,44 @@
       color: rgba(0, 0, 0, 0.3);
     }
   }
-}
-
-.profile-btn {
-  padding: 15px 20px;
-  img {
-    margin-right: 10px;
-    max-width: 30px;
-    border-radius: 50%;
-  }
-  .btn-text {
-    display: inline-flex;
-    flex-direction: column;
-    line-height: normal;
-    text-align: left;
-    div:first-child {
-      font-size: 0.8rem;
-      font-weight: bold;
+  &:focus-within {
+    border: 1px solid rgba($primary, 0.5);
+    .suggestions {
+      display: block;
     }
-    div:last-child {
-      font-size: 0.6rem;
-      padding-top: 3px;
-      text-transform: uppercase;
+  }
+}
+.suggestions {
+  display: none;
+  width: calc(100% - 10px);
+  position: absolute;
+  height: auto;
+  max-height: 300px;
+  overflow: auto;
+  background: #eee;
+  top: 32px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);
+  button {
+    text-align: start;
+  }
+}
+.profile-btn {
+  height: 100%;
+  div {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    .icon {
+      height: 35px;
+      width: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 50%;
+      margin-right: 10px;
     }
   }
 }
@@ -114,5 +141,8 @@
   }
   .search-wrapper {
     display: none;
+  }
+  .toolbar {
+    width: 100%;
   }
 }

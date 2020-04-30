@@ -4,7 +4,9 @@
       feed.communityDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""> </div>
     <div class="profile-detail" *ngIf="feed.communityDTO">
       <div class="head">{{feed.communityDTO?.communityName}}</div>
-      <div class="subhead"> Posted in Community - {{feed.metaData.actionDate}} </div>
+      <div class="subhead"> Posted in Community -
+        <span [matTooltip]="feed.metaData.timeInUTC | date">{{feed.metaData.timeString}} ago</span>
+      </div>
     </div>
   </div>
   <div class="head-wrap" *ngIf="!feed.communityDTO">
@@ -12,23 +14,70 @@
       feed.userDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""> </div>
     <div class="profile-detail">
       <div class=" head">{{feed.userDTO?.username | titlecase}}</div>
-      <div class="subhead"> {{feed.metaData.actionDate}} </div>
+      <div class="subhead" [matTooltip]="feed.metaData.timeInUTC | date"> {{feed.metaData.timeString}} ago</div>
     </div>
   </div>
   <div class="main">
     <div class="text" [innerHtml]="feed?.text"> </div>
-    <div *ngIf="feed.postMediaDTOList.length">
-      <img class="w-100" [src]="feed.postMediaDTOList[0].postMediaLink" alt="">
+    <div *ngIf="feed.postMediaList?.length">
+      <owl-carousel-o [options]="customOptions">
+        <ng-container *ngFor="let media of feed.postMediaList;let i=index">
+          <ng-template carouselSlide [id]="i" *ngIf="media.mediaType === 'image'">
+            <img class="w-100" [src]="media.postMediaLink" alt="">
+          </ng-template>
+          <ng-template carouselSlide [id]="i" *ngIf="media.mediaType === 'video'">
+            <mat-video color="accent" [src]="media.postMediaLink"> </mat-video>
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
     </div>
   </div>
+  <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="margin-bottom:-4px">
+  </mat-progress-bar>
   <div class="footer-wrap">
-    <button mat-button>
-      <mat-icon [innerHtml]="'favorite_border'"></mat-icon> &nbsp;
-      <span> Like </span>
+    <button mat-button [disabled]="isLoading" (click)="likePost(feed.postActionId)"
+      [ngClass]="feed.postActionMeta.liked? 'liked':''">
+      <mat-icon [innerHtml]="feed.postActionMeta.liked?'favorite' :'favorite_border'"></mat-icon> &nbsp;
+      <span [innerHtml]="feed.postActionMeta.liked?'Liked' :'Like'"> Like </span>
     </button>
-    <button mat-button>
+    <button mat-button (click)="toggleComments(feed.postActionId)">
       <mat-icon>insert_comment</mat-icon> &nbsp;
       <span> Comment </span>
     </button>
+    <button mat-button>
+      <mat-icon>share</mat-icon> &nbsp;
+      <span> Share </span>
+    </button>
+  </div>
+  <div class="comments" [@expand]="isCommenting ? 'expanded' : 'collapsed'">
+    <div class="wrap">
+      <div *ngIf="feed.commentActionDTOList?.length && !isCommentLoading;  else noComments">
+        <div class="comment-box" *ngFor="let comment of feed.commentActionDTOList"
+          [ngClass]="comment.userActorDTO?.userId === getUserId()? 'myComment' : ''">
+          <app-comment-box class="comment-item" [comment]="comment" [postId]="feed.postActionId"
+            (update)="getComments(feed.postActionId)"></app-comment-box>
+          <div class="subComments" *ngIf="comment.childCommentDTOSet?.length">
+            <div class="child-comment" *ngFor="let item of comment.childCommentDTOSet">
+              <app-comment-box class="comment-item"
+                [ngClass]="item.userActorDTO?.userId === getUserId()? 'myComment' : ''" [comment]="item"
+                [postId]="feed.postActionId" (update)="getComments(feed.postActionId)"></app-comment-box>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #noComments>
+        <div class="loader">
+          <mat-spinner *ngIf="isCommentLoading" color="accent"></mat-spinner>
+        </div>
+        <p class="text-center" *ngIf="!feed?.commentActionDTOList?.length && !isCommentLoading">No Comments Found...!
+        </p>
+      </ng-template>
+      <div class="comment-wrapper">
+        <input type="text" placeholder="Write a Comment..." [formControl]="comment">
+        <button mat-flat-button color="accent" (click)="postComment(feed.postActionId)" [disabled]="!comment.valid">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </div>
   </div>
 </div>
