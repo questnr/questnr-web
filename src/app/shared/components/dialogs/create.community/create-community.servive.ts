@@ -12,10 +12,6 @@ export class CommunityService {
 
   constructor(private http: HttpClient) { }
   createCommunity(community) {
-    // const headers =  new HttpHeaders({
-    //   'content-type': 'multipart/form-data; boundary=$&#*',
-    //   'content-length': '10000000000000'
-    // });
     return this.http.post<any>(this.baseUrl + 'user/community', community);
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ApiService } from 'shared/api.service';
-import {TranslateService} from '@ngx-translate/core';
+// import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-landing-page',

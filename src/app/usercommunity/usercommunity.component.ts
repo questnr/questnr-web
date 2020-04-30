@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MatDialog, MatDialogModule} from '@angular/material';
 import {CreateCommunityComponent} from '../shared/components/dialogs/create.community/create-community.component';
+import {MatDialog} from '@angular/material/dialog';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -10,11 +12,18 @@ import {CreateCommunityComponent} from '../shared/components/dialogs/create.comm
 })
 export class UsercommunityComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public http: HttpClient) {
+  }
+
   @Input() hasCommunity = true;
+  @Input() defaultImage = 'assets/default.jpg';
+  baseUrl = environment.baseUrl;
+  ownedCommunity = [];
 
   ngOnInit() {
+    this.getUserOwnedCommunity();
   }
+
   createCommunity(): void {
     console.log();
     // @ts-ignore
@@ -26,6 +35,15 @@ export class UsercommunityComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       // this.animal = result;
+    });
+  }
+
+  getUserOwnedCommunity() {
+    this.http.get(this.baseUrl + 'user/community').subscribe((res: any) => {
+      this.ownedCommunity = res.content;
+      console.log(res.content);
+    }, error => {
+      console.log(error);
     });
   }
 }

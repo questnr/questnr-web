@@ -4,8 +4,9 @@ import {CommunityService} from './community.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {REGEX} from '../shared/constants';
 import {CreateCommunityComponent} from '../shared/components/dialogs/create.community/create-community.component';
-import {MatDialog} from '@angular/material';
 import {DescriptionComponent} from '../shared/components/dialogs/description/description.component';
+import {MatDialog} from '@angular/material/dialog';
+import {Community, CommunityUsers, OwnerUserDTO} from './community.model';
 
 @Component({
   selector: 'app-community',
@@ -14,42 +15,15 @@ import {DescriptionComponent} from '../shared/components/dialogs/description/des
 })
 export class CommunityComponent implements OnInit {
   isSidenavopen = false;
-
-  constructor(public auth: CommunityService, public fb: FormBuilder,public dialog: MatDialog) { }
-  cards = [
-    {
-      title: 'Sats community',
-      detail: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      members: '200',
-      lastActive: '8',
-      src: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Sats community',
-      detail: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      members: '200',
-      lastActive: '8',
-      src: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Sats community',
-      detail: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      members: '200',
-      lastActive: '8',
-      src: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    },
-    {
-      title: 'Sats community',
-      detail: 'Some quick example text to build on the card title and make up the bulk of the card content',
-      members: '200',
-      lastActive: '8',
-      src: 'https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg'
-    }
-  ];
+  url = (window.location.pathname).split('/')[2];
+  response: Community;
+  owner: OwnerUserDTO;
+  comUserList: CommunityUsers[];
+  feeds = [];
+  constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog) { }
 
   openCommunityDesc(event): void {
     console.log();
-    // @ts-ignore
     const dialogRef = this.dialog.open(DescriptionComponent, {
       width: '500px',
       data: { desc : event.target.innerText}
@@ -61,8 +35,43 @@ export class CommunityComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.fetchCommunity();
+  }
+  fetchCommunity() {
+    console.log(this.url);
+    // this.userList = [];
+    this.auth.getCommunityDetails(this.url).subscribe((res: Community) => {
+      this.fetchCommunityFeeds(res.communityId);
+      // res.communityUsers.map((value, index) => {
+      //   this.userList.push(value);
+      //   console.log(this.userList);
+      // });
+      this.response = res;
+      console.log(this.response);
+    }, error => {
+      console.log('oops', error);
+    });
   }
   toggle(_) {
     this.isSidenavopen = !this.isSidenavopen;
+  }
+  // getCommunityUser() {
+  //   this.auth.getCommunityUserList(this.url).subscribe((data: any) => {
+  //     data.content.map((value, index) => {
+  //       this.comUserList.push(value);
+  //     });
+  //     console.log(data.content);
+  //   }, error => {
+  //     console.log(error);
+  //   });
+  // }
+
+  fetchCommunityFeeds(communityId) {
+    this.auth.getCommunityFeeds(communityId).subscribe((res: any) => {
+      console.log(res.content);
+      this.feeds = res.content;
+    }, error => {
+      console.log(error);
+    })
   }
 }

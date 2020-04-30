@@ -27,15 +27,10 @@ import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common
 import { SignupComponent } from './auth/signup/signup.component';
 import { RankCardComponent } from './shared/components/rank-card/rank-card.component';
 import { InterceptorService } from './interceptor.service';
-// @ts-ignore
 import { CarouselModule } from 'ngx-owl-carousel-o';
-// @ts-ignore
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
-// @ts-ignore
 import { AngularFireDatabaseModule } from '@angular/fire/database';
-// @ts-ignore
 import { AngularFireAuthModule } from '@angular/fire/auth';
-// @ts-ignore
 import { AngularFireModule } from '@angular/fire';
 import { MessagingService } from './service/messaging.service';
 import { AsyncPipe } from '../../node_modules/@angular/common';
@@ -49,8 +44,8 @@ import { environment } from '../environments/environment';
 import { MnFullpageModule } from 'ngx-fullpage';
 import { AuthGuard } from 'auth/auth.guard';
 import { LoginService } from 'auth/login.service';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+// import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+// import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { CommunityComponent } from './community/community.component';
 import {CreateCommunityComponent} from './shared/components/dialogs/create.community/create-community.component';
 import { MoreOptionComponent } from './shared/components/more-option/more-option.component';
@@ -58,7 +53,19 @@ import { DescriptionComponent } from './shared/components/dialogs/description/de
 import { SuggestionComponent } from './suggestion/suggestion.component';
 import { SponseredComponent } from './sponsered/sponsered.component';
 import { UsercommunityComponent } from './usercommunity/usercommunity.component';
-import {MatDialogModule, MatSelectModule, MatTooltipModule} from '@angular/material';
+import {MatDialogModule} from '@angular/material/dialog';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {MatSelectModule} from '@angular/material/select';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TrendingComponent } from './trending/trending.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { CommunityUsersComponent } from './community-users/community-users.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
+
+// import {MatDialogModule, MatSelectModule, MatTooltipModule} from '@angular/material';
 
 const config = new AuthServiceConfig([
   {
@@ -73,7 +80,7 @@ const config = new AuthServiceConfig([
 export function provideConfig() {
   return config;
 }
-export function HttpLoaderFactory(http: HttpClient){
+export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 @NgModule({
@@ -91,7 +98,10 @@ export function HttpLoaderFactory(http: HttpClient){
     DescriptionComponent,
     SuggestionComponent,
     SponseredComponent,
-    UsercommunityComponent
+    UsercommunityComponent,
+    TrendingComponent,
+    CommunityUsersComponent,
+    UserProfileCardComponent
   ],
   imports: [
     AngularFireDatabaseModule,
@@ -123,14 +133,17 @@ export function HttpLoaderFactory(http: HttpClient){
     SocialLoginModule,
     MnFullpageModule.forRoot(),
     TranslateModule.forRoot({
-      loader:{
+      loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
     }),
     MatSelectModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ],
   entryComponents: [
     CreateCommunityComponent,

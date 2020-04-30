@@ -6,12 +6,12 @@
   height: 100%;
   max-width: 200px ;
   box-shadow: 7px 11px 23px 1px rgba(27, 29, 31, 0.2);
-  z-index: 111;
+  z-index: 2;
   color: #000000;
   padding: 10px;
   background: $text-white;
-  top: 10%;
-  left: 50%;
+  top: 0;
+  left: 100%;
 }
 //.t-tooltip::before {
 //  content: '';

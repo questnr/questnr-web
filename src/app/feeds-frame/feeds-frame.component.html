@@ -17,9 +17,12 @@
           <app-post-feed (postData)="postFeed($event)"></app-post-feed>
           <owl-carousel-o [options]="customOptions">
             <ng-container *ngFor="let community of communities;let i=index">
-              <ng-template carouselSlide [id]="i">
-                <qnr-card carouselSlide [imgSrc]="community.src" [title]="community.title" [detail]="community.detail">
-                </qnr-card>
+              <ng-template carouselSlide [id]= "i">
+                <a [href]="'/community/'+ community.slug">
+                  <qnr-card carouselSlide [imgSrc]="community.src" [title]="community.title"
+                            [detail]="community.detail">
+                  </qnr-card>
+                </a>
               </ng-template>
             </ng-container>
           </owl-carousel-o>
@@ -39,12 +42,15 @@
         </div>
         <aside class="right" *ngIf="!isMobile">
           <div class="stick">
+<!--            <div class="link-card">-->
+<!--              <h3>Suggested Communities</h3>-->
+<!--              <div class="links" *ngFor="let item of communities">-->
+<!--                <div class="icon"><img [src]="item.src" alt=""></div>-->
+<!--                <a class="link" routerLink="">{{item.title}}</a>-->
+<!--              </div>-->
+<!--            </div>-->
             <div class="link-card">
-              <h3>Suggested Communities</h3>
-              <div class="links" *ngFor="let item of communities">
-                <div class="icon"> <img [src]="item.src" alt=""> </div>
-                <a class="link" routerLink="">{{item.title}}</a>
-              </div>
+              <app-suggestion></app-suggestion>
             </div>
             <div class="card p-2">
               <p class="m-0">Sponsored</p>

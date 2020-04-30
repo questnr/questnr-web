@@ -14,16 +14,11 @@ export class FeedsFrameComponent implements OnInit {
   isSidenavopen = false;
   isMobile = false;
   communities = [
-    { title: 'Music', src: 'assets/community/music.png', detail: 200 },
-    { title: 'Business', src: 'assets/community/business.png', detail: 1200 },
-    { title: 'Health', src: 'assets/community/health.png', detail: 400 },
-    { title: 'Finance', src: 'assets/community/finance.png', detail: 300 },
-    { title: 'Nature', src: 'assets/community/nature.png', detail: 550 },
-    // { title: 'Technology', src: 'assets/community/technology.png', detail: 2300 },
-    // { title: 'Beauty & Cosmetics', src: 'assets/community/beauty&cosmetics.png', detail: 300 },
-    // { title: 'Corona', src: 'assets/community/corona.png', detail: 1350 },
-    // { title: 'Fashion', src: 'assets/community/fashion.png', detail: 400 },
-    // { title: 'Startup Community', src: 'assets/community/startup-community.png', detail: 530 }
+    { title: 'Music', src: 'assets/community/music.png', detail: 200, slug: 'music-3456790-976543' },
+    { title: 'Business', src: 'assets/community/business.png', detail: 1200, slug: 'business-45678-09876' },
+    { title: 'Health', src: 'assets/community/health.png', detail: 400, slug: 'health-9854-98765'},
+    { title: 'Finance', src: 'assets/community/finance.png', detail: 300 , slug: 'finance-9654-95'},
+    { title: 'Nature', src: 'assets/community/nature.png', detail: 550 , slug: 'nature-9765-98765'},
   ];
   constructor(private service: FeedsService) {
     if (window.screen.width <= 600) {
@@ -44,7 +39,7 @@ export class FeedsFrameComponent implements OnInit {
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    dots: false,
+    dots: true,
     navSpeed: 700,
     navText: ['', ''],
     responsive: {

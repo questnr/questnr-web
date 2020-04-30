@@ -1,0 +1,149 @@
+@import "../variables";
+
+
+.com-members-container {
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 8px;
+  background: $white;
+
+  .heading {
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 400;
+    padding: 5px 14px 8px;
+    color: $heading;
+  }
+
+  .com-member-det {
+    display: flex;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid $grey;
+    margin-bottom: 8px;
+
+    .member-avatar {
+      width: 100px;
+      height: auto;
+      max-height: 55px;
+      border-radius: 10px;
+      overflow: hidden;
+      min-height: 55px;
+
+      img {
+        width: 100%;
+        border-radius: 10px;
+        margin-right: 18px;
+      }
+    }
+
+    .member-name {
+      font-size: 18px;
+      color: $black;
+      flex-grow: 1;
+      cursor: pointer;
+      position: relative;
+      margin: auto;
+      padding-left: 20px;
+      a{
+        text-decoration: none;
+        :hover{
+          color: $heading;
+        }
+      }
+    }
+
+    .action-btn {
+      margin: auto;
+
+      button {
+        border: 1px solid $grey;
+        border-radius: 8px;
+        height: 33px;
+        line-height: 10px;
+      }
+    }
+  }
+
+  p {
+    text-align: right;
+    text-decoration: underline;
+    padding: 0 8px;
+    color: $heading;
+    cursor: pointer;
+  }
+}
+
+.action-btn button:hover {
+  //color: $heading;
+}
+.requested{
+  background: $heading;
+}
+
+
+
+/*shimmer for community Members*/
+
+.skeleton-box {
+  display: inline-block;
+  height: 1em;
+  position: relative;
+  overflow: hidden;
+  background-color: #DDDBDD;
+  border-radius: 10px;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(
+        90deg,
+        rgba(#fff, 0) 0,
+        rgba(#fff, 0.2) 20%,
+        rgba(#fff, 0.5) 60%,
+        rgba(#fff, 0)
+    );
+    animation: shimmer 2s infinite;
+    content: '';
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+.blog-post {
+  &__headline {
+    font-size: 1.25em;
+    font-weight: bold;
+  }
+
+  &__meta {
+    font-size: 0.85em;
+    color: #6b6b6b;
+  }
+}
+
+// OBJECTS
+
+.o-media {
+  display: flex;
+
+  &__body {
+    flex-grow: 1;
+    margin-top: 5px;
+  }
+}
+.desc{
+  width: 90%;
+}
+.media-box{
+  width: 35px;
+  height: 35px;
+}

@@ -29,21 +29,20 @@
 .flex-frame {
   display: flex;
   flex-wrap: nowrap;
-  justify-content: center;
 }
 
 .flex-3 {
   width: 30%;
-  margin: 0 10px;
+  margin: 0 30px;
 }
 .flex-5 {
   width: 50%;
-  margin: 0 10px;
+  margin: 0 30px;
 }
 
 .flex-6 {
   width: 60%;
-  margin: 0 10px;
+  margin: 0 30px;
 }
 
 .community-info {
@@ -115,7 +114,6 @@
 .community-feeds-container {
   background: $white;
   border-radius: 8px;
-  margin: 0 8px;
 }
 
 .com-ban-img-container {
@@ -172,8 +170,8 @@
     cursor: pointer;
   }
   .change-comm-img{
-    color: $heading;
-    opacity: 0.4;
+    color: $text-white;
+    opacity: 0.6;
     width: auto;
     position: absolute;
     top: 10%;
@@ -260,5 +258,20 @@
   grid-template-columns: 30% auto;
 }
 .grid-tile{
+
+}
+
+
+
+/*User profile card*/
+
+.follow-user{
   padding: 0 8px;
+  button{
+    width: 100%;
+  }
+}
+.follow-user button:hover{
+  border: 1px solid $grey;
+  color: $heading;
 }

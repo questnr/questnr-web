@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommunityService } from './create-community.servive';
 import { HttpHeaders } from '@angular/common/http';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-community',
@@ -10,9 +12,9 @@ import { HttpHeaders } from '@angular/common/http';
 })
 
 export class CreateCommunityComponent implements OnInit {
-  @Input() communityImage = 'assets/add.png';
+  @Input() communityImage = 'assets/default.jpg';
 
-  constructor(public fb: FormBuilder, public auth: CommunityService) {
+  constructor(public fb: FormBuilder, public auth: CommunityService, public snackbar: MatSnackBar, private dialogRef: MatDialogRef<CreateCommunityComponent>) {
   }
 
   src: any;
@@ -21,7 +23,8 @@ export class CreateCommunityComponent implements OnInit {
   description = new FormControl('', Validators.required);
   avatar = new FormControl(null);
   userCommunityimage: any;
-
+  isFormDisabled = true;
+  loading = false;
   ngOnInit() {
     this.group = this.fb.group({
       communityName: this.communityName,
@@ -55,14 +58,26 @@ export class CreateCommunityComponent implements OnInit {
 
   submit() {
     if (this.group.valid) {
+      this.loading = true;
       const formData: FormData = new FormData();
       formData.set('communityName', this.group.get('communityName').value);
       formData.set('description', this.group.get('description').value);
       if (this.group.get('avatar').value != null){
         formData.set('avatarFile', this.userCommunityimage, this.userCommunityimage.name);
       }
-      this.auth.createCommunity(formData).subscribe();
+      this.auth.createCommunity(formData).subscribe((res: any) => {
+        this.loading = false;
+        this.dialogRef.close();
+        this.snackbar.open('community created successfully', 'close',{duration: 5000});
+      }, error => {
+        this.loading = false;
+        this.snackbar.open('something went wrong.', 'close',{duration: 5000});
+        this.dialogRef.close();
+      });
     }
+  }
+  checkFormValid() {
+    this.isFormDisabled = this.group.valid;
   }
 
 }

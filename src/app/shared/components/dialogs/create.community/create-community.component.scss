@@ -53,6 +53,8 @@ mat-dialog-container{
 }
 
 .cret-com-container{
+  position: relative;
+  background: $black;
   .back-drop{
     position: absolute;
     width: 100%;
@@ -94,9 +96,9 @@ mat-dialog-container{
         background: transparent;
         color: $text-white;
         border: none;
-        //border-left: 4px solid $heading;
-        padding-left: 10px;
-        font-size: 22px;
+        border-left: 4px solid $heading;
+        padding-left: 20px;
+        font-size: 30px;
       }
       input::placeholder{
         color: $grey;
@@ -107,15 +109,23 @@ mat-dialog-container{
       white-space: nowrap;
       overflow-x: scroll;
       background: transparent;
-      color: $text-white;
-      font-size: 16px;
+      color: $white;
+      font-size: 14px;
       border: none;
-      margin-left: 15px;
+      padding-left: 10px;
     }
   }
   button{
-    background: $heading !important;
+    //background: $heading !important;
+    color: $white;
+    border: 1px solid $heading;
+    opacity: 0.6;
   }
+}
+.com-img-container button:hover{
+  opacity: 1;
+  background: $heading;
+  color: $text-white;
 }
 textarea::-webkit-input-placeholder {
   color: $grey;
@@ -159,4 +169,27 @@ mat-form-field{
 ::ng-deep.mat-form-field-ripple {
   /*change color of underline when focused*/
   background-color: $text-white !important;;
+}
+
+
+
+.loader{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #00000052;
+  z-index: 2;
+  display: block;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+  background-color: $heading;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+  background: $grey;
+}
+
+::ng-deep .mat-progress-bar {
+  border-radius: 2px;
 }

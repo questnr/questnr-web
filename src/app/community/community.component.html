@@ -1,225 +1,88 @@
-<app-user-header (menuToggle)="toggle(drawer)"></app-user-header>
-
-<!--<div class="section">-->
-<!--  <div class="background-wall">-->
-<!--    <div class="body-container">-->
-<!--      <div class="page_heading">-->
-<!--        &lt;!&ndash;        <h1> Create Community / Groups</h1>&ndash;&gt;-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-<!--<div class="section">-->
-<!--  <div class="search-panel">-->
-<!--    <div class="container-fluid">-->
-<!--      <div class="row">-->
-<!--        <div class="search-container">-->
-<!--          <div class="row">-->
-<!--            <div class="col-md-11" style="padding-right: 0">-->
-<!--              <div class="filter">-->
-<!--                <span>Popular</span>-->
-<!--              </div>-->
-<!--              <div class="filter">-->
-<!--                <span>Sort</span>-->
-<!--              </div>-->
-<!--              <div class="filter">-->
-<!--                <span>Filter</span>-->
-<!--              </div>-->
-<!--              <div class="filter">-->
-<!--                <span>Search</span>-->
-<!--              </div>-->
-<!--              <div class="filter">-->
-<!--              <span>-->
-<!--                Trending-->
-<!--              </span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="col-md-1" style="padding: 0">-->
-<!--              <div class="search-text">-->
-<!--              <span>-->
-<!--                <i class="fa fa-search"></i>-->
-<!--              </span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-<!--&lt;!&ndash;<div>&ndash;&gt;-->
-<!--&lt;!&ndash;  <button mat-raised-button (click)="openDialog()">open</button>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--<div class="section">-->
-<!--  <div class="body-container">-->
-<!--    <div class="createCommunityContainer">-->
-<!--      <div class="">-->
-<!--        <h1>-->
-<!--          Your Communities-->
-<!--        </h1>-->
-<!--        <div class="">-->
-<!--          <div class="row">-->
-<!--            <div class="col-sm-12">-->
-<!--              <div class="">-->
-<!--                <div class="section">-->
-<!--                  <div class="row">-->
-<!--                    <div class="col-md-4 cc-container" *ngFor="let i of cards">-->
-<!--                      <mat-card class="community-card">-->
-<!--                        <div >-->
-<!--                          <div style="overflow: hidden">-->
-<!--                            <img alt="image" [src]="i.src"></div>-->
-<!--                          <div class="back-drop-comm_title"></div>-->
-<!--                          <div class="back-drop-comm_det"></div>-->
-<!--                          <h5 class="community-title">{{i.title}}</h5>-->
-<!--                          <div class="community-details">-->
-<!--                            <div class="container-fluid">-->
-<!--                              <div class="row">-->
-<!--                                <div class="col-md-6">-->
-<!--                                  <div class="last-seen"><i class="fa fa-clock-o"></i>Active {{i.lastActive}} hours ago</div>-->
-<!--                                </div>-->
-<!--                                <div class="col-md-6">-->
-<!--                                  <div class="members"><i class="fa fa-users"></i>{{i.members}} members</div>-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                      </mat-card>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-4 cc-container" >-->
-<!--                      <mat-card  mat-ripple class="community-card" style="height: 100%; cursor: pointer" (click)="openDialog()">-->
-<!--                        <div class="add-community">-->
-<!--                          <div class="t-tooltip">-->
-<!--                            Click to create New community !-->
-<!--                          </div>-->
-<!--                          &lt;!&ndash;                          <i class="fa fa-plus" aria-hidden="true"></i>&ndash;&gt;-->
-<!--                          <img src="assets/add.png" alt="">-->
-<!--&lt;!&ndash;                          <div style="position: absolute; width: fit-content;box-shadow: 5px 5px 25px 0 rgba(46, 61, 73, .2)">&ndash;&gt;-->
-<!--&lt;!&ndash;                            add Community image&ndash;&gt;-->
-<!--&lt;!&ndash;                          </div>&ndash;&gt;-->
-<!--                        </div>-->
-<!--                      </mat-card>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-
-<!--              </div>-->
-
-<!--            </div>-->
-<!--          </div>-->
-
-<!--        </div>-->
-<!--      </div>-->
-
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-
-<!--<div class="section">-->
-<!--  <div class="body-container">-->
-<!--    <div class="container">-->
-
-<!--      <div class="row">-->
-
-
-<!--      </div>-->
-
-<!--    </div>-->
-
-<!--  </div>-->
-
-<!--</div>-->
-
+<app-user-header></app-user-header>
 
 <div class="site-body">
   <div class="container">
     <div class="flex-frame">
-      <div class="flex-3">
-        <div class="community-details">
-          <div class="default-navs">
-            <ul>
-              <li>
-                <div style="color: orangered;font-weight: 500">Home</div>
-              </li>
-              <li>
-                <div>Explore</div>
-              </li>
-            </ul>
-          </div>
+<!--      <div class="flex-3">-->
+<!--        <div class="community-details">-->
+<!--          <div class="default-navs">-->
+<!--            <ul>-->
+<!--              <li>-->
+<!--                <div style="color: orangered;font-weight: 500">Home</div>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <div>Explore</div>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
 
-          <!--Community Informations-->
+<!--          &lt;!&ndash;Community Informations&ndash;&gt;-->
 
-          <div class="community-info">
-            <!--            <h1>This is the Name of the Community.</h1>-->
-            <!--            <div class="com-img-container">-->
-            <!--              <img src="assets/red_man.jpg" alt="defaultImage" style="width: 100%; height: 100%" (click)="openDialog()">-->
-            <!--            </div>-->
-            <div class="com-det-container">
-              <div class="profile-background">
+<!--          <div class="community-info">-->
+<!--            <div class="com-det-container">-->
+<!--              <div class="profile-background">-->
 
-              </div>
-              <div class="com-owner-det">
-                <a href="/user-profile">
-                  <div class="owner-img">
-                    <img src="assets/default.jpg" alt="defaultowner">
-                  </div>
-                  <div>
-                    <div class="owner-name">
-                      <h5> Satish Kumar Gaur</h5>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <hr>
+<!--              </div>-->
+<!--              <div class="com-owner-det">-->
+<!--                <a href="/user-profile">-->
+<!--                  <div class="owner-img">-->
+<!--                    <img src="assets/default.jpg" alt="defaultowner">-->
+<!--                  </div>-->
+<!--                  <div>-->
+<!--                    <div class="owner-name">-->
+<!--                      <h5> Satish Kumar Gaur</h5>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </a>-->
+<!--              </div>-->
+<!--              <hr>-->
 
-              <div class="user-follower">
-                <mat-icon>people_outline</mat-icon>
-                <span>500 Followers</span>
-              </div>
+<!--              <div class="user-follower">-->
+<!--                <mat-icon>people_outline</mat-icon>-->
+<!--                <span>500 Followers</span>-->
+<!--              </div>-->
 
-              <div class="user-follower">
-                <mat-icon>calendar_view_day</mat-icon>
-                <span>66 Posts</span>
-              </div>
-            </div>
-            <div class="trending-tags">
-              <h1>Trending Hashtags</h1>
-              <ul>
-                <li>
-                  <div>#Music</div>
-                </li>
-                <li>
-                  <div>#Nature</div>
-                </li>
-                <li>
-                  <div>#Startup</div>
-                </li>
-                <li>
-                  <div>#MindPower</div>
-                </li>
-              </ul>
-              <hr style="margin: 8px 15px;">
-              <div class="footer">
-                <ul>
-                  <li>
-                    <div>About.</div>
-                  </li>
-                  <li>
-                    <div>Terms.</div>
-                  </li>
-                  <li>
-                    <div>Privacy Policy.</div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+<!--              <div class="user-follower">-->
+<!--                <mat-icon>calendar_view_day</mat-icon>-->
+<!--                <span>66 Posts</span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="trending-tags">-->
+<!--              <h1>Trending Hashtags</h1>-->
+<!--              <ul>-->
+<!--                <li>-->
+<!--                  <div>#Music</div>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                  <div>#Nature</div>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                  <div>#Startup</div>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                  <div>#MindPower</div>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--              <hr style="margin: 8px 15px;">-->
+<!--              <div class="footer">-->
+<!--                <ul>-->
+<!--                  <li>-->
+<!--                    <div>About.</div>-->
+<!--                  </li>-->
+<!--                  <li>-->
+<!--                    <div>Terms.</div>-->
+<!--                  </li>-->
+<!--                  <li>-->
+<!--                    <div>Privacy Policy.</div>-->
+<!--                  </li>-->
+<!--                </ul>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
 
-        </div>
+<!--        </div>-->
 
-      </div>
+<!--      </div>-->
 
 
       <div class="flex-6">
@@ -228,14 +91,42 @@
             <div class="change-comm-img">
               <mat-icon>camera</mat-icon>
             </div>
-            <img src="assets/boat-on-the-water.jpg" alt="banner" class="comm-ban-img">
+            <img [src]="response.avatarDTO.avatarLink" alt="banner" class="comm-ban-img" onerror="this.onerror=null;this.src='assets/default.jpg';">
             <div class="com-ban-overlay"></div>
             <div class="com-head-container">
-              <h1>Test name of this community.</h1>
-              <h3 #desc value='this is the demo description for the community and if the whole description is not visible then
-              it can be viewed in and popup dialog' (click)="openCommunityDesc($event)">this is the demo description for
-                the community and if the whole description is not visible then
-                it can be viewed in and popup dialog</h3>
+              <h1>{{response.communityName}}</h1>
+              <h3 #desc (click)="openCommunityDesc($event)">{{response.description}}</h3>
+            </div>
+          </div>
+        </div>
+        <div class="com-dets">
+          <div class="btn-container">
+            <button mat-stroked-button> Owner</button>
+          </div>
+          <div class="btn-container float-right">
+            <button mat-stroked-button> Invite</button>
+            <button mat-stroked-button > Follow
+            </button>
+          </div>
+        </div>
+        <div class="grid-view">
+          <div class="grid-tile">
+            <app-user-profile-card></app-user-profile-card>
+          </div>
+          <div class="grid-tile">
+            <div class="community-feeds">
+              <app-post-feed ></app-post-feed>
+              <ng-container *ngIf="feeds.length; else noFeeds">
+                <div class="feed-wrap" *ngFor="let feed of feeds">
+                  <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
+                </div>
+                <p class="text-center" *ngIf="feeds.length===1 && feeds[0] === null">No Feeds Found...!</p>
+              </ng-container>
+              <ng-template #noFeeds>
+                <p class="text-center">
+                  <mat-spinner></mat-spinner>
+                </p>
+              </ng-template>
             </div>
           </div>
         </div>
@@ -243,8 +134,10 @@
 
 
       <div class="flex-3">
+        <app-community-users></app-community-users>
         <app-usercommunity></app-usercommunity>
         <app-suggestion></app-suggestion>
+        <app-trending></app-trending>
         <app-sponsered></app-sponsered>
       </div>
     </div>

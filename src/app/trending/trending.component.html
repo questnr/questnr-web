@@ -1,60 +1,19 @@
-<!--<div class="user-com-container">-->
-<!--  <div class="user-community">-->
-
-<!--    <div class="no-community" *ngIf="ownedCommunity.length; else communityList">-->
-
-<!--      <div class="has-community" >-->
-<!--        <h1>Your Communities</h1>-->
-<!--        <div>-->
-<!--          <ul>-->
-<!--            <li *ngFor="let i of ownedCommunity"  class="grid">-->
-<!--              <div class="community_image">-->
-<!--                <img [src]="i.avatarDTO.avatarLink" [alt]="i.communityName">-->
-<!--              </div>-->
-<!--              <div [id]=i.communityId>-->
-<!--                <a [href]="'/community/' + i.slug">{{i.communityName}}</a>-->
-<!--              </div>-->
-<!--            </li>-->
-<!--          </ul>-->
-<!--          <div class="createCommBtn">-->
-<!--            <span (click)="createCommunity()">-->
-<!--              Create more-->
-<!--            </span></div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <ng-template #communityList>-->
-<!--      <p>-->
-<!--        You haven't created any community yet.-->
-<!--      </p>-->
-<!--      <div>-->
-<!--        <a (click)="createCommunity()"> Create one now.</a>-->
-<!--      </div>-->
-
-<!--    </ng-template>-->
-
-<!--  </div>-->
-<!--</div>-->
-
-
 <div class="suggestion-container">
   <div class="com-suggestion">
-    <h1>Owned Communities.</h1>
-    <div  *ngIf="ownedCommunity.length; else noCommunity" >
+    <h1>Trending Communities.</h1>
+    <div  *ngIf="trendingCommunityList.length; else noTrending" >
       <ul>
-        <li *ngFor="let i of ownedCommunity"  class="grid">
+        <li *ngFor="let i of trendingCommunityList"  class="grid">
           <div class="community_image">
-            <img [src]="i.avatarDTO.avatarLink" [alt]="i.communityName"  onerror="this.onerror=null;this.src='assets/default.jpg';">
+            <img [src]="i.avatarDTO.avatarLink" [alt]="i.communityName" onerror="this.onerror=null;this.src='assets/default.jpg';">
           </div>
           <div [id]=i.communityId>
             <a [href]="'/community/' + i.slug">{{i.communityName}}</a>
           </div>
         </li>
       </ul>
-      <p (click)="createCommunity()" >Create community</p>
     </div>
-    <ng-template #noCommunity>
+    <ng-template #noTrending>
       <div>
         <ul class="o-vertical-spacing o-vertical-spacing--l">
           <li  class="grid blog-post o-media">
