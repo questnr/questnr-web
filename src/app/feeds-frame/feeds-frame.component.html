@@ -14,7 +14,7 @@
           </div>
         </aside>
         <div class="feeds">
-          <app-post-feed (postData)="postFeed($event)"></app-post-feed>
+          <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=false></app-post-feed>
           <owl-carousel-o [options]="customOptions">
             <ng-container *ngFor="let community of trendingCommunities;let i=index">
               <ng-template carouselSlide [id]="i">
@@ -27,7 +27,7 @@
             <div class="feed-wrap" *ngFor="let feed of userFeeds">
               <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
             </div>
-            <p class="text-center" *ngIf="userFeeds.length===1 && userFeeds[0] === null">No Feeds Found...!</p>
+            <p class="text-center" style="margin-top :30px" *ngIf="userFeeds.length===1 && userFeeds[0] === null"><mat-chip>No Feeds Found...!</mat-chip></p>
           </ng-container>
           <div class="loader">
             <mat-spinner *ngIf="loading" color="accent"></mat-spinner>

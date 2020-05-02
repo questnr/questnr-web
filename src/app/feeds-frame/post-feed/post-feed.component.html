@@ -38,7 +38,10 @@
     </button>
     <!-- <button mat-button>...</button> -->
     <div class="space"></div>
-    <button mat-button class="btn-color" (click)="postFeed()" disabled> Post &nbsp;
+    <button mat-button class="btn-color" *ngIf="!isCommunityPost" (click)="postFeed()" > Post &nbsp;
+      <mat-icon>send</mat-icon>
+    </button>
+    <button mat-button class="btn-color" *ngIf="isCommunityPost" (click)="postFeed()" > Post &nbsp;
       <mat-icon>send</mat-icon>
     </button>
   </div>

@@ -35,6 +35,7 @@ export class UsercommunityComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getUserOwnedCommunity();
       // this.animal = result;
     });
   }
