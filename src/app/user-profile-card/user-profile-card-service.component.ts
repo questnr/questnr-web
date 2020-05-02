@@ -12,7 +12,7 @@ export class UserProfileCardServiceComponent {
   constructor(private http: HttpClient) { }
 
   followMe(id) {
-    this.http.post<any>(this.baseUrl + 'user/follow/user/' + id , '').subscribe( (res: any) => {
+    this.http.post(this.baseUrl + 'user/follow/user/' + id , '').subscribe( (res: any) => {
       return true;
     }, error => {
       return false;

@@ -34,11 +34,8 @@ export class CommunityUsersComponent implements OnInit {
     });
   }
 
-  sendFollowInvite(i, ev) {
-    ev.target.innerText = 'Requested';
-    // ev.target.offsetParent.style.background = '#ff6600';
-    // ev.target.offsetParent.style.color = '#ffffff';
-    this.http.post(this.baseUrl + '/follow/user/' + i  , '').subscribe((res: any) => {
+  sendFollowInvite(i) {
+    this.http.post(this.baseUrl + 'user/follow/user/' + i  , '').subscribe((res: any) => {
       console.log(res);
     }, error => {
       console.log(error);

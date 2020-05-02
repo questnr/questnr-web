@@ -1,7 +1,7 @@
 
-<div class="com-members-container">
+<div class="com-members-container box">
   <h1 class="heading">Members</h1>
-  <div *ngIf="communityMemberList.length >1 ; else noMembers">
+  <div *ngIf="communityMemberList.length ; else noMembers">
     <div class="com-member-det" *ngFor="let i of communityMemberList" [id]="i.userId">
       <div class="member-avatar">
         <img [src]="i.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';">
@@ -10,9 +10,20 @@
         <a [href]="'/user/' + i.slug">{{i.username}}</a>
       </div>
       <div class="action-btn">
-        <button mat-button (click)="sendFollowInvite(i.userId, $event)">
-          Follow
+        <button mat-button  *ngIf="i.userMeta.relationShipType ==='followed'" style="background: green; color: #fff" disabled>
+         <mat-icon>check</mat-icon>
+          Following
         </button>
+        <a [href]="'/user/' + i.slug" *ngIf="i.userMeta.relationShipType ==='owned'; else notFollowing" >
+        <button mat-button>
+          It's You
+        </button>
+        </a>
+        <ng-template #notFollowing>
+          <button mat-button  *ngIf="i.userMeta.relationShipType != 'followed'" (click)="sendFollowInvite(i.userId)">
+            Follow
+          </button>
+        </ng-template>
       </div>
     </div>
     <p> View more.</p>
