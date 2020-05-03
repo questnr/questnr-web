@@ -75,14 +75,12 @@ export class LandingPageComponent implements OnInit {
     this.api.getTopUsers().subscribe(
       (res: any) => {
         if (res.content) {
-          console.log(res);
           this.users = [...res.content].slice(0, 8);
         }
       }, err => { });
     this.api.getTopHashtags().subscribe(
       (res: any) => {
         if (res.content) {
-          console.log(res);
           this.hashtags = res.content;
           this.topHashtags = [...this.hashtags].splice(0, 5);
         }

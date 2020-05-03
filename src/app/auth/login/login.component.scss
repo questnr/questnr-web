@@ -4,6 +4,7 @@
   text-align: center;
   font-size: 16px;
   font-weight: 500;
+  margin-top: 20px;
 }
 .social-logins {
   display: flex;
@@ -25,12 +26,12 @@
   }
 }
 
-.forgot{
+.forgot {
   float: right;
   position: relative;
   top: 8px;
 }
-mat-form-field{
+mat-form-field {
   height: 80px;
 }
 
@@ -43,23 +44,23 @@ mat-form-field{
     display: block;
     float: none !important;
   }
-  .btn-color{
+  .btn-color {
     width: 100% !important;
   }
-  .or{
+  .or {
     position: relative;
     top: 42px;
   }
-  .social-logins{
+  .social-logins {
     margin-top: 40px;
-    button{
+    button {
       border: none !important;
     }
   }
-  .text{
+  .text {
     display: none;
   }
-  .center{
+  .center {
     padding: 8px !important;
   }
 }

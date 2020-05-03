@@ -18,7 +18,8 @@
           <owl-carousel-o [options]="customOptions">
             <ng-container *ngFor="let community of trendingCommunities;let i=index">
               <ng-template carouselSlide [id]="i">
-                <qnr-card carouselSlide [imgSrc]="community.src" [title]="community.title" [detail]="community.detail" [slug]="community.slug">
+                <qnr-card carouselSlide [imgSrc]="community.src" [title]="community.title" [detail]="community.detail"
+                  [slug]="community.slug">
                 </qnr-card>
               </ng-template>
             </ng-container>
@@ -33,28 +34,16 @@
             <mat-spinner *ngIf="loading" color="accent"></mat-spinner>
           </div>
           <ng-template #noFeeds>
-            <p class="text-center" *ngIf="!loading">No Feeds Found...!</p>
+            <p class="text-center" *ngIf="!loading">It seems you don’t have any post yet.</p>
           </ng-template>
+          <div *ngIf="userFeeds.length && this.endOfPosts">
+            <p class="text-center mt-4">- End -</p>
+          </div>
         </div>
         <aside class="right" *ngIf="!isMobile">
           <div class="stick">
-<!--            <div class="link-card">-->
-<!--              <h3>Suggested Communities</h3>-->
-<!--              <div class="links" *ngFor="let item of communities">-->
-<!--                <div class="icon"><img [src]="item.src" alt=""></div>-->
-<!--                <a class="link" routerLink="">{{item.title}}</a>-->
-<!--              </div>-->
-<!--            </div>-->
             <div class="link-card">
-<!--<<<<<<< HEAD-->
               <app-suggestion></app-suggestion>
-<!--=======-->
-<!--              <h3>Suggested Communities</h3>-->
-<!--              <div class="links" *ngFor="let item of suggestedCommunities">-->
-<!--                <div class="icon"> <img [src]="item.src" alt=""> </div>-->
-<!--                <a class="link" routerLink="">{{item.title}}</a>-->
-<!--              </div>-->
-<!--&gt;>>>>>> master-->
             </div>
             <div class="card p-2">
               <p class="m-0">Sponsored</p>
@@ -67,8 +56,3 @@
   </mat-sidenav-content>
 
 </mat-sidenav-container>
-
-<!-- <router-outlet></router-outlet> -->
-<!-- <app-profile-ribbon [user]="" [profile]=""></app-profile-ribbon> -->
-<!-- <app-floating-ads></app-floating-ads>
-<app-floating-footer></app-floating-footer> -->

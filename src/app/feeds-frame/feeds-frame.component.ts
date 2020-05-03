@@ -14,34 +14,11 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   sideConfig = 'side';
   isSidenavopen = false;
   isMobile = false;
-// <<<<<<< HEAD
-//   communities = [
-//     { title: 'Music', src: 'assets/community/music.png', detail: 200, slug: 'music-3456790-976543' },
-//     { title: 'Business', src: 'assets/community/business.png', detail: 1200, slug: 'business-45678-09876' },
-//     { title: 'Health', src: 'assets/community/health.png', detail: 400, slug: 'health-9854-98765'},
-//     { title: 'Finance', src: 'assets/community/finance.png', detail: 300 , slug: 'finance-9654-95'},
-//     { title: 'Nature', src: 'assets/community/nature.png', detail: 550 , slug: 'nature-9765-98765'},
-//   ];
-//   constructor(private service: FeedsService) {
-//     if (window.screen.width <= 600) {
-//       this.sideConfig = 'over';
-//       this.isMobile = true;
-//     } else if (window.screen.width >= 1368) {
-//       this.isSidenavopen = false;
-//       this.sideConfig = 'side';
-//     } else if (window.screen.width >= 600 && window.screen.width <= 1368) {
-//       this.sideConfig = 'side';
-//       this.isSidenavopen = true;
-//       this.isMobile = true;
-//     }
-//   }
-//
-// =======
   loading = true;
+  endOfPosts = false;
   communities = [];
   trendingCommunities = [];
   suggestedCommunities = [];
-// >>>>>>> master
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -83,7 +60,11 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   }
 
   postFeed(event) {
-    this.getUserFeeds();
+    if (event.postActionId) {
+      this.userFeeds = [event, ...this.userFeeds];
+    } else {
+      this.getUserFeeds();
+    }
   }
 
   ngOnInit(): void {
@@ -97,9 +78,11 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   }
   scroll = (event): void => {
     if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      this.loading = true;
-      ++this.page;
-      this.getUserFeeds();
+      if (this.userFeeds.length > 1 && !this.endOfPosts) {
+        this.loading = true;
+        ++this.page;
+        this.getUserFeeds();
+      }
     }
   }
   getUserFeeds() {
@@ -107,10 +90,12 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     this.service.getFeeds(this.page).subscribe(
       (res: any) => {
         if (res.content.length) {
-          console.log(res.content);
           res.content.forEach(post => {
             this.userFeeds.push(post);
+            console.log(post);
           });
+        } else {
+          this.endOfPosts = true;
         }
         this.loading = false;
       }, err => { }

@@ -1,8 +1,7 @@
 <form [formGroup]="group">
-
   <div class="alert alert-danger" *ngIf="errMsg"> <strong>Error! </strong> {{errMsg }}</div>
   <mat-form-field class="w-100" appearance="fill">
-    <mat-label>{{'login.email'| translate}}</mat-label>
+    <mat-label>{{'login.username'| translate}}/{{'login.email'| translate}}</mat-label>
     <mat-icon matPrefix>email</mat-icon>
     <input type="text" matInput [formControl]="email" placeholder="{{'login.ePlace' | translate}}">
     <mat-error *ngIf="email.hasError('required')">Email is required.</mat-error>
@@ -15,7 +14,12 @@
     <mat-error *ngIf="password.hasError('required')">Password is required.</mat-error>
   </mat-form-field>
   <a href="" class="forgot">{{'login.forgot' | translate}}</a>
-  <button mat-button class="btn-color" (click)="login()"> {{'login.login' | translate}} </button>
+  <button mat-flat-button color="accent" (click)="login()" [disabled]="isLoading">
+    <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
+      <span class="sr-only">Loading...</span>
+    </div> &nbsp;
+    {{'login.login' | translate}}
+  </button>
 </form>
 
 <p class="or">{{'login.or' | translate}}</p>
