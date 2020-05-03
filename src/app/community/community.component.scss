@@ -124,6 +124,7 @@
   overflow: hidden;
   position: relative;
   border-radius: 10px;
+  background: #a52b31;
 
   img {
     width: 100%;
@@ -183,9 +184,12 @@
   }
 }
 
-.com-ban-img-container:hover .change-comm-img{
+.com-ban-img-container:hover .change-comm-img {
   opacity: 1;
-  transform: rotate(-45deg);
+  transform: rotate(-90deg);
+}
+.change-comm-img:hover .change-comm-img mat-icon{
+  transform: rotate(-90deg);
 }
 .com-ban-img-container:hover .com-head-container{
   -webkit-transform: translateY(-30%);

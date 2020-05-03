@@ -11,8 +11,8 @@ export class FeedsService {
 
   constructor(private http: HttpClient) { }
 
-  postFeed(data) {
-    const req = new HttpRequest('POST', this.baseUrl + 'user/posts', data, { reportProgress: true });
+  postFeed(data, apiUrl) {
+    const req = new HttpRequest('POST', this.baseUrl + apiUrl, data, { reportProgress: true });
     return this.http.request(req);
   }
   getFeeds(page) {
