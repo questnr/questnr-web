@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy, Input} from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { LoginService } from 'auth/login.service';
@@ -17,6 +17,8 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
   ],
 })
 export class PostFeedComponent {
+  @Input() isCommunityPost = false;
+  @Input() communityId;
   isLoading = false;
   uploading = false;
   uploadProgress = 0;
@@ -25,7 +27,7 @@ export class PostFeedComponent {
   addedMedias = [];
   addedMediaSrc = [];
   @Output() postData = new EventEmitter();
-
+  apiUrl: any;
   isMediaEnabled = false;
 
   constructor(private login: LoginService, private service: FeedsService) {
@@ -82,7 +84,13 @@ export class PostFeedComponent {
           formData.append('files', file);
         });
       }
-      this.service.postFeed(formData).subscribe(
+      if (this.isCommunityPost  && this.communityId != null) {
+        this.apiUrl = 'user/community/' + this.communityId + '/posts';
+      } else{
+        this.apiUrl = 'user/posts';
+      }
+      console.log(this.isCommunityPost, this.communityId, this.apiUrl, formData);
+      this.service.postFeed(formData, this.apiUrl).subscribe(
         (event: HttpEvent<any>) => {
           if (event.type === HttpEventType.UploadProgress) {
             this.uploading = true;
