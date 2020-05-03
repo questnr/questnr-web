@@ -40,7 +40,12 @@
       <mat-error *ngIf="confirmPassword.hasError('MatchPassword')">Password does not match.</mat-error>
     </mat-form-field>
   </div>
-  <button mat-button class="btn-color" (click)="submit()"> {{'signup.signup' | translate}} </button>
+  <button mat-button class="btn-color w-100" (click)="submit()">
+    <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
+      <span class="sr-only">Loading...</span>
+    </div> &nbsp;
+    {{'signup.signup' | translate}}
+  </button>
 </form>
 
 <p class="or">{{'signup.or' | translate}}</p>

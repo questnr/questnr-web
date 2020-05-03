@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-trending',
@@ -21,7 +21,7 @@ export class TrendingComponent implements OnInit {
     this.http.get(this.baseUrl + 'community/trending-community-list').subscribe((res: any) => {
       this.loader = false;
       this.trendingCommunityList = res.content;
-      console.log(this.trendingCommunityList);
+      // console.log(this.trendingCommunityList);
     }, error => {
       this.loader = false;
     });

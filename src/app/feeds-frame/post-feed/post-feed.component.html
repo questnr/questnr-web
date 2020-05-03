@@ -5,13 +5,16 @@
     <!-- <span *ngIf="uploading" [ngStyle]="moveProgressCount()">{{http.uploadProgress}}%</span> -->
   </div>
   <div class="post-wrap">
-    <div class="icon"> <img [src]="profileImg? profileImg : 'assets/default.jpg'" alt=""> </div>
+    <div class="icon my-3"> <img [src]="profileImg? profileImg : 'assets/default.jpg'" alt=""> </div>
     <textarea rows="1" placeholder="Post Something...." [formControl]="text"></textarea>
   </div>
 
   <div class="media" [@expand]="isMediaEnabled ? 'expanded' : 'collapsed'">
     <div class="media-wrap">
       <div class="media-item" *ngFor="let item of addedMedias; let i=index">
+        <button mat-icon-button (click)="removeMedia(i)">
+          <mat-icon>close</mat-icon>
+        </button>
         <img *ngIf="addedMediaSrc[i]?.type.includes('image')" [src]="addedMediaSrc[i]?.src">
         <video *ngIf="addedMediaSrc[i]?.type.includes('video')">
           <source [src]="addedMediaSrc[i]?.src" [type]="addedMediaSrc[i].type">
@@ -28,7 +31,7 @@
     </div>
   </div>
   <div class="btn-wrap">
-    <button mat-button (click)="toggleAddMedia()">
+    <button mat-button (click)="toggleAddMedia()" [ngClass]="{ active: isMediaEnabled}">
       <mat-icon>add_a_photo</mat-icon> &nbsp;
       <span> Photo/Video </span>
     </button>
@@ -38,8 +41,9 @@
     </button>
     <!-- <button mat-button>...</button> -->
     <div class="space"></div>
-    <button mat-button class="btn-color" (click)="postFeed()" disabled> Post &nbsp;
-      <mat-icon>send</mat-icon>
+    <button mat-flat-button class="btn-post" color="accent" (click)="postFeed()"
+      [disabled]="isPostInvalid() || isLoading">
+      Post &nbsp; <mat-icon>send</mat-icon>
     </button>
   </div>
 </div>

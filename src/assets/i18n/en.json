@@ -10,23 +10,23 @@
     "heading": "Community Groups",
     "members": "Members"
   },
-  "membersRank" : {
+  "membersRank": {
     "heading": "Members Rank",
     "followers": "Followers",
     "posts": "Posts"
   },
-  "popularHastags" : {
+  "popularHastags": {
     "heading": "Popular hashtags"
   },
-  "infographics" : {
-    "heading1" : "Join the Best Community",
+  "infographics": {
+    "heading1": "Join the Best Community",
     "subheading1": "Subscribe to questnr now and start your new \n \n social life now!",
     "heading2": "Be part of our next Community Events.",
     "subheading2": "Be part of our next Community Events & meet other peoples like you. Share, Discuss & maybe find you partner in crime.",
     "heading3": "Annoyed by Other <br> Social Networks?",
     "subheading3": "150.000 members have already created their profile <br> and enjoy a network of friends from hell!<br> So... What are you waiting for?"
   },
-  "moto" : {
+  "moto": {
     "heading": "Let's Create a <br> Strong Community ",
     "subheading1": "Talk to Real <br> People",
     "desc1": "Members profile are verified everyday. Questnr therefore only contains motivated  members who really want to be part of the community.",
@@ -38,18 +38,18 @@
   "footer": {
     "company": {
       "heading": "Company",
-      "home": "Home" ,
+      "home": "Home",
       "blog": "Blog",
-      "commingSoon": "Comming Soon" ,
-      "AboutUs": "About Us" ,
-      "terms":" Terms & Conditions"
+      "commingSoon": "Comming Soon",
+      "AboutUs": "About Us",
+      "terms": " Terms & Conditions"
     },
     "products": {
       "heading": "Products",
-      "social":  "Social Wall",
+      "social": "Social Wall",
       "member": "Members Swap",
       "allMember": "All Members",
-      "communityGroups":  "Community Groups",
+      "communityGroups": "Community Groups",
       "forums": "Forums"
     },
     "community": {
@@ -77,7 +77,7 @@
     "fPlace": "Enter your First Name",
     "lname": "Last Name",
     "lPlace": "Enter Your Last Name",
-    "uname":  "Username",
+    "uname": "Username",
     "uPlace": "Enter your Username",
     "email": "Email",
     "ePlace": "Enter your Email",
@@ -94,9 +94,10 @@
   },
   "login": {
     "heading": "LOGIN",
-    "email":  "Email",
+    "email": "Email",
+    "username": "Username",
     "ePlace": "Enter your Email",
-    "password":   "Password",
+    "password": "Password",
     "pPlace": "Enter your Password",
     "login": "Login",
     "or": "OR",

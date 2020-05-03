@@ -42,6 +42,9 @@ button {
     background: $primary;
   }
 }
+.mat-drawer-content {
+  background: #efefef;
+}
 
 //Video Player UI fixes
 .controls {
@@ -413,11 +416,10 @@ input:focus {
 }
 //<<<<<<< HEAD
 
-.mat-dialog-container{
+.mat-dialog-container {
   border-radius: 10px !important;
   padding: 0px !important;
 }
-
 
 .createCommunityForm .mat-form-field-wrapper {
   padding: 0 !important;
@@ -429,5 +431,5 @@ input:focus {
     padding: 0 10px;
     margin: 0 auto;
   }
-//>>>>>>> master
+  //>>>>>>> master
 }

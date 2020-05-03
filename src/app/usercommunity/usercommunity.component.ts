@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CreateCommunityComponent} from '../shared/components/dialogs/create.community/create-community.component';
-import {MatDialog} from '@angular/material/dialog';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
+import { Component, Input, OnInit } from '@angular/core';
+import { CreateCommunityComponent } from '../shared/components/dialogs/create.community/create-community.component';
+import { MatDialog } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -26,7 +26,7 @@ export class UsercommunityComponent implements OnInit {
   }
 
   createCommunity(): void {
-    console.log();
+    // console.log();
     // @ts-ignore
     const dialogRef = this.dialog.open(CreateCommunityComponent, {
       width: '800px',
@@ -34,7 +34,7 @@ export class UsercommunityComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      // console.log('The dialog was closed');
       // this.animal = result;
     });
   }
@@ -44,10 +44,10 @@ export class UsercommunityComponent implements OnInit {
     this.http.get(this.baseUrl + 'user/community').subscribe((res: any) => {
       this.loader = false;
       this.ownedCommunity = res.content;
-      console.log(res.content);
+      // console.log(res.content);
     }, error => {
       this.loader = false;
-      console.log(error);
+      // console.log(error);
     });
   }
 }

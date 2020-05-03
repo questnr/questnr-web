@@ -13,12 +13,12 @@
     <div class="profile-icon"> <img [src]="feed.userDTO?.avatarDTO?.avatarLink ?
       feed.userDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""> </div>
     <div class="profile-detail">
-      <div class=" head">{{feed.userDTO?.username | titlecase}}</div>
+      <div class=" head">{{feed.userDTO?.username}}</div>
       <div class="subhead" [matTooltip]="feed.metaData.timeInUTC | date"> {{feed.metaData.timeString}} ago</div>
     </div>
   </div>
-  <div class="main">
-    <div class="text" [innerHtml]="feed?.text"> </div>
+  <div class="mb-2">
+    <div class="text" *ngIf="feed?.text && feed.text !== 'null'" [innerHtml]="feed?.text"> </div>
     <div *ngIf="feed.postMediaList?.length">
       <owl-carousel-o [options]="customOptions">
         <ng-container *ngFor="let media of feed.postMediaList;let i=index">
@@ -32,27 +32,32 @@
       </owl-carousel-o>
     </div>
   </div>
-  <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="margin-bottom:-4px">
-  </mat-progress-bar>
+  <div class="count-box">
+    <div> <span>{{feed.totalLikes? feed.totalLikes: 0}} </span>
+      {{feed.totalLikes>1? 'Likes': 'Like'}}</div>
+    <div class="dot"></div>
+    <div> <span> {{feed.totalComments?feed.totalComments:0}} </span>
+      {{feed.totalComments> 1? 'Comments': 'Comment'}} </div>
+  </div>
   <div class="footer-wrap">
     <button mat-button [disabled]="isLoading" (click)="likePost(feed.postActionId)"
       [ngClass]="feed?.postActionMeta?.liked? 'liked':''">
       <mat-icon [innerHtml]="feed?.postActionMeta?.liked?'favorite' :'favorite_border'"></mat-icon> &nbsp;
       <span [innerHtml]="feed?.postActionMeta?.liked?'Liked' :'Like'"> Like </span>
     </button>
-    <button mat-button (click)="toggleComments(feed.postActionId)">
+    <button mat-button (click)="toggleComments()">
       <mat-icon>insert_comment</mat-icon> &nbsp;
       <span> Comment </span>
     </button>
-    <button mat-button>
+    <button mat-button (click)="toggleSharing()">
       <mat-icon>share</mat-icon> &nbsp;
       <span> Share </span>
     </button>
   </div>
   <div class="comments" [@expand]="isCommenting ? 'expanded' : 'collapsed'">
     <div class="wrap">
-      <div *ngIf="feed.commentActionDTOList?.length && !isCommentLoading;  else noComments">
-        <div class="comment-box" *ngFor="let comment of feed.commentActionDTOList"
+      <div *ngIf="feed.commentActionList?.length && !isCommentLoading;  else noComments">
+        <div class="comment-box" *ngFor="let comment of feed.commentActionList"
           [ngClass]="comment.userActorDTO?.userId === getUserId()? 'myComment' : ''">
           <app-comment-box class="comment-item" [comment]="comment" [postId]="feed.postActionId"
             (update)="getComments(feed.postActionId)"></app-comment-box>
@@ -69,15 +74,16 @@
         <div class="loader">
           <mat-spinner *ngIf="isCommentLoading" color="accent"></mat-spinner>
         </div>
-        <p class="text-center" *ngIf="!feed?.commentActionDTOList?.length && !isCommentLoading">No Comments Found...!
-        </p>
       </ng-template>
       <div class="comment-wrapper">
-        <input type="text" placeholder="Write a Comment..." [formControl]="comment">
+        <input type="text" [formControl]="comment" placeholder="Write a Comment..">
         <button mat-flat-button color="accent" (click)="postComment(feed.postActionId)" [disabled]="!comment.valid">
           <mat-icon>send</mat-icon>
         </button>
       </div>
     </div>
+  </div>
+  <div class="share" [@expand]="isSharing ? 'expanded' : 'collapsed'">
+
   </div>
 </div>
