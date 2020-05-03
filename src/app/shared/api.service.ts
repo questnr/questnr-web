@@ -32,9 +32,6 @@ export class ApiService {
   getNotifications() {
     return this.http.get(this.baseUrl + 'user/notification');
   }
-  getSharableLink(postId) {
-    return this.http.get(this.baseUrl + `post/${postId}/link`);
-  }
   registerPushNotificationToken(token: string) {
     return this.http.post(this.baseUrl + 'push-notification/token', token);
   }

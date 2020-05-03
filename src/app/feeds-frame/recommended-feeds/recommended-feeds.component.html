@@ -5,7 +5,8 @@
     <div class="profile-detail" *ngIf="feed.communityDTO">
       <div class="head">{{feed.communityDTO?.communityName}}</div>
       <div class="subhead"> Posted in Community -
-        <span [matTooltip]="feed.metaData.timeInUTC | date">{{feed.metaData.timeString}} ago</span>
+        <span [matTooltip]="feed.metaData.timeInUTC | date">
+          {{feed.metaData.timeString === 'now'? 'Just Now': feed.metaData.timeString + ' ago' }}</span>
       </div>
     </div>
   </div>
@@ -49,7 +50,7 @@
       <mat-icon>insert_comment</mat-icon> &nbsp;
       <span> Comment </span>
     </button>
-    <button mat-button (click)="toggleSharing()">
+    <button mat-button (click)="openShareDialog()">
       <mat-icon>share</mat-icon> &nbsp;
       <span> Share </span>
     </button>
@@ -82,8 +83,5 @@
         </button>
       </div>
     </div>
-  </div>
-  <div class="share" [@expand]="isSharing ? 'expanded' : 'collapsed'">
-
   </div>
 </div>

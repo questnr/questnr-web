@@ -36,4 +36,7 @@ export class FeedsService {
   dislikeComment(commentId) {
     return this.http.delete(this.baseUrl + `user/posts/comment/${commentId}/like`);
   }
+  getSharableLink(postId) {
+    return this.http.post(this.baseUrl + `post/${postId}/link`, {});
+  }
 }

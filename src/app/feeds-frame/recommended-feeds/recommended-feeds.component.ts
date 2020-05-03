@@ -4,7 +4,8 @@ import { FormControl, Validators } from '@angular/forms';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { LoginService } from 'auth/login.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-
+import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-recommended-feeds',
   templateUrl: './recommended-feeds.component.html',
@@ -20,21 +21,22 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 export class RecommendedFeedsComponent implements OnInit {
   @Input() feed;
   isCommenting = false;
-  isSharing = false;
   isReplying = false;
   isLoading = false;
   isCommentLoading = false;
   comment = new FormControl('', Validators.required);
   replyComment = new FormControl('', Validators.required);
 
+  postLink;
+
   customOptions: OwlOptions = {
     loop: false,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    dots: false,
+    dots: true,
     navSpeed: 700,
-    navText: ['', ''],
+    navText: ['<', '>'],
     responsive: {
       0: {
         items: 1
@@ -49,21 +51,16 @@ export class RecommendedFeedsComponent implements OnInit {
         items: 1
       }
     },
-    nav: false,
+    nav: true,
     autoplay: true
   };
 
-  constructor(private api: FeedsService, private login: LoginService) { }
+  constructor(private api: FeedsService, private login: LoginService, private dialog: MatDialog) { }
 
   ngOnInit() {
   }
   toggleComments() {
-    this.isSharing = false;
     this.isCommenting = !this.isCommenting;
-  }
-  toggleSharing() {
-    this.isCommenting = false;
-    this.isSharing = !this.isSharing;
   }
   getComments(postId) {
     this.api.getComments(postId).subscribe(
@@ -106,7 +103,14 @@ export class RecommendedFeedsComponent implements OnInit {
       );
     }
   }
-
+  openShareDialog() {
+    this.api.getSharableLink(this.feed.postActionId).subscribe((res: any) => {
+      this.dialog.open(SharePostComponent, {
+        width: '500px',
+        data: { url: res.clickAction }
+      });
+    });
+  }
   likedPost() {
     this.isLoading = false;
     this.feed.postActionMeta.liked = true;

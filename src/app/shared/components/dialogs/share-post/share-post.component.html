@@ -1,0 +1,23 @@
+<div class="m-3">
+  <h5 class="text-center">Share this Post</h5>
+  <hr class="my-3">
+
+  <div class="btn-wrapper">
+    <button mat-flat-button shareButton="facebook" [url]="url" [style.backgroundColor]="'#3b5998'">
+      Facebook
+    </button>
+    <button mat-flat-button shareButton="twitter" [url]="url" [style.backgroundColor]="'#55acee'">
+      Twitter
+    </button>
+    <button mat-flat-button shareButton="linkedin" [url]="url" [style.backgroundColor]="'#0077b5'">
+      LinkedIn
+    </button>
+    <button mat-flat-button shareButton="whatsapp" [url]="url" [style.backgroundColor]="'#43d854'">
+      WhatsApp
+    </button>
+    <button mat-flat-button [cdkCopyToClipboard]="url" (cdkCopyToClipboardCopied)="showCopied($event)"
+      [disabled]="isCopied" color="accent">
+      <mat-icon *ngIf="isCopied">check</mat-icon> {{isCopied? 'Copied':'Copy Link'}}
+    </button>
+  </div>
+</div>

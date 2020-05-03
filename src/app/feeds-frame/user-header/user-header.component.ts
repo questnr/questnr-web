@@ -41,11 +41,11 @@ export class UserHeaderComponent {
           this.searchHashtag();
         }
       });
-    this.api.getNotifications().subscribe(
-      res => {
-        console.log(res);
-      }
-    );
+    // this.api.getNotifications().subscribe(
+    //   res => {
+    //     console.log(res);
+    //   }
+    // );
   }
   toggleMenu() {
     this.menuToggle.emit();

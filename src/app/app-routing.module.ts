@@ -13,16 +13,17 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from 'auth/auth.guard';
 import { UserHeaderComponent } from 'feeds-frame/user-header/user-header.component';
 import { SidenavComponent } from 'feeds-frame/sidenav/sidenav.component';
-import {CommunityComponent} from './community/community.component';
+import { CommunityComponent } from './community/community.component';
 import { PostFeedComponent } from 'feeds-frame/post-feed/post-feed.component';
 import { FeedsFrameComponent } from 'feeds-frame/feeds-frame.component';
+import { FeedsLoaderComponent } from 'feeds-frame/recommended-feeds/feeds-loader/feeds-loader.component';
 
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'feeds', component: FeedsFrameComponent, canActivate: [AuthGuard] },
   { path: 'header', component: HeaderComponent },
-  {path: 'community/:black', component: CommunityComponent}
+  { path: 'community/:black', component: CommunityComponent }
 ];
 
 export interface Tile {
@@ -51,6 +52,7 @@ export const routingComponent = [
   LandingPageComponent,
   UserHeaderComponent,
   SidenavComponent,
-  PostFeedComponent
+  PostFeedComponent,
+  FeedsLoaderComponent
 ];
 

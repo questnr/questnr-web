@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { LoginService } from 'auth/login.service';

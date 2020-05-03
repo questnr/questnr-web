@@ -45,30 +45,43 @@ import {
 import { MatVideoModule } from 'mat-video';
 import { environment } from '../environments/environment';
 
-import { MnFullpageModule } from 'ngx-fullpage';
 import { AuthGuard } from 'auth/auth.guard';
 import { LoginService } from 'auth/login.service';
 // import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 // import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { CommunityComponent } from './community/community.component';
-import {CreateCommunityComponent} from './shared/components/dialogs/create.community/create-community.component';
+import { CreateCommunityComponent } from './shared/components/dialogs/create.community/create-community.component';
 import { MoreOptionComponent } from './shared/components/more-option/more-option.component';
 import { DescriptionComponent } from './shared/components/dialogs/description/description.component';
 import { SuggestionComponent } from './suggestion/suggestion.component';
 import { SponseredComponent } from './sponsered/sponsered.component';
 import { UsercommunityComponent } from './usercommunity/usercommunity.component';
-import {MatDialogModule} from '@angular/material/dialog';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {MatSelectModule} from '@angular/material/select';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { MatDialogModule } from '@angular/material/dialog';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { MatSelectModule } from '@angular/material/select';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TrendingComponent } from './trending/trending.component';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommunityUsersComponent } from './community-users/community-users.component';
 import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
 
 // import {MatDialogModule, MatSelectModule, MatTooltipModule} from '@angular/material';
 import { CommentBoxComponent } from './feeds-frame/recommended-feeds/comment-box/comment-box.component';
 import { DragDropDirective } from 'drag-drop.directive';
+// import { ShareModule, ShareButtonsConfig } from '@ngx-share/core';
+import { SharePostComponent } from './shared/components/dialogs/share-post/share-post.component';
+
+import { ShareButtonsModule } from '@ngx-share/buttons';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ShareButtonsConfig } from '@ngx-share/core';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+
+
+const customConfig: ShareButtonsConfig = {
+  include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
+  theme: 'circles-light',
+  autoSetMeta: true,
+};
 
 const config = new AuthServiceConfig([
   {
@@ -106,7 +119,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommunityUsersComponent,
     UserProfileCardComponent,
     CommentBoxComponent,
-    DragDropDirective
+    DragDropDirective,
+    SharePostComponent
   ],
   imports: [
     AngularFireDatabaseModule,
@@ -140,7 +154,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatProgressSpinnerModule,
     MatProgressBarModule,
     SocialLoginModule,
-    MnFullpageModule.forRoot(),
+    ShareButtonsModule.withConfig(customConfig),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -152,7 +166,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatTooltipModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    NgxSkeletonLoaderModule,
+    ClipboardModule
   ],
   entryComponents: [
     CreateCommunityComponent,
