@@ -27,14 +27,14 @@ export class CommunityComponent implements OnInit {
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
   openCommunityDesc(event): void {
-    console.log();
+    // console.log();
     const dialogRef = this.dialog.open(DescriptionComponent, {
       width: '500px',
-      data: { desc : event.target.innerText}
+      data: { desc: event.target.innerText }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      // console.log('The dialog was closed');
       // this.animal = result;
     });
   }
@@ -42,7 +42,7 @@ export class CommunityComponent implements OnInit {
     this.fetchCommunity();
   }
   fetchCommunity() {
-    console.log(this.url);
+    // console.log(this.url);
     // this.userList = [];
     this.auth.getCommunityDetails(this.url).subscribe((res: Community) => {
       this.fetchCommunityFeeds(res.communityId);
@@ -56,7 +56,7 @@ export class CommunityComponent implements OnInit {
       this.owner = res.ownerUserDTO.userMeta.relationShipType;
       console.log('owner', this.owner);
     }, error => {
-      console.log('oops', error);
+      // console.log('oops', error);
     });
   }
 
@@ -79,10 +79,10 @@ export class CommunityComponent implements OnInit {
 
   fetchCommunityFeeds(communityId) {
     this.auth.getCommunityFeeds(communityId).subscribe((res: any) => {
-      console.log(res.content);
+      // console.log(res.content);
       this.feeds = res.content;
     }, error => {
-      console.log(error);
+      // console.log(error);
     });
   }
   changeCommunityAvatar() {

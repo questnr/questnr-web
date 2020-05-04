@@ -25,10 +25,10 @@ export class FeedsService {
     return this.http.post(this.baseUrl + `user/posts/${postId}/comment`, data);
   }
   likePost(postId) {
-    return this.http.post(this.baseUrl + `user/posts/${postId}/like`, {});
+    return this.http.post(this.baseUrl + `user/posts/${postId}/like`, {}, { observe: 'response' });
   }
   dislikePost(postId) {
-    return this.http.delete(this.baseUrl + `user/posts/${postId}/like`);
+    return this.http.delete(this.baseUrl + `user/posts/${postId}/like`, { observe: 'response' });
   }
   likeComment(commentId) {
     return this.http.post(this.baseUrl + `user/posts/comment/${commentId}/like`, {});

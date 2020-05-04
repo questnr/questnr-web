@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { LoginService } from '../login.service';
 import { Router } from '@angular/router';
-import { REGEX } from 'shared/constants';
 import { AuthService } from 'angularx-social-login';
 import { ApiService } from '../../shared/api.service';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
@@ -15,10 +14,10 @@ import { AngularFireMessaging } from '@angular/fire/messaging';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  isLoading = false;
   group: FormGroup;
   errMsg: '';
-  email = new FormControl('', [Validators.required, Validators.pattern(REGEX.EMAIL)]);
+  email = new FormControl('', Validators.required);
   password = new FormControl('', Validators.required);
 
   constructor(
@@ -36,6 +35,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.errMsg = '';
     if (this.group.valid) {
+      this.isLoading = true;
       this.auth.login(this.group.value).subscribe(
         res => {
           if (res.accessToken && res.loginSuccess) {
@@ -48,8 +48,9 @@ export class LoginComponent implements OnInit {
           } else {
             this.errMsg = res.errorMessage;
           }
+          this.isLoading = false;
         },
-        err => { }
+        err => { this.isLoading = false; }
       );
     }
   }
@@ -70,13 +71,14 @@ export class LoginComponent implements OnInit {
 
   facebookLogin() {
     this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID).then(user => {
-      this.socialLogin(user);
+      // this.socialLogin(user);
     });
   }
   socialLogin(user) {
     this.auth.login(user).subscribe(
       res => {
         if (res.loginSuccess) {
+          localStorage.setItem('token', res.accessToken);
           this.router.navigate(['feeds']);
         }
       }, err => { }

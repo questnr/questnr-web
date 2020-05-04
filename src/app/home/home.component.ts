@@ -35,14 +35,12 @@ export class HomeComponent implements OnInit {
     this.api.getTopUsers().subscribe(
       (res: any) => {
         if (res.content) {
-          console.log(res);
           this.users = res.content;
         }
       }, err => { });
     this.api.getTopHashtags().subscribe(
       (res: any) => {
         if (res.content) {
-          console.log(res);
           this.hashtags = res.content;
         }
       }, err => { });

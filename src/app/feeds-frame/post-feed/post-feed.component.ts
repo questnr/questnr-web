@@ -8,7 +8,6 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
   selector: 'app-post-feed',
   templateUrl: './post-feed.component.html',
   styleUrls: ['./post-feed.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('expand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -51,13 +50,11 @@ export class PostFeedComponent {
 
   filesDropped(droppedFiles) {
     const files = Object.values(droppedFiles);
-    console.log(files);
     files.forEach((file: any) => {
       if (file.type.includes('image') || file.type.includes('video')) {
         this.addedMedias.push(file);
         this.loadPreview(file);
       }
-      // console.log(droppedFiles[0].file.name);
     });
   }
   loadPreview(file) {
@@ -72,6 +69,10 @@ export class PostFeedComponent {
     if (event.target.files.length > 0) {
       this.filesDropped(event.target.files);
     }
+  }
+  removeMedia(index) {
+    this.addedMedias.splice(index, 1);
+    this.addedMediaSrc.splice(index, 1);
   }
   postFeed() {
     if (this.text.value || this.addedMediaSrc.length) {
@@ -91,23 +92,28 @@ export class PostFeedComponent {
       console.log(this.isCommunityPost, this.communityId, this.apiUrl, formData);
       this.service.postFeed(formData, this.apiUrl).subscribe(
         (event: HttpEvent<any>) => {
-          console.log(event, this.uploadProgress);
           if (event.type === HttpEventType.UploadProgress) {
             this.uploading = true;
             this.uploadProgress = Math.round(event.loaded / event.total * 100);
           } else if (event.type === HttpEventType.Response) {
+            this.postData.emit(event.body);
             this.reset();
           }
         }, err => { this.reset(); }
       );
     }
   }
+  isPostInvalid() {
+    if (this.text.value || this.addedMedias.length) {
+      return false;
+    }
+    return true;
+  }
   reset() {
     this.isLoading = false;
     this.uploading = false;
     this.isMediaEnabled = false;
     this.uploadProgress = 0;
-    this.postData.emit(true);
     this.text.setValue('');
     this.addedMediaSrc = this.addedMedias = [];
   }

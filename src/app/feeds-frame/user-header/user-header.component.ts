@@ -22,7 +22,6 @@ export class UserHeaderComponent {
 
   constructor(private router: Router, public auth: LoginService, private api: ApiService) {
     this.profile = this.auth.getUserProfile();
-    // this.profileImg = this.auth.getUserProfileIcon
     this.auth.getUser().subscribe(
       (res) => {
         this.profileImg = res.avatarLink;
@@ -42,6 +41,11 @@ export class UserHeaderComponent {
           this.searchHashtag();
         }
       });
+    this.api.getNotifications().subscribe(
+      res => {
+        console.log(res);
+      }
+    );
   }
   toggleMenu() {
     this.menuToggle.emit();
