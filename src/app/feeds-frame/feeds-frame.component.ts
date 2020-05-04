@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { FeedsService } from './feeds.service';
 import { ApiService } from 'shared/api.service';
+import { MessagingService } from '../service/messaging.service';
 
 @Component({
   selector: 'app-feeds-frame',
@@ -14,34 +15,34 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   sideConfig = 'side';
   isSidenavopen = false;
   isMobile = false;
-// <<<<<<< HEAD
-//   communities = [
-//     { title: 'Music', src: 'assets/community/music.png', detail: 200, slug: 'music-3456790-976543' },
-//     { title: 'Business', src: 'assets/community/business.png', detail: 1200, slug: 'business-45678-09876' },
-//     { title: 'Health', src: 'assets/community/health.png', detail: 400, slug: 'health-9854-98765'},
-//     { title: 'Finance', src: 'assets/community/finance.png', detail: 300 , slug: 'finance-9654-95'},
-//     { title: 'Nature', src: 'assets/community/nature.png', detail: 550 , slug: 'nature-9765-98765'},
-//   ];
-//   constructor(private service: FeedsService) {
-//     if (window.screen.width <= 600) {
-//       this.sideConfig = 'over';
-//       this.isMobile = true;
-//     } else if (window.screen.width >= 1368) {
-//       this.isSidenavopen = false;
-//       this.sideConfig = 'side';
-//     } else if (window.screen.width >= 600 && window.screen.width <= 1368) {
-//       this.sideConfig = 'side';
-//       this.isSidenavopen = true;
-//       this.isMobile = true;
-//     }
-//   }
-//
-// =======
+  // <<<<<<< HEAD
+  //   communities = [
+  //     { title: 'Music', src: 'assets/community/music.png', detail: 200, slug: 'music-3456790-976543' },
+  //     { title: 'Business', src: 'assets/community/business.png', detail: 1200, slug: 'business-45678-09876' },
+  //     { title: 'Health', src: 'assets/community/health.png', detail: 400, slug: 'health-9854-98765'},
+  //     { title: 'Finance', src: 'assets/community/finance.png', detail: 300 , slug: 'finance-9654-95'},
+  //     { title: 'Nature', src: 'assets/community/nature.png', detail: 550 , slug: 'nature-9765-98765'},
+  //   ];
+  //   constructor(private service: FeedsService) {
+  //     if (window.screen.width <= 600) {
+  //       this.sideConfig = 'over';
+  //       this.isMobile = true;
+  //     } else if (window.screen.width >= 1368) {
+  //       this.isSidenavopen = false;
+  //       this.sideConfig = 'side';
+  //     } else if (window.screen.width >= 600 && window.screen.width <= 1368) {
+  //       this.sideConfig = 'side';
+  //       this.isSidenavopen = true;
+  //       this.isMobile = true;
+  //     }
+  //   }
+  //
+  // =======
   loading = true;
   communities = [];
   trendingCommunities = [];
   suggestedCommunities = [];
-// >>>>>>> master
+  // >>>>>>> master
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -68,7 +69,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     autoplay: true
   };
 
-  constructor(private service: FeedsService, private api: ApiService) {
+  constructor(private service: FeedsService, private api: ApiService, private messagingService: MessagingService) {
     if (window.screen.width <= 600) {
       this.sideConfig = 'over';
       this.isMobile = true;
@@ -91,6 +92,9 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     this.getUserFeeds();
     this.getSuggestedCommunities();
     this.getTrendingCommunities();
+
+    // Request notification permission
+    this.messagingService.requestPermission();
   }
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);

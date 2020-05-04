@@ -33,8 +33,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { MessagingService } from './service/messaging.service';
 import { AsyncPipe } from '../../node_modules/@angular/common';
@@ -51,18 +49,18 @@ import { LoginService } from 'auth/login.service';
 // import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 // import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { CommunityComponent } from './community/community.component';
-import {CreateCommunityComponent} from './shared/components/dialogs/create.community/create-community.component';
+import { CreateCommunityComponent } from './shared/components/dialogs/create.community/create-community.component';
 import { MoreOptionComponent } from './shared/components/more-option/more-option.component';
 import { DescriptionComponent } from './shared/components/dialogs/description/description.component';
 import { SuggestionComponent } from './suggestion/suggestion.component';
 import { SponseredComponent } from './sponsered/sponsered.component';
 import { UsercommunityComponent } from './usercommunity/usercommunity.component';
-import {MatDialogModule} from '@angular/material/dialog';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {MatSelectModule} from '@angular/material/select';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { MatDialogModule } from '@angular/material/dialog';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { MatSelectModule } from '@angular/material/select';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TrendingComponent } from './trending/trending.component';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommunityUsersComponent } from './community-users/community-users.component';
 import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
 
@@ -109,8 +107,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     DragDropDirective
   ],
   imports: [
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
     MatVideoModule,
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
