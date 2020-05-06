@@ -10,6 +10,7 @@ export class Community {
   communityUsers: CommunityUsers[];
   metaList: MetaList;
   metaData: MetaData;
+  communityMeta: CommunityMeta;
 }
 export class UserMeta {
   relationShipType: string;
@@ -51,6 +52,9 @@ export class MetaData {
   actionDate: string;
   actionDateForPost: string;
   edited: boolean;
+}
+export  class CommunityMeta {
+  relationShipType: string;
 }
 //
 // {

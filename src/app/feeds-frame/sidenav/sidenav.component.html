@@ -4,7 +4,7 @@
     <div class="icon">
       <img [src]="item.src" alt="">
     </div>
-    <a class="link" routerLink="">{{item.title}}</a>
+    <a class="link" [href]="'/community/' + item.slug">{{item.title}}</a>
   </div>
 </div>
 <div class="link-card">

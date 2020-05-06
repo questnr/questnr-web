@@ -8,6 +8,7 @@ import {DescriptionComponent} from '../shared/components/dialogs/description/des
 import {MatDialog} from '@angular/material/dialog';
 import {Community, CommunityUsers, OwnerUserDTO} from './community.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {LoginService} from '../auth/login.service';
 
 @Component({
   selector: 'app-community',
@@ -24,13 +25,14 @@ export class CommunityComponent implements OnInit {
   ownerDTO: OwnerUserDTO;
   comUpdatedAvatar: any;
   communityImage: any;
-  constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar) { }
+  constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar, public loginAuth: LoginService) { }
 
-  openCommunityDesc(event): void {
+  openCommunityDesc(desc: any, communityImg: any): void {
     // console.log();
     const dialogRef = this.dialog.open(DescriptionComponent, {
       width: '500px',
-      data: { desc: event.target.innerText }
+      // height: '300px',
+      data: {  text : desc, communityAvatar: communityImg}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -53,7 +55,7 @@ export class CommunityComponent implements OnInit {
       // });
       this.communityDTO = res;
       this.ownerDTO = res.ownerUserDTO;
-      this.owner = res.ownerUserDTO.userMeta.relationShipType;
+      this.owner = res.communityMeta.relationShipType;
       console.log('owner', this.owner);
     }, error => {
       // console.log('oops', error);
@@ -70,8 +72,10 @@ export class CommunityComponent implements OnInit {
     });
   }
   unfollowThisCommunity() {
-    this.auth.unfollowCommunity(this.communityDTO.communityId).subscribe((res: any) => {
+    const userId = this.loginAuth.getUserProfile().id;
+    this.auth.unfollowCommunityService(this.communityDTO.communityId, userId).subscribe((res: any) => {
       console.log('unfollowed' + this.communityDTO.communityName, res);
+      this.owner = '';
     }, error => {
       console.log('failed to unfollow' + this.communityDTO.communityName, error.error.errorMessage);
     });

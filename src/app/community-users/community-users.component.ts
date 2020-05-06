@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import {UserProfileCardServiceComponent} from '../user-profile-card/user-profile-card-service.component';
+import {LoginService} from '../auth/login.service';
 
 @Component({
   selector: 'app-community-users',
@@ -13,7 +15,7 @@ export class CommunityUsersComponent implements OnInit {
   communityMemberList = [];
   loader = false;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public userService: UserProfileCardServiceComponent, public loginService: LoginService) {
   }
 
   ngOnInit(): void {
@@ -39,6 +41,14 @@ export class CommunityUsersComponent implements OnInit {
       console.log(res);
     }, error => {
       console.log(error.error.errorMessage);
+    });
+  }
+  unfollowUser(userId) {
+    const ownerId = this.loginService.getUserProfile().id;
+    this.userService.unfollowMe(ownerId, userId).subscribe((res: any) => {
+
+    }, error => {
+
     });
   }
 }

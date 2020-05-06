@@ -96,8 +96,8 @@
 <!--            <img [src]="comUpdatedAvatar" alt="editedImage" *ngif="!isImageEdited">-->
             <div class="com-ban-overlay"></div>
             <div class="com-head-container">
-              <h1>{{communityDTO.communityName}}</h1>
-              <h3  (click)="openCommunityDesc($event)">{{communityDTO.description}}</h3>
+              <h1>{{communityDTO?.communityName}}</h1>
+              <h3  (click)="openCommunityDesc(communityDTO?.description, communityImage)">{{communityDTO?.description}}</h3>
             </div>
           </div>
         </div>
@@ -109,7 +109,7 @@
 
           </div>
           <div class="btn-container float-right">
-            <button mat-stroked-button style="background: green; color: #fff" *ngIf="owner ==='followed'; else notFollowing">
+            <button mat-stroked-button style="background: green; color: #fff" *ngIf="owner ==='followed'; else notFollowing" (click)="unfollowThisCommunity()">
               <mat-icon>check</mat-icon>
               Following
             </button>
@@ -120,13 +120,13 @@
         </div>
         <div class="grid-view">
           <div class="grid-tile">
-            <app-user-profile-card [avatarLink]="communityDTO.ownerUserDTO.avatarDTO.avatarLink" [relationship]="communityDTO.ownerUserDTO.userMeta.relationShipType"
-            [userId]="communityDTO.ownerUserDTO.userId" [username]="communityDTO.ownerUserDTO.username" [slug]="communityDTO.ownerUserDTO.slug"  ></app-user-profile-card>
+            <app-user-profile-card [avatarLink]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink" [relationship]="communityDTO?.ownerUserDTO?.userMeta?.relationShipType"
+            [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username" [slug]="communityDTO?.ownerUserDTO?.slug"  ></app-user-profile-card>
             <app-floating-footer></app-floating-footer>
           </div>
           <div class="grid-tile">
             <div class="community-feeds">
-              <app-post-feed [isCommunityPost]=true [communityId]="communityDTO.communityId"></app-post-feed>
+              <app-post-feed [isCommunityPost]=true [communityId]="communityDTO?.communityId"></app-post-feed>
               <ng-container *ngIf="feeds.length; else noFeeds">
                 <div class="feed-wrap" *ngFor="let feed of feeds">
                   <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>

@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserProfileCardServiceComponent} from './user-profile-card-service.component';
+import {LoginService} from '../auth/login.service';
 @Component({
   selector: 'app-user-profile-card',
   templateUrl: './user-profile-card.component.html',
@@ -14,7 +15,7 @@ export class UserProfileCardComponent implements OnInit {
   followed: any;
   owner = false;
   // @Input() followers;
-  constructor( public auth: UserProfileCardServiceComponent) { }
+  constructor( public auth: UserProfileCardServiceComponent, public loginAuth: LoginService) { }
 
   ngOnInit(): void {
     if (this.avatarLink == null) {
@@ -26,6 +27,22 @@ export class UserProfileCardComponent implements OnInit {
   }
 
   addUser() {
-    this.followed = this.auth.followMe(this.userId);
+    const res = this.auth.followMe(this.userId);
+    this.auth.followMe(this.userId).subscribe((response: any) => {
+      this.relationship = response.userMeta.relationShipType ;
+    }, error => {
+      this.relationship = '';
+      console.log(error.error.errorMessage);
+    });
+  }
+  unfollowUser(userId) {
+    const ownerId =  this.loginAuth.getUserProfile().id;
+    console.log(ownerId, userId);
+    this.auth.unfollowMe(ownerId, userId).subscribe((res: any) => {
+      console.log('sucess');
+      this.relationship = '';
+    }, error => {
+      console.log(error.error.errorMessage);
+    })
   }
 }
