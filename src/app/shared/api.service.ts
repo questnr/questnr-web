@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -36,6 +36,17 @@ export class ApiService {
     return this.http.get(this.baseUrl + `post/${postId}/link`);
   }
   registerPushNotificationToken(token: string) {
-    return this.http.post(this.baseUrl + 'push-notification/token', token);
+    return this.http.post(this.baseUrl + 'user/push-notification/token', { token: token });
+  }
+  // deletePushNotificationToken(token: string) {
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: { token: token }
+  //   };
+  //   return this.http.delete(this.baseUrl + 'push-notification/token', httpOptions);
+  // }
+  refreshPushNotificationToken(currentToken: string, refreshedToken: string) {
+    return this.http.post(this.baseUrl + 'user/push-notification/refresh-token',
+      { expiredToken: currentToken, token: refreshedToken }
+    );
   }
 }
