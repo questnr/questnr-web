@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {GoogleLoginProvider} from 'angularx-social-login';
-import {CommunityService} from './community.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {REGEX} from '../shared/constants';
-import {CreateCommunityComponent} from '../shared/components/dialogs/create.community/create-community.component';
-import {DescriptionComponent} from '../shared/components/dialogs/description/description.component';
-import {MatDialog} from '@angular/material/dialog';
-import {Community, CommunityUsers, OwnerUserDTO} from './community.model';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { GoogleLoginProvider } from 'angularx-social-login';
+import { CommunityService } from './community.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { REGEX } from '../shared/constants';
+import { CreateCommunityComponent } from '../shared/components/dialogs/create.community/create-community.component';
+import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Community } from '../models/community.model';
+import { User } from '../models/user.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-community',
@@ -21,7 +22,7 @@ export class CommunityComponent implements OnInit {
   owner: any;
   comUserList: any[];
   feeds = [];
-  ownerDTO: OwnerUserDTO;
+  ownerDTO: User;
   comUpdatedAvatar: any;
   communityImage: any;
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar) { }
@@ -66,7 +67,7 @@ export class CommunityComponent implements OnInit {
       this.owner = 'followed';
     }, error => {
       console.log('failed to join this community', error.error.errorMessage);
-      this.snackBar.open(error.error.errorMessage, 'close',{duration: 3000});
+      this.snackBar.open(error.error.errorMessage, 'close', { duration: 3000 });
     });
   }
   unfollowThisCommunity() {
@@ -87,7 +88,7 @@ export class CommunityComponent implements OnInit {
   }
   changeCommunityAvatar() {
     const formData = new FormData();
-    formData.set('file', this.comUpdatedAvatar,this.comUpdatedAvatar.name);
+    formData.set('file', this.comUpdatedAvatar, this.comUpdatedAvatar.name);
     this.auth.updateCommunityAvatar(formData, this.communityDTO.communityId).subscribe((res: any) => {
       console.log();
     }, error => {

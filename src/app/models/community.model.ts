@@ -1,52 +1,21 @@
+import { AvatarDTO, MetaList } from './common.model';
+import { User } from './user.model';
+
 export class Community {
   communityId: number;
   communityName: string;
   description: string;
   rules: string;
   slug: string;
-  ownerUserDTO: OwnerUserDTO;
+  ownerUserDTO: User;
   status: string;
   avatarDTO: AvatarDTO;
-  communityUsers: CommunityUsers[];
+  communityUsers: User[];
   metaList: MetaList;
-  metaData: MetaData;
-}
-export class UserMeta {
-  relationShipType: string;
-}
-export  class OwnerUserDTO {
-  userId: number;
-  username: string;
-  firstName: string;
-  lastName: string;
-  emailId: string;
-  slug: string;
-  avatarDTO: AvatarDTO;
-  userMeta: UserMeta;
-}
-export  class CommunityUsers {
-  userId: number;
-  username: string;
-  firstName: string;
-  lastName: string;
-  emailId: string;
-  avatarDTO: AvatarDTO;
-}
-export class AvatarDTO {
-  avatarLink: string;
-}
-export class MetaList {
-  id: number;
-  metaInformation: MetaInformation;
+  metaData: CommunityMetaData;
 }
 
-export  class MetaInformation {
-  type: string;
-  content: string;
-  attributeType: string;
-}
-
-export class MetaData {
+export class CommunityMetaData {
   timeString: string;
   actionDate: string;
   actionDateForPost: string;
