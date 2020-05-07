@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { FeedsService } from './feeds.service';
 import { ApiService } from 'shared/api.service';
+import { MessagingService } from '../service/messaging.service';
 
 @Component({
   selector: 'app-feeds-frame',
@@ -45,7 +46,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     autoplay: true
   };
 
-  constructor(private service: FeedsService, private api: ApiService) {
+  constructor(private service: FeedsService, private api: ApiService, private messagingService: MessagingService) {
     if (window.screen.width <= 600) {
       this.sideConfig = 'over';
       this.isMobile = true;
@@ -72,6 +73,9 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     this.getUserFeeds();
     this.getSuggestedCommunities();
     this.getTrendingCommunities();
+
+    // Request notification permission
+    this.messagingService.requestPermission();
   }
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);

@@ -4,6 +4,7 @@ import { LoginService } from 'auth/login.service';
 import { ApiService } from 'shared/api.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, tap, map } from 'rxjs/operators';
+import { MessagingService } from '../../service/messaging.service';
 
 @Component({
   selector: 'app-user-header',
@@ -20,7 +21,7 @@ export class UserHeaderComponent {
   hashtagInput = new FormControl();
   hashtags = [];
 
-  constructor(private router: Router, public auth: LoginService, private api: ApiService) {
+  constructor(private router: Router, public auth: LoginService, private api: ApiService, private messagingService: MessagingService) {
     this.profile = this.auth.getUserProfile();
     this.auth.getUser().subscribe(
       (res) => {
@@ -61,5 +62,6 @@ export class UserHeaderComponent {
   logOut() {
     localStorage.clear();
     this.router.navigateByUrl('/');
+    this.messagingService.deleteToken();
   }
 }

@@ -14,6 +14,7 @@ export class UserProfileCardComponent implements OnInit {
   @Input() userId;
   followed: any;
   owner = false;
+  noOfFollowers: number;
   // @Input() followers;
   constructor( public auth: UserProfileCardServiceComponent, public loginAuth: LoginService) { }
 
@@ -24,6 +25,7 @@ export class UserProfileCardComponent implements OnInit {
     if (this.relationship === 'owned') {
       this.owner = true;
     }
+    this.getUserFollowers();
   }
 
   addUser() {
@@ -41,6 +43,14 @@ export class UserProfileCardComponent implements OnInit {
     this.auth.unfollowMe(ownerId, userId).subscribe((res: any) => {
       console.log('sucess');
       this.relationship = '';
+    }, error => {
+      console.log(error.error.errorMessage);
+    });
+  }
+  getUserFollowers() {
+    this.auth.fetchUserFollowing().subscribe((res: any) => {
+      console.log(res.content.size, res.content.length);
+      this.noOfFollowers = res?.content.length;
     }, error => {
       console.log(error.error.errorMessage);
     })
