@@ -67,6 +67,7 @@ import { UserProfileCardComponent } from './user-profile-card/user-profile-card.
 // import {MatDialogModule, MatSelectModule, MatTooltipModule} from '@angular/material';
 import { CommentBoxComponent } from './feeds-frame/recommended-feeds/comment-box/comment-box.component';
 import { DragDropDirective } from 'drag-drop.directive';
+import { SinglePostComponent } from './single-post/single-post.component';
 
 const config = new AuthServiceConfig([
   {
@@ -104,18 +105,19 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommunityUsersComponent,
     UserProfileCardComponent,
     CommentBoxComponent,
-    DragDropDirective
+    DragDropDirective,
+    SinglePostComponent
   ],
   imports: [
     MatVideoModule,
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
     BrowserModule,
+    BrowserAnimationsModule,
     CarouselModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     MatSliderModule,
     MatSidenavModule,
     MatIconModule,
