@@ -1,0 +1,57 @@
+<app-user-header></app-user-header>
+<div class="profile-banner">
+<!--  <img src="/assets/boat-on-the-water.jpg" alt="bannerImg">-->
+</div>
+<div class="profile-page-container">
+
+  <div class="profile-section">
+    <div class="profile-img">
+      <img src="assets/default.jpg" alt="">
+    </div>
+    <div class="profile-actions">
+      <p >Satish Kumar Gaur  | 600 Followers ○ 834 Posts</p>
+      <div class="actions">
+        <button mat-stroked-button>
+          <mat-icon>edit</mat-icon>
+          Edit Profile</button>
+        <button mat-stroked-button>
+          <mat-icon>add</mat-icon> Follow</button>
+        <button mat-stroked-button>
+          <mat-icon>report_problem</mat-icon>  Report</button>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="profile-page-container">
+      <div class="grid">
+        <div class="grid-section-left">
+          <app-usercommunity></app-usercommunity>
+        </div>
+        <div class="grid-section-right">
+          <mat-tab-group>
+<!--            <mat-tab label="Feeds">-->
+<!--              <app-post-feed>-->
+<!--&lt;!&ndash;                [isCommunityPost]=true [communityId]="communityDTO?.communityId"&ndash;&gt;-->
+<!--              </app-post-feed>-->
+<!--              <ng-container *ngIf="feeds.length; else noFeeds">-->
+<!--                <div class="feed-wrap" *ngFor="let feed of feeds">-->
+<!--                  <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>-->
+<!--                </div>-->
+<!--                <p class="text-center" *ngIf="feeds.length===1 && feeds[0] === null">No Feeds Found...!</p>-->
+<!--              </ng-container>-->
+<!--              <ng-template #noFeeds>-->
+<!--                <p class="text-center" style="margin-top :30px" *ngIf="feeds.length===1 && feeds[0] === null">No Feeds Found...!</p>-->
+<!--              </ng-template>-->
+<!--            </mat-tab>-->
+            <mat-tab label="Followers">
+              <app-user-followers></app-user-followers>
+            </mat-tab>
+            <mat-tab label="Photos"> Content 3 </mat-tab>
+          </mat-tab-group>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

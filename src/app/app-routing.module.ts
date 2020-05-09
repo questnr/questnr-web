@@ -16,13 +16,15 @@ import { SidenavComponent } from 'feeds-frame/sidenav/sidenav.component';
 import {CommunityComponent} from './community/community.component';
 import { PostFeedComponent } from 'feeds-frame/post-feed/post-feed.component';
 import { FeedsFrameComponent } from 'feeds-frame/feeds-frame.component';
+import {UserProfilePageComponent} from './user-profile-page/user-profile-page.component';
 
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'feeds', component: FeedsFrameComponent, canActivate: [AuthGuard] },
   { path: 'header', component: HeaderComponent },
-  {path: 'community/:black', component: CommunityComponent}
+  {path: 'community/:block', component: CommunityComponent},
+  {path: 'user/:block', component: UserProfilePageComponent}
 ];
 
 export interface Tile {

@@ -1,0 +1,51 @@
+<!--<div>-->
+<!--  <div class="user-follower-container">-->
+<!--    <div class="user-grid">-->
+<!--      <div class="user-image">-->
+<!--        <img src="assets/default.jpg" alt="default">-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <div class="user-details-img">-->
+<!--          <p>Satish Kumar Gaur</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="follow-btn">-->
+<!--        <button mat-stroked-button>-->
+<!--          <mat-icon>check</mat-icon> Following-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div *ngIf="followers?.length ; else noMembers">
+  <div class="com-member-det" *ngFor="let i of followers" [id]="i.userId">
+    <div class="member-avatar">
+      <img [src]="i.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';">
+    </div>
+    <div class="member-name">
+      <a [href]="'/user/' + i.slug">{{i.username}}</a>
+    </div>
+    <div class="action-btn">
+      <button mat-button  *ngIf="i.userMeta.relationShipType ==='followed'" style="background: green; color: #fff" >
+        <mat-icon>check</mat-icon>
+        Following
+      </button>
+      <a [href]="'/user/' + i.slug" *ngIf="i.userMeta.relationShipType ==='owned'; else notFollowing" >
+        <button mat-button>
+          It's You
+        </button>
+      </a>
+      <ng-template #notFollowing>
+        <button mat-button  *ngIf="i.userMeta.relationShipType != 'followed'" >
+          Follow
+        </button>
+      </ng-template>
+    </div>
+  </div>
+  <p> View more.</p>
+</div>
+
+<ng-template #noMembers>
+  <span> No one following this community yet.</span>
+</ng-template>

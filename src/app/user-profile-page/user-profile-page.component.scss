@@ -1,0 +1,74 @@
+@import "../variables";
+
+
+.profile-banner{
+  width: 100%;
+  height: 400px;
+  margin-top: 55px;
+  overflow: hidden;
+  background-image: url("/assets/boat-on-the-water.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  //img {
+  //  width: 100%;
+  //}
+}
+
+.profile-page-container{
+  max-width: 1290px;
+  width: 100%;
+  margin: 0 auto;
+}
+.profile-section{
+  display: grid;
+  grid-template-columns: 16% auto;
+  position: relative;
+  top: -100px;
+  .profile-img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: #fff;
+    padding: 6px;
+    img {
+      width: 100%;
+      border-radius: 50%;
+    }
+  }
+  .profile-actions{
+    position: relative;
+    p{
+      position: absolute;
+      bottom: 5%;
+      font-size: 20px;
+    }
+    .actions{
+      position: absolute;
+      right: 100px;
+      bottom: 10%;
+      button{
+        margin: 0 10px;
+        background: #ffffff;
+        .mat-icon{
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+.profile-actions button:hover {
+  background: $heading !important;
+  color: $white;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: 30% 60%;
+  .grid-section-left{
+    padding: 0 8px;
+  }
+  .grid-section-right{
+    padding: 0 8px;
+  }
+}

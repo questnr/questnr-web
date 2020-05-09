@@ -26,7 +26,7 @@ export class RecommendedFeedsComponent implements OnInit {
   isCommentLoading = false;
   comment = new FormControl('', Validators.required);
   replyComment = new FormControl('', Validators.required);
-
+  loggedInUsername: string;
   customOptions: OwlOptions = {
     loop: false,
     mouseDrag: true,
@@ -56,6 +56,8 @@ export class RecommendedFeedsComponent implements OnInit {
   constructor(private api: FeedsService, private login: LoginService) { }
 
   ngOnInit() {
+    this.loggedInUsername = this.login.getUserProfile().sub;
+    console.log('logged in username:' + this.loggedInUsername);
   }
   toggleComments() {
     this.isSharing = false;
