@@ -69,6 +69,7 @@ import { CommentBoxComponent } from './feeds-frame/recommended-feeds/comment-box
 import { DragDropDirective } from 'drag-drop.directive';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UserFollowersComponent } from './user-followers/user-followers.component';
+import { SinglePostComponent } from './single-post/single-post.component';
 
 const config = new AuthServiceConfig([
   {
@@ -108,18 +109,19 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommentBoxComponent,
     DragDropDirective,
     UserProfilePageComponent,
-    UserFollowersComponent
+    UserFollowersComponent,
+    SinglePostComponent
   ],
   imports: [
     MatVideoModule,
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
     BrowserModule,
+    BrowserAnimationsModule,
     CarouselModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     MatSliderModule,
     MatSidenavModule,
     MatIconModule,

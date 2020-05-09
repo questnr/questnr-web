@@ -10,7 +10,7 @@ import {Community, CommunityUsers, OwnerUserDTO} from '../models/community.model
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {LoginService} from '../auth/login.service';
 import { User } from '../models/user.model';
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-community',
@@ -19,7 +19,7 @@ import { User } from '../models/user.model';
 })
 export class CommunityComponent implements OnInit {
   isSidenavopen = false;
-  url = (window.location.pathname).split('/')[2];
+  communitySlug: string;
   communityDTO: Community;
   owner: any;
   comUserList: any[];
@@ -27,7 +27,8 @@ export class CommunityComponent implements OnInit {
   ownerDTO: User;
   comUpdatedAvatar: any;
   communityImage: any;
-  constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar, public loginAuth: LoginService) { }
+  constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar, private route: ActivatedRoute,
+              public loginAuth: LoginService) { }
 
   openCommunityDesc(desc: any, communityImg: any): void {
     // console.log();
@@ -43,12 +44,13 @@ export class CommunityComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.fetchCommunity();
+    this.communitySlug = this.route.snapshot.paramMap.get('communitySlug');
+    this.fetchCommunity(this.communitySlug);
   }
-  fetchCommunity() {
+  fetchCommunity(communitySlug: string) {
     // console.log(this.url);
     // this.userList = [];
-    this.auth.getCommunityDetails(this.url).subscribe((res: Community) => {
+    this.auth.getCommunityDetails(communitySlug).subscribe((res: Community) => {
       this.fetchCommunityFeeds(res.communityId);
       this.communityImage = res.avatarDTO.avatarLink;
       // res.communityUsers.map((value, index) => {

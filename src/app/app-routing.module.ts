@@ -13,18 +13,20 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from 'auth/auth.guard';
 import { UserHeaderComponent } from 'feeds-frame/user-header/user-header.component';
 import { SidenavComponent } from 'feeds-frame/sidenav/sidenav.component';
-import {CommunityComponent} from './community/community.component';
+import { CommunityComponent } from './community/community.component';
 import { PostFeedComponent } from 'feeds-frame/post-feed/post-feed.component';
 import { FeedsFrameComponent } from 'feeds-frame/feeds-frame.component';
 import {UserProfilePageComponent} from './user-profile-page/user-profile-page.component';
+import { SinglePostComponent } from 'single-post/single-post.component';
 
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'feeds', component: FeedsFrameComponent, canActivate: [AuthGuard] },
   { path: 'header', component: HeaderComponent },
-  {path: 'community/:block', component: CommunityComponent},
-  {path: 'user/:block', component: UserProfilePageComponent}
+  { path: 'community/:communitySlug', component: CommunityComponent },
+  { path: 'post/:postSlug', component: SinglePostComponent },
+  {path: 'user/:userSlug', component: UserProfilePageComponent}
 ];
 
 export interface Tile {
