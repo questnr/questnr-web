@@ -1,24 +1,20 @@
-<div class="head-wrap">
-  <div class="profile-icon"> <img [src]="comment.userActorDTO?.avatarDTO?.avatarLink ?
-    comment.userActorDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""> </div>
+<div class="profile-icon">
+  <img [src]="comment.userActorDTO?.avatarDTO?.avatarLink ?
+  comment.userActorDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt="">
+</div>
+<div>
+  <!-- <div class="head-wrap"> -->
   <div class="profile-detail">
     <div class=" head">{{comment.userActorDTO?.username}}</div>
     <div> {{comment.commentObject}} </div>
   </div>
-</div>
-<div class="commmentActions">
-  <a (click)="likeComment(comment.commentActionId)" [innerHTML]="comment.commentActionMeta.liked? 'liked':'like'"></a>
-  <span></span>
-  <a (click)="isReplying = !isReplying">Reply</a>
-  <span></span>
-  <div [matTooltip]="comment.metaData.timeInUTC | date"> {{comment.metaData.timeString}} ago </div>
-</div>
-<div class="reply-box" [@expand]="isReplying ? 'expanded' : 'collapsed'">
-  <div class="comment-wrapper">
-    <input type="text" [formControl]="reply" [placeholder]="'Reply to '+ comment.userActorDTO.username">
-    <button mat-icon-button color="accent" (click)="replyToComment(comment.commentActionId)"
-      [disabled]="!reply.valid ||isLoading">
-      <mat-icon>send</mat-icon>
-    </button>
+  <!-- </div> -->
+  <div class="commmentActions">
+    <a (click)="likeComment(comment.commentActionId)"
+      [innerHTML]="comment?.commentActionMeta?.liked? 'liked':'like'"></a>
+    <span></span>
+    <a (click)="replyTo(comment.userActorDTO?.username, comment.commentActionId)">Reply</a>
+    <span></span>
+    <div [matTooltip]="comment?.metaData?.timeInUTC | date"> {{comment.metaData.timeString}} ago </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { FeedsService } from './feeds.service';
 import { ApiService } from 'shared/api.service';
@@ -30,13 +30,13 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     navText: ['', ''],
     responsive: {
       0: {
-        items: 2
+        items: 1
       },
       400: {
         items: 3
       },
       740: {
-        items: 4
+        items: 3
       },
       940: {
         items: 4
@@ -46,19 +46,24 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     autoplay: true
   };
 
-  constructor(private service: FeedsService, private api: ApiService, private messagingService: MessagingService) {
-    if (window.screen.width <= 600) {
+
+  screenWidth = window.innerWidth;
+
+  @HostListener('window:resize', ['$event'])
+
+  onresize(event: any = this.screenWidth) {
+    const width = event.target ? event.target.innerWidth : event;
+    if (width <= 800) {
       this.sideConfig = 'over';
       this.isMobile = true;
-    } else if (window.screen.width >= 1368) {
-      this.isSidenavopen = false;
-      this.sideConfig = 'side';
-    } else if (window.screen.width >= 600 && window.screen.width <= 1368) {
-      this.sideConfig = 'side';
-      this.isSidenavopen = true;
-      this.isMobile = true;
+    } else if (width >= 1368) {
+      this.isMobile = false;
+    } else if (width >= 800 && width <= 1368) {
+      this.isMobile = false;
     }
   }
+
+  constructor(private service: FeedsService, private api: ApiService, private messagingService: MessagingService) { }
 
   postFeed(event) {
     if (event.postActionId) {
@@ -69,6 +74,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.onresize();
     window.addEventListener('scroll', this.scroll, true);
     this.getUserFeeds();
     this.getSuggestedCommunities();
@@ -96,7 +102,6 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
         if (res.content.length) {
           res.content.forEach(post => {
             this.userFeeds.push(post);
-            console.log(post);
           });
         } else {
           this.endOfPosts = true;

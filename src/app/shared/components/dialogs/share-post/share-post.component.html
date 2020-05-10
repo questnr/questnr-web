@@ -1,0 +1,23 @@
+<div class="m-3">
+  <h5 class="text-center">Share this post with your loved ones</h5>
+  <hr class="my-3">
+  <div class="btn-wrapper">
+    <button class="btn social-btn" shareButton="facebook" [url]="url">
+      <img src="assets/facebook.svg">
+    </button>
+    <button class="btn social-btn" shareButton="twitter" [url]="url">
+      <img src="assets/twitter.svg">
+    </button>
+    <button class="btn social-btn" shareButton="linkedin" [url]="url">
+      <img src="assets/linkedin.svg">
+    </button>
+    <button class="btn social-btn" shareButton="whatsapp" [url]="url">
+      <img src="assets/whatsapp.svg">
+    </button>
+    <button class="btn social-btn copy" [ngClass]="{active: isCopied}" [cdkCopyToClipboard]="url"
+      (cdkCopyToClipboardCopied)="showCopied($event)" [disabled]="isCopied" color="primary" matBadge="Copied"
+      matBadgePosition="after" matBadgeColor="accent" [matBadgeHidden]="!isCopied">
+      <img src="assets/copy.svg">
+    </button>
+  </div>
+</div>
