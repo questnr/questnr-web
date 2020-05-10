@@ -10,7 +10,9 @@ export class CommentBoxComponent {
   isLoading = false;
   isReplying = false;
   @Input() comment;
+  @Input() postId;
   @Output() reply = new EventEmitter();
+  @Output() update = new EventEmitter();
 
   constructor(private api: FeedsService) { }
 

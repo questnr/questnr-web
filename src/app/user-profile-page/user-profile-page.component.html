@@ -8,7 +8,9 @@
     <div class="profile-img">
       <img [src]="user?.avatarDTO?.avatarLink" alt="" >
       <input id="fileInput" type="file" style="display: none" (change)="updateUserAvatar($event)">
-      <mat-icon (click)="triggerFalseClick()">camera</mat-icon>
+      <div class="avatar" *ngIf="relation==='owned'">
+        <mat-icon (click)="triggerFalseClick()">camera</mat-icon>
+      </div>
     </div>
     <div class="profile-actions">
       <p >{{user?.firstName}} {{user?.lastName}}
@@ -46,11 +48,11 @@
               <app-post-feed>
 <!--                [isCommunityPost]=true [communityId]="communityDTO?.communityId"-->
               </app-post-feed>
-              <ng-container *ngIf="feeds; else noFeeds">
+              <ng-container *ngIf="feeds?.length; else noFeeds">
                 <div class="feed-wrap" *ngFor="let feed of feeds">
                   <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
                 </div>
-                <p class="text-center" *ngIf="feeds===1 && feeds[0] === null">No Feeds Found...!</p>
+                <p class="text-center" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
               </ng-container>
               <ng-template #noFeeds>
                 <p class="text-center" style="margin-top :30px" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
