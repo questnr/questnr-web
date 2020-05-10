@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserProfileCardServiceComponent} from './user-profile-card-service.component';
 import {LoginService} from '../auth/login.service';
+import {UserActivityService} from '../user-activity/user-activity.service';
+import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-user-profile-card',
   templateUrl: './user-profile-card.component.html',
@@ -9,14 +11,16 @@ import {LoginService} from '../auth/login.service';
 export class UserProfileCardComponent implements OnInit {
   @Input() avatarLink = 'assets/default.jpg';
   @Input() username;
-  @Input() slug;
+  @Input() slug: string;
   @Input() relationship;
-  @Input() userId;
+  @Input() userId ;
   followed: any;
   owner = false;
   noOfFollowers: number;
-  // @Input() followers;
-  constructor( public auth: UserProfileCardServiceComponent, public loginAuth: LoginService) { }
+  userInfo: any;
+
+  constructor( public auth: UserProfileCardServiceComponent, public loginAuth: LoginService, public route: ActivatedRoute,
+               public userActivity: UserActivityService) { }
 
   ngOnInit(): void {
     if (this.avatarLink == null) {
@@ -25,9 +29,10 @@ export class UserProfileCardComponent implements OnInit {
     if (this.relationship === 'owned') {
       this.owner = true;
     }
-    this.getUserFollowers();
   }
-
+  ngOnChanges() {
+    this.getUserActivity();
+  }
   addUser() {
     const res = this.auth.followMe(this.userId);
     this.auth.followMe(this.userId).subscribe((response: any) => {
@@ -47,12 +52,12 @@ export class UserProfileCardComponent implements OnInit {
       console.log(error.error.errorMessage);
     });
   }
-  getUserFollowers() {
-    this.auth.fetchUserFollowing().subscribe((res: any) => {
-      console.log(res.content.size, res.content.length);
-      this.noOfFollowers = res?.content.length;
+  getUserActivity() {
+    console.log('user profile slug' , this.slug);
+    this.userActivity.getUserInfo(this.slug).subscribe((res: any) => {
+      this.userInfo = res;
     }, error => {
       console.log(error.error.errorMessage);
-    })
+    });
   }
 }

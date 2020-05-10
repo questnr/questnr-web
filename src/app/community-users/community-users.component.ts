@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import {UserProfileCardServiceComponent} from '../user-profile-card/user-profile-card-service.component';
 import {LoginService} from '../auth/login.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-community-users',
@@ -11,15 +12,17 @@ import {LoginService} from '../auth/login.service';
 })
 export class CommunityUsersComponent implements OnInit {
   baseUrl = environment.baseUrl;
-  url = (window.location.pathname).split('/')[2];
+  url: string;
   communityMemberList = [];
   loader = false;
 
-  constructor(public http: HttpClient, public userService: UserProfileCardServiceComponent, public loginService: LoginService) {
+  constructor(public http: HttpClient, public userService: UserProfileCardServiceComponent, public loginService: LoginService, public route: ActivatedRoute ) {
   }
 
   ngOnInit(): void {
+    this.url = this.route.snapshot.paramMap.get('communitySlug');
     this.getCommunityMembers();
+
   }
 
   getCommunityMembers() {

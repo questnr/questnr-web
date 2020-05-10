@@ -1,33 +1,7 @@
+
+
 @import "../variables";
 
-.user-grid{
-  display: grid;
-  grid-template-columns: 30% auto auto;
-  max-width: 400px;
-  .user-image {
-    img{
-      width: 100%;
-    }
-  }
-  button{
-    background: #ffffff;
-  }
-}
-
-.user-card{
-  display: inline-block;
-  width: fit-content;
-  width: -moz-fit-content;
-}
-
-.user_image{
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 80px;
-  height: 80px;
-  //background-image: url("assets/default.jpg");
-}
 
 .com-members-container {
   border-radius: 10px;
@@ -55,19 +29,25 @@
     border-radius: 10px;
     border: 1px solid $grey;
     margin-bottom: 8px;
+    width: calc(50% - 10px);
+    float: left;
+    margin-right: 10px;
+    height: 100px;
 
     .member-avatar {
-      width: 100px;
+      width: 80px;
       height: auto;
-      max-height: 55px;
+      //max-height: 55px;
       border-radius: 10px;
       overflow: hidden;
-      min-height: 55px;
 
       img {
         width: 100%;
+        height: 100%;
         border-radius: 10px;
         margin-right: 18px;
+        max-height: 79px;
+        max-width: 79px;
       }
     }
 
@@ -78,7 +58,7 @@
       cursor: pointer;
       position: relative;
       margin: auto;
-      padding-left: 20px;
+      padding-left: 10px;
       a{
         text-decoration: none;
         :hover{
@@ -182,3 +162,44 @@
   height: 35px;
 }
 
+
+.user-group-container{
+  background: $white;
+  padding: 20px 10px;
+  h4{
+    padding-left: 10px;
+    border-left: 4px solid $heading;
+    font-family: sans-serif;
+    margin: 20px 0px;
+  }
+  .more{
+    cursor: pointer;
+  }
+}
+.flex{
+  display: flex;
+  background: $white;
+  height: 100px;
+  margin: 10px;
+  border-radius: 6px;
+  border: 1px solid #eeeeee;
+  .flex-50{
+    width: 50%;
+    //margin: 8px;
+    padding: 8px;
+    img{
+      width: 100%;
+      max-width: 79px;
+      height: 100%;
+      border-radius: 10px;
+    }
+    div{
+      display: table-cell;
+      vertical-align: middle;
+      height: 80px;
+      p{
+        margin: 0 !important;
+      }
+    }
+  }
+}

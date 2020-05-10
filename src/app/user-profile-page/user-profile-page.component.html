@@ -6,51 +6,68 @@
 
   <div class="profile-section">
     <div class="profile-img">
-      <img src="assets/default.jpg" alt="">
+      <img [src]="user?.avatarDTO?.avatarLink" alt="" >
+      <input id="fileInput" type="file" style="display: none" (change)="updateUserAvatar($event)">
+      <mat-icon (click)="triggerFalseClick()">camera</mat-icon>
     </div>
     <div class="profile-actions">
-      <p >Satish Kumar Gaur  | 600 Followers ○ 834 Posts</p>
+      <p >{{user?.firstName}} {{user?.lastName}}
+        <span> ○ </span>{{user?.username}}
+        <!--        <span>{{stats?.followers}} Followers ○ {{stats?.followingTo}} Followings ○ {{stats?.posts}} Posts</span></p>-->
       <div class="actions">
-        <button mat-stroked-button>
+        <button mat-stroked-button *ngIf="relation ==='owned'">
           <mat-icon>edit</mat-icon>
           Edit Profile</button>
-        <button mat-stroked-button>
-          <mat-icon>add</mat-icon> Follow</button>
-        <button mat-stroked-button>
+        <button mat-stroked-button (click)="follow(user?.userId)" *ngIf="relation==='none'">
+          <mat-icon>add</mat-icon> Follow
+        </button>
+        <button mat-stroked-button (click)="unfollow(user?.userId)" *ngIf="relation==='followed'" style="background: green;color: #ffffff">
+          <mat-icon>check</mat-icon> Following
+        </button>
+        <button mat-stroked-button *ngIf="relation !='owned'">
           <mat-icon>report_problem</mat-icon>  Report</button>
       </div>
     </div>
   </div>
+  <app-user-activity></app-user-activity>
+
 
   <div>
     <div class="profile-page-container">
       <div class="grid">
         <div class="grid-section-left">
-          <app-usercommunity></app-usercommunity>
+          <app-usercommunity [userId]="user?.userId" [relation]="relation"></app-usercommunity>
+          <app-floating-footer></app-floating-footer>
+
         </div>
-        <div class="grid-section-right">
+        <div class="grid-section-center">
           <mat-tab-group>
 <!--            <mat-tab label="Feeds">-->
 <!--              <app-post-feed>-->
 <!--&lt;!&ndash;                [isCommunityPost]=true [communityId]="communityDTO?.communityId"&ndash;&gt;-->
 <!--              </app-post-feed>-->
-<!--              <ng-container *ngIf="feeds.length; else noFeeds">-->
+<!--              <ng-container *ngIf="feeds; else noFeeds">-->
 <!--                <div class="feed-wrap" *ngFor="let feed of feeds">-->
 <!--                  <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>-->
 <!--                </div>-->
-<!--                <p class="text-center" *ngIf="feeds.length===1 && feeds[0] === null">No Feeds Found...!</p>-->
+<!--&lt;!&ndash;                <p class="text-center" *ngIf="feeds===1 && feeds[0] === null">No Feeds Found...!</p>&ndash;&gt;-->
 <!--              </ng-container>-->
 <!--              <ng-template #noFeeds>-->
-<!--                <p class="text-center" style="margin-top :30px" *ngIf="feeds.length===1 && feeds[0] === null">No Feeds Found...!</p>-->
+<!--&lt;!&ndash;                <p class="text-center" style="margin-top :30px" *ngIf="feeds.length===1 && feeds[0] === null">No Feeds Found...!</p>&ndash;&gt;-->
 <!--              </ng-template>-->
 <!--            </mat-tab>-->
             <mat-tab label="Followers">
-              <app-user-followers></app-user-followers>
+              <app-user-followers [userId]="user?.userId" ></app-user-followers>
             </mat-tab>
-            <mat-tab label="Photos"> Content 3 </mat-tab>
+<!--            <mat-tab label="Photos"> Content 3 </mat-tab>-->
           </mat-tab-group>
 
         </div>
+<!--        <div class="grid-section-right">-->
+<!--          <app-suggestion></app-suggestion>-->
+<!--          <app-trending></app-trending>-->
+<!--          <app-sponsered></app-sponsered>-->
+<!--        </div>-->
       </div>
     </div>
   </div>

@@ -6,7 +6,7 @@
       <div class="head"><a [href]="'/community/' + feed.communityDTO.slug">{{feed.communityDTO?.communityName}} </a></div>
 
       <div class="subhead"> Posted in Community -
-        <span [matTooltip]="feed.metaData.timeInUTC | date">{{feed.metaData.timeString}} ago</span>
+        <span [matTooltip]="feed.metaData.createdAtTimeInUTC | date">{{feed.metaData.timeString}} ago</span>
       </div>
     </div>
   </div>
@@ -16,7 +16,7 @@
     <div class="profile-detail">
       <div class=" head" *ngIf="feed.userDTO?.username"><a [href]="'/user/' + feed.userDTO?.slug">{{feed.userDTO?.username | titlecase}}</a></div>
       <div class="head" *ngIf="!feed.userDTO?.username">{{loggedInUsername}}</div>
-      <div class="subhead" [matTooltip]="feed.metaData.timeInUTC | date"> {{feed.metaData.timeString}} ago</div>
+      <div class="subhead" [matTooltip]="feed.metaData.createdAtTimeInUTC | date"> {{feed.metaData.timeString}} ago</div>
     </div>
   </div>
   <div class="mb-2">

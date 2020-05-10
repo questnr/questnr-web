@@ -70,6 +70,7 @@ import { DragDropDirective } from 'drag-drop.directive';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UserFollowersComponent } from './user-followers/user-followers.component';
 import { SinglePostComponent } from './single-post/single-post.component';
+import { UserActivityComponent } from './user-activity/user-activity.component';
 
 const config = new AuthServiceConfig([
   {
@@ -110,7 +111,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DragDropDirective,
     UserProfilePageComponent,
     UserFollowersComponent,
-    SinglePostComponent
+    SinglePostComponent,
+    UserActivityComponent
   ],
   imports: [
     MatVideoModule,

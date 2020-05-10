@@ -11,6 +11,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {LoginService} from '../auth/login.service';
 import { User } from '../models/user.model';
 import { ActivatedRoute } from '@angular/router';
+import {Post} from '../models/post-action.model';
 
 @Component({
   selector: 'app-community',
@@ -23,12 +24,15 @@ export class CommunityComponent implements OnInit {
   communityDTO: Community;
   owner: any;
   comUserList: any[];
-  feeds = [];
+  feeds: Post[];
   ownerDTO: User;
   comUpdatedAvatar: any;
   communityImage: any;
-  constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar, private route: ActivatedRoute,
-              public loginAuth: LoginService) { }
+  loggedInUserId: any;
+  constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
+              private route: ActivatedRoute, public loginAuth: LoginService) {
+    this.loggedInUserId = loginAuth.getUserProfile().id;
+  }
 
   openCommunityDesc(desc: any, communityImg: any): void {
     // console.log();

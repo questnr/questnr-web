@@ -20,7 +20,7 @@ export class UserProfileCardServiceComponent {
     };
     return this.http.delete(this.baseUrl + 'user/follow/user/' + userId, httpOptions);
   }
-  fetchUserFollowing() {
-    return this.http.get(this.baseUrl + 'user/follow/following/user');
+  fetchUserFollowing(slug) {
+    return this.http.get(this.baseUrl + 'community/meta/' + slug + '/info');
   }
 }

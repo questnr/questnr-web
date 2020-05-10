@@ -121,21 +121,22 @@
         <div class="grid-view">
           <div class="grid-tile">
             <app-user-profile-card [avatarLink]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink" [relationship]="communityDTO?.ownerUserDTO?.userMeta?.relationShipType"
-            [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username" [slug]="communityDTO?.ownerUserDTO?.slug"  ></app-user-profile-card>
+            [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username" [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
             <app-floating-footer></app-floating-footer>
           </div>
           <div class="grid-tile">
             <div class="community-feeds">
               <app-post-feed [isCommunityPost]=true [communityId]="communityDTO?.communityId"></app-post-feed>
-              <ng-container *ngIf="feeds.length; else noFeeds">
+              <ng-container *ngIf="feeds?.length; else noFeeds">
                 <div class="feed-wrap" *ngFor="let feed of feeds">
                   <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
                 </div>
-                <p class="text-center" *ngIf="feeds.length===1 && feeds[0] === null">No Feeds Found...!</p>
+                <p class="text-center" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
               </ng-container>
               <ng-template #noFeeds>
-                <p class="text-center" style="margin-top :30px" *ngIf="feeds.length===1 && feeds[0] === null">No Feeds Found...!</p>
+                <p class="text-center" style="margin-top :30px" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
               </ng-template>
+
             </div>
           </div>
         </div>
@@ -143,8 +144,8 @@
 
 
       <div class="flex-3">
-        <app-community-users></app-community-users>
-        <app-usercommunity></app-usercommunity>
+        <app-community-users ></app-community-users>
+        <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>
         <app-suggestion></app-suggestion>
         <app-trending></app-trending>
         <app-sponsered></app-sponsered>

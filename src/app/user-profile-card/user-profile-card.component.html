@@ -33,12 +33,16 @@
 
       <div class="user-follower">
         <mat-icon>people_outline</mat-icon>
-        <span>{{noOfFollowers}} Followers</span>
+        <span>{{userInfo?.followers}} Followers</span>
       </div>
 
       <div class="user-follower">
         <mat-icon>calendar_view_day</mat-icon>
-        <span>66 Posts</span>
+        <span>{{userInfo?.posts}} Posts</span>
+      </div>
+      <div class="user-follower">
+        <mat-icon>calendar_view_day</mat-icon>
+        <span>{{userInfo?.ownsCommunities}} Communities</span>
       </div>
     </div>
     <hr style="margin: 8px">

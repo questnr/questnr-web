@@ -4,6 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { LoginService } from 'auth/login.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import {Post} from '../../models/post-action.model';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -18,7 +19,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   ]
 })
 export class RecommendedFeedsComponent implements OnInit {
-  @Input() feed;
+  @Input() feed: Post;
   isCommenting = false;
   isSharing = false;
   isReplying = false;
@@ -71,7 +72,7 @@ export class RecommendedFeedsComponent implements OnInit {
     this.api.getComments(postId).subscribe(
       (res: any) => {
         this.isCommentLoading = false;
-        this.feed.commentActionDTOList = res.content;
+        this.feed.commentActionList = res.content;
       }
     );
   }
