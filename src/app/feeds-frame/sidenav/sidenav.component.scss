@@ -6,9 +6,9 @@
   margin: 20px 0;
   border-radius: 5px;
   h3 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
-    margin-bottom: 20px;
+    color: $heading;
   }
   .links {
     display: flex;
@@ -54,4 +54,11 @@ footer {
     font-size: 12px;
     opacity: 0.4;
   }
+}
+.list-item {
+  display: flex;
+  align-items: center;
+}
+img {
+  max-width: 100%;
 }

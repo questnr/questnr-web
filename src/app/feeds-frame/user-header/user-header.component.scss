@@ -135,6 +135,10 @@
   }
 }
 
+.notification-wrap {
+  max-height: 400px;
+  overflow-y: auto;
+}
 @media only screen and (max-width: 600px) {
   .toggle {
     display: block;

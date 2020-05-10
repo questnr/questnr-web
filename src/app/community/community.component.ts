@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { GoogleLoginProvider } from 'angularx-social-login';
-import { CommunityService } from './community.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { REGEX } from '../shared/constants';
-import { CreateCommunityComponent } from '../shared/components/dialogs/create.community/create-community.component';
-import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
-import { MatDialog } from '@angular/material/dialog';
-import { Community } from '../models/community.model';
+import {GoogleLoginProvider} from 'angularx-social-login';
+import {CommunityService} from './community.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {REGEX} from '../shared/constants';
+import {CreateCommunityComponent} from '../shared/components/dialogs/create.community/create-community.component';
+import {DescriptionComponent} from '../shared/components/dialogs/description/description.component';
+import {MatDialog} from '@angular/material/dialog';
+import {Community, CommunityUsers, OwnerUserDTO} from '../models/community.model';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {LoginService} from '../auth/login.service';
 import { User } from '../models/user.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import {Post} from '../models/post-action.model';
 
 @Component({
   selector: 'app-community',
@@ -22,17 +24,22 @@ export class CommunityComponent implements OnInit {
   communityDTO: Community;
   owner: any;
   comUserList: any[];
-  feeds = [];
+  feeds: Post[];
   ownerDTO: User;
   comUpdatedAvatar: any;
   communityImage: any;
-  constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar, private route: ActivatedRoute) { }
+  loggedInUserId: any;
+  constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
+              private route: ActivatedRoute, public loginAuth: LoginService) {
+    this.loggedInUserId = loginAuth.getUserProfile().id;
+  }
 
-  openCommunityDesc(event): void {
+  openCommunityDesc(desc: any, communityImg: any): void {
     // console.log();
     const dialogRef = this.dialog.open(DescriptionComponent, {
       width: '500px',
-      data: { desc: event.target.innerText }
+      // height: '300px',
+      data: {  text : desc, communityAvatar: communityImg}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -56,7 +63,7 @@ export class CommunityComponent implements OnInit {
       // });
       this.communityDTO = res;
       this.ownerDTO = res.ownerUserDTO;
-      this.owner = res.ownerUserDTO.userMeta.relationShipType;
+      this.owner = res.communityMeta.relationShipType;
       console.log('owner', this.owner);
     }, error => {
       // console.log('oops', error);
@@ -73,8 +80,10 @@ export class CommunityComponent implements OnInit {
     });
   }
   unfollowThisCommunity() {
-    this.auth.unfollowCommunity(this.communityDTO.communityId).subscribe((res: any) => {
+    const userId = this.loginAuth.getUserProfile().id;
+    this.auth.unfollowCommunityService(this.communityDTO.communityId, userId).subscribe((res: any) => {
       console.log('unfollowed' + this.communityDTO.communityName, res);
+      this.owner = '';
     }, error => {
       console.log('failed to unfollow' + this.communityDTO.communityName, error.error.errorMessage);
     });
