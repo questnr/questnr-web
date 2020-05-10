@@ -14,29 +14,27 @@ export class UsercommunityComponent implements OnInit {
 
   constructor(public dialog: MatDialog, public http: HttpClient) {
   }
-  @Input() profileUserId: number;
-  @Input() userId: number;
+
   @Input() hasCommunity = true;
   @Input() defaultImage = 'assets/default.jpg';
-  @Input() relation;
   baseUrl = environment.baseUrl;
   ownedCommunity = [];
   loader = false;
 
   ngOnInit() {
-    setTimeout( () => {
-      this.getUserOwnedCommunity();
-    }, 2000);
+    this.getUserOwnedCommunity();
   }
 
   createCommunity(): void {
+    // console.log();
+    // @ts-ignore
     const dialogRef = this.dialog.open(CreateCommunityComponent, {
       width: '800px',
       // data: { desc : event.target.innerText}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed');
+      console.log('The dialog was closed');
       this.getUserOwnedCommunity();
       // this.animal = result;
     });
@@ -44,7 +42,7 @@ export class UsercommunityComponent implements OnInit {
 
   getUserOwnedCommunity() {
     this.loader = true;
-    this.http.get(this.baseUrl + 'user/' + this.userId + '/community').subscribe((res: any) => {
+    this.http.get(this.baseUrl + 'user/community').subscribe((res: any) => {
       this.loader = false;
       this.ownedCommunity = res.content;
       // console.log(res.content);

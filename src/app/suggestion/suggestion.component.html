@@ -1,14 +1,14 @@
 <div class="suggestion-container box">
   <div class="com-suggestion">
     <h1>Suggested Communities.</h1>
-    <div  *ngIf="suggestedCommunity?.length; else noSuggesttion" >
+    <div  *ngIf="suggestedCommunity.length; else noSuggesttion" >
       <ul>
         <li *ngFor="let i of suggestedCommunity"  class="grid">
           <div class="community_image">
-            <img [src]="i?.avatarDTO?.avatarLink" [alt]="i?.communityName" onerror="this.onerror=null;this.src='assets/default.jpg';">
+            <img [src]="i.avatarDTO.avatarLink" [alt]="i.communityName" onerror="this.onerror=null;this.src='assets/default.jpg';">
           </div>
-          <div [id]=i?.communityId>
-            <a [href]="'/community/' + i?.slug">{{i?.communityName}}</a>
+          <div [id]=i.communityId>
+            <a [href]="'/community/' + i.slug">{{i.communityName}}</a>
           </div>
         </li>
       </ul>

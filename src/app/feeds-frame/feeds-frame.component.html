@@ -30,10 +30,9 @@
             </div>
             <p class="text-center" style="margin-top :30px" *ngIf="userFeeds.length===1 && userFeeds[0] === null"><mat-chip>No Feeds Found...!</mat-chip></p>
           </ng-container>
-          <app-feeds-loader *ngIf="loading"></app-feeds-loader>
-          <!-- <div class="loader">
+          <div class="loader">
             <mat-spinner *ngIf="loading" color="accent"></mat-spinner>
-          </div> -->
+          </div>
           <ng-template #noFeeds>
             <p class="text-center" *ngIf="!loading">It seems you don’t have any post yet.</p>
           </ng-template>

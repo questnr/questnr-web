@@ -18,8 +18,8 @@ export class FeedsService {
   getFeeds(page) {
     return this.http.get(this.baseUrl + 'user/feed', { params: { page } });
   }
-  getComments(postId, page) {
-    return this.http.get(this.baseUrl + `user/posts/${postId}/comment`, { params: { page } });
+  getComments(postId) {
+    return this.http.get(this.baseUrl + `user/posts/${postId}/comment`);
   }
   postComment(postId, data) {
     return this.http.post(this.baseUrl + `user/posts/${postId}/comment`, data);
@@ -35,8 +35,5 @@ export class FeedsService {
   }
   dislikeComment(commentId) {
     return this.http.delete(this.baseUrl + `user/posts/comment/${commentId}/like`);
-  }
-  getSharableLink(postId) {
-    return this.http.post(this.baseUrl + `post/${postId}/link`, {});
   }
 }
