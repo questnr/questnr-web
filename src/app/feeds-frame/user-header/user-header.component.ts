@@ -17,17 +17,15 @@ export class UserHeaderComponent {
   user: string;
   isLoading = false;
   profile;
-  profileImg;
+  endOfNotifications = false;
   hashtagInput = new FormControl();
   hashtags = [];
+  notifications = [];
+  page = 0;
 
   constructor(private router: Router, public auth: LoginService, private api: ApiService, private messagingService: MessagingService) {
     this.profile = this.auth.getUserProfile();
-    this.auth.getUser().subscribe(
-      (res) => {
-        this.profileImg = res.avatarLink;
-      }
-    );
+    this.auth.getUserProfileImg();
     this.hashtagInput.valueChanges
       .pipe(
         debounceTime(500),
@@ -43,8 +41,8 @@ export class UserHeaderComponent {
         }
       });
     this.api.getNotifications().subscribe(
-      res => {
-        console.log(res);
+      (res: any) => {
+        this.notifications = res;
       }
     );
   }
@@ -56,6 +54,30 @@ export class UserHeaderComponent {
       (res: any) => {
         this.isLoading = false;
         this.hashtags = res;
+      }
+    );
+  }
+  getNotification() {
+    this.api.getNotifications(this.page + 1).subscribe(
+      (res: any) => {
+        if (res.length) {
+          res.forEach(element => {
+            ++this.page;
+            this.notifications.push(element);
+          });
+        } else {
+          this.endOfNotifications = true;
+        }
+      }
+    );
+  }
+  removeNotification(id) {
+    this.api.removeNotification(id).subscribe(
+      res => {
+        if (res.status === 200) {
+          const index = this.notifications.findIndex(i => i.notificationId);
+          this.notifications.splice(index, 1);
+        }
       }
     );
   }

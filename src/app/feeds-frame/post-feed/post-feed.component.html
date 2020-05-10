@@ -2,11 +2,12 @@
   <div class="loader" [ngClass]="{'active': isLoading}">
     <mat-progress-bar *ngIf="!uploading && isLoading" mode="indeterminate"></mat-progress-bar>
     <mat-progress-bar *ngIf="uploading" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
-    <!-- <span *ngIf="uploading" [ngStyle]="moveProgressCount()">{{http.uploadProgress}}%</span> -->
   </div>
   <div class="post-wrap">
-    <div class="icon my-3"> <img [src]="profileImg? profileImg : 'assets/default.jpg'" alt=""> </div>
-    <textarea rows="1" placeholder="Post Something...." [formControl]="text"></textarea>
+    <div class="icon"> <img [src]="login.profileImg"> </div>
+    <div class="textbox-wrap">
+      <textarea rows="3" placeholder="Post Something...." [formControl]="text"></textarea>
+    </div>
   </div>
 
   <div class="media" [@expand]="isMediaEnabled ? 'expanded' : 'collapsed'">
@@ -32,18 +33,16 @@
   </div>
   <div class="btn-wrap">
     <button mat-button (click)="toggleAddMedia()" [ngClass]="{ active: isMediaEnabled}">
-      <mat-icon>add_a_photo</mat-icon> &nbsp;
-      <span> Photo/Video </span>
+      <mat-icon>add_a_photo</mat-icon> <span class="sm-d-none"> &nbsp; Photo/Video </span>
     </button>
-    <button mat-button>
-      <mat-icon>help</mat-icon> &nbsp;
-      <span> Ask a Question </span>
-    </button>
-    <!-- <button mat-button>...</button> -->
+    <!-- <button mat-button>
+      <mat-icon>help</mat-icon> <span class="sm-d-none"> &nbsp; Ask a Question </span>
+    </button> -->
     <div class="space"></div>
-    <button mat-flat-button class="btn-post"  (click)="postFeed()"
-      [disabled]="isPostInvalid() || isLoading">
-      Post &nbsp; <mat-icon>send</mat-icon>
+    <button mat-flat-button class="btn-post" (click)="postFeed()" [disabled]="isPostInvalid() || isLoading">
+      <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
+        <span class="sr-only">Loading...</span>
+      </div> &nbsp; Post &nbsp; <mat-icon>send</mat-icon>
     </button>
   </div>
 </div>

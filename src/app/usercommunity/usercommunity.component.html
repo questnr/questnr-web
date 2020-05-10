@@ -1,47 +1,9 @@
-<!--<div class="user-com-container">-->
-<!--  <div class="user-community">-->
-
-<!--    <div class="no-community" *ngIf="ownedCommunity.length; else communityList">-->
-
-<!--      <div class="has-community" >-->
-<!--        <h1>Your Communities</h1>-->
-<!--        <div>-->
-<!--          <ul>-->
-<!--            <li *ngFor="let i of ownedCommunity"  class="grid">-->
-<!--              <div class="community_image">-->
-<!--                <img [src]="i.avatarDTO.avatarLink" [alt]="i.communityName">-->
-<!--              </div>-->
-<!--              <div [id]=i.communityId>-->
-<!--                <a [href]="'/community/' + i.slug">{{i.communityName}}</a>-->
-<!--              </div>-->
-<!--            </li>-->
-<!--          </ul>-->
-<!--          <div class="createCommBtn">-->
-<!--            <span (click)="createCommunity()">-->
-<!--              Create more-->
-<!--            </span></div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <ng-template #communityList>-->
-<!--      <p>-->
-<!--        You haven't created any community yet.-->
-<!--      </p>-->
-<!--      <div>-->
-<!--        <a (click)="createCommunity()"> Create one now.</a>-->
-<!--      </div>-->
-
-<!--    </ng-template>-->
-
-<!--  </div>-->
-<!--</div>-->
 
 
 <div class="suggestion-container box">
   <div class="com-suggestion">
     <h1>Owned Communities.</h1>
-    <div  *ngIf="ownedCommunity.length; else noCommunity" >
+    <div  *ngIf="ownedCommunity.length; else noCommunity">
       <ul>
         <li *ngFor="let i of ownedCommunity"  class="grid">
           <div class="community_image">
@@ -52,7 +14,8 @@
           </div>
         </li>
       </ul>
-      <p (click)="createCommunity()" >Create community</p>
+      <p (click)="createCommunity()" *ngIf="relation === 'owned'">Create community.</p>
+      <p  *ngIf="relation != 'owned'">View more.</p>
     </div>
 
     <div *ngIf="loader">
@@ -111,8 +74,11 @@
     </div>
 
     <ng-template #noCommunity>
-      <span>You haven't created your first community yet.</span>
-      <p (click)="createCommunity()" >Create community</p>
+      <div *ngIf="!loader">
+        <span>No Communities created yet.</span>
+        <p (click)="createCommunity()" *ngIf="relation === 'owned'">Create community</p>
+        <p  *ngIf="relation != 'owned'">View more.</p>
+      </div>
     </ng-template>
   </div>
 </div>

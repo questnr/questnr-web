@@ -1,0 +1,159 @@
+<!--<div style="background: #ffffff; padding: 20px ">-->
+<!--  <div class="com-members-container">-->
+<!--    <div *ngIf="followers.length ; else noMembers">-->
+<!--      <div class="com-member-det" *ngFor="let i of followers" [id]="i.userId">-->
+<!--        <div class="member-avatar">-->
+<!--          <img [src]="i.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';">-->
+<!--        </div>-->
+<!--        <div class="member-name">-->
+<!--          <a [href]="'/user/' + i.slug">{{i.username}}</a>-->
+<!--        </div>-->
+<!--        <div class="action-btn">-->
+<!--          <button mat-button   style="background: green; color: #fff" (click)="unFollow(i.userId)">-->
+<!--            <mat-icon>check</mat-icon>-->
+<!--            Following-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <p> View more.</p>-->
+<!--    </div>-->
+
+<!--    <ng-template #noMembers>-->
+<!--      <span> No one following this community yet.</span>-->
+<!--    </ng-template>-->
+
+<!--    <div *ngIf="">-->
+<!--      <div class="com-member-det" >-->
+<!--        <div class="member-avatar skeleton-box">-->
+<!--          <img >-->
+<!--        </div>-->
+<!--        <div class="member-name ">-->
+<!--          <span class="skeleton-box desc"></span>-->
+<!--        </div>-->
+<!--        <div class="action-btn">-->
+<!--          <button mat-button class="skeleton-box">-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="com-member-det" >-->
+<!--        <div class="member-avatar skeleton-box">-->
+<!--          <img >-->
+<!--        </div>-->
+<!--        <div class="member-name ">-->
+<!--          <span class="skeleton-box desc"></span>-->
+<!--        </div>-->
+<!--        <div class="action-btn">-->
+<!--          <button mat-button class="skeleton-box">-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="com-member-det" >-->
+<!--        <div class="member-avatar skeleton-box">-->
+<!--          <img >-->
+<!--        </div>-->
+<!--        <div class="member-name ">-->
+<!--          <span class="skeleton-box desc"></span>-->
+<!--        </div>-->
+<!--        <div class="action-btn">-->
+<!--          <button mat-button class="skeleton-box">-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="com-member-det" >-->
+<!--        <div class="member-avatar skeleton-box">-->
+<!--          <img >-->
+<!--        </div>-->
+<!--        <div class="member-name ">-->
+<!--          <span class="skeleton-box desc"></span>-->
+<!--        </div>-->
+<!--        <div class="action-btn">-->
+<!--          <button mat-button class="skeleton-box">-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--</div>-->
+
+<div class="user-group-container">
+  <h4>Followers</h4>
+  <mat-grid-list cols="2" rowHeight="3:1">
+    <mat-grid-tile *ngFor="let i of followers" [id]="i.userId">
+      <div class="flex">
+        <div class="flex-50">
+          <img [src]="i.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';" alt="">
+        </div>
+        <div class="flex-50">
+          <div>
+            <p><a [href]="'/user/' + i.slug">{{i.username}}</a></p>
+          </div>
+        </div>
+        <div class="flex-50">
+          <div>
+            <button mat-stroked-button *ngIf="i?.userMeta?.relationShipType === 'owned' else notOwner">
+              It's you
+            </button>
+          </div>
+          <ng-template #notOwner>
+            <button mat-stroked-button *ngIf="i?.userMeta?.relationShipType === 'followed'" style="background: green;color: #ffffff" (click)="unFollow(i?.userId)">
+              <mat-icon>check</mat-icon>
+              Following
+            </button>
+            <button mat-stroked-button *ngIf="i?.userMeta?.relationShipType === 'none'" (click)="follow(i.userId)">
+              Follow
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="more">
+        <img src="assets/next.png" alt="next" style="width: 79px; margin: 20px;" #tooltip="matTooltip"
+             matTooltipPosition="right"
+             matTooltip="view all.">
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <div>
+    <h4>Following</h4>
+    <mat-grid-list cols="2" rowHeight="3:1">
+      <mat-grid-tile *ngFor="let i of following" [id]="i.userId">
+        <div class="flex">
+          <div class="flex-50">
+            <img [src]="i.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';" alt="">
+          </div>
+          <div class="flex-50">
+            <div>
+              <p><a [href]="'/user/' + i.slug">{{i.username}}</a></p>
+            </div>
+          </div>
+          <div class="flex-50">
+            <div>
+              <button mat-stroked-button  (click)="unFollow(i.userId)" *ngIf="i?.userMeta?.relationShipType === 'owned' else notOwner">
+                It's you
+              </button>
+            </div>
+            <ng-template #notOwner>
+              <button mat-stroked-button *ngIf="i?.userMeta?.relationShipType === 'followed'" style="background: green;color: #ffffff" (click)="unFollow(i?.userId)">
+                <mat-icon>check</mat-icon>
+                Following
+              </button>
+              <button mat-stroked-button *ngIf="i?.userMeta?.relationShipType === 'none'" (click)="follow(i.userId)">
+                Follow
+              </button>
+            </ng-template>
+          </div>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="more">
+          <img src="assets/next.png" alt="next" style="width: 79px; margin: 20px;" #tooltip="matTooltip"
+               matTooltipPosition="right"
+               matTooltip="view all.">
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>
