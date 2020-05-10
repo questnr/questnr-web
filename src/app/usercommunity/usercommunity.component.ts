@@ -26,7 +26,7 @@ export class UsercommunityComponent implements OnInit {
   ngOnInit() {
     setTimeout( () => {
       this.getUserOwnedCommunity();
-    }, 1000);
+    }, 2000);
   }
 
   createCommunity(): void {

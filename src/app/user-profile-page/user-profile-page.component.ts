@@ -16,7 +16,7 @@ import {Post} from '../models/post-action.model';
 export class UserProfilePageComponent implements OnInit {
   constructor( public userProfilePageService: UserProfilePageService, public route: ActivatedRoute, public userFollowersService: UserProfileCardServiceComponent,
                public loginService: LoginService, public api: ApiService) { }
-  feeds: Post;
+  feeds: Post[];
   url: string;
   user: User;
   userAvatarImage = 'assets/default.jpg';
