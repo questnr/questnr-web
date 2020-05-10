@@ -30,14 +30,7 @@ export class PostFeedComponent {
   apiUrl: any;
   isMediaEnabled = false;
 
-  constructor(private login: LoginService, private service: FeedsService) {
-    // this.profileImg = this.login.getUserProfileIcon();
-    this.login.getUser().subscribe(
-      (res) => {
-        this.profileImg = res.avatarLink;
-      }
-    );
-  }
+  constructor(public login: LoginService, private service: FeedsService) { }
   toggleAddMedia() {
     if (this.isMediaEnabled) {
       this.addedMedias = [];
@@ -89,7 +82,6 @@ export class PostFeedComponent {
       } else {
         this.apiUrl = 'user/posts';
       }
-      console.log(this.isCommunityPost, this.communityId, this.apiUrl, formData);
       this.service.postFeed(formData, this.apiUrl).subscribe(
         (event: HttpEvent<any>) => {
           if (event.type === HttpEventType.UploadProgress) {

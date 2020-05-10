@@ -16,17 +16,12 @@ export class UserHeaderComponent {
   user: string;
   isLoading = false;
   profile;
-  profileImg;
   hashtagInput = new FormControl();
   hashtags = [];
 
   constructor(private router: Router, public auth: LoginService, private api: ApiService) {
     this.profile = this.auth.getUserProfile();
-    this.auth.getUser().subscribe(
-      (res) => {
-        this.profileImg = res.avatarLink;
-      }
-    );
+    this.auth.getUserProfileImg();
     this.hashtagInput.valueChanges
       .pipe(
         debounceTime(500),
@@ -41,11 +36,11 @@ export class UserHeaderComponent {
           this.searchHashtag();
         }
       });
-    // this.api.getNotifications().subscribe(
-    //   res => {
-    //     console.log(res);
-    //   }
-    // );
+    this.api.getNotifications().subscribe(
+      res => {
+        console.log(res);
+      }
+    );
   }
   toggleMenu() {
     this.menuToggle.emit();

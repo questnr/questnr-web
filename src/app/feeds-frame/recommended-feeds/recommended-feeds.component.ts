@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormControl, Validators } from '@angular/forms';
 import { FeedsService } from 'feeds-frame/feeds.service';
@@ -20,13 +20,13 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class RecommendedFeedsComponent implements OnInit {
   @Input() feed;
+  @ViewChild('commentInput') commentInput: ElementRef;
   isCommenting = false;
-  isReplying = false;
+  replyingTo;
   isLoading = false;
   isCommentLoading = false;
   comment = new FormControl('', Validators.required);
   replyComment = new FormControl('', Validators.required);
-
   postLink;
 
   customOptions: OwlOptions = {
@@ -55,36 +55,46 @@ export class RecommendedFeedsComponent implements OnInit {
     autoplay: true
   };
 
-  constructor(private api: FeedsService, private login: LoginService, private dialog: MatDialog) { }
+  constructor(private api: FeedsService, public login: LoginService, private dialog: MatDialog) { }
 
   ngOnInit() {
   }
   toggleComments() {
     this.isCommenting = !this.isCommenting;
   }
-  getComments(postId) {
-    this.api.getComments(postId).subscribe(
-      (res: any) => {
-        this.isCommentLoading = false;
-        this.feed.commentActionDTOList = res.content;
-      }
-    );
-  }
+  // getComments(postId) {
+  //   this.api.getComments(postId).subscribe(
+  //     (res: any) => {
+  //       this.isCommentLoading = false;
+  //       this.feed.commentActionDTOList = res.content;
+  //     }
+  //   );
+  // }
   postComment(id) {
-    this.isCommentLoading = true;
-    const body = {
-      postId: id,
-      parentCommentId: 0,
-      commentObject: this.comment.value
-    };
-    if (this.comment.valid) {
-      this.api.postComment(id, body).subscribe(
-        res => {
-          this.getComments(id);
-        }
-      );
+    if (this.comment.value) {
+      this.isCommentLoading = true;
+      const body = {
+        postId: id,
+        parentCommentId: this.replyingTo ? this.replyingTo.commentId : 0,
+        commentObject: this.comment.value
+      };
+      if (this.comment.valid) {
+        this.api.postComment(id, body).subscribe(
+          res => {
+            this.feed.commentActionList.push(res);
+            this.isCommentLoading = false;
+            this.replyingTo = null;
+            this.comment.setValue('');
+          }
+        );
+      }
     }
   }
+  replyTo(event) {
+    this.replyingTo = event;
+    this.commentInput.nativeElement.focus();
+  }
+
   likePost(id) {
     this.isLoading = true;
     if (this.feed.postActionMeta.liked) {
