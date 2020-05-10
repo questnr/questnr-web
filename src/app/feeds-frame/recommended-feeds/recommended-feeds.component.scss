@@ -1,5 +1,10 @@
 @import "../../variables";
 
+:host {
+  margin: 1rem 0;
+  display: block;
+}
+
 .box {
   background: #fff;
   border-radius: 10px;
@@ -8,29 +13,29 @@
 .head-wrap {
   display: flex;
   align-items: center;
-  padding: 1rem;
-  .profile-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    height: 64px;
-    border-radius: 50%;
-    width: 64px;
-    img {
-      width: auto;
-      height: 100%;
-    }
+  padding: 0.6rem;
+}
+.profile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 50px;
+  border-radius: 50%;
+  width: 50px;
+  img {
+    width: auto;
+    height: 100%;
   }
-  .profile-detail {
-    padding: 1rem;
-    .head {
-      font-size: 1rem;
-      font-weight: 600;
-    }
-    .subhead {
-      color: $primary;
-    }
+}
+.profile-detail {
+  padding: 0 0.6rem;
+  font-size: 14px;
+  .head {
+    font-weight: 500;
+  }
+  .subhead {
+    color: $primary;
   }
 }
 .text {
@@ -40,9 +45,8 @@
 }
 .count-box {
   display: flex;
-  padding: 0 1rem;
+  padding: 0.2rem 1rem;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   & > * {
     margin: 0 5px;
   }
@@ -58,11 +62,13 @@
 }
 .footer-wrap {
   display: flex;
-  padding: 0 1rem;
+  padding: 0.2rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-left: 0;
   button {
     display: flex;
     align-items: center;
-    margin: 10px;
     width: auto;
     height: auto;
     font-size: 0.8rem;
@@ -81,14 +87,22 @@
 }
 .comment-wrapper {
   background: #eee;
-  padding: 5px;
-  border-radius: 5px;
+  padding: 0 1rem;
+  border-radius: 50px;
   position: relative;
   display: flex;
+  align-items: center;
+  flex: auto;
+  span {
+    padding: 0.2rem 0.5rem;
+    background: rgba($primary, 0.3);
+    font-weight: 500;
+    border-radius: 5px;
+  }
   input {
     background: transparent;
     border: none;
-    padding: 0 1rem;
+    padding: 0.5rem;
     color: #000;
     width: 100%;
     letter-spacing: 1px;
@@ -101,6 +115,10 @@
   overflow: hidden;
   .wrap {
     padding: 1rem;
+    .wrap-items {
+      display: flex;
+      flex-direction: column-reverse;
+    }
   }
 }
 .comment-box {
@@ -125,16 +143,9 @@
       }
     }
   }
-  &.myComment {
-    margin-left: auto;
-  }
 }
 .comment-item {
-  display: block;
-  border: 1px solid rgba($primary, 0.4);
-  background: rgba(black, 0.05);
-  border-radius: 10px;
-  box-shadow: 0 3px 5px rgba($primary, 0.2);
+  display: flex;
 }
 button.liked {
   color: $primary;
@@ -144,8 +155,9 @@ button.liked {
   align-items: center;
   justify-content: flex-start;
   padding: 0 0.5rem;
+  font-size: 12px;
   & > * {
-    margin: 5px;
+    margin: 0 5px;
   }
   a {
     text-transform: uppercase;
@@ -165,14 +177,22 @@ button.liked {
 }
 .reply-box {
   overflow: hidden;
-  .comment-wrapper {
-    margin: 5px;
-    padding: 0;
-  }
 }
 .child-comment {
   width: 80%;
-  &.myComment {
-    margin-left: auto;
+}
+.subComments {
+  margin-left: 40px;
+}
+.comment-box-wrap {
+  display: flex;
+  .profile-icon {
+    width: 40px;
+    margin: auto 10px;
+    height: 40px;
   }
+}
+p.pre {
+  white-space: pre-wrap;
+  margin: 0;
 }

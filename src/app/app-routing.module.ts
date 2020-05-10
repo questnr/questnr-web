@@ -18,6 +18,8 @@ import { PostFeedComponent } from 'feeds-frame/post-feed/post-feed.component';
 import { FeedsFrameComponent } from 'feeds-frame/feeds-frame.component';
 import {UserProfilePageComponent} from './user-profile-page/user-profile-page.component';
 import { SinglePostComponent } from 'single-post/single-post.component';
+import { FeedsLoaderComponent } from 'feeds-frame/recommended-feeds/feeds-loader/feeds-loader.component';
+import { NotificationItemComponent } from 'feeds-frame/notification-item/notification-item.component';
 
 
 const routes: Routes = [
@@ -55,6 +57,8 @@ export const routingComponent = [
   LandingPageComponent,
   UserHeaderComponent,
   SidenavComponent,
-  PostFeedComponent
+  PostFeedComponent,
+  FeedsLoaderComponent,
+  NotificationItemComponent
 ];
 

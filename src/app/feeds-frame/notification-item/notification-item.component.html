@@ -1,0 +1,20 @@
+<div class="profile-icon">
+  <img [src]="notification.userActor?.avatarDTO?.avatarLink ?
+  notification.userActor?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt="">
+  <div class="type">
+    <img *ngIf="notification.notificationType === 'like'" src="assets/like.svg">
+    <img *ngIf="notification.notificationType === 'comment'" src="assets/comment.svg">
+    <img *ngIf="notification.notificationType === 'followedUser'
+      || notification.notificationType === 'followedCommunity'" src="assets/follow.svg">
+  </div>
+</div>
+<div>
+  <div class="profile-detail">
+    <div class=" head">{{notification.userActor?.username}}</div>
+    <div> {{notification.message}} </div>
+  </div>
+</div>
+<button mat-icon-button color="warn" class="remove"
+  (click)="removeNotification(notification.notificationId); $event.stopPropagation();">
+  <mat-icon>clear</mat-icon>
+</button>

@@ -31,6 +31,7 @@ import { InterceptorService } from './interceptor.service';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
@@ -43,7 +44,6 @@ import {
 import { MatVideoModule } from 'mat-video';
 import { environment } from '../environments/environment';
 
-import { MnFullpageModule } from 'ngx-fullpage';
 import { AuthGuard } from 'auth/auth.guard';
 import { LoginService } from 'auth/login.service';
 // import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -71,6 +71,20 @@ import { UserProfilePageComponent } from './user-profile-page/user-profile-page.
 import { UserFollowersComponent } from './user-followers/user-followers.component';
 import { SinglePostComponent } from './single-post/single-post.component';
 import { UserActivityComponent } from './user-activity/user-activity.component';
+// import { ShareModule, ShareButtonsConfig } from '@ngx-share/core';
+import { SharePostComponent } from './shared/components/dialogs/share-post/share-post.component';
+
+import { ShareButtonsModule } from '@ngx-share/buttons';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { ShareButtonsConfig } from '@ngx-share/core';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+
+
+const customConfig: ShareButtonsConfig = {
+  include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
+  theme: 'circles-light',
+  autoSetMeta: true,
+};
 
 const config = new AuthServiceConfig([
   {
@@ -112,7 +126,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserProfilePageComponent,
     UserFollowersComponent,
     SinglePostComponent,
-    UserActivityComponent
+    UserActivityComponent,
+    SharePostComponent
   ],
   imports: [
     MatVideoModule,
@@ -138,13 +153,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatTabsModule,
     MatButtonModule,
     MatMenuModule,
+    MatBadgeModule,
     MatCheckboxModule,
     MatDialogModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
     SocialLoginModule,
-    MnFullpageModule.forRoot(),
+    ShareButtonsModule.withConfig(customConfig),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -156,7 +172,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatTooltipModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    NgxSkeletonLoaderModule,
+    ClipboardModule
   ],
   entryComponents: [
     CreateCommunityComponent,
