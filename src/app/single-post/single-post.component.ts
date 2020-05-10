@@ -14,11 +14,11 @@ import { LoginService } from 'auth/login.service';
 })
 export class SinglePostComponent implements OnInit {
 
-  isCommenting = false;
-  isSharing = false;
-  isReplying = false;
-  isLoading = true;
-  isCommentLoading = false;
+  isCommenting: boolean = false;
+  isSharing: boolean = false;
+  isReplying: boolean = false;
+  isLoading: boolean = true;
+  isCommentLoading: boolean = false;
   comment = new FormControl('', Validators.required);
   replyComment = new FormControl('', Validators.required);
 
@@ -51,8 +51,8 @@ export class SinglePostComponent implements OnInit {
   };
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
-              private loginService: LoginService) {
-    this.postSlug = this.route.snapshot.paramMap.get('postSlug');
+    private loginService: LoginService) {
+    this.postSlug = this.route.snapshot.paramMap.get("postSlug");
   }
 
   ngOnInit(): void {
@@ -62,7 +62,7 @@ export class SinglePostComponent implements OnInit {
   fetchPost(postSlug: string) {
     this.singlePostService.getSinglePost(postSlug).subscribe((singlePost: SinglePost) => {
       this.singlePost = singlePost;
-      console.log('singlePost', singlePost);
+      console.log("singlePost", singlePost);
       this.isLoading = false;
     });
   }
@@ -80,13 +80,14 @@ export class SinglePostComponent implements OnInit {
       (res: any) => {
         this.isCommentLoading = false;
         this.singlePost.commentActionList = res.content;
-        const left = document.getElementById('post-media-window').style.height;
-        const right = document.getElementById('post-head').style.height;
+        var left = document.getElementById('post-media-window').style.height;
+        var right = document.getElementById('post-head').style.height;
         if (left > right) {
-          console.log('left', left);
+          console.log("left", left);
           document.getElementById('rightdiv').style.height = left;
-        } else {
-          console.log('right', right);
+        }
+        else {
+          console.log("right", right);
           document.getElementById('leftdiv').style.height = right;
         }
       }

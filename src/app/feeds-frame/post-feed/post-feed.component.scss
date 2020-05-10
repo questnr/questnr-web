@@ -74,37 +74,33 @@
 .post-wrap {
   display: flex;
   align-items: flex-start;
-  padding: 0.5rem;
+  padding: 1rem;
   .icon {
-    height: 60px;
-    width: 60px;
+    height: 80px;
+    width: 80px;
     overflow: hidden;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0.5rem;
     img {
       height: 100%;
       width: auto;
     }
   }
-  .textbox-wrap {
-    margin: 0.5rem;
-    flex: auto;
-    textarea {
-      padding: 0.5rem;
-      background: rgba(0, 0, 0, 0.03);
-      border: 0;
-      width: 100%;
-      border-radius: 5px;
-      &::placeholder {
-        margin: 1rem 0;
-        color: rgba(0, 0, 0, 0.5);
-      }
-      &:focus {
-        background: rgba(0, 0, 0, 0.05);
-      }
+  textarea {
+    margin: auto 1rem;
+    padding: 1rem;
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-radius: 5px;
+    &::placeholder {
+      margin: auto 0;
+      color: rgba(0, 0, 0, 0.5);
+    }
+    &:focus {
+      background: rgba(0, 0, 0, 0.05);
     }
   }
 }
@@ -122,10 +118,8 @@
     margin: 10px;
     width: auto;
     height: auto;
+    border: rgba(0, 0, 0, 0.4);
     transition: background 0.2s ease-in-out;
-    &:not(:disabled) {
-      border: 1px solid $primary;
-    }
     &:not(:disabled):hover,
     &.active {
       background: $primary;
@@ -168,19 +162,12 @@
 
 @media only screen and (max-width: 600px) {
   .btn-wrap {
-    display: inline-flex;
-    padding: 0.5rem;
-    width: 100%;
+    display: block;
     button {
-      margin: 5px;
+      margin: 0;
     }
     button.btn-color {
       margin-left: auto;
     }
-  }
-}
-@media only screen and (max-width: 480px) {
-  .sm-d-none {
-    display: none;
   }
 }

@@ -1,12 +1,10 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormControl, Validators } from '@angular/forms';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { LoginService } from 'auth/login.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import {Post} from '../../models/post-action.model';
-import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
-import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-recommended-feeds',
   templateUrl: './recommended-feeds.component.html',
@@ -21,27 +19,22 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class RecommendedFeedsComponent implements OnInit {
   @Input() feed;
-  @ViewChild('commentInput') commentInput: ElementRef;
   isCommenting = false;
-  replyingTo: any;
-  isLoading = false;
   isSharing = false;
   isReplying = false;
+  isLoading = false;
   isCommentLoading = false;
   comment = new FormControl('', Validators.required);
   replyComment = new FormControl('', Validators.required);
-  loggedInUsername: string;
-  postLink;
-  page = 1;
-  endOfComments = false;
+
   customOptions: OwlOptions = {
     loop: false,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    dots: true,
+    dots: false,
     navSpeed: 700,
-    navText: ['<', '>'],
+    navText: ['', ''],
     responsive: {
       0: {
         items: 1
@@ -56,72 +49,45 @@ export class RecommendedFeedsComponent implements OnInit {
         items: 1
       }
     },
-    nav: true,
+    nav: false,
     autoplay: true
   };
 
-  constructor(private api: FeedsService, public login: LoginService, private dialog: MatDialog) { }
+  constructor(private api: FeedsService, private login: LoginService) { }
 
   ngOnInit() {
-    this.loggedInUsername = this.login.getUserProfile().sub;
-    console.log('logged in username:' + this.loggedInUsername);
   }
   toggleComments() {
     this.isSharing = false;
     this.isCommenting = !this.isCommenting;
   }
-  getComments() {
-    this.isCommentLoading = true;
-    this.api.getComments(this.feed.postActionId, this.page).subscribe(
+  toggleSharing() {
+    this.isCommenting = false;
+    this.isSharing = !this.isSharing;
+  }
+  getComments(postId) {
+    this.api.getComments(postId).subscribe(
       (res: any) => {
         this.isCommentLoading = false;
-        if (res.content.length) {
-          res.content.forEach(comment => {
-            this.feed.commentActionList.push(comment);
-          });
-          ++this.page;
-        } else {
-          this.endOfComments = true;
-        }
+        this.feed.commentActionDTOList = res.content;
       }
     );
   }
   postComment(id) {
-    if (this.comment.value) {
-      this.isCommentLoading = true;
-      const body = {
-        postId: id,
-        parentCommentId: this.replyingTo ? this.replyingTo.commentId : 0,
-        commentObject: this.comment.value
-      };
-      if (this.comment.valid) {
-        this.api.postComment(id, body).subscribe(
-          res => {
-            if (this.replyingTo && this.replyingTo.commentId) {
-              this.feed.commentActionList.forEach(c => {
-                if (c.commentActionId === id) {
-                  c.push(res);
-                }
-              });
-            } else {
-              this.feed.commentActionList.push(res);
-            }
-            ++this.feed.totalComments;
-            this.isCommentLoading = false;
-            this.replyingTo = null;
-            this.comment.setValue('');
-          }, err => {
-            this.isCommentLoading = false;
-          }
-        );
-      }
+    this.isCommentLoading = true;
+    const body = {
+      postId: id,
+      parentCommentId: 0,
+      commentObject: this.comment.value
+    };
+    if (this.comment.valid) {
+      this.api.postComment(id, body).subscribe(
+        res => {
+          this.getComments(id);
+        }
+      );
     }
   }
-  replyTo(event) {
-    this.replyingTo = event;
-    this.commentInput.nativeElement.focus();
-  }
-
   likePost(id) {
     this.isLoading = true;
     if (this.feed.postActionMeta.liked) {
@@ -140,14 +106,7 @@ export class RecommendedFeedsComponent implements OnInit {
       );
     }
   }
-  openShareDialog() {
-    this.api.getSharableLink(this.feed.postActionId).subscribe((res: any) => {
-      this.dialog.open(SharePostComponent, {
-        width: '500px',
-        data: { url: res.clickAction }
-      });
-    });
-  }
+
   likedPost() {
     this.isLoading = false;
     this.feed.postActionMeta.liked = true;

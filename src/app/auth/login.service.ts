@@ -33,21 +33,22 @@ export class LoginService {
   getUser() {
     return this.http.get<any>(this.baseUrl + 'user/avatar');
   }
-  getUserProfileImg() {
-    this.getUser().subscribe(
-      (res) => {
-        this.profileImg = res?.avatarLink ? res.avatarLink : 'assets/default.jpg';
-      }, err => {
-        this.profileImg = 'assets/default.jpg';
-      }
-    );
-  }
 
   getUserProfile() {
     const decodedData = jwtDecode(localStorage.getItem('token'));
     return decodedData;
   }
-
+  getUserProfileIcon() {
+    if (this.profileImg) {
+      return this.profileImg;
+    }
+    this.getUser().subscribe(
+      (res: any) => {
+        this.profileImg = res.avatarLink;
+        return this.profileImg;
+      }
+    );
+  }
   logOut() {
     this.profileImg = null;
     localStorage.clear();

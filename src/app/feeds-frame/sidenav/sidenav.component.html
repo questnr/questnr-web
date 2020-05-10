@@ -1,56 +1,19 @@
 <div class="link-card">
   <h3>Your Communities</h3>
-  <ng-container *ngIf="loadingCommunities">
-    <div class="list-item" *ngFor="let i of listItems">
-      <ngx-skeleton-loader count="1" appearance="circle"> </ngx-skeleton-loader>
-      <ngx-skeleton-loader class="w-100" count="1" appearance="line"> </ngx-skeleton-loader>
+  <div class="links" *ngFor="let item of userCommunities">
+    <div class="icon">
+      <img [src]="item.src" alt="">
     </div>
-<!--<<<<<<< HEAD-->
-<!--    <a class="link" [href]="'/community/' + item.slug">{{item.title}}</a>-->
-<!--  </div>-->
-<!--=======-->
-  </ng-container>
-  <ng-container *ngIf="userHashtags.length">
-    <div class="links" *ngFor="let item of userCommunities">
-      <div class="icon">
-        <img [src]="item.src" alt="">
-      </div>
-      <a class="link" routerLink="">{{item.title}}</a>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="!userCommunities.length && !loadingCommunities">
-    <p>
-      You have not created any communities yet. Create one now.
-    </p>
-  </ng-container>
-<!--&gt;>>>>>> 09749fc7fc49d194400659d29b81007db3b5f5b2-->
+    <a class="link" routerLink="">{{item.title}}</a>
+  </div>
 </div>
 <div class="link-card">
   <h3>Your Hashtags</h3>
-  <ng-container *ngIf="loadingHashtags">
-    <div class="list-item" *ngFor="let i of listItems">
-      <ngx-skeleton-loader count="1" appearance="circle"> </ngx-skeleton-loader>
-      <ngx-skeleton-loader class="w-100" count="1" appearance="line"> </ngx-skeleton-loader>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="userHashtags.length && !loadingHashtags">
-    <div class="links" *ngFor="let item of userHashtags">
-      <a routerLink="" class="link">#{{item.hashTagValue}}</a>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="!userHashtags.length && !loadingHashtags">
-    <p>
-      No Hashtags Found. Create your own hastag now.
-    </p>
-  </ng-container>
+  <div class="links" *ngFor="let item of userHashtags">
+    <a routerLink="" class="link">#{{item.hashTagValue}}</a>
+  </div>
 </div>
-<div class="link-card d-none d-sm-block d-md-none">
-  <app-suggestion></app-suggestion>
-</div>
-<div class="card p-2 d-none d-sm-block d-md-none">
-  <p class="m-0">Sponsored</p>
-  <img src="assets/thumb-02_600x600.jpg" alt="">
-</div>
+
 <footer>
   <div class="wrap">
     <a *ngFor="let item of footerLinks" [routerLink]="item.link">{{item.title}}</a>

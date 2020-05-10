@@ -12,10 +12,6 @@ export class SidenavComponent implements OnInit {
 
   userHashtags = [];
 
-  listItems = Array(5);
-  loadingCommunities = true;
-  loadingHashtags = true;
-
   footerLinks = [
     { link: '', title: 'Home' },
     { link: '', title: 'Terms' },
@@ -27,15 +23,13 @@ export class SidenavComponent implements OnInit {
   ngOnInit() {
     this.api.getTopHashtags().subscribe(
       (res: any) => {
-        this.loadingHashtags = false;
         if (res.content) {
           this.userHashtags = res.content;
           this.userHashtags = [...this.userHashtags].splice(0, 5);
         }
-      }, err => { this.loadingHashtags = false; });
+      }, err => { });
     this.api.getJoinedCommunities().subscribe(
       (res: any) => {
-        this.loadingCommunities = false;
         if (res.content.length) {
           this.userCommunities = res.content.map(item => {
             item.title = item.communityName,
@@ -43,7 +37,7 @@ export class SidenavComponent implements OnInit {
             return item;
           });
         }
-      }, err => { this.loadingCommunities = false; }
+      }
     );
   }
 }

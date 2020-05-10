@@ -10,7 +10,7 @@
         <a [href]="'/user/' + i.slug">{{i.username}}</a>
       </div>
       <div class="action-btn">
-        <button mat-button  *ngIf="i.userMeta.relationShipType ==='followed'" style="background: green; color: #fff" (click)="unfollowUser(i.userId)">
+        <button mat-button  *ngIf="i.userMeta.relationShipType ==='followed'" style="background: green; color: #fff" disabled>
          <mat-icon>check</mat-icon>
           Following
         </button>
