@@ -10,6 +10,7 @@ body {
   height: 100%;
   max-width: 100%;
   overflow-x: hidden;
+  top: 0 !important;
 }
 body {
   margin: 0;
@@ -472,6 +473,6 @@ input:focus {
   }
 }
 
-.box{
+.box {
   box-shadow: 0 1px 3px -2px;
 }

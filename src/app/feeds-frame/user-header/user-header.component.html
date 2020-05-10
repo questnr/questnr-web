@@ -25,7 +25,13 @@
 
     <!-- notifications_active, notifications_none -->
     <mat-menu #notificationsMenu="matMenu" [overlapTrigger]="false" xPosition="before">
-
+      <div class="notification-wrap">
+        <app-notification-item *ngFor="let item of notifications" [notification]="item"
+          (remove)="removeNotification($event)"></app-notification-item>
+        <button *ngIf="notifications.length> 0 && !endOfNotifications" mat-button class="w-100"
+          (click)="getNotification(); $event.stopPropagation();"> Load more</button>
+        <p *ngIf="endOfNotifications"> No more Notifications </p>
+      </div>
     </mat-menu>
 
     <button mat-button [matMenuTriggerFor]="menu" class="d-none d-sm-block d-md-block d-lg-block profile-btn" Z>
@@ -42,7 +48,7 @@
         <mat-icon>account_circle</mat-icon>
         <span>Profile</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item [matMenuTriggerFor]="settings">
         <mat-icon>settings</mat-icon>
         <span>Settings</span>
       </button>
@@ -50,6 +56,11 @@
         <mat-icon>exit_to_app</mat-icon>
         <span>Log Out</span>
       </button>
+    </mat-menu>
+    <mat-menu #settings="matMenu">
+      <button mat-menu-item>Terms & Conditions</button>
+      <button mat-menu-item>Privacy Policy</button>
+      <button mat-menu-item>FAQ</button>
     </mat-menu>
   </div>
 </header>

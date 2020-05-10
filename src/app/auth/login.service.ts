@@ -34,10 +34,8 @@ export class LoginService {
     return this.http.get<any>(this.baseUrl + 'user/avatar');
   }
   getUserProfileImg() {
-    console.log('Called>>>>>>>>>>Service');
     this.getUser().subscribe(
       (res) => {
-        console.log(this.profileImg);
         this.profileImg = res?.avatarLink ? res.avatarLink : 'assets/default.jpg';
       }, err => {
         this.profileImg = 'assets/default.jpg';

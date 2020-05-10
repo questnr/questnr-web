@@ -10,17 +10,35 @@
           {{feed.metaData.timeString === 'now'? 'Just Now': feed.metaData.timeString + ' ago' }}</span>
       </div>
     </div>
+    <div class="spacer"></div>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <button mat-menu-item>Unfollow {{feed.communityDTO?.communityName}}</button>
+      <button mat-menu-item>Report Post</button>
+    </mat-menu>
   </div>
   <div class="head-wrap" *ngIf="!feed.communityDTO">
     <div class="profile-icon"> <img [src]="feed.userDTO?.avatarDTO?.avatarLink ?
       feed.userDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""> </div>
     <div class="profile-detail">
-      <div class=" head"><a [href]="'/user/' + feed.userDTO?.slug">{{feed.userDTO?.username | titlecase}}</a></div>
+      <div class=" head"><a [href]="'/user/' + feed.userDTO?.slug">{{feed.userDTO?.username}}</a></div>
       <div class="subhead" [matTooltip]="feed.metaData.timeInUTC | date"> {{feed.metaData.timeString}} ago</div>
     </div>
+    <div class="spacer"></div>
+    <button mat-icon-button [matMenuTriggerFor]="moreOptions">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #moreOptions="matMenu" xPosition="before">
+      <button mat-menu-item>Unfollow {{feed.userDTO?.username}}</button>
+      <button mat-menu-item>Report Post</button>
+    </mat-menu>
   </div>
   <div class="mb-2">
-    <div class="text" *ngIf="feed?.text && feed.text !== 'null'" [innerHtml]="feed?.text"> </div>
+    <div class="text" *ngIf="feed?.text && feed.text !== 'null'">
+      <p class="pre">{{feed?.text}}</p>
+    </div>
     <div *ngIf="feed.postMediaList?.length">
       <owl-carousel-o [options]="customOptions">
         <ng-container *ngFor="let media of feed.postMediaList;let i=index">
@@ -59,6 +77,9 @@
   <div class="comments" [@expand]="isCommenting ? 'expanded' : 'collapsed'">
     <div class="wrap">
       <div class="wrap-items">
+        <button *ngIf="feed.commentActionList.length> 0 && !endOfComments" mat-button (click)="getComments()">Load more
+          comments</button>
+        <p *ngIf="endOfComments" class="text-center m-0">- End -</p>
         <div class="loader" *ngIf="isCommentLoading" style="justify-content: flex-start;">
           <ngx-skeleton-loader count="1" appearance="circle"
             [theme]="{height: '45px', width: '45px','background-color': '#eee'}"> </ngx-skeleton-loader>
@@ -81,7 +102,7 @@
         <div class="profile-icon"> <img [src]="login.profileImg"> </div>
         <div class="comment-wrapper">
           <span *ngIf="replyingTo">{{replyingTo.username}}</span>
-          <input type="text" [formControl]="comment"
+          <input type="text" [formControl]="comment" #commentInput
             [placeholder]="replyingTo? 'Reply to ' + replyingTo.username : 'Write a Comment..'"
             (keyup.enter)="postComment(feed.postActionId)">
           <button mat-icon-button color="accent" (click)="postComment(feed.postActionId)" [disabled]="!comment.valid">

@@ -29,6 +29,9 @@ export class RecommendedFeedsComponent implements OnInit {
   replyComment = new FormControl('', Validators.required);
   postLink;
 
+  page = 1;
+  endOfComments = false;
+
   customOptions: OwlOptions = {
     loop: false,
     mouseDrag: true,
@@ -62,14 +65,22 @@ export class RecommendedFeedsComponent implements OnInit {
   toggleComments() {
     this.isCommenting = !this.isCommenting;
   }
-  // getComments(postId) {
-  //   this.api.getComments(postId).subscribe(
-  //     (res: any) => {
-  //       this.isCommentLoading = false;
-  //       this.feed.commentActionDTOList = res.content;
-  //     }
-  //   );
-  // }
+  getComments() {
+    this.isCommentLoading = true;
+    this.api.getComments(this.feed.postActionId, this.page).subscribe(
+      (res: any) => {
+        this.isCommentLoading = false;
+        if (res.content.length) {
+          res.content.forEach(comment => {
+            this.feed.commentActionList.push(comment);
+          });
+          ++this.page;
+        } else {
+          this.endOfComments = true;
+        }
+      }
+    );
+  }
   postComment(id) {
     if (this.comment.value) {
       this.isCommentLoading = true;
@@ -81,10 +92,21 @@ export class RecommendedFeedsComponent implements OnInit {
       if (this.comment.valid) {
         this.api.postComment(id, body).subscribe(
           res => {
-            this.feed.commentActionList.push(res);
+            if (this.replyingTo && this.replyingTo.commentId) {
+              this.feed.commentActionList.forEach(c => {
+                if (c.commentActionId === id) {
+                  c.push(res);
+                }
+              });
+            } else {
+              this.feed.commentActionList.push(res);
+            }
+            ++this.feed.totalComments;
             this.isCommentLoading = false;
             this.replyingTo = null;
             this.comment.setValue('');
+          }, err => {
+            this.isCommentLoading = false;
           }
         );
       }

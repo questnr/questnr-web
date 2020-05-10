@@ -5,10 +5,11 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { PostFeedComponent } from './post-feed/post-feed.component';
 import { FeedsService } from './feeds.service';
 import { FeedsLoaderComponent } from './recommended-feeds/feeds-loader/feeds-loader.component';
+import { NotificationItemComponent } from './notification-item/notification-item.component';
 
 
 @NgModule({
-  declarations: [UserHeaderComponent, SidenavComponent, PostFeedComponent, FeedsLoaderComponent],
+  declarations: [UserHeaderComponent, SidenavComponent, PostFeedComponent, FeedsLoaderComponent, NotificationItemComponent],
   imports: [CommonModule],
   providers: [FeedsService]
 })

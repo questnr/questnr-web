@@ -31,6 +31,7 @@ import { InterceptorService } from './interceptor.service';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -148,6 +149,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatTabsModule,
     MatButtonModule,
     MatMenuModule,
+    MatBadgeModule,
     MatCheckboxModule,
     MatDialogModule,
     MatTooltipModule,

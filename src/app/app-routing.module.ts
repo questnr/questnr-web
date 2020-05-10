@@ -17,6 +17,7 @@ import { CommunityComponent } from './community/community.component';
 import { PostFeedComponent } from 'feeds-frame/post-feed/post-feed.component';
 import { FeedsFrameComponent } from 'feeds-frame/feeds-frame.component';
 import { FeedsLoaderComponent } from 'feeds-frame/recommended-feeds/feeds-loader/feeds-loader.component';
+import { NotificationItemComponent } from 'feeds-frame/notification-item/notification-item.component';
 
 
 const routes: Routes = [
@@ -53,6 +54,7 @@ export const routingComponent = [
   UserHeaderComponent,
   SidenavComponent,
   PostFeedComponent,
-  FeedsLoaderComponent
+  FeedsLoaderComponent,
+  NotificationItemComponent
 ];
 

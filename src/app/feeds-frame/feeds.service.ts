@@ -18,8 +18,8 @@ export class FeedsService {
   getFeeds(page) {
     return this.http.get(this.baseUrl + 'user/feed', { params: { page } });
   }
-  getComments(postId) {
-    return this.http.get(this.baseUrl + `user/posts/${postId}/comment`);
+  getComments(postId, page) {
+    return this.http.get(this.baseUrl + `user/posts/${postId}/comment`, { params: { page } });
   }
   postComment(postId, data) {
     return this.http.post(this.baseUrl + `user/posts/${postId}/comment`, data);

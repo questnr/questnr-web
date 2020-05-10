@@ -6,7 +6,7 @@
   <div class="post-wrap">
     <div class="icon"> <img [src]="login.profileImg"> </div>
     <div class="textbox-wrap">
-      <textarea rows="3" placeholder="Post Something...." [formControl]="text" (keyup.enter)="postFeed()"></textarea>
+      <textarea rows="3" placeholder="Post Something...." [formControl]="text"></textarea>
     </div>
   </div>
 
@@ -33,11 +33,11 @@
   </div>
   <div class="btn-wrap">
     <button mat-button (click)="toggleAddMedia()" [ngClass]="{ active: isMediaEnabled}">
-      <mat-icon>add_a_photo</mat-icon> &nbsp; <span> Photo/Video </span>
+      <mat-icon>add_a_photo</mat-icon> <span class="sm-d-none"> &nbsp; Photo/Video </span>
     </button>
-    <button mat-button>
-      <mat-icon>help</mat-icon> &nbsp; <span> Ask a Question </span>
-    </button>
+    <!-- <button mat-button>
+      <mat-icon>help</mat-icon> <span class="sm-d-none"> &nbsp; Ask a Question </span>
+    </button> -->
     <div class="space"></div>
     <button mat-flat-button class="btn-post" (click)="postFeed()" [disabled]="isPostInvalid() || isLoading">
       <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">

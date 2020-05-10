@@ -29,8 +29,12 @@ export class ApiService {
   searchHashtag(hashTag) {
     return this.http.get(this.baseUrl + `search/hash-tag`, { params: { hashTag } });
   }
-  getNotifications() {
-    return this.http.get(this.baseUrl + 'user/notification');
+  getNotifications(page: any = 0) {
+    console.log(page);
+    return this.http.get(this.baseUrl + 'user/notification', { params: { page } });
+  }
+  removeNotification(id) {
+    return this.http.delete(this.baseUrl + 'user/notification/' + id, { observe: 'response' });
   }
   registerPushNotificationToken(token: string) {
     return this.http.post(this.baseUrl + 'push-notification/token', token);

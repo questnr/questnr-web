@@ -1,23 +1,23 @@
 <div class="m-3">
-  <h5 class="text-center">Share with your loved ones</h5>
+  <h5 class="text-center">Share this post with your loved ones</h5>
   <hr class="my-3">
-
   <div class="btn-wrapper">
-    <button mat-flat-button shareButton="facebook" [url]="url" [style.backgroundColor]="'#3b5998'">
-      Facebook
+    <button class="btn social-btn" shareButton="facebook" [url]="url">
+      <img src="assets/facebook.svg">
     </button>
-    <button mat-flat-button shareButton="twitter" [url]="url" [style.backgroundColor]="'#55acee'">
-      Twitter
+    <button class="btn social-btn" shareButton="twitter" [url]="url">
+      <img src="assets/twitter.svg">
     </button>
-    <button mat-flat-button shareButton="linkedin" [url]="url" [style.backgroundColor]="'#0077b5'">
-      LinkedIn
+    <button class="btn social-btn" shareButton="linkedin" [url]="url">
+      <img src="assets/linkedin.svg">
     </button>
-    <button mat-flat-button shareButton="whatsapp" [url]="url" [style.backgroundColor]="'#43d854'">
-      WhatsApp
+    <button class="btn social-btn" shareButton="whatsapp" [url]="url">
+      <img src="assets/whatsapp.svg">
     </button>
-    <button mat-flat-button [cdkCopyToClipboard]="url" (cdkCopyToClipboardCopied)="showCopied($event)"
-      [disabled]="isCopied" color="accent">
-      <mat-icon *ngIf="isCopied">check</mat-icon> {{isCopied? 'Copied':'Copy Link'}}
+    <button class="btn social-btn copy" [ngClass]="{active: isCopied}" [cdkCopyToClipboard]="url"
+      (cdkCopyToClipboardCopied)="showCopied($event)" [disabled]="isCopied" color="primary" matBadge="Copied"
+      matBadgePosition="after" matBadgeColor="accent" [matBadgeHidden]="!isCopied">
+      <img src="assets/copy.svg">
     </button>
   </div>
 </div>

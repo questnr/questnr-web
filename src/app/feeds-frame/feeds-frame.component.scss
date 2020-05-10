@@ -1,6 +1,6 @@
 .main-wrap {
   display: grid;
-  grid-template-columns: 300px auto 300px;
+  grid-template-columns: 250px auto 250px;
   aside {
     height: 100vh;
     top: 0;
@@ -15,15 +15,24 @@
   height: auto;
 }
 .feeds {
-  max-width: 100%;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
   overflow: hidden;
   padding: 20px;
 }
 .feed-wrap {
   margin: 0.5rem 0;
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
   .main-wrap {
     grid-template-columns: auto;
+  }
+  .btn-wrap button {
+    font-size: 12px;
+    padding: 0 10px;
+    .mat-icon {
+      font-size: 20px;
+    }
   }
 }

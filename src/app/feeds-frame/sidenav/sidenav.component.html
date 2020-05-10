@@ -15,7 +15,7 @@
     </div>
   </ng-container>
   <ng-container *ngIf="!userCommunities.length && !loadingCommunities">
-    <p class="text-center">
+    <p>
       You have not created any communities yet. Create one now.
     </p>
   </ng-container>
@@ -34,12 +34,18 @@
     </div>
   </ng-container>
   <ng-container *ngIf="!userHashtags.length && !loadingHashtags">
-    <p class="text-center">
+    <p>
       No Hashtags Found. Create your own hastag now.
     </p>
   </ng-container>
 </div>
-
+<div class="link-card d-none d-sm-block d-md-none">
+  <app-suggestion></app-suggestion>
+</div>
+<div class="card p-2 d-none d-sm-block d-md-none">
+  <p class="m-0">Sponsored</p>
+  <img src="assets/thumb-02_600x600.jpg" alt="">
+</div>
 <footer>
   <div class="wrap">
     <a *ngFor="let item of footerLinks" [routerLink]="item.link">{{item.title}}</a>
