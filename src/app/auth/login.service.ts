@@ -56,4 +56,12 @@ export class LoginService {
   loggedIn() {
     return !!localStorage.getItem('token');
   }
+  getUserId() {
+    try {
+      const user = this.getUserProfile();
+      return user.id;
+    } catch (e) {
+      return -99;
+    }
+  }
 }
