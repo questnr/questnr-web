@@ -23,7 +23,8 @@
     <div class="profile-icon"> <img [src]="feed.userDTO?.avatarDTO?.avatarLink ?
       feed?.userDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""> </div>
     <div class="profile-detail">
-      <div class=" head" *ngIf="feed?.userDTO?.username"><a [href]="'/user/' + feed?.userDTO?.slug">{{feed?.userDTO?.username | titlecase}}</a></div>
+      <div class=" head" *ngIf="feed?.userDTO?.username"><a
+          [href]="'/user/' + feed?.userDTO?.slug">{{feed?.userDTO?.username}}</a></div>
       <div class="head" *ngIf="!feed.userDTO?.username">{{loggedInUsername}}</div>
       <div class="subhead" [matTooltip]="feed.metaData.timeInUTC | date"> {{feed.metaData.timeString}} ago</div>
     </div>
