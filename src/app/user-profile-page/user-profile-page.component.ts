@@ -1,12 +1,12 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {UserProfileCardServiceComponent} from '../user-profile-card/user-profile-card-service.component';
-import {UserProfilePageService} from './user-profile-page.service';
-import {ActivatedRoute} from '@angular/router';
-import {User} from '../models/user.model';
-import {UserFollowersService} from '../user-followers/user-followers.service';
-import {LoginService} from '../auth/login.service';
-import {ApiService} from '../shared/api.service';
-import {Post} from '../models/post-action.model';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
+import { UserProfilePageService } from './user-profile-page.service';
+import { ActivatedRoute } from '@angular/router';
+import { User } from '../models/user.model';
+import { UserFollowersService } from '../user-followers/user-followers.service';
+import { LoginService } from '../auth/login.service';
+import { ApiService } from '../shared/api.service';
+import { Post } from '../models/post-action.model';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -14,8 +14,8 @@ import {Post} from '../models/post-action.model';
   styleUrls: ['./user-profile-page.component.scss'],
 })
 export class UserProfilePageComponent implements OnInit {
-  constructor( public userProfilePageService: UserProfilePageService, public route: ActivatedRoute, public userFollowersService: UserProfileCardServiceComponent,
-               public loginService: LoginService, public api: ApiService) { }
+  constructor(public userProfilePageService: UserProfilePageService, public route: ActivatedRoute, public userFollowersService: UserProfileCardServiceComponent,
+    public loginService: LoginService, public api: ApiService) { }
   feeds: Post[];
   url: string;
   user: User;
@@ -37,13 +37,13 @@ export class UserProfilePageComponent implements OnInit {
     }, error => {
 
     });
-    }
+  }
   getUserProfileDetails() {
     this.userProfilePageService.getUserProfile(this.url).subscribe((res: any) => {
       this.user = res;
-      this.userAvatarImage =  res.avatarDTO.avatarLink;
+      this.userAvatarImage = res.avatarDTO.avatarLink;
       this.relation = res.userMeta.relationShipType;
-      console.log("relation" , this.relation);
+      console.log("relation", this.relation);
     }, error => {
       console.log(error.error.errorMessage);
     });
@@ -92,8 +92,7 @@ export class UserProfilePageComponent implements OnInit {
     });
   }
   getCommunityFollowedByUser() {
-    this.api.getJoinedCommunities().subscribe((res: any) => {
-      console.log(res);
+    this.api.getJoinedCommunities(this.loginService.getUserId()).subscribe((res: any) => {
     }, error => {
       console.log(error.error.errorMessage);
     });

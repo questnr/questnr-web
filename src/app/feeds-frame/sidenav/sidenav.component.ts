@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'shared/api.service';
+import { LoginService } from 'auth/login.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -22,7 +23,7 @@ export class SidenavComponent implements OnInit {
     { link: '', title: 'Privacy Policy' },
   ];
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private loginService: LoginService) { }
 
   ngOnInit() {
     this.api.getTopHashtags().subscribe(
@@ -33,7 +34,8 @@ export class SidenavComponent implements OnInit {
           this.userHashtags = [...this.userHashtags].splice(0, 5);
         }
       }, err => { this.loadingHashtags = false; });
-    this.api.getJoinedCommunities().subscribe(
+
+    this.api.getJoinedCommunities(this.loginService.getUserId()).subscribe(
       (res: any) => {
         this.loadingCommunities = false;
         if (res.content.length) {
