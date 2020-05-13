@@ -19,8 +19,11 @@
 
     <div class="spacer"></div>
 
-    <button mat-button class="h-100" [matMenuTriggerFor]="notificationsMenu">
-      <mat-icon>notifications</mat-icon>
+    <button mat-button class="h-100" [matMenuTriggerFor]="notificationsMenu" [style.color]="notificationColor"
+      (click)="readNewNotification()">
+      <mat-icon *ngIf="!hasNewNotifications">notifications</mat-icon>
+
+      <mat-icon *ngIf="hasNewNotifications">notifications_active</mat-icon>
     </button>
 
     <!-- notifications_active, notifications_none -->
