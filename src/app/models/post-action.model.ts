@@ -26,7 +26,7 @@ export class Post {
 
 class PostMedia {
     postMediaLink: string;
-    mediaType: string;
+    resourceType: string;
 }
 
 export class PostActionMeta {
