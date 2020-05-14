@@ -5,6 +5,7 @@ import { ApiService } from 'shared/api.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, tap, map } from 'rxjs/operators';
 import { MessagingService } from '../../service/messaging.service';
+import { AngularFireMessaging } from '@angular/fire/messaging';
 
 @Component({
   selector: 'app-user-header',
@@ -22,8 +23,13 @@ export class UserHeaderComponent {
   hashtags = [];
   notifications = [];
   page = 0;
+  hasNewNotifications: boolean = false;
+  notificationColor: string = 'black';
 
-  constructor(private router: Router, public auth: LoginService, private api: ApiService, private messagingService: MessagingService) {
+  constructor(private router: Router, public auth: LoginService,
+    private api: ApiService,
+    private messagingService: MessagingService,
+    private angularFireMessaging: AngularFireMessaging) {
     this.profile = this.auth.getUserProfile();
     this.auth.getUserProfileImg();
     this.hashtagInput.valueChanges
@@ -46,6 +52,11 @@ export class UserHeaderComponent {
       }
     );
   }
+  ngOnInit() {
+    // Receive notification messages
+    this.receiveMessage();
+  }
+
   toggleMenu() {
     this.menuToggle.emit();
   }
@@ -85,5 +96,32 @@ export class UserHeaderComponent {
     localStorage.clear();
     this.router.navigateByUrl('/');
     this.messagingService.deleteToken();
+  }
+
+  /**
+  * hook method when new notification received in foreground
+  */
+  receiveMessage() {
+    this.angularFireMessaging.onMessage((message) => {
+      console.log("received a message:", message);
+      if (typeof message !== 'undefined' && typeof message.data !== 'undefined') {
+        let data = message.data;
+        if (typeof data.isNotification !== 'undefined' && data.isNotification == "true") {
+          if (data.type == "normal") {
+            this.notificationColor = "red";
+            this.hasNewNotifications = true;
+            setTimeout(() => {
+              this.hasNewNotifications = false;
+            }, 5000);
+          }
+        }
+        // window.open(message.fcmOptions.link, "_blank");
+        // @Todo: increament notification count and highlight it.
+      }
+    });
+  }
+
+  readNewNotification() {
+    this.notificationColor = "black";
   }
 }

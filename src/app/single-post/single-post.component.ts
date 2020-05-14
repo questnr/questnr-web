@@ -51,7 +51,7 @@ export class SinglePostComponent implements OnInit {
   };
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
-              private loginService: LoginService) {
+    private loginService: LoginService) {
     this.postSlug = this.route.snapshot.paramMap.get('postSlug');
   }
 
@@ -137,11 +137,6 @@ export class SinglePostComponent implements OnInit {
     --this.singlePost.totalLikes;
   }
   getUserId() {
-    try {
-      const user = this.loginService.getUserProfile();
-      return user.id;
-    } catch (e) {
-      return -99;
-    }
+    return this.loginService.getUserId();
   }
 }

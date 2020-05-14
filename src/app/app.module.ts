@@ -84,6 +84,7 @@ import { ViewImageComponent } from './shared/components/dialogs/view-image/view-
 import { CommunityListLoaderComponent } from './shared/loaders/community-list-loader/community-list-loader.component';
 import { CommunityCardLoaderComponent } from './shared/loaders/community-card-loader/community-card-loader.component';
 import { UserListLoaderComponent } from './shared/loaders/user-list-loader/user-list-loader.component';
+import { MetaCardComponent } from './meta-card/meta-card.component';
 
 
 const customConfig: ShareButtonsConfig = {
@@ -139,7 +140,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ViewImageComponent,
     CommunityListLoaderComponent,
     CommunityCardLoaderComponent,
-    UserListLoaderComponent
+    UserListLoaderComponent,
+    MetaCardComponent
   ],
   imports: [
     MatVideoModule,

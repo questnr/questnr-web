@@ -4,7 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { LoginService } from 'auth/login.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import {Post} from '../../models/post-action.model';
+import { Post } from '../../models/post-action.model';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { MatDialog } from '@angular/material/dialog';
 import {UserProfileCardServiceComponent} from '../../user-profile-card/user-profile-card-service.component';
@@ -160,8 +160,7 @@ export class RecommendedFeedsComponent implements OnInit {
     --this.feed.totalLikes;
   }
   getUserId() {
-    const user = this.login.getUserProfile();
-    return user.id;
+    return this.login.getUserId();
   }
 
   unfollow(userId) {

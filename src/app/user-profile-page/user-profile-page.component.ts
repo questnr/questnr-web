@@ -1,12 +1,12 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {UserProfileCardServiceComponent} from '../user-profile-card/user-profile-card-service.component';
-import {UserProfilePageService} from './user-profile-page.service';
-import {ActivatedRoute} from '@angular/router';
-import {User} from '../models/user.model';
-import {UserFollowersService} from '../user-followers/user-followers.service';
-import {LoginService} from '../auth/login.service';
-import {ApiService} from '../shared/api.service';
-import {Post} from '../models/post-action.model';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
+import { UserProfilePageService } from './user-profile-page.service';
+import { ActivatedRoute } from '@angular/router';
+import { User } from '../models/user.model';
+import { UserFollowersService } from '../user-followers/user-followers.service';
+import { LoginService } from '../auth/login.service';
+import { ApiService } from '../shared/api.service';
+import { Post } from '../models/post-action.model';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -14,8 +14,8 @@ import {Post} from '../models/post-action.model';
   styleUrls: ['./user-profile-page.component.scss'],
 })
 export class UserProfilePageComponent implements OnInit {
-  constructor( public userProfilePageService: UserProfilePageService, public route: ActivatedRoute, public userFollowersService: UserProfileCardServiceComponent,
-               public loginService: LoginService, public api: ApiService) { }
+  constructor(public userProfilePageService: UserProfilePageService, public route: ActivatedRoute, public userFollowersService: UserProfileCardServiceComponent,
+    public loginService: LoginService, public api: ApiService) { }
   feeds: Post[];
   url: string;
   user: User;
@@ -66,26 +66,18 @@ export class UserProfilePageComponent implements OnInit {
     }, error => {
       this.loading = false;
     });
-    }
+  }
   getUserProfileDetails() {
     this.userProfilePageService.getUserProfile(this.url).subscribe((res: any) => {
       this.user = res;
-      this.userAvatarImage =  res.avatarDTO.avatarLink;
+      this.userAvatarImage = res.avatarDTO.avatarLink;
       this.relation = res.userMeta.relationShipType;
-      console.log("relation" , this.relation);
       this.userId = res.userId;
       this.getUserFeeds(res.userId);
     }, error => {
       console.log(error.error.errorMessage);
     });
   }
-  // getUserInfo() {
-  //   this.userProfilePageService.getUserInfo(this.url).subscribe((res: any) => {
-  //     this.stats = res;
-  //   }, error => {
-  //     console.log(error.error.errorMessage);
-  //   });
-  // }
   updateUserAvatar(event) {
     let file = null;
     if (event.target.files && event.target.files.length) {
@@ -93,7 +85,7 @@ export class UserProfilePageComponent implements OnInit {
       file = event.target.files[0];
       formData.set('file', file, file.name);
       this.userProfilePageService.updateProfilePicture(formData).subscribe((res: any) => {
-        console.log(res);
+        // console.log(res);
         this.userAvatarImage = res.avatarLink;
       }, error => {
         console.log(error.error.errorMessage);
@@ -108,7 +100,7 @@ export class UserProfilePageComponent implements OnInit {
   }
   follow(id) {
     this.userFollowersService.followMe(id).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.relation = 'followed';
     }, error => {
       console.log(error.error.errorMessage);
@@ -117,24 +109,16 @@ export class UserProfilePageComponent implements OnInit {
   unfollow(id) {
     const ownerId = this.loginService.getUserProfile().id;
     this.userFollowersService.unfollowMe(ownerId, id).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.relation = 'none';
     }, error => {
       console.log(error.error.errorMessage);
     });
   }
   getCommunityFollowedByUser() {
-    this.api.getJoinedCommunities().subscribe((res: any) => {
-      console.log(res);
+    this.api.getJoinedCommunities(this.loginService.getUserId()).subscribe((res: any) => {
     }, error => {
       console.log(error.error.errorMessage);
     });
-  }
-  getImageUrl(url) {
-    if (url) {
-      return url ;
-    } else {
-      return 'assets/default.jpg';
-    }
   }
 }

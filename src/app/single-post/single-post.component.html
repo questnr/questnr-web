@@ -9,10 +9,10 @@
                 <div *ngIf="singlePost.postMediaList?.length" class="post-media-window" id="post-media-window">
                     <owl-carousel-o [options]="customOptions">
                         <ng-container *ngFor="let media of singlePost.postMediaList;let i=index">
-                            <ng-template carouselSlide [id]="i" *ngIf="media.mediaType === 'image'">
+                            <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'image'">
                                 <img class="w-100" [src]="media.postMediaLink" alt="">
                             </ng-template>
-                            <ng-template carouselSlide [id]="i" *ngIf="media.mediaType === 'video'">
+                            <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'video'">
                                 <mat-video color="accent" [src]="media.postMediaLink"> </mat-video>
                             </ng-template>
                         </ng-container>
