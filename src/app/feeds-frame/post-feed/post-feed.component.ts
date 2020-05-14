@@ -4,6 +4,8 @@ import { FormControl } from '@angular/forms';
 import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { IFramelyService } from '../../meta-card/iframely.service';
+
 @Component({
   selector: 'app-post-feed',
   templateUrl: './post-feed.component.html',
@@ -29,8 +31,10 @@ export class PostFeedComponent {
   @Output() postData = new EventEmitter();
   apiUrl: any;
   isMediaEnabled = false;
+  url: RegExp = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+  detectedLink: string;
 
-  constructor(public login: LoginService, private service: FeedsService) { }
+  constructor(public login: LoginService, private service: FeedsService, private iFramelyService: IFramelyService) { }
   toggleAddMedia() {
     if (this.isMediaEnabled) {
       this.addedMedias = [];
@@ -108,5 +112,53 @@ export class PostFeedComponent {
     this.uploadProgress = 0;
     this.text.setValue('');
     this.addedMediaSrc = this.addedMedias = [];
+  }
+
+  parseTextToFindURL(e): string {
+    let urls, output = "";
+
+    if (e.target.value == "") {
+      this.detectedLink = null;
+    }
+
+    //if (urls.data('curr_val') == urls) //if it still has same value
+    // return false; //returns false
+
+    //8 = backspace
+    //46 = delete
+
+    if (e.keyCode == 8 && e.keyCode !== 9 && e.keyCode !== 13 && e.keyCode !== 32 && e.keyCode !== 46) {
+      // Return is backspace, tab, enter, space or delete was not pressed.
+      return;
+    }
+
+    // GC keyCodes
+    if (e.keyCode !== 46 && e.keyCode == 17) {
+      // Return is backspace, tab, enter, space or delete was not pressed.
+      return;
+    }
+
+    while ((urls = this.url.exec(e.target.value)) !== null) {
+      output += urls[0];
+      this.detectedLink = output;
+      // console.log("URLS: " + output.substring(0, output.length));
+
+      //$("#result").html("").addClass("loaded");
+
+    }
+
+    if (urls = this.url.exec(e.target.value) == null) {
+      this.detectedLink = null;
+    }
+    //console.log("URLS: " + output.substring(0, output.length - 2));
+
+    //setTimeout(function() {
+
+
+    // if (output != this.lastURL) { // ctrl = 17
+    //   this.detectedLink = output;
+    //   console.log('Not the same URL');
+    //   this.lastURL = this.detectedLink;
+    // }
   }
 }

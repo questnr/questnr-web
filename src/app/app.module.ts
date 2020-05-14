@@ -78,6 +78,7 @@ import { ShareButtonsModule } from '@ngx-share/buttons';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ShareButtonsConfig } from '@ngx-share/core';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MetaCardComponent } from './meta-card/meta-card.component';
 
 
 const customConfig: ShareButtonsConfig = {
@@ -127,7 +128,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserFollowersComponent,
     SinglePostComponent,
     UserActivityComponent,
-    SharePostComponent
+    SharePostComponent,
+    MetaCardComponent
   ],
   imports: [
     MatVideoModule,
