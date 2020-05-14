@@ -90,9 +90,9 @@
           <div class="com-ban-img-container">
             <div class="change-comm-img">
               <mat-icon (click)="previewImage()" *ngIf="owner == 'owned'">camera</mat-icon>
-              <input type="file" style="display: none" id="imageSrc" (change)="onFileChange($event)">
+              <input type="file" style="display: none" id="communityImageSrc" (change)="onFileChange($event)">
             </div>
-            <img [src]="communityImage" alt="banner" class="comm-ban-img" onerror="this.onerror=null;this.src='assets/default.jpg';" >
+            <img [src]="communityImage" alt="banner" class="comm-ban-img" *ngIf="communityImage" >
 <!--            <img [src]="comUpdatedAvatar" alt="editedImage" *ngif="!isImageEdited">-->
             <div class="com-ban-overlay"></div>
             <div class="com-head-container">
@@ -126,13 +126,14 @@
           </div>
           <div class="grid-tile">
             <div class="community-feeds">
-              <app-post-feed [isCommunityPost]=true [communityId]="communityDTO?.communityId"></app-post-feed>
-              <ng-container *ngIf="feeds?.length; else noFeeds">
-                <div class="feed-wrap" *ngFor="let feed of feeds">
+              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"></app-post-feed>
+              <ng-container *ngIf="userFeeds?.length; else noFeeds">
+                <div class="feed-wrap" *ngFor="let feed of userFeeds">
                   <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
                 </div>
                 <p class="text-center" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
               </ng-container>
+              <app-feeds-loader *ngIf="loading"></app-feeds-loader>
               <ng-template #noFeeds>
                 <p class="text-center" style="margin-top :30px" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
               </ng-template>

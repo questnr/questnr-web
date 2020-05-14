@@ -3,6 +3,9 @@ import {UserFollowersService} from './user-followers.service';
 import {LoginService} from '../auth/login.service';
 import {UserProfileCardServiceComponent} from '../user-profile-card/user-profile-card-service.component';
 import {User} from '../models/user.model';
+import {CreateCommunityComponent} from '../shared/components/dialogs/create.community/create-community.component';
+import {MatDialog} from '@angular/material/dialog';
+import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
 
 @Component({
   selector: 'app-user-followers',
@@ -13,15 +16,18 @@ export class UserFollowersComponent implements OnInit {
   @Input() userId: number;
   followers: User[];
   following: User[];
+
   constructor(public followersService: UserFollowersService, public loginService: LoginService,
-              public userProfileCardServiceComponent: UserProfileCardServiceComponent) {
+              public userProfileCardServiceComponent: UserProfileCardServiceComponent, public dialog: MatDialog) {
   }
+
   ngOnInit(): void {
     setTimeout(() => {
       this.getFollowingUser();
       this.getFollowedBy();
     }, 2000);
   }
+
   getFollowingUser() {
     // console.log('test userId', this.profileId);
     this.followersService.getUserFollowers(this.userId).subscribe((res: any) => {
@@ -49,6 +55,7 @@ export class UserFollowersComponent implements OnInit {
       console.log(error.error.errorMessage);
     });
   }
+
   follow(userId) {
     this.userProfileCardServiceComponent.followMe(userId).subscribe((res: any) => {
       console.log('Unfollowed');
@@ -56,4 +63,17 @@ export class UserFollowersComponent implements OnInit {
       console.log(error.error.errorMessage);
     });
   }
+
+  openUserGroupDialog(userList): void {
+    const dialogRef = this.dialog.open(UserListComponent, {
+      width: '500px',
+      data: userList
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+
+
 }

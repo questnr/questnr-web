@@ -1,0 +1,53 @@
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {User} from '../../../../models/user.model';
+import {UserProfileCardServiceComponent} from '../../../../user-profile-card/user-profile-card-service.component';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserListService} from './user-list.service';
+
+@Component({
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.scss']
+})
+export class UserListComponent implements OnInit {
+  loading = false;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: User, public  userProfileCardServiceComponent: UserProfileCardServiceComponent,
+              public userListService: UserListService) {
+  }
+
+  userList: User;
+
+  ngOnInit(): void {
+    this.userList = this.data;
+  }
+
+  getUserImage(src) {
+    if (src == null) {
+      return 'assets/default.jpg';
+    } else {
+      return src;
+    }
+  }
+
+  follow(id) {
+    this.userProfileCardServiceComponent.followMe(id).subscribe((res: any) => {
+      console.log(res);
+    }, error => {
+      console.log(error.error.errorMessage);
+    });
+  }
+
+  searchUserList(searchString) {
+    // tslint:disable-next-line:triple-equals
+    if (searchString != '') {
+      setTimeout(() => {
+        this.userListService.searchUser(searchString).subscribe((res: any) => {
+          console.log('serach resuult for :' + searchString + 'is===', res);
+        }, error => {
+          console.log(error.error.errorMessage);
+        });
+      }, 2000);
+    }
+  }
+}

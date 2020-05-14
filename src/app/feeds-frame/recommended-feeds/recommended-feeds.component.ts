@@ -9,6 +9,7 @@ import { SharePostComponent } from 'shared/components/dialogs/share-post/share-p
 import { MatDialog } from '@angular/material/dialog';
 import { MetaCardComponent } from 'meta-card/meta-card.component';
 
+import {UserProfileCardServiceComponent} from '../../user-profile-card/user-profile-card-service.component';
 @Component({
   selector: 'app-recommended-feeds',
   templateUrl: './recommended-feeds.component.html',
@@ -69,7 +70,7 @@ export class RecommendedFeedsComponent implements OnInit {
     autoplay: true
   };
 
-  constructor(private api: FeedsService, public login: LoginService, private dialog: MatDialog) { }
+  constructor(private api: FeedsService, public login: LoginService, private dialog: MatDialog, public followService: UserProfileCardServiceComponent) { }
 
   ngOnInit() {
     this.loggedInUsername = this.login.getUserProfile().sub;
@@ -172,5 +173,13 @@ export class RecommendedFeedsComponent implements OnInit {
   }
   getUserId() {
     return this.login.getUserId();
+  }
+
+  unfollow(userId) {
+    this.followService.unfollowMe(this.login.getUserProfile().id, userId).subscribe((res: any) => {
+      console.log('unfollowed');
+    }, error => {
+      console.log(error.error.errorMessage);
+    })
   }
 }
