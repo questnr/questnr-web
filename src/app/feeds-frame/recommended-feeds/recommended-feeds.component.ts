@@ -7,6 +7,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import {Post} from '../../models/post-action.model';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { MatDialog } from '@angular/material/dialog';
+import {UserProfileCardServiceComponent} from '../../user-profile-card/user-profile-card-service.component';
 @Component({
   selector: 'app-recommended-feeds',
   templateUrl: './recommended-feeds.component.html',
@@ -60,7 +61,7 @@ export class RecommendedFeedsComponent implements OnInit {
     autoplay: true
   };
 
-  constructor(private api: FeedsService, public login: LoginService, private dialog: MatDialog) { }
+  constructor(private api: FeedsService, public login: LoginService, private dialog: MatDialog, public followService: UserProfileCardServiceComponent) { }
 
   ngOnInit() {
     this.loggedInUsername = this.login.getUserProfile().sub;
@@ -161,5 +162,13 @@ export class RecommendedFeedsComponent implements OnInit {
   getUserId() {
     const user = this.login.getUserProfile();
     return user.id;
+  }
+
+  unfollow(userId) {
+    this.followService.unfollowMe(this.login.getUserProfile().id, userId).subscribe((res: any) => {
+      console.log('unfollowed');
+    }, error => {
+      console.log(error.error.errorMessage);
+    })
   }
 }

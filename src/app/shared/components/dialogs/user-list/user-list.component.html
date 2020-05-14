@@ -1,0 +1,44 @@
+<div class="user_list_container">
+  <div>
+    <input #inputBox type="text" placeholder="Search..." (keydown.arrowDown)="searchUserList(inputBox.value)">
+  </div>
+  <div class="user_list">
+    <div class="center">
+      <ul id="myUL">
+
+        <li *ngFor="let i of userList">
+          <div class="user-flex" [id]="i?.userId" *ngIf="!loading" >
+            <div class="user_image">
+              <img [src]="getUserImage(i?.avatarDTO?.avatarLink)" [alt]="i?.username">
+            </div>
+            <div class="user_details">
+              <p><a [href]="'/user/'+ i?.slug">{{i?.username}}</a></p>
+            </div>
+            <div class="action-btn">
+              <a [href]="'/user/'+ i?.slug">
+                <button mat-stroked-button *ngIf="i?.userMeta?.relationShipType ==='owned'">
+                  It's You
+                </button>
+              </a>
+              <a [href]="'/user/'+ i?.slug" *ngIf="i?.userMeta?.relationShipType ==='followed'">
+                <button mat-stroked-button style="background: green; color: #ffffff">
+                  <mat-icon>check</mat-icon>
+                  Following
+                </button>
+              </a>
+              <button mat-stroked-button *ngIf="i?.userMeta?.relationShipType ==='none'" (click)="follow(i?.userId)">
+                Follow
+              </button>
+            </div>
+          </div>
+        </li>
+        <ng-container *ngIf="loading">
+          <li *ngFor="let i of ' '.repeat(3).split('')">
+              <app-user-list-loader></app-user-list-loader>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+
+  </div>
+</div>

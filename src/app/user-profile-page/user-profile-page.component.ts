@@ -22,20 +22,49 @@ export class UserProfilePageComponent implements OnInit {
   userAvatarImage = 'assets/default.jpg';
   stats: any;
   relation: any;
+  loading = false;
+  page = 0;
+  endOfPosts = false;
+  userFeeds = [];
+  userId: any;
 
   ngOnInit(): void {
+    window.addEventListener('scroll', this.scroll, true);
     this.url = this.route.snapshot.paramMap.get('userSlug');
-    this.getUserFeeds();
     this.getUserProfileDetails();
     // this.getUserInfo();
     this.getCommunityFollowedByUser();
   }
-  getUserFeeds() {
-    this.userProfilePageService.getUserFeeds().subscribe((res: any) => {
-      console.log(res);
-      this.feeds = res.content;
+  scroll = (event): void => {
+    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+      console.log('no im  here');
+      if (this.userFeeds.length >= 0 && !this.endOfPosts) {
+        console.log('check network call', this.endOfPosts);
+        this.loading = true;
+        ++this.page;
+        this.getUserFeeds(this.userId);
+      }
+    }
+  }
+  postFeed(event) {
+    if (event.postActionId) {
+      this.userFeeds = [event, ...this.userFeeds];
+    } else {
+      this.getUserFeeds(this.userId);
+    }
+  }
+  getUserFeeds(userId) {
+    this.userProfilePageService.getUserFeeds(userId, this.page).subscribe((res: any) => {
+      if (res.content.length) {
+        res.content.forEach(post => {
+          this.userFeeds.push(post);
+        });
+      } else {
+        this.endOfPosts = true;
+        this.loading = false;
+      }
     }, error => {
-
+      this.loading = false;
     });
     }
   getUserProfileDetails() {
@@ -44,6 +73,8 @@ export class UserProfilePageComponent implements OnInit {
       this.userAvatarImage =  res.avatarDTO.avatarLink;
       this.relation = res.userMeta.relationShipType;
       console.log("relation" , this.relation);
+      this.userId = res.userId;
+      this.getUserFeeds(res.userId);
     }, error => {
       console.log(error.error.errorMessage);
     });
@@ -57,12 +88,13 @@ export class UserProfilePageComponent implements OnInit {
   // }
   updateUserAvatar(event) {
     let file = null;
-    const formData = new FormData();
     if (event.target.files && event.target.files.length) {
+      const formData: FormData = new FormData();
       file = event.target.files[0];
       formData.set('file', file, file.name);
-      this.userProfilePageService.updateProfilePicture(file).subscribe((res: any) => {
+      this.userProfilePageService.updateProfilePicture(formData).subscribe((res: any) => {
         console.log(res);
+        this.userAvatarImage = res.avatarLink;
       }, error => {
         console.log(error.error.errorMessage);
       });
@@ -97,5 +129,12 @@ export class UserProfilePageComponent implements OnInit {
     }, error => {
       console.log(error.error.errorMessage);
     });
+  }
+  getImageUrl(url) {
+    if (url) {
+      return url ;
+    } else {
+      return 'assets/default.jpg';
+    }
   }
 }

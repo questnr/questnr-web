@@ -6,7 +6,7 @@
 
   <div class="profile-section">
     <div class="profile-img">
-      <img [src]="user?.avatarDTO?.avatarLink" alt="" >
+      <img [src]="userAvatarImage ? userAvatarImage : 'assets/default.jpg'" alt="" >
       <input id="fileInput" type="file" style="display: none" (change)="updateUserAvatar($event)">
       <div class="avatar" *ngIf="relation==='owned'">
         <mat-icon (click)="triggerFalseClick()">camera</mat-icon>
@@ -45,15 +45,14 @@
         <div class="grid-section-center">
           <mat-tab-group>
             <mat-tab label="Feeds">
-              <app-post-feed>
-<!--                [isCommunityPost]=true [communityId]="communityDTO?.communityId"-->
-              </app-post-feed>
-              <ng-container *ngIf="feeds?.length; else noFeeds">
-                <div class="feed-wrap" *ngFor="let feed of feeds">
+              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=false *ngIf="relation === 'owned' || relation === 'followed'"></app-post-feed>
+              <ng-container *ngIf="userFeeds?.length; else noFeeds">
+                <div class="feed-wrap" *ngFor="let feed of userFeeds">
                   <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
                 </div>
                 <p class="text-center" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
               </ng-container>
+              <app-feeds-loader *ngIf="loading"></app-feeds-loader>
               <ng-template #noFeeds>
                 <p class="text-center" style="margin-top :30px" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
               </ng-template>
@@ -61,15 +60,9 @@
             <mat-tab label="Followers">
               <app-user-followers [userId]="user?.userId" ></app-user-followers>
             </mat-tab>
-<!--            <mat-tab label="Photos"> Content 3 </mat-tab>-->
           </mat-tab-group>
 
         </div>
-<!--        <div class="grid-section-right">-->
-<!--          <app-suggestion></app-suggestion>-->
-<!--          <app-trending></app-trending>-->
-<!--          <app-sponsered></app-sponsered>-->
-<!--        </div>-->
       </div>
     </div>
   </div>

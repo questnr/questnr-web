@@ -1,0 +1,22 @@
+.user-loading-container{
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #eeeeee;
+  .user-flex{
+    display: flex;
+    .user_image{
+      width: 79px;
+      height: 82px;
+      border-radius: 10px;
+    }
+    .user_details{
+      width: 50%;
+      margin: auto;
+    }
+    .action-btn{
+      width: 60px;
+      height: 40px;
+      margin: auto;
+    }
+  }
+}
