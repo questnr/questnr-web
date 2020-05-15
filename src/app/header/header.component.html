@@ -2,7 +2,7 @@
 
 <header id="extended-nav" class="nav-main-container">
   <div class="toolbar" role="banner">
-    <div class="logo" routerLink="/">Questnr<span class="com">.com</span></div>
+    <div class="logo" routerLink="/"><img src="../../assets/main.png" /></div>
     <div class="spacer"></div>
     <ng-container *ngIf="!loginService.loggedIn()">
       <button mat-button class="btn-white" (click)="onClick('login')">
