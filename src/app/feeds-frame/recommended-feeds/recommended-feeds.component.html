@@ -10,6 +10,7 @@
           {{feed?.metaData?.timeString === 'now'? 'Just Now': feed?.metaData?.timeString + ' ago' }}</span>
       </div>
     </div>
+
     <div class="spacer"></div>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>more_vert</mat-icon>
@@ -41,6 +42,7 @@
     <div class="text" *ngIf="feed?.text && feed.text !== 'null'">
       <p class="pre">{{feed?.text}}</p>
     </div>
+    <app-meta-card id="{{feed?.text}}" #metaCardComponentRef></app-meta-card>
     <div *ngIf="feed.postMediaList?.length">
       <owl-carousel-o [options]="customOptions">
         <ng-container *ngFor="let media of feed.postMediaList;let i=index">

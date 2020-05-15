@@ -28,7 +28,9 @@
             <div class="feed-wrap" *ngFor="let feed of userFeeds">
               <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
             </div>
-            <p class="text-center" style="margin-top :30px" *ngIf="userFeeds.length===1 && userFeeds[0] === null"><mat-chip>No Feeds Found...!</mat-chip></p>
+            <p class="text-center" style="margin-top :30px" *ngIf="userFeeds.length===1 && userFeeds[0] === null">
+              <mat-chip>No Feeds Found...!</mat-chip>
+            </p>
           </ng-container>
           <app-feeds-loader *ngIf="loading"></app-feeds-loader>
           <!-- <div class="loader">

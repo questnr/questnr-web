@@ -22,7 +22,7 @@ import { MetaCardComponent } from 'meta-card/meta-card.component';
 export class PostFeedComponent {
   @Input() isCommunityPost = false;
   @Input() communityId;
-  @ViewChild(MetaCardComponent) metaCardComp: MetaCardComponent;
+  @ViewChild("metaCardCompRef") metaCardCompRef: MetaCardComponent;
   isLoading = false;
   uploading = false;
   uploadProgress = 0;
@@ -135,7 +135,7 @@ export class PostFeedComponent {
     }
 
 
-    this.metaCardComp.parseTextToFindURL(e.target.value);
+    this.metaCardCompRef.parseTextToFindURL(e.target.value);
     // if (output != this.detectedLink) {
     //   this.detectedLink = output;
     //   console.log('Not the same URL');

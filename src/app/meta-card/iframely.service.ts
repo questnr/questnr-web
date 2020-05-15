@@ -16,26 +16,23 @@ export class IFramelyService {
 
   iFramelyData: IFramelyData = new IFramelyData();
 
-  getIFramelyData(detectedLink: string) {
-    return this.http.get(this.iframelyLink, { params: { url: detectedLink, api_key: this.apiKey } }).toPromise().then((iFramelyResp: any) => {
-      return new Promise((resolve, reject) => {
-        if (!iFramelyResp || iFramelyResp.error) {
-          this.iFramelyData.error = true;
-        }
-        else {
-          this.iFramelyData.error = false;
-          this.iFramelyData.url = iFramelyResp.url;
-          this.iFramelyData.title = iFramelyResp.meta.title;
-          this.iFramelyData.description = iFramelyResp.meta.description;
-          if (iFramelyResp.links.thumbnail.length > 0) {
-            this.iFramelyData.thumbnailLink = iFramelyResp.links.thumbnail[0].href;
-          }
-          if (iFramelyResp.links.icon.length > 0) {
-            this.iFramelyData.iconLink = iFramelyResp.links.icon[0].href;
-          }
-        }
-        resolve(this.iFramelyData);
-      });
-    });
+  async getIFramelyData(detectedLink: string): Promise<IFramelyData> {
+    let iFramelyResp: any = await this.http.get(this.iframelyLink, { params: { url: detectedLink, api_key: this.apiKey } }).toPromise();
+    if (!iFramelyResp || iFramelyResp.error) {
+      this.iFramelyData.error = true;
+    }
+    else {
+      this.iFramelyData.error = false;
+      this.iFramelyData.url = iFramelyResp.url;
+      this.iFramelyData.title = iFramelyResp.meta.title;
+      this.iFramelyData.description = iFramelyResp.meta.description;
+      if (iFramelyResp?.links?.thumbnail?.length > 0) {
+        this.iFramelyData.thumbnailLink = iFramelyResp.links.thumbnail[0].href;
+      }
+      if (iFramelyResp?.links?.icon?.length > 0) {
+        this.iFramelyData.iconLink = iFramelyResp.links.icon[0].href;
+      }
+    }
+    return this.iFramelyData;
   }
 }

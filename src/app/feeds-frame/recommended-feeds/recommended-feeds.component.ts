@@ -7,6 +7,8 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Post } from '../../models/post-action.model';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MetaCardComponent } from 'meta-card/meta-card.component';
+
 @Component({
   selector: 'app-recommended-feeds',
   templateUrl: './recommended-feeds.component.html',
@@ -22,6 +24,13 @@ import { MatDialog } from '@angular/material/dialog';
 export class RecommendedFeedsComponent implements OnInit {
   @Input() feed;
   @ViewChild('commentInput') commentInput: ElementRef;
+  private metaCardComponentRef: MetaCardComponent;
+  @ViewChild(MetaCardComponent, { static: true }) set metaCard(metaCardComponentRef: MetaCardComponent) {
+    if (!!metaCardComponentRef) {
+      this.metaCardComponentRef = metaCardComponentRef;
+      this.metaCardComponentRef.uniqueId = this.feed?.slug;
+    }
+  }
   isCommenting = false;
   replyingTo: any;
   isLoading = false;
@@ -64,7 +73,10 @@ export class RecommendedFeedsComponent implements OnInit {
 
   ngOnInit() {
     this.loggedInUsername = this.login.getUserProfile().sub;
-    console.log('logged in username:' + this.loggedInUsername);
+  }
+  async ngAfterViewInit() {
+    if (this.feed.text)
+      await this.metaCardComponentRef.parseTextToFindURL(this.feed.text);
   }
   toggleComments() {
     this.isSharing = false;

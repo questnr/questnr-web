@@ -8,8 +8,8 @@ import { IFramelyData } from 'models/iframely.model';
   styleUrls: ['./meta-card.component.scss']
 })
 export class MetaCardComponent implements OnInit {
-
-  iFramelyData: IFramelyData;
+  @Input() uniqueId: string;
+  iFramelyData: IFramelyData = null;
   detectedLink: string;
   url: RegExp = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
   constructor(private iFramelyService: IFramelyService) { }
@@ -17,26 +17,23 @@ export class MetaCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  parseTextToFindURL(text) {
+  async parseTextToFindURL(text) {
     let urls, output = null;
     while ((urls = this.url.exec(text)) !== null) {
       output = urls[0];
       // console.log("URLS: " + output);
     }
     if (output)
-      this.getIFramelyData(output);
+      await this.getIFramelyData(output);
     else
       this.resetIFramelyData();
     // if (urls = this.url.exec(text) == null) {
     //   return null;
     // }
   }
-  getIFramelyData(detectedLink: string) {
+  async getIFramelyData(detectedLink: string): Promise<void> {
     if (!detectedLink) return;
-    let iFramelyResp: any = this.iFramelyService.getIFramelyData(detectedLink);
-    iFramelyResp.then((iFramelyData: IFramelyData) => {
-      this.iFramelyData = iFramelyData;
-    });
+    this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
   }
   resetIFramelyData() {
     this.iFramelyData = null;
