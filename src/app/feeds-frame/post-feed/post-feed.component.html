@@ -6,13 +6,13 @@
   <div class="post-wrap">
     <div class="icon"> <img [src]="login.profileImg"> </div>
     <div class="textbox-wrap">
-      <textarea rows="3" placeholder="Post Something...." [formControl]="text" (change)="parseTextToFindURL($event)"
-        (keyup)="parseTextToFindURL($event)" (input)="parseTextToFindURL($event)">
+      <textarea rows="3" placeholder="Post Something...." [formControl]="text" (change)="typeCheckOnUserInput($event)"
+        (keyup)="typeCheckOnUserInput($event)" (input)="typeCheckOnUserInput($event)">
       </textarea>
     </div>
   </div>
 
-  <app-meta-card *ngIf="detectedLink" [detectedLink]="detectedLink"></app-meta-card>
+  <app-meta-card></app-meta-card>
 
   <div class="media" [@expand]="isMediaEnabled ? 'expanded' : 'collapsed'">
     <div class="media-wrap">

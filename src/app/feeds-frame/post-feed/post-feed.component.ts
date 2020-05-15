@@ -1,10 +1,11 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { IFramelyService } from '../../meta-card/iframely.service';
+import { MetaCardComponent } from 'meta-card/meta-card.component';
 
 @Component({
   selector: 'app-post-feed',
@@ -21,6 +22,7 @@ import { IFramelyService } from '../../meta-card/iframely.service';
 export class PostFeedComponent {
   @Input() isCommunityPost = false;
   @Input() communityId;
+  @ViewChild(MetaCardComponent) metaCardComp: MetaCardComponent;
   isLoading = false;
   uploading = false;
   uploadProgress = 0;
@@ -31,8 +33,6 @@ export class PostFeedComponent {
   @Output() postData = new EventEmitter();
   apiUrl: any;
   isMediaEnabled = false;
-  url: RegExp = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-  detectedLink: string;
 
   constructor(public login: LoginService, private service: FeedsService, private iFramelyService: IFramelyService) { }
   toggleAddMedia() {
@@ -114,15 +114,11 @@ export class PostFeedComponent {
     this.addedMediaSrc = this.addedMedias = [];
   }
 
-  parseTextToFindURL(e): string {
-    let urls, output = "";
+  typeCheckOnUserInput(e): string {
 
     if (e.target.value == "") {
-      this.detectedLink = null;
+      return;
     }
-
-    //if (urls.data('curr_val') == urls) //if it still has same value
-    // return false; //returns false
 
     //8 = backspace
     //46 = delete
@@ -138,27 +134,12 @@ export class PostFeedComponent {
       return;
     }
 
-    while ((urls = this.url.exec(e.target.value)) !== null) {
-      output += urls[0];
-      this.detectedLink = output;
-      // console.log("URLS: " + output.substring(0, output.length));
 
-      //$("#result").html("").addClass("loaded");
-
-    }
-
-    if (urls = this.url.exec(e.target.value) == null) {
-      this.detectedLink = null;
-    }
-    //console.log("URLS: " + output.substring(0, output.length - 2));
-
-    //setTimeout(function() {
-
-
-    // if (output != this.lastURL) { // ctrl = 17
+    this.metaCardComp.parseTextToFindURL(e.target.value);
+    // if (output != this.detectedLink) {
     //   this.detectedLink = output;
     //   console.log('Not the same URL');
-    //   this.lastURL = this.detectedLink;
     // }
   }
+
 }

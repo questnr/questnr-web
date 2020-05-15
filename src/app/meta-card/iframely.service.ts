@@ -19,7 +19,7 @@ export class IFramelyService {
   getIFramelyData(detectedLink: string) {
     return this.http.get(this.iframelyLink, { params: { url: detectedLink, api_key: this.apiKey } }).toPromise().then((iFramelyResp: any) => {
       return new Promise((resolve, reject) => {
-        if (iFramelyResp.error) {
+        if (!iFramelyResp || iFramelyResp.error) {
           this.iFramelyData.error = true;
         }
         else {

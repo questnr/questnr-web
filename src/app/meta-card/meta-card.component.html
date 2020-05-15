@@ -1,4 +1,4 @@
-<div *ngIf="detectedLink && iFramelyData" class="iframely-frame row justify-content-start" (click)="openIframelyLink()">
+<div *ngIf="iFramelyData" class="iframely-frame row justify-content-start" (click)="openIframelyLink()">
     <div *ngIf="iFramelyData.thumbnailLink" class="thumbnail col-md-4">
         <img [src]="iFramelyData.thumbnailLink" class="thumbnail-img" />
     </div>
