@@ -24,13 +24,6 @@ import { MetaCardComponent } from 'meta-card/meta-card.component';
 export class RecommendedFeedsComponent implements OnInit {
   @Input() feed;
   @ViewChild('commentInput') commentInput: ElementRef;
-  private metaCardComponentRef: MetaCardComponent;
-  @ViewChild(MetaCardComponent, { static: true }) set metaCard(metaCardComponentRef: MetaCardComponent) {
-    if (!!metaCardComponentRef) {
-      this.metaCardComponentRef = metaCardComponentRef;
-      this.metaCardComponentRef.uniqueId = this.feed?.slug;
-    }
-  }
   isCommenting = false;
   replyingTo: any;
   isLoading = false;
@@ -73,10 +66,6 @@ export class RecommendedFeedsComponent implements OnInit {
 
   ngOnInit() {
     this.loggedInUsername = this.login.getUserProfile().sub;
-  }
-  async ngAfterViewInit() {
-    if (this.feed.text)
-      await this.metaCardComponentRef.parseTextToFindURL(this.feed.text);
   }
   toggleComments() {
     this.isSharing = false;

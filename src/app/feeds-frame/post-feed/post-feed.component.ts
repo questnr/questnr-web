@@ -22,7 +22,6 @@ import { MetaCardComponent } from 'meta-card/meta-card.component';
 export class PostFeedComponent {
   @Input() isCommunityPost = false;
   @Input() communityId;
-  @ViewChild("metaCardCompRef") metaCardCompRef: MetaCardComponent;
   isLoading = false;
   uploading = false;
   uploadProgress = 0;
@@ -33,6 +32,7 @@ export class PostFeedComponent {
   @Output() postData = new EventEmitter();
   apiUrl: any;
   isMediaEnabled = false;
+  textAreaInput: string;
 
   constructor(public login: LoginService, private service: FeedsService, private iFramelyService: IFramelyService) { }
   toggleAddMedia() {
@@ -135,7 +135,7 @@ export class PostFeedComponent {
     }
 
 
-    this.metaCardCompRef.parseTextToFindURL(e.target.value);
+    this.textAreaInput = e.target.value;
     // if (output != this.detectedLink) {
     //   this.detectedLink = output;
     //   console.log('Not the same URL');

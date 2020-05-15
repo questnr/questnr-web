@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <app-meta-card #metaCardCompRef></app-meta-card>
+  <app-meta-card *ngIf="textAreaInput" [text]="textAreaInput" id="text-area-meta-card"></app-meta-card>
 
   <div class="media" [@expand]="isMediaEnabled ? 'expanded' : 'collapsed'">
     <div class="media-wrap">
