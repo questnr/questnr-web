@@ -8,6 +8,8 @@ import { Post } from '../../models/post-action.model';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MetaCardComponent } from 'meta-card/meta-card.component';
+import {UserProfileCardServiceComponent} from '../../user-profile-card/user-profile-card-service.component';
+import {UserListComponent} from '../../shared/components/dialogs/user-list/user-list.component';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -31,6 +33,7 @@ export class RecommendedFeedsComponent implements OnInit {
       this.metaCardComponentRef.uniqueId = this.feed?.slug;
     }
   }
+  likedUserList = [];
   isCommenting = false;
   replyingTo: any;
   isLoading = false;
@@ -69,8 +72,9 @@ export class RecommendedFeedsComponent implements OnInit {
     autoplay: true
   };
 
-  constructor(private api: FeedsService, public login: LoginService, private dialog: MatDialog) { }
-
+  // tslint:disable-next-line:max-line-length
+  constructor(private api: FeedsService, public login: LoginService, private dialog: MatDialog, public followService: UserProfileCardServiceComponent) { }
+  loggedInUserId = this.login.getUserProfile().id;
   ngOnInit() {
     this.loggedInUsername = this.login.getUserProfile().sub;
   }
@@ -78,6 +82,10 @@ export class RecommendedFeedsComponent implements OnInit {
     if (this.feed.text)
       await this.metaCardComponentRef.parseTextToFindURL(this.feed.text);
   }
+  // async ngAfterViewInit() {
+  //   if (this.feed.text)
+  //     await this.metaCardComponentRef.parseTextToFindURL(this.feed.text);
+  // }
   toggleComments() {
     this.isSharing = false;
     this.isCommenting = !this.isCommenting;
@@ -172,5 +180,30 @@ export class RecommendedFeedsComponent implements OnInit {
   }
   getUserId() {
     return this.login.getUserId();
+  }
+
+  unfollow(userId) {
+    this.followService.unfollowMe(this.login.getUserProfile().id, userId).subscribe((res: any) => {
+      console.log('unfollowed');
+    }, error => {
+      console.log(error.error.errorMessage);
+    });
+  }
+  openUserGroupDialog(userList, type): void {
+    if (type === 'like') {
+      userList.forEach(c => {
+          this.likedUserList.push(c.user);
+          console.log(c.user);
+      });
+    }
+    if (this.likedUserList.length > 0 ){
+      const dialogRef = this.dialog.open(UserListComponent, {
+        width: '500px',
+        data: this.likedUserList
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.likedUserList = [];
+      });
+    }
   }
 }

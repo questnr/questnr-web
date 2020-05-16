@@ -13,29 +13,41 @@
 
     <div class="spacer"></div>
     <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>more_vert</mat-icon>
+      <mat-icon>more_horiz</mat-icon>
     </button>
     <mat-menu #menu="matMenu" xPosition="before">
-      <button mat-menu-item>Unfollow {{feed?.communityDTO?.communityName}}</button>
-      <button mat-menu-item>Report Post</button>
+      <div *ngIf="feed?.userDTO?.userId === loggedInUserId ; else notComUser">
+        <button mat-menu-item>Edit Post</button>
+        <button mat-menu-item>Delete Post</button>
+        <button mat-menu-item>Copy Link</button>
+      </div>
+      <ng-template #notComUser>
+        <button mat-menu-item>Unfollow {{feed?.communityDTO?.communityName}}</button>
+        <button mat-menu-item>Report Post</button>
+      </ng-template>
     </mat-menu>
   </div>
   <div class="head-wrap" *ngIf="!feed.communityDTO">
     <div class="profile-icon"> <img [src]="feed.userDTO?.avatarDTO?.avatarLink ?
       feed?.userDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""> </div>
     <div class="profile-detail">
-      <div class=" head" *ngIf="feed?.userDTO?.username"><a
-          [href]="'/user/' + feed?.userDTO?.slug">{{feed?.userDTO?.username}}</a></div>
-      <div class="head" *ngIf="!feed.userDTO?.username">{{loggedInUsername}}</div>
+      <div class=" head" *ngIf="feed?.userDTO?.username"><a [href]="'/user/' + feed?.userDTO?.slug">{{feed?.userDTO?.username | titlecase}}</a></div>
       <div class="subhead" [matTooltip]="feed.metaData.timeInUTC | date"> {{feed.metaData.timeString}} ago</div>
     </div>
     <div class="spacer"></div>
     <button mat-icon-button [matMenuTriggerFor]="moreOptions">
-      <mat-icon>more_vert</mat-icon>
+      <mat-icon>more_horiz</mat-icon>
     </button>
     <mat-menu #moreOptions="matMenu" xPosition="before">
-      <button mat-menu-item>Unfollow {{feed.userDTO?.username}}</button>
-      <button mat-menu-item>Report Post</button>
+      <div *ngIf="feed?.userDTO?.userId === loggedInUserId ; else notUser">
+        <button mat-menu-item>Edit Post</button>
+        <button mat-menu-item>Delete Post</button>
+        <button mat-menu-item>Copy Link</button>
+      </div>
+      <ng-template #notUser>
+        <button mat-menu-item (click)="unfollow(feed?.userDTO?.userId)">Unfollow {{feed.userDTO?.username}}</button>
+        <button mat-menu-item>Report Post</button>
+      </ng-template>
     </mat-menu>
   </div>
   <div class="mb-2">
@@ -57,7 +69,7 @@
     </div>
   </div>
   <div class="count-box">
-    <div> <span>{{feed.totalLikes? feed.totalLikes: 0}} </span>
+    <div (click)="openUserGroupDialog(feed?.likeActionList,'like')"> <span>{{feed.totalLikes? feed.totalLikes: 0}} </span>
       {{feed.totalLikes>1? 'Likes': 'Like'}}</div>
     <div class="dot"></div>
     <div> <span> {{feed.totalComments?feed.totalComments:0}} </span>

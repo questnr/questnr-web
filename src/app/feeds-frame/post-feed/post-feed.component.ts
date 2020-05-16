@@ -22,7 +22,7 @@ import { MetaCardComponent } from 'meta-card/meta-card.component';
 export class PostFeedComponent {
   @Input() isCommunityPost = false;
   @Input() communityId;
-  @ViewChild("metaCardCompRef") metaCardCompRef: MetaCardComponent;
+  @ViewChild('metaCardCompRef') metaCardCompRef: MetaCardComponent;
   isLoading = false;
   uploading = false;
   uploadProgress = 0;
@@ -33,6 +33,8 @@ export class PostFeedComponent {
   @Output() postData = new EventEmitter();
   apiUrl: any;
   isMediaEnabled = false;
+  url: RegExp = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+  detectedLink: string;
 
   constructor(public login: LoginService, private service: FeedsService, private iFramelyService: IFramelyService) { }
   toggleAddMedia() {
@@ -114,32 +116,55 @@ export class PostFeedComponent {
     this.addedMediaSrc = this.addedMedias = [];
   }
 
-  typeCheckOnUserInput(e): string {
 
-    if (e.target.value == "") {
-      return;
+  parseTextToFindURL(e): string {
+    // @ts-ignore
+    // tslint:disable-next-line:one-variable-per-declaration
+    let urls, output = '';
+
+    if (e.target.value === '') {
+      this.detectedLink = null;
     }
 
-    //8 = backspace
-    //46 = delete
+    // if (urls.data('curr_val') == urls) //if it still has same value
+    // return false; //returns false
 
-    if (e.keyCode == 8 && e.keyCode !== 9 && e.keyCode !== 13 && e.keyCode !== 32 && e.keyCode !== 46) {
+    // 8 = backspace
+    // 46 = delete
+
+    if (e.keyCode === 8 && e.keyCode !== 9 && e.keyCode !== 13 && e.keyCode !== 32 && e.keyCode !== 46) {
       // Return is backspace, tab, enter, space or delete was not pressed.
       return;
     }
 
     // GC keyCodes
-    if (e.keyCode !== 46 && e.keyCode == 17) {
+    if (e.keyCode !== 46 && e.keyCode === 17) {
       // Return is backspace, tab, enter, space or delete was not pressed.
       return;
     }
+    // tslint:disable-next-line:no-conditional-assignment
+    while ((urls = this.url.exec(e.target.value)) !== null) {
+      output += urls[0];
+      this.detectedLink = output;
+      // console.log("URLS: " + output.substring(0, output.length));
+
+      // $("#result").html("").addClass("loaded");
+
+    }
+
+    // tslint:disable-next-line:no-conditional-assignment
+    if (urls = this.url.exec(e.target.value) == null) {
+      this.detectedLink = null;
+    }
+    // console.log("URLS: " + output.substring(0, output.length - 2));
+
+    // setTimeout(function() {
 
 
-    this.metaCardCompRef.parseTextToFindURL(e.target.value);
-    // if (output != this.detectedLink) {
+    // if (output != this.lastURL) { // ctrl = 17
     //   this.detectedLink = output;
     //   console.log('Not the same URL');
+    //   this.lastURL = this.detectedLink;
     // }
   }
-
 }

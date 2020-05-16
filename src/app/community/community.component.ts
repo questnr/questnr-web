@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GoogleLoginProvider} from 'angularx-social-login';
 import {CommunityService} from './community.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -9,8 +9,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {Community, CommunityUsers, OwnerUserDTO} from '../models/community.model';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {LoginService} from '../auth/login.service';
-import { User } from '../models/user.model';
-import { ActivatedRoute } from '@angular/router';
+import {User} from '../models/user.model';
+import {ActivatedRoute} from '@angular/router';
 import {Post} from '../models/post-action.model';
 
 @Component({
@@ -29,17 +29,26 @@ export class CommunityComponent implements OnInit {
   comUpdatedAvatar: any;
   communityImage: any;
   loggedInUserId: any;
+  page = 0;
+  endOfPosts = false;
+  userFeeds = [];
+  loading = true;
+  communityId: any;
+  mobileView = false;
+
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
               private route: ActivatedRoute, public loginAuth: LoginService) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
   }
+
+  screenWidth = window.innerWidth;
 
   openCommunityDesc(desc: any, communityImg: any): void {
     // console.log();
     const dialogRef = this.dialog.open(DescriptionComponent, {
       width: '500px',
       // height: '300px',
-      data: {  text : desc, communityAvatar: communityImg}
+      data: {text: desc, communityAvatar: communityImg}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -47,10 +56,34 @@ export class CommunityComponent implements OnInit {
       // this.animal = result;
     });
   }
+
   ngOnInit() {
+    window.addEventListener('scroll', this.scroll, true);
     this.communitySlug = this.route.snapshot.paramMap.get('communitySlug');
     this.fetchCommunity(this.communitySlug);
+    const width = this.screenWidth;
+    if (width <= 800) {
+      this.mobileView = true;
+      const el = document.querySelector('.flex-7');
+    } else if (width >= 1368) {
+      this.mobileView = false;
+    } else if (width >= 800 && width <= 1368) {
+      this.mobileView = false;
+    }
   }
+
+  scroll = (event): void => {
+    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+      console.log('no im  here');
+      if (this.userFeeds.length >= 0 && !this.endOfPosts) {
+        console.log('check network call', this.endOfPosts);
+        this.loading = true;
+        ++this.page;
+        this.fetchCommunityFeeds(this.communityId);
+      }
+    }
+  }
+
   fetchCommunity(communitySlug: string) {
     // console.log(this.url);
     // this.userList = [];
@@ -76,9 +109,10 @@ export class CommunityComponent implements OnInit {
       this.owner = 'followed';
     }, error => {
       console.log('failed to join this community', error.error.errorMessage);
-      this.snackBar.open(error.error.errorMessage, 'close', { duration: 3000 });
+      this.snackBar.open(error.error.errorMessage, 'close', {duration: 3000});
     });
   }
+
   unfollowThisCommunity() {
     const userId = this.loginAuth.getUserProfile().id;
     this.auth.unfollowCommunityService(this.communityDTO.communityId, userId).subscribe((res: any) => {
@@ -88,15 +122,30 @@ export class CommunityComponent implements OnInit {
       console.log('failed to unfollow' + this.communityDTO.communityName, error.error.errorMessage);
     });
   }
-
+  postFeed(event) {
+    if (event.postActionId) {
+      this.userFeeds = [event, ...this.userFeeds];
+    } else {
+      this.fetchCommunityFeeds(this.communityId);
+    }
+  }
   fetchCommunityFeeds(communityId) {
-    this.auth.getCommunityFeeds(communityId).subscribe((res: any) => {
-      // console.log(res.content);
-      this.feeds = res.content;
+    this.communityId = communityId;
+    this.auth.getCommunityFeeds(communityId, this.page).subscribe((res: any) => {
+        if (res.content.length) {
+          res.content.forEach(post => {
+            console.log(post);
+            this.userFeeds.push(post);
+          });
+        } else {
+          this.endOfPosts = true;
+          this.loading = false;
+        }
     }, error => {
-      // console.log(error);
+      console.log(error.error.errorMessage);
     });
   }
+
   changeCommunityAvatar() {
     const formData = new FormData();
     formData.set('file', this.comUpdatedAvatar, this.comUpdatedAvatar.name);
@@ -106,9 +155,11 @@ export class CommunityComponent implements OnInit {
       console.log();
     });
   }
+
   previewImage() {
-    const src = document.getElementById('imageSrc').click();
+    const src = document.getElementById('communityImageSrc').click();
   }
+
   onFileChange(event) {
     const reader = new FileReader();
     if (event.target.files && event.target.files.length) {

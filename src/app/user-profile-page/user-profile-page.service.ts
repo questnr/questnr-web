@@ -9,8 +9,8 @@ export class UserProfilePageService {
 
   constructor(public http: HttpClient) { }
   baseUrl = environment.baseUrl;
-  getUserFeeds() {
-    return this.http.get(this.baseUrl + 'user/posts');
+  getUserFeeds(userId, page) {
+    return this.http.get(this.baseUrl + 'user/' + userId + '/posts', {params: { page } } );
   }
   getUserProfile(slug) {
     return this.http.get(this.baseUrl + 'user/profile/' + slug );
