@@ -48,9 +48,9 @@ export class UserProfilePageComponent implements OnInit {
   }
   scroll = (event): void => {
     if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      console.log('no im  here');
+      // console.log('no im  here');
       if (this.userFeeds.length >= 0 && !this.endOfPosts) {
-        console.log('check network call', this.endOfPosts);
+        // console.log('check network call', this.endOfPosts);
         this.loading = true;
         ++this.page;
         this.getUserFeeds(this.userId);
@@ -89,13 +89,6 @@ export class UserProfilePageComponent implements OnInit {
       console.log(error.error.errorMessage);
     });
   }
-  // getUserInfo() {
-  //   this.userProfilePageService.getUserInfo(this.url).subscribe((res: any) => {
-  //     this.stats = res;
-  //   }, error => {
-  //     console.log(error.error.errorMessage);
-  //   });
-  // }
   updateUserAvatar(event) {
     let file = null;
     if (event.target.files && event.target.files.length) {
@@ -103,7 +96,6 @@ export class UserProfilePageComponent implements OnInit {
       file = event.target.files[0];
       formData.set('file', file, file.name);
       this.userProfilePageService.updateProfilePicture(formData).subscribe((res: any) => {
-        console.log(res);
         this.userAvatarImage = res.avatarLink;
       }, error => {
         console.log(error.error.errorMessage);
@@ -118,7 +110,7 @@ export class UserProfilePageComponent implements OnInit {
   }
   follow(id) {
     this.userFollowersService.followMe(id).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.relation = 'followed';
     }, error => {
       console.log(error.error.errorMessage);
@@ -127,7 +119,7 @@ export class UserProfilePageComponent implements OnInit {
   unfollow(id) {
     const ownerId = this.loginService.getUserProfile().id;
     this.userFollowersService.unfollowMe(ownerId, id).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
       this.relation = 'none';
     }, error => {
       console.log(error.error.errorMessage);

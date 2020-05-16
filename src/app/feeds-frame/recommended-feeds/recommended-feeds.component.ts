@@ -8,10 +8,8 @@ import { Post } from '../../models/post-action.model';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MetaCardComponent } from 'meta-card/meta-card.component';
-
 import {UserProfileCardServiceComponent} from '../../user-profile-card/user-profile-card-service.component';
 import {UserListComponent} from '../../shared/components/dialogs/user-list/user-list.component';
-import { MetaCardComponent } from 'meta-card/meta-card.component';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -36,13 +34,6 @@ export class RecommendedFeedsComponent implements OnInit {
     }
   }
   likedUserList = [];
-  private metaCardComponentRef: MetaCardComponent;
-  @ViewChild(MetaCardComponent, { static: true }) set metaCard(metaCardComponentRef: MetaCardComponent) {
-    if (!!metaCardComponentRef) {
-      this.metaCardComponentRef = metaCardComponentRef;
-      // this.metaCardComponentRef.uniqueId = this.feed?.slug;
-    }
-  }
   isCommenting = false;
   replyingTo: any;
   isLoading = false;
