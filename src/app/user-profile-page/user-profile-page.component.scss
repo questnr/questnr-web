@@ -95,10 +95,65 @@
 //  color: $white;
 //}
 
-.grid{
-  display: grid;
-  grid-template-columns: 30% 70%;
-  .grid-section-left, .grid-section-center, .grid-section-right{
+.flex{
+  display: flex;
+  .flex-section-left, .flex-section-right{
     padding: 0 8px;
+    width: 30%;
+  }
+  .flex-section-center{
+    width: 70%;
+  }
+}
+
+
+/* mobile responsive css*/
+.profile-banner-mobile {
+  height: 164px ;
+  margin-top: 55px ;
+}
+
+.profile-section-mobile {
+  top: -50px;
+  padding: 0 10px;
+  margin-bottom: 10px;
+  display: flex;
+  .profile-img {
+    width: 138px;
+    height: 100px;
+    padding: 4px;
+    .avatar {
+      bottom: 0px;
+      right: 6px;
+    }
+  }
+  .profile-actions{
+    width: 100%;
+    p{
+      margin: 0px;
+      font-size: 16px;
+    }
+    .actions{
+      padding: 0 !important;
+      margin: 0;
+      background: transparent;
+      border-radius: 50%;
+      border: none;
+      button {
+        background: transparent;
+        border: none;
+        top: 6px;
+        //right: -10px;
+        cursor: pointer;
+        mat-icon {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+.profile-page-container-mobile {
+  .flex-section-center{
+    width: 100%;
   }
 }

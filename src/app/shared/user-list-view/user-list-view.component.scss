@@ -33,3 +33,22 @@
     width: 100%;
   }
 }
+
+.flex-mobile {
+  height: auto;
+  .flex-50 {
+    margin: auto;
+    div{
+      height: auto;
+    }
+    p {
+      width: 80px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .relation-btn{
+      min-width: auto;
+      padding: 0px;
+    }
+  }
+}

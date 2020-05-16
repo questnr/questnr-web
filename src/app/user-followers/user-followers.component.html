@@ -1,31 +1,28 @@
 <div class="user-group-container">
   <h4>Followers</h4>
-  <mat-grid-list cols="2" rowHeight="3:1">
-    <mat-grid-tile *ngFor="let i of followers" [id]="i.userId">
-      <app-user-list-view [user]="i"></app-user-list-view>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <div class="more" (click)="openUserGroupDialog(followers)">
+  <div class="container" [ngClass]="{'container-mobile' : mobileView}">
+    <div class="row">
+      <div *ngFor="let i of followers" [id]="i.userId" class="col-sm-6">
+        <app-user-list-view [user]="i"></app-user-list-view>
+      </div>
+      <div class="more col-sm-6" (click)="openUserGroupDialog(followers)">
         <img src="assets/next.png" alt="next" style="width: 79px; margin: 20px;" #tooltip="matTooltip"
              matTooltipPosition="right"
              matTooltip="view all.">
       </div>
-    </mat-grid-tile>
-  </mat-grid-list>
-
+    </div>
+  </div>
   <div>
     <h4>Following</h4>
-    <mat-grid-list cols="2" rowHeight="3:1">
-      <mat-grid-tile *ngFor="let i of following" [id]="i.userId">
+    <div class="row">
+      <div class="col-sm-6" *ngFor="let i of following" [id]="i.userId">
         <app-user-list-view [user]="i"></app-user-list-view>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <div class="more" (click)="openUserGroupDialog(following)">
-          <img src="assets/next.png" alt="next" style="width: 79px; margin: 20px;" #tooltip="matTooltip"
-               matTooltipPosition="right"
-               matTooltip="view all.">
-        </div>
-      </mat-grid-tile>
-    </mat-grid-list>
+      </div>
+      <div class="more col-sm-6" (click)="openUserGroupDialog(following)">
+        <img src="assets/next.png" alt="next" style="width: 79px; margin: 20px;" #tooltip="matTooltip"
+             matTooltipPosition="right"
+             matTooltip="view all.">
+      </div>
+    </div>
   </div>
 </div>

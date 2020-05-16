@@ -16,6 +16,8 @@ export class UserFollowersComponent implements OnInit {
   @Input() userId: number;
   followers: User[];
   following: User[];
+  mobileView =false ;
+  screenWidth = window.innerWidth;
 
   constructor(public followersService: UserFollowersService, public loginService: LoginService,
               public userProfileCardServiceComponent: UserProfileCardServiceComponent, public dialog: MatDialog) {
@@ -26,6 +28,15 @@ export class UserFollowersComponent implements OnInit {
       this.getFollowingUser();
       this.getFollowedBy();
     }, 2000);
+    const width = this.screenWidth;
+    if (width <= 800) {
+      this.mobileView = true;
+      const el = document.querySelector('.flex-7');
+    } else if (width >= 1368) {
+      this.mobileView = false;
+    } else if (width >= 800 && width <= 1368) {
+      this.mobileView = false;
+    }
   }
 
   getFollowingUser() {

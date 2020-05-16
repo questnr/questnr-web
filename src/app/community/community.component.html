@@ -1,91 +1,9 @@
 <app-user-header></app-user-header>
 
 <div class="site-body">
-  <div class="container">
+  <div class="container" [ngClass]="{'container-mobile' : mobileView}">
     <div class="flex-frame">
-<!--      <div class="flex-3">-->
-<!--        <div class="community-details">-->
-<!--          <div class="default-navs">-->
-<!--            <ul>-->
-<!--              <li>-->
-<!--                <div style="color: orangered;font-weight: 500">Home</div>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <div>Explore</div>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
-
-<!--          &lt;!&ndash;Community Informations&ndash;&gt;-->
-
-<!--          <div class="community-info">-->
-<!--            <div class="com-det-container">-->
-<!--              <div class="profile-background">-->
-
-<!--              </div>-->
-<!--              <div class="com-owner-det">-->
-<!--                <a href="/user-profile">-->
-<!--                  <div class="owner-img">-->
-<!--                    <img src="assets/default.jpg" alt="defaultowner">-->
-<!--                  </div>-->
-<!--                  <div>-->
-<!--                    <div class="owner-name">-->
-<!--                      <h5> Satish Kumar Gaur</h5>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </a>-->
-<!--              </div>-->
-<!--              <hr>-->
-
-<!--              <div class="user-follower">-->
-<!--                <mat-icon>people_outline</mat-icon>-->
-<!--                <span>500 Followers</span>-->
-<!--              </div>-->
-
-<!--              <div class="user-follower">-->
-<!--                <mat-icon>calendar_view_day</mat-icon>-->
-<!--                <span>66 Posts</span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="trending-tags">-->
-<!--              <h1>Trending Hashtags</h1>-->
-<!--              <ul>-->
-<!--                <li>-->
-<!--                  <div>#Music</div>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                  <div>#Nature</div>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                  <div>#Startup</div>-->
-<!--                </li>-->
-<!--                <li>-->
-<!--                  <div>#MindPower</div>-->
-<!--                </li>-->
-<!--              </ul>-->
-<!--              <hr style="margin: 8px 15px;">-->
-<!--              <div class="footer">-->
-<!--                <ul>-->
-<!--                  <li>-->
-<!--                    <div>About.</div>-->
-<!--                  </li>-->
-<!--                  <li>-->
-<!--                    <div>Terms.</div>-->
-<!--                  </li>-->
-<!--                  <li>-->
-<!--                    <div>Privacy Policy.</div>-->
-<!--                  </li>-->
-<!--                </ul>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-
-<!--        </div>-->
-
-<!--      </div>-->
-
-
-      <div class="flex-6">
+      <div class="flex-7" [ngClass]="{'flex-7-mobile' : mobileView}">
         <div class="community-feeds-container">
           <div class="com-ban-img-container">
             <div class="change-comm-img">
@@ -118,13 +36,13 @@
             </ng-template>
           </div>
         </div>
-        <div class="grid-view">
-          <div class="grid-tile">
+        <div class="flex-view">
+          <div class="flex-3" *ngIf="!mobileView">
             <app-user-profile-card [avatarLink]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink" [relationship]="communityDTO?.ownerUserDTO?.userMeta?.relationShipType"
             [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username" [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
             <app-floating-footer></app-floating-footer>
           </div>
-          <div class="grid-tile">
+          <div class="flex-7" [ngClass]="{'flex-7-mobile' : mobileView}">
             <div class="community-feeds">
               <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"></app-post-feed>
               <ng-container *ngIf="userFeeds?.length; else noFeeds">
@@ -144,7 +62,7 @@
       </div>
 
 
-      <div class="flex-3">
+      <div class="flex-3" *ngIf="!mobileView">
         <app-community-users ></app-community-users>
         <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>
         <app-suggestion></app-suggestion>

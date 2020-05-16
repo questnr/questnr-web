@@ -16,8 +16,15 @@
       <mat-icon>more_horiz</mat-icon>
     </button>
     <mat-menu #menu="matMenu" xPosition="before">
-      <button mat-menu-item>Unfollow {{feed?.communityDTO?.communityName}}</button>
-      <button mat-menu-item>Report Post</button>
+      <div *ngIf="feed?.userDTO?.userId === loggedInUserId ; else notComUser">
+        <button mat-menu-item>Edit Post</button>
+        <button mat-menu-item>Delete Post</button>
+        <button mat-menu-item>Copy Link</button>
+      </div>
+      <ng-template #notComUser>
+        <button mat-menu-item>Unfollow {{feed?.communityDTO?.communityName}}</button>
+        <button mat-menu-item>Report Post</button>
+      </ng-template>
     </mat-menu>
   </div>
   <div class="head-wrap" *ngIf="!feed.communityDTO">
@@ -33,8 +40,15 @@
       <mat-icon>more_horiz</mat-icon>
     </button>
     <mat-menu #moreOptions="matMenu" xPosition="before">
-      <button mat-menu-item (click)="unfollow(feed?.userDTO?.userId)">Unfollow {{feed.userDTO?.username}}</button>
-      <button mat-menu-item>Report Post</button>
+      <div *ngIf="feed?.userDTO?.userId === loggedInUserId ; else notUser">
+        <button mat-menu-item>Edit Post</button>
+        <button mat-menu-item>Delete Post</button>
+        <button mat-menu-item>Copy Link</button>
+      </div>
+      <ng-template #notUser>
+        <button mat-menu-item (click)="unfollow(feed?.userDTO?.userId)">Unfollow {{feed.userDTO?.username}}</button>
+        <button mat-menu-item>Report Post</button>
+      </ng-template>
     </mat-menu>
   </div>
   <div class="mb-2">

@@ -3,24 +3,32 @@
 <div class="suggestion-container box">
   <div class="com-suggestion">
     <h1>Owned Communities.</h1>
-    <div  *ngIf="ownedCommunity.length; else noCommunity">
-      <ul>
-        <li *ngFor="let i of ownedCommunity"  class="grid">
-          <div class="community_image">
-            <img [src]="i.avatarDTO.avatarLink" [alt]="i.communityName"  onerror="this.onerror=null;this.src='assets/default.jpg';">
+    <div *ngIf="ownedCommunity.length; else noCommunity">
+      <div *ngIf="!loader">
+        <ul>
+          <li *ngFor="let i of ownedCommunity" class="grid">
+            <div class="community_image">
+              <img [src]="checkImageExists(i?.avatarDTO?.avatarLink)" [alt]="i?.communityName">
+            </div>
+            <div [id]=i.communityId>
+              <a [href]="'/community/' + i.slug">{{i.communityName}}</a>
+            </div>
+          </li>
+        </ul>
+        <div class="row">
+          <div class="col-md-6">
+            <p style="text-align: left; padding: 0 25px;"(click)="createCommunity()" *ngIf="relation === 'owned'">Create community.</p>
           </div>
-          <div [id]=i.communityId>
-            <a [href]="'/community/' + i.slug">{{i.communityName}}</a>
+          <div class="col-md-6">
+            <p style="text-align: right; padding: 0 20px;">view more.</p>
           </div>
-        </li>
-      </ul>
-      <p (click)="createCommunity()" *ngIf="relation === 'owned'">Create community.</p>
-      <p >View more.</p>
+        </div>
+      </div>
     </div>
 
     <div *ngIf="loader">
       <ul class="o-vertical-spacing o-vertical-spacing--l">
-        <li  class="grid blog-post o-media">
+        <li class="grid blog-post o-media">
           <div class="community_image o-media__figure">
             <span class="skeleton-box media-box"></span>
           </div>
@@ -30,7 +38,7 @@
             </div>
           </div>
         </li>
-        <li  class="grid blog-post o-media">
+        <li class="grid blog-post o-media">
           <div class="community_image o-media__figure">
             <span class="skeleton-box media-box"></span>
           </div>
@@ -40,7 +48,7 @@
             </div>
           </div>
         </li>
-        <li  class="grid blog-post o-media">
+        <li class="grid blog-post o-media">
           <div class="community_image o-media__figure">
             <span class="skeleton-box media-box"></span>
           </div>
@@ -50,7 +58,7 @@
             </div>
           </div>
         </li>
-        <li  class="grid blog-post o-media">
+        <li class="grid blog-post o-media">
           <div class="community_image o-media__figure">
             <span class="skeleton-box media-box"></span>
           </div>
@@ -60,7 +68,7 @@
             </div>
           </div>
         </li>
-        <li  class="grid blog-post o-media">
+        <li class="grid blog-post o-media">
           <div class="community_image o-media__figure">
             <span class="skeleton-box media-box"></span>
           </div>
@@ -76,8 +84,14 @@
     <ng-template #noCommunity>
       <div *ngIf="!loader">
         <span>No Communities created yet.</span>
-        <p (click)="createCommunity()" *ngIf="relation === 'owned'">Create community</p>
-        <p >View more.</p>
+        <div class="row">
+          <div class="col-md-6">
+            <p style="text-align: center"> View more.</p>
+          </div>
+          <div class="col-md-6">
+            <p (click)="createCommunity()" *ngIf="relation === 'owned'">Create community.</p>
+          </div>
+        </div>
       </div>
     </ng-template>
   </div>

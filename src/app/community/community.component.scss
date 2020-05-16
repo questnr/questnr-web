@@ -259,10 +259,18 @@
 .feed-wrap {
   margin: .5rem 0;
 }
-.grid-view{
-  display: grid;
+.flex-view{
+  display: flex;
   grid-template-columns: 30% 70%;
 }
-.grid-tile{
-  padding: 0 8px;
+.flex-7{
+  width: 70%;
+  //margin: 0 10px;
+}
+
+.container-mobile{
+  padding: 0 !important;
+}
+.flex-7-mobile {
+  width: 100% !important;
 }
