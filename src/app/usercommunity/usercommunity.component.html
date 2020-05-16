@@ -15,7 +15,7 @@
         </li>
       </ul>
       <p (click)="createCommunity()" *ngIf="relation === 'owned'">Create community.</p>
-      <p  *ngIf="relation != 'owned'">View more.</p>
+      <p >View more.</p>
     </div>
 
     <div *ngIf="loader">
@@ -77,7 +77,7 @@
       <div *ngIf="!loader">
         <span>No Communities created yet.</span>
         <p (click)="createCommunity()" *ngIf="relation === 'owned'">Create community</p>
-        <p  *ngIf="relation != 'owned'">View more.</p>
+        <p >View more.</p>
       </div>
     </ng-template>
   </div>

@@ -3,6 +3,7 @@ import { CreateCommunityComponent } from '../shared/components/dialogs/create.co
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
 
 @Component({
   // tslint:disable-next-line:component-selector

@@ -31,7 +31,7 @@ export class UserFollowersComponent implements OnInit {
   getFollowingUser() {
     // console.log('test userId', this.profileId);
     this.followersService.getUserFollowers(this.userId).subscribe((res: any) => {
-      console.log('follower content' + res.content);
+      // console.log('follower content' + res.content);
       this.followers = res.content;
     }, error => {
       console.log(error.error.errorMessage);
@@ -40,7 +40,7 @@ export class UserFollowersComponent implements OnInit {
 
   getFollowedBy() {
     this.followersService.getFollowedBy(this.userId).subscribe((res: any) => {
-      console.log('followed content' + res.content);
+      // console.log('followed content' + res.content);
       this.following = res.content;
     }, error => {
       console.log(error.error.errorMessage);
@@ -50,7 +50,7 @@ export class UserFollowersComponent implements OnInit {
   unFollow(userId) {
     const ownerId = this.loginService.getUserProfile().id;
     this.userProfileCardServiceComponent.unfollowMe(ownerId, userId).subscribe((res: any) => {
-      console.log('Unfollowed');
+      // console.log('Unfollowed');
     }, error => {
       console.log(error.error.errorMessage);
     });
@@ -58,7 +58,7 @@ export class UserFollowersComponent implements OnInit {
 
   follow(userId) {
     this.userProfileCardServiceComponent.followMe(userId).subscribe((res: any) => {
-      console.log('Unfollowed');
+      // console.log('Unfollowed');
     }, error => {
       console.log(error.error.errorMessage);
     });

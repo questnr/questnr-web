@@ -1,0 +1,35 @@
+@import "./src/app/variables";
+
+.flex{
+  display: flex;
+  background: $white;
+  height: 100px;
+  margin: 10px;
+  border-radius: 6px;
+  border: 1px solid #eeeeee;
+  .flex-50{
+    width: 50%;
+    //margin: 8px;
+    padding: 8px;
+    img{
+      width: 100%;
+      max-width: 79px;
+      height: 100%;
+      border-radius: 10px;
+    }
+    div{
+      display: table-cell;
+      vertical-align: middle;
+      height: 80px;
+      p{
+        margin: 0 !important;
+      }
+    }
+  }
+}
+.relation-btn{
+  min-width: 120px;
+  button{
+    width: 100%;
+  }
+}
