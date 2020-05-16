@@ -79,12 +79,12 @@ button {
 }
 .owl-theme .owl-nav [class*="owl-"] {
   color: $primary;
-  background: transparent;
+  background: $black;
   font-size: 2rem;
   opacity: 0.5px;
   &:hover {
     opacity: 1;
-    background: transparent;
+    background: $grey;
     color: inherit;
   }
 }

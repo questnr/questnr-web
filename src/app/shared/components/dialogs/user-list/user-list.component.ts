@@ -17,6 +17,9 @@ export class UserListComponent implements OnInit {
   }
 
   userList: User;
+  searchResultList: User;
+  searchResult = false;
+  noResultFound = false;
 
   ngOnInit(): void {
     this.userList = this.data;
@@ -39,15 +42,31 @@ export class UserListComponent implements OnInit {
   }
 
   searchUserList(searchString) {
+    this.noResultFound = false;
+    this.loading = true;
     // tslint:disable-next-line:triple-equals
     if (searchString != '') {
       setTimeout(() => {
         this.userListService.searchUser(searchString).subscribe((res: any) => {
           console.log('serach resuult for :' + searchString + 'is===', res);
+          this.searchResultList = res.content;
+          this.searchResult = true;
+          if (res.content.length === 0 ) {
+            this.noResultFound = true;
+          } else {
+            this.noResultFound = false;
+          }
+          this.loading = false;
         }, error => {
           console.log(error.error.errorMessage);
+          this.searchResult = false;
+          this.loading = false;
+          this.noResultFound = true;
         });
       }, 2000);
+    } else {
+      this.loading = false;
+      this.searchResult = false;
     }
   }
 }

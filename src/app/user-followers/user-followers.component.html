@@ -2,33 +2,7 @@
   <h4>Followers</h4>
   <mat-grid-list cols="2" rowHeight="3:1">
     <mat-grid-tile *ngFor="let i of followers" [id]="i.userId">
-      <div class="flex">
-        <div class="flex-50">
-          <img [src]="i.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';" alt="">
-        </div>
-        <div class="flex-50">
-          <div>
-            <p><a [href]="'/user/' + i.slug">{{i.username}}</a></p>
-          </div>
-        </div>
-        <div class="flex-50">
-          <div class="relation-btn">
-            <button mat-stroked-button *ngIf="i?.userMeta?.relationShipType === 'owned' else notOwner">
-              It's you
-            </button>
-          </div>
-          <ng-template #notOwner>
-            <button mat-stroked-button *ngIf="i?.userMeta?.relationShipType === 'followed'"
-                    style="background: green;color: #ffffff" (click)="unFollow(i?.userId)">
-              <mat-icon>check</mat-icon>
-              Following
-            </button>
-            <button mat-stroked-button *ngIf="i?.userMeta?.relationShipType === 'none'" (click)="follow(i.userId)">
-              Follow
-            </button>
-          </ng-template>
-        </div>
-      </div>
+      <app-user-list-view [user]="i"></app-user-list-view>
     </mat-grid-tile>
     <mat-grid-tile>
       <div class="more" (click)="openUserGroupDialog(followers)">
@@ -43,34 +17,7 @@
     <h4>Following</h4>
     <mat-grid-list cols="2" rowHeight="3:1">
       <mat-grid-tile *ngFor="let i of following" [id]="i.userId">
-        <div class="flex">
-          <div class="flex-50">
-            <img [src]="i.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';" alt="">
-          </div>
-          <div class="flex-50">
-            <div>
-              <p><a [href]="'/user/' + i.slug">{{i.username}}</a></p>
-            </div>
-          </div>
-          <div class="flex-50">
-            <div class="relation-btn">
-              <button mat-stroked-button (click)="unFollow(i.userId)"
-                      *ngIf="i?.userMeta?.relationShipType === 'owned' else notOwner">
-                It's you
-              </button>
-            </div>
-            <ng-template #notOwner>
-              <button mat-stroked-button *ngIf="i?.userMeta?.relationShipType === 'followed'"
-                      style="background: green;color: #ffffff" (click)="unFollow(i?.userId)">
-                <mat-icon>check</mat-icon>
-                Following
-              </button>
-              <button mat-stroked-button *ngIf="i?.userMeta?.relationShipType === 'none'" (click)="follow(i.userId)">
-                Follow
-              </button>
-            </ng-template>
-          </div>
-        </div>
+        <app-user-list-view [user]="i"></app-user-list-view>
       </mat-grid-tile>
       <mat-grid-tile>
         <div class="more" (click)="openUserGroupDialog(following)">

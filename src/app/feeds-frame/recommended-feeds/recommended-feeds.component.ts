@@ -8,6 +8,7 @@ import { Post } from '../../models/post-action.model';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { MatDialog } from '@angular/material/dialog';
 import {UserProfileCardServiceComponent} from '../../user-profile-card/user-profile-card-service.component';
+import {UserListComponent} from '../../shared/components/dialogs/user-list/user-list.component';
 @Component({
   selector: 'app-recommended-feeds',
   templateUrl: './recommended-feeds.component.html',
@@ -23,6 +24,7 @@ import {UserProfileCardServiceComponent} from '../../user-profile-card/user-prof
 export class RecommendedFeedsComponent implements OnInit {
   @Input() feed;
   @ViewChild('commentInput') commentInput: ElementRef;
+  likedUserList = [];
   isCommenting = false;
   replyingTo: any;
   isLoading = false;
@@ -168,6 +170,23 @@ export class RecommendedFeedsComponent implements OnInit {
       console.log('unfollowed');
     }, error => {
       console.log(error.error.errorMessage);
-    })
+    });
+  }
+  openUserGroupDialog(userList, type): void {
+    if (type === 'like') {
+      userList.forEach(c => {
+          this.likedUserList.push(c.user);
+          console.log(c.user);
+      });
+    }
+    if (this.likedUserList.length > 0 ){
+      const dialogRef = this.dialog.open(UserListComponent, {
+        width: '500px',
+        data: this.likedUserList
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.likedUserList = [];
+      });
+    }
   }
 }

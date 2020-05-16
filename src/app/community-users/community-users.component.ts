@@ -4,6 +4,8 @@ import { environment } from '../../environments/environment';
 import {UserProfileCardServiceComponent} from '../user-profile-card/user-profile-card-service.component';
 import {LoginService} from '../auth/login.service';
 import {ActivatedRoute} from '@angular/router';
+import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-community-users',
@@ -16,7 +18,8 @@ export class CommunityUsersComponent implements OnInit {
   communityMemberList = [];
   loader = false;
 
-  constructor(public http: HttpClient, public userService: UserProfileCardServiceComponent, public loginService: LoginService, public route: ActivatedRoute ) {
+  constructor(public http: HttpClient, public userService: UserProfileCardServiceComponent, public loginService: LoginService, public route: ActivatedRoute,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -51,6 +54,16 @@ export class CommunityUsersComponent implements OnInit {
     this.userService.unfollowMe(ownerId, userId).subscribe((res: any) => {
 
     }, error => {
+
+    });
+  }
+  openUserGroupDialog(userList): void {
+    const dialogRef = this.dialog.open(UserListComponent, {
+      width: '500px',
+      data: userList
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
 
     });
   }
