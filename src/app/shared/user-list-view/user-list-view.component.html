@@ -1,4 +1,4 @@
-<div class="flex">
+<div class="flex" [ngClass]="{'flex-mobile' : mobileView}">
   <div class="flex-50">
     <img [src]="user?.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';" alt="">
   </div>
@@ -14,13 +14,20 @@
       </button>
     </div>
     <ng-template #notOwner>
-      <button mat-stroked-button *ngIf="relation === 'followed'"
+      <button mat-stroked-button *ngIf="relation === 'followed' && !mobileView"
               style="background: green;color: #ffffff" (click)="unFollow(user?.userId)">
         <mat-icon>check</mat-icon>
         Following
       </button>
-      <button mat-stroked-button *ngIf="relation === 'none'" (click)="follow(user?.userId)">
+      <button mat-stroked-button *ngIf="relation === 'followed' && mobileView"
+              style="background: green;color: #ffffff" (click)="unFollow(user?.userId)">
+        <mat-icon>check</mat-icon>
+      </button>
+      <button mat-stroked-button *ngIf="relation === 'none' && !mobileView" (click)="follow(user?.userId)">
         Follow
+      </button>
+      <button mat-stroked-button *ngIf="relation === 'none' && mobileView" (click)="follow(user?.userId)">
+        <mat-icon>person_add</mat-icon>
       </button>
     </ng-template>
   </div>

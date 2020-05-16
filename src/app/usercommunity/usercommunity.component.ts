@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
+import {Community} from '../models/community.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -21,7 +22,7 @@ export class UsercommunityComponent implements OnInit {
   @Input() defaultImage = 'assets/default.jpg';
   @Input() relation;
   baseUrl = environment.baseUrl;
-  ownedCommunity = [];
+  ownedCommunity: Community[];
   loader = false;
 
   ngOnInit() {
@@ -37,9 +38,9 @@ export class UsercommunityComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed');
-      this.getUserOwnedCommunity();
-      // this.animal = result;
+      if (result === 'true') {
+        this.getUserOwnedCommunity();
+      }
     });
   }
 
@@ -53,5 +54,12 @@ export class UsercommunityComponent implements OnInit {
       this.loader = false;
       // console.log(error);
     });
+  }
+  checkImageExists(src) {
+    if (src) {
+      return src ;
+    } else  {
+      return  'assests/default.jpg';
+    }
   }
 }

@@ -27,6 +27,8 @@ export class UserProfilePageComponent implements OnInit {
   endOfPosts = false;
   userFeeds = [];
   userId: any;
+  mobileView = false;
+  screenWidth = window.innerWidth;
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.scroll, true);
@@ -34,6 +36,15 @@ export class UserProfilePageComponent implements OnInit {
     this.getUserProfileDetails();
     // this.getUserInfo();
     this.getCommunityFollowedByUser();
+
+    const width = this.screenWidth;
+    if (width <= 800) {
+      this.mobileView = true;
+    } else if (width >= 1368) {
+      this.mobileView = false;
+    } else if (width >= 800 && width <= 1368) {
+      this.mobileView = false;
+    }
   }
   scroll = (event): void => {
     if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {

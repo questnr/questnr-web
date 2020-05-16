@@ -9,6 +9,8 @@ import { SharePostComponent } from 'shared/components/dialogs/share-post/share-p
 import { MatDialog } from '@angular/material/dialog';
 import {UserProfileCardServiceComponent} from '../../user-profile-card/user-profile-card-service.component';
 import {UserListComponent} from '../../shared/components/dialogs/user-list/user-list.component';
+import { MetaCardComponent } from 'meta-card/meta-card.component';
+
 @Component({
   selector: 'app-recommended-feeds',
   templateUrl: './recommended-feeds.component.html',
@@ -25,6 +27,13 @@ export class RecommendedFeedsComponent implements OnInit {
   @Input() feed;
   @ViewChild('commentInput') commentInput: ElementRef;
   likedUserList = [];
+  private metaCardComponentRef: MetaCardComponent;
+  @ViewChild(MetaCardComponent, { static: true }) set metaCard(metaCardComponentRef: MetaCardComponent) {
+    if (!!metaCardComponentRef) {
+      this.metaCardComponentRef = metaCardComponentRef;
+      // this.metaCardComponentRef.uniqueId = this.feed?.slug;
+    }
+  }
   isCommenting = false;
   replyingTo: any;
   isLoading = false;
@@ -63,12 +72,16 @@ export class RecommendedFeedsComponent implements OnInit {
     autoplay: true
   };
 
+  // tslint:disable-next-line:max-line-length
   constructor(private api: FeedsService, public login: LoginService, private dialog: MatDialog, public followService: UserProfileCardServiceComponent) { }
-
+  loggedInUserId = this.login.getUserProfile().id;
   ngOnInit() {
     this.loggedInUsername = this.login.getUserProfile().sub;
-    console.log('logged in username:' + this.loggedInUsername);
   }
+  // async ngAfterViewInit() {
+  //   if (this.feed.text)
+  //     await this.metaCardComponentRef.parseTextToFindURL(this.feed.text);
+  // }
   toggleComments() {
     this.isSharing = false;
     this.isCommenting = !this.isCommenting;

@@ -34,11 +34,14 @@ export class CommunityComponent implements OnInit {
   userFeeds = [];
   loading = true;
   communityId: any;
+  mobileView = false;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
               private route: ActivatedRoute, public loginAuth: LoginService) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
   }
+
+  screenWidth = window.innerWidth;
 
   openCommunityDesc(desc: any, communityImg: any): void {
     // console.log();
@@ -58,6 +61,15 @@ export class CommunityComponent implements OnInit {
     window.addEventListener('scroll', this.scroll, true);
     this.communitySlug = this.route.snapshot.paramMap.get('communitySlug');
     this.fetchCommunity(this.communitySlug);
+    const width = this.screenWidth;
+    if (width <= 800) {
+      this.mobileView = true;
+      const el = document.querySelector('.flex-7');
+    } else if (width >= 1368) {
+      this.mobileView = false;
+    } else if (width >= 800 && width <= 1368) {
+      this.mobileView = false;
+    }
   }
 
   scroll = (event): void => {
