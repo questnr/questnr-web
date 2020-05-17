@@ -8,8 +8,8 @@ import { IFramelyData } from 'models/iframely.model';
 })
 export class IFramelyService {
 
-  apiKey: string = "b45f06cd090f9e75148e93";
-  iframelyLink: string = "https://iframe.ly/api/iframely";
+  apiKey = 'b45f06cd090f9e75148e93';
+  iframelyLink = 'https://iframe.ly/api/iframely';
 
   constructor(private http: HttpClient) { }
 
@@ -17,11 +17,10 @@ export class IFramelyService {
   iFramelyData: IFramelyData = new IFramelyData();
 
   async getIFramelyData(detectedLink: string): Promise<IFramelyData> {
-    let iFramelyResp: any = await this.http.get(this.iframelyLink, { params: { url: detectedLink, api_key: this.apiKey } }).toPromise();
+    const iFramelyResp: any = await this.http.get(this.iframelyLink, { params: { url: detectedLink, api_key: this.apiKey } }).toPromise();
     if (!iFramelyResp || iFramelyResp.error) {
       this.iFramelyData.error = true;
-    }
-    else {
+    } else {
       this.iFramelyData.error = false;
       this.iFramelyData.url = iFramelyResp.url;
       this.iFramelyData.title = iFramelyResp.meta.title;

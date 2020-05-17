@@ -25,8 +25,7 @@ export class MetaCardComponent implements OnInit {
     }
     if (output) {
       await this.getIFramelyData(output);
-    }
-    else {
+    } else {
       this.resetIFramelyData();
     }
     // if (urls = this.url.exec(text) == null) {
@@ -34,8 +33,9 @@ export class MetaCardComponent implements OnInit {
     // }
   }
   async getIFramelyData(detectedLink: string): Promise<void> {
-    if (!detectedLink) return;
+    if (!detectedLink) { return; }
     this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
+    console.log(this.iFramelyData);
   }
   resetIFramelyData() {
     this.iFramelyData = null;
