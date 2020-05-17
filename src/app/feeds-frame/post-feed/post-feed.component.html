@@ -1,3 +1,4 @@
+
 <div class="box">
   <div class="loader" [ngClass]="{'active': isLoading}">
     <mat-progress-bar *ngIf="!uploading && isLoading" mode="indeterminate"></mat-progress-bar>
@@ -6,13 +7,13 @@
   <div class="post-wrap">
     <div class="icon"> <img [src]="login.profileImg"> </div>
     <div class="textbox-wrap">
-      <textarea rows="3" placeholder="Post Something...." [formControl]="text" (change)="parseTextToFindURL($event)"
-        (keyup)="parseTextToFindURL($event)" (input)="parseTextToFindURL($event)">
+      <textarea rows="3" placeholder="Post Something...." [formControl]="text" (change)="typeCheckOnUserInput($event)"
+                (keyup)="typeCheckOnUserInput($event)" (input)="typeCheckOnUserInput($event)">
       </textarea>
     </div>
   </div>
 
-  <app-meta-card *ngIf="detectedLink" [detectedLink]="detectedLink"></app-meta-card>
+  <app-meta-card #metaCardCompRef></app-meta-card>
 
   <div class="media" [@expand]="isMediaEnabled ? 'expanded' : 'collapsed'">
     <div class="media-wrap">
@@ -27,7 +28,7 @@
       </div>
       <div class="drop-area m-2" appDragDrop (fileDropped)="filesDropped($event)" (click)="fileInput.click()">
         <input type="file" (change)="selectFiles($event)" #fileInput style="display: none" multiple
-          accept="image/*,video/*" />
+               accept="image/*,video/*" />
         <div class="text-center">
           <mat-icon>add_photo_alternate</mat-icon>
           <div> Drop Image/Video </div>
@@ -50,3 +51,4 @@
     </button>
   </div>
 </div>
+

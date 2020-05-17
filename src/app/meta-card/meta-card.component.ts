@@ -1,3 +1,4 @@
+
 import { Component, OnInit, Input } from '@angular/core';
 import { IFramelyService } from './iframely.service';
 import { IFramelyData } from 'models/iframely.model';
@@ -23,12 +24,10 @@ export class MetaCardComponent implements OnInit {
       output = urls[0];
       // console.log("URLS: " + output);
     }
-    if (output) {
+    if (output)
       await this.getIFramelyData(output);
-    }
-    else {
+    else
       this.resetIFramelyData();
-    }
     // if (urls = this.url.exec(text) == null) {
     //   return null;
     // }
@@ -36,11 +35,13 @@ export class MetaCardComponent implements OnInit {
   async getIFramelyData(detectedLink: string): Promise<void> {
     if (!detectedLink) return;
     this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
+    console.log(this.iFramelyData);
   }
   resetIFramelyData() {
     this.iFramelyData = null;
   }
   openIframelyLink() {
-    if (this.iFramelyData.url) { window.open(this.iFramelyData.url, '_blank'); }
+    if (this.iFramelyData.url) window.open(this.iFramelyData.url, '_blank');
   }
 }
+

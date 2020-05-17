@@ -45,7 +45,7 @@
         <button mat-menu-item>Copy Link</button>
       </div>
       <ng-template #notUser>
-        <button mat-menu-item (click)="unfollow(feed?.userDTO?.userId)">Unfollow {{feed.userDTO?.username}}</button>
+        <button mat-menu-item (click)="unFollow(feed?.userDTO?.userId)">Unfollow {{feed.userDTO?.username}}</button>
         <button mat-menu-item>Report Post</button>
       </ng-template>
     </mat-menu>
