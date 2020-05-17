@@ -1,4 +1,3 @@
-
 <div class="box">
   <div class="loader" [ngClass]="{'active': isLoading}">
     <mat-progress-bar *ngIf="!uploading && isLoading" mode="indeterminate"></mat-progress-bar>
@@ -8,7 +7,7 @@
     <div class="icon"> <img [src]="login.profileImg"> </div>
     <div class="textbox-wrap">
       <textarea rows="3" placeholder="Post Something...." [formControl]="text" (change)="typeCheckOnUserInput($event)"
-                (keyup)="typeCheckOnUserInput($event)" (input)="typeCheckOnUserInput($event)">
+        (keyup)="typeCheckOnUserInput($event)" (input)="typeCheckOnUserInput($event)" #userInputRef>
       </textarea>
     </div>
   </div>
@@ -28,7 +27,7 @@
       </div>
       <div class="drop-area m-2" appDragDrop (fileDropped)="filesDropped($event)" (click)="fileInput.click()">
         <input type="file" (change)="selectFiles($event)" #fileInput style="display: none" multiple
-               accept="image/*,video/*" />
+          accept="image/*,video/*" />
         <div class="text-center">
           <mat-icon>add_photo_alternate</mat-icon>
           <div> Drop Image/Video </div>
@@ -51,4 +50,3 @@
     </button>
   </div>
 </div>
-

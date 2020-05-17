@@ -16,7 +16,7 @@ import { SidenavComponent } from 'feeds-frame/sidenav/sidenav.component';
 import { CommunityComponent } from './community/community.component';
 import { PostFeedComponent } from 'feeds-frame/post-feed/post-feed.component';
 import { FeedsFrameComponent } from 'feeds-frame/feeds-frame.component';
-import {UserProfilePageComponent} from './user-profile-page/user-profile-page.component';
+import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { SinglePostComponent } from 'single-post/single-post.component';
 import { FeedsLoaderComponent } from 'feeds-frame/recommended-feeds/feeds-loader/feeds-loader.component';
 import { NotificationItemComponent } from 'feeds-frame/notification-item/notification-item.component';
@@ -28,7 +28,8 @@ const routes: Routes = [
   { path: 'header', component: HeaderComponent },
   { path: 'community/:communitySlug', component: CommunityComponent },
   { path: 'post/:postSlug', component: SinglePostComponent },
-  {path: 'user/:userSlug', component: UserProfilePageComponent}
+  { path: 'user/:userSlug', component: UserProfilePageComponent },
+  // { path: 'hash-tag/:hashTag' }
 ];
 
 export interface Tile {

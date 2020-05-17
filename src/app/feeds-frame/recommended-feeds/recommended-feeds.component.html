@@ -31,8 +31,11 @@
     <div class="profile-icon"> <img [src]="feed.userDTO?.avatarDTO?.avatarLink ?
       feed?.userDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""> </div>
     <div class="profile-detail">
-      <div class=" head" *ngIf="feed?.userDTO?.username"><a [href]="'/user/' + feed?.userDTO?.slug">{{feed?.userDTO?.username | titlecase}}</a></div>
-      <div class="subhead" [matTooltip]="feed.metaData.timeInUTC | date"> {{feed.metaData.timeString}} ago</div>
+      <div class=" head" *ngIf="feed?.userDTO?.username"><a
+          [href]="'/user/' + feed?.userDTO?.slug">{{feed?.userDTO?.username}}</a></div>
+      <div class="head" *ngIf="!feed.userDTO?.username">{{loggedInUsername}}</div>
+      <div class="subhead" [matTooltip]="feed.metaData.createdAtTimeInUTC | date"> {{feed.metaData.timeString}} ago
+      </div>
     </div>
     <div class="spacer"></div>
     <button mat-icon-button [matMenuTriggerFor]="moreOptions">
@@ -52,7 +55,7 @@
   </div>
   <div class="mb-2">
     <div class="text" *ngIf="feed?.text && feed.text !== 'null'">
-      <p class="pre">{{feed?.text}}</p>
+      <dynamic-html class="pre" [content]="feed?.text"></dynamic-html>
     </div>
     <app-meta-card id="{{feed?.text}}" #metaCardComponentRef></app-meta-card>
     <div *ngIf="feed.postMediaList?.length">
@@ -69,7 +72,8 @@
     </div>
   </div>
   <div class="count-box">
-    <div (click)="openUserGroupDialog(feed?.likeActionList,'like')"> <span>{{feed.totalLikes? feed.totalLikes: 0}} </span>
+    <div (click)="openUserGroupDialog(feed?.likeActionList,'like')"> <span>{{feed.totalLikes? feed.totalLikes: 0}}
+      </span>
       {{feed.totalLikes>1? 'Likes': 'Like'}}</div>
     <div class="dot"></div>
     <div> <span> {{feed.totalComments?feed.totalComments:0}} </span>

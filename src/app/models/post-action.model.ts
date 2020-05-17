@@ -3,6 +3,7 @@ import { Community } from './community.model';
 import { MetaData } from './common.model';
 import { CommentAction } from './comment-action.model';
 import { LikeAction } from './like-action.model';
+import { HashTag } from './hashtag.model';
 
 export class Post {
     postActionId: number;
@@ -22,6 +23,7 @@ export class Post {
     totalComments: number;
     totalPostVisits: number;
     postMediaList: PostMedia[];
+    hashTags: HashTag[];
 }
 
 class PostMedia {

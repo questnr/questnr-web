@@ -6,6 +6,10 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, tap, map } from 'rxjs/operators';
 import { MessagingService } from '../../service/messaging.service';
 import { AngularFireMessaging } from '@angular/fire/messaging';
+import { HashTag } from 'models/hashtag.model';
+import { User } from 'models/user.model';
+import { Community } from 'models/community.model';
+import { Page } from 'models/page.model';
 
 @Component({
   selector: 'app-user-header',
@@ -19,12 +23,16 @@ export class UserHeaderComponent {
   isLoading = false;
   profile;
   endOfNotifications = false;
-  hashtagInput = new FormControl();
-  hashtags = [];
+  searchInput = new FormControl();
+  hashtags: HashTag[] = [];
+  users: User[] = [];
+  communities: Community[] = [];
   notifications = [];
   page = 0;
   hasNewNotifications: boolean = false;
   notificationColor: string = 'black';
+  filterSearchOptionList: string[] = ["users", 'communities', 'hashtags'];
+  selectedSearchOption: number = 0;
 
   constructor(private router: Router, public auth: LoginService,
     private api: ApiService,
@@ -32,7 +40,7 @@ export class UserHeaderComponent {
     private angularFireMessaging: AngularFireMessaging) {
     this.profile = this.auth.getUserProfile();
     this.auth.getUserProfileImg();
-    this.hashtagInput.valueChanges
+    this.searchInput.valueChanges
       .pipe(
         debounceTime(500),
         tap(() => {
@@ -42,8 +50,7 @@ export class UserHeaderComponent {
       )
       .subscribe((val) => {
         if (val) {
-          this.isLoading = true;
-          this.searchHashtag();
+          this.searchEntity();
         }
       });
     this.api.getNotifications().subscribe(
@@ -60,13 +67,60 @@ export class UserHeaderComponent {
   toggleMenu() {
     this.menuToggle.emit();
   }
-  searchHashtag() {
-    this.api.searchHashtag(this.hashtagInput.value).subscribe(
-      (res: any) => {
+
+  searchEntity() {
+    if (!this.searchInput.value || this.searchInput.value == "") return;
+    this.isLoading = true;
+    if (this.selectedSearchOption === 0) {
+      this.searchUsers();
+    } else if (this.selectedSearchOption === 1) {
+      this.searchCommunities();
+    }
+    else if (this.selectedSearchOption === 2) {
+      this.searchHashtags();
+    }
+  }
+
+  selectSearchOption(indexOfelement: number) {
+    if (this.selectedSearchOption != indexOfelement) {
+      this.selectedSearchOption = indexOfelement;
+      this.searchEntity();
+    }
+  }
+
+  searchHashtags() {
+    this.api.searchHashtags(this.searchInput.value).subscribe(
+      (res: HashTag[]) => {
         this.isLoading = false;
         this.hashtags = res;
       }
     );
+  }
+  searchUsers() {
+    this.api.searchUsers(this.searchInput.value).subscribe(
+      (res: Page<User>) => {
+        this.isLoading = false;
+        this.users = res.content;
+        console.log("users", res);
+      }
+    );
+  }
+  searchCommunities() {
+    this.api.searchCommunities(this.searchInput.value).subscribe(
+      (res: Page<Community>) => {
+        this.isLoading = false;
+        this.communities = res.content;
+        console.log("communities", res);
+      }
+    );
+  }
+  handleRouterLink(slug: string) {
+    let path: string = "user";
+    if (this.selectedSearchOption == 1)
+      path = "community";
+    else if (this.selectedSearchOption == 2)
+      path = "hash-tag";
+    this.router.navigate(["/", path, slug]);
   }
   getNotification() {
     this.api.getNotifications(this.page + 1).subscribe(
