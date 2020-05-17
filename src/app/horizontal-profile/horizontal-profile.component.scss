@@ -1,0 +1,36 @@
+@import "../variables";
+
+.profile{
+    display: flex;
+    flex-direction: row;
+    padding: 0.3rem 0rem;
+    .profile-icon {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      height: 35px;
+      border-radius: 50%;
+      width:35px;
+      img {
+        width: auto;
+        height: 100%;
+      }
+    }
+    .profile-detail {
+      padding: 0 0.6rem;
+      font-size: 14px;
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      .head {
+        font-weight: 500;
+      }
+      .subhead {
+        font-size: 10px;
+        padding: 0rem 0rem 0rem 0.6rem;
+        color: $secondary-font-color;
+      }
+    }
+  }

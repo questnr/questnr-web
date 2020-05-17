@@ -79,7 +79,6 @@ export class RecommendedFeedsComponent implements OnInit {
   ngOnInit() {
     this.loggedInUsername = this.login.getUserProfile().sub;
     this.loggedInUserId = this.login.getUserProfile().id;
-    console.log("feed", this.feed);
     this.parseFeed();
   }
   parseFeed() {

@@ -9,11 +9,41 @@
     <div class="spacer"></div>
 
     <div class="search-wrapper">
-      <input type="text" placeholder="Type here to search..." [formControl]="hashtagInput">
-      <mat-icon (click)="searchHashtag()">search</mat-icon>
-      <div class="suggestions">
+      <input type="text" placeholder="Type here to search..." [formControl]="searchInput" #searchInputRef>
+      <mat-icon class="search-icon" (click)="searchEntity()">search</mat-icon>
+      <div class="suggestions" #suggestionBoxRef>
         <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="height: 2px"></mat-progress-bar>
-        <button class="w-100" mat-button *ngFor="let item of hashtags">{{item.hashTagValue}}</button>
+        <div class="search-menu">
+          <div class="search-option-list">
+            <div *ngFor="let item of filterSearchOptionList;let indexOfelement=index;" class="search-option"
+              (click)="selectSearchOption(indexOfelement)"
+              [ngClass]="{'selected': indexOfelement==selectedSearchOption}">
+              <app-dot [radius]="7"></app-dot><span>{{item}}</span>
+            </div>
+          </div>
+          <mat-icon class="close-icon" (click)="closeSearchBox()">close</mat-icon>
+        </div>
+        <div *ngIf="selectedSearchOption==0">
+          <button class="w-100" mat-button *ngFor="let user of users" (click)="handleRouterLink(user?.slug)">
+            <app-horizontal-profile
+              [avatarLink]="user?.avatarDTO?.avatarLink ? user?.avatarDTO?.avatarLink : 'assets/default.jpg'"
+              [head]="user?.username" [subhead]="user?.firstName+' '+user?.lastName">
+            </app-horizontal-profile>
+          </button>
+        </div>
+        <div *ngIf="selectedSearchOption==1">
+          <button class="w-100" mat-button *ngFor="let community of communities"
+            (click)="handleRouterLink(community?.slug)">
+            <app-horizontal-profile
+              [avatarLink]="community?.avatarDTO?.avatarLink ? community?.avatarDTO?.avatarLink : 'assets/default.jpg'"
+              [head]="community?.communityName" [subhead]="community?.ownerUserDTO?.username">
+            </app-horizontal-profile>
+          </button>
+        </div>
+        <div *ngIf="selectedSearchOption==2">
+          <button class="w-100" mat-button *ngFor="let hashTag of hashtags"
+            (click)="handleRouterLink(hashTag)">{{hashTag.hashTagValue}}</button>
+        </div>
       </div>
     </div>
 

@@ -87,7 +87,7 @@ export class LandingPageComponent implements OnInit {
       }, err => { });
   }
   searchHashtag() {
-    this.api.searchHashtag(this.hashtagInput.value).subscribe(
+    this.api.searchHashtags(this.hashtagInput.value).subscribe(
       (res: any) => {
         this.isLoading = false;
         this.hashtagResults = res;

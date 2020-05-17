@@ -88,7 +88,9 @@ import { UserListLoaderComponent } from './shared/loaders/user-list-loader/user-
 import { UserListViewComponent } from './shared/user-list-view/user-list-view.component';
 import { SafePipe } from './shared/safe.pipe';
 import { DynamicHTMLModule } from './dynamic-html';
-import { HashTagComponent } from './hash-tag/hash-tag.component'
+import { HashTagComponent } from './hash-tag/hash-tag.component';
+import { DotComponent } from './dot/dot.component';
+import { HorizontalProfileComponent } from './horizontal-profile/horizontal-profile.component'
 
 
 const customConfig: ShareButtonsConfig = {
@@ -150,6 +152,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserListViewComponent,
     SafePipe,
     HashTagComponent,
+    DotComponent,
+    HorizontalProfileComponent,
   ],
   imports: [
     MatVideoModule,
