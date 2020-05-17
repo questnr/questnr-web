@@ -1,7 +1,8 @@
 @import "../variables";
 
 .user_activity{
-  width: 100%;
+  width: calc(100% - 10px);
+  margin: 0 auto;
   position: relative;
   top: -50px;
   padding: 8px;
@@ -26,9 +27,9 @@
   }
 }
 
-.user_activity ul li:hover{
-  transform: scale(1.5);
-}
+//.user_activity ul li:hover{
+//  transform: scale(1.5);
+//}
 
 /* mobile responsive css */
 
@@ -37,7 +38,7 @@
   ul {
     text-align: center;
     li{
-      width: calc(50% - 10px);
+      width: calc(35% - 10px);
       font-size: 14px;
     }
   }

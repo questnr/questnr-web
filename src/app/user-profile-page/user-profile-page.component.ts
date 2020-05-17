@@ -7,6 +7,7 @@ import { UserFollowersService } from '../user-followers/user-followers.service';
 import { LoginService } from '../auth/login.service';
 import { ApiService } from '../shared/api.service';
 import { Post } from '../models/post-action.model';
+import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
 
 @Component({
   selector: 'app-user-profile-page',

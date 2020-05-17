@@ -154,6 +154,7 @@
 }
 .profile-page-container-mobile {
   .flex-section-center{
-    width: 100%;
+    width: calc(100% - 10px);
+    margin: 0 auto;
   }
 }

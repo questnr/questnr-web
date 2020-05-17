@@ -1,5 +1,8 @@
+.mobile-nav-btn button{
+  margin: 10px;
+}
 .user_list_container {
-  padding: 20px;
+  padding: 0 20px;
 
   input {
     background-image: url('/assets/search.png');
@@ -61,4 +64,7 @@
       }
     }
   }
+}
+dialog {
+  border: none !important;
 }

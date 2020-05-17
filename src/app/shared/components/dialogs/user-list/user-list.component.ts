@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {User} from '../../../../models/user.model';
 import {UserProfileCardServiceComponent} from '../../../../user-profile-card/user-profile-card-service.component';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -13,7 +13,7 @@ import {UserListService} from './user-list.service';
 export class UserListComponent implements OnInit {
   loading = false;
   constructor(@Inject(MAT_DIALOG_DATA) public data: User, public  userProfileCardServiceComponent: UserProfileCardServiceComponent,
-              public userListService: UserListService) {
+              public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>) {
   }
 
   userList: User;
@@ -68,5 +68,8 @@ export class UserListComponent implements OnInit {
       this.loading = false;
       this.searchResult = false;
     }
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

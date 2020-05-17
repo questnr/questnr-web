@@ -1,4 +1,9 @@
-<div class="user_list_container">
+  <div class="mobile-nav-btn" >
+    <button mat-icon-button (click)="onNoClick()">
+      <mat-icon> arrow_back</mat-icon>
+    </button>
+  </div>
+  <div class="user_list_container">
   <div>
     <input #inputBox type="text" placeholder="Search..." (keypress)="searchUserList(inputBox.value)">
   </div>
@@ -17,13 +22,13 @@
             <app-user-list-view [user]="i"></app-user-list-view>
           </div>
         </div>
-        <div  class="user-flex no-result-found" style="margin: auto" *ngIf="noResultFound">
+        <div class="user-flex no-result-found" style="margin: auto" *ngIf="noResultFound">
           <p style="text-align: center"> No Result found ....</p>
         </div>
 
         <ng-container *ngIf="loading">
           <div *ngFor="let i of ' '.repeat(3).split('')">
-              <app-user-list-loader></app-user-list-loader>
+            <app-user-list-loader></app-user-list-loader>
           </div>
         </ng-container>
       </div>
