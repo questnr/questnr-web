@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { HashTag } from 'models/hashtag.model';
+import { User } from 'models/user.model';
+import { Community } from 'models/community.model';
+import { Page } from 'models/page.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +30,14 @@ export class ApiService {
   getTrendingCommunities() {
     return this.http.get(this.baseUrl + 'community/trending-community-list');
   }
-  searchHashtag(hashTag) {
-    return this.http.get(this.baseUrl + `search/hash-tag`, { params: { hashTag } });
+  searchHashtags(userInput: string) {
+    return this.http.get<HashTag[]>(this.baseUrl + `search/hash-tag`, { params: { hashTag: userInput } });
+  }
+  searchUsers(userInput: string) {
+    return this.http.get<Page<User>>(this.baseUrl + `user/search/users`, { params: { userString: userInput } });
+  }
+  searchCommunities(userInput: string) {
+    return this.http.get<Page<Community>>(this.baseUrl + `user/search/communities`, { params: { communityString: userInput } });
   }
   getNotifications(page: any = 0) {
     console.log(page);
