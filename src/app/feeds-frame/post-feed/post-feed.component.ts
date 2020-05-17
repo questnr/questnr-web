@@ -22,7 +22,7 @@ import { MetaCardComponent } from 'meta-card/meta-card.component';
 export class PostFeedComponent {
   @Input() isCommunityPost = false;
   @Input() communityId;
-  @ViewChild('metaCardCompRef') metaCardCompRef: MetaCardComponent;
+  @ViewChild("metaCardCompRef") metaCardCompRef: MetaCardComponent;
   isLoading = false;
   uploading = false;
   uploadProgress = 0;
@@ -116,20 +116,20 @@ export class PostFeedComponent {
 
   typeCheckOnUserInput(e): string {
 
-    if (e.target.value === '') {
+    if (e.target.value == "") {
       return;
     }
 
-    // 8 = backspace
-    // 46 = delete
+    //8 = backspace
+    //46 = delete
 
-    if (e.keyCode === 8 && e.keyCode !== 9 && e.keyCode !== 13 && e.keyCode !== 32 && e.keyCode !== 46) {
+    if (e.keyCode == 8 && e.keyCode !== 9 && e.keyCode !== 13 && e.keyCode !== 32 && e.keyCode !== 46) {
       // Return is backspace, tab, enter, space or delete was not pressed.
       return;
     }
 
     // GC keyCodes
-    if (e.keyCode !== 46 && e.keyCode === 17) {
+    if (e.keyCode !== 46 && e.keyCode == 17) {
       // Return is backspace, tab, enter, space or delete was not pressed.
       return;
     }

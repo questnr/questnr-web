@@ -25,6 +25,7 @@ export class IFramelyService {
       this.iFramelyData.url = iFramelyResp.url;
       this.iFramelyData.title = iFramelyResp.meta.title;
       this.iFramelyData.description = iFramelyResp.meta.description;
+      this.iFramelyData.html = iFramelyResp.html;
       if (iFramelyResp?.links?.thumbnail?.length > 0) {
         this.iFramelyData.thumbnailLink = iFramelyResp.links.thumbnail[0].href;
       }
