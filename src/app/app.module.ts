@@ -79,6 +79,9 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ShareButtonsConfig } from '@ngx-share/core';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MetaCardComponent } from './meta-card/meta-card.component';
+import { SafePipe } from './shared/safe.pipe';
+import { DynamicHTMLModule } from './dynamic-html';
+import { HashTagComponent } from './hash-tag/hash-tag.component'
 
 
 const customConfig: ShareButtonsConfig = {
@@ -129,7 +132,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     SinglePostComponent,
     UserActivityComponent,
     SharePostComponent,
-    MetaCardComponent
+    MetaCardComponent,
+    SafePipe,
+    HashTagComponent,
   ],
   imports: [
     MatVideoModule,
@@ -176,7 +181,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatProgressSpinnerModule,
     MatProgressBarModule,
     NgxSkeletonLoaderModule,
-    ClipboardModule
+    ClipboardModule,
+    DynamicHTMLModule.forRoot({
+      components: [
+        { component: HashTagComponent, selector: 'app-hash-tag' }
+      ]
+    })
   ],
   entryComponents: [
     CreateCommunityComponent,

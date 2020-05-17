@@ -7,7 +7,8 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Post } from '../../models/post-action.model';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MetaCardComponent } from 'meta-card/meta-card.component';
+import { CommentAction } from '../../models/comment-action.model';
+import { HashTag } from 'models/hashtag.model';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -22,7 +23,7 @@ import { MetaCardComponent } from 'meta-card/meta-card.component';
   ]
 })
 export class RecommendedFeedsComponent implements OnInit {
-  @Input() feed;
+  @Input() feed: Post;
   @ViewChild('commentInput') commentInput: ElementRef;
   isCommenting = false;
   replyingTo: any;
@@ -66,6 +67,19 @@ export class RecommendedFeedsComponent implements OnInit {
 
   ngOnInit() {
     this.loggedInUsername = this.login.getUserProfile().sub;
+    console.log("feed", this.feed);
+    this.parseFeed();
+  }
+  parseFeed() {
+    this.feed.hashTags.forEach((hashTag: HashTag) => {
+      // let hashTagNode = document.createElement("span");
+      // hashTagNode.style.color = 'red';
+      var regEx = new RegExp("#" + hashTag.hashTagValue, "ig");
+      this.feed.text = this.feed.text.replace(regEx,
+        "<app-hash-tag hash-tag-value=\"" + hashTag.hashTagValue + "\"></app-hash-tag>"
+      );
+      this.feed.text = "<p>" + this.feed.text + "</p>";
+    });
   }
   toggleComments() {
     this.isSharing = false;
@@ -97,11 +111,11 @@ export class RecommendedFeedsComponent implements OnInit {
       };
       if (this.comment.valid) {
         this.api.postComment(id, body).subscribe(
-          res => {
+          (res: CommentAction) => {
             if (this.replyingTo && this.replyingTo.commentId) {
               this.feed.commentActionList.forEach(c => {
-                if (c.commentActionId === id) {
-                  c.push(res);
+                if (c.commentActionId === this.replyingTo.commentId) {
+                  c.childCommentDTOSet.push(res);
                 }
               });
             } else {

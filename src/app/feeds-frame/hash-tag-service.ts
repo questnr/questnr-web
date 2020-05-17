@@ -77,15 +77,6 @@ export class HashTagService {
     document.getElementsByTagName('head')[0].appendChild(styleHead);
   }
 
-  parseTextToFindHashTag(text: string) {
-    let words: string[] = text.split(" ");
-    for (let i = 0; i < words.length; i++) {
-      if (words[i].startsWith("#")) {
-
-      }
-    }
-  }
-
   registerInputElement(userInputElement: any) {
     this.userInputElement = userInputElement;
   }

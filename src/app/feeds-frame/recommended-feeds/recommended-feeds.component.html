@@ -27,7 +27,8 @@
       <div class=" head" *ngIf="feed?.userDTO?.username"><a
           [href]="'/user/' + feed?.userDTO?.slug">{{feed?.userDTO?.username}}</a></div>
       <div class="head" *ngIf="!feed.userDTO?.username">{{loggedInUsername}}</div>
-      <div class="subhead" [matTooltip]="feed.metaData.timeInUTC | date"> {{feed.metaData.timeString}} ago</div>
+      <div class="subhead" [matTooltip]="feed.metaData.createdAtTimeInUTC | date"> {{feed.metaData.timeString}} ago
+      </div>
     </div>
     <div class="spacer"></div>
     <button mat-icon-button [matMenuTriggerFor]="moreOptions">
@@ -40,7 +41,7 @@
   </div>
   <div class="mb-2">
     <div class="text" *ngIf="feed?.text && feed.text !== 'null'">
-      <p class="pre">{{feed?.text}}</p>
+      <dynamic-html class="pre" [content]="feed?.text"></dynamic-html>
     </div>
     <app-meta-card [text]="feed?.text" id="{{feed?.slug}}"></app-meta-card>
     <div *ngIf="feed.postMediaList?.length">
