@@ -272,10 +272,16 @@ export class HashTagService {
 
     // position off-screen
     style.position = 'absolute';  // required to return coordinates properly
-    let start = element.selectionStart;
-    // console.log("start", start);
-    style.top = (window.scrollY + element.getBoundingClientRect().top + 35) + 'px';
-    style.left = (window.scrollX + element.getBoundingClientRect().left) + "px";
+    let boundingClientRect: DOMRect = element.getBoundingClientRect();
+    let posX = window.scrollX + boundingClientRect.left;
+    posX += (6 * element.selectionStart);
+    // console.log("posX", posX);
+    if (posX > (boundingClientRect.width + boundingClientRect.left)) {
+      posX -= boundingClientRect.width;
+    }
+    // console.log("element.getBoundingClientRect()", boundingClientRect);
+    style.top = (window.scrollY + boundingClientRect.bottom) + 'px';
+    style.left = posX + "px";
     style.zIndex = "1000";
     style.visibility = 'visible';  // not 'display: none' because we want rendering
     style.overflowY = "scroll";
