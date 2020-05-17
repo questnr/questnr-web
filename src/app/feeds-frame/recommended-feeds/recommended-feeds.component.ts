@@ -9,6 +9,7 @@ import { SharePostComponent } from 'shared/components/dialogs/share-post/share-p
 import { MatDialog } from '@angular/material/dialog';
 import { CommentAction } from '../../models/comment-action.model';
 import { HashTag } from 'models/hashtag.model';
+import { MetaCardComponent } from 'meta-card/meta-card.component';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -25,6 +26,12 @@ import { HashTag } from 'models/hashtag.model';
 export class RecommendedFeedsComponent implements OnInit {
   @Input() feed: Post;
   @ViewChild('commentInput') commentInput: ElementRef;
+  private metaCardComponentRef: MetaCardComponent;
+  @ViewChild(MetaCardComponent, { static: true }) set metaCard(metaCardComponentRef: MetaCardComponent) {
+    if (!!metaCardComponentRef) {
+      this.metaCardComponentRef = metaCardComponentRef;
+    }
+  }
   isCommenting = false;
   replyingTo: any;
   isLoading = false;
@@ -80,6 +87,10 @@ export class RecommendedFeedsComponent implements OnInit {
       );
       this.feed.text = "<p>" + this.feed.text + "</p>";
     });
+  }
+  async ngAfterViewInit() {
+    if (this.feed.text)
+      await this.metaCardComponentRef.parseTextToFindURL(this.feed.text);
   }
   toggleComments() {
     this.isSharing = false;

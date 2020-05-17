@@ -43,7 +43,7 @@
     <div class="text" *ngIf="feed?.text && feed.text !== 'null'">
       <dynamic-html class="pre" [content]="feed?.text"></dynamic-html>
     </div>
-    <app-meta-card [text]="feed?.text" id="{{feed?.slug}}"></app-meta-card>
+    <app-meta-card id="{{feed?.text}}" #metaCardComponentRef></app-meta-card>
     <div *ngIf="feed.postMediaList?.length">
       <owl-carousel-o [options]="customOptions">
         <ng-container *ngFor="let media of feed.postMediaList;let i=index">

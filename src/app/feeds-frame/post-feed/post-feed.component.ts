@@ -5,6 +5,7 @@ import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { HashTagService } from 'feeds-frame/hash-tag-service';
+import { MetaCardComponent } from 'meta-card/meta-card.component';
 
 @Component({
   selector: 'app-post-feed',
@@ -22,6 +23,7 @@ export class PostFeedComponent {
   @ViewChild("userInputRef") userInputRef: ElementRef;
   @Input() isCommunityPost = false;
   @Input() communityId;
+  @ViewChild("metaCardCompRef") metaCardCompRef: MetaCardComponent;
   isLoading = false;
   uploading = false;
   uploadProgress = 0;
@@ -149,7 +151,7 @@ export class PostFeedComponent {
     }
 
 
-    this.textAreaInput = e.target.value;
+    this.metaCardCompRef.parseTextToFindURL(e.target.value);
     // if (output != this.detectedLink) {
     //   this.detectedLink = output;
     //   console.log('Not the same URL');
