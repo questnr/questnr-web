@@ -1,11 +1,10 @@
-import { Component, Output, EventEmitter, Input, ViewChild } from '@angular/core';
+import { Component, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { IFramelyService } from '../../meta-card/iframely.service';
-import { MetaCardComponent } from 'meta-card/meta-card.component';
+import { HashTagService } from 'feeds-frame/hash-tag-service';
 
 @Component({
   selector: 'app-post-feed',
@@ -20,6 +19,7 @@ import { MetaCardComponent } from 'meta-card/meta-card.component';
   ],
 })
 export class PostFeedComponent {
+  @ViewChild("userInputRef") userInputRef: ElementRef;
   @Input() isCommunityPost = false;
   @Input() communityId;
   isLoading = false;
@@ -33,8 +33,13 @@ export class PostFeedComponent {
   apiUrl: any;
   isMediaEnabled = false;
   textAreaInput: string;
+  isHashOn = false;
 
-  constructor(public login: LoginService, private service: FeedsService, private iFramelyService: IFramelyService) { }
+  constructor(public login: LoginService, private service: FeedsService, private hashTagService: HashTagService) { }
+
+  ngAfterViewInit(): void {
+    this.hashTagService.registerInputElement(this.userInputRef.nativeElement);
+  }
   toggleAddMedia() {
     if (this.isMediaEnabled) {
       this.addedMedias = [];
@@ -117,8 +122,17 @@ export class PostFeedComponent {
   typeCheckOnUserInput(e): string {
 
     if (e.target.value == "") {
+      this.isHashOn = false;
+      this.hashTagService.clearHashCheck();
       return;
     }
+
+    if (!!e.keyCode)
+      this.isHashOn = this.hashTagService.typeCheckForHashTag(e, this.isHashOn);
+    // if (this.isHashOn) {
+    //   this.hashTagService.hideHashTagSuggesionList();
+    // }
+    // console.log("this.isHashOn", this.isHashOn);
 
     //8 = backspace
     //46 = delete

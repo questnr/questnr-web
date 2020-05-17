@@ -180,7 +180,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   entryComponents: [
     CreateCommunityComponent,
-    DescriptionComponent
+    DescriptionComponent,
+    MetaCardComponent
   ],
   providers: [
     AsyncPipe,
