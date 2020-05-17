@@ -9,14 +9,13 @@ import { IFramelyData } from 'models/iframely.model';
   styleUrls: ['./meta-card.component.scss']
 })
 export class MetaCardComponent implements OnInit {
-  @Input() text: string;
+  @Input() uniqueId: string;
   iFramelyData: IFramelyData = null;
   detectedLink: string;
   url: RegExp = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
   constructor(private iFramelyService: IFramelyService) { }
 
   ngOnInit(): void {
-    this.parseTextToFindURL(this.text);
   }
 
   async parseTextToFindURL(text) {

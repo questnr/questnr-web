@@ -8,9 +8,11 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Post } from '../../models/post-action.model';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CommentAction } from '../../models/comment-action.model';
+import { HashTag } from 'models/hashtag.model';
 import { MetaCardComponent } from 'meta-card/meta-card.component';
-import {UserProfileCardServiceComponent} from '../../user-profile-card/user-profile-card-service.component';
-import {UserListComponent} from '../../shared/components/dialogs/user-list/user-list.component';
+import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
+import { UserListComponent } from '../../shared/components/dialogs/user-list/user-list.component';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -25,8 +27,14 @@ import {UserListComponent} from '../../shared/components/dialogs/user-list/user-
   ]
 })
 export class RecommendedFeedsComponent implements OnInit {
-  @Input() feed;
+  @Input() feed: Post;
   @ViewChild('commentInput') commentInput: ElementRef;
+  private metaCardComponentRef: MetaCardComponent;
+  @ViewChild(MetaCardComponent, { static: true }) set metaCard(metaCardComponentRef: MetaCardComponent) {
+    if (!!metaCardComponentRef) {
+      this.metaCardComponentRef = metaCardComponentRef;
+    }
+  }
   isCommenting = false;
   replyingTo: any;
   isLoading = false;
@@ -66,11 +74,27 @@ export class RecommendedFeedsComponent implements OnInit {
   };
   loggedInUserId: any;
 
-  constructor(private api: FeedsService, public login: LoginService, private dialog: MatDialog , public userProfileCardServiceComponent : UserProfileCardServiceComponent) { }
+  constructor(private api: FeedsService, public login: LoginService, private dialog: MatDialog, public userProfileCardServiceComponent: UserProfileCardServiceComponent) { }
 
   ngOnInit() {
     this.loggedInUsername = this.login.getUserProfile().sub;
     this.loggedInUserId = this.login.getUserProfile().id;
+    console.log("feed", this.feed);
+    this.parseFeed();
+  }
+  parseFeed() {
+    this.feed.hashTags.forEach((hashTag: HashTag) => {
+      // let hashTagNode = document.createElement("span");
+      // hashTagNode.style.color = 'red';
+      var regEx = new RegExp("#" + hashTag.hashTagValue, "ig");
+      this.feed.text = this.feed.text.replace(regEx,
+        "<app-hash-tag hash-tag-value=\"" + hashTag.hashTagValue + "\"></app-hash-tag>"
+      );
+    });
+  }
+  async ngAfterViewInit() {
+    if (this.feed.text)
+      await this.metaCardComponentRef.parseTextToFindURL(this.feed.text);
   }
   toggleComments() {
     this.isSharing = false;
@@ -102,11 +126,11 @@ export class RecommendedFeedsComponent implements OnInit {
       };
       if (this.comment.valid) {
         this.api.postComment(id, body).subscribe(
-          res => {
+          (res: CommentAction) => {
             if (this.replyingTo && this.replyingTo.commentId) {
               this.feed.commentActionList.forEach(c => {
-                if (c.commentActionId === id) {
-                  c.push(res);
+                if (c.commentActionId === this.replyingTo.commentId) {
+                  c.childCommentDTOSet.push(res);
                 }
               });
             } else {

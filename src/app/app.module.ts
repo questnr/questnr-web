@@ -86,6 +86,9 @@ import { CommunityListLoaderComponent } from './shared/loaders/community-list-lo
 import { CommunityCardLoaderComponent } from './shared/loaders/community-card-loader/community-card-loader.component';
 import { UserListLoaderComponent } from './shared/loaders/user-list-loader/user-list-loader.component';
 import { UserListViewComponent } from './shared/user-list-view/user-list-view.component';
+import { SafePipe } from './shared/safe.pipe';
+import { DynamicHTMLModule } from './dynamic-html';
+import { HashTagComponent } from './hash-tag/hash-tag.component'
 
 
 const customConfig: ShareButtonsConfig = {
@@ -144,7 +147,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     CommunityCardLoaderComponent,
     UserListLoaderComponent,
     MetaCardComponent,
-    UserListViewComponent
+    UserListViewComponent,
+    SafePipe,
+    HashTagComponent,
   ],
   imports: [
     MatVideoModule,
@@ -191,12 +196,18 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatProgressSpinnerModule,
     MatProgressBarModule,
     NgxSkeletonLoaderModule,
-    ClipboardModule
+    ClipboardModule,
+    DynamicHTMLModule.forRoot({
+      components: [
+        { component: HashTagComponent, selector: 'app-hash-tag' }
+      ]
+    })
   ],
   entryComponents: [
     CreateCommunityComponent,
     DescriptionComponent,
-    UserListComponent
+    UserListComponent,
+    MetaCardComponent
   ],
   providers: [
     AsyncPipe,
