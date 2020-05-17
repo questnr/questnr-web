@@ -79,6 +79,13 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ShareButtonsConfig } from '@ngx-share/core';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MetaCardComponent } from './meta-card/meta-card.component';
+import { UserListComponent } from './shared/components/dialogs/user-list/user-list.component';
+import { CommunityListComponent } from './shared/components/dialogs/community-list/community-list.component';
+import { ViewImageComponent } from './shared/components/dialogs/view-image/view-image.component';
+import { CommunityListLoaderComponent } from './shared/loaders/community-list-loader/community-list-loader.component';
+import { CommunityCardLoaderComponent } from './shared/loaders/community-card-loader/community-card-loader.component';
+import { UserListLoaderComponent } from './shared/loaders/user-list-loader/user-list-loader.component';
+import { UserListViewComponent } from './shared/user-list-view/user-list-view.component';
 
 
 const customConfig: ShareButtonsConfig = {
@@ -129,7 +136,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     SinglePostComponent,
     UserActivityComponent,
     SharePostComponent,
-    MetaCardComponent
+    MetaCardComponent,
+    UserListComponent,
+    CommunityListComponent,
+    ViewImageComponent,
+    CommunityListLoaderComponent,
+    CommunityCardLoaderComponent,
+    UserListLoaderComponent,
+    MetaCardComponent,
+    UserListViewComponent
   ],
   imports: [
     MatVideoModule,
@@ -180,7 +195,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   entryComponents: [
     CreateCommunityComponent,
-    DescriptionComponent
+    DescriptionComponent,
+    UserListComponent
   ],
   providers: [
     AsyncPipe,

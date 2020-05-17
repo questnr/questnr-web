@@ -1,3 +1,4 @@
+
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormControl, Validators } from '@angular/forms';
@@ -8,6 +9,8 @@ import { Post } from '../../models/post-action.model';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MetaCardComponent } from 'meta-card/meta-card.component';
+import {UserProfileCardServiceComponent} from '../../user-profile-card/user-profile-card-service.component';
+import {UserListComponent} from '../../shared/components/dialogs/user-list/user-list.component';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -61,11 +64,13 @@ export class RecommendedFeedsComponent implements OnInit {
     nav: true,
     autoplay: true
   };
+  loggedInUserId: any;
 
-  constructor(private api: FeedsService, public login: LoginService, private dialog: MatDialog) { }
+  constructor(private api: FeedsService, public login: LoginService, private dialog: MatDialog , public userProfileCardServiceComponent : UserProfileCardServiceComponent) { }
 
   ngOnInit() {
     this.loggedInUsername = this.login.getUserProfile().sub;
+    this.loggedInUserId = this.login.getUserProfile().id;
   }
   toggleComments() {
     this.isSharing = false;
@@ -161,5 +166,22 @@ export class RecommendedFeedsComponent implements OnInit {
   }
   getUserId() {
     return this.login.getUserId();
+  }
+  unFollow(userId) {
+    this.userProfileCardServiceComponent.unfollowMe(this.loggedInUserId, userId).subscribe((res: any) => {
+      console.log(res);
+    }, error => {
+      console.log(error.error.errorMessage);
+    });
+  }
+  openUserGroupDialog(userList, type): void {
+    const dialogRef = this.dialog.open(UserListComponent, {
+      width: '500px',
+      data: userList
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
   }
 }

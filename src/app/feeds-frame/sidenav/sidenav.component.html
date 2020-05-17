@@ -13,7 +13,7 @@
   <ng-container *ngIf="userHashtags.length">
     <div class="links" *ngFor="let item of userCommunities">
       <div class="icon">
-        <img [src]="item.src" alt="">
+        <img [src]="checkImageUrl(item.src)" alt="">
       </div>
       <a class="link" routerLink="">{{item.title}}</a>
     </div>

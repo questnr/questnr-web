@@ -1,0 +1,64 @@
+.user_list_container {
+  padding: 20px;
+
+  input {
+    background-image: url('/assets/search.png');
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .user_list {
+    max-height: 500px;
+    overflow: scroll;
+
+    .user-flex {
+      display: flex;
+      padding: 8px;
+      border: 1px solid #eeeeee;
+      border-radius: 10px;
+      margin: 4px 0px;
+
+      .user_image {
+        width: 79px;
+        height: 79px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          border-radius: 10px;
+          height: 100%;
+        }
+      }
+
+      .user_details {
+        width: 58%;
+        margin: auto;
+
+        p {
+          margin: 0;
+          text-align: left;
+          padding-left: 20px;
+          font-size: 16px;
+        }
+      }
+
+      .action-btn {
+        margin: auto;
+      }
+    }
+    .no-result-found {
+      p {
+        text-align: center;
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
+}

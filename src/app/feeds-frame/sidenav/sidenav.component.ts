@@ -48,4 +48,11 @@ export class SidenavComponent implements OnInit {
       }, err => { this.loadingCommunities = false; }
     );
   }
+  checkImageUrl(src) {
+    if (src) {
+      return src;
+    } else {
+      return  '/assets/default.jpg';
+    }
+  }
 }

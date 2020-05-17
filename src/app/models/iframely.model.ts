@@ -5,4 +5,5 @@ export class IFramelyData {
     thumbnailLink: string;
     iconLink: string;
     error: boolean;
+    html: string;
 }

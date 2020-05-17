@@ -29,3 +29,16 @@
 .user_activity ul li:hover{
   transform: scale(1.5);
 }
+
+/* mobile responsive css */
+
+.user_activity-mobile {
+  top: -25px;
+  ul {
+    text-align: center;
+    li{
+      width: calc(50% - 10px);
+      font-size: 14px;
+    }
+  }
+}

@@ -20,8 +20,8 @@ export class CommunityService {
   getCommunityUserList(slug) {
     return this.http.get(this.baseUrl + 'user/community/' + slug + '/users');
   }
-  getCommunityFeeds(id) {
-    return this.http.get(this.baseUrl + 'user/community/' + id + '/posts');
+  getCommunityFeeds(id, page) {
+    return this.http.get(this.baseUrl + 'user/community/' + id + '/posts', { params: { page } });
   }
   updateCommunityAvatar(formData, comId) {
     return this.http.post(this.baseUrl + 'user/community/' + comId + '/avatar', formData);
