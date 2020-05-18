@@ -10,6 +10,7 @@ import { HashTag } from 'models/hashtag.model';
 import { User } from 'models/user.model';
 import { Community } from 'models/community.model';
 import { Page } from 'models/page.model';
+import { NotificationDTO } from 'models/notification.model';
 
 @Component({
   selector: 'app-user-header',
@@ -28,7 +29,7 @@ export class UserHeaderComponent {
   hashtags: HashTag[] = [];
   users: User[] = [];
   communities: Community[] = [];
-  notifications = [];
+  notifications: NotificationDTO[] = [];
   page = 0;
   hasNewNotifications: boolean = false;
   notificationColor: string = 'black';
@@ -56,7 +57,7 @@ export class UserHeaderComponent {
         }
       });
     this.api.getNotifications().subscribe(
-      (res: any) => {
+      (res: NotificationDTO[]) => {
         this.notifications = res;
       }
     );
@@ -152,7 +153,7 @@ export class UserHeaderComponent {
     this.api.removeNotification(id).subscribe(
       res => {
         if (res.status === 200) {
-          const index = this.notifications.findIndex(i => i.notificationId);
+          const index = this.notifications.findIndex((i: NotificationDTO) => i.notificationId);
           this.notifications.splice(index, 1);
         }
       }

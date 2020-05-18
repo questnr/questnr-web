@@ -90,7 +90,8 @@ import { SafePipe } from './shared/safe.pipe';
 import { DynamicHTMLModule } from './dynamic-html';
 import { HashTagComponent } from './hash-tag/hash-tag.component';
 import { DotComponent } from './dot/dot.component';
-import { HorizontalProfileComponent } from './horizontal-profile/horizontal-profile.component'
+import { HorizontalProfileComponent } from './horizontal-profile/horizontal-profile.component';
+import { TimeStringComponent } from './time-string/time-string.component'
 
 
 const customConfig: ShareButtonsConfig = {
@@ -154,6 +155,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HashTagComponent,
     DotComponent,
     HorizontalProfileComponent,
+    TimeStringComponent,
   ],
   imports: [
     MatVideoModule,

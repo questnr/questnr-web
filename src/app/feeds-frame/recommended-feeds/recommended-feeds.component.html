@@ -5,9 +5,7 @@
     <div class="profile-detail" *ngIf="feed.communityDTO">
       <div class="head"><a [href]="'/community/' + feed?.communityDTO.slug">{{feed?.communityDTO?.communityName}} </a>
       </div>
-      <div class="subhead"> Posted in Community -
-        <span [matTooltip]="feed?.metaData?.timeInUTC | date">
-          {{feed?.metaData?.timeString === 'now'? 'Just Now': feed?.metaData?.timeString + ' ago' }}</span>
+      <div class="subhead"> Posted in Community - <app-time-string [metaData]="feed.metaData"></app-time-string>
       </div>
     </div>
 
@@ -34,8 +32,7 @@
       <div class=" head" *ngIf="feed?.userDTO?.username"><a
           [href]="'/user/' + feed?.userDTO?.slug">{{feed?.userDTO?.username}}</a></div>
       <div class="head" *ngIf="!feed.userDTO?.username">{{loggedInUsername}}</div>
-      <div class="subhead" [matTooltip]="feed.metaData.createdAtTimeInUTC | date"> {{feed.metaData.timeString}} ago
-      </div>
+      <app-time-string [metaData]="feed.metaData"></app-time-string>
     </div>
     <div class="spacer"></div>
     <button mat-icon-button [matMenuTriggerFor]="moreOptions">
