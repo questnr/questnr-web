@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChildren, QueryList } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { FeedsService } from './feeds.service';
 import { ApiService } from 'shared/api.service';
 import { MessagingService } from '../service/messaging.service';
+import { RecommendedFeedsComponent } from './recommended-feeds/recommended-feeds.component';
 
 @Component({
   selector: 'app-feeds-frame',
@@ -10,6 +11,7 @@ import { MessagingService } from '../service/messaging.service';
   styleUrls: ['./feeds-frame.component.scss', './sidenav/sidenav.component.scss']
 })
 export class FeedsFrameComponent implements OnInit, OnDestroy {
+  @ViewChildren(RecommendedFeedsComponent) recommendedFeedsComponent!: QueryList<RecommendedFeedsComponent>;
   userFeeds = [];
   page = 0;
   sideConfig = 'side';

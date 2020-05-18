@@ -13,6 +13,9 @@ import { HashTag } from 'models/hashtag.model';
 import { MetaCardComponent } from 'meta-card/meta-card.component';
 import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
 import { UserListComponent } from '../../shared/components/dialogs/user-list/user-list.component';
+import { CommonService } from 'common/common.service';
+import { IFramelyService } from 'meta-card/iframely.service';
+import { IFramelyData } from 'models/iframely.model';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -29,12 +32,13 @@ import { UserListComponent } from '../../shared/components/dialogs/user-list/use
 export class RecommendedFeedsComponent implements OnInit {
   @Input() feed: Post;
   @ViewChild('commentInput') commentInput: ElementRef;
-  private metaCardComponentRef: MetaCardComponent;
-  @ViewChild(MetaCardComponent, { static: true }) set metaCard(metaCardComponentRef: MetaCardComponent) {
-    if (!!metaCardComponentRef) {
-      this.metaCardComponentRef = metaCardComponentRef;
-    }
-  }
+  // @ViewChild("metaCardComponentRef", { static: true }) metaCardComponentRef: MetaCardComponent;
+  // @ViewChild(MetaCardComponent, { static: true }) set metaCard(metaCardComponentRef: MetaCardComponent) {
+  //   if (!!metaCardComponentRef) {
+  //     this.metaCardComponentRef = metaCardComponentRef;
+  //   }
+  // }
+  iFramelyData: IFramelyData
   isCommenting = false;
   replyingTo: any;
   isLoading = false;
@@ -74,7 +78,12 @@ export class RecommendedFeedsComponent implements OnInit {
   };
   loggedInUserId: any;
 
-  constructor(private api: FeedsService, public login: LoginService, private dialog: MatDialog, public userProfileCardServiceComponent: UserProfileCardServiceComponent) { }
+  constructor(private api: FeedsService,
+    public login: LoginService,
+    private dialog: MatDialog,
+    public userProfileCardServiceComponent: UserProfileCardServiceComponent,
+    private commonService: CommonService,
+    private iFramelyService: IFramelyService) { }
 
   ngOnInit() {
     this.loggedInUsername = this.login.getUserProfile().sub;
@@ -92,8 +101,10 @@ export class RecommendedFeedsComponent implements OnInit {
     });
   }
   async ngAfterViewInit() {
-    if (this.feed.text)
-      await this.metaCardComponentRef.parseTextToFindURL(this.feed.text);
+    if (this.feed.text) {
+      let detectedLink: string = this.commonService.parseTextToFindURL(this.feed.text);
+      this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
+    }
   }
   toggleComments() {
     this.isSharing = false;

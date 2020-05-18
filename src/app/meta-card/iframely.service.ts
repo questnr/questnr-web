@@ -14,25 +14,25 @@ export class IFramelyService {
   constructor(private http: HttpClient) { }
 
 
-  iFramelyData: IFramelyData = new IFramelyData();
-
   async getIFramelyData(detectedLink: string): Promise<IFramelyData> {
+    if (!detectedLink) return null;
     const iFramelyResp: any = await this.http.get(this.iframelyLink, { params: { url: detectedLink, api_key: this.apiKey } }).toPromise();
+    let iFramelyData = new IFramelyData();
     if (!iFramelyResp || iFramelyResp.error) {
-      this.iFramelyData.error = true;
+      iFramelyData.error = true;
     } else {
-      this.iFramelyData.error = false;
-      this.iFramelyData.url = iFramelyResp.url;
-      this.iFramelyData.title = iFramelyResp.meta.title;
-      this.iFramelyData.description = iFramelyResp.meta.description;
-      this.iFramelyData.html = iFramelyResp.html;
+      iFramelyData.error = false;
+      iFramelyData.url = iFramelyResp.url;
+      iFramelyData.title = iFramelyResp.meta.title;
+      iFramelyData.description = iFramelyResp.meta.description;
+      iFramelyData.html = iFramelyResp.html;
       if (iFramelyResp?.links?.thumbnail?.length > 0) {
-        this.iFramelyData.thumbnailLink = iFramelyResp.links.thumbnail[0].href;
+        iFramelyData.thumbnailLink = iFramelyResp.links.thumbnail[0].href;
       }
       if (iFramelyResp?.links?.icon?.length > 0) {
-        this.iFramelyData.iconLink = iFramelyResp.links.icon[0].href;
+        iFramelyData.iconLink = iFramelyResp.links.icon[0].href;
       }
     }
-    return this.iFramelyData;
+    return iFramelyData;
   }
 }
