@@ -1,8 +1,8 @@
 <div *ngIf="iFramelyData" class="iframely-frame row justify-content-start" (click)="openIframelyLink()">
   <div *ngIf="iFramelyData?.thumbnailLink" class="thumbnail col-md-4">
-    <!--    <img [src]="iFramelyData.thumbnailLink" *ngIf="!iFramelyData?.html" class="thumbnail-img" />-->
-    <div [innerHTML]="iFramelyData?.html">
-    </div>
+        <img [src]="iFramelyData.thumbnailLink"  class="thumbnail-img" />
+<!--    <div [innerHTML]="iFramelyData?.html">-->
+<!--    </div>-->
   </div>
   <div class="text-part col-md-8">
     <div *ngIf="iFramelyData?.title" class="title">
