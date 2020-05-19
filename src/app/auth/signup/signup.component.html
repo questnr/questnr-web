@@ -5,18 +5,45 @@
       <mat-label>{{'signup.fname' | translate}}</mat-label>
       <input type="text" matInput [formControl]="firstName" placeholder="{{'signup.fPlace' | translate}}">
       <mat-error *ngIf="firstName.hasError('required')">First Name is required.</mat-error>
+      <mat-error *ngIf="firstName.errors?.pattern">
+        Spaces are not allowed
+      </mat-error>
+      <mat-error *ngIf="firstName.errors?.minlength">
+        Field should contain at least 3 characters
+      </mat-error>
+      <mat-error *ngIf="firstName.errors?.maxlength">
+        Field can have max 25 characters
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-md-6" appearance="fill">
       <mat-label>{{'signup.lname' | translate}}</mat-label>
       <input type="text" matInput [formControl]="lastName" placeholder="{{'signup.lPlace' | translate}}">
       <mat-error *ngIf="lastName.hasError('required')">Last Name is required.</mat-error>
+      <mat-error *ngIf="lastName.errors?.pattern">
+        Spaces are not allowed
+      </mat-error>
+      <mat-error *ngIf="lastName.errors?.minlength">
+        Field should contain at least 3 characters
+      </mat-error>
+      <mat-error *ngIf="lastName.errors?.maxlength">
+        Field can have max 25 characters
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-md-6" appearance="fill">
       <mat-label>{{'signup.uname' | translate}}</mat-label>
       <input type="text" matInput [formControl]="username" placeholder="{{'signup.uPlace' | translate}}">
       <mat-error *ngIf="username.hasError('required')">Username is required.</mat-error>
+      <mat-error *ngIf="username.errors?.pattern">
+        Only upper case, lower case, numbers and underscore (_) are allowed
+      </mat-error>
+      <mat-error *ngIf="username.errors?.minlength">
+        Field should contain at least 3 characters
+      </mat-error>
+      <mat-error *ngIf="username.errors?.maxlength">
+        Field can have max 32 characters
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-md-6" appearance="fill">
@@ -31,6 +58,12 @@
       <mat-label>{{'signup.password' | translate}}</mat-label>
       <input type="password" matInput [formControl]="password" placeholder="{{'signup.pPlace' | translate}}">
       <mat-error *ngIf="password.hasError('required')">Password is required.</mat-error>
+      <mat-error *ngIf="password.errors?.minlength">
+        Field should contain at least 6 characters
+      </mat-error>
+      <mat-error *ngIf="password.errors?.maxlength">
+        Field can have max 100 characters
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-md-12" appearance="fill">
@@ -39,6 +72,8 @@
       <mat-error *ngIf="confirmPassword.hasError('required')">{{'signup.cPlace' | translate}}</mat-error>
       <mat-error *ngIf="confirmPassword.hasError('MatchPassword')">Password does not match.</mat-error>
     </mat-form-field>
+  </div>
+  <div *ngIf="formError && formError.length > 0" style="color: red;display: flex;justify-content: center;">{{formError}}
   </div>
   <button mat-button class="btn-color w-100" (click)="submit()">
     <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
