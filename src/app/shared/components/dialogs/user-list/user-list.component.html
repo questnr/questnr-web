@@ -1,9 +1,9 @@
-  <div class="mobile-nav-btn" >
+  <div class="mobile-nav-btn" *ngIf="mobileView">
     <button mat-icon-button (click)="onNoClick()">
       <mat-icon> arrow_back</mat-icon>
     </button>
   </div>
-  <div class="user_list_container">
+  <div class="user_list_container" [ngClass]="{'user_list_container-mobile': mobileView}">
   <div>
     <input #inputBox type="text" placeholder="Search..." (keypress)="searchUserList(inputBox.value)">
   </div>

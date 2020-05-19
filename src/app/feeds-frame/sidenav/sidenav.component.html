@@ -1,30 +1,4 @@
-<div class="link-card">
-  <h3>Your Communities</h3>
-  <ng-container *ngIf="loadingCommunities">
-    <div class="list-item" *ngFor="let i of listItems">
-      <ngx-skeleton-loader count="1" appearance="circle"> </ngx-skeleton-loader>
-      <ngx-skeleton-loader class="w-100" count="1" appearance="line"> </ngx-skeleton-loader>
-    </div>
-<!--<<<<<<< HEAD-->
-<!--    <a class="link" [href]="'/community/' + item.slug">{{item.title}}</a>-->
-<!--  </div>-->
-<!--=======-->
-  </ng-container>
-  <ng-container *ngIf="userHashtags.length">
-    <div class="links" *ngFor="let item of userCommunities">
-      <div class="icon">
-        <img [src]="checkImageUrl(item.src)" alt="">
-      </div>
-      <a class="link" routerLink="">{{item.title}}</a>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="!userCommunities.length && !loadingCommunities">
-    <p>
-      You have not created any communities yet. Create one now.
-    </p>
-  </ng-container>
-<!--&gt;>>>>>> 09749fc7fc49d194400659d29b81007db3b5f5b2-->
-</div>
+<app-joined-community></app-joined-community>
 <div class="link-card">
   <h3>Your Hashtags</h3>
   <ng-container *ngIf="loadingHashtags">

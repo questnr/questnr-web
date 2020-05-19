@@ -1,20 +1,16 @@
-<owl-carousel-o [options]="customOptions">
-  <ng-container *ngFor="let list of community;let i=index">
-    <ng-template carouselSlide [id]="i">
-        <div class="community-slider-card" >
-          <div (click)="routeToCommunity(list?.slug)">
-            <img [src]="list?.avatarDTO?.avatarLink" [alt]="list?.description" >
-            <div class="details">
-              <div>{{list?.communityName}}</div>
-              <p>{{list?.description}}</p>
-            </div>
-          </div>
-          <div class="action-btn">
-            <button mat-button *ngIf="list.communityMeta.relationShipType ==='none'">Follow</button>
-            <button mat-button *ngIf="list.communityMeta.relationShipType ==='owned'" disabled>Owner</button>
-            <button mat-button *ngIf="list.communityMeta.relationShipType ==='followed'" style="background: green; color: #ffffff">Following</button>
-          </div>
-        </div>
-    </ng-template>
-  </ng-container>
-</owl-carousel-o>
+<div class="community-slider-card" >
+  <div (click)="routeToCommunity(community?.slug)">
+    <img [src]="checkImageSrc(community?.avatarDTO?.avatarLink)" [alt]="community?.description" >
+    <div class="details">
+      <div>{{community?.communityName}}</div>
+      <p>{{community?.description}}</p>
+    </div>
+  </div>
+  <div class="action-btn">
+    <button mat-button *ngIf="relation ==='none'" (click)="followThisCommunty(community?.communityId)">Follow</button>
+<!--    <button mat-button *ngIf="community?.communityMeta?.relationShipType ==='owned'" disabled>Owner</button>-->
+    <button mat-button *ngIf="relation==='followed'" style="background: green; color: #ffffff" (click)="unfollowThisCommunity(community?.communityId)">Following</button>
+  </div>
+</div>
+
+

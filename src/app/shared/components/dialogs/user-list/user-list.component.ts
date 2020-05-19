@@ -20,9 +20,18 @@ export class UserListComponent implements OnInit {
   searchResultList: User;
   searchResult = false;
   noResultFound = false;
-
+  mobileView = false;
+  screenWidth = window.innerWidth;
   ngOnInit(): void {
     this.userList = this.data;
+    const width = this.screenWidth;
+    if (width <= 800) {
+      this.mobileView = true;
+    } else if (width >= 1368) {
+      this.mobileView = false;
+    } else if (width >= 800 && width <= 1368) {
+      this.mobileView = false;
+    }
   }
 
   getUserImage(src) {

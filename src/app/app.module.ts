@@ -118,121 +118,124 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 @NgModule({
-  declarations: [
-    AppComponent,
-    routingComponent,
-    CardComponent,
-    HomeComponent,
-    LoginComponent,
-    SignupComponent,
-    RankCardComponent,
-    CommunityComponent,
-    CreateCommunityComponent,
-    MoreOptionComponent,
-    DescriptionComponent,
-    SuggestionComponent,
-    SponseredComponent,
-    UsercommunityComponent,
-    TrendingComponent,
-    CommunityUsersComponent,
-    UserProfileCardComponent,
-    CommentBoxComponent,
-    DragDropDirective,
-    UserProfilePageComponent,
-    UserFollowersComponent,
-    SinglePostComponent,
-    UserActivityComponent,
-    SharePostComponent,
-    MetaCardComponent,
-    UserListComponent,
-    CommunityListComponent,
-    ViewImageComponent,
-    CommunityListLoaderComponent,
-    CommunityCardLoaderComponent,
-    UserListLoaderComponent,
-    MetaCardComponent,
-    UserListViewComponent,
-    SafePipe,
-    HashTagComponent,
-    DotComponent,
-    HorizontalProfileComponent,
-    CommunityCardMobileViewComponent,
-    JoinedCommunityComponent,
-    TimeStringComponent
-  ],
-  imports: [
-    MatVideoModule,
-    AngularFireMessagingModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    BrowserModule,
-    BrowserAnimationsModule,
-    CarouselModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatSliderModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatGridListModule,
-    MatCardModule,
-    MatDividerModule,
-    MatListModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatChipsModule,
-    MatTabsModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatBadgeModule,
-    MatCheckboxModule,
-    MatDialogModule,
-    MatTooltipModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-    SocialLoginModule,
-    ShareButtonsModule.withConfig(customConfig),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    MatSelectModule,
-    MatTooltipModule,
-    MatSnackBarModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-    NgxSkeletonLoaderModule,
-    ClipboardModule,
-    DynamicHTMLModule.forRoot({
-      components: [
-        { component: HashTagComponent, selector: 'app-hash-tag' }
-      ]
-    })
-  ],
-  entryComponents: [
-    CreateCommunityComponent,
-    DescriptionComponent,
-    UserListComponent,
-    MetaCardComponent
-  ],
-  providers: [
-    AsyncPipe,
-    AuthGuard,
-    LoginService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true
-    },
-    {
-      provide: AuthServiceConfig,
-      useFactory: provideConfig
-    },
-    MessagingService
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        routingComponent,
+        CardComponent,
+        HomeComponent,
+        LoginComponent,
+        SignupComponent,
+        RankCardComponent,
+        CommunityComponent,
+        CreateCommunityComponent,
+        MoreOptionComponent,
+        DescriptionComponent,
+        SuggestionComponent,
+        SponseredComponent,
+        UsercommunityComponent,
+        TrendingComponent,
+        CommunityUsersComponent,
+        UserProfileCardComponent,
+        CommentBoxComponent,
+        DragDropDirective,
+        UserProfilePageComponent,
+        UserFollowersComponent,
+        SinglePostComponent,
+        UserActivityComponent,
+        SharePostComponent,
+        MetaCardComponent,
+        UserListComponent,
+        CommunityListComponent,
+        ViewImageComponent,
+        CommunityListLoaderComponent,
+        CommunityCardLoaderComponent,
+        UserListLoaderComponent,
+        MetaCardComponent,
+        UserListViewComponent,
+        SafePipe,
+        HashTagComponent,
+        DotComponent,
+        HorizontalProfileComponent,
+        CommunityCardMobileViewComponent,
+        JoinedCommunityComponent,
+        TimeStringComponent
+    ],
+    imports: [
+        MatVideoModule,
+        AngularFireMessagingModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        BrowserModule,
+        BrowserAnimationsModule,
+        CarouselModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MatSliderModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatGridListModule,
+        MatCardModule,
+        MatDividerModule,
+        MatListModule,
+        MatExpansionModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatChipsModule,
+        MatTabsModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatBadgeModule,
+        MatCheckboxModule,
+        MatDialogModule,
+        MatTooltipModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+        SocialLoginModule,
+        ShareButtonsModule.withConfig(customConfig),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        MatSelectModule,
+        MatTooltipModule,
+        MatSnackBarModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+        NgxSkeletonLoaderModule,
+        ClipboardModule,
+        DynamicHTMLModule.forRoot({
+            components: [
+                {component: HashTagComponent, selector: 'app-hash-tag'}
+            ]
+        })
+    ],
+    entryComponents: [
+        CreateCommunityComponent,
+        DescriptionComponent,
+        UserListComponent,
+        MetaCardComponent
+    ],
+    providers: [
+        AsyncPipe,
+        AuthGuard,
+        LoginService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: InterceptorService,
+            multi: true
+        },
+        {
+            provide: AuthServiceConfig,
+            useFactory: provideConfig
+        },
+        MessagingService
+    ],
+    exports: [
+        JoinedCommunityComponent
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

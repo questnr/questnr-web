@@ -2,7 +2,7 @@
   margin: 10px;
 }
 .user_list_container {
-  padding: 0 20px;
+  padding: 20px;
 
   input {
     background-image: url('/assets/search.png');
@@ -67,4 +67,13 @@
 }
 dialog {
   border: none !important;
+}
+.mobile-nav-btn {
+  width: 100%;
+  position: fixed;
+  background: #eeeeee;
+  z-index: 1;
+}
+.user_list_container-mobile{
+  padding: 80px 20px;
 }
