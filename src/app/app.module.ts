@@ -90,7 +90,9 @@ import { SafePipe } from './shared/safe.pipe';
 import { DynamicHTMLModule } from './dynamic-html';
 import { HashTagComponent } from './hash-tag/hash-tag.component';
 import { DotComponent } from './dot/dot.component';
-import { HorizontalProfileComponent } from './horizontal-profile/horizontal-profile.component'
+import { HorizontalProfileComponent } from './horizontal-profile/horizontal-profile.component';
+import { CommunityCardMobileViewComponent } from './shared/components/community-card-mobile-view/community-card-mobile-view.component';
+import { JoinedCommunityComponent } from './joined-community/joined-community.component'
 
 
 const customConfig: ShareButtonsConfig = {
@@ -154,6 +156,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HashTagComponent,
     DotComponent,
     HorizontalProfileComponent,
+    CommunityCardMobileViewComponent,
+    JoinedCommunityComponent,
   ],
   imports: [
     MatVideoModule,

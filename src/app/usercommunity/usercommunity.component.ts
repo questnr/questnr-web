@@ -24,11 +24,21 @@ export class UsercommunityComponent implements OnInit {
   baseUrl = environment.baseUrl;
   ownedCommunity: Community[];
   loader = false;
+  screenWidth = window.innerWidth;
+  mobileView = false;
 
   ngOnInit() {
     setTimeout( () => {
       this.getUserOwnedCommunity();
     }, 2000);
+    const width = this.screenWidth;
+    if (width <= 800) {
+      this.mobileView = true;
+    } else if (width >= 1368) {
+      this.mobileView = false;
+    } else if (width >= 800 && width <= 1368) {
+      this.mobileView = false;
+    }
   }
 
   createCommunity(): void {
