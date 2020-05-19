@@ -3,6 +3,8 @@ import { ApiService } from 'shared/api.service';
 // import {TranslateService} from '@ngx-translate/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import {loggedIn} from '@angular/fire/auth-guard';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -50,7 +52,7 @@ export class LandingPageComponent implements OnInit {
   ];
 
   topHashtags = [];
-  constructor(private api: ApiService) {
+  constructor(private api: ApiService, public router: Router) {
     this.hashtagInput.valueChanges
       .pipe(
         debounceTime(500),
@@ -72,6 +74,9 @@ export class LandingPageComponent implements OnInit {
     }
   }
   ngOnInit() {
+    if (loggedIn) {
+      this.router.navigate(['feed']);
+    }
     this.api.getTopUsers().subscribe(
       (res: any) => {
         if (res.content) {

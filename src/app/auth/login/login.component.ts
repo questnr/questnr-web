@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
             this.angularFireMessaging.getToken.subscribe(token => {
               this.apiService.registerPushNotificationToken(token).subscribe();
             });
-            this.router.navigate(['feeds']);
+            this.router.navigate(['feed']);
           } else {
             this.errMsg = res.errorMessage;
           }
