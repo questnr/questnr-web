@@ -59,7 +59,11 @@
       <owl-carousel-o [options]="customOptions">
         <ng-container *ngFor="let media of feed.postMediaList;let i=index">
           <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'image'">
-            <div class="media"><img class="post-media" [src]="media.postMediaLink" alt=""></div>
+            <div class="media">
+              <img class="post-media" [src]="media.postMediaLink" alt="">
+              <div class="background-blur" [style.backgroundImage]="'url(' + media.postMediaLink + ')'"
+              ></div>
+            </div>
           </ng-template>
           <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'video'">
             <mat-video color="accent" [src]="media.postMediaLink" [keyboard]="false"> </mat-video>
