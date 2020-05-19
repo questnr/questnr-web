@@ -26,7 +26,7 @@ export class Post {
     hashTags: HashTag[];
 }
 
-class PostMedia {
+export class PostMedia {
     postMediaLink: string;
     resourceType: string;
 }

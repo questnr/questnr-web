@@ -6,6 +6,9 @@ import { FeedsService } from 'feeds-frame/feeds.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { HashTagService } from 'feeds-frame/hash-tag-service';
 import { MetaCardComponent } from 'meta-card/meta-card.component';
+import { CommonService } from 'common/common.service';
+import { IFramelyData } from 'models/iframely.model';
+import { IFramelyService } from 'meta-card/iframely.service';
 
 @Component({
   selector: 'app-post-feed',
@@ -23,7 +26,8 @@ export class PostFeedComponent {
   @ViewChild("userInputRef") userInputRef: ElementRef;
   @Input() isCommunityPost = false;
   @Input() communityId;
-  @ViewChild("metaCardCompRef") metaCardCompRef: MetaCardComponent;
+  // @ViewChild("metaCardCompRef") metaCardCompRef: MetaCardComponent;
+  iFramelyData: IFramelyData
   isLoading = false;
   uploading = false;
   uploadProgress = 0;
@@ -37,7 +41,11 @@ export class PostFeedComponent {
   textAreaInput: string;
   isHashOn = false;
 
-  constructor(public login: LoginService, private service: FeedsService, private hashTagService: HashTagService) { }
+  constructor(public login: LoginService,
+    private service: FeedsService,
+    private hashTagService: HashTagService,
+    private commonService: CommonService,
+    private iFramelyService: IFramelyService) { }
 
   ngAfterViewInit(): void {
     this.hashTagService.registerInputElement(this.userInputRef.nativeElement);
@@ -125,6 +133,7 @@ export class PostFeedComponent {
 
     if (e.target.value == "") {
       this.isHashOn = false;
+      this.iFramelyData = null;
       this.hashTagService.clearHashCheck();
       return;
     }
@@ -151,7 +160,12 @@ export class PostFeedComponent {
     }
 
 
-    this.metaCardCompRef.parseTextToFindURL(e.target.value);
+    let detectedLink = this.commonService.parseTextToFindURL(e.target.value);
+    this.iFramelyService.getIFramelyData(detectedLink).then((iFramelyData: IFramelyData) => {
+      this.iFramelyData = iFramelyData;
+      // this.metaCardCompRef.setIFramelyData(iFramelyData);
+    })
+
     // if (output != this.detectedLink) {
     //   this.detectedLink = output;
     //   console.log('Not the same URL');

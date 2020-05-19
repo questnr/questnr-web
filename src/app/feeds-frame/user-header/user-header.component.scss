@@ -95,9 +95,6 @@
   }
   &:focus-within {
     border: 1px solid rgba($primary, 0.5);
-    .suggestions {
-      display: block;
-    }
   }
 }
 .suggestions {
@@ -135,8 +132,13 @@
   }
 }
 
+::ng-deep .mat-menu-panel {
+  max-width: auto !important;
+}
+
 .notification-wrap {
   max-height: 400px;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 @media only screen and (max-width: 600px) {
@@ -156,30 +158,34 @@
     width: 9rem;
   }
 }
-
-.search-option-list{
-  display: flex;
-  flex-direction: row;
+.search-menu{
+  justify-content: space-between;
+  align-items: center;
   margin: 0.5rem;
-  padding-bottom: 0.5rem;
   border-bottom: 0.09rem solid #e3e3e3;
-  .search-option{
-    border: 0.09rem solid $primary;
-    border-radius: 0.3rem;
-    padding: 0.1rem 0.2rem;
-    margin: 0.3rem;
-    span{
-      font-size: 0.7rem;
-      padding: 0rem 0.3rem;
+  .search-option-list{
+    .search-option{
+      border: 0.09rem solid $primary;
+      border-radius: 0.3rem;
+      padding: 0.1rem 0.2rem;
+      margin: 0.3rem;
+      span{
+        font-size: 0.7rem;
+        padding: 0rem 0.3rem;
+      }
+    }
+    .search-option:hover{
+      background-color: $primary;
+      color: $white;
+      cursor: pointer;
+    }
+    .selected{
+      background-color: $primary;
+      color: $white;
     }
   }
-  .search-option:hover{
-    background-color: $primary;
-    color: $white;
-    cursor: pointer;
-  }
-  .selected{
-    background-color: $primary;
-    color: $white;
-  }
+}
+
+.search-icon, .close-icon{
+  cursor: pointer;
 }

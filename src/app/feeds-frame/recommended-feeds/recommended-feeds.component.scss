@@ -15,6 +15,34 @@
   align-items: center;
   padding: 0.6rem;
 }
+.media-container {
+  height: 400px;
+  .media{
+    margin: auto;
+    background-color: $white;
+    display: flex;
+    height: 400px;
+    position: relative;
+    .background-blur{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      //background-image: url(https://questnr-user-assets.s3.ap-southeast-1.amazonaws.com/u/2/1589824552781-images.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200519T043629Z&X-Amz-SignedHeaders=host&X-Amz-Expires=40&X-Amz-Credential=AKIAWRAGJU6P5PXDJMBN%2F20200519%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Signature=b4a8c20586953bc196dc6f9b1fb73fd8651f9e2a0dc72dc6017275cd36442d0d);
+      background-size: cover;
+      background-position: center;
+      filter: blur(20px);
+      opacity: 0.7;
+    }
+    .post-media{
+      margin: auto;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: 1;
+    }
+  }
+}
 .profile-icon {
   display: flex;
   align-items: center;

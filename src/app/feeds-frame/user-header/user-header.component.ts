@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'auth/login.service';
 import { ApiService } from 'shared/api.service';
@@ -10,6 +10,7 @@ import { HashTag } from 'models/hashtag.model';
 import { User } from 'models/user.model';
 import { Community } from 'models/community.model';
 import { Page } from 'models/page.model';
+import { NotificationDTO } from 'models/notification.model';
 
 @Component({
   selector: 'app-user-header',
@@ -17,7 +18,8 @@ import { Page } from 'models/page.model';
   styleUrls: ['./user-header.component.scss']
 })
 export class UserHeaderComponent {
-
+  @ViewChild("searchInputRef") searchInputRef: ElementRef;
+  @ViewChild("suggestionBoxRef") suggestionBoxRef: ElementRef;
   @Output() menuToggle = new EventEmitter();
   user: string;
   isLoading = false;
@@ -27,7 +29,7 @@ export class UserHeaderComponent {
   hashtags: HashTag[] = [];
   users: User[] = [];
   communities: Community[] = [];
-  notifications = [];
+  notifications: NotificationDTO[] = [];
   page = 0;
   hasNewNotifications: boolean = false;
   notificationColor: string = 'black';
@@ -37,7 +39,8 @@ export class UserHeaderComponent {
   constructor(private router: Router, public auth: LoginService,
     private api: ApiService,
     private messagingService: MessagingService,
-    private angularFireMessaging: AngularFireMessaging) {
+    private angularFireMessaging: AngularFireMessaging,
+    private renderer: Renderer2) {
     this.profile = this.auth.getUserProfile();
     this.auth.getUserProfileImg();
     this.searchInput.valueChanges
@@ -54,7 +57,7 @@ export class UserHeaderComponent {
         }
       });
     this.api.getNotifications().subscribe(
-      (res: any) => {
+      (res: NotificationDTO[]) => {
         this.notifications = res;
       }
     );
@@ -62,6 +65,16 @@ export class UserHeaderComponent {
   ngOnInit() {
     // Receive notification messages
     this.receiveMessage();
+  }
+
+  ngAfterViewInit() {
+    this.searchInputRef.nativeElement.onfocus = () => {
+      this.renderer.setStyle(this.suggestionBoxRef.nativeElement, "display", "block");
+    }
+  }
+
+  closeSearchBox() {
+    this.renderer.setStyle(this.suggestionBoxRef.nativeElement, "display", "none");
   }
 
   toggleMenu() {
@@ -101,7 +114,7 @@ export class UserHeaderComponent {
       (res: Page<User>) => {
         this.isLoading = false;
         this.users = res.content;
-        console.log("users", res);
+        // console.log("users", res);
       }
     );
   }
@@ -110,7 +123,7 @@ export class UserHeaderComponent {
       (res: Page<Community>) => {
         this.isLoading = false;
         this.communities = res.content;
-        console.log("communities", res);
+        // console.log("communities", res);
       }
     );
   }
@@ -140,7 +153,7 @@ export class UserHeaderComponent {
     this.api.removeNotification(id).subscribe(
       res => {
         if (res.status === 200) {
-          const index = this.notifications.findIndex(i => i.notificationId);
+          const index = this.notifications.findIndex((i: NotificationDTO) => i.notificationId);
           this.notifications.splice(index, 1);
         }
       }
@@ -157,7 +170,7 @@ export class UserHeaderComponent {
   */
   receiveMessage() {
     this.angularFireMessaging.onMessage((message) => {
-      console.log("received a message:", message);
+      // console.log("received a message:", message);
       if (typeof message !== 'undefined' && typeof message.data !== 'undefined') {
         let data = message.data;
         if (typeof data.isNotification !== 'undefined' && data.isNotification == "true") {

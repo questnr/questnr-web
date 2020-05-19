@@ -5,6 +5,7 @@ import { HashTag } from 'models/hashtag.model';
 import { User } from 'models/user.model';
 import { Community } from 'models/community.model';
 import { Page } from 'models/page.model';
+import { NotificationDTO } from 'models/notification.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,8 +41,7 @@ export class ApiService {
     return this.http.get<Page<Community>>(this.baseUrl + `user/search/communities`, { params: { communityString: userInput } });
   }
   getNotifications(page: any = 0) {
-    console.log(page);
-    return this.http.get(this.baseUrl + 'user/notification', { params: { page } });
+    return this.http.get<NotificationDTO[]>(this.baseUrl + 'user/notification', { params: { page } });
   }
   removeNotification(id) {
     return this.http.delete(this.baseUrl + 'user/notification/' + id, { observe: 'response' });

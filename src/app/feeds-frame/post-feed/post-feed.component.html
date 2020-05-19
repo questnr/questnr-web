@@ -7,12 +7,12 @@
     <div class="icon"> <img [src]="login.profileImg"> </div>
     <div class="textbox-wrap">
       <textarea rows="3" placeholder="Post Something...." [formControl]="text" (change)="typeCheckOnUserInput($event)"
-        (keyup)="typeCheckOnUserInput($event)" (input)="typeCheckOnUserInput($event)" #userInputRef>
+        (keyup)="typeCheckOnUserInput($event)" #userInputRef>
       </textarea>
     </div>
   </div>
 
-  <app-meta-card #metaCardCompRef></app-meta-card>
+  <app-meta-card [iFramelyData]="iFramelyData"></app-meta-card>
 
   <div class="media" [@expand]="isMediaEnabled ? 'expanded' : 'collapsed'">
     <div class="media-wrap">

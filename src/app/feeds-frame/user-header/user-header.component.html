@@ -9,15 +9,19 @@
     <div class="spacer"></div>
 
     <div class="search-wrapper">
-      <input type="text" placeholder="Type here to search..." [formControl]="searchInput">
-      <mat-icon (click)="searchEntity()">search</mat-icon>
-      <div class="suggestions">
+      <input type="text" placeholder="Type here to search..." [formControl]="searchInput" #searchInputRef>
+      <mat-icon class="search-icon" (click)="searchEntity()">search</mat-icon>
+      <div class="suggestions" #suggestionBoxRef>
         <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="height: 2px"></mat-progress-bar>
-        <div class="search-option-list">
-          <div *ngFor="let item of filterSearchOptionList;let indexOfelement=index;" class="search-option"
-            (click)="selectSearchOption(indexOfelement)" [ngClass]="{'selected': indexOfelement==selectedSearchOption}">
-            <app-dot [radius]="7"></app-dot><span>{{item}}</span>
+        <div class="search-menu row">
+          <div class="search-option-list row col-md-11">
+            <div *ngFor="let item of filterSearchOptionList;let indexOfelement=index;" class="search-option col-md-3"
+              (click)="selectSearchOption(indexOfelement)"
+              [ngClass]="{'selected': indexOfelement==selectedSearchOption}">
+              <app-dot [radius]="7"></app-dot><span>{{item}}</span>
+            </div>
           </div>
+          <mat-icon class="close-icon col-md-1" (click)="closeSearchBox()">close</mat-icon>
         </div>
         <div *ngIf="selectedSearchOption==0">
           <button class="w-100" mat-button *ngFor="let user of users" (click)="handleRouterLink(user?.slug)">
@@ -28,7 +32,8 @@
           </button>
         </div>
         <div *ngIf="selectedSearchOption==1">
-          <button class="w-100" mat-button *ngFor="let community of communities">
+          <button class="w-100" mat-button *ngFor="let community of communities"
+            (click)="handleRouterLink(community?.slug)">
             <app-horizontal-profile
               [avatarLink]="community?.avatarDTO?.avatarLink ? community?.avatarDTO?.avatarLink : 'assets/default.jpg'"
               [head]="community?.communityName" [subhead]="community?.ownerUserDTO?.username">
@@ -36,7 +41,8 @@
           </button>
         </div>
         <div *ngIf="selectedSearchOption==2">
-          <button class="w-100" mat-button *ngFor="let item of hashtags">{{item.hashTagValue}}</button>
+          <button class="w-100" mat-button *ngFor="let hashTag of hashtags"
+            (click)="handleRouterLink(hashTag)">{{hashTag.hashTagValue}}</button>
         </div>
       </div>
     </div>
@@ -52,13 +58,16 @@
 
     <!-- notifications_active, notifications_none -->
     <mat-menu #notificationsMenu="matMenu" [overlapTrigger]="false" xPosition="before">
-      <div class="notification-wrap">
-        <app-notification-item *ngFor="let item of notifications" [notification]="item"
-          (remove)="removeNotification($event)"></app-notification-item>
-        <button *ngIf="notifications?.length> 0 && !endOfNotifications" mat-button class="w-100"
-          (click)="getNotification(); $event.stopPropagation();"> Load more</button>
-        <p *ngIf="endOfNotifications"> No more Notifications </p>
-      </div>
+      <ng-template matMenuContent>
+        <div class="notification-wrap">
+          <app-notification-item *ngFor="let item of notifications" [notification]="item"
+            (remove)="removeNotification($event)"></app-notification-item>
+          <button *ngIf="notifications?.length> 0 && !endOfNotifications" mat-button class="w-100"
+            (click)="getNotification(); $event.stopPropagation();"> Load more</button>
+          <p *ngIf="endOfNotifications" style="justify-content: center;display: flex;cursor: pointer;"> No more
+            Notifications </p>
+        </div>
+      </ng-template>
     </mat-menu>
 
     <button mat-button [matMenuTriggerFor]="menu" class="d-none d-sm-block d-md-block d-lg-block profile-btn" Z>
