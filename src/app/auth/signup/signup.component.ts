@@ -16,11 +16,35 @@ export class SignupComponent implements OnInit {
   errMsg: '';
   isLoading = false;
   group: FormGroup;
-  firstName = new FormControl('', Validators.required);
-  lastName = new FormControl('', Validators.required);
+  formError: string = "";
+  firstName = new FormControl('',
+    [
+      Validators.required,
+      Validators.pattern(/^[\S]*$/),
+      Validators.minLength(3),
+      Validators.maxLength(25)
+    ]);
+  lastName = new FormControl('',
+    [
+      Validators.required,
+      Validators.pattern(/^[\S]*$/),
+      Validators.minLength(3),
+      Validators.maxLength(25)
+    ]);
   email = new FormControl('', [Validators.required, Validators.pattern(REGEX.EMAIL)]);
-  username = new FormControl('', Validators.required);
-  password = new FormControl('', Validators.required);
+  username = new FormControl('',
+    [
+      Validators.required,
+      Validators.pattern(/^[_A-z0-9]*$/),
+      Validators.minLength(3),
+      Validators.maxLength(32)
+    ]);
+  password = new FormControl('',
+    [
+      Validators.required,
+      Validators.minLength(6),
+      Validators.maxLength(100)
+    ]);
   confirmPassword = new FormControl('', Validators.required);
 
   constructor(
@@ -77,9 +101,12 @@ export class SignupComponent implements OnInit {
   signUp(user) {
     this.auth.signUp(user).subscribe(
       res => {
+        this.formError = "";
         if (res.loginSuccess) {
           localStorage.setItem('token', res.accessToken);
           this.router.navigate(['feeds']);
+        } else if (typeof res.errors == "object" && res.errors.length > 0) {
+          this.formError = res.errors[0].defaultMessage;
         }
       }, err => { }
     );
