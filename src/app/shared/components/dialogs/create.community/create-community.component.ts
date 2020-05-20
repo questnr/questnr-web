@@ -13,6 +13,8 @@ import {MatDialogRef} from '@angular/material/dialog';
 
 export class CreateCommunityComponent implements OnInit {
   @Input() communityImage = 'assets/default.jpg';
+  screenWidth = window.innerWidth;
+  mobileView = false;
 
   constructor(public fb: FormBuilder, public auth: CommunityService, public snackbar: MatSnackBar, private dialogRef: MatDialogRef<CreateCommunityComponent>) {
   }
@@ -31,6 +33,14 @@ export class CreateCommunityComponent implements OnInit {
       description: this.description,
       avatar: this.avatar
     });
+    const width = this.screenWidth;
+    if (width <= 800) {
+      this.mobileView = true;
+    } else if (width >= 1368) {
+      this.mobileView = false;
+    } else if (width >= 800 && width <= 1368) {
+      this.mobileView = false;
+    }
   }
 
   onFileChange(event) {

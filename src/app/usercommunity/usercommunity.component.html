@@ -1,6 +1,11 @@
 <div *ngIf="mobileView">
   <div class="user-owned-community">
-    <h5 style="text-align: center">Owned Communities.</h5>
+    <h5>Owned Communities.
+      <div class="mobile-create-btn" (click)="createCommunity()">
+        <mat-icon>add_circle_outline
+        </mat-icon>
+      </div>
+    </h5>
     <owl-carousel-o [options]="customOptions">
       <ng-container *ngFor="let list of ownedCommunity;let i=index">
         <ng-template carouselSlide [id]="list.i">
