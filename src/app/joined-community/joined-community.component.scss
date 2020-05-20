@@ -65,4 +65,11 @@ img {
 
 .mobile-view-joined-community{
   margin: 20px 0;
+  .mobile_action_btn{
+    text-align: center;
+    button {
+      background: white;
+      color: $black;
+    }
+  }
 }

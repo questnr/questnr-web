@@ -31,6 +31,9 @@
         </ng-template>
       </ng-container>
     </owl-carousel-o>
+    <div class="mobile_action_btn" *ngIf="!loadingCommunities" >
+      <button mat-stroked-button (click)="openCommunityDialog(joinedCommunity)">Load more</button>
+    </div>
     <!--loader-->
     <div class="row card-loader" *ngIf="loadingCommunities">
       <div class="col">

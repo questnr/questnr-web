@@ -1,1 +1,7 @@
-<p>community-list works!</p>
+<div class="container-header">
+  <div class="row">
+    <div [ngClass]="{'col-md-4': !mobileView, 'col': mobileView}" *ngFor="let community of data">
+      <app-community-card-mobile-view [community]="community"></app-community-card-mobile-view>
+    </div>
+  </div>
+</div>

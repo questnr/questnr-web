@@ -3,6 +3,8 @@ import {Community} from '../models/community.model';
 import {LoginService} from '../auth/login.service';
 import {ApiService} from '../shared/api.service';
 import {OwlOptions} from 'ngx-owl-carousel-o';
+import {CommunityListComponent} from '../shared/components/dialogs/community-list/community-list.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-joined-community',
@@ -40,7 +42,7 @@ export class JoinedCommunityComponent implements OnInit {
     nav: false,
     autoplay: true
   };
-  constructor(public api: ApiService, public loginService: LoginService) { }
+  constructor(public api: ApiService, public loginService: LoginService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.api.getJoinedCommunities(this.loginService.getUserId()).subscribe(
@@ -67,5 +69,34 @@ export class JoinedCommunityComponent implements OnInit {
     } else {
       return  '/assets/default.jpg';
     }
+  }
+  openCommunityDialog(communityList): void {
+    let config = null;
+    if (this.mobileView) {
+      config = {
+        position: {
+          top: '0',
+          right: '0'
+        },
+        height: '100%',
+        borderRadius: '0px',
+        width: '100%',
+        maxWidth: '100vw',
+        marginTop: '0px',
+        marginRight: '0px !important',
+        panelClass: 'full-screen-modal',
+        data: communityList
+      };
+    } else {
+      config = {
+        width: '700px',
+        data: communityList
+      };
+    }
+    const dialogRef = this.dialog.open(CommunityListComponent, config);
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
   }
 }
