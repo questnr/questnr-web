@@ -140,4 +140,11 @@
     right: 1%;
     top: 0;
   }
+  .mobile_action_btn{
+    text-align: center;
+    button {
+      background: $white;
+      color: $black;
+    }
+  }
 }

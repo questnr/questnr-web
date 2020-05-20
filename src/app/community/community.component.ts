@@ -48,8 +48,9 @@ export class CommunityComponent implements OnInit {
       this.titleService.setTitle(community.communityName);
 
       for (let i = 0; i < community.metaList.length; i++) {
+        console.log(community.metaList[i].metaInformation.attributeType);
         this.meta.addTag({
-          name: community.metaList[i].metaInformation.type,
+          [community.metaList[i].metaInformation.attributeType]: community.metaList[i].metaInformation.type,
           content: community.metaList[i].metaInformation.content
         },
           true);

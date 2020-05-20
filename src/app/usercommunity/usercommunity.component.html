@@ -13,6 +13,9 @@
         </ng-template>
       </ng-container>
     </owl-carousel-o>
+    <div class="mobile_action_btn" *ngIf="!loader" >
+      <button mat-stroked-button (click)="openCommunityDialog(ownedCommunity)">Load more</button>
+    </div>
     <!--loader-->
     <div class="row card-loader" *ngIf="loader">
       <div class="col">
@@ -29,7 +32,7 @@
 <div class="suggestion-container box" *ngIf="!mobileView">
   <div class="com-suggestion">
     <h1>Owned Communities.</h1>
-    <div *ngIf="ownedCommunity; else noCommunity">
+    <div *ngIf="ownedCommunity?.length; else noCommunity">
       <div *ngIf="!loader">
         <ul>
           <li *ngFor="let i of ownedCommunity" class="grid">
@@ -47,7 +50,7 @@
               Create community.</p>
           </div>
           <div class="col">
-            <p style="text-align: right; padding: 0 20px;">view more.</p>
+            <p style="text-align: right; padding: 0 20px;" (click)="openCommunityDialog(ownedCommunity)">view more.</p>
           </div>
         </div>
       </div>

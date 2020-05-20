@@ -15,7 +15,7 @@ export class CommunityCardMobileViewComponent implements OnInit {
   @Input() community: Community;
   relation: any;
   ngOnInit(): void {
-    this.relation = this.community.communityMeta.relationShipType;
+    // this.relation = this.community.communityMeta.relationShipType;
   }
 
   routeToCommunity(slug) {
