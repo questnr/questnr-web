@@ -1,7 +1,6 @@
-
 <div>
   <div class="cret-com-container">
-    <div class="loader" *ngIf="loading">
+    <div class="loader" *ngIf="loading" >
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
     <div class="com-img-container">
@@ -9,18 +8,42 @@
       <img [src]="communityImage" *ngIf="communityImage" (click)="previewImage()">
       <form action="" [formGroup]="group" (ngSubmit)="submit()" class="createCommunityForm">
 
-        <div class="com-head-container">
-          <div class="com-input-container">
-              <input type="text"  [formControl]="communityName" placeholder="Enter Community name..." (change)="checkFormValid()">
-=              <textarea   [formControl]="description"
-                        placeholder="write a short description for the community..." cols="50"
-                        rows="1"></textarea>
-              <input id="imageSrc" type="file" [formControl]="avatar" (change)="onFileChange($event)">
-          </div>
-          <div class="submit-btn">
-            <button mat-button [disabled]="isFormDisabled">
-              CREATE
-            </button>
+                <div class="com-head-container" *ngIf="!mobileView">
+                  <div class="com-input-container">
+                      <input type="text"  [formControl]="communityName" placeholder="Enter Community name..." (change)="checkFormValid()">
+        =              <textarea   [formControl]="description"
+                                placeholder="write a short description for the community..." cols="50"
+                                rows="1"></textarea>
+                      <input id="imageSrc" type="file" [formControl]="avatar" (change)="onFileChange($event)">
+                  </div>
+                  <div class="submit-btn">
+                    <button mat-button [disabled]="isFormDisabled">
+                      CREATE
+                    </button>
+                  </div>
+                </div>
+        <div class="com-head-container " *ngIf="mobileView">
+          <div class="container-header">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="com-input-container" [ngClass]="{'com-input-container-mobile': mobileView}">
+                  <input type="text" [formControl]="communityName" placeholder="Enter Community name..."
+                         (change)="checkFormValid()">
+                  <textarea [formControl]="description"
+                            placeholder="write a short description for the community..." cols="50"
+                            rows="1"></textarea>
+                  <input id="imageSrc" type="file" [formControl]="avatar" (change)="onFileChange($event)">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="submit-btn" [ngClass]="{'submit-btn-mobile': mobileView}">
+                  <button mat-button [disabled]="isFormDisabled">
+                    CREATE
+                  </button>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </form>
