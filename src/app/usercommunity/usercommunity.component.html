@@ -1,9 +1,30 @@
+<div *ngIf="mobileView">
+  <div class="user-owned-community">
+    <h5 style="text-align: center">Owned Communities.</h5>
+    <owl-carousel-o [options]="customOptions">
+      <ng-container *ngFor="let list of ownedCommunity;let i=index">
+        <ng-template carouselSlide [id]="list.i">
+          <app-community-card-mobile-view [community]="list"></app-community-card-mobile-view>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+    <!--loader-->
+    <div class="row card-loader" *ngIf="loader">
+      <div class="col">
+        <app-community-card-loader></app-community-card-loader>
+      </div>
+      <div class="col">
+        <app-community-card-loader></app-community-card-loader>
+      </div>
+    </div>
+    <!--loader ends-->
+  </div>
+</div>
 
-
-<div class="suggestion-container box">
+<div class="suggestion-container box" *ngIf="!mobileView">
   <div class="com-suggestion">
     <h1>Owned Communities.</h1>
-    <div *ngIf="ownedCommunity.length; else noCommunity">
+    <div *ngIf="ownedCommunity; else noCommunity">
       <div *ngIf="!loader">
         <ul>
           <li *ngFor="let i of ownedCommunity" class="grid">
@@ -16,16 +37,16 @@
           </li>
         </ul>
         <div class="row">
-          <div class="col-md-6">
-            <p style="text-align: left; padding: 0 25px;"(click)="createCommunity()" *ngIf="relation === 'owned'">Create community.</p>
+          <div class="col">
+            <p style="text-align: left; padding: 0 25px;" (click)="createCommunity()" *ngIf="relation === 'owned'">
+              Create community.</p>
           </div>
-          <div class="col-md-6">
+          <div class="col">
             <p style="text-align: right; padding: 0 20px;">view more.</p>
           </div>
         </div>
       </div>
     </div>
-
     <div *ngIf="loader">
       <ul class="o-vertical-spacing o-vertical-spacing--l">
         <li class="grid blog-post o-media">
@@ -85,10 +106,10 @@
       <div *ngIf="!loader">
         <span>No Communities created yet.</span>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col">
             <p style="text-align: center"> View more.</p>
           </div>
-          <div class="col-md-6">
+          <div class="col">
             <p (click)="createCommunity()" *ngIf="relation === 'owned'">Create community.</p>
           </div>
         </div>

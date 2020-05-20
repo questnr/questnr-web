@@ -1,0 +1,46 @@
+<div class="link-card box" *ngIf="!mobileView">
+  <h3>Joined Communities</h3>
+  <ng-container *ngIf="loadingCommunities">
+    <div class="list-item" *ngFor="let i of listItems">
+      <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
+      <ngx-skeleton-loader class="w-100" count="1" appearance="line"></ngx-skeleton-loader>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="joinedCommunity.length">
+    <div class="links" *ngFor="let item of joinedCommunity">
+      <div class="icon">
+        <img [src]="checkImageUrl(item.avatarDTO.avatarLink)" alt="">
+      </div>
+      <a class="link" routerLink="">{{item.communityName}}</a>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!joinedCommunity.length && !loadingCommunities">
+    <p>
+      You have not created any communities yet. Create one now.
+    </p>
+  </ng-container>
+</div>
+
+<div class="mobile-view-joined-community" *ngIf="mobileView">
+  <div class="user-owned-community">
+    <h5 style="text-align: center">Joined Communities.</h5>
+    <owl-carousel-o [options]="customOptions">
+      <ng-container *ngFor="let list of joinedCommunity;let i=index">
+        <ng-template carouselSlide [id]="i">
+          <app-community-card-mobile-view [community]="list"></app-community-card-mobile-view>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+    <!--loader-->
+    <div class="row card-loader" *ngIf="loadingCommunities">
+      <div class="col">
+        <app-community-card-loader></app-community-card-loader>
+      </div>
+      <div class="col">
+        <app-community-card-loader></app-community-card-loader>
+      </div>
+    </div>
+    <!--loader ends-->
+  </div>
+
+</div>

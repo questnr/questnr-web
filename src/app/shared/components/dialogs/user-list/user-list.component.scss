@@ -1,3 +1,6 @@
+.mobile-nav-btn button{
+  margin: 10px;
+}
 .user_list_container {
   padding: 20px;
 
@@ -61,4 +64,16 @@
       }
     }
   }
+}
+dialog {
+  border: none !important;
+}
+.mobile-nav-btn {
+  width: 100%;
+  position: fixed;
+  background: #eeeeee;
+  z-index: 1;
+}
+.user_list_container-mobile{
+  padding: 80px 20px;
 }

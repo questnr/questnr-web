@@ -1,76 +1,4 @@
 @import "../variables";
-//
-//.user-com-container {
-//  background: $white;
-//  border-radius: 8px;
-//  padding: 10px 0;
-//  margin-bottom: 20px;
-//}
-//
-//.user-community {
-//  padding: 10px;
-//
-//  p {
-//    color: $default-font-color;
-//  }
-//}
-//
-//.no-community div {
-//  color: #ef6d6e;
-//  text-decoration: underline;
-//}
-//
-//
-//.has-community {
-//  position: relative;
-//
-//  h1 {
-//    font-size: 20px;
-//    line-height: 26px;
-//    font-weight: 400;
-//    padding: 0 14px 8px;
-//    color: $heading;
-//  }
-//
-//  ul {
-//    list-style: none;
-//  }
-//
-//  li {
-//    font-size: 18px;
-//  }
-//}
-//
-////.has-community ul li::before {
-////  content: " ";
-////  background-image: url("/assets/default.jpg");
-////  width: 20px;
-////  height: 20px;
-////  border-radius: 50%;
-////  position: absolute;
-////  left: 5%;
-////  background-size: cover;
-////  background-position: center;
-////  margin-top: 3px;
-////}
-//
-//.createCommBtn {
-//  span {
-//    width: 100%;
-//    display: block;
-//    text-align: right;
-//    margin-right: 10px;
-//    text-decoration: underline;
-//    color: $heading;
-//    cursor: pointer;
-//    transition: all 300ms ease;
-//  }
-//}
-//
-//.createCommBtn span:hover {
-//  transform: translateX(-10px);
-//}
-
 
 .suggestion-container {
   background: $white;
@@ -113,19 +41,6 @@
     cursor: pointer;
   }
 }
-
-//.com-suggestion ul li::before{
-//  content: " ";
-//  background-image: url("/assets/default.jpg");
-//  width: 20px;
-//  height: 20px;
-//  border-radius: 50%;
-//  position: absolute;
-//  left: 5%;
-//  background-size: cover;
-//  background-position: center;
-//  margin-top: 3px;
-//}
 
 .grid {
   display: flex;
@@ -215,4 +130,8 @@
 .media-box {
   width: 35px;
   height: 35px;
+}
+
+.user-owned-community{
+  margin: 20px 0;
 }

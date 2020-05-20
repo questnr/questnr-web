@@ -2,45 +2,21 @@
   <div class="">
     <ul>
       <li>
-        <div>
+        <div (click)="getFollowedBy()">
           <h3>{{userInfo?.followers}}</h3>
           <p>Followers</p>
         </div>
       </li>
       <li>
-        <div>
+        <div (click)="getFollowingUser()">
           <h3>{{userInfo?.followingTo}}</h3>
           <p>Following</p>
         </div>
       </li>
       <li>
-        <div>
-          <h3> {{userInfo?.postsOnProfile}}</h3>
-          <p>posted on Profile</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <h3>{{userInfo?.postsOnCommunities}}</h3>
-          <p>posted on Communities</p>
-        </div>
-      </li>
-      <li>
-        <div>
+        <div (click)="scrollTo()">
           <h3>{{userInfo?.posts}}</h3>
           <p>Total Posts</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <h3>{{userInfo?.ownsCommunities}}</h3>
-          <p>Owns Communities</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <h3> {{userInfo?.followsCommunities}}</h3>
-          <p>Followed Communities</p>
         </div>
       </li>
     </ul>

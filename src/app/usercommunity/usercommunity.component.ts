@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
 import {Community} from '../models/community.model';
+import {OwlOptions} from 'ngx-owl-carousel-o';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -22,13 +23,48 @@ export class UsercommunityComponent implements OnInit {
   @Input() defaultImage = 'assets/default.jpg';
   @Input() relation;
   baseUrl = environment.baseUrl;
-  ownedCommunity: Community[];
-  loader = false;
+  ownedCommunity: Community;
+  loader = true;
+  screenWidth = window.innerWidth;
+  mobileView = false;
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 2
+      },
+      400: {
+        items: 3
+      },
+      740: {
+        items: 3
+      },
+      940: {
+        items: 4
+      }
+    },
+    nav: false,
+    autoplay: true
+  };
 
   ngOnInit() {
     setTimeout( () => {
       this.getUserOwnedCommunity();
     }, 2000);
+    const width = this.screenWidth;
+    if (width <= 800) {
+      this.mobileView = true;
+    } else if (width >= 1368) {
+      this.mobileView = false;
+    } else if (width >= 800 && width <= 1368) {
+      this.mobileView = false;
+    }
   }
 
   createCommunity(): void {
@@ -61,5 +97,8 @@ export class UsercommunityComponent implements OnInit {
     } else  {
       return  'assests/default.jpg';
     }
+  }
+  routeToCommunity(slug) {
+    window.open('/community/' + slug, '_self');
   }
 }
