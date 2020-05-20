@@ -16,7 +16,7 @@ export class JoinedCommunityComponent implements OnInit {
   screenWidth = window.innerWidth;
   mobileView = false;
   customOptions: OwlOptions = {
-    loop: true,
+    loop: false,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,

@@ -134,4 +134,10 @@
 
 .user-owned-community{
   margin: 20px 0;
+  position: relative;
+  .mobile-create-btn{
+    position: absolute;
+    right: 1%;
+    top: 0;
+  }
 }
