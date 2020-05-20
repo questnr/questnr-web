@@ -6,7 +6,7 @@
       <ngx-skeleton-loader class="w-100" count="1" appearance="line"></ngx-skeleton-loader>
     </div>
   </ng-container>
-  <ng-container *ngIf="joinedCommunity.length">
+  <ng-container *ngIf="joinedCommunity?.length">
     <div class="links" *ngFor="let item of joinedCommunity">
       <div class="icon">
         <img [src]="checkImageUrl(item.avatarDTO.avatarLink)" alt="">
@@ -14,7 +14,7 @@
       <a class="link" routerLink="">{{item.communityName}}</a>
     </div>
   </ng-container>
-  <ng-container *ngIf="!joinedCommunity.length && !loadingCommunities">
+  <ng-container *ngIf="!joinedCommunity?.length && !loadingCommunities">
     <p>
       You have not created any communities yet. Create one now.
     </p>
