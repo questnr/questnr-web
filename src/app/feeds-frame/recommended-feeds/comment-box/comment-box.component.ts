@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FeedsService } from 'feeds-frame/feeds.service';
+import { CommentAction } from 'models/comment-action.model';
 
 @Component({
   selector: 'app-comment-box',
@@ -9,12 +10,14 @@ import { FeedsService } from 'feeds-frame/feeds.service';
 export class CommentBoxComponent {
   isLoading = false;
   isReplying = false;
-  @Input() comment;
+  @Input() comment: CommentAction;
+  @Input() parentComment: CommentAction;
   @Input() postId;
   @Output() reply = new EventEmitter();
   @Output() update = new EventEmitter();
 
-  constructor(private api: FeedsService) { }
+  constructor(private api: FeedsService) {
+  }
 
   likeComment(id) {
     this.isLoading = true;
@@ -36,8 +39,8 @@ export class CommentBoxComponent {
       );
     }
   }
-  replyTo(username, commentId) {
-    this.reply.emit({ username, commentId });
+  replyTo(username, commentId, parentCommentId) {
+    this.reply.emit({ username, commentId, parentCommentId });
   }
 
   likedComment() {

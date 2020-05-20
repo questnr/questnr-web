@@ -13,8 +13,9 @@
     <a (click)="likeComment(comment.commentActionId)"
       [innerHTML]="comment?.commentActionMeta?.liked? 'liked':'like'"></a>
     <span></span>
-    <a (click)="replyTo(comment.userActorDTO?.username, comment.commentActionId)">Reply</a>
+    <a
+      (click)="replyTo(comment.userActorDTO?.username, comment.commentActionId, parentComment?.commentActionId)">Reply</a>
     <span></span>
-    <div [matTooltip]="comment?.metaData?.timeInUTC | date"> {{comment.metaData.timeString}} ago </div>
+    <app-time-string [metaData]="comment.metaData"></app-time-string>
   </div>
 </div>
