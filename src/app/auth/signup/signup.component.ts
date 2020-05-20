@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { REGEX } from '../../shared/constants';
-import { CustomValidations } from '../../custom-validations';
-import { LoginService } from 'auth/login.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'angularx-social-login';
-import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import { LoginService } from 'auth/login.service';
+import { CustomValidations, AsyncValidator } from '../../custom-validations';
+import { REGEX } from '../../shared/constants';
 
 @Component({
   selector: 'app-signup',
@@ -31,14 +30,21 @@ export class SignupComponent implements OnInit {
       Validators.minLength(3),
       Validators.maxLength(25)
     ]);
-  email = new FormControl('', [Validators.required, Validators.pattern(REGEX.EMAIL)]);
+  email = new FormControl('',
+    {
+      validators: [Validators.required, Validators.pattern(REGEX.EMAIL)],
+      asyncValidators: [AsyncValidator.checkEmailExists(this.auth)]
+    });
   username = new FormControl('',
-    [
-      Validators.required,
-      Validators.pattern(/^[_A-z0-9]*$/),
-      Validators.minLength(3),
-      Validators.maxLength(32)
-    ]);
+    {
+      validators: [
+        Validators.required,
+        Validators.pattern(/^[_A-z0-9]*$/),
+        Validators.minLength(3),
+        Validators.maxLength(32),
+      ],
+      asyncValidators: [AsyncValidator.checkUsernameExists(this.auth)]
+    });
   password = new FormControl('',
     [
       Validators.required,
@@ -49,7 +55,8 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder, private auth: LoginService,
-    private socialAuth: AuthService, private router: Router) { }
+    private socialAuth: AuthService, private router: Router,
+    private customValidations: CustomValidations) { }
 
   ngOnInit() {
     this.group = this.fb.group({
@@ -105,7 +112,9 @@ export class SignupComponent implements OnInit {
         if (res.loginSuccess) {
           localStorage.setItem('token', res.accessToken);
           this.router.navigate(['feeds']);
-        } else if (typeof res.errors == "object" && res.errors.length > 0) {
+        } else if (typeof res.errorMessage === "string") {
+          this.formError = res.errorMessage;
+        } else if (typeof res.errors === "object" && res.errors.length > 0) {
           this.formError = res.errors[0].defaultMessage;
         }
       }, err => { }

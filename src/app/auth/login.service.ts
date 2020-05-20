@@ -14,8 +14,12 @@ export class LoginService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  checkUsername(val: string) {
-    return this.http.post(this.baseUrl + 'check-username', val);
+  checkUsernameExists(val: string) {
+    return this.http.post(this.baseUrl + 'check-username', { username: val });
+  }
+
+  checkEmailExists(val: string) {
+    return this.http.post(this.baseUrl + 'check-email', { email: val });
   }
 
   login(user) {
