@@ -1,17 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {GoogleLoginProvider} from 'angularx-social-login';
-import {CommunityService} from './community.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {REGEX} from '../shared/constants';
-import {CreateCommunityComponent} from '../shared/components/dialogs/create.community/create-community.component';
-import {DescriptionComponent} from '../shared/components/dialogs/description/description.component';
-import {MatDialog} from '@angular/material/dialog';
-import {Community, CommunityUsers, OwnerUserDTO} from '../models/community.model';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {LoginService} from '../auth/login.service';
-import {User} from '../models/user.model';
-import {ActivatedRoute} from '@angular/router';
-import {Post} from '../models/post-action.model';
+import { Component, OnInit } from '@angular/core';
+import { GoogleLoginProvider } from 'angularx-social-login';
+import { CommunityService } from './community.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { REGEX, GlobalConstants } from '../shared/constants';
+import { CreateCommunityComponent } from '../shared/components/dialogs/create.community/create-community.component';
+import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Community, CommunityUsers } from '../models/community.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginService } from '../auth/login.service';
+import { User } from '../models/user.model';
+import { ActivatedRoute } from '@angular/router';
+import { Post } from '../models/post-action.model';
+import { Title } from "@angular/platform-browser";
+import { Meta } from '@angular/platform-browser';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-community',
@@ -22,6 +25,7 @@ export class CommunityComponent implements OnInit {
   isSidenavopen = false;
   communitySlug: string;
   communityDTO: Community;
+  commuityObserver: Subject<Community> = new Subject();
   owner: any;
   comUserList: any[];
   feeds: Post[];
@@ -37,8 +41,20 @@ export class CommunityComponent implements OnInit {
   mobileView = false;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
-              private route: ActivatedRoute, public loginAuth: LoginService) {
+    private route: ActivatedRoute, public loginAuth: LoginService, private meta: Meta, private titleService: Title) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
+    this.commuityObserver.subscribe((community: Community) => {
+      console.log(community);
+      this.titleService.setTitle(community.communityName);
+
+      for (let i = 0; i < community.metaList.length; i++) {
+        this.meta.addTag({
+          name: community.metaList[i].metaInformation.type,
+          content: community.metaList[i].metaInformation.content
+        },
+          true);
+      }
+    });
   }
 
   screenWidth = window.innerWidth;
@@ -48,7 +64,7 @@ export class CommunityComponent implements OnInit {
     const dialogRef = this.dialog.open(DescriptionComponent, {
       width: '500px',
       // height: '300px',
-      data: {text: desc, communityAvatar: communityImg}
+      data: { text: desc, communityAvatar: communityImg }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -72,11 +88,15 @@ export class CommunityComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.titleService.setTitle(GlobalConstants.siteTitle);
+  }
+
   scroll = (event): void => {
     if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      console.log('no im  here');
+      // console.log('no im  here');
       if (this.userFeeds.length >= 0 && !this.endOfPosts) {
-        console.log('check network call', this.endOfPosts);
+        // console.log('check network call', this.endOfPosts);
         this.loading = true;
         ++this.page;
         this.fetchCommunityFeeds(this.communityId);
@@ -95,9 +115,9 @@ export class CommunityComponent implements OnInit {
       //   console.log(this.userList);
       // });
       this.communityDTO = res;
+      this.commuityObserver.next(res);
       this.ownerDTO = res.ownerUserDTO;
       this.owner = res.communityMeta.relationShipType;
-      console.log('owner', this.owner);
     }, error => {
       // console.log('oops', error);
     });
@@ -105,21 +125,21 @@ export class CommunityComponent implements OnInit {
 
   followThisCommunty() {
     this.auth.followCommunity(this.communityDTO.communityId).subscribe((res: any) => {
-      console.log('started following' + this.communityDTO.communityName, res);
+      // console.log('started following' + this.communityDTO.communityName, res);
       this.owner = 'followed';
     }, error => {
-      console.log('failed to join this community', error.error.errorMessage);
-      this.snackBar.open(error.error.errorMessage, 'close', {duration: 3000});
+      // console.log('failed to join this community', error.error.errorMessage);
+      this.snackBar.open(error.error.errorMessage, 'close', { duration: 3000 });
     });
   }
 
   unfollowThisCommunity() {
     const userId = this.loginAuth.getUserProfile().id;
     this.auth.unfollowCommunityService(this.communityDTO.communityId, userId).subscribe((res: any) => {
-      console.log('unfollowed' + this.communityDTO.communityName, res);
+      // console.log('unfollowed' + this.communityDTO.communityName, res);
       this.owner = '';
     }, error => {
-      console.log('failed to unfollow' + this.communityDTO.communityName, error.error.errorMessage);
+      // console.log('failed to unfollow' + this.communityDTO.communityName, error.error.errorMessage);
     });
   }
   postFeed(event) {
@@ -132,17 +152,17 @@ export class CommunityComponent implements OnInit {
   fetchCommunityFeeds(communityId) {
     this.communityId = communityId;
     this.auth.getCommunityFeeds(communityId, this.page).subscribe((res: any) => {
-        if (res.content.length) {
-          res.content.forEach(post => {
-            console.log(post);
-            this.userFeeds.push(post);
-          });
-        } else {
-          this.endOfPosts = true;
-          this.loading = false;
-        }
+      if (res.content.length) {
+        res.content.forEach(post => {
+          // console.log(post);
+          this.userFeeds.push(post);
+        });
+      } else {
+        this.endOfPosts = true;
+        this.loading = false;
+      }
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
 
@@ -150,9 +170,7 @@ export class CommunityComponent implements OnInit {
     const formData = new FormData();
     formData.set('file', this.comUpdatedAvatar, this.comUpdatedAvatar.name);
     this.auth.updateCommunityAvatar(formData, this.communityDTO.communityId).subscribe((res: any) => {
-      console.log();
     }, error => {
-      console.log();
     });
   }
 

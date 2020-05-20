@@ -1,5 +1,4 @@
 export class MetaList {
-    id: number;
     metaInformation: MetaInformation;
 }
 
