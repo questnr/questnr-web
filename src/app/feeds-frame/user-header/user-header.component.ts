@@ -56,11 +56,6 @@ export class UserHeaderComponent {
           this.searchEntity();
         }
       });
-    this.api.getNotifications().subscribe(
-      (res: NotificationDTO[]) => {
-        this.notifications = res;
-      }
-    );
   }
   ngOnInit() {
     // Receive notification messages
@@ -190,5 +185,10 @@ export class UserHeaderComponent {
 
   readNewNotification() {
     this.notificationColor = "black";
+    this.api.getNotifications().subscribe(
+      (res: NotificationDTO[]) => {
+        this.notifications = res;
+      }
+    );
   }
 }
