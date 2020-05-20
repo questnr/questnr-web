@@ -93,4 +93,7 @@ export class UserActivityComponent implements OnInit {
       console.log(error.error.errorMessage);
     });
   }
+  scrollTo() {
+    document.querySelector('#user-feed').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 }
