@@ -49,11 +49,12 @@ export class CommunityComponent implements OnInit {
 
       for (let i = 0; i < community.metaList.length; i++) {
         console.log(community.metaList[i].metaInformation.attributeType);
-        this.meta.addTag({
-          [community.metaList[i].metaInformation.attributeType]: community.metaList[i].metaInformation.type,
-          content: community.metaList[i].metaInformation.content
-        },
-          true);
+        setTimeout(() => {
+          this.meta.updateTag({
+            [community.metaList[i].metaInformation.attributeType]: community.metaList[i].metaInformation.type,
+            content: community.metaList[i].metaInformation.content
+          });
+        }, 0);
       }
     });
   }
