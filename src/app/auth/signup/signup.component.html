@@ -2,8 +2,8 @@
   <div class="alert alert-danger" *ngIf="errMsg"> <strong>Error! </strong> {{errMsg }}</div>
   <div class="row">
     <mat-form-field class="col-md-6" appearance="fill">
-      <mat-label>{{'signup.fname' | translate}}</mat-label>
-      <input type="text" matInput [formControl]="firstName" placeholder="{{'signup.fPlace' | translate}}">
+      <mat-label>First Name</mat-label>
+      <input type="text" matInput [formControl]="firstName" placeholder="Enter your First Name">
       <mat-error *ngIf="firstName.hasError('required')">First Name is required.</mat-error>
       <mat-error *ngIf="firstName.errors?.pattern">
         Spaces are not allowed
@@ -17,8 +17,8 @@
     </mat-form-field>
 
     <mat-form-field class="col-md-6" appearance="fill">
-      <mat-label>{{'signup.lname' | translate}}</mat-label>
-      <input type="text" matInput [formControl]="lastName" placeholder="{{'signup.lPlace' | translate}}">
+      <mat-label>Last Name</mat-label>
+      <input type="text" matInput [formControl]="lastName" placeholder="Enter Your Last Name">
       <mat-error *ngIf="lastName.hasError('required')">Last Name is required.</mat-error>
       <mat-error *ngIf="lastName.errors?.pattern">
         Spaces are not allowed
@@ -32,8 +32,8 @@
     </mat-form-field>
 
     <mat-form-field class="col-md-6" appearance="fill">
-      <mat-label>{{'signup.uname' | translate}}</mat-label>
-      <input type="text" matInput [formControl]="username" placeholder="{{'signup.uPlace' | translate}}">
+      <mat-label>Username</mat-label>
+      <input type="text" matInput [formControl]="username" placeholder="Enter your Username">
       <mat-error *ngIf="username.hasError('required')">Username is required.</mat-error>
       <mat-error *ngIf="username.errors?.pattern">
         Only upper case, lower case, numbers and underscore (_) are allowed
@@ -50,8 +50,8 @@
     </mat-form-field>
 
     <mat-form-field class="col-md-6" appearance="fill">
-      <mat-label>{{'signup.email' | translate}}</mat-label>
-      <input type="text" matInput [formControl]="email" placeholder="{{'signup.ePlace' | translate}}">
+      <mat-label>Email</mat-label>
+      <input type="text" matInput [formControl]="email" placeholder="Enter your Email">
       <mat-error *ngIf="email.hasError('required')">Email is required.</mat-error>
       <mat-error *ngIf="email.hasError('pattern')">Email is invalid.</mat-error>
       <mat-error *ngIf="email.errors?.exists">
@@ -61,8 +61,8 @@
 
 
     <mat-form-field class="col-md-12" appearance="fill">
-      <mat-label>{{'signup.password' | translate}}</mat-label>
-      <input type="password" matInput [formControl]="password" placeholder="{{'signup.pPlace' | translate}}">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput [formControl]="password" placeholder="Enter your Password">
       <mat-error *ngIf="password.hasError('required')">Password is required.</mat-error>
       <mat-error *ngIf="password.errors?.minlength">
         Field should contain at least 6 characters
@@ -73,9 +73,9 @@
     </mat-form-field>
 
     <mat-form-field class="col-md-12" appearance="fill">
-      <mat-label>{{'signup.confirm' | translate}}</mat-label>
+      <mat-label>Confirm Password</mat-label>
       <input type="password" matInput [formControl]="confirmPassword" placeholder="Re-Enter your Password">
-      <mat-error *ngIf="confirmPassword.hasError('required')">{{'signup.cPlace' | translate}}</mat-error>
+      <mat-error *ngIf="confirmPassword.hasError('required')">Re-enter your Password</mat-error>
       <mat-error *ngIf="confirmPassword.hasError('MatchPassword')">Password does not match.</mat-error>
     </mat-form-field>
   </div>
@@ -85,18 +85,18 @@
     <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
       <span class="sr-only">Loading...</span>
     </div> &nbsp;
-    {{'signup.signup' | translate}}
+    Sign Up
   </button>
 </form>
 
-<p class="or">{{'signup.or' | translate}}</p>
+<p class="or">OR</p>
 <div class="social-logins">
   <button mat-button (click)="googleLogin()">
     <img src="assets/google.png" alt="Google">
-    <span class="text">{{'signup.google' | translate}}</span>
+    <span class="text">Continue with Google</span>
   </button>
   <button mat-button (click)="googleLogin()">
     <img src="assets/facebook.png" alt="Facebook">
-    <span class="text">{{'signup.facebook' | translate}}</span>
+    <span class="text">Continue with Facebook</span>
   </button>
 </div>

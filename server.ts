@@ -1,6 +1,7 @@
 import 'zone.js/dist/zone-node';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
+const expressStaticGzip = require("express-static-gzip");
 import * as express from 'express';
 import { join } from 'path';
 
@@ -30,6 +31,10 @@ export function app() {
 
   server.set('view engine', 'html');
   server.set('views', distFolder);
+
+  server.get('*.*', expressStaticGzip(distFolder, {
+    enableBrotli: true
+  }))
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
