@@ -139,6 +139,17 @@
     position: absolute;
     right: 1%;
     top: 0;
+    mat-icon{
+      margin: 0 4px;
+    }
+  }
+  .mobile_action_btn{
+    text-align: center;
+    button {
+      background: $white;
+      color: $black;
+      padding: 0 4px;
+    }
   }
   .mobile_action_btn{
     text-align: center;

@@ -1,6 +1,11 @@
-<div class="container-header">
+<div class="mobile-nav-btn" *ngIf="mobileView">
+  <button mat-icon-button (click)="onNoClick()">
+    <mat-icon> arrow_back</mat-icon>
+  </button>
+</div>
+<div class="container-header" [ngClass]="{'container-header-mobile': mobileView}">
   <div class="row">
-    <div [ngClass]="{'col-md-4': !mobileView, 'col': mobileView}" *ngFor="let community of data">
+    <div [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngFor="let community of data">
       <app-community-card-mobile-view [community]="community"></app-community-card-mobile-view>
     </div>
   </div>
