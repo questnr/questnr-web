@@ -42,6 +42,19 @@
     }
   }
 }
+
+::ng-deep .videoplayer{
+  position: unset !important;
+}
+
+::ng-deep .video{
+  margin: auto !important;
+  background-color: $white !important;
+  display: flex !important;
+  height: 400px !important;
+  object-fit: fill !important;
+}
+
 .profile-icon {
   display: flex;
   align-items: center;
