@@ -164,7 +164,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         MatVideoModule,
         AngularFireMessagingModule,
         AngularFireModule.initializeApp(environment.firebase),
-        BrowserModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
         BrowserAnimationsModule,
         CarouselModule,
         AppRoutingModule,
