@@ -7,6 +7,15 @@ import { join } from 'path';
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
+import 'localstorage-polyfill'
+const MockBrowser = require('mock-browser').mocks.MockBrowser;
+const mock = new MockBrowser();
+ 
+global['localStorage'] = localStorage;
+ 
+global['document'] = mock.getDocument();
+global['window'] = mock.getWindow();
+global['FormData'] = require('isomorphic-form-data').FormData;
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
