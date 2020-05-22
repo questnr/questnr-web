@@ -25,4 +25,4 @@ build:
   script:
     - pkill -f node || true
     - npm run build:ssr
-    - npm run serve:ssr > /var/tmp/server.log 2>&1
+    - screen -d -m bash -c "npm run serve:ssr > /var/tmp/server.log 2>&1"
