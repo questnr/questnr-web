@@ -7,7 +7,10 @@ import { UserFollowersService } from '../user-followers/user-followers.service';
 import { LoginService } from '../auth/login.service';
 import { ApiService } from '../shared/api.service';
 import { Post } from '../models/post-action.model';
-import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
+import { Title } from "@angular/platform-browser";
+import { Meta } from '@angular/platform-browser';
+import { Subject } from 'rxjs';
+import { GlobalConstants } from 'shared/constants';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -16,10 +19,15 @@ import {UserListComponent} from '../shared/components/dialogs/user-list/user-lis
 })
 export class UserProfilePageComponent implements OnInit {
   constructor(public userProfilePageService: UserProfilePageService, public route: ActivatedRoute, public userFollowersService: UserProfileCardServiceComponent,
-              public loginService: LoginService, public api: ApiService) { }
+    public loginService: LoginService, public api: ApiService, private meta: Meta, private titleService: Title) {
+    this.userObserver.subscribe((user: User) => {
+      this.titleService.setTitle(user.firstName + " " + user.lastName + " | Questnr");
+    });
+  }
   feeds: Post[];
   url: string;
   user: User;
+  userObserver: Subject<User> = new Subject();
   userAvatarImage = 'assets/default.jpg';
   stats: any;
   relation: any;
@@ -58,6 +66,9 @@ export class UserProfilePageComponent implements OnInit {
       }
     }
   }
+  ngOnDestroy() {
+    this.titleService.setTitle(GlobalConstants.siteTitle);
+  }
   postFeed(event) {
     if (event.postActionId) {
       this.userFeeds = [event, ...this.userFeeds];
@@ -80,7 +91,8 @@ export class UserProfilePageComponent implements OnInit {
     });
   }
   getUserProfileDetails() {
-    this.userProfilePageService.getUserProfile(this.url).subscribe((res: any) => {
+    this.userProfilePageService.getUserProfile(this.url).subscribe((res: User) => {
+      this.userObserver.next(res);
       this.user = res;
       this.userAvatarImage = res.avatarDTO.avatarLink;
       this.relation = res.userMeta.relationShipType;
@@ -134,7 +146,7 @@ export class UserProfilePageComponent implements OnInit {
   }
   getImageUrl(url) {
     if (url) {
-      return url ;
+      return url;
     } else {
       return 'assets/default.jpg';
     }

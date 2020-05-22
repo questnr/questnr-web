@@ -44,8 +44,7 @@ export class CommunityComponent implements OnInit {
     private route: ActivatedRoute, public loginAuth: LoginService, private meta: Meta, private titleService: Title) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
     this.commuityObserver.subscribe((community: Community) => {
-      console.log(community);
-      this.titleService.setTitle(community.communityName);
+      this.titleService.setTitle(community.communityName + " | Questnr");
 
       for (let i = 0; i < community.metaList.length; i++) {
         console.log(community.metaList[i].metaInformation.attributeType);
