@@ -12,17 +12,23 @@ import {UserListService} from './user-list.service';
 })
 export class UserListComponent implements OnInit {
   loading = false;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: User, public  userProfileCardServiceComponent: UserProfileCardServiceComponent,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public  userProfileCardServiceComponent: UserProfileCardServiceComponent,
               public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>) {
   }
 
-  userList: User;
+  userList: User[];
   searchResultList: User;
   searchResult = false;
   noResultFound = false;
   mobileView = false;
+  endOfResult = false;
+  page = 0;
   screenWidth = window.innerWidth;
   ngOnInit(): void {
+    window.addEventListener('scroll', this.scroll, true);
+    // this.userList.forEach(feed => {
+    //   this.data.commentActionList.push(comment);
+    // });
     this.userList = this.data;
     const width = this.screenWidth;
     if (width <= 800) {
@@ -31,6 +37,17 @@ export class UserListComponent implements OnInit {
       this.mobileView = false;
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
+    }
+  }
+  scroll = (event): void => {
+    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+      console.log('no im  here');
+      if (this.userList.length >= 0 && !this.endOfResult) {
+        console.log('check network call');
+        this.loading = true;
+        ++this.page;
+        // this.getUserFeeds(this.userId);
+      }
     }
   }
 
