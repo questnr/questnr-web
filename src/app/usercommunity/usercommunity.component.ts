@@ -8,7 +8,6 @@ import {Community} from '../models/community.model';
 import {OwlOptions} from 'ngx-owl-carousel-o';
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'app-usercommunity',
   templateUrl: './usercommunity.component.html',
   styleUrls: ['./usercommunity.component.scss']
@@ -97,8 +96,5 @@ export class UsercommunityComponent implements OnInit {
     } else  {
       return  'assests/default.jpg';
     }
-  }
-  routeToCommunity(slug) {
-    window.open('/community/' + slug, '_self');
   }
 }

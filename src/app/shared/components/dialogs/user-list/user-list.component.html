@@ -4,30 +4,30 @@
     </button>
   </div>
   <div class="user_list_container" [ngClass]="{'user_list_container-mobile': mobileView}">
-  <div>
-    <input #inputBox type="text" placeholder="Search..." (keypress)="searchUserList(inputBox.value)">
-  </div>
+<!--  <div>-->
+<!--    <input #inputBox type="text" placeholder="Search..." (keypress)="searchUserList(inputBox.value)">-->
+<!--  </div>-->
   <div class="user_list">
     <div class="center">
       <div id="myUL">
 
         <div *ngFor="let i of userList">
-          <div [id]="i?.userId" *ngIf="!loading && !searchResult">
+          <div [id]="i?.userId" *ngIf=" !searchResult">
             <app-user-list-view [user]="i"></app-user-list-view>
           </div>
         </div>
 
-        <div *ngFor="let i of searchResultList">
-          <div [id]="i?.userId" *ngIf="!loading && searchResult && !noResultFound">
-            <app-user-list-view [user]="i"></app-user-list-view>
-          </div>
-        </div>
+<!--        <div *ngFor="let i of searchResultList">-->
+<!--          <div [id]="i?.userId" *ngIf="searchResult && !noResultFound">-->
+<!--            <app-user-list-view [user]="i"></app-user-list-view>-->
+<!--          </div>-->
+<!--        </div>-->
         <div class="user-flex no-result-found" style="margin: auto" *ngIf="noResultFound">
           <p style="text-align: center"> No Result found ....</p>
         </div>
 
         <ng-container *ngIf="loading">
-          <div *ngFor="let i of ' '.repeat(3).split('')">
+          <div *ngFor="let i of ' '.repeat(1).split('')">
             <app-user-list-loader></app-user-list-loader>
           </div>
         </ng-container>
