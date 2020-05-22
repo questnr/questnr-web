@@ -65,4 +65,5 @@ export class CommunityListComponent implements OnInit {
       this.endOfResult = true;
     });
   }
+
 }

@@ -7,16 +7,16 @@
     <div class="col-md-6" style="display: flex; align-items: center;">
       <div class="container">
         <h1>
-          {{'landingPage.heading' | translate}}
+          The New Era of Online Communities
         </h1>
         <h5>
-          {{'landingPage.subHeading' | translate}}
+          Having real social contacts can sometimes be difficult. \n With a bit of a FUN, everthing becomes much simpler!
         </h5>
 
         <div class="search-wrapper">
           <mat-icon>search</mat-icon>
           <!--<<<<<<< HEAD-->
-          <!--          <input type="text" placeholder="{{'search.placeHolder' | translate}}">-->
+          <!--          <input type="text" placeholder="search #hastags">-->
           <!--=======-->
           <input type="text" placeholder="Search #hashtags" [formControl]="hashtagInput">
           <div class="suggestions">
@@ -43,14 +43,14 @@
         <hr style="width: 64px; border-bottom: 2px solid #ed3a4f;">
         <ng-container *ngIf="activeAuth === 'login'">
           <app-login></app-login>
-          <p class="center">{{'login.noAccount' | translate}}<br>
-            <a (click)="activeAuth = 'signup'">{{'login.signup' | translate}}</a>
+          <p class="center">Don't have an account?<br>
+            <a (click)="activeAuth = 'signup'">SIGN UP</a>
           </p>
         </ng-container>
         <ng-container *ngIf="activeAuth === 'signup'">
           <app-signup></app-signup>
-          <p class="center">{{'signup.accAlready' | translate}}<br>
-            <a (click)="activeAuth = 'login'">{{'signup.login' | translate}}</a>
+          <p class="center">Already have and account?<br>
+            <a (click)="activeAuth = 'login'">LOGIN IN</a>
           </p>
         </ng-container>
       </div>
@@ -62,7 +62,7 @@
 <section class="row">
   <div class="container">
     <div class="top-community">
-      <h1>{{'community.heading' | translate}}</h1>
+      <h1>Community Groups</h1>
       <div class="qnr-card-wrapper">
         <qnr-card *ngFor="let community of communities" [imgSrc]="community.src" [title]="community.title"
           [detail]="community.detail"></qnr-card>
@@ -76,7 +76,7 @@
   <div class="container" style="">
     <div class="row">
       <div class="col-md-5">
-        <h3>{{'membersRank.heading' | translate}}</h3>
+        <h3>Members Rank</h3>
         <div>
           <div class="qnr-card-wrapper">
             <qnr-rank-card *ngFor="let user of users; let i=index" [rank]="user.userRank" [title]="user.username"
@@ -86,7 +86,7 @@
         </div>
       </div>
       <div class="col-md-7">
-        <h3>{{'popularHastags.heading' | translate}}</h3>
+        <h3>Popular hashtags</h3>
         <div class="hashtags-wrap">
           <div class="qnr-card-wrapper" style="justify-content: center;">
             <div class="chips" *ngFor="let hash of hashtags">
@@ -103,9 +103,9 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 join">
-        <h1>{{'infographics.heading1' | translate}}</h1>
-        <p> {{'infographics.subheading1' | translate }}</p>
-        <button mat-button class="btn-color">{{'button.joinForFun' | translate}}</button>
+        <h1>Join the Best Community</h1>
+        <p> Subscribe to questnr now and start your new \n \n social life now!</p>
+        <button mat-button class="btn-color">#Join Now for FUN!</button>
       </div>
       <div class="col-md-6">
         <div>
@@ -126,9 +126,9 @@
       </div>
       <div class="col-md-6">
         <div>
-          <h1>{{'infographics.heading2' | translate}}</h1>
-          <p>{{'infographics.subheading2' | translate}}</p>
-          <button mat-button class="btn-color">{{'button.joinCommunity' | translate}}</button>
+          <h1>Be part of our next Community Events.</h1>
+          <p>Be part of our next Community Events & meet other peoples like you. Share, Discuss & maybe find you partner in crime.</p>
+          <button mat-button class="btn-color">#Join the Community</button>
         </div>
       </div>
     </div>
@@ -139,11 +139,11 @@
   <div class="row" style="height: inherit">
     <div class="col-md-6 p-5">
       <div class="upside_centered">
-        <h1 class="banner-heading" [innerHtml]="'infographics.heading3' | translate"></h1>
-        <p style="color: #ffffff;" [innerHtml]="'infographics.subheading3' | translate">
+        <h1 class="banner-heading" [innerHtml]="'infographics.heading3'"></h1>
+        <p style="color: #ffffff;" [innerHtml]="'infographics.subheading3'">
 
         </p>
-        <button mat-button class="btn-color">{{'button.joinQuestnr' | translate}}</button>
+        <button mat-button class="btn-color">#Join the Questnr Now!</button>
       </div>
     </div>
     <div class="col-md-6 p-0">
@@ -157,35 +157,35 @@
 
 <section class="our-moto">
   <div class="container">
-    <h1 class="landing-header" [innerHtml]="'moto.heading' | translate"></h1>
+    <h1 class="landing-header" [innerHtml]="'moto.heading'"></h1>
     <div class="row py-4">
       <div class="col-md-4 py-3">
         <div>
           <img src="assets/msg_icon.png" alt="msgIcon" width="80px">
         </div>
-        <h3 [innerHTML]="'moto.subheading1' | translate"></h3>
+        <h3 [innerHTML]="'moto.subheading1'"></h3>
         <p>
-          {{'moto.desc1' | translate}}
+          Members profile are verified everyday. Questnr therefore only contains motivated  members who really want to be part of the community.
         </p>
       </div>
       <div class="col-md-4 py-3">
         <div>
           <img src="assets/ui_layout.png" alt="UI" width="80px">
         </div>
-        <h3 [innerHTML]="'moto.subheading2'| translate"></h3>
+        <h3 [innerHTML]="'moto.subheading2'"></h3>
         <p>
-          {{'moto.desc2' | translate}}
+          Questnr has only simple and effective features to help you find exactly what you want.
         </p>
       </div>
       <div class="col-md-4 py-3">
         <div>
           <img src="assets/check_icon.png" alt="UI" width="80px">
         </div>
-        <h3 [innerHTML]="'moto.subheading3' | translate"></h3>
-        <p [innerHTML]="'moto.desc3'| translate">
+        <h3 [innerHTML]="'moto.subheading3'"></h3>
+        <p [innerHTML]="'moto.desc3'">
         </p>
       </div>
-      <button mat-button class="btn-color m-auto" (click)="goTo('signup')">{{'button.registerNow' | translate}}</button>
+      <button mat-button class="btn-color m-auto" (click)="goTo('signup')">Register Now!!!</button>
     </div>
   </div>
 </section>
@@ -282,7 +282,7 @@
 
       </div>
       <div class="col-md-4">
-        <div style="">
+        <div>
           <ul style="color: #ffffff" class="social">
             <li>
               <i class="fa fa-facebook-f"></i>

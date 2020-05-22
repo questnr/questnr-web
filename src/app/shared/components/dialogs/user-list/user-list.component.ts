@@ -29,7 +29,6 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.scroll, true);
-    // this.userList = this.data;
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;
@@ -42,6 +41,17 @@ export class UserListComponent implements OnInit {
       this.getFollowingUser(this.data.userId);
     } else {
       this.getFollowers(this.data.userId);
+    }
+  }
+  scroll = (event): void => {
+    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+      console.log('no im  here');
+      if (this.userList.length >= 0 && !this.endOfResult) {
+        console.log('check network call');
+        this.loading = true;
+        ++this.page;
+        // this.getUserFeeds(this.userId);
+      }
     }
   }
 

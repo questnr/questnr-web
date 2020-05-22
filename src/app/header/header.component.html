@@ -6,16 +6,16 @@
     <div class="spacer"></div>
     <ng-container *ngIf="!loginService.loggedIn()">
       <button mat-button class="btn-white" (click)="onClick('login')">
-        {{'button.login' | translate}}
+        Login
       </button>
       <button mat-button class="btn-color" (click)="onClick('signup')">
-        {{'button.joinNow' | translate}}
+        Join Now!
       </button>
     </ng-container>
     <ng-container *ngIf="loginService.loggedIn()">
       <!--<<<<<<< HEAD-->
       <!--      <button mat-button class="btn-white" (click)="signOut()">-->
-      <!--        {{'button.signOut' | translate}}-->
+      <!--        Sign Out-->
       <!--=======-->
       <button mat-button class="btn-white" routerLink="/feed">
         Go to Feeds

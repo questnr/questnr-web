@@ -18,6 +18,4 @@ build:
     paths:
       - dist/
   script:
-    - npm run build
-    - sudo rm -rf /var/www/html/*
-    - sudo cp -R dist/* /var/www/html/
+    - npm run build:ssr && npm run serve:ssr
