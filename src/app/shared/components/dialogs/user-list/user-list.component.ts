@@ -43,17 +43,6 @@ export class UserListComponent implements OnInit {
       this.getFollowers(this.data.userId);
     }
   }
-  scroll = (event): void => {
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      console.log('no im  here');
-      if (this.userList.length >= 0 && !this.endOfResult) {
-        console.log('check network call');
-        this.loading = true;
-        ++this.page;
-        // this.getUserFeeds(this.userId);
-      }
-    }
-  }
 
   scroll = (event): void => {
     if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
@@ -70,7 +59,7 @@ export class UserListComponent implements OnInit {
         // this.getUserFeeds(this.userId);
       }
     }
-  };
+  }
 
   getUserImage(src) {
     if (src == null) {
