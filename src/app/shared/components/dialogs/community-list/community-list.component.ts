@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {UserListComponent} from '../user-list/user-list.component';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Community} from '../../../../models/community.model';
 
 @Component({
@@ -11,7 +11,9 @@ import {Community} from '../../../../models/community.model';
 export class CommunityListComponent implements OnInit {
   mobileView = false;
   screenWidth = window.innerWidth;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Community) { }
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Community, public dialogRef: MatDialogRef<CommunityListComponent>) {
+  }
 
   ngOnInit(): void {
     const width = this.screenWidth;
@@ -22,5 +24,9 @@ export class CommunityListComponent implements OnInit {
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
     }
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }
