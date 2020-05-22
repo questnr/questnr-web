@@ -43,7 +43,7 @@ export class UserActivityComponent implements OnInit {
     });
   }
 
-  openUserGroupDialog(userList): void {
+  openUserGroupDialog(userId, type): void {
     let config = null;
     if (this.mobileView) {
       config = {
@@ -58,12 +58,13 @@ export class UserActivityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: userList
+        data: {userId, type}
       };
     } else {
       config = {
         width: '500px',
-        data: userList
+        // data: userList
+        data: {userId: this.userId, type}
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);
@@ -73,26 +74,26 @@ export class UserActivityComponent implements OnInit {
     });
   }
 
-  getFollowedBy() {
-    // console.log('test userId', this.profileId);
-    this.followersService.getUserFollowers(this.userId).subscribe((res: any) => {
-      // console.log('follower content' + res.content);
-      // this.followers = res.content;
-      this.openUserGroupDialog(res.content);
-    }, error => {
-      console.log(error.error.errorMessage);
-    });
-  }
-
-  getFollowingUser() {
-    this.followersService.getFollowedBy(this.userId).subscribe((res: any) => {
-      // console.log('followed content' + res.content);
-      // this.following = res.content;
-      this.openUserGroupDialog(res.content);
-    }, error => {
-      console.log(error.error.errorMessage);
-    });
-  }
+  // getFollowers() {
+  //   // console.log('test userId', this.profileId);
+  //   this.followersService.getUserFollowers(this.userId).subscribe((res: any) => {
+  //     // console.log('follower content' + res.content);
+  //     // this.followers = res.content;
+  //     // this.openUserGroupDialog(res.content);
+  //   }, error => {
+  //     console.log(error.error.errorMessage);
+  //   });
+  // }
+  //
+  // getFollowingUser() {
+  //   this.followersService.getFollowedBy(this.userId).subscribe((res: any) => {
+  //     // console.log('followed content' + res.content);
+  //     // this.following = res.content;
+  //     // this.openUserGroupDialog(res.content);
+  //   }, error => {
+  //     console.log(error.error.errorMessage);
+  //   });
+  // }
   scrollTo() {
     document.querySelector('#user-feed').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
