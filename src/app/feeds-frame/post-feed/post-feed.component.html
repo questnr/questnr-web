@@ -6,7 +6,7 @@
   <div class="post-wrap">
     <div class="icon"> <img [src]="login.profileImg"> </div>
     <div class="textbox-wrap">
-      <textarea rows="3" placeholder="Post Something...." [formControl]="text" (change)="typeCheckOnUserInput($event)"
+      <textarea rows="3" placeholder="Post Something...." [formControl]="text" (input)="typeCheckOnUserInput($event)"
         (keyup)="typeCheckOnUserInput($event)" #userInputRef>
       </textarea>
     </div>

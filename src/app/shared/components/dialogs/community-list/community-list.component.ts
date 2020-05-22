@@ -24,7 +24,6 @@ export class CommunityListComponent implements OnInit {
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
     }
-
   }
 
   onNoClick(): void {

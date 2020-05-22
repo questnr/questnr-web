@@ -38,7 +38,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
         items: 3
       },
       740: {
-        items: 3
+        items: 4
       },
       940: {
         items: 4

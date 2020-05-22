@@ -126,6 +126,7 @@ export class PostFeedComponent {
     this.isMediaEnabled = false;
     this.uploadProgress = 0;
     this.text.setValue('');
+    this.iFramelyData = null;
     this.addedMediaSrc = this.addedMedias = [];
   }
 

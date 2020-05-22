@@ -131,20 +131,23 @@ export class RecommendedFeedsComponent implements OnInit {
       this.isCommentLoading = true;
       const body = {
         postId: id,
-        parentCommentId: this.replyingTo ? this.replyingTo.commentId : 0,
+        parentCommentId: this.replyingTo ? this.replyingTo.parentCommentId || this.replyingTo.commentId : 0,
         commentObject: this.comment.value
       };
       if (this.comment.valid) {
         this.api.postComment(id, body).subscribe(
           (res: CommentAction) => {
-            if (this.replyingTo && this.replyingTo.commentId) {
+            if (this.replyingTo && (this.replyingTo.parentCommentId || this.replyingTo.commentId)) {
               this.feed.commentActionList.forEach(c => {
-                if (c.commentActionId === this.replyingTo.commentId) {
-                  c.childCommentDTOSet.push(res);
+                if (c.commentActionId === this.replyingTo.commentId || c.commentActionId === this.replyingTo.parentCommentId) {
+                  if (!c.childCommentDTOSet) {
+                    c.childCommentDTOSet = [];
+                  }
+                  c.childCommentDTOSet.unshift(res);
                 }
               });
             } else {
-              this.feed.commentActionList.push(res);
+              this.feed.commentActionList.unshift(res);
             }
             ++this.feed.totalComments;
             this.isCommentLoading = false;
@@ -157,6 +160,7 @@ export class RecommendedFeedsComponent implements OnInit {
       }
     }
   }
+
   replyTo(event) {
     this.replyingTo = event;
     this.commentInput.nativeElement.focus();

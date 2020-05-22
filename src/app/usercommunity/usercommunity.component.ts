@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
 import {Community} from '../models/community.model';
 import {OwlOptions} from 'ngx-owl-carousel-o';
+import {CommunityListComponent} from '../shared/components/dialogs/community-list/community-list.component';
 
 @Component({
   selector: 'app-usercommunity',
@@ -22,7 +23,7 @@ export class UsercommunityComponent implements OnInit {
   @Input() defaultImage = 'assets/default.jpg';
   @Input() relation;
   baseUrl = environment.baseUrl;
-  ownedCommunity: Community;
+  ownedCommunity: Community[];
   loader = true;
   screenWidth = window.innerWidth;
   mobileView = false;
@@ -76,6 +77,35 @@ export class UsercommunityComponent implements OnInit {
       if (result === 'true') {
         this.getUserOwnedCommunity();
       }
+    });
+  }
+  openCommunityDialog(communityList): void {
+    let config = null;
+    if (this.mobileView) {
+      config = {
+        position: {
+          top: '0',
+          right: '0'
+        },
+        height: '100%',
+        borderRadius: '0px',
+        width: '100%',
+        maxWidth: '100vw',
+        marginTop: '0px',
+        marginRight: '0px !important',
+        panelClass: 'full-screen-modal',
+        data: communityList
+      };
+    } else {
+      config = {
+        width: '700px',
+        data: communityList
+      };
+    }
+    const dialogRef = this.dialog.open(CommunityListComponent, config);
+
+    dialogRef.afterClosed().subscribe(result => {
+
     });
   }
 

@@ -61,8 +61,7 @@
           <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'image'">
             <div class="media">
               <img class="post-media" [src]="media.postMediaLink" alt="">
-              <div class="background-blur" [style.backgroundImage]="'url(' + media.postMediaLink + ')'"
-              ></div>
+              <div class="background-blur" [style.backgroundImage]="'url(' + media.postMediaLink + ')'"></div>
             </div>
           </ng-template>
           <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'video'">
@@ -98,9 +97,8 @@
   <div class="comments" [@expand]="isCommenting ? 'expanded' : 'collapsed'">
     <div class="wrap">
       <div class="wrap-items">
-        <button *ngIf="feed.commentActionList?.length> 0 && !endOfComments" mat-button (click)="getComments()">Load more
+        <button mat-button (click)="getComments()">Load more
           comments</button>
-        <p *ngIf="endOfComments" class="text-center m-0">- End -</p>
         <div class="loader" *ngIf="isCommentLoading" style="justify-content: flex-start;">
           <ngx-skeleton-loader count="1" appearance="circle"
             [theme]="{height: '45px', width: '45px','background-color': '#eee'}"> </ngx-skeleton-loader>
@@ -112,7 +110,8 @@
             <app-comment-box class="comment-item" [comment]="comment" (reply)="replyTo($event)"></app-comment-box>
             <div class="subComments" *ngIf="comment.childCommentDTOSet?.length">
               <div class="child-comment" *ngFor="let item of comment.childCommentDTOSet">
-                <app-comment-box class="comment-item" [comment]="item" (reply)="replyTo($event)"></app-comment-box>
+                <app-comment-box class="comment-item" [comment]="item" [parentComment]="comment"
+                  (reply)="replyTo($event)"></app-comment-box>
               </div>
             </div>
           </div>
