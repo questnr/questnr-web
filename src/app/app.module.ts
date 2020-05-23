@@ -93,7 +93,8 @@ import { DotComponent } from './dot/dot.component';
 import { HorizontalProfileComponent } from './horizontal-profile/horizontal-profile.component';
 import { CommunityCardMobileViewComponent } from './shared/components/community-card-mobile-view/community-card-mobile-view.component';
 import { JoinedCommunityComponent } from './joined-community/joined-community.component'
-import { TimeStringComponent } from './time-string/time-string.component'
+import { TimeStringComponent } from './time-string/time-string.component';
+import {CommunityResolve} from './community/community.resolve';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -231,7 +232,8 @@ export function HttpLoaderFactory(http: HttpClient) {
             provide: AuthServiceConfig,
             useFactory: provideConfig
         },
-        MessagingService
+        MessagingService,
+        CommunityResolve
     ],
     exports: [
         JoinedCommunityComponent

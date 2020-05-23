@@ -1,4 +1,9 @@
-image: juristr/angular-ci-build:1.0.0
+image: node:latest
+
+cache:
+  paths:
+  - node_modules/
+
 stages:
   - build
   
@@ -18,4 +23,6 @@ build:
     paths:
       - dist/
   script:
-    - npm run build:ssr && npm run serve:ssr
+    - npm run build:ssr
+    - pkill -f node || true
+    - screen -d -m bash -c "npm run serve:ssr > /var/tmp/server.log 2>&1"

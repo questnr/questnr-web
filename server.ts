@@ -1,27 +1,40 @@
 import 'zone.js/dist/zone-node';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
-const expressStaticGzip = require("express-static-gzip");
+// const expressStaticGzip = require("express-static-gzip");
 import * as express from 'express';
 import { join } from 'path';
+const cors = require('cors');
 
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import 'localstorage-polyfill'
-const MockBrowser = require('mock-browser').mocks.MockBrowser;
-const mock = new MockBrowser();
- 
+import * as FormData from 'form-data';
+
+const domino = require('domino');
+
+const distFolder = join(process.cwd(), 'dist/questnr-front-end/browser');
+
+const template = readFileSync(join(distFolder, 'index.html')).toString();
+
+const win = domino.createWindow(template);
+
 global['localStorage'] = localStorage;
- 
-global['document'] = mock.getDocument();
-global['window'] = mock.getWindow();
-global['FormData'] = require('isomorphic-form-data').FormData;
+global['FormData'] = FormData;
+global['window'] = win;
+global['Node'] = win.Node;
+global['navigator'] = win.navigator;
+global['Event'] = win.Event;
+global['Event']['prototype'] = win.Event.prototype;
+global['document'] = win.document;
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
   const server = express();
-  const distFolder = join(process.cwd(), 'dist/questnr-front-end/browser');
+
+  server.use(cors());
+
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
@@ -32,9 +45,9 @@ export function app() {
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
-  server.get('*.*', expressStaticGzip(distFolder, {
-    enableBrotli: true
-  }))
+  // server.get('*.*', expressStaticGzip(distFolder, {
+  //   enableBrotli: true
+  // }))
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
