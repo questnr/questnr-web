@@ -38,6 +38,8 @@
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "angularx-social-login": "^2.2.1",
+    "cors": "^2.8.5",
+    "domino": "^2.1.5",
     "express": "^4.15.2",
     "express-static-gzip": "^2.0.6",
     "firebase": "^7.14.2",
