@@ -97,7 +97,7 @@ export class UsercommunityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: {userId : this.userId, community}
+        data: {userId : this.userId, community, type: 'ownedCommunity'}
       };
     } else {
       config = {

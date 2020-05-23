@@ -149,6 +149,9 @@ export class CommunityComponent implements OnInit {
   previewImage() {
     const src = document.getElementById('communityImageSrc').click();
   }
+  navigate(slug) {
+    window.open('/user/' + slug, '_self');
+  }
 
   onFileChange(event) {
     const reader = new FileReader();

@@ -5,8 +5,11 @@ import {UserProfileCardServiceComponent} from '../../../../user-profile-card/use
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserListService} from './user-list.service';
 import {UserFollowersService} from '../../../../user-followers/user-followers.service';
+import {CommunityMembersService} from '../../../../community-users/community-members.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
@@ -15,7 +18,9 @@ export class UserListComponent implements OnInit {
   loading = true;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public  userProfileCardServiceComponent: UserProfileCardServiceComponent,
-              public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>, public followersService: UserFollowersService) {
+              // tslint:disable-next-line:max-line-length
+              public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>, public followersService: UserFollowersService,
+              public communityMembersService: CommunityMembersService) {
   }
 
   userList: User[] = [];
@@ -39,8 +44,11 @@ export class UserListComponent implements OnInit {
     }
     if (this.data.type === 'following') {
       this.getFollowingUser(this.data.userId);
-    } else {
+    } else if (this.data.type === 'followers') {
       this.getFollowers(this.data.userId);
+    } else {
+      const url = window.location.pathname.split('/')[2];
+      this.getCommunityMembers(url);
     }
   }
 
@@ -53,10 +61,12 @@ export class UserListComponent implements OnInit {
         ++this.page;
         if (this.data.type === 'following') {
           this.getFollowingUser(this.data.userId);
-        } else {
+        } else if (this.data.type === 'followers') {
           this.getFollowers(this.data.userId);
+        } else {
+          const url = window.location.pathname.split('/')[2];
+          this.getCommunityMembers(url);
         }
-        // this.getUserFeeds(this.userId);
       }
     }
   }
@@ -143,6 +153,24 @@ export class UserListComponent implements OnInit {
       console.log('follower content', this.userList);
     }, error => {
       console.log(error.error.errorMessage);
+      this.loading = false;
+    });
+  }
+
+  getCommunityMembers(url) {
+    this.loading = true;
+    this.communityMembersService.getCommunityMembers(url, this.page).subscribe((data: any) => {
+      if (data.content.length) {
+        data.content.forEach(user => {
+          this.userList.push(user);
+          this.loading = false;
+        });
+      } else {
+        this.loading = false;
+        this.endOfResult = true;
+      }
+      this.loading = false;
+    }, error => {
       this.loading = false;
     });
   }
