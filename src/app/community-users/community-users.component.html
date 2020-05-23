@@ -1,19 +1,37 @@
-
-<div class="com-members-container box">
+<div class="com-members-container box" *ngIf="userListType === 'list'">
   <h1 class="heading">Members</h1>
-  <div *ngIf="communityMemberList.length ; else noMembers">
+  <div *ngIf="communityMemberList?.length ; else noMembers" class="members-list">
     <div class="" *ngFor="let i of communityMemberList" [id]="i.userId">
       <app-user-list-view [user]="i"></app-user-list-view>
     </div>
-    <p (click)="openUserGroupDialog(communityMemberList)"> View more.</p>
+    <p (click)="openUserGroupDialog('members')" *ngIf="communityMemberList?.length > 5"> View more.</p>
   </div>
 
-   <ng-template #noMembers>
-     <span> No one following this community yet.</span>
-   </ng-template>
+  <ng-template #noMembers>
+    <span *ngIf="!loader"> No one following this community yet.</span>
+  </ng-template>
 
   <div *ngIf="loader">
     <div *ngFor="let i of ' '.repeat(3).split('')">
       <app-user-list-loader></app-user-list-loader>
     </div>
+  </div>
+</div>
+
+
+<div class="user_list_ribbon" *ngIf="userListType ==='ribbon'">
+  <ul class="ribbon">
+    <li class="ribbon_list" *ngFor="let i of communityMemberList let idx = index" >
+     <div>
+       <div class="ribbon_img" (click)="navigate(i?.slug)">
+         <img [src]="checkImage(i?.avatarDTO?.avatarLink)" [alt]="i?.username" [matTooltip]="i.username">
+       </div>
+     </div>
+    </li>
+    <li class="ribbon_list">
+      <div class="ribbon_img" style="padding: 0" (click)="openUserGroupDialog('members')">
+        <img src="/assets/next.png" alt="default">
+      </div>
+    </li>
+  </ul>
 </div>

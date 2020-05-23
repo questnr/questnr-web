@@ -42,7 +42,7 @@ export class UserListComponent implements OnInit {
     }
     if (this.data.type === 'following') {
       this.getFollowingUser(this.data.userId);
-    } else if(this.data.type === 'following') {
+    } else if(this.data.type === 'followers') {
       this.getFollowers(this.data.userId);
     } else {
       const url = window.location.pathname.split('/')[2];
@@ -59,7 +59,7 @@ export class UserListComponent implements OnInit {
         ++this.page;
         if (this.data.type === 'following') {
           this.getFollowingUser(this.data.userId);
-        } else if(this.data.type === 'following') {
+        } else if(this.data.type === 'followers') {
           this.getFollowers(this.data.userId);
         } else {
           const url = window.location.pathname.split('/')[2];

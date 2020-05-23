@@ -7,6 +7,8 @@ import {ActivatedRoute} from '@angular/router';
 import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
 import {MatDialog} from '@angular/material/dialog';
 import {CommunityMembersService} from './community-members.service';
+import {Community} from '../models/community.model';
+import {User} from '../models/user.model';
 
 @Component({
   selector: 'app-community-users',
@@ -16,7 +18,8 @@ import {CommunityMembersService} from './community-members.service';
 export class CommunityUsersComponent implements OnInit {
   baseUrl = environment.baseUrl;
   url: string;
-  communityMemberList = [];
+  @Input() userListType;
+  communityMemberList: User[] = [];
   loader = false;
   mobileView = false;
   screenWidth = window.innerWidth;
@@ -97,5 +100,15 @@ export class CommunityUsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
     });
+  }
+  checkImage(src) {
+    if (src) {
+      return src;
+    } else {
+      return '/assets/default.jpg';
+    }
+  }
+  navigate(slug) {
+    window.open('/user/' + slug, '_self');
   }
 }

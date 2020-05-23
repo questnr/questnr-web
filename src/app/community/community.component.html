@@ -45,6 +45,7 @@
           <div class="flex-7" [ngClass]="{'flex-7-mobile' : mobileView}">
             <div class="community-feeds">
               <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"></app-post-feed>
+              <app-community-users [userListType]="'ribbon'"></app-community-users>
               <ng-container *ngIf="userFeeds?.length; else noFeeds">
                 <div class="feed-wrap" *ngFor="let feed of userFeeds">
                   <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
@@ -63,7 +64,7 @@
 
 
       <div class="flex-3" *ngIf="!mobileView">
-        <app-community-users ></app-community-users>
+        <app-community-users [userListType]="'list'"></app-community-users>
         <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>
         <app-suggestion></app-suggestion>
         <app-trending></app-trending>
