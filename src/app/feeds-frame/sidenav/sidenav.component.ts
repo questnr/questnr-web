@@ -35,7 +35,7 @@ export class SidenavComponent implements OnInit {
         }
       }, err => { this.loadingHashtags = false; });
 
-    this.api.getJoinedCommunities(this.loginService.getUserId()).subscribe(
+    this.api.getJoinedCommunities(this.loginService.getUserId(), 0).subscribe(
       (res: any) => {
         this.loadingCommunities = false;
         if (res.content.length) {

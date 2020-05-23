@@ -14,6 +14,13 @@
       </div>
       <a class="link" routerLink="">{{item.communityName}}</a>
     </div>
+    <div class="row" *ngIf="joinedCommunity?.length === 5">
+      <div class="col">
+      </div>
+      <div class="col">
+        <p style="text-align: right; padding: 0 20px; color:#ff5252" (click)="openCommunityDialog(joinedCommunity)">view more.</p>
+      </div>
+    </div>
   </ng-container>
   <ng-container *ngIf="!joinedCommunity?.length && !loadingCommunities">
     <p>

@@ -7,6 +7,7 @@ import {UserListComponent} from '../shared/components/dialogs/user-list/user-lis
 import {Community} from '../models/community.model';
 import {OwlOptions} from 'ngx-owl-carousel-o';
 import {CommunityListComponent} from '../shared/components/dialogs/community-list/community-list.component';
+import {UsercommunityService} from './usercommunity.service';
 
 @Component({
   selector: 'app-usercommunity',
@@ -15,7 +16,7 @@ import {CommunityListComponent} from '../shared/components/dialogs/community-lis
 })
 export class UsercommunityComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, public http: HttpClient) {
+  constructor(public dialog: MatDialog, public http: HttpClient, public usercommunityService: UsercommunityService) {
   }
   @Input() profileUserId: number;
   @Input() userId: number;
@@ -27,6 +28,8 @@ export class UsercommunityComponent implements OnInit {
   loader = true;
   screenWidth = window.innerWidth;
   mobileView = false;
+  endOfResult = false;
+  page = 0;
   customOptions: OwlOptions = {
     loop: false,
     mouseDrag: true,
@@ -79,7 +82,7 @@ export class UsercommunityComponent implements OnInit {
       }
     });
   }
-  openCommunityDialog(communityList): void {
+  openCommunityDialog(community): void {
     let config = null;
     if (this.mobileView) {
       config = {
@@ -94,12 +97,13 @@ export class UsercommunityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: communityList
+        data: {userId : this.userId, community}
       };
     } else {
       config = {
         width: '700px',
-        data: communityList
+        // height: '300px',
+        data: {userId : this.userId, community, type: 'ownedCommunity'}
       };
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);
@@ -111,7 +115,7 @@ export class UsercommunityComponent implements OnInit {
 
   getUserOwnedCommunity() {
     this.loader = true;
-    this.http.get(this.baseUrl + 'user/' + this.userId + '/community').subscribe((res: any) => {
+    this.usercommunityService.getUserOwnedCommunity(this.userId, this.page).subscribe((res: any) => {
       this.loader = false;
       this.ownedCommunity = res.content;
       // console.log(res.content);
