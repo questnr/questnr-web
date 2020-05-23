@@ -6,6 +6,12 @@
       <div class="flex-7" [ngClass]="{'flex-7-mobile' : mobileView}">
         <div class="community-feeds-container">
           <div class="com-ban-img-container">
+            <div *ngIf="mobileView" class="community_owner">
+              <div class="owner-img" (click)="navigate(communityDTO?.ownerUserDTO?.slug)">
+                <img [src]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink ? communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink: '/assets/default.jpg' "
+                     [alt]="communityDTO?.ownerUserDTO?.username">
+              </div>
+            </div>
             <div class="change-comm-img">
               <mat-icon (click)="previewImage()" *ngIf="owner == 'owned'">camera</mat-icon>
               <input type="file" style="display: none" id="communityImageSrc" (change)="onFileChange($event)">
@@ -45,7 +51,9 @@
           <div class="flex-7" [ngClass]="{'flex-7-mobile' : mobileView}">
             <div class="community-feeds">
               <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"></app-post-feed>
-              <app-community-users [userListType]="'ribbon'"></app-community-users>
+              <app-community-users [userListType]="'ribbon'" *ngIf="mobileView"></app-community-users>
+<!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
+              <app-joined-community *ngIf="mobileView"></app-joined-community>
               <ng-container *ngIf="userFeeds?.length; else noFeeds">
                 <div class="feed-wrap" *ngFor="let feed of userFeeds">
                   <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
