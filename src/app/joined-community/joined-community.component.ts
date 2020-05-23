@@ -45,7 +45,7 @@ export class JoinedCommunityComponent implements OnInit {
   constructor(public api: ApiService, public loginService: LoginService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.api.getJoinedCommunities(this.loginService.getUserId()).subscribe(
+    this.api.getJoinedCommunities(this.loginService.getUserId(), 0).subscribe(
       (res: any) => {
         this.loadingCommunities = false;
         if (res.content.length) {
@@ -70,7 +70,7 @@ export class JoinedCommunityComponent implements OnInit {
       return  '/assets/default.jpg';
     }
   }
-  openCommunityDialog(communityList): void {
+  openCommunityDialog(community): void {
     let config = null;
     if (this.mobileView) {
       config = {
@@ -85,12 +85,12 @@ export class JoinedCommunityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: communityList
+        data: {userId: null, community, type: 'joinedCommunity'}
       };
     } else {
       config = {
         width: '700px',
-        data: communityList
+        data: {userId: null, community}
       };
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);

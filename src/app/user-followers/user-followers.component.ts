@@ -16,7 +16,8 @@ export class UserFollowersComponent implements OnInit {
   @Input() userId: number;
   followers: User[];
   following: User[];
-  mobileView =false ;
+  mobileView = false ;
+  page = 0;
   screenWidth = window.innerWidth;
 
   constructor(public followersService: UserFollowersService, public loginService: LoginService,
@@ -41,7 +42,7 @@ export class UserFollowersComponent implements OnInit {
 
   getFollowingUser() {
     // console.log('test userId', this.profileId);
-    this.followersService.getUserFollowers(this.userId).subscribe((res: any) => {
+    this.followersService.getUserFollowers(this.userId, this.page).subscribe((res: any) => {
       // console.log('follower content' + res.content);
       this.followers = res.content;
     }, error => {
@@ -50,7 +51,7 @@ export class UserFollowersComponent implements OnInit {
   }
 
   getFollowedBy() {
-    this.followersService.getFollowedBy(this.userId).subscribe((res: any) => {
+    this.followersService.getFollowedBy(this.userId, this.page).subscribe((res: any) => {
       // console.log('followed content' + res.content);
       this.following = res.content;
     }, error => {
