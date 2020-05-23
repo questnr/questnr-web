@@ -9,6 +9,7 @@ import {CommunityMembersService} from '../../../../community-users/community-mem
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
@@ -17,8 +18,9 @@ export class UserListComponent implements OnInit {
   loading = true;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public  userProfileCardServiceComponent: UserProfileCardServiceComponent,
+              // tslint:disable-next-line:max-line-length
               public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>, public followersService: UserFollowersService,
-              public communityMembersService: CommunityMembersService, public route: ActivatedRoute) {
+              public communityMembersService: CommunityMembersService) {
   }
 
   userList: User[] = [];
@@ -42,7 +44,7 @@ export class UserListComponent implements OnInit {
     }
     if (this.data.type === 'following') {
       this.getFollowingUser(this.data.userId);
-    } else if(this.data.type === 'followers') {
+    } else if (this.data.type === 'followers') {
       this.getFollowers(this.data.userId);
     } else {
       const url = window.location.pathname.split('/')[2];
@@ -59,7 +61,7 @@ export class UserListComponent implements OnInit {
         ++this.page;
         if (this.data.type === 'following') {
           this.getFollowingUser(this.data.userId);
-        } else if(this.data.type === 'followers') {
+        } else if (this.data.type === 'followers') {
           this.getFollowers(this.data.userId);
         } else {
           const url = window.location.pathname.split('/')[2];
@@ -67,7 +69,7 @@ export class UserListComponent implements OnInit {
         }
       }
     }
-  };
+  }
 
   getUserImage(src) {
     if (src == null) {

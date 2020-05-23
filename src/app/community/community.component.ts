@@ -34,13 +34,12 @@ export class CommunityComponent implements OnInit {
   loading = true;
   communityId: any;
   mobileView = false;
+  screenWidth = window.innerWidth;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
     private route: ActivatedRoute, public loginAuth: LoginService, private titleService: Title) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
   }
-
-  screenWidth = window.innerWidth;
 
   openCommunityDesc(desc: any, communityImg: any): void {
     // console.log();
@@ -57,7 +56,6 @@ export class CommunityComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.addEventListener('scroll', this.scroll, true);
     this.communitySlug = this.route.snapshot.paramMap.get('communitySlug');
     this.route.data.subscribe((data: { community: Community }) => {
       this.communityDTO = data.community;
@@ -65,8 +63,11 @@ export class CommunityComponent implements OnInit {
       this.ownerDTO = this.communityDTO.ownerUserDTO;
       this.owner = this.communityDTO.communityMeta.relationShipType;
       this.fetchCommunityFeeds(this.communityDTO.communityId);
-    })
-    // this.fetchCommunity(this.communitySlug);
+    });
+  }
+
+  ngAfterViewInit() {
+    window.addEventListener('scroll', this.scroll, true);
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;
