@@ -22,8 +22,8 @@ export class ApiService {
   getTopUsers() {
     return this.http.get(this.baseUrl + 'users-with-highest-rank');
   }
-  getJoinedCommunities(userId: number) {
-    return this.http.get(this.baseUrl + `user/${userId}/join/community`);
+  getJoinedCommunities(userId: number, page) {
+    return this.http.get(this.baseUrl + `user/${userId}/join/community`, {params: {page}});
   }
   getSuggestedCommunities() {
     return this.http.get(this.baseUrl + 'community/suggested-community-list');

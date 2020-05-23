@@ -52,8 +52,14 @@
       text-overflow: ellipsis;
     }
     .relation-btn{
-      min-width: auto;
       padding: 0px;
+      button{
+        width: fit-content;
+        width: -moz-fit-content;
+      }
     }
   }
+}
+.align-right{
+  text-align: right;
 }

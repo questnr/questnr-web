@@ -139,7 +139,7 @@ export class UserProfilePageComponent implements OnInit {
     });
   }
   getCommunityFollowedByUser() {
-    this.api.getJoinedCommunities(this.loginService.getUserId()).subscribe((res: any) => {
+    this.api.getJoinedCommunities(this.loginService.getUserId(), 0).subscribe((res: any) => {
     }, error => {
       console.log(error.error.errorMessage);
     });

@@ -2,20 +2,20 @@
   <div class="">
     <ul>
       <li>
-        <div (click)="getFollowedBy()">
-          <h3>{{userInfo?.followers}}</h3>
+        <div >
+          <h3 (click)="openUserGroupDialog(userId, 'followers')">{{userInfo?.followers}}</h3>
           <p>Followers</p>
         </div>
       </li>
       <li>
-        <div (click)="getFollowingUser()">
-          <h3>{{userInfo?.followingTo}}</h3>
+        <div >
+          <h3 (click)="openUserGroupDialog(userId, 'following')">{{userInfo?.followingTo}}</h3>
           <p>Following</p>
         </div>
       </li>
       <li>
-        <div (click)="scrollTo()">
-          <h3>{{userInfo?.posts}}</h3>
+        <div >
+          <h3 (click)="scrollTo()">{{userInfo?.posts}}</h3>
           <p>Total Posts</p>
         </div>
       </li>

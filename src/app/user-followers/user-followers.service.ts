@@ -9,10 +9,10 @@ export class UserFollowersService {
 
   constructor(public http: HttpClient) { }
   baseUrl = environment.baseUrl;
-  getUserFollowers(userId) {
-    return this.http.get(this.baseUrl + 'user/follow/following/user/' + userId);
+  getUserFollowers(userId, page) {
+    return this.http.get(this.baseUrl + 'user/follow/following/user/' + userId, {params: { page } } );
   }
-  getFollowedBy(userId) {
-    return this.http.get(this.baseUrl + 'user/follow/user/following/' + userId);
+  getFollowedBy(userId, page) {
+    return this.http.get(this.baseUrl + 'user/follow/user/following/' + userId, {params: { page } } );
   }
 }
