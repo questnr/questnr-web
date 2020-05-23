@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Meta, Title } from "@angular/platform-browser";
 import { ActivatedRoute } from '@angular/router';
 import { LoginService } from '../auth/login.service';
 import { Community } from '../models/community.model';
@@ -11,6 +10,7 @@ import { User } from '../models/user.model';
 import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
 import { GlobalConstants } from '../shared/constants';
 import { CommunityService } from './community.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-community',
@@ -34,13 +34,12 @@ export class CommunityComponent implements OnInit {
   loading = true;
   communityId: any;
   mobileView = false;
+  screenWidth = window.innerWidth;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
-    private route: ActivatedRoute, public loginAuth: LoginService, private meta: Meta, private titleService: Title) {
+    private route: ActivatedRoute, public loginAuth: LoginService, private titleService: Title) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
   }
-
-  screenWidth = window.innerWidth;
 
   openCommunityDesc(desc: any, communityImg: any): void {
     // console.log();
@@ -57,7 +56,6 @@ export class CommunityComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.addEventListener('scroll', this.scroll, true);
     this.communitySlug = this.route.snapshot.paramMap.get('communitySlug');
     this.route.data.subscribe((data: { community: Community }) => {
       this.communityDTO = data.community;
@@ -65,20 +63,11 @@ export class CommunityComponent implements OnInit {
       this.ownerDTO = this.communityDTO.ownerUserDTO;
       this.owner = this.communityDTO.communityMeta.relationShipType;
       this.fetchCommunityFeeds(this.communityDTO.communityId);
+    });
+  }
 
-      this.titleService.setTitle(this.communityDTO.communityName + " | Questnr");
-
-      for (let i = 0; i < this.communityDTO.metaList.length; i++) {
-        console.log(this.communityDTO.metaList[i].metaInformation.attributeType);
-        setTimeout(() => {
-          this.meta.updateTag({
-            [this.communityDTO.metaList[i].metaInformation.attributeType]: this.communityDTO.metaList[i].metaInformation.type,
-            content: this.communityDTO.metaList[i].metaInformation.content
-          });
-        }, 0);
-      }
-    })
-    // this.fetchCommunity(this.communitySlug);
+  ngAfterViewInit() {
+    window.addEventListener('scroll', this.scroll, true);
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;
