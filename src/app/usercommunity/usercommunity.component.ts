@@ -82,7 +82,7 @@ export class UsercommunityComponent implements OnInit {
       }
     });
   }
-  openCommunityDialog(communityList): void {
+  openCommunityDialog(community): void {
     let config = null;
     if (this.mobileView) {
       config = {
@@ -97,12 +97,13 @@ export class UsercommunityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: communityList
+        data: {userId : this.userId, community}
       };
     } else {
       config = {
         width: '700px',
-        data: this.userId
+        // height: '300px',
+        data: {userId : this.userId, community, type: 'ownedCommunity'}
       };
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);
