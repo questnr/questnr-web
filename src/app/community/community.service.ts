@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Community } from '../models/community.model';
 
@@ -31,8 +31,8 @@ export class CommunityService {
   }
   unfollowCommunityService(communityId, userId) {
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}), body: { userId}
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: { userId }
     };
-    return this.http.delete(this.baseUrl + 'user/join/community/' + communityId, httpOptions );
+    return this.http.delete(this.baseUrl + 'user/join/community/' + communityId, httpOptions);
   }
 }

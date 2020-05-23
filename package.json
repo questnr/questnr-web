@@ -43,7 +43,7 @@
     "express": "^4.15.2",
     "express-static-gzip": "^2.0.6",
     "firebase": "^7.14.2",
-    "isomorphic-form-data": "^2.0.0",
+    "form-data": "^3.0.0",
     "jquery": "^3.4.1",
     "jwt-decode": "^2.2.0",
     "localstorage-polyfill": "^1.0.1",

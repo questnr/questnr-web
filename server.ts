@@ -10,6 +10,8 @@ import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync, readFileSync } from 'fs';
 import 'localstorage-polyfill'
+import * as FormData from 'form-data';
+
 const domino = require('domino');
 
 const distFolder = join(process.cwd(), 'dist/questnr-front-end/browser');
@@ -19,7 +21,7 @@ const template = readFileSync(join(distFolder, 'index.html')).toString();
 const win = domino.createWindow(template);
 
 global['localStorage'] = localStorage;
-global['FormData'] = require('isomorphic-form-data').FormData;
+global['FormData'] = FormData;
 global['window'] = win;
 global['Node'] = win.Node;
 global['navigator'] = win.navigator;
@@ -30,9 +32,9 @@ global['document'] = win.document;
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
   const server = express();
-  
+
   server.use(cors());
-  
+
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
