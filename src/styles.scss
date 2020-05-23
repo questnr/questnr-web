@@ -23,28 +23,28 @@ button {
     outline: none !important;
   }
 }
-
-::-webkit-scrollbar {
-  width: 5px;
-}
-::-webkit-scrollbar:horizontal {
-  height: 5px;
-  z-index: 9999;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-  &:hover {
-    background: rgba(0, 0, 0, 0.2);
-  }
-}
-::-webkit-scrollbar-thumb {
-  background: rgba($primary, 0.8);
-  border-radius: 10px;
-  &:hover {
-    cursor: pointer;
-    background: $primary;
-  }
-}
+//
+//::-webkit-scrollbar {
+//  width: 5px;
+//}
+//::-webkit-scrollbar:horizontal {
+//  height: 5px;
+//  z-index: 9999;
+//}
+//::-webkit-scrollbar-track {
+//  background: transparent;
+//  &:hover {
+//    background: rgba(0, 0, 0, 0.2);
+//  }
+//}
+//::-webkit-scrollbar-thumb {
+//  background: rgba($primary, 0.8);
+//  border-radius: 10px;
+//  &:hover {
+//    cursor: pointer;
+//    background: $primary;
+//  }
+//}
 .mat-drawer-content {
   background: #efefef;
 }

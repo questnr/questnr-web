@@ -90,7 +90,7 @@ export class JoinedCommunityComponent implements OnInit {
     } else {
       config = {
         width: '700px',
-        data: {userId: null, community}
+        data: {userId: null, community, type: 'joinedCommunity'}
       };
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);

@@ -10,6 +10,7 @@ import {LoginService} from '../../auth/login.service';
 })
 export class UserListViewComponent implements OnInit {
   @Input() user: User;
+  @Input() userListRibbon;
   relation: any;
   screenWidth = window.innerWidth;
   mobileView = false;
