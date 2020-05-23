@@ -20,13 +20,17 @@ import { UserProfilePageComponent } from './user-profile-page/user-profile-page.
 import { SinglePostComponent } from 'single-post/single-post.component';
 import { FeedsLoaderComponent } from 'feeds-frame/recommended-feeds/feeds-loader/feeds-loader.component';
 import { NotificationItemComponent } from 'feeds-frame/notification-item/notification-item.component';
-
+import { CommunityResolve } from './community/community.resolve';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'feed', component: FeedsFrameComponent, canActivate: [AuthGuard] },
   { path: 'header', component: HeaderComponent },
-  { path: 'community/:communitySlug', component: CommunityComponent },
+  {
+    path: 'community/:communitySlug', component: CommunityComponent, resolve: {
+      community: CommunityResolve
+    }
+  },
   { path: 'post/:postSlug', component: SinglePostComponent },
   { path: 'user/:userSlug', component: UserProfilePageComponent },
   { path: '**', redirectTo: '' }
@@ -42,7 +46,7 @@ export interface Tile {
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
     initialNavigation: 'enabled'
-})],
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
