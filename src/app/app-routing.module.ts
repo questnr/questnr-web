@@ -21,6 +21,7 @@ import { SinglePostComponent } from 'single-post/single-post.component';
 import { FeedsLoaderComponent } from 'feeds-frame/recommended-feeds/feeds-loader/feeds-loader.component';
 import { NotificationItemComponent } from 'feeds-frame/notification-item/notification-item.component';
 import { CommunityResolve } from './community/community.resolve';
+import { MetaGuard } from '@ngx-meta/core';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -29,7 +30,8 @@ const routes: Routes = [
   {
     path: 'community/:communitySlug', component: CommunityComponent, resolve: {
       community: CommunityResolve
-    }
+    },
+    canActivateChild: [MetaGuard]
   },
   { path: 'post/:postSlug', component: SinglePostComponent },
   { path: 'user/:userSlug', component: UserProfilePageComponent },
