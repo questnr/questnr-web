@@ -6,6 +6,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { Validators, FormControl } from '@angular/forms';
 import { LoginService } from 'auth/login.service';
+import { UIService } from 'ui/ui.service';
 
 @Component({
   selector: 'app-single-post',
@@ -51,7 +52,8 @@ export class SinglePostComponent implements OnInit {
   };
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
-    private loginService: LoginService) {
+    private loginService: LoginService,
+    private uiService: UIService) {
     this.postSlug = this.route.snapshot.paramMap.get('postSlug');
   }
 
@@ -61,8 +63,8 @@ export class SinglePostComponent implements OnInit {
 
   fetchPost(postSlug: string) {
     this.singlePostService.getSinglePost(postSlug).subscribe((singlePost: SinglePost) => {
+      this.uiService.setMetaTagsAndTitle(singlePost.title, singlePost.metaList);
       this.singlePost = singlePost;
-      console.log('singlePost', singlePost);
       this.isLoading = false;
     });
   }
