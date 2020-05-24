@@ -3,14 +3,13 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { UIService } from 'ui/ui.service';
 import { LoginService } from '../auth/login.service';
 import { Community } from '../models/community.model';
 import { Post } from '../models/post-action.model';
 import { User } from '../models/user.model';
 import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
-import { GlobalConstants } from '../shared/constants';
 import { CommunityService } from './community.service';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-community',
@@ -37,7 +36,7 @@ export class CommunityComponent implements OnInit {
   screenWidth = window.innerWidth;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
-    private route: ActivatedRoute, public loginAuth: LoginService, private titleService: Title) {
+    private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
   }
 
@@ -80,7 +79,7 @@ export class CommunityComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.titleService.setTitle(GlobalConstants.siteTitle);
+    this.uiService.resetTitle();
   }
 
   scroll = (event): void => {

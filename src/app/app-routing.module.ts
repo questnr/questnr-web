@@ -33,7 +33,10 @@ const routes: Routes = [
     },
     canActivateChild: [MetaGuard]
   },
-  { path: 'post/:postSlug', component: SinglePostComponent },
+  {
+    path: 'post/:postSlug', component: SinglePostComponent,
+    canActivateChild: [MetaGuard]
+  },
   { path: 'user/:userSlug', component: UserProfilePageComponent },
   { path: '**', redirectTo: '' }
   // { path: 'hash-tag/:hashTag' }
