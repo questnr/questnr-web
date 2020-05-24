@@ -2,9 +2,13 @@
 
 <header id="extended-nav" class="nav-main-container">
   <div class="toolbar" role="banner">
-    <button class="toggle" mat-button (click)="toggleMenu()">
-      <mat-icon>menu</mat-icon>
-    </button>
+    <div style="width: 32px; height: 32px; margin-top: -3px; margin-left: 12px" class="mobile_logo" routerLink="/feeds">
+      <img src="/assets/logo.png" alt="logo" style="width: 100%">
+    </div>
+<!--    <button class="toggle" mat-button (click)="toggleMenu()">-->
+<!--&lt;!&ndash;      <mat-icon>menu</mat-icon>&ndash;&gt;-->
+<!--      -->
+<!--    </button>-->
     <div class="logo" routerLink="/feeds"><img src="../../assets/main.png" /></div>
     <div class="spacer"></div>
 
@@ -49,7 +53,7 @@
 
     <div class="spacer"></div>
 
-    <button mat-button class="h-100" [matMenuTriggerFor]="notificationsMenu" [style.color]="notificationColor"
+    <button mat-button class="d-none h-100" [matMenuTriggerFor]="notificationsMenu" [style.color]="notificationColor"
       (click)="readNewNotification()">
       <mat-icon *ngIf="!hasNewNotifications">notifications</mat-icon>
 
@@ -76,12 +80,25 @@
       </ng-template>
     </mat-menu>
 
+    <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" [style.color]="notificationColor" class="mobile_view"
+            (click)="readNewNotification()">
+      <mat-icon *ngIf="!hasNewNotifications">notifications</mat-icon>
+
+      <mat-icon *ngIf="hasNewNotifications">notifications_active</mat-icon>
+    </button>
+
     <button mat-button [matMenuTriggerFor]="menu" class="d-none d-sm-block d-md-block d-lg-block profile-btn" Z>
       <div>
         <div class="icon">
           <img [src]="auth.profileImg" />
         </div>
-        <span>{{profile?.sub}}</span>
+        <span class="user_name">{{profile?.sub}}</span>
+      </div>
+    </button>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="mobile_view">
+      <div class="icon" >
+        <img [src]="auth.profileImg" />
       </div>
     </button>
 
