@@ -32,7 +32,7 @@ export class JoinedCommunityComponent implements OnInit {
         items: 2
       },
       400: {
-        items: 3
+        items: 2
       },
       740: {
         items: 3
@@ -47,6 +47,7 @@ export class JoinedCommunityComponent implements OnInit {
   constructor(public api: ApiService, public loginService: LoginService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.loadingCommunities = true;
     this.api.getJoinedCommunities(this.loginService.getUserId(), 0).subscribe(
       (res: any) => {
         this.loadingCommunities = false;

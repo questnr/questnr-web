@@ -20,6 +20,9 @@
   margin: 0 auto;
   overflow: hidden;
   padding: 20px;
+  h5{
+    margin: 20px 0 0;
+  }
 }
 .feed-wrap {
   margin: 0.5rem 0;
@@ -34,5 +37,12 @@
     .mat-icon {
       font-size: 20px;
     }
+  }
+}
+
+.container_mobile {
+  padding: 8px;
+  .feeds {
+    padding: 20px 0px;
   }
 }
