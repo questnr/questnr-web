@@ -75,7 +75,7 @@ export class SignupComponent implements OnInit {
         res => {
           if (res.loginSuccess) {
             localStorage.setItem('token', res.accessToken);
-            this.router.navigate([GlobalConstants.feedPath]);
+            this.router.navigate(["/", GlobalConstants.feedPath]);
           } else {
             this.errMsg = res.errorMessage;
           }
@@ -92,7 +92,7 @@ export class SignupComponent implements OnInit {
         (res: any) => {
           if (res.loginSuccess) {
             localStorage.setItem('token', res.accessToken);
-            this.router.navigate([GlobalConstants.feedPath]);
+            this.router.navigate(["/", GlobalConstants.feedPath]);
           }
         }, err => { }
       );
@@ -110,7 +110,7 @@ export class SignupComponent implements OnInit {
         this.formError = "";
         if (res.loginSuccess) {
           localStorage.setItem('token', res.accessToken);
-          this.router.navigate([GlobalConstants.feedPath]);
+          this.router.navigate(["/", GlobalConstants.feedPath]);
         } else if (typeof res.errorMessage === "string") {
           this.formError = res.errorMessage;
         } else if (typeof res.errors === "object" && res.errors.length > 0) {
