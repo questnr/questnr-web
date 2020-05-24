@@ -38,6 +38,7 @@ export class UserProfilePageComponent implements OnInit {
   userId: any;
   mobileView = false;
   screenWidth = window.innerWidth;
+  scrollCached: boolean = null;
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.scroll, true);
@@ -56,15 +57,21 @@ export class UserProfilePageComponent implements OnInit {
     }
   }
   scroll = (event): void => {
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      // console.log('no im  here');
-      if (this.userFeeds.length >= 0 && !this.endOfPosts) {
-        // console.log('check network call', this.endOfPosts);
-        this.loading = true;
-        ++this.page;
-        this.getUserFeeds(this.userId);
-      }
+    if (!this.scrollCached) {
+      setTimeout(() => {
+        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+          // console.log('no im  here');
+          if (this.userFeeds.length >= 0 && !this.endOfPosts) {
+            // console.log('check network call', this.endOfPosts);
+            this.loading = true;
+            ++this.page;
+            this.getUserFeeds(this.userId);
+          }
+        }
+        this.scrollCached = null;
+      }, 100);
     }
+    this.scrollCached = event;
   }
   ngOnDestroy() {
     this.titleService.setTitle(GlobalConstants.siteTitle);

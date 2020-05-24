@@ -34,6 +34,7 @@ export class CommunityComponent implements OnInit {
   communityId: any;
   mobileView = false;
   screenWidth = window.innerWidth;
+  scrollCached: boolean = null;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
     private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService) {
@@ -83,15 +84,21 @@ export class CommunityComponent implements OnInit {
   }
 
   scroll = (event): void => {
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      // console.log('no im  here');
-      if (this.userFeeds.length >= 0 && !this.endOfPosts) {
-        // console.log('check network call', this.endOfPosts);
-        this.loading = true;
-        ++this.page;
-        this.fetchCommunityFeeds(this.communityId);
-      }
+    if (!this.scrollCached) {
+      setTimeout(() => {
+        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+          // console.log('no im  here');
+          if (this.userFeeds.length >= 0 && !this.endOfPosts) {
+            // console.log('check network call', this.endOfPosts);
+            this.loading = true;
+            ++this.page;
+            this.fetchCommunityFeeds(this.communityId);
+          }
+        }
+        this.scrollCached = null;
+      }, 100);
     }
+    this.scrollCached = event;
   }
 
   followThisCommunty() {
