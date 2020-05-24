@@ -45,6 +45,7 @@ export class JoinedCommunityComponent implements OnInit {
   constructor(public api: ApiService, public loginService: LoginService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.loadingCommunities = true;
     this.api.getJoinedCommunities(this.loginService.getUserId(), 0).subscribe(
       (res: any) => {
         this.loadingCommunities = false;
