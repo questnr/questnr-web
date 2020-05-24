@@ -111,7 +111,7 @@ export class SignupComponent implements OnInit {
         this.formError = "";
         if (res.loginSuccess) {
           localStorage.setItem('token', res.accessToken);
-          this.router.navigate(['feeds']);
+          this.router.navigate(['feed']);
         } else if (typeof res.errorMessage === "string") {
           this.formError = res.errorMessage;
         } else if (typeof res.errors === "object" && res.errors.length > 0) {

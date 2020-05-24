@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { SinglePostService } from './single-post.service';
+import { LoginService } from 'auth/login.service';
+import { FeedsService } from 'feeds-frame/feeds.service';
 import { SinglePost } from 'models/signle-post.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { FeedsService } from 'feeds-frame/feeds.service';
-import { Validators, FormControl } from '@angular/forms';
-import { LoginService } from 'auth/login.service';
+import { UIService } from 'ui/ui.service';
+import { SinglePostService } from './single-post.service';
 
 @Component({
   selector: 'app-single-post',
@@ -51,7 +52,8 @@ export class SinglePostComponent implements OnInit {
   };
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
-    private loginService: LoginService) {
+    private loginService: LoginService,
+    private uiService: UIService) {
     this.postSlug = this.route.snapshot.paramMap.get('postSlug');
   }
 
@@ -59,10 +61,14 @@ export class SinglePostComponent implements OnInit {
     this.fetchPost(this.postSlug);
   }
 
+  ngOnDestroy() {
+    this.uiService.resetTitle();
+  }
+
   fetchPost(postSlug: string) {
     this.singlePostService.getSinglePost(postSlug).subscribe((singlePost: SinglePost) => {
+      this.uiService.setMetaTagsAndTitle("Post", singlePost.metaList);
       this.singlePost = singlePost;
-      console.log('singlePost', singlePost);
       this.isLoading = false;
     });
   }

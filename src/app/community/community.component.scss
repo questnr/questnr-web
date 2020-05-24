@@ -300,3 +300,20 @@
     }
   }
 }
+.community_owner{
+  position: absolute;
+  top: 8%;
+  left: 4%;
+  .owner-img{
+    //height: 80px;
+    //width: 80px;
+    border-radius: 50%;
+    img{
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: fill;
+      object-position: center;
+    }
+  }
+}

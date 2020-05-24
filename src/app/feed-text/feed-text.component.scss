@@ -1,0 +1,26 @@
+@import "../variables";
+.text {
+    padding: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: justify;
+}
+
+p.pre {
+    white-space: pre-wrap;
+    margin: 0;
+}
+
+.read-more-container{
+    display: inline;
+    .read-more{
+        border: 0;
+        background-color: transparent;
+        cursor: pointer;
+        color: $link-primary;
+    }
+    .read-more:hover{
+        text-decoration: underline;
+    }
+}
+  

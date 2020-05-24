@@ -1,16 +1,15 @@
-
-<div class="com-members-container box">
+<div class="com-members-container box" *ngIf="userListType === 'list'">
   <h1 class="heading">Members</h1>
-  <div *ngIf="communityMemberList.length ; else noMembers">
+  <div *ngIf="communityMemberList?.length ; else noMembers" class="members-list">
     <div class="" *ngFor="let i of communityMemberList" [id]="i.userId">
       <app-user-list-view [user]="i"></app-user-list-view>
     </div>
-    <p (click)="openUserGroupDialog(communityMemberList)"> View more.</p>
+    <p (click)="openUserGroupDialog('members')" *ngIf="communityMemberList?.length > 5"> View more.</p>
   </div>
 
-   <ng-template #noMembers>
-     <span> No one following this community yet.</span>
-   </ng-template>
+  <ng-template #noMembers>
+    <span *ngIf="!loader"> No one following this community yet.</span>
+  </ng-template>
 
   <div *ngIf="loader">
     <div *ngFor="let i of ' '.repeat(3).split('')">
@@ -41,7 +40,5 @@
         </li>
       </ul>
     </div>
-
   </div>
-
 </div>

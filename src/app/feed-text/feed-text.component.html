@@ -1,0 +1,6 @@
+<div class="text" *ngIf="text && text !== 'null'">
+    <dynamic-html class="pre" [content]="textToShow"></dynamic-html>
+    <span *ngIf="hasMoreText" class="read-more-container">{{endPart}}
+        <button class="read-more" (click)="readMore()">read more</button>
+    </span>
+</div>
