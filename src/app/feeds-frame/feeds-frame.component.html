@@ -15,20 +15,20 @@
         </aside>
         <div class="feeds">
           <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=false></app-post-feed>
-          <h5  *ngIf="!loading">Trending Communities.</h5>
+          <h5 *ngIf="!loading">Trending Communities.</h5>
           <owl-carousel-o [options]="customOptions">
             <ng-container *ngFor="let community of trendingCommunities;let i=index">
               <ng-template carouselSlide [id]="i">
-<!--                <qnr-card carouselSlide [imgSrc]="community.src" [title]="community.title" [detail]="community.detail"-->
-<!--                  [slug]="community.slug">-->
-<!--                </qnr-card>-->
+                <!--                <qnr-card carouselSlide [imgSrc]="community.src" [title]="community.title" [detail]="community.detail"-->
+                <!--                  [slug]="community.slug">-->
+                <!--                </qnr-card>-->
                 <app-community-card-mobile-view [community]="community"></app-community-card-mobile-view>
               </ng-template>
             </ng-container>
           </owl-carousel-o>
           <div>
             <div class="row card-loader" *ngIf="loading">
-              <div class="col" >
+              <div class="col">
                 <app-community-card-loader></app-community-card-loader>
               </div>
               <div class="col">
@@ -44,7 +44,7 @@
               <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
             </div>
             <p class="text-center" style="margin-top :30px" *ngIf="userFeeds.length===1 && userFeeds[0] === null">
-              <mat-chip>No Feeds Found...!</mat-chip>
+              <mat-chip>We couldn't find more post for you!</mat-chip>
             </p>
           </ng-container>
           <app-feeds-loader *ngIf="loading"></app-feeds-loader>
@@ -52,10 +52,14 @@
             <mat-spinner *ngIf="loading" color="accent"></mat-spinner>
           </div> -->
           <ng-template #noFeeds>
-            <p class="text-center" *ngIf="!loading">It seems you don’t have any post yet.</p>
+            <div class="text-center no-feed" *ngIf="!loading">
+              <div>It seems you don’t have any post yet.</div>
+              <div><a class="primary-link" routerLink="">Create your community</a> and make everyone amazed by the
+                things you love</div>
+            </div>
           </ng-template>
-          <div *ngIf="userFeeds.length && this.endOfPosts">
-            <p class="text-center mt-4">- End -</p>
+          <div *ngIf="this.endOfPosts">
+            <p class="text-center mt-4">We couldn't find more post for you!</p>
           </div>
         </div>
         <aside class="right" *ngIf="!mobileView">
