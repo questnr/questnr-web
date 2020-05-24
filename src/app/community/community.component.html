@@ -65,7 +65,6 @@
           <div class="flex-7" >
             <div class="community-feeds">
               <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"></app-post-feed>
-              <app-community-users [userListType]="'ribbon'" *ngIf="mobileView"></app-community-users>
 <!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
               <app-joined-community *ngIf="mobileView"></app-joined-community>
               <ng-container *ngIf="userFeeds?.length; else noFeeds">
