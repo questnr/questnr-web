@@ -14,13 +14,8 @@
       </button>
     </div>
     <ng-template #notOwner>
-      <button mat-stroked-button *ngIf="relation === 'followed' "
-               (click)="unFollow(user?.userId)">
-        Following
-      </button>
-      <button mat-stroked-button *ngIf="relation === 'none'" (click)="follow(user?.userId)">
-        Follow
-      </button>
+      <app-relation-action-button [relation]="relation" [userId]="user?.userId" [primary]="false">
+      </app-relation-action-button>
     </ng-template>
   </div>
 </div>

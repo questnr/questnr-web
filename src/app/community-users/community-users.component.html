@@ -4,11 +4,12 @@
     <div class="" *ngFor="let i of communityMemberList" [id]="i.userId">
       <app-user-list-view [user]="i"></app-user-list-view>
     </div>
-    <p (click)="openUserGroupDialog('members')" *ngIf="communityMemberList?.length > 5"> View more.</p>
   </div>
+  <app-view-more-button (click)="openUserGroupDialog('members')" *ngIf="communityMemberList?.length > 5">
+  </app-view-more-button>
 
   <ng-template #noMembers>
-    <span *ngIf="!loader"> No one following this community yet.</span>
+    <span *ngIf="!loader">(0) Members</span>
   </ng-template>
 
   <div *ngIf="loader">
@@ -26,7 +27,7 @@
     </div>
     <div class="col-sm-10">
       <ul class="ribbon">
-        <li class="ribbon_list" *ngFor="let i of communityMemberList let idx = index" >
+        <li class="ribbon_list" *ngFor="let i of communityMemberList let idx = index">
           <div>
             <div class="ribbon_img" (click)="navigate(i?.slug)">
               <img [src]="checkImage(i?.avatarDTO?.avatarLink)" [alt]="i?.username" [matTooltip]="i.username">

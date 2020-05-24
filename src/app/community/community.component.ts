@@ -101,25 +101,6 @@ export class CommunityComponent implements OnInit {
     this.scrollCached = event;
   }
 
-  followThisCommunty() {
-    this.auth.followCommunity(this.communityDTO.communityId).subscribe((res: any) => {
-      // console.log('started following' + this.communityDTO.communityName, res);
-      this.owner = 'followed';
-    }, error => {
-      // console.log('failed to join this community', error.error.errorMessage);
-      this.snackBar.open(error.error.errorMessage, 'close', { duration: 3000 });
-    });
-  }
-
-  unfollowThisCommunity() {
-    const userId = this.loginAuth.getUserProfile().id;
-    this.auth.unfollowCommunityService(this.communityDTO.communityId, userId).subscribe((res: any) => {
-      // console.log('unfollowed' + this.communityDTO.communityName, res);
-      this.owner = '';
-    }, error => {
-      // console.log('failed to unfollow' + this.communityDTO.communityName, error.error.errorMessage);
-    });
-  }
   postFeed(event) {
     if (event.postActionId) {
       this.userFeeds = [event, ...this.userFeeds];

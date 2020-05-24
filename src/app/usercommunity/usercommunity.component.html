@@ -1,9 +1,9 @@
 <div *ngIf="mobileView">
   <div class="user-owned-community">
-    <div >
+    <div>
       <h5>Owned Communities.
-        <div class="mobile-create-btn" >
-          <mat-icon (click)="createCommunity()" *ngIf="relation==='owned' " >add_circle_outline
+        <div class="mobile-create-btn">
+          <mat-icon (click)="createCommunity()" *ngIf="relation==='owned' ">add_circle_outline
           </mat-icon>
           <mat-icon (click)="openCommunityDialog(ownedCommunity)" *ngIf="ownedCommunity?.length > 3">arrow_forward
           </mat-icon>
@@ -19,7 +19,7 @@
     </div>
     <!--loader-->
     <div class="row card-loader" *ngIf="loader">
-      <div class="col" >
+      <div class="col">
         <app-community-card-loader></app-community-card-loader>
       </div>
       <div class="col">
@@ -47,11 +47,8 @@
         </ul>
         <div class="row">
           <div class="col">
-            <p style="text-align: left; padding: 0 25px;" (click)="createCommunity()" *ngIf="relation === 'owned'">
-              Create community.</p>
-          </div>
-          <div class="col">
-            <p style="text-align: right; padding: 0 20px;" (click)="openCommunityDialog(ownedCommunity)">view more.</p>
+            <app-view-more-button (click)="openCommunityDialog(ownedCommunity)">
+            </app-view-more-button>
           </div>
         </div>
       </div>
@@ -116,10 +113,7 @@
         <span>No Communities created yet.</span>
         <div class="row">
           <div class="col">
-            <p style="text-align: center"> View more.</p>
-          </div>
-          <div class="col">
-            <p (click)="createCommunity()" *ngIf="relation === 'owned'">Create community.</p>
+            <p style="text-align: center">view more</p>
           </div>
         </div>
       </div>

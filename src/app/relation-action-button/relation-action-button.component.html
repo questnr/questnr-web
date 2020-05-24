@@ -1,0 +1,22 @@
+<button mat-stroked-button (click)="follow()" *ngIf="relation === 'none' && !mobileView" class="none">
+    <span class="button-content">
+        <span *ngIf="primary">
+            <mat-icon>add</mat-icon>
+        </span>
+        Follow
+    </span>
+</button>
+<button mat-stroked-button (click)="follow()" *ngIf="relation === 'none' && mobileView" class="none">
+    <mat-icon>person_add</mat-icon>
+</button>
+<button mat-stroked-button (click)="unfollow()" *ngIf="relation === 'followed' && !mobileView" class="following">
+    <span class="button-content">
+        <span *ngIf="primary">
+            <mat-icon>check</mat-icon>
+        </span>
+        Following
+    </span>
+</button>
+<button mat-stroked-button (click)="unfollow()" *ngIf="relation === 'followed' && mobileView" class="following">
+    <mat-icon>check</mat-icon>
+</button>
