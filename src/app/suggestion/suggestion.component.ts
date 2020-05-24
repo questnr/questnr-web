@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import {DescriptionComponent} from '../shared/components/dialogs/description/description.component';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
+import { Component, Input, OnInit } from '@angular/core';
+import { Community } from '../models/community.model';
+import { LoginService } from '../auth/login.service';
+import { ApiService } from '../shared/api.service';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { GlobalConstants } from 'shared/constants';
+import { CommunityListComponent } from 'shared/components/dialogs/community-list/community-list.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -10,22 +15,92 @@ import {environment} from '../../environments/environment';
   styleUrls: ['./suggestion.component.scss']
 })
 export class SuggestionComponent implements OnInit {
+  @Input() suggestedCommunityList: Community[];
+  loadingCommunities = true;
+  listItems = Array(5);
+  screenWidth = window.innerWidth;
+  mobileView = false;
+  communityPath: string = GlobalConstants.communityPath;
+  customOptions: OwlOptions = {
+    loop: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 2
+      },
+      400: {
+        items: 3
+      },
+      740: {
+        items: 3
+      },
+      940: {
+        items: 4
+      }
+    },
+    nav: false,
+    autoplay: true
+  };
+  constructor(public api: ApiService, public loginService: LoginService, public dialog: MatDialog, private router: Router) { }
 
-  constructor(public auth: HttpClient) { }
-  baseUrl = environment.baseUrl;
-  suggestedCommunity = [];
-  loader = false;
-  ngOnInit() {
-    this.getSuggestedCommunity();
+  ngOnInit(): void {
+    this.api.getSuggestedCommunities().subscribe(
+      (res: any) => {
+        this.loadingCommunities = false;
+        if (res.content.length) {
+          this.suggestedCommunityList = res.content;
+        }
+      }, err => { this.loadingCommunities = false; }
+    );
+
+    const width = this.screenWidth;
+    if (width <= 800) {
+      this.mobileView = true;
+    } else if (width >= 1368) {
+      this.mobileView = false;
+    } else if (width >= 800 && width <= 1368) {
+      this.mobileView = false;
+    }
   }
+  checkImageUrl(src) {
+    if (src) {
+      return src;
+    } else {
+      return '/assets/default.jpg';
+    }
+  }
+  openCommunityDialog(community): void {
+    let config = null;
+    if (this.mobileView) {
+      config = {
+        position: {
+          top: '0',
+          right: '0'
+        },
+        height: '100%',
+        borderRadius: '0px',
+        width: '100%',
+        maxWidth: '100vw',
+        marginTop: '0px',
+        marginRight: '0px !important',
+        panelClass: 'full-screen-modal',
+        data: { userId: null, community, type: 'joinedCommunity' }
+      };
+    } else {
+      config = {
+        width: '700px',
+        data: { userId: null, community, type: 'joinedCommunity' }
+      };
+    }
+    const dialogRef = this.dialog.open(CommunityListComponent, config);
 
-  getSuggestedCommunity() {
-    this.loader = true;
-    this.auth.get<any>(this.baseUrl + 'community/suggested-community-list').subscribe((res: any) => {
-      this.loader = false;
-      this.suggestedCommunity = res.content;
-    }, error => {
-      this.loader = false;
+    dialogRef.afterClosed().subscribe(result => {
+
     });
   }
 }

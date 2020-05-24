@@ -9,16 +9,17 @@
   </ng-container>
   <ng-container *ngIf="joinedCommunity?.length">
     <div class="links" *ngFor="let item of joinedCommunity">
-      <div class="icon">
+      <div class="icon" [routerLink]="['/', communityPath, item.slug]">
         <img [src]="checkImageUrl(item.avatarDTO.avatarLink)" alt="">
       </div>
-      <a class="link" routerLink="">{{item.communityName}}</a>
+      <a class="link" [routerLink]="['/', communityPath, item.slug]">{{item.communityName}}</a>
     </div>
     <div class="row" *ngIf="joinedCommunity?.length === 5">
       <div class="col">
       </div>
       <div class="col">
-        <p style="text-align: right; padding: 0 20px; color:#ff5252" (click)="openCommunityDialog(joinedCommunity)">view more.</p>
+        <p style="text-align: right; padding: 0 20px; color:#ff5252" (click)="openCommunityDialog(joinedCommunity)">view
+          more.</p>
       </div>
     </div>
   </ng-container>
@@ -32,7 +33,7 @@
 <div class="mobile-view-joined-community" *ngIf="mobileView">
   <div class="user-owned-community">
     <h5>Joined Communities.
-      <div class="mobile-create-btn" >
+      <div class="mobile-create-btn">
         <mat-icon (click)="openCommunityDialog(joinedCommunity)" *ngIf="joinedCommunity?.length > 2">arrow_forward
         </mat-icon>
       </div>
@@ -44,9 +45,9 @@
         </ng-template>
       </ng-container>
     </owl-carousel-o>
-<!--    <div class="mobile_action_btn" *ngIf="!loadingCommunities" >-->
-<!--      <button mat-stroked-button (click)="openCommunityDialog(joinedCommunity)">Load more</button>-->
-<!--    </div>-->
+    <!--    <div class="mobile_action_btn" *ngIf="!loadingCommunities" >-->
+    <!--      <button mat-stroked-button (click)="openCommunityDialog(joinedCommunity)">Load more</button>-->
+    <!--    </div>-->
     <!--loader-->
     <div class="row card-loader" *ngIf="loadingCommunities">
       <div class="col">

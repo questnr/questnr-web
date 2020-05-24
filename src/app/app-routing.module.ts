@@ -22,22 +22,23 @@ import { FeedsLoaderComponent } from 'feeds-frame/recommended-feeds/feeds-loader
 import { NotificationItemComponent } from 'feeds-frame/notification-item/notification-item.component';
 import { CommunityResolve } from './community/community.resolve';
 import { MetaGuard } from '@ngx-meta/core';
+import { GlobalConstants } from 'shared/constants';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
-  { path: 'feed', component: FeedsFrameComponent, canActivate: [AuthGuard] },
-  { path: 'header', component: HeaderComponent },
+  { path: GlobalConstants.feedPath, component: FeedsFrameComponent, canActivate: [AuthGuard] },
+  { path: GlobalConstants.headerPath, component: HeaderComponent },
   {
-    path: 'community/:communitySlug', component: CommunityComponent, resolve: {
+    path: GlobalConstants.communityPath + '/:communitySlug', component: CommunityComponent, resolve: {
       community: CommunityResolve
     },
     canActivateChild: [MetaGuard]
   },
   {
-    path: 'post/:postSlug', component: SinglePostComponent,
+    path: GlobalConstants.postPath + '/:postSlug', component: SinglePostComponent,
     canActivateChild: [MetaGuard]
   },
-  { path: 'user/:userSlug', component: UserProfilePageComponent },
+  { path: GlobalConstants.userPath + '/:userSlug', component: UserProfilePageComponent },
   { path: '**', redirectTo: '' }
   // { path: 'hash-tag/:hashTag' }
 ];
@@ -49,9 +50,11 @@ export interface Tile {
   text: string;
 }
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    initialNavigation: 'enabled'
-  })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      initialNavigation: 'enabled',
+      // enableTracing: true // <-- debugging purposes only
+    })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
