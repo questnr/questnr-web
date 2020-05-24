@@ -77,6 +77,7 @@ export class RecommendedFeedsComponent implements OnInit {
     autoplay: true
   };
   loggedInUserId: any;
+  hashTagsData: any = {};
 
   constructor(private api: FeedsService,
     public login: LoginService,
@@ -95,6 +96,9 @@ export class RecommendedFeedsComponent implements OnInit {
       // let hashTagNode = document.createElement("span");
       // hashTagNode.style.color = 'red';
       var regEx = new RegExp("#" + hashTag.hashTagValue, "ig");
+      let index = this.commonService.indexOfUsingRegex(this.feed.text, regEx, 0);
+      if (index >= 0)
+        this.hashTagsData[index] = hashTag.hashTagValue.length + 1;
       this.feed.text = this.feed.text.replace(regEx,
         "<app-hash-tag hash-tag-value=\"" + hashTag.hashTagValue + "\"></app-hash-tag>"
       );

@@ -52,7 +52,7 @@ import { CommunityUsersComponent } from './community-users/community-users.compo
 // import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { CommunityComponent } from './community/community.component';
 import { CommunityResolve } from './community/community.resolve';
-import { DotComponent } from './dot/dot.component';
+import { DotComponent } from './shared/components/dot/dot.component';
 import { DynamicHTMLModule } from './dynamic-html';
 // import {MatDialogModule, MatSelectModule, MatTooltipModule} from '@angular/material';
 import { CommentBoxComponent } from './feeds-frame/recommended-feeds/comment-box/comment-box.component';
@@ -89,11 +89,7 @@ import { UserFollowersComponent } from './user-followers/user-followers.componen
 import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UsercommunityComponent } from './usercommunity/usercommunity.component';
-
-
-
-
-
+import { FeedTextComponent } from 'feed-text/feed-text.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -176,7 +172,8 @@ export function metaFactory(): MetaLoader {
     HorizontalProfileComponent,
     CommunityCardMobileViewComponent,
     JoinedCommunityComponent,
-    TimeStringComponent
+    TimeStringComponent,
+    FeedTextComponent
   ],
   imports: [
     MatVideoModule,
@@ -259,7 +256,8 @@ export function metaFactory(): MetaLoader {
     CommunityResolve
   ],
   exports: [
-    JoinedCommunityComponent
+    JoinedCommunityComponent,
+    FeedTextComponent
   ],
   bootstrap: [AppComponent]
 })

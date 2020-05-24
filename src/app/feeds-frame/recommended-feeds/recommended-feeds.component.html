@@ -51,9 +51,7 @@
     </mat-menu>
   </div>
   <div class="mb-2">
-    <div class="text" *ngIf="feed?.text && feed.text !== 'null'">
-      <dynamic-html class="pre" [content]="feed?.text"></dynamic-html>
-    </div>
+    <app-feed-text [text]="feed?.text" [hashTagsData]="hashTagsData"></app-feed-text>
     <app-meta-card [iFramelyData]="iFramelyData"></app-meta-card>
     <div *ngIf="feed.postMediaList?.length" class="media-container">
       <owl-carousel-o [options]="customOptions">

@@ -16,4 +16,8 @@ export class CommonService {
         //   return null;
         // }
     }
+    indexOfUsingRegex(content, regex, startpos) {
+        var indexOf = content.substring(startpos || 0).search(regex);
+        return (indexOf >= 0) ? (indexOf + (startpos || 0)) : indexOf;
+    }
 }
