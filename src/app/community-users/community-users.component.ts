@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import {UserProfileCardServiceComponent} from '../user-profile-card/user-profile-card-service.component';
@@ -6,6 +6,7 @@ import {LoginService} from '../auth/login.service';
 import {ActivatedRoute} from '@angular/router';
 import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
 import {MatDialog} from '@angular/material/dialog';
+import {User} from '../models/user.model';
 
 @Component({
   selector: 'app-community-users',
@@ -15,7 +16,9 @@ import {MatDialog} from '@angular/material/dialog';
 export class CommunityUsersComponent implements OnInit {
   baseUrl = environment.baseUrl;
   url: string;
-  communityMemberList = [];
+  @Input() userListType;
+  @Input() ownerUser: User;
+  communityMemberList: User[] = [];
   loader = false;
 
   constructor(public http: HttpClient, public userService: UserProfileCardServiceComponent, public loginService: LoginService, public route: ActivatedRoute,

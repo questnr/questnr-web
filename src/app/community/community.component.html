@@ -1,11 +1,17 @@
 <app-user-header></app-user-header>
 
-<div class="site-body">
-  <div class="container" [ngClass]="{'container-mobile' : mobileView}">
+<div class="site-body" [ngClass]="{'site-body-mobile': mobileView}">
+  <div class="container">
     <div class="flex-frame">
       <div class="flex-7" [ngClass]="{'flex-7-mobile' : mobileView}">
         <div class="community-feeds-container">
           <div class="com-ban-img-container">
+<!--            <div *ngIf="mobileView" class="community_owner">-->
+<!--              <div class="owner-img" (click)="navigate(communityDTO?.ownerUserDTO?.slug)">-->
+<!--                <img [src]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink ? communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink: '/assets/default.jpg' "-->
+<!--                     [alt]="communityDTO?.ownerUserDTO?.username">-->
+<!--              </div>-->
+<!--            </div>-->
             <div class="change-comm-img">
               <mat-icon (click)="previewImage()" *ngIf="owner == 'owned'">camera</mat-icon>
               <input type="file" style="display: none" id="communityImageSrc" (change)="onFileChange($event)">
@@ -19,8 +25,22 @@
             </div>
           </div>
         </div>
+<!--        <div class="row">-->
+<!--          <div class="col-md-3">-->
+<!--            <div *ngIf="mobileView" class="community_owner">-->
+<!--              <div class="owner-img" (click)="navigate(communityDTO?.ownerUserDTO?.slug)">-->
+<!--                <img [src]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink ? communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink: '/assets/default.jpg' "-->
+<!--                     [alt]="communityDTO?.ownerUserDTO?.username">-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="col-md-9">-->
+<!--          </div>-->
+<!--        </div>-->
+        <app-community-users [userListType]="'ribbon'" *ngIf="mobileView"></app-community-users>
+
         <div class="com-dets">
-          <div class="btn-container">
+          <div class="btn-container" *ngIf="!mobileView">
 <!--            <button mat-stroked-button> Owner</button>-->
             <button mat-stroked-button>
               <mat-icon>add</mat-icon>Invite</button>
@@ -36,17 +56,26 @@
             </ng-template>
           </div>
         </div>
-        <div class="flex-view">
+        <div class="flex-view" >
           <div class="flex-3" *ngIf="!mobileView">
             <app-user-profile-card [avatarLink]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink" [relationship]="communityDTO?.ownerUserDTO?.userMeta?.relationShipType"
             [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username" [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
             <app-floating-footer></app-floating-footer>
           </div>
-          <div class="flex-7" [ngClass]="{'flex-7-mobile' : mobileView}">
+          <div class="flex-7" >
             <div class="community-feeds">
               <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"></app-post-feed>
               <ng-container *ngIf="userFeeds?.length; else noFeeds">
-                <div class="feed-wrap" *ngFor="let feed of userFeeds">
+                <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index">
+                  <div *ngIf="mobileView && userFeeds.length > 4 && idx === 2">
+                    <app-joined-community></app-joined-community>
+                  </div>
+                  <div *ngIf="mobileView && userFeeds.length > 5 && idx === 7">
+                    <app-sponsered></app-sponsered>
+                  </div>
+                  <div *ngIf="mobileView && userFeeds.length > 5 && idx === 10">
+                    <app-suggestion></app-suggestion>
+                  </div>
                   <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
                 </div>
                 <p class="text-center" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>

@@ -6,15 +6,16 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <div class="container">
+    <div class="container" [ngClass]="{'container_mobile': mobileView}">
       <div class="main-wrap">
-        <aside *ngIf="!isMobile">
+        <aside *ngIf="!mobileView">
           <div class="stick">
             <app-sidenav></app-sidenav>
           </div>
         </aside>
         <div class="feeds">
           <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=false></app-post-feed>
+          <h5  *ngIf="!loading">Trending Communities.</h5>
           <owl-carousel-o [options]="customOptions">
             <ng-container *ngFor="let community of trendingCommunities;let i=index">
               <ng-template carouselSlide [id]="i">
@@ -25,6 +26,19 @@
               </ng-template>
             </ng-container>
           </owl-carousel-o>
+          <div>
+            <div class="row card-loader" *ngIf="loading">
+              <div class="col" >
+                <app-community-card-loader></app-community-card-loader>
+              </div>
+              <div class="col">
+                <app-community-card-loader></app-community-card-loader>
+              </div>
+              <div class="col" *ngIf="!mobileView">
+                <app-community-card-loader></app-community-card-loader>
+              </div>
+            </div>
+          </div>
           <ng-container *ngIf="userFeeds.length; else noFeeds">
             <div class="feed-wrap" *ngFor="let feed of userFeeds">
               <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
@@ -44,7 +58,7 @@
             <p class="text-center mt-4">- End -</p>
           </div>
         </div>
-        <aside class="right" *ngIf="!isMobile">
+        <aside class="right" *ngIf="!mobileView">
           <div class="stick">
             <div class="" style="padding: 20px 0px">
               <app-suggestion></app-suggestion>

@@ -112,10 +112,8 @@
 
 /*community feeds css*/
 
-.community-feeds-container {
-  background: $white;
-  border-radius: 8px;
-  margin: 0 8px;
+.community-feeds-container_mobile {
+  margin: 0;
 }
 
 .com-ban-img-container {
@@ -177,7 +175,7 @@
     opacity: 0.4;
     width: auto;
     position: absolute;
-    top: 10%;
+    top: 4%;
     right: 2%;
     transition: all 500ms ease-in-out;
     cursor: pointer;
@@ -268,10 +266,37 @@
   //margin: 0 10px;
 }
 
-.container-mobile{
-  padding: 0 !important;
+.site-body-mobile{
+  margin-top: 70px;
+  .container{
+    padding: 0 !important;
+    .flex-7 {
+      width: calc(100% - 10px);
+      margin: 0 auto;
+      .community-feeds-container {
+        margin: 0 !important;
+      }
+      .flex-7 {
+        margin: 0 !important;
+        width: 100% !important;
+      }
+    }
+  }
 }
-.flex-7-mobile {
-  width: calc(100% - 8px);
-  margin: 0 auto;
+.community_owner{
+  position: absolute;
+  top: 8%;
+  left: 4%;
+  .owner-img{
+    //height: 80px;
+    //width: 80px;
+    border-radius: 50%;
+    img{
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: fill;
+      object-position: center;
+    }
+  }
 }
