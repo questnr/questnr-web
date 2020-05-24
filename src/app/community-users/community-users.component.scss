@@ -94,7 +94,17 @@
 //}
 
 .user_list_ribbon  {
-  overflow: scroll;
+  .flex{
+    display: flex;
+    .invite{
+      margin: auto;
+    }
+  }
+  //overflow: scroll;
+  .col-sm-10 {
+    overflow: scroll;
+    padding: 0;
+  }
   .ribbon{
     list-style: none;
     display: inline-flex;

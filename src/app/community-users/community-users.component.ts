@@ -19,6 +19,7 @@ export class CommunityUsersComponent implements OnInit {
   baseUrl = environment.baseUrl;
   url: string;
   @Input() userListType;
+  @Input() ownerUser: User;
   communityMemberList: User[] = [];
   loader = false;
   mobileView = false;

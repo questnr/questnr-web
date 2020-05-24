@@ -16,11 +16,12 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   page = 0;
   sideConfig = 'side';
   isSidenavopen = false;
-  isMobile = false;
+  mobileView = false;
   loading = true;
   endOfPosts = false;
   communities = [];
   trendingCommunities = [];
+  trendingCommunitiesLoader = true;
   suggestedCommunities = [];
   customOptions: OwlOptions = {
     loop: true,
@@ -57,11 +58,11 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     const width = event.target ? event.target.innerWidth : event;
     if (width <= 800) {
       this.sideConfig = 'over';
-      this.isMobile = true;
+      this.mobileView = true;
     } else if (width >= 1368) {
-      this.isMobile = false;
+      this.mobileView = false;
     } else if (width >= 800 && width <= 1368) {
-      this.isMobile = false;
+      this.mobileView = false;
     }
   }
 
@@ -129,8 +130,10 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   }
 
   getTrendingCommunities() {
+    this.trendingCommunitiesLoader = true;
     this.api.getTrendingCommunities().subscribe(
       (res: any) => {
+        this.trendingCommunitiesLoader = false;
         if (res.content.length) {
           this.trendingCommunities = res.content.map(item => {
             item.title = item.communityName;
@@ -139,7 +142,9 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
             return item;
           });
         }
-      }, err => { }
+      }, err => {
+        this.trendingCommunitiesLoader = false;
+      }
     );
   }
 

@@ -27,7 +27,7 @@ export class CommunityListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    window.addEventListener('scroll', this.scroll, true);
+    // window.addEventListener('scroll', this.scroll, true);
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;
@@ -40,27 +40,31 @@ export class CommunityListComponent implements OnInit {
   ngAfterViewInit() {
     // this.getUserOwnedCommunity();
   }
-  scroll = (event): void => {
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      console.log('no im  here');
-      if (this.ownedCommunity.length >= 0 && !this.endOfResult) {
-        console.log('check network call');
-        this.loader = true;
-        ++this.page;
-        if (this.data.type === 'ownedCommunity') {
-          this.getUserOwnedCommunity(this.data.userId);
-        } else {
-          this.getJoinedCommunities();
-        }
-      }
-    }
-  }
+  // scroll = (event): void => {
+  //   if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+  //     console.log('no im  here');
+  //     if (this.ownedCommunity.length >= 0 && !this.endOfResult) {
+  //       console.log('check network call');
+  //       this.loader = true;
+  //       ++this.page;
+  //       if (this.data.type === 'ownedCommunity') {
+  //         this.getUserOwnedCommunity(this.data.userId);
+  //       } else {
+  //         this.getJoinedCommunities();
+  //       }
+  //     }
+  //   }
+  // }
   loadMoreCommunity() {
     if (this.ownedCommunity.length >= 0 && !this.endOfResult) {
       console.log('check network call');
       this.loader = true;
       ++this.page;
-      this.getUserOwnedCommunity(this.data.userId);
+      if (this.data.type === 'ownedCommunity') {
+        this.getUserOwnedCommunity(this.data.userId);
+      } else {
+        this.getJoinedCommunities();
+      }
     }
   }
 

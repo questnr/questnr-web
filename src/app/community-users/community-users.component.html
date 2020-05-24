@@ -20,18 +20,25 @@
 
 
 <div class="user_list_ribbon" *ngIf="userListType ==='ribbon'">
-  <ul class="ribbon">
-    <li class="ribbon_list" *ngFor="let i of communityMemberList let idx = index" >
-     <div>
-       <div class="ribbon_img" (click)="navigate(i?.slug)">
-         <img [src]="checkImage(i?.avatarDTO?.avatarLink)" [alt]="i?.username" [matTooltip]="i.username">
-       </div>
-     </div>
-    </li>
-    <li class="ribbon_list">
-      <div class="ribbon_img" style="padding: 0" (click)="openUserGroupDialog('members')">
-        <img src="/assets/next.png" alt="default">
-      </div>
-    </li>
-  </ul>
+  <div class="flex">
+    <div class="invite">
+      <img src="/assets/add.png" alt="" style="width: 70px">
+    </div>
+    <div class="col-sm-10">
+      <ul class="ribbon">
+        <li class="ribbon_list" *ngFor="let i of communityMemberList let idx = index" >
+          <div>
+            <div class="ribbon_img" (click)="navigate(i?.slug)">
+              <img [src]="checkImage(i?.avatarDTO?.avatarLink)" [alt]="i?.username" [matTooltip]="i.username">
+            </div>
+          </div>
+        </li>
+        <li class="ribbon_list">
+          <div class="ribbon_img" style="padding: 0" (click)="openUserGroupDialog('members')">
+            <img src="/assets/next.png" alt="default">
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
