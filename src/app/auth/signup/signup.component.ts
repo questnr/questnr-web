@@ -3,8 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { LoginService } from 'auth/login.service';
-import { CustomValidations, AsyncValidator } from '../../custom-validations';
-import { REGEX } from '../../shared/constants';
+import { AsyncValidator, CustomValidations } from '../../custom-validations';
+import { GlobalConstants, REGEX } from '../../shared/constants';
 
 @Component({
   selector: 'app-signup',
@@ -55,8 +55,7 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder, private auth: LoginService,
-    private socialAuth: AuthService, private router: Router,
-    private customValidations: CustomValidations) { }
+    private socialAuth: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.group = this.fb.group({
@@ -76,7 +75,7 @@ export class SignupComponent implements OnInit {
         res => {
           if (res.loginSuccess) {
             localStorage.setItem('token', res.accessToken);
-            this.router.navigate(['feeds']);
+            this.router.navigate([GlobalConstants.feedPath]);
           } else {
             this.errMsg = res.errorMessage;
           }
@@ -93,7 +92,7 @@ export class SignupComponent implements OnInit {
         (res: any) => {
           if (res.loginSuccess) {
             localStorage.setItem('token', res.accessToken);
-            this.router.navigate(['feeds']);
+            this.router.navigate([GlobalConstants.feedPath]);
           }
         }, err => { }
       );
@@ -111,7 +110,7 @@ export class SignupComponent implements OnInit {
         this.formError = "";
         if (res.loginSuccess) {
           localStorage.setItem('token', res.accessToken);
-          this.router.navigate(['feed']);
+          this.router.navigate([GlobalConstants.feedPath]);
         } else if (typeof res.errorMessage === "string") {
           this.formError = res.errorMessage;
         } else if (typeof res.errors === "object" && res.errors.length > 0) {

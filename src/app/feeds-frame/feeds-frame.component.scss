@@ -1,3 +1,5 @@
+@import '../variables';
+
 .main-wrap {
   display: grid;
   grid-template-columns: 250px auto 250px;
@@ -44,5 +46,15 @@
   padding: 8px;
   .feeds {
     padding: 20px 0px;
+  }
+}
+
+.no-feed div{
+  margin: 10px 0;
+  .primary-link{
+    text-decoration: underline;
+  }
+  .primary-link:hover {
+    color: $primary;
   }
 }

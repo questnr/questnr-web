@@ -11,6 +11,7 @@ import { User } from 'models/user.model';
 import { Community } from 'models/community.model';
 import { Page } from 'models/page.model';
 import { NotificationDTO } from 'models/notification.model';
+import { GlobalConstants } from 'shared/constants';
 
 @Component({
   selector: 'app-user-header',
@@ -125,9 +126,9 @@ export class UserHeaderComponent {
   handleRouterLink(slug: string) {
     let path: string = "user";
     if (this.selectedSearchOption == 1)
-      path = "community";
+      path = GlobalConstants.userPath;
     else if (this.selectedSearchOption == 2)
-      path = "hash-tag";
+      path = GlobalConstants.hashTagPath;
     this.router.navigate(["/", path, slug]);
   }
   getNotification() {

@@ -64,12 +64,18 @@
     <mat-menu #notificationsMenu="matMenu" [overlapTrigger]="false" xPosition="before">
       <ng-template matMenuContent>
         <div class="notification-wrap">
-          <app-notification-item *ngFor="let item of notifications" [notification]="item"
-            (remove)="removeNotification($event)"></app-notification-item>
-          <button *ngIf="notifications?.length> 0 && !endOfNotifications" mat-button class="w-100"
+          <div *ngIf="notifications?.length > 0">
+            <app-notification-item *ngFor="let item of notifications" [notification]="item"
+              (remove)="removeNotification($event)"></app-notification-item>
+          </div>
+          <div *ngIf="notifications?.length == 0" class="no-notification">
+            (0) Notifications
+          </div>
+          <button *ngIf="notifications?.length > 0 && !endOfNotifications" mat-button class="w-100"
             (click)="getNotification(); $event.stopPropagation();"> Load more</button>
-          <p *ngIf="endOfNotifications" style="justify-content: center;display: flex;cursor: pointer;"> No more
-            Notifications </p>
+          <p *ngIf="endOfNotifications" style="justify-content: center;display: flex;cursor: pointer;">
+            No more Notifications
+          </p>
         </div>
       </ng-template>
     </mat-menu>

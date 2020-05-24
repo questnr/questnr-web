@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { MetaService } from '@ngx-meta/core';
 import { MetaList } from 'models/common.model';
 import { GlobalConstants } from 'shared/constants';
+import { Title } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UIService {
 
-  constructor(private readonly metaService: MetaService) {
+  constructor(private readonly metaService: MetaService, private titleService: Title) {
   }
   setMetaTagsAndTitle(title: string, metaList: MetaList[]) {
-    console.log("title", title);
     if (title) {
       this.metaService.setTitle(title);
     }
@@ -23,6 +23,6 @@ export class UIService {
     }
   }
   resetTitle() {
-    this.metaService.setTitle(GlobalConstants.siteTitle);
+    this.titleService.setTitle(GlobalConstants.siteTitle);
   }
 }

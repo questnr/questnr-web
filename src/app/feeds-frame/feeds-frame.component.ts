@@ -110,7 +110,9 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
           this.endOfPosts = true;
         }
         this.loading = false;
-      }, err => { }
+      }, err => {
+        this.loading = false;
+      }
     );
   }
 

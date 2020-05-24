@@ -1,76 +1,56 @@
-<div class="suggestion-container box">
-  <div class="com-suggestion">
-    <h1>Suggested Communities.</h1>
-    <div  *ngIf="suggestedCommunity?.length; else noSuggesttion" >
-      <ul>
-        <li *ngFor="let i of suggestedCommunity"  class="grid">
-          <div class="community_image">
-            <img [src]="i?.avatarDTO?.avatarLink" [alt]="i?.communityName" onerror="this.onerror=null;this.src='assets/default.jpg';">
-          </div>
-          <div [id]=i?.communityId>
-            <a [href]="'/community/' + i?.slug">{{i?.communityName}}</a>
-          </div>
-        </li>
-      </ul>
+<div class="link-card box" *ngIf="!mobileView">
+  <h3>Suggested Communities
+  </h3>
+  <ng-container *ngIf="loadingCommunities">
+    <div class="list-item" *ngFor="let i of listItems">
+      <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
+      <ngx-skeleton-loader class="w-100" count="1" appearance="line"></ngx-skeleton-loader>
     </div>
-    <div *ngIf="loader">
-      <div>
-        <ul class="o-vertical-spacing o-vertical-spacing--l">
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-        </ul>
+  </ng-container>
+  <ng-container *ngIf="suggestedCommunityList?.length">
+    <div class="links" *ngFor="let item of suggestedCommunityList">
+      <div class="icon" [routerLink]="['/', communityPath, item.slug]">
+        <img [src]="checkImageUrl(item.avatarDTO.avatarLink)" alt="">
+      </div>
+      <a class="link" [routerLink]="['/', communityPath, item.slug]">{{item.communityName}}</a>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!suggestedCommunityList?.length && !loadingCommunities">
+    <p>
+      We don't have enough data
+    </p>
+  </ng-container>
+</div>
+
+<div class="mobile-view-joined-community" *ngIf="mobileView">
+  <div class="user-owned-community">
+    <h5>Suggested Communities.
+      <div class="mobile-create-btn">
+        <mat-icon (click)="openCommunityDialog(suggestedCommunityList)" *ngIf="suggestedCommunityList?.length > 2">
+          arrow_forward
+        </mat-icon>
+      </div>
+    </h5>
+    <owl-carousel-o [options]="customOptions">
+      <ng-container *ngFor="let list of suggestedCommunityList;let i=index">
+        <ng-template carouselSlide [id]="i">
+          <app-community-card-mobile-view [community]="list"></app-community-card-mobile-view>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+    <!--    <div class="mobile_action_btn" *ngIf="!loadingCommunities" >-->
+    <!--      <button mat-stroked-button (click)="openCommunityDialog(suggestedCommunityList)">Load more</button>-->
+    <!--    </div>-->
+    <!--loader-->
+    <div class="row card-loader" *ngIf="loadingCommunities">
+      <div class="col">
+        <app-community-card-loader></app-community-card-loader>
+      </div>
+      <div class="col">
+        <app-community-card-loader></app-community-card-loader>
       </div>
     </div>
-    <ng-template #noSuggesttion>
-      <span>Explore the communities. No suggestions yet.</span>
-    </ng-template>
+    <!--loader ends-->
   </div>
+
 </div>
