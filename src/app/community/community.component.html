@@ -38,7 +38,15 @@
 <!--          </div>-->
 <!--        </div>-->
         <app-community-users [userListType]="'ribbon'" *ngIf="mobileView"></app-community-users>
-
+        <div *ngIf="mobileView && owner !== 'owned'" class="mobile_view">
+          <button mat-stroked-button style="background: green; color: #fff" *ngIf="owner ==='followed'; else notFollowing" (click)="unfollowThisCommunity()">
+            <mat-icon>check</mat-icon>
+            Following
+          </button>
+          <ng-template #notFollowing>
+            <button mat-stroked-button (click)="followThisCommunty()" *ngIf="owner != 'owned'" > Follow</button>
+          </ng-template>
+        </div>
         <div class="com-dets">
           <div class="btn-container" *ngIf="!mobileView">
 <!--            <button mat-stroked-button> Owner</button>-->
@@ -46,7 +54,7 @@
               <mat-icon>add</mat-icon>Invite</button>
 
           </div>
-          <div class="btn-container float-right">
+          <div class="btn-container float-right" *ngIf="!mobileView">
             <button mat-stroked-button style="background: green; color: #fff" *ngIf="owner ==='followed'; else notFollowing" (click)="unfollowThisCommunity()">
               <mat-icon>check</mat-icon>
               Following
