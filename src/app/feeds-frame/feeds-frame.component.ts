@@ -4,6 +4,8 @@ import { FeedsService } from './feeds.service';
 import { ApiService } from 'shared/api.service';
 import { MessagingService } from '../service/messaging.service';
 import { RecommendedFeedsComponent } from './recommended-feeds/recommended-feeds.component';
+import { CreateCommunityComponent } from 'shared/components/dialogs/create.community/create-community.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-feeds-frame',
@@ -66,7 +68,10 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(private service: FeedsService, private api: ApiService, private messagingService: MessagingService) { }
+  constructor(private service: FeedsService,
+    private api: ApiService,
+    private messagingService: MessagingService,
+    public dialog: MatDialog) { }
 
   postFeed(event) {
     if (event.postActionId) {
@@ -158,6 +163,17 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
 
   toggle(_) {
     this.isSidenavopen = !this.isSidenavopen;
+  }
+
+  createCommunity(): void {
+    const dialogRef = this.dialog.open(CreateCommunityComponent, {
+      width: '800px',
+      // data: { desc : event.target.innerText}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
   }
 
 }
