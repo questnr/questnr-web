@@ -9,7 +9,7 @@
   </ng-container>
   <ng-container *ngIf="userHashtags.length && !loadingHashtags">
     <div class="links" *ngFor="let item of userHashtags">
-      <a routerLink="" class="link">#{{item.hashTagValue}}</a>
+      <a [href]="'/explore?hashtag=' + item.hashTagValue" class="link">#{{item.hashTagValue}}</a>
     </div>
   </ng-container>
   <ng-container *ngIf="!userHashtags.length && !loadingHashtags">
