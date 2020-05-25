@@ -9,7 +9,7 @@ import { RecommendedFeedsComponent } from './feeds-frame/recommended-feeds/recom
 import { FloatingAdsComponent } from './feeds-frame/floating-ads/floating-ads.component';
 import { TrendingFeedsComponent } from './feeds-frame/feeds/trending-feeds/trending-feeds.component';
 import { PostFeedsComponent } from './feeds-frame/feeds/post-feeds/post-feeds.component';
-import { HomeComponent } from './home/home.component';
+
 import { AuthGuard } from 'auth/auth.guard';
 import { UserHeaderComponent } from 'feeds-frame/user-header/user-header.component';
 import { SidenavComponent } from 'feeds-frame/sidenav/sidenav.component';
@@ -23,9 +23,13 @@ import { NotificationItemComponent } from 'feeds-frame/notification-item/notific
 import { CommunityResolve } from './community/community.resolve';
 import { MetaGuard } from '@ngx-meta/core';
 import { GlobalConstants } from 'shared/constants';
+import { TermsComponent } from 'terms/terms.component';
+import { PolicyComponent } from 'policy/policy.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
+  { path: GlobalConstants.termsPath, component: TermsComponent },
+  { path: GlobalConstants.policyPath, component: PolicyComponent },
   { path: GlobalConstants.feedPath, component: FeedsFrameComponent, canActivate: [AuthGuard] },
   { path: GlobalConstants.headerPath, component: HeaderComponent },
   {
@@ -71,6 +75,8 @@ export const routingComponent = [
   PostFeedsComponent,
   FeedsFrameComponent,
   LandingPageComponent,
+  TermsComponent,
+  PolicyComponent,
   UserHeaderComponent,
   SidenavComponent,
   PostFeedComponent,

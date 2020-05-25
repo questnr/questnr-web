@@ -3,8 +3,8 @@ import { ApiService } from 'shared/api.service';
 // import {TranslateService} from '@ngx-translate/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import {loggedIn} from '@angular/fire/auth-guard';
-import {ActivatedRoute, Router} from '@angular/router';
+import { loggedIn } from '@angular/fire/auth-guard';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -13,7 +13,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 
 export class LandingPageComponent implements OnInit {
-  activeAuth = 'login';
+  activeAuth = this.api.activeAuth;
   isLoading = false;
   hashtagInput = new FormControl();
   hashtagResults = [];
@@ -52,7 +52,7 @@ export class LandingPageComponent implements OnInit {
   ];
 
   topHashtags = [];
-  constructor(private api: ApiService, public router: Router) {
+  constructor(public api: ApiService, public router: Router) {
     this.hashtagInput.valueChanges
       .pipe(
         debounceTime(500),
@@ -100,7 +100,7 @@ export class LandingPageComponent implements OnInit {
     );
   }
   goTo(val: string) {
-    this.activeAuth = val;
+    this.api.activeAuth = val;
     this.mainContent.nativeElement.scrollIntoView({ behavior: 'smooth' });
   }
 }

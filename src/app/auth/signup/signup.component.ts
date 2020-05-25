@@ -4,7 +4,9 @@ import { Router } from '@angular/router';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { LoginService } from 'auth/login.service';
 import { AsyncValidator, CustomValidations } from '../../custom-validations';
-import { GlobalConstants, REGEX } from '../../shared/constants';
+import { GlobalConstants, REGEX } from 'shared/constants';
+import { WelcomeSlidesComponent } from 'shared/components/dialogs/welcome-slides/welcome-slides.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +17,9 @@ export class SignupComponent implements OnInit {
   errMsg: '';
   isLoading = false;
   group: FormGroup;
-  formError: string = "";
+  formError = '';
+  termsPath = GlobalConstants.termsPath;
+  policyPath = GlobalConstants.policyPath;
   firstName = new FormControl('',
     [
       Validators.required,
@@ -52,11 +56,10 @@ export class SignupComponent implements OnInit {
       Validators.maxLength(100)
     ]);
   confirmPassword = new FormControl('', Validators.required);
-  accept = new FormControl('', Validators.requiredTrue);
   dob = new FormControl('', Validators.required);
-  today = new Date();
+  maxAllowedDOB = new Date(new Date().setFullYear(new Date().getFullYear() - GlobalConstants.signUpAgeRestriction));
   constructor(
-    private fb: FormBuilder, private auth: LoginService,
+    private fb: FormBuilder, private auth: LoginService, private dialog: MatDialog,
     private socialAuth: AuthService, private router: Router) { }
 
   ngOnInit() {
@@ -67,20 +70,19 @@ export class SignupComponent implements OnInit {
       username: this.username,
       password: this.password,
       confirmPassword: this.confirmPassword,
-      dob: this.dob,
-      accept: this.accept
+      dob: this.dob
     }, { validators: CustomValidations.MatchPassword });
   }
 
   submit() {
+    // this.openWelcomeDialog();
     if (this.group.valid) {
       this.isLoading = true;
       const obj = { ...this.group.value, dob: new Date(this.dob.value).getTime() };
       this.auth.signUp(obj).subscribe(
         res => {
           if (res.loginSuccess) {
-            localStorage.setItem('token', res.accessToken);
-            this.router.navigate(["/", GlobalConstants.feedPath]);
+            this.signUpSuccess(res);
           } else {
             this.errMsg = res.errorMessage;
           }
@@ -91,15 +93,16 @@ export class SignupComponent implements OnInit {
       this.group.markAllAsTouched();
     }
   }
-
+  openWelcomeDialog() {
+    this.dialog.open(WelcomeSlidesComponent, { width: '500px', });
+  }
   googleLogin() {
     this.socialAuth.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
       const obj = { idToken: user.idToken, source: 'WEB' };
       this.auth.loginWithGoogle(obj).subscribe(
         (res: any) => {
           if (res.loginSuccess) {
-            localStorage.setItem('token', res.accessToken);
-            this.router.navigate(["/", GlobalConstants.feedPath]);
+            this.signUpSuccess(res);
           }
         }, err => { }
       );
@@ -114,16 +117,21 @@ export class SignupComponent implements OnInit {
   signUp(user) {
     this.auth.signUp(user).subscribe(
       res => {
-        this.formError = "";
+        this.formError = '';
         if (res.loginSuccess) {
-          localStorage.setItem('token', res.accessToken);
-          this.router.navigate(["/", GlobalConstants.feedPath]);
-        } else if (typeof res.errorMessage === "string") {
+          this.signUpSuccess(res);
+        } else if (typeof res.errorMessage === 'string') {
           this.formError = res.errorMessage;
-        } else if (typeof res.errors === "object" && res.errors.length > 0) {
+        } else if (typeof res.errors === 'object' && res.errors.length > 0) {
           this.formError = res.errors[0].defaultMessage;
         }
       }, err => { }
     );
+  }
+
+  signUpSuccess(res) {
+    localStorage.setItem('token', res.accessToken);
+    this.router.navigate(['/', GlobalConstants.feedPath]);
+    this.openWelcomeDialog();
   }
 }
