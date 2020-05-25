@@ -49,13 +49,12 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="col-md-6" appearance="fill">
+    <mat-form-field class="col-md-6" appearance="fill" color="accent">
       <mat-label>Date of Birth</mat-label>
-      <input matInput [matDatepicker]="picker" [formControl]="dob" (focus)="picker.open()" [max]="today">
+      <input matInput [matDatepicker]="picker" [formControl]="dob" (focus)="picker.open()" [max]="minDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       <mat-error *ngIf="dob.hasError('required')">Date of Birth is required.</mat-error>
-      <mat-error *ngIf="dob.hasError('pattern')">Email is invalid.</mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-md-12" appearance="fill">
@@ -89,12 +88,13 @@
     </mat-form-field>
 
     <div class="col-md-12">
-      <mat-checkbox [formControl]="accept">I accept QuestNr
+      <mat-checkbox [formControl]="accept">I accept Questnr
         <span>
-          <a [routerLink]="['']" target="_blank">Terms</a> & <a [routerLink]="['']" target="_blank">Privacy Policy</a>
+          <a [routerLink]="['']" target="_blank" class="link">Terms</a> & <a [routerLink]="['']" target="_blank"
+            class="link">Privacy Policy</a>
         </span>
       </mat-checkbox>
-      <mat-error *ngIf="accept.invalid && accept.touched">Please Accept Terms & Privacy Policy.</mat-error>
+      <mat-error *ngIf="accept.invalid && accept.touched">Please Accept Terms & Privacy Policy</mat-error>
     </div>
   </div>
 

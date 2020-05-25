@@ -54,7 +54,7 @@ export class SignupComponent implements OnInit {
   confirmPassword = new FormControl('', Validators.required);
   accept = new FormControl('', Validators.requiredTrue);
   dob = new FormControl('', Validators.required);
-  today = new Date();
+  minDate = new Date();
   constructor(
     private fb: FormBuilder, private auth: LoginService,
     private socialAuth: AuthService, private router: Router) { }
