@@ -26,6 +26,9 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
@@ -210,6 +213,8 @@ export function metaFactory(): MetaLoader {
     MatTooltipModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     SocialLoginModule,
     ShareButtonsModule.withConfig(customConfig),
     TranslateModule.forRoot({
@@ -258,6 +263,8 @@ export function metaFactory(): MetaLoader {
       provide: AuthServiceConfig,
       useFactory: provideConfig
     },
+    MatDatepickerModule,
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     MessagingService,
     CommunityResolve
   ],
