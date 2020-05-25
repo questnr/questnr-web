@@ -34,6 +34,7 @@ export class CommunityComponent implements OnInit {
   communityId: any;
   mobileView = false;
   screenWidth = window.innerWidth;
+  scrollCached: boolean = null;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
     private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService) {
@@ -83,36 +84,23 @@ export class CommunityComponent implements OnInit {
   }
 
   scroll = (event): void => {
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      // console.log('no im  here');
-      if (this.userFeeds.length >= 0 && !this.endOfPosts) {
-        // console.log('check network call', this.endOfPosts);
-        this.loading = true;
-        ++this.page;
-        this.fetchCommunityFeeds(this.communityId);
-      }
+    if (!this.scrollCached) {
+      setTimeout(() => {
+        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+          // console.log('no im  here');
+          if (this.userFeeds.length >= 0 && !this.endOfPosts) {
+            // console.log('check network call', this.endOfPosts);
+            this.loading = true;
+            ++this.page;
+            this.fetchCommunityFeeds(this.communityId);
+          }
+        }
+        this.scrollCached = null;
+      }, 100);
     }
+    this.scrollCached = event;
   }
 
-  followThisCommunty() {
-    this.auth.followCommunity(this.communityDTO.communityId).subscribe((res: any) => {
-      // console.log('started following' + this.communityDTO.communityName, res);
-      this.owner = 'followed';
-    }, error => {
-      // console.log('failed to join this community', error.error.errorMessage);
-      this.snackBar.open(error.error.errorMessage, 'close', { duration: 3000 });
-    });
-  }
-
-  unfollowThisCommunity() {
-    const userId = this.loginAuth.getUserProfile().id;
-    this.auth.unfollowCommunityService(this.communityDTO.communityId, userId).subscribe((res: any) => {
-      // console.log('unfollowed' + this.communityDTO.communityName, res);
-      this.owner = '';
-    }, error => {
-      // console.log('failed to unfollow' + this.communityDTO.communityName, error.error.errorMessage);
-    });
-  }
   postFeed(event) {
     if (event.postActionId) {
       this.userFeeds = [event, ...this.userFeeds];

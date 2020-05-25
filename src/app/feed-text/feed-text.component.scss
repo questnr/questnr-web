@@ -6,9 +6,9 @@
     text-align: justify;
 }
 
-p.pre {
-    white-space: pre-wrap;
-    margin: 0;
+.pre {
+    white-space: pre-wrap !important;
+    margin: 0 !important;
 }
 
 .read-more-container{

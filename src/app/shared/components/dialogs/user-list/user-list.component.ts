@@ -1,12 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {User} from '../../../../models/user.model';
-import {UserProfileCardServiceComponent} from '../../../../user-profile-card/user-profile-card-service.component';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserListService} from './user-list.service';
-import {UserFollowersService} from '../../../../user-followers/user-followers.service';
-import {CommunityMembersService} from '../../../../community-users/community-members.service';
-import {ActivatedRoute} from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CommunityMembersService } from '../../../../community-users/community-members.service';
+import { User } from '../../../../models/user.model';
+import { UserFollowersService } from '../../../../user-followers/user-followers.service';
+import { UserProfileCardServiceComponent } from '../../../../user-profile-card/user-profile-card-service.component';
+import { UserListService } from './user-list.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -17,10 +15,10 @@ import {ActivatedRoute} from '@angular/router';
 export class UserListComponent implements OnInit {
   loading = true;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public  userProfileCardServiceComponent: UserProfileCardServiceComponent,
-              // tslint:disable-next-line:max-line-length
-              public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>, public followersService: UserFollowersService,
-              public communityMembersService: CommunityMembersService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public userProfileCardServiceComponent: UserProfileCardServiceComponent,
+    // tslint:disable-next-line:max-line-length
+    public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>, public followersService: UserFollowersService,
+    public communityMembersService: CommunityMembersService) {
   }
 
   userList: User[] = [];
@@ -31,6 +29,7 @@ export class UserListComponent implements OnInit {
   endOfResult = false;
   page = 0;
   screenWidth = window.innerWidth;
+  scrollCached: boolean = null;
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.scroll, true);
@@ -53,22 +52,28 @@ export class UserListComponent implements OnInit {
   }
 
   scroll = (event): void => {
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      console.log('no im  here');
-      if (this.userList.length >= 0 && !this.endOfResult) {
-        console.log('check network call');
-        this.loading = true;
-        ++this.page;
-        if (this.data.type === 'following') {
-          this.getFollowingUser(this.data.userId);
-        } else if (this.data.type === 'followers') {
-          this.getFollowers(this.data.userId);
-        } else {
-          const url = window.location.pathname.split('/')[2];
-          this.getCommunityMembers(url);
+    if (!this.scrollCached) {
+      setTimeout(() => {
+        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+          console.log('no im  here');
+          if (this.userList.length >= 0 && !this.endOfResult) {
+            console.log('check network call');
+            this.loading = true;
+            ++this.page;
+            if (this.data.type === 'following') {
+              this.getFollowingUser(this.data.userId);
+            } else if (this.data.type === 'followers') {
+              this.getFollowers(this.data.userId);
+            } else {
+              const url = window.location.pathname.split('/')[2];
+              this.getCommunityMembers(url);
+            }
+          }
         }
-      }
+        this.scrollCached = null;
+      }, 100);
     }
+    this.scrollCached = event;
   }
 
   getUserImage(src) {

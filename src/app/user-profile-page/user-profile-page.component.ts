@@ -3,7 +3,6 @@ import { UserProfileCardServiceComponent } from '../user-profile-card/user-profi
 import { UserProfilePageService } from './user-profile-page.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../models/user.model';
-import { UserFollowersService } from '../user-followers/user-followers.service';
 import { LoginService } from '../auth/login.service';
 import { ApiService } from '../shared/api.service';
 import { Post } from '../models/post-action.model';
@@ -38,6 +37,7 @@ export class UserProfilePageComponent implements OnInit {
   userId: any;
   mobileView = false;
   screenWidth = window.innerWidth;
+  scrollCached: boolean = null;
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.scroll, true);
@@ -56,15 +56,21 @@ export class UserProfilePageComponent implements OnInit {
     }
   }
   scroll = (event): void => {
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      // console.log('no im  here');
-      if (this.userFeeds.length >= 0 && !this.endOfPosts) {
-        // console.log('check network call', this.endOfPosts);
-        this.loading = true;
-        ++this.page;
-        this.getUserFeeds(this.userId);
-      }
+    if (!this.scrollCached) {
+      setTimeout(() => {
+        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+          // console.log('no im  here');
+          if (this.userFeeds.length >= 0 && !this.endOfPosts) {
+            // console.log('check network call', this.endOfPosts);
+            this.loading = true;
+            ++this.page;
+            this.getUserFeeds(this.userId);
+          }
+        }
+        this.scrollCached = null;
+      }, 100);
     }
+    this.scrollCached = event;
   }
   ngOnDestroy() {
     this.titleService.setTitle(GlobalConstants.siteTitle);
@@ -120,23 +126,6 @@ export class UserProfilePageComponent implements OnInit {
 
   triggerFalseClick() {
     const src = document.getElementById('fileInput').click();
-  }
-  follow(id) {
-    this.userFollowersService.followMe(id).subscribe((res: any) => {
-      // console.log(res);
-      this.relation = 'followed';
-    }, error => {
-      console.log(error.error.errorMessage);
-    });
-  }
-  unfollow(id) {
-    const ownerId = this.loginService.getUserProfile().id;
-    this.userFollowersService.unfollowMe(ownerId, id).subscribe((res: any) => {
-      // console.log(res);
-      this.relation = 'none';
-    }, error => {
-      console.log(error.error.errorMessage);
-    });
   }
   getCommunityFollowedByUser() {
     this.api.getJoinedCommunities(this.loginService.getUserId(), 0).subscribe((res: any) => {

@@ -3,11 +3,12 @@ import { CreateCommunityComponent } from '../shared/components/dialogs/create.co
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
-import {Community} from '../models/community.model';
-import {OwlOptions} from 'ngx-owl-carousel-o';
-import {CommunityListComponent} from '../shared/components/dialogs/community-list/community-list.component';
-import {UsercommunityService} from './usercommunity.service';
+import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
+import { Community } from '../models/community.model';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
+import { UsercommunityService } from './usercommunity.service';
+import { GlobalConstants } from 'shared/constants';
 
 @Component({
   selector: 'app-usercommunity',
@@ -23,6 +24,7 @@ export class UsercommunityComponent implements OnInit {
   @Input() hasCommunity = true;
   @Input() defaultImage = 'assets/default.jpg';
   @Input() relation;
+  communityPath: string = GlobalConstants.communityPath;
   baseUrl = environment.baseUrl;
   ownedCommunity: Community[];
   loader = true;
@@ -57,7 +59,7 @@ export class UsercommunityComponent implements OnInit {
   };
 
   ngOnInit() {
-    setTimeout( () => {
+    setTimeout(() => {
       this.getUserOwnedCommunity();
     }, 2000);
     const width = this.screenWidth;
@@ -70,6 +72,13 @@ export class UsercommunityComponent implements OnInit {
     }
   }
 
+  checkImageUrl(src) {
+    if (src) {
+      return src;
+    } else {
+      return '/assets/default.jpg';
+    }
+  }
   createCommunity(): void {
     const dialogRef = this.dialog.open(CreateCommunityComponent, {
       width: '800px',
@@ -97,13 +106,13 @@ export class UsercommunityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: {userId : this.userId, community, type: 'ownedCommunity'}
+        data: { userId: this.userId, community, type: 'ownedCommunity' }
       };
     } else {
       config = {
         width: '700px',
         // height: '300px',
-        data: {userId : this.userId, community, type: 'ownedCommunity'}
+        data: { userId: this.userId, community, type: 'ownedCommunity' }
       };
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);
@@ -126,9 +135,9 @@ export class UsercommunityComponent implements OnInit {
   }
   checkImageExists(src) {
     if (src) {
-      return src ;
-    } else  {
-      return  'assests/default.jpg';
+      return src;
+    } else {
+      return 'assests/default.jpg';
     }
   }
 }

@@ -90,6 +90,9 @@ import { UserProfileCardComponent } from './user-profile-card/user-profile-card.
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UsercommunityComponent } from './usercommunity/usercommunity.component';
 import { FeedTextComponent } from 'feed-text/feed-text.component';
+import { RelationActionButtonComponent } from 'relation-action-button/relation-action-button.component';
+import { CommunityRelationActionButtonComponent } from 'community-relation-action-button/community-relation-action-button.component';
+import { SharedModule } from 'shared/shared.module';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -173,7 +176,9 @@ export function metaFactory(): MetaLoader {
     CommunityCardMobileViewComponent,
     JoinedCommunityComponent,
     TimeStringComponent,
-    FeedTextComponent
+    FeedTextComponent,
+    RelationActionButtonComponent,
+    CommunityRelationActionButtonComponent
   ],
   imports: [
     MatVideoModule,
@@ -231,7 +236,8 @@ export function metaFactory(): MetaLoader {
       useFactory: (metaFactory),
       deps: [
       ]
-    })
+    }),
+    SharedModule
   ],
   entryComponents: [
     CreateCommunityComponent,

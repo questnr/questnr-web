@@ -24,5 +24,4 @@ build:
       - dist/
   script:
     - npm run build:ssr
-    - pkill -f node || true
-    - screen -d -m bash -c "npm run serve:ssr > /var/tmp/server.log 2>&1"
+    - pm2 restart all

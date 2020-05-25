@@ -24,22 +24,8 @@
         <button mat-stroked-button *ngIf="relation ==='owned'&& mobileView ">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-stroked-button (click)="follow(user?.userId)" *ngIf="relation==='none' && !mobileView">
-          <mat-icon>add</mat-icon>
-          Follow
-        </button>
-        <button mat-stroked-button (click)="follow(user?.userId)" *ngIf="relation==='none' && mobileView">
-          <mat-icon>person_add</mat-icon>
-        </button>
-        <button mat-stroked-button (click)="unfollow(user?.userId)" *ngIf="relation==='followed' && !mobileView"
-                style="background: green;color: #ffffff">
-          <mat-icon>check</mat-icon>
-          Following
-        </button>
-        <button mat-stroked-button (click)="unfollow(user?.userId)" *ngIf="relation==='followed' && mobileView"
-                style="background: green;color: #ffffff">
-          <mat-icon>check</mat-icon>
-        </button>
+        <app-relation-action-button [relation]="relation" [userId]="userId" [mobileView]="mobileView">
+        </app-relation-action-button>
       </div>
     </div>
   </div>
@@ -49,7 +35,7 @@
   <div>
     <div class="profile-page-container" [ngClass]="{'profile-page-container-mobile' : mobileView}">
       <div class="flex">
-        <div class="flex-section-left" >
+        <div class="flex-section-left">
           <app-usercommunity [userId]="user?.userId" [relation]="relation"></app-usercommunity>
           <app-joined-community></app-joined-community>
           <div *ngIf="!mobileView">
@@ -58,7 +44,7 @@
         </div>
         <div class="flex-section-center" id="user-feed">
           <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=false
-                         *ngIf="relation === 'owned' || relation === 'followed'"></app-post-feed>
+            *ngIf="relation === 'owned' || relation === 'followed'"></app-post-feed>
           <ng-container *ngIf="userFeeds?.length; else noFeeds">
             <div class="feed-wrap" *ngFor="let feed of userFeeds">
               <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>

@@ -6,74 +6,69 @@
       <div class="flex-7" [ngClass]="{'flex-7-mobile' : mobileView}">
         <div class="community-feeds-container">
           <div class="com-ban-img-container">
-<!--            <div *ngIf="mobileView" class="community_owner">-->
-<!--              <div class="owner-img" (click)="navigate(communityDTO?.ownerUserDTO?.slug)">-->
-<!--                <img [src]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink ? communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink: '/assets/default.jpg' "-->
-<!--                     [alt]="communityDTO?.ownerUserDTO?.username">-->
-<!--              </div>-->
-<!--            </div>-->
+            <!--            <div *ngIf="mobileView" class="community_owner">-->
+            <!--              <div class="owner-img" (click)="navigate(communityDTO?.ownerUserDTO?.slug)">-->
+            <!--                <img [src]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink ? communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink: '/assets/default.jpg' "-->
+            <!--                     [alt]="communityDTO?.ownerUserDTO?.username">-->
+            <!--              </div>-->
+            <!--            </div>-->
             <div class="change-comm-img">
               <mat-icon (click)="previewImage()" *ngIf="owner == 'owned'">camera</mat-icon>
               <input type="file" style="display: none" id="communityImageSrc" (change)="onFileChange($event)">
             </div>
-            <img [src]="communityImage" alt="banner" class="comm-ban-img" *ngIf="communityImage" >
-<!--            <img [src]="comUpdatedAvatar" alt="editedImage" *ngif="!isImageEdited">-->
+            <img [src]="communityImage" alt="banner" class="comm-ban-img" *ngIf="communityImage">
+            <!--            <img [src]="comUpdatedAvatar" alt="editedImage" *ngif="!isImageEdited">-->
             <div class="com-ban-overlay"></div>
             <div class="com-head-container">
               <h1>{{communityDTO?.communityName}}</h1>
-              <h3  (click)="openCommunityDesc(communityDTO?.description, communityImage)">{{communityDTO?.description}}</h3>
+              <h3 (click)="openCommunityDesc(communityDTO?.description, communityImage)">{{communityDTO?.description}}
+              </h3>
             </div>
           </div>
         </div>
-<!--        <div class="row">-->
-<!--          <div class="col-md-3">-->
-<!--            <div *ngIf="mobileView" class="community_owner">-->
-<!--              <div class="owner-img" (click)="navigate(communityDTO?.ownerUserDTO?.slug)">-->
-<!--                <img [src]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink ? communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink: '/assets/default.jpg' "-->
-<!--                     [alt]="communityDTO?.ownerUserDTO?.username">-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="col-md-9">-->
-<!--          </div>-->
-<!--        </div>-->
+        <!--        <div class="row">-->
+        <!--          <div class="col-md-3">-->
+        <!--            <div *ngIf="mobileView" class="community_owner">-->
+        <!--              <div class="owner-img" (click)="navigate(communityDTO?.ownerUserDTO?.slug)">-->
+        <!--                <img [src]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink ? communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink: '/assets/default.jpg' "-->
+        <!--                     [alt]="communityDTO?.ownerUserDTO?.username">-->
+        <!--              </div>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--          <div class="col-md-9">-->
+        <!--          </div>-->
+        <!--        </div>-->
         <app-community-users [userListType]="'ribbon'" *ngIf="mobileView"></app-community-users>
         <div *ngIf="mobileView && owner !== 'owned'" class="mobile_view">
-          <button mat-stroked-button style="background: green; color: #fff" *ngIf="owner ==='followed'; else notFollowing" (click)="unfollowThisCommunity()">
-            <mat-icon>check</mat-icon>
-            Following
-          </button>
-          <ng-template #notFollowing>
-            <button mat-stroked-button (click)="followThisCommunty()" *ngIf="owner != 'owned'" > Follow</button>
-          </ng-template>
+          <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId">
+          </app-community-relation-action-button>
         </div>
         <div class="com-dets">
           <div class="btn-container" *ngIf="!mobileView">
-<!--            <button mat-stroked-button> Owner</button>-->
+            <!--            <button mat-stroked-button> Owner</button>-->
             <button mat-stroked-button>
-              <mat-icon>add</mat-icon>Invite</button>
-
+              Invite
+            </button>
           </div>
           <div class="btn-container float-right" *ngIf="!mobileView">
-            <button mat-stroked-button style="background: green; color: #fff" *ngIf="owner ==='followed'; else notFollowing" (click)="unfollowThisCommunity()">
-              <mat-icon>check</mat-icon>
-              Following
-            </button>
-            <ng-template #notFollowing>
-              <button mat-stroked-button (click)="followThisCommunty()" *ngIf="owner != 'owned'" > Follow</button>
-            </ng-template>
+            <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId">
+            </app-community-relation-action-button>
           </div>
         </div>
-        <div class="flex-view" >
+        <div class="flex-view">
           <div class="flex-3" *ngIf="!mobileView">
-            <app-user-profile-card [avatarLink]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink" [relationship]="communityDTO?.ownerUserDTO?.userMeta?.relationShipType"
-            [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username" [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
+            <app-user-profile-card [avatarLink]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink"
+              [relationship]="communityDTO?.ownerUserDTO?.userMeta?.relationShipType"
+              [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username"
+              [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
             <app-floating-footer></app-floating-footer>
           </div>
-          <div class="flex-7" >
+          <div class="flex-7">
             <div class="community-feeds">
-              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"></app-post-feed>
-<!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
+              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true
+                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'">
+              </app-post-feed>
+              <!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
               <ng-container *ngIf="userFeeds?.length; else noFeeds">
                 <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index">
                   <div *ngIf="mobileView && userFeeds.length > 4 && idx === 2">
@@ -91,7 +86,8 @@
               </ng-container>
               <app-feeds-loader *ngIf="loading"></app-feeds-loader>
               <ng-template #noFeeds>
-                <p class="text-center" style="margin-top :30px" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
+                <p class="text-center" style="margin-top :30px" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds
+                  Found...!</p>
               </ng-template>
 
             </div>
@@ -110,11 +106,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-

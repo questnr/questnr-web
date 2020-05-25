@@ -1,0 +1,14 @@
+<button mat-stroked-button *ngIf="relation ==='followed'; else notFollowing" (click)="unfollowThisCommunity()"
+    class="following">
+    <span class="button-content">
+        <mat-icon>check</mat-icon>
+        Joined
+    </span>
+</button>
+<ng-template #notFollowing>
+    <button mat-stroked-button (click)="followThisCommunty()" class="none">
+        <span class="button-content">
+            <mat-icon>add</mat-icon>Join
+        </span>
+    </button>
+</ng-template>

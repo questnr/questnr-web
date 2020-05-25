@@ -37,7 +37,6 @@ export class FeedTextComponent implements OnInit {
     } else {
       this.appendText(this.textToShow.length, (this.countReadMoreTimes + 1) * this.maxLength);
       this.hasMoreText = true;
-      this.countReadMoreTimes++;
     }
   }
 

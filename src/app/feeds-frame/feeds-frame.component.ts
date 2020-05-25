@@ -48,7 +48,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     nav: false,
     autoplay: true
   };
-
+  scrollCached: boolean = null;
 
   screenWidth = window.innerWidth;
 
@@ -90,13 +90,19 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     window.removeEventListener('scroll', this.scroll, true);
   }
   scroll = (event): void => {
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      if (this.userFeeds.length > 1 && !this.endOfPosts) {
-        this.loading = true;
-        ++this.page;
-        this.getUserFeeds();
-      }
+    if (!this.scrollCached) {
+      setTimeout(() => {
+        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+          if (this.userFeeds.length > 1 && !this.endOfPosts) {
+            this.loading = true;
+            ++this.page;
+            this.getUserFeeds();
+          }
+        }
+        this.scrollCached = null;
+      }, 100);
     }
+    this.scrollCached = event;
   }
   getUserFeeds() {
     this.loading = true;

@@ -6,6 +6,7 @@ import { AuthService } from 'angularx-social-login';
 import { ApiService } from '../../shared/api.service';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { AngularFireMessaging } from '@angular/fire/messaging';
+import { GlobalConstants } from 'shared/constants';
 
 
 @Component({
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
             this.angularFireMessaging.getToken.subscribe(token => {
               this.apiService.registerPushNotificationToken(token).subscribe();
             });
-            this.router.navigate(['feed']);
+            this.router.navigate(["/", GlobalConstants.feedPath]);
           } else {
             this.errMsg = res.errorMessage;
           }
@@ -62,7 +63,7 @@ export class LoginComponent implements OnInit {
         (res: any) => {
           if (res.loginSuccess) {
             localStorage.setItem('token', res.accessToken);
-            this.router.navigate(['feeds']);
+            this.router.navigate(["/", GlobalConstants.feedPath]);
           }
         }, err => { }
       );
@@ -79,7 +80,7 @@ export class LoginComponent implements OnInit {
       res => {
         if (res.loginSuccess) {
           localStorage.setItem('token', res.accessToken);
-          this.router.navigate(['feeds']);
+          this.router.navigate(["/", GlobalConstants.feedPath]);
         }
       }, err => { }
     );

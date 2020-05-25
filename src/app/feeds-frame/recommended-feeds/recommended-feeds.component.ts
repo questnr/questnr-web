@@ -92,6 +92,7 @@ export class RecommendedFeedsComponent implements OnInit {
     this.parseFeed();
   }
   parseFeed() {
+    this.feed.text.replace('\n', '<br>');
     this.feed.hashTags.forEach((hashTag: HashTag) => {
       // let hashTagNode = document.createElement("span");
       // hashTagNode.style.color = 'red';
