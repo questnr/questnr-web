@@ -1,76 +1,23 @@
-<div class="suggestion-container box">
-  <div class="com-suggestion">
-    <h1>Trending Communities.</h1>
-    <div  *ngIf="trendingCommunityList.length; else noTrending" >
-      <ul>
-        <li *ngFor="let i of trendingCommunityList"  class="grid">
-          <div class="community_image">
-            <img [src]="i.avatarDTO.avatarLink" [alt]="i.communityName" onerror="this.onerror=null;this.src='assets/default.jpg';">
-          </div>
-          <div [id]=i.communityId>
-            <a [href]="'/community/' + i.slug">{{i.communityName}}</a>
-          </div>
-        </li>
-      </ul>
+<div class="link-card box">
+  <h3>Trending Communities
+  </h3>
+  <ng-container *ngIf="loadingCommunities">
+    <div class="list-item" *ngFor="let i of listItems">
+      <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
+      <ngx-skeleton-loader class="w-100" count="1" appearance="line"></ngx-skeleton-loader>
     </div>
-    <ng-template #noTrending>
-      <span>Explore Latest community. Nothing Trending Currently.</span>
-    </ng-template>
-    <div *ngIf="loader">
-      <div>
-        <ul class="o-vertical-spacing o-vertical-spacing--l">
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-          <li  class="grid blog-post o-media">
-            <div class="community_image o-media__figure">
-              <span class="skeleton-box media-box"></span>
-            </div>
-            <div class="o-media__body">
-              <div class="o-vertical-spacing">
-                <span class="skeleton-box desc" style="width:90%;"></span>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
+  </ng-container>
+  <ng-container *ngIf="trendingCommunityList?.length">
+    <div class="links" *ngFor="let item of trendingCommunityList">
+      <app-profile-icon [avatarLink]="item.avatarDTO.avatarLink" [height]="35"
+        [routerLink]="['/', communityPath, item.slug]">
+      </app-profile-icon>
+      <a class="link" [routerLink]="['/', communityPath, item.slug]">{{item.communityName}}</a>
     </div>
-  </div>
+  </ng-container>
+  <ng-container *ngIf="!trendingCommunityList?.length && !loadingCommunities">
+    <p>
+      We don't have enough data
+    </p>
+  </ng-container>
 </div>
