@@ -1,38 +1,47 @@
 @import "./src/app/variables";
 
-.flex{
+.link-card{
   display: flex;
+  flex-direction: row;
   background: $white;
-  height: 100px;
-  margin: 10px 0;
-  border-radius: 6px;
   border: 1px solid #eeeeee;
-  .flex-50{
-    width: 50%;
-    //margin: 8px;
-    padding: 8px;
-    img{
-      width: 100%;
-      max-width: 79px;
-      max-height: 79px;
-      min-height: 79px;
-      height: 100%;
-      border-radius: 10px;
+  border-radius: 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 0px;
+  .links{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px 20px;
+    .link {
+      // text-overflow: ellipsis;
+      // white-space: nowrap;
+      // overflow: hidden;
+      max-width: 90%;
+      font-weight: 500;
     }
-    div{
-      display: table-cell;
-      vertical-align: middle;
-      height: 80px;
-      p{
-        margin: 0 !important;
+    .link a{
+      &:hover {
+        text-decoration: none;
+        color: $primary;
       }
     }
   }
-}
-.relation-btn{
-  min-width: 120px;
-  button{
-    width: 100%;
+  .action-button{
+    button{
+      border: 0;
+      border-radius: 3px;
+      padding: 2px 5px;
+    }
+    .none{
+      background-color: $white;
+      color: $primary;
+    }
+    .following{
+        background-color: $primary;
+        color: $white;
+    }
   }
 }
 
@@ -46,12 +55,12 @@
     div{
       height: auto;
     }
-    p {
+    div.link {
       width: 80px;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .relation-btn{
+    .action-button{
       padding: 0px;
       button{
         width: fit-content;

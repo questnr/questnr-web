@@ -36,9 +36,9 @@
     <div *ngIf="!loader">
       <ng-container *ngIf="ownedCommunity?.length">
         <div class="links" *ngFor="let item of ownedCommunity">
-          <div class="icon" [routerLink]="['/', communityPath, item.slug]">
-            <img [src]="checkImageUrl(item.avatarDTO.avatarLink)" alt="">
-          </div>
+          <app-profile-icon [avatarLink]="item.avatarDTO.avatarLink" [height]="35"
+            [routerLink]="['/', communityPath, item.slug]">
+          </app-profile-icon>
           <a class="link" [routerLink]="['/', communityPath, item.slug]">{{item.communityName}}</a>
         </div>
       </ng-container>

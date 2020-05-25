@@ -35,3 +35,9 @@ export class PostActionMeta {
     liked: boolean;
 }
 
+export class PostActionForMedia {
+    postActionId: number;
+    userDTO: User;
+    communityDTO: Community;
+    postMediaList: PostMedia[];
+}
