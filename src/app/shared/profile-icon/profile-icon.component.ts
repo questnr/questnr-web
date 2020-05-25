@@ -17,8 +17,9 @@ export class ProfileIconComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  ngAfterVieWInit() {
+  ngAfterViewInit() {
     this.renderer.setStyle(this.elementOnHTML.nativeElement, 'height', this.height + "px");
+    this.renderer.setStyle(this.elementOnHTML.nativeElement, 'width', this.height + "px");
   }
   onLoad() {
     this.loading = false;
