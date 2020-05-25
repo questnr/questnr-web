@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ViewMoreButtonComponent } from './view-more-button/view-more-button.component';
+import { ProfileIconComponent } from './profile-icon/profile-icon.component';
 
 @NgModule({
   declarations: [
-    ViewMoreButtonComponent
+    ViewMoreButtonComponent,
+    ProfileIconComponent
   ],
   imports: [
     CommonModule
@@ -12,7 +14,8 @@ import { ViewMoreButtonComponent } from './view-more-button/view-more-button.com
   entryComponents: [
   ],
   exports: [
-    ViewMoreButtonComponent
+    ViewMoreButtonComponent,
+    ProfileIconComponent
   ]
 })
 export class SharedModule { }

@@ -12,6 +12,7 @@ export class RelationActionButtonComponent implements OnInit {
   @Input() userId: number;
   @Input() mobileView: boolean = false;
   @Input() primary: boolean = true;
+  @Input() size: string = "large";
   constructor(private userFollowersService: UserProfileCardServiceComponent, private loginService: LoginService) { }
 
   ngOnInit(): void {

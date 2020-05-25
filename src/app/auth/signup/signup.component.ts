@@ -52,7 +52,9 @@ export class SignupComponent implements OnInit {
       Validators.maxLength(100)
     ]);
   confirmPassword = new FormControl('', Validators.required);
-
+  accept = new FormControl('', Validators.requiredTrue);
+  dob = new FormControl('', Validators.required);
+  minDate = new Date();
   constructor(
     private fb: FormBuilder, private auth: LoginService,
     private socialAuth: AuthService, private router: Router) { }
@@ -65,13 +67,16 @@ export class SignupComponent implements OnInit {
       username: this.username,
       password: this.password,
       confirmPassword: this.confirmPassword,
+      dob: this.dob,
+      accept: this.accept
     }, { validators: CustomValidations.MatchPassword });
   }
 
   submit() {
     if (this.group.valid) {
       this.isLoading = true;
-      this.auth.signUp(this.group.value).subscribe(
+      const obj = { ...this.group.value, dob: new Date(this.dob.value).getTime() };
+      this.auth.signUp(obj).subscribe(
         res => {
           if (res.loginSuccess) {
             localStorage.setItem('token', res.accessToken);
@@ -82,6 +87,8 @@ export class SignupComponent implements OnInit {
           this.isLoading = false;
         }, err => { this.isLoading = false; }
       );
+    } else {
+      this.group.markAllAsTouched();
     }
   }
 
