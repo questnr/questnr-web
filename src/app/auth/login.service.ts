@@ -37,6 +37,9 @@ export class LoginService {
   getUser() {
     return this.http.get<any>(this.baseUrl + 'user/avatar');
   }
+  getUserDetails(id) {
+    return this.http.get(this.baseUrl + 'user/' + id);
+  }
   getUserProfileImg() {
     this.getUser().subscribe(
       (res) => {

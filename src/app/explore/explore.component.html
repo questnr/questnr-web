@@ -1,0 +1,91 @@
+<app-user-header></app-user-header>
+
+<div class="section">
+  <div class="container" [ngClass]="{'container_mobile': mobileView}">
+    <div class="explore-grid" [ngClass]="{'explore-grid-mobile': mobileView}">
+      <div class="left-section" *ngIf="!mobileView">
+        <!--        <app-joined-community></app-joined-community>-->
+        <div class="hashtags-container">
+          <div class="hashtags">
+            <mat-chip-list aria-label="hashtags">
+              <mat-chip *ngFor="let h of hasTags" [ngClass]="{'active_tag': queryString === h?.hashTagValue}">
+                <span (click)="goToLink('/explore?hashtag='+h?.hashTagValue)"  >#{{h?.hashTagValue}}</span>
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+        <hr>
+        <app-floating-footer></app-floating-footer>
+      </div>
+      <div class="explore-section">
+        <div style="margin-top:10px">
+          <div *ngIf="!queryString">
+            <app-trending [type]="'slider'"></app-trending>
+          </div>
+          <div *ngIf="queryString">
+            <h5>Related To : <span class="queryString">#{{queryString}}</span></h5>
+          </div>
+          <!--          <div class="suggestion-container">-->
+          <!--            <div class="container-header">-->
+          <!--              <div class="row">-->
+          <!--                <div class="col-lg-6" *ngFor="let suggestions of suggestedCommunities let idx_sug =index" (click)="goToLink('/community/'+ suggestions?.slug)">-->
+          <!--                  <div class="community_image box" *ngIf="suggestedCommunities?.length && idx_sug < 4">-->
+          <!--                    <img [src]="suggestions?.avatarDTO?.avatarLink" [alt]="suggestions?.communityName" class="community_avatar">-->
+          <!--                    <div class="backdrop"></div>-->
+          <!--                    <div class="community_details">-->
+          <!--                      <div class="flex">-->
+          <!--                        <div class="img-container">-->
+          <!--                          <div class="owner-img">-->
+          <!--                            <img [src]="checkImg(suggestions?.ownerUserDTO?.avatarDTO?.avatarLink)"-->
+          <!--                                 [alt]="suggestions?.ownerUserDTO?.username">-->
+          <!--                            &lt;!&ndash;                                  <img [src]="suggestions?.ownerUserDTO?.avatarDTO?.avatarLink" [alt]="suggestions?.ownerUserDTO?.username">&ndash;&gt;-->
+
+          <!--                          </div>-->
+          <!--                        </div>-->
+          <!--                        <div class="commmunity_name">-->
+          <!--                          <span>{{suggestions?.communityName}}</span>-->
+          <!--                          <p>{{suggestions?.description}}</p>-->
+          <!--                        </div>-->
+          <!--                      </div>-->
+          <!--                    </div>-->
+          <!--                  </div>-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <ng-container *ngIf="explore?.length; else noFeeds">
+            <h5 style="margin: 20px 0" *ngIf="!queryString">Trending Posts </h5>
+            <div class="feed-wrap" *ngFor="let feed of explore let idx =index">
+              <div *ngIf="explore?.length && idx === 3">
+                <app-suggestion></app-suggestion>
+              </div>
+              <div *ngIf="explore?.length && idx === 2">
+                <div class="hashtags-container">
+                  <h5>Trending Tags</h5>
+                  <div class="hashtags">
+                    <mat-chip-list aria-label="hashtags">
+                      <mat-chip *ngFor="let h of hasTags" [ngClass]="{'active_tag': queryString === h?.hashTagValue}">
+                        <span (click)="goToLink('/explore?hashtag='+h?.hashTagValue)"  >#{{h?.hashTagValue}}</span>
+                      </mat-chip>
+                    </mat-chip-list>
+                  </div>
+                </div>
+              </div>
+              <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
+            </div>
+            <p class="text-center" *ngIf="explore?.length===1 && explore[0] === null">No Feeds Found...!</p>
+          </ng-container>
+          <app-feeds-loader *ngIf="loading"></app-feeds-loader>
+          <ng-template #noFeeds>
+            <p class="text-center" style="margin-top :30px" *ngIf="explore?.length===1 && explore[0] === null">No Feeds
+              Found...!</p>
+          </ng-template>
+        </div>
+      </div>
+      <div class="right-section" *ngIf="!mobileView">
+        <app-suggestion></app-suggestion>
+        <app-sponsered></app-sponsered>
+      </div>
+    </div>
+  </div>
+</div>

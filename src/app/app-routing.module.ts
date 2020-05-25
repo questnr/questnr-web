@@ -23,6 +23,7 @@ import { NotificationItemComponent } from 'feeds-frame/notification-item/notific
 import { CommunityResolve } from './community/community.resolve';
 import { MetaGuard } from '@ngx-meta/core';
 import { GlobalConstants } from 'shared/constants';
+import {ExploreComponent} from './explore/explore.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -39,6 +40,7 @@ const routes: Routes = [
     canActivateChild: [MetaGuard]
   },
   { path: GlobalConstants.userPath + '/:userSlug', component: UserProfilePageComponent },
+  { path: GlobalConstants.explorePath , component: ExploreComponent},
   { path: '**', redirectTo: '' }
   // { path: 'hash-tag/:hashTag' }
 ];

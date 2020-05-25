@@ -1,23 +1,58 @@
-<div class="link-card box">
-  <h3>Trending Communities
-  </h3>
-  <ng-container *ngIf="loadingCommunities">
-    <div class="list-item" *ngFor="let i of listItems">
-      <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
-      <ngx-skeleton-loader class="w-100" count="1" appearance="line"></ngx-skeleton-loader>
+<div class="suggestion-container box" *ngIf="type ==='list'">
+  <div class="com-suggestion">
+<!--    <h1>Trending Communities.</h1>-->
+<!--    <div *ngIf="trendingCommunityList.length; else noTrending">-->
+<!--      <ul>-->
+<!--        <li *ngFor="let i of trendingCommunityList" class="grid">-->
+<!--          <div class="community_image">-->
+<!--            <img [src]="i.avatarDTO.avatarLink" [alt]="i.communityName"-->
+<!--                 onerror="this.onerror=null;this.src='assets/default.jpg';">-->
+<!--          </div>-->
+<!--          <div [id]=i.communityId>-->
+<!--            <a [href]="'/community/' + i.slug">{{i.communityName}}</a>-->
+<!--          </div>-->
+<!--        </li>-->
+<!--      </ul>-->
+      <div class="link-card box">
+        <h3>Trending Communities
+        </h3>
+        <ng-container *ngIf="loadingCommunities">
+          <div class="list-item" *ngFor="let i of listItems">
+            <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
+            <ngx-skeleton-loader class="w-100" count="1" appearance="line"></ngx-skeleton-loader>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="trendingCommunityList?.length">
+          <div class="links" *ngFor="let item of trendingCommunityList">
+            <app-profile-icon [avatarLink]="item.avatarDTO.avatarLink" [height]="35"
+                              [routerLink]="['/', communityPath, item.slug]">
+            </app-profile-icon>
+            <a class="link" [routerLink]="['/', communityPath, item.slug]">{{item.communityName}}</a>
+          </div>
+        </ng-container>
+      </div>
     </div>
-  </ng-container>
-  <ng-container *ngIf="trendingCommunityList?.length">
-    <div class="links" *ngFor="let item of trendingCommunityList">
-      <app-profile-icon [avatarLink]="item.avatarDTO.avatarLink" [height]="35"
-        [routerLink]="['/', communityPath, item.slug]">
-      </app-profile-icon>
-      <a class="link" [routerLink]="['/', communityPath, item.slug]">{{item.communityName}}</a>
+
+    <div *ngIf="type ==='slider'">
+
+      <div class="container-header">
+        <div class="trending-community">
+          <h5>Trending Community</h5>
+          <owl-carousel-o [options]="customOptions">
+            <ng-container *ngFor="let community of trendingCommunityList;let i=index">
+              <ng-template carouselSlide [id]="i">
+                <app-community-card-mobile-view [community]="community"></app-community-card-mobile-view>
+              </ng-template>
+            </ng-container>
+          </owl-carousel-o>
+        </div>
+
+      </div>
+
     </div>
-  </ng-container>
-  <ng-container *ngIf="!trendingCommunityList?.length && !loadingCommunities">
-    <p>
-      We don't have enough data
-    </p>
-  </ng-container>
-</div>
+    <ng-container *ngIf="!trendingCommunityList?.length && !loadingCommunities">
+      <p>
+        We don't have enough data
+      </p>
+    </ng-container>
+  </div>

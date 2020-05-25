@@ -23,6 +23,7 @@ export class UserHeaderComponent {
   @ViewChild("suggestionBoxRef") suggestionBoxRef: ElementRef;
   @Output() menuToggle = new EventEmitter();
   user: string;
+  userDetail: User;
   isLoading = false;
   profile;
   endOfNotifications = false;
@@ -61,6 +62,7 @@ export class UserHeaderComponent {
   ngOnInit() {
     // Receive notification messages
     this.receiveMessage();
+    this.getUserDetail();
   }
 
   ngAfterViewInit() {
@@ -191,5 +193,11 @@ export class UserHeaderComponent {
         this.notifications = res;
       }
     );
+  }
+  getUserDetail() {
+    this.auth.getUserDetails(this.auth.getUserProfile().id).subscribe((res: any) => {
+      this.userDetail = res;
+      console.log(this.userDetail);
+    }, error => console.log(error.error.errorMessage));
   }
 }

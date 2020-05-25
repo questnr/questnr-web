@@ -96,6 +96,8 @@ import { FeedTextComponent } from 'feed-text/feed-text.component';
 import { RelationActionButtonComponent } from 'relation-action-button/relation-action-button.component';
 import { CommunityRelationActionButtonComponent } from 'community-relation-action-button/community-relation-action-button.component';
 import { SharedModule } from 'shared/shared.module';
+import { ExploreComponent } from './explore/explore.component';
+import { QuickNavComponent } from './quick-nav/quick-nav.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -181,7 +183,9 @@ export function metaFactory(): MetaLoader {
     TimeStringComponent,
     FeedTextComponent,
     RelationActionButtonComponent,
-    CommunityRelationActionButtonComponent
+    CommunityRelationActionButtonComponent,
+    ExploreComponent,
+    QuickNavComponent
   ],
   imports: [
     MatVideoModule,

@@ -1,0 +1,13 @@
+@Import '../variables';
+
+.quick_nav{
+  margin-top: 10px;
+  .quick-nav-list{
+    list-style: none;
+    padding: 0px;
+    h5{
+      font-weight: 400;
+      cursor: pointer;
+    }
+  }
+}
