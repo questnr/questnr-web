@@ -94,6 +94,7 @@ import { RelationActionButtonComponent } from 'relation-action-button/relation-a
 import { CommunityRelationActionButtonComponent } from 'community-relation-action-button/community-relation-action-button.component';
 import { SharedModule } from 'shared/shared.module';
 import { ExploreComponent } from './explore/explore.component';
+import { QuickNavComponent } from './quick-nav/quick-nav.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -180,7 +181,8 @@ export function metaFactory(): MetaLoader {
     FeedTextComponent,
     RelationActionButtonComponent,
     CommunityRelationActionButtonComponent,
-    ExploreComponent
+    ExploreComponent,
+    QuickNavComponent
   ],
   imports: [
     MatVideoModule,
