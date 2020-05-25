@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -38,5 +38,11 @@ export class FeedsService {
   }
   getSharableLink(postId) {
     return this.http.post(this.baseUrl + `post/${postId}/link`, {});
+  }
+  removePost(postId) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.http.delete(this.baseUrl + '/user/posts/' + postId, httpOptions);
   }
 }
