@@ -3,60 +3,55 @@
 <section id="hero" class="hero-container"
   style="background: url('assets/questnr-back.jpg') center center/cover no-repeat fixed;">
   <div class="overlay"></div>
-  <div class="row">
-    <div class="col-md-6" style="display: flex; align-items: center;">
-      <div class="container">
-        <h1>
-          The New Era of Online Communities
-        </h1>
-        <h5>
-          Having real social contacts can sometimes be difficult. With a bit of a FUN, everthing becomes much simpler!
-        </h5>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6" style="display: flex; align-items: center;">
+        <div class="container">
+          <h1>
+            The New Era of Online Communities
+          </h1>
+          <h5>
+            Having real social contacts can sometimes be difficult. With a bit of a FUN, everthing becomes much simpler!
+          </h5>
 
-        <div class="search-wrapper">
-          <mat-icon>search</mat-icon>
-          <!--<<<<<<< HEAD-->
-          <!--          <input type="text" placeholder="search #hastags">-->
-          <!--=======-->
-          <input type="text" placeholder="Search #hashtags" [formControl]="hashtagInput">
-          <div class="suggestions">
-            <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="height: 2px">
-            </mat-progress-bar>
-            <button class="w-100" mat-button *ngFor="let item of hashtagResults">{{item.hashTagValue}}</button>
+          <div class="search-wrapper">
+            <mat-icon>search</mat-icon>
+            <input type="text" placeholder="Search #hashtags" [formControl]="hashtagInput">
+            <div class="suggestions">
+              <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="height: 2px">
+              </mat-progress-bar>
+              <button class="w-100" mat-button *ngFor="let item of hashtagResults">{{item.hashTagValue}}</button>
+            </div>
           </div>
-          <!--&gt;>>>>>> master-->
-        </div>
-        <!--        <p class="hashtag-title">POPULAR HASHTAGS</p>-->
-        <div class="hashtags-wrapper">
-          <div class="tag" *ngFor="let hash of topHashtags">
-            <span>#</span>{{hash.hashTagValue}}
+          <div class="hashtags-wrapper">
+            <div class="tag" *ngFor="let hash of topHashtags">
+              <span>#</span>{{hash.hashTagValue}}
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- hero-image -->
-    <div class="col-md-6 d-flex" style="justify-content: flex-end;">
-      <!-- style="background-image: url(/assets/banner.jpg); background-size: contain; justify-content: center;"> -->
-      <div class="login-wrap" #main>
-        <h4 style="text-transform: uppercase; text-align: center;">{{activeAuth}}</h4>
-        <hr style="width: 64px; border-bottom: 2px solid #ed3a4f;">
-        <ng-container *ngIf="activeAuth === 'login'">
-          <app-login></app-login>
-          <p class="center">Don't have an account?<br>
-            <a (click)="activeAuth = 'signup'">SIGN UP</a>
-          </p>
-        </ng-container>
-        <ng-container *ngIf="activeAuth === 'signup'">
-          <app-signup></app-signup>
-          <p class="center">Already have and account?<br>
-            <a (click)="activeAuth = 'login'">LOGIN IN</a>
-          </p>
-        </ng-container>
+      <div class="col-md-6 d-flex" style="justify-content: flex-end;">
+        <div class="login-wrap" #main>
+          <h4 style="text-transform: uppercase; text-align: center;">{{api.activeAuth}}</h4>
+          <hr style="width: 64px; border-bottom: 2px solid #ed3a4f;">
+          <ng-container *ngIf="api.activeAuth === 'login'">
+            <app-login></app-login>
+            <p class="center">Don't have an account?<br>
+              <a (click)="api.activeAuth = 'signup'">SIGN UP</a>
+            </p>
+          </ng-container>
+          <ng-container *ngIf="api.activeAuth === 'signup'">
+            <app-signup></app-signup>
+            <p class="center">Already have and account?<br>
+              <a (click)="api.activeAuth = 'login'">LOGIN IN</a>
+            </p>
+          </ng-container>
+        </div>
       </div>
     </div>
-
   </div>
+
 </section>
 
 <section class="row">

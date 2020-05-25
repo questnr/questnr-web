@@ -51,7 +51,7 @@
 
     <mat-form-field class="col-md-6" appearance="fill" color="accent">
       <mat-label>Date of Birth</mat-label>
-      <input matInput [matDatepicker]="picker" [formControl]="dob" (focus)="picker.open()" [max]="minDate">
+      <input matInput [matDatepicker]="picker" [formControl]="dob" (focus)="picker.open()" [max]="maxAllowedDOB">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       <mat-error *ngIf="dob.hasError('required')">Date of Birth is required.</mat-error>
@@ -88,13 +88,10 @@
     </mat-form-field>
 
     <div class="col-md-12">
-      <mat-checkbox [formControl]="accept">I accept Questnr
-        <span>
-          <a [routerLink]="['']" target="_blank" class="link">Terms</a> & <a [routerLink]="['']" target="_blank"
-            class="link">Privacy Policy</a>
-        </span>
-      </mat-checkbox>
-      <mat-error *ngIf="accept.invalid && accept.touched">Please Accept Terms & Privacy Policy</mat-error>
+      <p class="terms-msg">
+        By clicking Sign Up, you agree to our <a [routerLink]="[termsPath]" target="_blank" class="link">Terms</a> & <a
+          [routerLink]="[policyPath]" target="_blank" class="link">Privacy Policy</a>.
+      </p>
     </div>
   </div>
 

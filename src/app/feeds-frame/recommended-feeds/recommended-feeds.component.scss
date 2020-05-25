@@ -248,3 +248,11 @@ button.liked {
     height: 40px;
   }
 }
+
+.username-link {
+  font-weight: 500;
+  &:hover {
+    text-decoration: none;
+    color: $primary;
+  }
+}

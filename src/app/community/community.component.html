@@ -38,7 +38,8 @@
         <!--          <div class="col-md-9">-->
         <!--          </div>-->
         <!--        </div>-->
-        <app-community-users [userListType]="'ribbon'" *ngIf="mobileView"></app-community-users>
+        <app-community-users [communitySlug]="communityDTO?.slug" [userListType]="'ribbon'" *ngIf="mobileView">
+        </app-community-users>
         <div *ngIf="mobileView && owner !== 'owned'" class="mobile_view">
           <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId">
           </app-community-relation-action-button>
@@ -70,7 +71,7 @@
               </app-post-feed>
               <!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
               <ng-container *ngIf="userFeeds?.length; else noFeeds">
-                <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index">
+                <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index; trackBy: trackItem">
                   <div *ngIf="mobileView && userFeeds.length > 4 && idx === 2">
                     <app-joined-community></app-joined-community>
                   </div>
@@ -82,12 +83,13 @@
                   </div>
                   <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
                 </div>
-                <p class="text-center" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
+                <p class="text-center" *ngIf="userFeeds?.length===1 && userFeeds[0] === null">No Feeds Found...!</p>
               </ng-container>
               <app-feeds-loader *ngIf="loading"></app-feeds-loader>
               <ng-template #noFeeds>
-                <p class="text-center" style="margin-top :30px" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds
-                  Found...!</p>
+                <p class="text-center" style="margin-top :30px" *ngIf="userFeeds?.length <= 0 && userFeeds[0] === null">
+                  No Feeds Found...!
+                </p>
               </ng-template>
 
             </div>
@@ -97,7 +99,7 @@
 
 
       <div class="flex-3" *ngIf="!mobileView">
-        <app-community-users [userListType]="'list'"></app-community-users>
+        <app-community-users [communitySlug]="communityDTO?.slug" [userListType]="'list'"></app-community-users>
         <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>
         <app-suggestion></app-suggestion>
         <app-trending></app-trending>

@@ -1,0 +1,10 @@
+<owl-carousel-o [options]="sliderOptions">
+  <ng-container *ngFor="let slide of slides;let i=index">
+    <ng-template carouselSlide [id]="i">
+      <div class="slides-wrap">
+        <h4>{{slide.title}}</h4>
+        <p>{{slide.content}}</p>
+      </div>
+    </ng-template>
+  </ng-container>
+</owl-carousel-o>

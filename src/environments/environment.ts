@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   // baseUrl: 'http://localhost:3010/api/v1/',
-  baseUrl: 'https://beta.questnr.com/api/v1/',
+  baseUrl: 'https://questnr.com/api/v1/',
   googleKey: '836632017511-na1k4gagi79qlvdp644q1shd0rjffoc9.apps.googleusercontent.com',
   fbKey: '508905489804238',
   firebase: {

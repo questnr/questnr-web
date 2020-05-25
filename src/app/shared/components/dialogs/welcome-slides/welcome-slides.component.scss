@@ -1,0 +1,22 @@
+@import '../../../../variables';
+
+.slides-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 350px;
+  text-align: center;
+  h4{
+    text-transform: uppercase;
+    font-weight: 500;
+    color: $primary;
+  }
+  p{
+    color: #000;
+    line-height: 2rem;
+    letter-spacing: 2px;
+    font-size: 18px;
+    padding: 3rem;
+  }
+}

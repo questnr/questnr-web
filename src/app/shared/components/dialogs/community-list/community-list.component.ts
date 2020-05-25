@@ -1,10 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {UserListComponent} from '../user-list/user-list.component';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {Community} from '../../../../models/community.model';
-import {UsercommunityService} from '../../../../usercommunity/usercommunity.service';
-import {ApiService} from '../../../api.service';
-import {LoginService} from '../../../../auth/login.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { UserListComponent } from '../user-list/user-list.component';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Community } from '../../../../models/community.model';
+import { UsercommunityService } from '../../../../usercommunity/usercommunity.service';
+import { ApiService } from '../../../api.service';
+import { LoginService } from '../../../../auth/login.service';
 
 @Component({
   selector: 'app-community-list',
@@ -15,13 +15,13 @@ export class CommunityListComponent implements OnInit {
   mobileView = false;
   screenWidth = window.innerWidth;
   loader = false;
-  page = 0 ;
+  page = 0;
   endOfResult = false;
   ownedCommunity: Community[] = [];
   // tslint:disable-next-line:max-line-length
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<CommunityListComponent>, public usercommunityService: UsercommunityService, public api: ApiService
-  ,public loginService: LoginService) {
-    data.community.forEach( item => {
+    , public loginService: LoginService) {
+    data.community.forEach(item => {
       this.ownedCommunity.push(item);
     });
   }
@@ -61,7 +61,8 @@ export class CommunityListComponent implements OnInit {
       this.loader = true;
       ++this.page;
       if (this.data.type === 'ownedCommunity') {
-        this.getUserOwnedCommunity(this.data.userId);
+        if (this.data.userId)
+          this.getUserOwnedCommunity(this.data.userId);
       } else {
         this.getJoinedCommunities();
       }

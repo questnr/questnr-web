@@ -64,6 +64,15 @@ mat-form-field {
     padding: 8px !important;
   }
 }
+.terms-msg{
+  a{
+    text-decoration: none;
+    font-weight: 500;
+    &:hover{
+      color: $primary;
+    }
+  }
+}
 
 .link {
   color: $link-primary;

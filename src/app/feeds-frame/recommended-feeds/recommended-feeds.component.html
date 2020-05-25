@@ -26,12 +26,13 @@
     </mat-menu>
   </div>
   <div class="head-wrap" *ngIf="!feed.communityDTO">
-    <div class="profile-icon"> <img [src]="feed.userDTO?.avatarDTO?.avatarLink ?
-      feed?.userDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""> </div>
+    <app-profile-icon [avatarLink]="feed.userDTO.avatarDTO.avatarLink" [height]="50"
+      [routerLink]="['/', userPath, feed.userDTO.slug]">
+    </app-profile-icon>
     <div class="profile-detail">
-      <div class=" head" *ngIf="feed?.userDTO?.username"><a
-          [href]="'/user/' + feed?.userDTO?.slug">{{feed?.userDTO?.username}}</a></div>
-      <div class="head" *ngIf="!feed.userDTO?.username">{{loggedInUsername}}</div>
+      <div class="head" *ngIf="feed?.userDTO?.username">
+        <a class="username-link" [routerLink]="['/', userPath, feed.userDTO.slug]">{{feed?.userDTO?.username}}</a>
+      </div>
       <app-time-string [metaData]="feed.metaData"></app-time-string>
     </div>
     <div class="spacer"></div>
