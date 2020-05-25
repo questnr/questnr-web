@@ -10,6 +10,7 @@
       <div class="main-wrap">
         <aside *ngIf="!mobileView">
           <div class="stick">
+            <app-quick-nav></app-quick-nav>
             <app-sidenav></app-sidenav>
           </div>
         </aside>
@@ -19,9 +20,6 @@
           <owl-carousel-o [options]="customOptions">
             <ng-container *ngFor="let community of trendingCommunities;let i=index">
               <ng-template carouselSlide [id]="i">
-                <!--                <qnr-card carouselSlide [imgSrc]="community.src" [title]="community.title" [detail]="community.detail"-->
-                <!--                  [slug]="community.slug">-->
-                <!--                </qnr-card>-->
                 <app-community-card-mobile-view [community]="community"></app-community-card-mobile-view>
               </ng-template>
             </ng-container>

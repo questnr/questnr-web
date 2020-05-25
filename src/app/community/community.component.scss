@@ -175,10 +175,13 @@
     opacity: 0.4;
     width: auto;
     position: absolute;
-    top: 4%;
-    right: 2%;
+    top: 0%;
+    right: 0%;
     transition: all 500ms ease-in-out;
     cursor: pointer;
+    mat-icon{
+      margin: 14px;
+    }
   }
 }
 

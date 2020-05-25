@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { GlobalConstants } from 'shared/constants';
@@ -14,7 +14,34 @@ import { Page } from 'models/page.model';
 export class TrendingComponent implements OnInit {
   trendingCommunityList: Community[] = [];
   baseUrl = environment.baseUrl;
-  loadingCommunities = false;
+  loader = false;
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 2
+      },
+      400: {
+        items: 3
+      },
+      740: {
+        items: 4
+      },
+      940: {
+        items: 4
+      }
+    },
+    nav: false,
+    autoplay: true
+  };
+  @Input() type: any;
+  loadingCommunities = true;
   listItems = Array(5);
   communityPath: string = GlobalConstants.communityPath;
   constructor(public http: HttpClient) { }
