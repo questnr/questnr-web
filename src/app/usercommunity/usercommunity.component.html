@@ -1,7 +1,7 @@
 <div *ngIf="mobileView">
   <div class="user-owned-community">
     <div>
-      <h5>Owned Communities
+      <h5>Your Communities
         <div class="mobile-create-btn">
           <mat-icon (click)="createCommunity()" *ngIf="relation==='owned' ">add_circle_outline
           </mat-icon>
@@ -31,7 +31,7 @@
 </div>
 
 <div class="link-card box" *ngIf="!mobileView">
-  <h3>Owned Communities.</h3>
+  <h3>Your Communities</h3>
   <div *ngIf="ownedCommunity?.length; else noCommunity">
     <div *ngIf="!loader">
       <ng-container *ngIf="ownedCommunity?.length">
@@ -108,11 +108,6 @@
   <ng-template #noCommunity>
     <div *ngIf="!loader">
       <span>No Communities created yet.</span>
-      <div class="row">
-        <div class="col">
-          <p style="text-align: center">view more</p>
-        </div>
-      </div>
     </div>
   </ng-template>
 </div>
