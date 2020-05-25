@@ -1,5 +1,5 @@
 <div class="icon">
     <img *ngIf="loading" src="/assets/default.jpg" alt="loading" />
-    <img [src]="avatarLink" onerror="this.onerror=null;this.src='/assets/default.jpg';" (load)="onLoad()" alt=""
+    <img [src]="avatarLink" onerror="this.onerror=null;this.src='/assets/default.jpg';" (load)="onLoad()" [alt]="alt"
         #elementOnHTML>
 </div>

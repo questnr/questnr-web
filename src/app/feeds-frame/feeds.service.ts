@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { PostActionForMedia } from 'models/post-action.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,9 @@ export class FeedsService {
   }
   getFeeds(page) {
     return this.http.get(this.baseUrl + 'user/feed', { params: { page } });
+  }
+  getPostMediaList(postId: number): Observable<PostActionForMedia> {
+    return this.http.get<PostActionForMedia>(this.baseUrl + `user/posts/${postId}/media`);
   }
   getComments(postId, page) {
     return this.http.get(this.baseUrl + `user/posts/${postId}/comment`, { params: { page } });
