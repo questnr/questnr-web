@@ -1,21 +1,16 @@
-<div class="flex" [ngClass]="{'flex-mobile' : mobileView}">
-  <div class="flex-50">
-    <img [src]="user?.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';" alt="">
-  </div>
-  <div class="flex-50">
-    <div>
-      <p><a [href]="'/user/' + user?.slug">{{user?.username}}</a></p>
+<div class="link-card box" [ngClass]="{'flex-mobile' : mobileView}">
+  <div class="links">
+    <div class="icon" [routerLink]="['/', userPath, user.slug]">
+      <img [src]="user.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='/assets/default.jpg';" alt="">
     </div>
+    <p class="link"><a [routerLink]="['/', userPath, user.slug]">{{user.username}}</a></p>
   </div>
-  <div class="flex-50 align-right">
-    <div class="relation-btn">
-      <button mat-stroked-button *ngIf="relation === 'owned' else notOwner">
-        It's you
-      </button>
-    </div>
-    <ng-template #notOwner>
-      <app-relation-action-button [relation]="relation" [userId]="user?.userId" [primary]="false">
-      </app-relation-action-button>
-    </ng-template>
-  </div>
+  <!-- <div class="action-button col-md-5" *ngIf="relation !== 'owned'">
+    <button (click)="follow()" *ngIf="relation === 'none' && !mobileView" class="none">
+      Follow
+    </button>
+    <button (click)="unfollow()" *ngIf="relation === 'followed' && !mobileView" class="following">
+      Following
+    </button>
+  </div> -->
 </div>

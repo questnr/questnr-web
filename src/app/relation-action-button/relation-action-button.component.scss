@@ -6,8 +6,22 @@ button {
     top: 6px;
     //right: -10px;
     cursor: pointer;
+}
+.small{
     mat-icon {
-      font-size: 21px;
+        font-size: 9px;
+    }
+    font-size: 9px;
+}
+.medium{
+    mat-icon {
+        font-size: 12px;
+    }
+    font-size: 12px;
+}
+.large{
+    mat-icon {
+        font-size: 21px;
     }
 }
 .button-content{

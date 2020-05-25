@@ -1,8 +1,8 @@
 <div class="com-members-container box" *ngIf="userListType === 'list'">
-  <h1 class="heading">Members</h1>
+  <h3>Members</h3>
   <div *ngIf="communityMemberList?.length ; else noMembers" class="members-list">
-    <div class="" *ngFor="let i of communityMemberList" [id]="i.userId">
-      <app-user-list-view [user]="i"></app-user-list-view>
+    <div class="" *ngFor="let i of communityMemberList, let ind = index" [id]="i.userId">
+      <app-user-list-view *ngIf="ind < 5" [user]="i"></app-user-list-view>
     </div>
   </div>
   <app-view-more-button (click)="openUserGroupDialog('members')" *ngIf="communityMemberList?.length > 5">
