@@ -227,4 +227,11 @@ export class RecommendedFeedsComponent implements OnInit {
 
     });
   }
+  removePost(postId) {
+    this.api.removePost(postId).subscribe((res: any) => {
+      console.log(res);
+    }, error => {
+      console.log(error.error.errorMessage);
+    });
+  }
 }
