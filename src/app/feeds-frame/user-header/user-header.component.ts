@@ -37,6 +37,7 @@ export class UserHeaderComponent {
   notificationColor: string = 'black';
   filterSearchOptionList: string[] = ["users", 'communities', 'hashtags'];
   selectedSearchOption: number = 0;
+  routerLink = GlobalConstants;
 
   constructor(private router: Router, public auth: LoginService,
     private api: ApiService,
@@ -199,5 +200,8 @@ export class UserHeaderComponent {
       this.userDetail = res;
       console.log(this.userDetail);
     }, error => console.log(error.error.errorMessage));
+  }
+  goToLink(src) {
+    window.open(src , '_self');
   }
 }

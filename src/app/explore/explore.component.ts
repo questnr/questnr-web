@@ -4,6 +4,7 @@ import {Post} from '../models/post-action.model';
 import {ApiService} from '../shared/api.service';
 import {Community} from '../models/community.model';
 import {ActivatedRoute} from '@angular/router';
+import {GlobalConstants} from '../shared/constants';
 
 @Component({
   selector: 'app-explore',
@@ -24,10 +25,11 @@ export class ExploreComponent implements OnInit {
   loading = true;
   scrollCached: boolean = null;
   page = 0;
+  hashTagUrl = '/' + GlobalConstants.hashTag + '/';
   queryString: string;
 
   ngOnInit(): void {
-    this.queryString = this.route.snapshot.queryParamMap.get('hashtag');
+    this.queryString = this.route.snapshot.paramMap.get('hashTag');
     console.log(this.queryString);
     this.getSuggestedCommunity();
     this.getTopHashTags();

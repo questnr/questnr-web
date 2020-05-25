@@ -8,8 +8,8 @@
         <div class="hashtags-container">
           <div class="hashtags">
             <mat-chip-list aria-label="hashtags">
-              <mat-chip *ngFor="let h of hasTags" [ngClass]="{'active_tag': queryString === h?.hashTagValue}">
-                <span (click)="goToLink('/explore?hashtag='+h?.hashTagValue)"  >#{{h?.hashTagValue}}</span>
+              <mat-chip *ngFor="let h of hasTags" [ngClass]="{'active_tag': queryString === h?.hashTagValue}" (click)="goToLink(hashTagUrl + h?.hashTagValue)">
+                <span>#{{h?.hashTagValue}}</span>
               </mat-chip>
             </mat-chip-list>
           </div>
@@ -64,8 +64,8 @@
                   <h5>Trending Tags</h5>
                   <div class="hashtags">
                     <mat-chip-list aria-label="hashtags">
-                      <mat-chip *ngFor="let h of hasTags" [ngClass]="{'active_tag': queryString === h?.hashTagValue}">
-                        <span (click)="goToLink('/explore?hashtag='+h?.hashTagValue)"  >#{{h?.hashTagValue}}</span>
+                      <mat-chip *ngFor="let h of hasTags" [ngClass]="{'active_tag': queryString === h?.hashTagValue}" (click)="goToLink(hashTagUrl + h?.hashTagValue)">
+                        <span  >#{{h?.hashTagValue}}</span>
                       </mat-chip>
                     </mat-chip-list>
                   </div>

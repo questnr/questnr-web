@@ -1,4 +1,5 @@
-<app-header (btnClick)="goTo($event)"></app-header>
+<app-header *ngIf="!loggedIn"></app-header>
+<app-user-header *ngIf="loggedIn"></app-user-header>
 <main style="margin-top: 5rem;">
   <div class="container">
     <h2>Privacy Policy</h2>
