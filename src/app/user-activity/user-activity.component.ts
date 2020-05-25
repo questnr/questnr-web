@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {UserActivityService} from './user-activity.service';
-import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
-import {MatDialog} from '@angular/material/dialog';
-import {UserFollowersService} from '../user-followers/user-followers.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { UserActivityService } from './user-activity.service';
+import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
+import { MatDialog } from '@angular/material/dialog';
+import { UserFollowersService } from '../user-followers/user-followers.service';
 
 @Component({
   selector: 'app-user-activity',
@@ -34,12 +34,12 @@ export class UserActivityComponent implements OnInit {
   }
 
   getUserInfo() {
-    console.log('entered');
+    // console.log('entered');
     this.userActivityService.getUserInfo(this.url).subscribe((res: any) => {
       this.userInfo = res;
-      console.log(res);
+      // console.log(res);
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
 
@@ -58,13 +58,13 @@ export class UserActivityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: {userId, type}
+        data: { userId, type }
       };
     } else {
       config = {
         width: '500px',
         // data: userList
-        data: {userId: this.userId, type}
+        data: { userId: this.userId, type }
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);

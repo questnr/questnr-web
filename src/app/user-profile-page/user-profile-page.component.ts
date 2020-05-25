@@ -105,7 +105,7 @@ export class UserProfilePageComponent implements OnInit {
       this.userId = res.userId;
       this.getUserFeeds(res.userId);
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
   updateUserAvatar(event) {
@@ -117,10 +117,10 @@ export class UserProfilePageComponent implements OnInit {
       this.userProfilePageService.updateProfilePicture(formData).subscribe((res: any) => {
         this.userAvatarImage = res.avatarLink;
       }, error => {
-        console.log(error.error.errorMessage);
+        // console.log(error.error.errorMessage);
       });
     } else {
-      console.log('Upload valid Picture');
+      // console.log('Upload valid Picture');
     }
   }
 
@@ -130,7 +130,7 @@ export class UserProfilePageComponent implements OnInit {
   getCommunityFollowedByUser() {
     this.api.getJoinedCommunities(this.loginService.getUserId(), 0).subscribe((res: any) => {
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
   getImageUrl(url) {

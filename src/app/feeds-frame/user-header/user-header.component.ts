@@ -198,10 +198,12 @@ export class UserHeaderComponent {
   getUserDetail() {
     this.auth.getUserDetails(this.auth.getUserProfile().id).subscribe((res: any) => {
       this.userDetail = res;
-      console.log(this.userDetail);
-    }, error => console.log(error.error.errorMessage));
+      // console.log(this.userDetail);
+    }, error => {
+      // console.log(error.error.errorMessage)''
+    });
   }
   goToLink(src) {
-    window.open(src , '_self');
+    window.open(src, '_self');
   }
 }

@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
-import {UserFollowersService} from './user-followers.service';
-import {LoginService} from '../auth/login.service';
-import {UserProfileCardServiceComponent} from '../user-profile-card/user-profile-card-service.component';
-import {User} from '../models/user.model';
-import {CreateCommunityComponent} from '../shared/components/dialogs/create.community/create-community.component';
-import {MatDialog} from '@angular/material/dialog';
-import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { UserFollowersService } from './user-followers.service';
+import { LoginService } from '../auth/login.service';
+import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
+import { User } from '../models/user.model';
+import { CreateCommunityComponent } from '../shared/components/dialogs/create.community/create-community.component';
+import { MatDialog } from '@angular/material/dialog';
+import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
 
 @Component({
   selector: 'app-user-followers',
@@ -16,12 +16,12 @@ export class UserFollowersComponent implements OnInit {
   @Input() userId: number;
   followers: User[];
   following: User[];
-  mobileView = false ;
+  mobileView = false;
   page = 0;
   screenWidth = window.innerWidth;
 
   constructor(public followersService: UserFollowersService, public loginService: LoginService,
-              public userProfileCardServiceComponent: UserProfileCardServiceComponent, public dialog: MatDialog) {
+    public userProfileCardServiceComponent: UserProfileCardServiceComponent, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -55,7 +55,7 @@ export class UserFollowersComponent implements OnInit {
       // console.log('followed content' + res.content);
       this.following = res.content;
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
 
@@ -64,7 +64,7 @@ export class UserFollowersComponent implements OnInit {
     this.userProfileCardServiceComponent.unfollowMe(ownerId, userId).subscribe((res: any) => {
       // console.log('Unfollowed');
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
 
@@ -72,7 +72,7 @@ export class UserFollowersComponent implements OnInit {
     this.userProfileCardServiceComponent.followMe(userId).subscribe((res: any) => {
       // console.log('Unfollowed');
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
 

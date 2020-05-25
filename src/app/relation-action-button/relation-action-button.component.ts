@@ -23,7 +23,7 @@ export class RelationActionButtonComponent implements OnInit {
       // console.log(res);
       this.relation = 'followed';
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
   unfollow() {
@@ -32,7 +32,7 @@ export class RelationActionButtonComponent implements OnInit {
       // console.log(res);
       this.relation = 'none';
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
 }

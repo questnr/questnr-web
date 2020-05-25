@@ -89,10 +89,10 @@ export class SinglePostComponent implements OnInit {
         const left = document.getElementById('post-media-window').style.height;
         const right = document.getElementById('post-head').style.height;
         if (left > right) {
-          console.log('left', left);
+          // console.log('left', left);
           document.getElementById('rightdiv').style.height = left;
         } else {
-          console.log('right', right);
+          // console.log('right', right);
           document.getElementById('leftdiv').style.height = right;
         }
       }

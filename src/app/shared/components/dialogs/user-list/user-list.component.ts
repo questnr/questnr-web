@@ -55,9 +55,9 @@ export class UserListComponent implements OnInit {
     if (!this.scrollCached) {
       setTimeout(() => {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-          console.log('no im  here');
+          // console.log('no im  here');
           if (this.userList.length >= 0 && !this.endOfResult) {
-            console.log('check network call');
+            // console.log('check network call');
             this.loading = true;
             ++this.page;
             if (this.data.type === 'following') {
@@ -86,9 +86,9 @@ export class UserListComponent implements OnInit {
 
   follow(id) {
     this.userProfileCardServiceComponent.followMe(id).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
 
@@ -99,7 +99,7 @@ export class UserListComponent implements OnInit {
     if (searchString != '') {
       setTimeout(() => {
         this.userListService.searchUser(searchString).subscribe((res: any) => {
-          console.log('serach resuult for :' + searchString + 'is===', res);
+          // console.log('serach resuult for :' + searchString + 'is===', res);
           this.searchResultList = res.content;
           this.searchResult = true;
           if (res.content.length === 0) {
@@ -109,7 +109,7 @@ export class UserListComponent implements OnInit {
           }
           this.loading = false;
         }, error => {
-          console.log(error.error.errorMessage);
+          // console.log(error.error.errorMessage);
           this.searchResult = false;
           this.loading = false;
           this.noResultFound = true;
@@ -126,7 +126,7 @@ export class UserListComponent implements OnInit {
   }
 
   getFollowers(userId) {
-    console.log('test userId', userId);
+    // console.log('test userId', userId);
     this.followersService.getUserFollowers(userId, this.page).subscribe((res: any) => {
       if (res.content.length) {
         res.content.forEach(user => {
@@ -136,16 +136,16 @@ export class UserListComponent implements OnInit {
         this.endOfResult = true;
         this.loading = false;
       }
-      console.log('follower content', this.userList);
+      // console.log('follower content', this.userList);
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
       this.loading = false;
     });
   }
 
   getFollowingUser(userId) {
     this.followersService.getFollowedBy(userId, this.page).subscribe((res: any) => {
-      console.log('followed content' + res.content);
+      // console.log('followed content' + res.content);
       if (res.content.length) {
         res.content.forEach(user => {
           this.userList.push(user);
@@ -155,9 +155,9 @@ export class UserListComponent implements OnInit {
         this.loading = false;
         this.endOfResult = true;
       }
-      console.log('follower content', this.userList);
+      // console.log('follower content', this.userList);
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
       this.loading = false;
     });
   }
