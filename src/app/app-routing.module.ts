@@ -25,6 +25,7 @@ import { MetaGuard } from '@ngx-meta/core';
 import { GlobalConstants } from 'shared/constants';
 import { TermsComponent } from 'terms/terms.component';
 import { PolicyComponent } from 'policy/policy.component';
+import { ExploreComponent } from './explore/explore.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -43,6 +44,7 @@ const routes: Routes = [
     canActivateChild: [MetaGuard]
   },
   { path: GlobalConstants.userPath + '/:userSlug', component: UserProfilePageComponent },
+  { path: GlobalConstants.explorePath, component: ExploreComponent },
   { path: '**', redirectTo: '' }
   // { path: 'hash-tag/:hashTag' }
 ];
@@ -56,7 +58,7 @@ export interface Tile {
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      initialNavigation: 'enabled',
+      initialNavigation: 'enabled'
       // enableTracing: true // <-- debugging purposes only
     })],
   exports: [RouterModule]

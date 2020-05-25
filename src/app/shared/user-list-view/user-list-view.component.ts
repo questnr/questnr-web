@@ -1,7 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {User} from '../../models/user.model';
-import {UserProfileCardServiceComponent} from '../../user-profile-card/user-profile-card-service.component';
-import {LoginService} from '../../auth/login.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { User } from '../../models/user.model';
+import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
+import { LoginService } from '../../auth/login.service';
+import { GlobalConstants } from 'shared/constants';
 
 @Component({
   selector: 'app-user-list-view',
@@ -11,6 +12,7 @@ import {LoginService} from '../../auth/login.service';
 export class UserListViewComponent implements OnInit {
   @Input() user: User;
   @Input() userListRibbon;
+  userPath: string = GlobalConstants.userPath;
   relation: any;
   screenWidth = window.innerWidth;
   mobileView = false;
@@ -30,17 +32,17 @@ export class UserListViewComponent implements OnInit {
     }
   }
 
-  unFollow(userId) {
+  unfollow() {
     const ownerId = this.loginService.getUserProfile().id;
-    this.userProfileCardServiceComponent.unfollowMe(ownerId, userId).subscribe((res: any) => {
+    this.userProfileCardServiceComponent.unfollowMe(ownerId, this.user.userId).subscribe((res: any) => {
       this.relation = 'none';
     }, error => {
       console.log(error.error.errorMessage);
     });
   }
 
-  follow(userId) {
-    this.userProfileCardServiceComponent.followMe(userId).subscribe((res: any) => {
+  follow() {
+    this.userProfileCardServiceComponent.followMe(this.user.userId).subscribe((res: any) => {
       this.relation = 'followed';
     }, error => {
       console.log(error.error.errorMessage);

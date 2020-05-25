@@ -1,14 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import {UserProfileCardServiceComponent} from '../user-profile-card/user-profile-card-service.component';
-import {LoginService} from '../auth/login.service';
-import {ActivatedRoute} from '@angular/router';
-import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
-import {MatDialog} from '@angular/material/dialog';
-import {CommunityMembersService} from './community-members.service';
-import {Community} from '../models/community.model';
-import {User} from '../models/user.model';
+import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
+import { LoginService } from '../auth/login.service';
+import { ActivatedRoute } from '@angular/router';
+import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
+import { MatDialog } from '@angular/material/dialog';
+import { CommunityMembersService } from './community-members.service';
+import { Community } from '../models/community.model';
+import { User } from '../models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-community-users',
@@ -17,7 +18,7 @@ import {User} from '../models/user.model';
 })
 export class CommunityUsersComponent implements OnInit {
   baseUrl = environment.baseUrl;
-  url: string;
+  @Input() communitySlug: string;
   @Input() userListType;
   @Input() ownerUser: User;
   communityMemberList: User[] = [];
@@ -26,13 +27,11 @@ export class CommunityUsersComponent implements OnInit {
   screenWidth = window.innerWidth;
 
   constructor(public http: HttpClient, public userService: UserProfileCardServiceComponent, public loginService: LoginService, public route: ActivatedRoute,
-              public dialog: MatDialog, public communityMembersService: CommunityMembersService) {
+    public dialog: MatDialog, public communityMembersService: CommunityMembersService) {
   }
 
   ngOnInit(): void {
-    this.url = this.route.snapshot.paramMap.get('communitySlug');
-    console.log(this.route.snapshot)
-    this.getCommunityMembers();
+    this.getCommunityMembers(this.communitySlug);
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;
@@ -43,13 +42,17 @@ export class CommunityUsersComponent implements OnInit {
     }
   }
 
-  getCommunityMembers() {
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.communitySlug) {
+      this.getCommunityMembers(changes.communitySlug.currentValue);
+    }
+  }
+
+  getCommunityMembers(communitySlug: string) {
     this.loader = true;
-    this.communityMembersService.getCommunityMembers(this.url, 0).subscribe((data: any) => {
+    this.communityMembersService.getCommunityMembers(communitySlug, 0).subscribe((data: any) => {
       this.loader = false;
-      data.content.map((value, index) => {
-        this.communityMemberList.push(value);
-      });
+      this.communityMemberList = data.content;
       // console.log(this.communityMemberList);
     }, error => {
       // console.log('something went wrong while fetching community Members.');
@@ -58,7 +61,7 @@ export class CommunityUsersComponent implements OnInit {
   }
 
   sendFollowInvite(i) {
-    this.http.post(this.baseUrl + 'user/follow/user/' + i  , '').subscribe((res: any) => {
+    this.http.post(this.baseUrl + 'user/follow/user/' + i, '').subscribe((res: any) => {
       console.log(res);
     }, error => {
       console.log(error.error.errorMessage);
@@ -87,13 +90,13 @@ export class CommunityUsersComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: {userId: null, type}
+        data: { userId: null, type }
       };
     } else {
       config = {
         width: '500px',
         // data: userList
-        data: {userId: null, type}
+        data: { userId: null, type }
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);

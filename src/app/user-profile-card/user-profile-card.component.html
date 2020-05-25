@@ -18,7 +18,7 @@
 
       </div>
       <div class="com-owner-det" [id]="userId">
-        <a [href]="'/user/'+ slug">
+        <a routerLink="['/', userPath, slug]">
           <div class="owner-img">
             <img [src]="avatarLink" [alt]="username">
           </div>
@@ -46,20 +46,21 @@
       </div>
     </div>
     <hr style="margin: 8px">
-    <div class="follow-user" >
+    <div class="follow-user">
       <a [href]="'/user/'+ slug" *ngIf="relationship =='owned'; else public">
-        <button mat-button >
+        <button mat-button>
           Profile
         </button>
       </a>
       <ng-template #public>
         <div *ngIf="relationship=='followed'; else notFollowing">
-          <button mat-stroked-button   style="background: green;color: #fff;" (click)="unfollowUser(userId)">
+          <button mat-stroked-button style="background: green;color: #fff;" (click)="unfollowUser(userId)">
             <mat-icon>check</mat-icon>
-            Following</button>
+            Following
+          </button>
         </div>
         <ng-template #notFollowing>
-          <button mat-button (click)="addUser()" > Follow</button>
+          <button mat-button (click)="addUser()"> Follow</button>
         </ng-template>
       </ng-template>
     </div>

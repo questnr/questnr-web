@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { Page } from 'models/page.model';
 import { UIService } from 'ui/ui.service';
 import { LoginService } from '../auth/login.service';
 import { Community } from '../models/community.model';
@@ -17,12 +18,12 @@ import { CommunityService } from './community.service';
   styleUrls: ['./community.component.scss']
 })
 export class CommunityComponent implements OnInit {
+  @ViewChild("feedPartRef") feedPartRef: ElementRef;
   isSidenavopen = false;
   communitySlug: string;
   communityDTO: Community;
   owner: any;
   comUserList: any[];
-  feeds: Post[];
   ownerDTO: User;
   comUpdatedAvatar: any;
   communityImage: any;
@@ -39,6 +40,9 @@ export class CommunityComponent implements OnInit {
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
     private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
+  }
+  public trackItem(index: number, feed: Post) {
+    return feed.slug;
   }
 
   openCommunityDesc(desc: any, communityImg: any): void {
@@ -62,6 +66,7 @@ export class CommunityComponent implements OnInit {
       this.communityImage = this.communityDTO.avatarDTO.avatarLink;
       this.ownerDTO = this.communityDTO.ownerUserDTO;
       this.owner = this.communityDTO.communityMeta.relationShipType;
+      this.userFeeds = [];
       this.fetchCommunityFeeds(this.communityDTO.communityId);
     });
   }
@@ -110,10 +115,9 @@ export class CommunityComponent implements OnInit {
   }
   fetchCommunityFeeds(communityId) {
     this.communityId = communityId;
-    this.auth.getCommunityFeeds(communityId, this.page).subscribe((res: any) => {
+    this.auth.getCommunityFeeds(communityId, this.page).subscribe((res: Page<Post>) => {
       if (res.content.length) {
         res.content.forEach(post => {
-          // console.log(post);
           this.userFeeds.push(post);
         });
       } else {

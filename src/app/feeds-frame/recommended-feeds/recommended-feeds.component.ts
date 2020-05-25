@@ -1,21 +1,21 @@
 
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { FeedsService } from 'feeds-frame/feeds.service';
-import { LoginService } from 'auth/login.service';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { Post } from '../../models/post-action.model';
-import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { MatDialog } from '@angular/material/dialog';
-import { CommentAction } from '../../models/comment-action.model';
-import { HashTag } from 'models/hashtag.model';
-import { MetaCardComponent } from 'meta-card/meta-card.component';
-import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
-import { UserListComponent } from '../../shared/components/dialogs/user-list/user-list.component';
+import { LoginService } from 'auth/login.service';
 import { CommonService } from 'common/common.service';
+import { FeedsService } from 'feeds-frame/feeds.service';
 import { IFramelyService } from 'meta-card/iframely.service';
+import { HashTag } from 'models/hashtag.model';
 import { IFramelyData } from 'models/iframely.model';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
+import { CommentAction } from '../../models/comment-action.model';
+import { Post, PostActionForMedia } from '../../models/post-action.model';
+import { UserListComponent } from '../../shared/components/dialogs/user-list/user-list.component';
+import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
+import { GlobalConstants } from 'shared/constants';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -78,6 +78,8 @@ export class RecommendedFeedsComponent implements OnInit {
   };
   loggedInUserId: any;
   hashTagsData: any = {};
+  errorOnImageIndexList: number[] = [];
+  userPath: string = GlobalConstants.userPath;
 
   constructor(private api: FeedsService,
     public login: LoginService,
@@ -110,6 +112,20 @@ export class RecommendedFeedsComponent implements OnInit {
       let detectedLink: string = this.commonService.parseTextToFindURL(this.feed.text);
       this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
     }
+  }
+  onError(index: number) {
+    this.errorOnImageIndexList.push(index);
+  }
+  onLoad(index: number) {
+    if (this.errorOnImageIndexList.includes(index)) {
+      this.errorOnImageIndexList.splice(index, this.errorOnImageIndexList.length);
+    }
+  }
+  onRefreshImageAtIndex(index: number) {
+    this.api.getPostMediaList(this.feed.postActionId).subscribe((res: PostActionForMedia) => {
+      this.feed.postMediaList = res.postMediaList;
+      this.errorOnImageIndexList = [];
+    });
   }
   toggleComments() {
     this.isSharing = false;

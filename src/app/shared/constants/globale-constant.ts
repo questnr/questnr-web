@@ -13,4 +13,5 @@ export class GlobalConstants {
   public static postPath: string = "post";
   public static hashTagPath: string = "hash-tag";
   public static headerPath: string = "header";
+  public static explorePath = 'explore';
 }
