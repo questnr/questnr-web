@@ -12,26 +12,16 @@
   .links{
     display: flex;
     flex-direction: row;
-    align-items: baseline;
+    align-items: center;
     margin: 10px 20px;
-    .icon {
-      cursor: pointer;
-      max-width: 30px;
-      margin-right: 10px;
-      border-radius: 50%;
-      overflow: hidden;
-      height: 30px;
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
     .link {
       // text-overflow: ellipsis;
       // white-space: nowrap;
       // overflow: hidden;
       max-width: 90%;
       font-weight: 500;
+    }
+    .link a{
       &:hover {
         text-decoration: none;
         color: $primary;
@@ -65,7 +55,7 @@
     div{
       height: auto;
     }
-    p {
+    div.link {
       width: 80px;
       overflow: hidden;
       text-overflow: ellipsis;

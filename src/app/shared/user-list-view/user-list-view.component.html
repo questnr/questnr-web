@@ -1,9 +1,9 @@
 <div class="link-card box" [ngClass]="{'flex-mobile' : mobileView}">
   <div class="links">
-    <div class="icon" [routerLink]="['/', userPath, user.slug]">
-      <img [src]="user.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='/assets/default.jpg';" alt="">
-    </div>
-    <p class="link"><a [routerLink]="['/', userPath, user.slug]">{{user.username}}</a></p>
+    <app-profile-icon [avatarLink]="user?.avatarDTO?.avatarLink" [height]="35"
+      [routerLink]="['/', userPath, user.slug]">
+    </app-profile-icon>
+    <div class="link"><a [routerLink]="['/', userPath, user.slug]">{{user.username}}</a></div>
   </div>
   <!-- <div class="action-button col-md-5" *ngIf="relation !== 'owned'">
     <button (click)="follow()" *ngIf="relation === 'none' && !mobileView" class="none">
