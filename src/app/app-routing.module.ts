@@ -41,6 +41,7 @@ const routes: Routes = [
   },
   { path: GlobalConstants.userPath + '/:userSlug', component: UserProfilePageComponent },
   { path: GlobalConstants.explorePath , component: ExploreComponent},
+  { path: GlobalConstants.hashTag + '/:hashTag' , component: ExploreComponent},
   { path: '**', redirectTo: '' }
   // { path: 'hash-tag/:hashTag' }
 ];
