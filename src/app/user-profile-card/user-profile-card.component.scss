@@ -9,14 +9,15 @@
 }
 .owner-name{
   width: -moz-fit-content;
-  width: fit-content;
+  width: 190px;
   margin: 8px auto;
   padding-top: 8px;
+  overflow-y: scroll;
 }
 .owner-name h5{
   font-weight: 400;
 }
-.owner-img img{
+.owner-img app-profile-icon{
   width: 100%;
   border-radius: 50%;
   padding: 2px;
@@ -273,7 +274,15 @@
     width: 100%;
   }
 }
-.follow-user button:hover{
+
+.none{
+  background-color: $white;
+  color: $primary;
+}
+.following{
+  background-color: $primary;
+  color: $white;
+}
+.none:hover{
   border: 1px solid $grey;
-  color: $heading;
 }
