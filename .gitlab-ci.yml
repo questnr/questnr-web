@@ -25,4 +25,8 @@ build:
   script:
     - npm run build:ssr
     - pkill -f node || true
-    - screen -d -m bash -c "npm run serve:ssr > /var/tmp/server.log 2>&1"
+    - pm2 start dist/questnr-front-end/server/main.js --name questnr1
+    - pm2 start dist/questnr-front-end/server/main.js --name questnr2
+    - pm2 start dist/questnr-front-end/server/main.js --name questnr3
+    - pm2 start dist/questnr-front-end/server/main.js --name questnr4
+    - pm2 start dist/questnr-front-end/server/main.js --name questnr5
