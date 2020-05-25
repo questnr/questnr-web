@@ -24,9 +24,4 @@ build:
       - dist/
   script:
     - npm run build:ssr
-    - pkill -f node || true
-    - pm2 start dist/questnr-front-end/server/main.js --name questnr1
-    - pm2 start dist/questnr-front-end/server/main.js --name questnr2
-    - pm2 start dist/questnr-front-end/server/main.js --name questnr3
-    - pm2 start dist/questnr-front-end/server/main.js --name questnr4
-    - pm2 start dist/questnr-front-end/server/main.js --name questnr5
+    - pm2 restart all
