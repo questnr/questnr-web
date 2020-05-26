@@ -127,9 +127,9 @@ export class UserHeaderComponent {
     );
   }
   handleRouterLink(slug: string) {
-    let path: string = "user";
+    let path: string = GlobalConstants.userPath;
     if (this.selectedSearchOption == 1)
-      path = GlobalConstants.userPath;
+      path = GlobalConstants.communityPath;
     else if (this.selectedSearchOption == 2)
       path = GlobalConstants.hashTagPath;
     this.router.navigate(["/", path, slug]);
