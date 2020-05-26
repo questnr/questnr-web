@@ -97,7 +97,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   scroll = (event): void => {
     if (!this.scrollCached) {
       setTimeout(() => {
-        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
           if (this.userFeeds.length > 1 && !this.endOfPosts) {
             this.loading = true;
             ++this.page;

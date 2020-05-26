@@ -15,7 +15,6 @@ export class UIService {
     if (title) {
       this.metaService.setTitle(title);
     }
-    console.log("metaList", metaList);
     for (let i = 0; i < metaList.length; i++) {
       this.metaService.setTag(
         metaList[i].metaInformation.type,
