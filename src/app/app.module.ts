@@ -100,6 +100,7 @@ import { WelcomeSlidesComponent } from 'shared/components/dialogs/welcome-slides
 import { ExploreComponent } from './explore/explore.component';
 import { QuickNavComponent } from './quick-nav/quick-nav.component';
 import { CreateCommunityBtnComponent } from './create-community-btn/create-community-btn.component';
+import { LandingPageResolve } from 'landing-page/landing-page.resolve';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -275,7 +276,8 @@ export function metaFactory(): MetaLoader {
     MatDatepickerModule,
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     MessagingService,
-    CommunityResolve
+    CommunityResolve,
+    LandingPageResolve
   ],
   exports: [
     JoinedCommunityComponent,

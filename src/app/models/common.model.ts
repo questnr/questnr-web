@@ -6,11 +6,6 @@ export class MetaList {
 }
 
 export class MetaInformation {
-    constructor(type: string, content: string, attributeType: string) {
-        this.type == type;
-        this.content = content;
-        this.attributeType = attributeType;
-    }
     type: string;
     content: string;
     attributeType: string;

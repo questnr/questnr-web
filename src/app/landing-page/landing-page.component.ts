@@ -1,13 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { ApiService } from 'shared/api.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { loggedIn } from '@angular/fire/auth-guard';
 // import {TranslateService} from '@ngx-translate/core';
 import { FormControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MetaList } from 'models/common.model';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { loggedIn } from '@angular/fire/auth-guard';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from 'shared/api.service';
 import { UIService } from 'ui/ui.service';
-import { GlobalConstants } from 'shared/constants';
-import { MetaList, MetaInformation } from 'models/common.model';
 
 @Component({
   selector: 'app-landing-page',
@@ -57,22 +56,7 @@ export class LandingPageComponent implements OnInit {
   metaList: MetaList[] = [];
 
   topHashtags = [];
-  constructor(public api: ApiService, public router: Router, private uiService: UIService) {
-    this.metaList.push(new MetaList(new MetaInformation("name", "title", GlobalConstants.siteTitle)));
-    this.metaList.push(new MetaList(new MetaInformation("name", "description", GlobalConstants.description)));
-    this.metaList.push(new MetaList(new MetaInformation("name", "author", GlobalConstants.siteTitle)));
-    this.metaList.push(new MetaList(new MetaInformation("name", "robots", "index, follow, max-image-preview:standard")));
-    this.metaList.push(new MetaList(new MetaInformation("name", "googlebot", "index, follow, max-image-preview:standard")));
-    this.metaList.push(new MetaList(new MetaInformation("property", "og:url", GlobalConstants.siteLink)));
-    this.metaList.push(new MetaList(new MetaInformation("property", "og:title", GlobalConstants.siteTitle)));
-    this.metaList.push(new MetaList(new MetaInformation("property", "og:image", GlobalConstants.siteLogo)));
-    this.metaList.push(new MetaList(new MetaInformation("property", "og:type", "website")));
-    this.metaList.push(new MetaList(new MetaInformation("property", "fb:app_id", GlobalConstants.fbAppId)));
-    this.metaList.push(new MetaList(new MetaInformation("property", "twitter:url", GlobalConstants.siteLink)));
-    this.metaList.push(new MetaList(new MetaInformation("property", "twitter:title", GlobalConstants.siteTitle)));
-    this.metaList.push(new MetaList(new MetaInformation("property", "twitter:image", GlobalConstants.siteLogo)));
-    this.metaList.push(new MetaList(new MetaInformation("property", "twitter:type", "website")));
-    this.uiService.setMetaTagsAndTitle(GlobalConstants.siteTitle, this.metaList);
+  constructor(public api: ApiService, public router: Router, private uiService: UIService, private route: ActivatedRoute) {
     this.hashtagInput.valueChanges
       .pipe(
         debounceTime(500),
@@ -94,6 +78,8 @@ export class LandingPageComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.route.data.subscribe((data: { siteTitle: string }) => {
+    });
     if (loggedIn) {
       this.router.navigate(['feed']);
     }
@@ -110,6 +96,9 @@ export class LandingPageComponent implements OnInit {
           this.topHashtags = [...this.hashtags].splice(0, 5);
         }
       }, err => { });
+  }
+  ngOnDestroy() {
+    this.uiService.resetTitle();
   }
   searchHashtag() {
     this.api.searchHashtags(this.hashtagInput.value).subscribe(

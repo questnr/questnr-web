@@ -26,9 +26,14 @@ import { GlobalConstants } from 'shared/constants';
 import { TermsComponent } from 'terms/terms.component';
 import { PolicyComponent } from 'policy/policy.component';
 import { ExploreComponent } from './explore/explore.component';
+import { LandingPageResolve } from 'landing-page/landing-page.resolve';
 
 const routes: Routes = [
-  { path: '', component: LandingPageComponent },
+  {
+    path: '', component: LandingPageComponent, resolve: {
+      landingPage: LandingPageResolve
+    }
+  },
   { path: GlobalConstants.termsPath, component: TermsComponent },
   { path: GlobalConstants.policyPath, component: PolicyComponent },
   { path: GlobalConstants.feedPath, component: FeedsFrameComponent, canActivate: [AuthGuard] },
@@ -44,8 +49,8 @@ const routes: Routes = [
     canActivateChild: [MetaGuard]
   },
   { path: GlobalConstants.userPath + '/:userSlug', component: UserProfilePageComponent },
-  { path: GlobalConstants.explorePath , component: ExploreComponent},
-  { path: GlobalConstants.hashTagPath + '/:hashTag' , component: ExploreComponent},
+  { path: GlobalConstants.explorePath, component: ExploreComponent },
+  { path: GlobalConstants.hashTagPath + '/:hashTag', component: ExploreComponent },
   { path: '**', redirectTo: '' }
   // { path: 'hash-tag/:hashTag' }
 ];
