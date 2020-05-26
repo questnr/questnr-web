@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'shared/api.service';
 import { LoginService } from 'auth/login.service';
+import {GlobalConstants} from '../../shared/constants';
 
 @Component({
   selector: 'app-sidenav',
@@ -12,7 +13,7 @@ export class SidenavComponent implements OnInit {
   userCommunities = [];
 
   userHashtags = [];
-
+  hashTagBaseUrl = '/' + GlobalConstants.hashTagPath + '/';
   listItems = Array(5);
   loadingCommunities = true;
   loadingHashtags = true;

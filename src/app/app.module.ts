@@ -99,6 +99,7 @@ import { SharedModule } from 'shared/shared.module';
 import { WelcomeSlidesComponent } from 'shared/components/dialogs/welcome-slides/welcome-slides.component';
 import { ExploreComponent } from './explore/explore.component';
 import { QuickNavComponent } from './quick-nav/quick-nav.component';
+import { CreateCommunityBtnComponent } from './create-community-btn/create-community-btn.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -187,7 +188,8 @@ export function metaFactory(): MetaLoader {
     CommunityRelationActionButtonComponent,
     WelcomeSlidesComponent,
     ExploreComponent,
-    QuickNavComponent
+    QuickNavComponent,
+    CreateCommunityBtnComponent
   ],
   imports: [
     MatVideoModule,

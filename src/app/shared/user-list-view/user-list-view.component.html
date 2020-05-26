@@ -1,16 +1,32 @@
-<div class="link-card box" [ngClass]="{'flex-mobile' : mobileView}">
-  <div class="links">
-    <app-profile-icon [avatarLink]="user?.avatarDTO?.avatarLink" [height]="35"
-      [routerLink]="['/', userPath, user.slug]">
+<div class="flex" [ngClass]="{'flex-mobile' : mobileView}">
+  <div class="flex-50" style="margin: auto; width: fit-content">
+<!--    <img [src]="user?.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';" alt="">-->
+    <app-profile-icon [avatarLink]="user?.avatarDTO?.avatarLink" [height]="80"
+                      [routerLink]="['/', userPath, user.slug]">
     </app-profile-icon>
-    <div class="link"><a [routerLink]="['/', userPath, user.slug]">{{user.username}}</a></div>
+<!--    <div class="link"><a [routerLink]="['/', userPath, user.slug]">{{user.username}}</a></div>-->
   </div>
-  <!-- <div class="action-button col-md-5" *ngIf="relation !== 'owned'">
-    <button (click)="follow()" *ngIf="relation === 'none' && !mobileView" class="none">
-      Follow
-    </button>
-    <button (click)="unfollow()" *ngIf="relation === 'followed' && !mobileView" class="following">
-      Following
-    </button>
-  </div> -->
+  <div class="flex-50">
+    <div>
+      <p>
+        <a [routerLink]="['/', userPath, user.slug]">{{user.username}}</a>
+      </p>
+    </div>
+  </div>
+  <div class="flex-50 align-right">
+    <div class="relation-btn">
+      <button mat-stroked-button *ngIf="relation === 'owned' else notOwner">
+        It's you
+      </button>
+    </div>
+    <ng-template #notOwner>
+      <button mat-stroked-button *ngIf="relation === 'followed' "
+              (click)="unfollow()">
+        Following
+      </button>
+      <button mat-stroked-button *ngIf="relation === 'none'" (click)="follow()">
+        Follow
+      </button>
+    </ng-template>
+  </div>
 </div>
