@@ -25,7 +25,7 @@ export class ExploreComponent implements OnInit {
   loading = true;
   scrollCached: boolean = null;
   page = 0;
-  hashTagUrl = '/' + GlobalConstants.hashTag + '/';
+  hashTagUrl = '/' + GlobalConstants.hashTagPath + '/';
   queryString: string;
 
   ngOnInit(): void {

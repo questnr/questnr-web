@@ -1,0 +1,11 @@
+<div class="card box" *ngIf="type ==='card'">
+  <div class="card-content">
+    <div class="card-description">
+      <p>Create Community click <span class="link" (click)="createCommunity()">here</span></p>
+    </div>
+  </div>
+</div>
+
+<div  *ngIf="type ==='icon'">
+  <mat-icon (click)="createCommunity()">control_point</mat-icon>
+</div>

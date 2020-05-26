@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Renderer2, ViewChild, ElementRef } from '@ang
 export class ProfileIconComponent implements OnInit {
   @Input() avatarLink: string;
   @Input() height: number = 25;
+  @Input() border: number = 10;
   @Input() alt: string = "image";
   loading: boolean = true;
   @ViewChild('elementOnHTML', { static: false }) elementOnHTML: ElementRef;

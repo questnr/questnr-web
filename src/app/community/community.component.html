@@ -99,6 +99,7 @@
 
 
       <div class="flex-3" *ngIf="!mobileView">
+        <app-create-community-btn [type]="'card'"></app-create-community-btn>
         <app-community-users [communitySlug]="communityDTO?.slug" [userListType]="'list'"></app-community-users>
         <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>
         <app-suggestion></app-suggestion>
