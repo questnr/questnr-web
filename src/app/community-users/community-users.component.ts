@@ -62,9 +62,9 @@ export class CommunityUsersComponent implements OnInit {
 
   sendFollowInvite(i) {
     this.http.post(this.baseUrl + 'user/follow/user/' + i, '').subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
   unfollowUser(userId) {

@@ -33,10 +33,10 @@ export class CommunityCardMobileViewComponent implements OnInit {
   }
   followThisCommunty(communityId) {
     this.communityService.followCommunity(communityId).subscribe((res: any) => {
-      console.log('started following' + res);
+      // console.log('started following' + res);
       this.relation = 'followed';
     }, error => {
-      console.log('failed to join this community', error.error.errorMessage);
+      // console.log('failed to join this community', error.error.errorMessage);
       this.snackBar.open(error.error.errorMessage, 'close', { duration: 3000 });
     });
   }
@@ -44,10 +44,10 @@ export class CommunityCardMobileViewComponent implements OnInit {
   unfollowThisCommunity(communityId) {
     const userId = this.loginService.getUserProfile().id;
     this.communityService.unfollowCommunityService(communityId, userId).subscribe((res: any) => {
-      console.log('unfollowed', res);
+      // console.log('unfollowed', res);
       this.relation = 'none';
     }, error => {
-      console.log('failed to unfollow', error.error.errorMessage);
+      // console.log('failed to unfollow', error.error.errorMessage);
     });
   }
 }

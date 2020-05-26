@@ -57,7 +57,7 @@ export class CommunityListComponent implements OnInit {
   // }
   loadMoreCommunity() {
     if (this.ownedCommunity.length >= 0 && !this.endOfResult) {
-      console.log('check network call');
+      // console.log('check network call');
       this.loader = true;
       ++this.page;
       if (this.data.type === 'ownedCommunity') {

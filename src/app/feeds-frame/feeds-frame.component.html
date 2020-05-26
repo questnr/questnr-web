@@ -52,13 +52,12 @@
           <ng-template #noFeeds>
             <div class="text-center no-feed" *ngIf="!loading">
               <div>It seems you don’t have any post yet.</div>
-              <div><a class="primary-link" routerLink="">Create your community</a> and make everyone amazed by the
-                things you love</div>
+              <div>
+                <a class="primary-link" (click)="createCommunity()">
+                  Create your community</a> and make everyone amazed by the things you love
+              </div>
             </div>
           </ng-template>
-          <div *ngIf="this.endOfPosts">
-            <p class="text-center mt-4">We couldn't find more post for you!</p>
-          </div>
         </div>
         <aside class="right" *ngIf="!mobileView">
           <div class="stick">

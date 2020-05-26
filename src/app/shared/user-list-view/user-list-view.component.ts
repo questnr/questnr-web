@@ -37,7 +37,7 @@ export class UserListViewComponent implements OnInit {
     this.userProfileCardServiceComponent.unfollowMe(ownerId, this.user.userId).subscribe((res: any) => {
       this.relation = 'none';
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
 
@@ -45,7 +45,7 @@ export class UserListViewComponent implements OnInit {
     this.userProfileCardServiceComponent.followMe(this.user.userId).subscribe((res: any) => {
       this.relation = 'followed';
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
 }

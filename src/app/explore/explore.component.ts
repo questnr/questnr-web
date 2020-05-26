@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {ExploreService} from './explore.service';
-import {Post} from '../models/post-action.model';
-import {ApiService} from '../shared/api.service';
-import {Community} from '../models/community.model';
-import {ActivatedRoute} from '@angular/router';
-import {GlobalConstants} from '../shared/constants';
+import { Component, OnInit } from '@angular/core';
+import { ExploreService } from './explore.service';
+import { Post } from '../models/post-action.model';
+import { ApiService } from '../shared/api.service';
+import { Community } from '../models/community.model';
+import { ActivatedRoute } from '@angular/router';
+import { GlobalConstants } from '../shared/constants';
 
 @Component({
   selector: 'app-explore',
@@ -30,7 +30,7 @@ export class ExploreComponent implements OnInit {
 
   ngOnInit(): void {
     this.queryString = this.route.snapshot.paramMap.get('hashTag');
-    console.log(this.queryString);
+    // console.log(this.queryString);
     this.getSuggestedCommunity();
     this.getTopHashTags();
     window.addEventListener('scroll', this.scroll, true);
@@ -82,7 +82,7 @@ export class ExploreComponent implements OnInit {
       }
       // console.log(this.explore);
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
       this.loading = false;
     });
   }
@@ -95,7 +95,7 @@ export class ExploreComponent implements OnInit {
         });
       }
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
 
@@ -139,7 +139,7 @@ export class ExploreComponent implements OnInit {
         this.loading = false;
       }
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
       this.loading = false;
     });
   }

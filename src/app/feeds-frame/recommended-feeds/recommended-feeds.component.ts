@@ -228,9 +228,9 @@ export class RecommendedFeedsComponent implements OnInit {
   }
   unFollow(userId) {
     this.userProfileCardServiceComponent.unfollowMe(this.loggedInUserId, userId).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
   openUserGroupDialog(userList, type): void {
@@ -245,9 +245,9 @@ export class RecommendedFeedsComponent implements OnInit {
   }
   removePost(postId) {
     this.api.removePost(postId).subscribe((res: any) => {
-      console.log(res);
+      // console.log(res);
     }, error => {
-      console.log(error.error.errorMessage);
+      // console.log(error.error.errorMessage);
     });
   }
 }
