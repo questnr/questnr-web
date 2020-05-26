@@ -13,7 +13,7 @@ import { UserListService } from './user-list.service';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  loading = true;
+  loading = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public userProfileCardServiceComponent: UserProfileCardServiceComponent,
     // tslint:disable-next-line:max-line-length
@@ -54,7 +54,7 @@ export class UserListComponent implements OnInit {
   scroll = (event): void => {
     if (!this.scrollCached) {
       setTimeout(() => {
-        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
           // console.log('no im  here');
           if (this.userList.length >= 0 && !this.endOfResult) {
             // console.log('check network call');
