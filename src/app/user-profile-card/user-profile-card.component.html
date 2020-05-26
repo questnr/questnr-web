@@ -18,17 +18,15 @@
 
       </div>
       <div class="com-owner-det" [id]="userId">
-        <a routerLink="['/', userPath, slug]">
-          <div class="owner-img">
-            <app-profile-icon [avatarLink]="avatarLink" [height]="90" [alt]="username">
-            </app-profile-icon>
+        <div class="owner-img">
+          <app-profile-icon [avatarLink]="avatarLink" [height]="90" [alt]="username" routerLink="['/', userPath, slug]">
+          </app-profile-icon>
+        </div>
+        <div>
+          <div class="owner-name" routerLink="['/', userPath, slug]">
+            <p class="link"> {{username}}</p>
           </div>
-          <div>
-            <div class="owner-name">
-              <h5> {{username}}</h5>
-            </div>
-          </div>
-        </a>
+        </div>
       </div>
       <hr>
 

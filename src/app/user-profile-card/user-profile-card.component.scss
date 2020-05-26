@@ -9,10 +9,20 @@
 }
 .owner-name{
   width: -moz-fit-content;
-  width: 190px;
+  width: fit-content;
   margin: 8px auto;
-  padding-top: 8px;
-  overflow-y: scroll;
+  padding-top: 31px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1rem;
+  .link {
+    font-weight: 500;
+    cursor: pointer;
+    &:hover {
+      text-decoration: none;
+      color: $primary;
+    }
+  }
 }
 .owner-name h5{
   font-weight: 400;
