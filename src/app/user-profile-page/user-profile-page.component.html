@@ -43,8 +43,8 @@
           </div>
         </div>
         <div class="flex-section-center" id="user-feed">
-          <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=false
-            *ngIf="relation === 'owned' || relation === 'followed'"></app-post-feed>
+          <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=false *ngIf="relation === 'owned'">
+          </app-post-feed>
           <ng-container *ngIf="userFeeds?.length; else noFeeds">
             <div class="feed-wrap" *ngFor="let feed of userFeeds">
               <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
