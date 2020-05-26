@@ -5,6 +5,9 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { loggedIn } from '@angular/fire/auth-guard';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UIService } from 'ui/ui.service';
+import { GlobalConstants } from 'shared/constants';
+import { MetaList, MetaInformation } from 'models/common.model';
 
 @Component({
   selector: 'app-landing-page',
@@ -51,8 +54,25 @@ export class LandingPageComponent implements OnInit {
     { hashTagValue: 'community' },
   ];
 
+  metaList: MetaList[] = [];
+
   topHashtags = [];
-  constructor(public api: ApiService, public router: Router) {
+  constructor(public api: ApiService, public router: Router, private uiService: UIService) {
+    this.metaList.push(new MetaList(new MetaInformation("name", "title", GlobalConstants.siteTitle)));
+    this.metaList.push(new MetaList(new MetaInformation("name", "description", GlobalConstants.description)));
+    this.metaList.push(new MetaList(new MetaInformation("name", "author", GlobalConstants.siteTitle)));
+    this.metaList.push(new MetaList(new MetaInformation("name", "robots", "index, follow, max-image-preview:standard")));
+    this.metaList.push(new MetaList(new MetaInformation("name", "googlebot", "index, follow, max-image-preview:standard")));
+    this.metaList.push(new MetaList(new MetaInformation("property", "og:url", GlobalConstants.siteLink)));
+    this.metaList.push(new MetaList(new MetaInformation("property", "og:title", GlobalConstants.siteTitle)));
+    this.metaList.push(new MetaList(new MetaInformation("property", "og:image", GlobalConstants.siteLogo)));
+    this.metaList.push(new MetaList(new MetaInformation("property", "og:type", "website")));
+    this.metaList.push(new MetaList(new MetaInformation("property", "fb:app_id", GlobalConstants.fbAppId)));
+    this.metaList.push(new MetaList(new MetaInformation("property", "twitter:url", GlobalConstants.siteLink)));
+    this.metaList.push(new MetaList(new MetaInformation("property", "twitter:title", GlobalConstants.siteTitle)));
+    this.metaList.push(new MetaList(new MetaInformation("property", "twitter:image", GlobalConstants.siteLogo)));
+    this.metaList.push(new MetaList(new MetaInformation("property", "twitter:type", "website")));
+    this.uiService.setMetaTagsAndTitle(GlobalConstants.siteTitle, this.metaList);
     this.hashtagInput.valueChanges
       .pipe(
         debounceTime(500),
