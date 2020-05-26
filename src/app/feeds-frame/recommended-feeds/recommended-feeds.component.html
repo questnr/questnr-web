@@ -3,10 +3,13 @@
     <div class="profile-icon"> <img [src]="feed?.communityDTO?.avatarDTO?.avatarLink ?
       feed?.communityDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""> </div>
     <div class="profile-detail" *ngIf="feed.communityDTO">
-      <div class="head"><a [href]="'/community/' + feed?.communityDTO.slug">{{feed?.communityDTO?.communityName}} </a>
+      <div class="head"><a class="username-link"
+          [routerLink]="['/', userPath, feed.userDTO.slug]">{{feed?.userDTO?.username}}</a>
       </div>
-      <div class="subhead"> Posted in Community - <app-time-string [metaData]="feed.metaData"></app-time-string>
+      <div class="subhead"> Posted in <a
+          [href]="'/community/' + feed?.communityDTO.slug">{{feed?.communityDTO?.communityName}}</a>
       </div>
+      <app-time-string [metaData]="feed.metaData"></app-time-string>
     </div>
 
     <div class="spacer"></div>
