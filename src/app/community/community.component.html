@@ -51,7 +51,7 @@
               Invite
             </button>
           </div>
-          <div class="btn-container float-right" *ngIf="!mobileView">
+          <div class="btn-container float-right" *ngIf="!mobileView && owner !== 'owned'">
             <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId">
             </app-community-relation-action-button>
           </div>
