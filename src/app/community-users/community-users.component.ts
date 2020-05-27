@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CommunityMembersService } from './community-members.service';
-import { Community } from '../models/community.model';
+import { Community, CommunityProfileMeta } from '../models/community.model';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 
@@ -25,6 +25,7 @@ export class CommunityUsersComponent implements OnInit {
   loader = false;
   mobileView = false;
   screenWidth = window.innerWidth;
+  numberOfMembers: string;
 
   constructor(public http: HttpClient, public userService: UserProfileCardServiceComponent, public loginService: LoginService, public route: ActivatedRoute,
     public dialog: MatDialog, public communityMembersService: CommunityMembersService) {
@@ -32,6 +33,7 @@ export class CommunityUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCommunityMembers(this.communitySlug);
+    this.getCommunityMetaInfo(this.communitySlug);
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;
@@ -57,6 +59,12 @@ export class CommunityUsersComponent implements OnInit {
     }, error => {
       // console.log('something went wrong while fetching community Members.');
       this.loader = false;
+    });
+  }
+
+  getCommunityMetaInfo(communitySlug: string) {
+    this.communityMembersService.getCommunityMetaInfo(communitySlug).subscribe((data: CommunityProfileMeta) => {
+      this.numberOfMembers = data.followers;
     });
   }
 

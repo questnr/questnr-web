@@ -1,5 +1,9 @@
 <div class="com-members-container box" *ngIf="userListType === 'list'">
-  <h3>Members</h3>
+  <div class="title">
+    <div>Members</div>
+    <div *ngIf="numberOfMembers">{{"&nbsp;- "+numberOfMembers}}
+    </div>
+  </div>
   <div *ngIf="communityMemberList?.length ; else noMembers" class="members-list">
     <div class="" *ngFor="let i of communityMemberList, let ind = index" [id]="i.userId">
       <app-user-list-view *ngIf="ind < 5" [user]="i"></app-user-list-view>
