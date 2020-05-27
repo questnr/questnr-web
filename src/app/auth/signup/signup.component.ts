@@ -94,7 +94,7 @@ export class SignupComponent implements OnInit {
     }
   }
   openWelcomeDialog() {
-    this.dialog.open(WelcomeSlidesComponent, { width: '500px', });
+    // this.dialog.open(WelcomeSlidesComponent, { width: '500px', });
   }
   googleLogin() {
     this.socialAuth.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
