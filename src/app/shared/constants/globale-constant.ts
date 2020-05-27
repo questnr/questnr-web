@@ -11,6 +11,7 @@ export class GlobalConstants {
   public static feedPath = 'feed';
   public static termsPath = 'terms';
   public static policyPath = 'policy';
+  public static cookiePath = 'cookie';
   public static userPath = 'user';
   public static communityPath = 'community';
   public static postPath = 'post';

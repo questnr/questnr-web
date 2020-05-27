@@ -27,15 +27,17 @@ import { TermsComponent } from 'terms/terms.component';
 import { PolicyComponent } from 'policy/policy.component';
 import { ExploreComponent } from './explore/explore.component';
 import { LandingPageResolve } from 'landing-page/landing-page.resolve';
+import { CookiePolicyComponent } from 'cookie-policy/cookie-policy.component';
+import { FooterComponent } from 'footer/footer.component';
 
 const routes: Routes = [
   {
-    path: '', component: LandingPageComponent, resolve: {
-      landingPage: LandingPageResolve
-    }
+    path: '', component: LandingPageComponent, pathMatch: 'full',
+    resolve: { landingPage: LandingPageResolve }
   },
   { path: GlobalConstants.termsPath, component: TermsComponent },
   { path: GlobalConstants.policyPath, component: PolicyComponent },
+  { path: GlobalConstants.cookiePath, component: CookiePolicyComponent },
   { path: GlobalConstants.feedPath, component: FeedsFrameComponent, canActivate: [AuthGuard] },
   { path: GlobalConstants.headerPath, component: HeaderComponent },
   {
@@ -77,6 +79,7 @@ export const routingComponent = [
   FeedsComponent,
   ProfileRibbonComponent,
   FloatingFooterComponent,
+  FooterComponent,
   RecommendedFeedsComponent,
   FloatingAdsComponent,
   TrendingFeedsComponent,
@@ -85,6 +88,7 @@ export const routingComponent = [
   LandingPageComponent,
   TermsComponent,
   PolicyComponent,
+  CookiePolicyComponent,
   UserHeaderComponent,
   SidenavComponent,
   PostFeedComponent,
