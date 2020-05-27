@@ -18,6 +18,16 @@ export class GlobalConstants {
   public static hashTagPath = 'hash-tag';
   public static headerPath = 'header';
   public static explorePath = 'explore';
-  // public static hashTag = 'hash-tag';
+  public static contactPath = 'contact';
 
+  public static supportEmail = "support@questnr.com";
+  public static noReplyEmail = "noreply@questnr.com";
+  public static helloEmail = "hello@questnr.com";
+  public static addressLine1 = "New Delhi, India";
+  public static termsLastUpdated = "May 25, 2020";
+  public static privacyLastUpdated = "May 25, 2020";
+
+  public static getPolicyLink(): string {
+    return this.siteLink + "/policy";
+  }
 }

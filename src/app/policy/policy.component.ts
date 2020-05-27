@@ -12,6 +12,13 @@ import { GlobalConstants } from 'shared/constants';
 export class PolicyComponent implements OnInit {
   loggedIn = false;
   cookiePath = GlobalConstants.cookiePath;
+  siteTitle: string = GlobalConstants.siteTitle;
+  helloEmail: string = GlobalConstants.helloEmail;
+  policyLink: string;
+  siteLink: string = GlobalConstants.siteLink;
+  addressLine1: string = GlobalConstants.addressLine1;
+  privacyLastUpdated: string = GlobalConstants.privacyLastUpdated;
+  contactPath: string = GlobalConstants.siteLink + GlobalConstants.contactPath;
   constructor(private router: Router, private api: ApiService, public loginService: LoginService) { }
 
   goTo(val) {

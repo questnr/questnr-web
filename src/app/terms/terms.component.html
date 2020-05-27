@@ -3,14 +3,14 @@
 <main style="margin-top: 5rem;">
   <div class="container legal-content">
     <h2>TERMS OF USE</h2>
-    <p><strong>Last updated&nbsp;May 25, 2020</strong></p>
+    <p><strong>Last updated&nbsp;{{termsLastUpdated}}</strong></p>
     <p><strong>AGREEMENT TO TERMS</strong></p>
     <p>These Terms of Use constitute a legally binding agreement made between you,
-      whether personally or on behalf of an entity (&ldquo;you&rdquo;) and&nbsp;QuestNR,
-      doing business as&nbsp;QuestNR&nbsp;("<strong>QuestNR</strong>",
+      whether personally or on behalf of an entity (&ldquo;you&rdquo;) and&nbsp;{{siteTitle}},
+      doing business as&nbsp;{{siteTitle}}&nbsp;("<strong>{{siteTitle}}</strong>",
       &ldquo;<strong>we</strong>&rdquo;, &ldquo;<strong>us</strong>&rdquo;, or
       &ldquo;<strong>our</strong>&rdquo;), concerning your access to and use of the&nbsp;<a
-        href="https://questnr.com">https://questnr.com</a>&nbsp;website as well as any other
+        [href]="siteLink">{{siteLink}}</a>&nbsp;website as well as any other
       media form, media channel, mobile website or mobile application related, linked, or
       otherwise connected thereto (collectively, the &ldquo;Site&rdquo;). You agree that by
       accessing the Site, you have read, understood, and agreed to be bound by all of these
@@ -269,7 +269,7 @@
       to facilitate the proper functioning of the Site.</p>
     <p><strong>PRIVACY POLICY</strong></p>
     <p>We care about data privacy and security.&nbsp;Please review our Privacy
-      Policy:<strong>&nbsp;</strong><a href="https://questnr.com/policy">https://questnr.com/policy</a>.&nbsp;By using
+      Policy:<strong>&nbsp;</strong><a [href]="policyLink">{{policyLink}}</a>.&nbsp;By using
       the Site,
       you agree to be bound by our Privacy Policy, which is incorporated into these Terms of Use.
       Please be advised the Site is hosted in&nbsp;Singapore. If you access the Site from any
@@ -330,13 +330,13 @@
       releases in connection therewith.</p>
     <p><strong>GOVERNING LAW</strong></p>
     <p>These Terms shall be governed by and defined following the laws
-      of&nbsp;India.&nbsp;QuestNR&nbsp;and yourself irrevocably consent that the courts
+      of&nbsp;India.&nbsp;{{siteTitle}}&nbsp;and yourself irrevocably consent that the courts
       of&nbsp;India&nbsp;shall have exclusive jurisdiction to resolve any dispute which may
       arise in connection with these terms.</p>
     <p><strong>DISPUTE RESOLUTION</strong></p>
     <p>You agree to irrevocably submit all disputes related to Terms or the relationship
       established by this Agreement to the jurisdiction of
-      the&nbsp;India&nbsp;courts.&nbsp;QuestNR&nbsp;shall also maintain the right to bring
+      the&nbsp;India&nbsp;courts.&nbsp;{{siteTitle}}&nbsp;shall also maintain the right to bring
       proceedings as to the substance of the matter in the courts of the country where you
       reside or if these Terms are entered into in the course of your trade or profession, the state
       of your principal place of business.</p>
@@ -446,9 +446,9 @@
     <p>In order to resolve a complaint regarding the Site or to receive further information
       regarding use of the Site, please contact us
       through&nbsp;questnr.com/contact&nbsp;with any questions about these terms.</p>
-    <p><strong>QuestNR</strong></p>
-    <p><strong>New Delhi, India.</strong></p>
-    <p><strong>hello@questnr.com</strong></p>
+    <p><strong>{{siteTitle}}</strong></p>
+    <p><strong>{{addressLine1}}</strong></p>
+    <p><strong>{{helloEmail}}</strong></p>
 
   </div>
 </main>
