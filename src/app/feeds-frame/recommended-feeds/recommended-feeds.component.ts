@@ -16,6 +16,8 @@ import { Post, PostActionForMedia } from '../../models/post-action.model';
 import { UserListComponent } from '../../shared/components/dialogs/user-list/user-list.component';
 import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
 import { GlobalConstants } from 'shared/constants';
+import { User } from 'models/user.model';
+import { Page } from 'models/page.model';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -233,12 +235,14 @@ export class RecommendedFeedsComponent implements OnInit {
       // console.log(error.error.errorMessage);
     });
   }
-  openUserGroupDialog(userList, type): void {
+  openUserGroupDialog(type): void {
     const dialogRef = this.dialog.open(UserListComponent, {
       width: '500px',
-      data: userList
+      data: {
+        type: type,
+        postId: this.feed.postActionId
+      }
     });
-
     dialogRef.afterClosed().subscribe(result => {
 
     });

@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { PostActionForMedia } from 'models/post-action.model';
 import { Observable } from 'rxjs';
+import { User } from 'models/user.model';
+import { Page } from 'models/page.model';
 
 @Injectable({
   providedIn: 'root'
