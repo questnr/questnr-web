@@ -26,6 +26,7 @@ export class GlobalConstants {
   public static addressLine1 = "New Delhi, India";
   public static termsLastUpdated = "May 25, 2020";
   public static privacyLastUpdated = "May 25, 2020";
+  public static copyRightRenewdYear = "2020";
 
   public static getPolicyLink(): string {
     return this.siteLink + "/policy";

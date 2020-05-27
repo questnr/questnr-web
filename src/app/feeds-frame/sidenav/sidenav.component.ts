@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'shared/api.service';
 import { LoginService } from 'auth/login.service';
-import {GlobalConstants} from '../../shared/constants';
+import { GlobalConstants } from '../../shared/constants';
 
 @Component({
   selector: 'app-sidenav',
@@ -19,10 +19,12 @@ export class SidenavComponent implements OnInit {
   loadingHashtags = true;
 
   footerLinks = [
-    { link: '', title: 'Home' },
-    { link: '', title: 'Terms' },
-    { link: '', title: 'Privacy Policy' },
+    { link: '/' + GlobalConstants.feedPath, title: 'Home' },
+    { link: '/' + GlobalConstants.termsPath, title: 'Terms' },
+    { link: '/' + GlobalConstants.policyPath, title: 'Privacy Policy' },
   ];
+  siteTitle: string = GlobalConstants.siteTitle;
+  copyRightRenewdYear = GlobalConstants.copyRightRenewdYear;
 
   constructor(private api: ApiService, private loginService: LoginService) { }
 
@@ -53,7 +55,7 @@ export class SidenavComponent implements OnInit {
     if (src) {
       return src;
     } else {
-      return  '/assets/default.jpg';
+      return '/assets/default.jpg';
     }
   }
 }
