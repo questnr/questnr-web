@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { loggedIn } from '@angular/fire/auth-guard';
 // import {TranslateService} from '@ngx-translate/core';
 import { FormControl } from '@angular/forms';
@@ -14,7 +14,7 @@ import { UIService } from 'ui/ui.service';
   styleUrls: ['./landing-page.component.scss', '../home/home.component.scss'],
 })
 
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent implements OnInit, OnDestroy {
   activeAuth = this.api.activeAuth;
   isLoading = false;
   hashtagInput = new FormControl();

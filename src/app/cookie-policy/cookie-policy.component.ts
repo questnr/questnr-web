@@ -4,10 +4,10 @@ import { ApiService } from 'shared/api.service';
 import { LoginService } from '../auth/login.service';
 
 @Component({
-  templateUrl: './terms.component.html',
-  styleUrls: ['./terms.component.scss']
+  templateUrl: './cookie-policy.component.html',
+  styleUrls: ['./cookie-policy.component.scss']
 })
-export class TermsComponent implements OnInit {
+export class CookiePolicyComponent implements OnInit {
   loggedIn = false;
   constructor(private router: Router, private api: ApiService, public loginService: LoginService) { }
 

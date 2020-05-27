@@ -53,7 +53,7 @@ export class ExploreComponent implements OnInit {
   scroll = (event): void => {
     if (!this.scrollCached) {
       setTimeout(() => {
-        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+        if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
           // console.log('no im  here');
           if (this.explore.length >= 0 && !this.endOfPosts) {
             // console.log('check network call', this.endOfPosts);
