@@ -6,10 +6,11 @@
           <h6>Company</h6>
           <ul>
             <li>Home</li>
-            <li>Blog</li>
+            <!-- <li>Blog</li> -->
             <li>Comming Soon</li>
             <li>About Us</li>
-            <li>Terms & conditions</li>
+            <li><a [routerLink]="[termsPath]" target="_blank">Terms of Use</a></li>
+            <li><a [routerLink]="[policyPath]" target="_blank">Privacy Policy</a></li>
           </ul>
         </div>
       </div>
@@ -67,7 +68,7 @@
           <ul>
             <li>Support</li>
             <li>System Status</li>
-            <li>suppoer@questnr.com</li>
+            <li><a href="mailto:{{supportEmail}}">{{supportEmail}}</a></li>
           </ul>
           <!--&gt;>>>>>> master-->
         </div>
@@ -82,7 +83,7 @@
           <img src="assets/logo.png" alt="logo" style="margin: 0; width:5rem;">
           <span class="ml-3">
             <i class="fa fa-copyright"></i>
-            <span> 2020 Questnr.com. All rights Reserved.</span>
+            <span> {{copyRightRenewdYear}} Questnr.com. All rights Reserved.</span>
           </span>
         </div>
 
