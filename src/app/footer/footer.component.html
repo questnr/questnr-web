@@ -1,106 +1,125 @@
 <footer class="footer">
-  <div class="container-footer">
-    <div class="row">
-      <div class="col-md-3">
-        <div class="footer-list_container">
-          <h6>Company</h6>
-          <ul>
-            <li>Home</li>
-            <!-- <li>Blog</li> -->
-            <li>Comming Soon</li>
-            <li>About Us</li>
-            <li><a [routerLink]="[termsPath]" target="_blank">Terms of Use</a></li>
-            <li><a [routerLink]="[policyPath]" target="_blank">Privacy Policy</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="footer-list_container">
-          <h6>Products</h6>
-          <ul>
-            <li>Social Wall</li>
-            <li>Members Swap</li>
-            <li>All Members</li>
-            <li>Community Groups</li>
-            <li>Forums</li>
-          </ul>
-        </div>
-      </div>
+  <!--  <div class="container-footer">-->
+  <!--    <div class="row">-->
+  <!--      <div class="col-md-3">-->
+  <!--        <div class="footer-list_container">-->
+  <!--          <h6>Company</h6>-->
+  <!--          <ul>-->
+  <!--            <li>Home</li>-->
+  <!--            &lt;!&ndash; <li>Blog</li> &ndash;&gt;-->
+  <!--            <li>Comming Soon</li>-->
+  <!--            <li>About Us</li>-->
+  <!--            <li><a [routerLink]="[termsPath]" target="_blank">Terms of Use</a></li>-->
+  <!--            <li><a [routerLink]="[policyPath]" target="_blank">Privacy Policy</a></li>-->
+  <!--          </ul>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--      <div class="col-md-3">-->
+  <!--        <div class="footer-list_container">-->
+  <!--          <h6>Products</h6>-->
+  <!--          <ul>-->
+  <!--            <li>Social Wall</li>-->
+  <!--            <li>Members Swap</li>-->
+  <!--            <li>All Members</li>-->
+  <!--            <li>Community Groups</li>-->
+  <!--            <li>Forums</li>-->
+  <!--          </ul>-->
+  <!--        </div>-->
+  <!--      </div>-->
 
-      <div class="col-md-3">
-        <div class="footer-list_container">
+  <!--      <div class="col-md-3">-->
+  <!--        <div class="footer-list_container">-->
 
-          <h6>Community</h6>
-          <ul>
-            <li>Tutorials</li>
-            <li>Meetups</li>
-            <li>Q&A</li>
-            <li>Write for Donations</li>
-            <li>Droplets for Demo</li>
-            <li>Hatch a startup Program</li>
-            <li>Show Swag</li>
-            <li>Research Program</li>
-            <li>Current Research</li>
-            <li>Open Sourse</li>
-          </ul>
-        </div>
-      </div>
-      <!--      <div class="col-md-2">-->
-      <!--        <h6>Community</h6>-->
-      <!--        <ul>-->
-      <!--          <li>Web &amp; Mobile apps</li>-->
-      <!--          <li>Website Hosting</li>-->
-      <!--          <li>Big Data</li>-->
-      <!--          <li>Managed Services</li>-->
-      <!--        </ul>-->
-      <!--      </div>-->
-      <div class="col-md-3">
-        <div class="footer-list_container">
-          <!--<<<<<<< HEAD-->
-          <!--        <h6>Contact</h6>-->
-          <!--        <ul>-->
-          <!--          <li>Support</li>-->
-          <!--          <li>System Status</li>-->
-          <!--          <li>support@questnr.com</li>-->
-          <!--        </ul>-->
-          <!--=======-->
-          <h6>Contact</h6>
-          <ul>
-            <li>Support</li>
-            <li>System Status</li>
-            <li><a href="mailto:{{supportEmail}}">{{supportEmail}}</a></li>
-          </ul>
-          <!--&gt;>>>>>> master-->
-        </div>
-      </div>
-    </div>
-  </div>
-  <hr>
-  <div>
-    <div class="row">
-      <div class="col-md-8" style="align-items: center;">
+  <!--          <h6>Community</h6>-->
+  <!--          <ul>-->
+  <!--            <li>Tutorials</li>-->
+  <!--            <li>Meetups</li>-->
+  <!--            <li>Q&A</li>-->
+  <!--            <li>Write for Donations</li>-->
+  <!--            <li>Droplets for Demo</li>-->
+  <!--            <li>Hatch a startup Program</li>-->
+  <!--            <li>Show Swag</li>-->
+  <!--            <li>Research Program</li>-->
+  <!--            <li>Current Research</li>-->
+  <!--            <li>Open Sourse</li>-->
+  <!--          </ul>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--      &lt;!&ndash;      <div class="col-md-2">&ndash;&gt;-->
+  <!--      &lt;!&ndash;        <h6>Community</h6>&ndash;&gt;-->
+  <!--      &lt;!&ndash;        <ul>&ndash;&gt;-->
+  <!--      &lt;!&ndash;          <li>Web &amp; Mobile apps</li>&ndash;&gt;-->
+  <!--      &lt;!&ndash;          <li>Website Hosting</li>&ndash;&gt;-->
+  <!--      &lt;!&ndash;          <li>Big Data</li>&ndash;&gt;-->
+  <!--      &lt;!&ndash;          <li>Managed Services</li>&ndash;&gt;-->
+  <!--      &lt;!&ndash;        </ul>&ndash;&gt;-->
+  <!--      &lt;!&ndash;      </div>&ndash;&gt;-->
+  <!--      <div class="col-md-3">-->
+  <!--        <div class="footer-list_container">-->
+  <!--          &lt;!&ndash;<<<<<<< HEAD&ndash;&gt;-->
+  <!--          &lt;!&ndash;        <h6>Contact</h6>&ndash;&gt;-->
+  <!--          &lt;!&ndash;        <ul>&ndash;&gt;-->
+  <!--          &lt;!&ndash;          <li>Support</li>&ndash;&gt;-->
+  <!--          &lt;!&ndash;          <li>System Status</li>&ndash;&gt;-->
+  <!--          &lt;!&ndash;          <li>support@questnr.com</li>&ndash;&gt;-->
+  <!--          &lt;!&ndash;        </ul>&ndash;&gt;-->
+  <!--          &lt;!&ndash;=======&ndash;&gt;-->
+  <!--          <h6>Contact</h6>-->
+  <!--          <ul>-->
+  <!--            <li>Support</li>-->
+  <!--            <li>System Status</li>-->
+  <!--            <li><a href="mailto:{{supportEmail}}">{{supportEmail}}</a></li>-->
+  <!--          </ul>-->
+  <!--          &lt;!&ndash;&gt;>>>>>> master&ndash;&gt;-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--  <hr>-->
+<!--  <div class="sub-footer">-->
+<!--    <div class="container">-->
+<!--      <div class="row">-->
+<!--        <div class="col">-->
+<!--          <a [routerLink]="[termsPath]" target="_blank">Terms of Use</a>-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <a [routerLink]="[policyPath]" target="_blank">Privacy Policy</a>-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <a [routerLink]="[policyPath]" target="_blank">Privacy Policy</a>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <a [routerLink]="[policyPath]" target="_blank">Privacy Policy</a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--  </div>-->
+  <div >
+    <div class="row" style="margin: auto; padding: 14px 0">
+      <div class="col-md-6" style="align-items: center;">
         <div style="">
-          <img src="assets/logo.png" alt="logo" style="margin: 0; width:5rem;">
-          <span class="ml-3">
-            <i class="fa fa-copyright"></i>
-            <span> {{copyRightRenewdYear}} Questnr.com. All rights Reserved.</span>
-          </span>
+          <img src="assets/logo.png" alt="logo" style="margin: 0; width:2rem; cursor: pointer" [routerLink]="siteLink">
+          <span >
+                    <i class="fa fa-copyright"></i>
+                    <span> {{copyRightRenewedYear}} Questnr.com. All rights Reserved.</span>
+                  </span>
         </div>
 
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div>
           <ul style="color: #ffffff" class="social">
-            <li>
+            <li shareButton="facebook" [url]="siteLink">
               <i class="fa fa-facebook-f"></i>
             </li>
-            <li>
+            <li shareButton="twitter" [url]="siteLink">
               <i class="fa fa-twitter"></i>
             </li>
-            <li>
-              <i class="fa fa-instagram"></i>
+            <li shareButton="whatsapp" [url]="siteLink" >
+              <i class="fa fa-whatsapp"></i>
             </li>
-            <li>
+            <li shareButton="linkedin" [url]="siteLink">
               <i class="fa fa-linkedin"></i>
             </li>
           </ul>
