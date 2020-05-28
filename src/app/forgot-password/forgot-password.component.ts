@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {GlobalConstants} from '../shared/constants';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { GlobalConstants } from '../shared/constants';
+import { ForgotPasswordService } from './forgot-password.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -14,19 +15,24 @@ export class ForgotPasswordComponent implements OnInit {
   errMsg = '';
   email = new FormControl('', Validators.required);
   isLoading = false;
-  constructor(public fb: FormBuilder) { }
+  constructor(public fb: FormBuilder, private forgotPasswordService: ForgotPasswordService) { }
   ngOnInit(): void {
     this.group = this.fb.group({
-      communityName: this.email
+      email: this.email
     });
   }
   sendResetLink() {
-    if(this.group.valid){
+    if (this.group.valid) {
       this.isLoading = true;
-      setTimeout( () => {
+      this.forgotPasswordService.sendResetLink(this.group.get("email").value).subscribe((res: any) => {
         this.isLoading = false;
-        this.successMsg = 'Please check your email address for password reset link.';
-      }, 1000);
+        if (res?.success) {
+          this.successMsg = 'Please check your email address for password reset link.';
+        }
+        else if (res?.errorMessage) {
+          this.errMsg = res.errorMessage;
+        }
+      });
     }
   }
 }

@@ -29,12 +29,12 @@ import { ExploreComponent } from './explore/explore.component';
 import { LandingPageResolve } from 'landing-page/landing-page.resolve';
 import { CookiePolicyComponent } from 'cookie-policy/cookie-policy.component';
 import { FooterComponent } from 'footer/footer.component';
-import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
-import {SignupComponent} from './auth/signup/signup.component';
-import {LoginComponent} from './auth/login/login.component';
-import {SignUpPageComponent} from './sign-up-page/sign-up-page.component';
-import {LoginPageComponent} from './login-page/login-page.component';
-import {ResetPasswordComponent} from './reset-password/reset-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -60,9 +60,9 @@ const routes: Routes = [
   { path: GlobalConstants.explorePath, component: ExploreComponent },
   { path: GlobalConstants.hashTagPath + '/:hashTag', component: ExploreComponent },
   { path: GlobalConstants.forgotPassword, component: ForgotPasswordComponent },
-  { path: GlobalConstants.signUp, component: SignUpPageComponent},
-  { path: GlobalConstants.login, component: LoginPageComponent},
-  { path: GlobalConstants.forgot, component: ResetPasswordComponent}
+  { path: GlobalConstants.signUp, component: SignUpPageComponent },
+  { path: GlobalConstants.login, component: LoginPageComponent },
+  { path: GlobalConstants.resetPassword, component: ResetPasswordComponent }
   // { path: '**', redirectTo: '' }
 ];
 

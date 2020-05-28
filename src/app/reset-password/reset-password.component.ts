@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidations} from '../custom-validations';
-import {GlobalConstants} from '../shared/constants';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { CustomValidations } from '../custom-validations';
+import { GlobalConstants } from '../shared/constants';
+import { ResetPasswordService } from './reset-password.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -14,12 +16,6 @@ export class ResetPasswordComponent implements OnInit {
   isLoading = false;
   loginLink = '/' + GlobalConstants.login + '/';
   group: FormGroup;
-  currentPassword = new FormControl('',
-    [
-      Validators.required,
-      Validators.minLength(6),
-      Validators.maxLength(20)
-    ]);
   newPassword = new FormControl('',
     [
       Validators.required,
@@ -32,8 +28,15 @@ export class ResetPasswordComponent implements OnInit {
       Validators.minLength(6),
       Validators.maxLength(20)
     ]);
+  resetToken: string;
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder,
+    private resetPasswordService: ResetPasswordService,
+    private _activatedRoute: ActivatedRoute) {
+    this._activatedRoute.queryParams.subscribe(
+      params => {
+        this.resetToken = params['token'];
+      });
   }
 
   ngOnInit(): void {
@@ -44,11 +47,17 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   resetPassword() {
-    if(this.group.valid){
+    if (this.group.valid) {
       this.isLoading = true;
-      setTimeout( () => {
+      this.resetPasswordService.updatePassword(this.resetToken, this.group.get("password").value).subscribe((res: any) => {
+        if (res?.updateSuccess) {
+          this.successMsg = 'Password Reset successfully. Please <a href="' + this.loginLink + '"><strong style="cursor: pointer">Login</strong></a>';
+        } else {
+          this.errMsg = "Something went wrong, Please try again!";
+        }
+      });
+      setTimeout(() => {
         this.isLoading = false;
-        this.successMsg = 'Password Reset successfully. Please <a href="' + this.loginLink + '"><strong style="cursor: pointer">Login</strong></a>';
       }, 1000);
     }
   }

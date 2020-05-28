@@ -27,7 +27,7 @@ export class GlobalConstants {
   public static termsLastUpdated = "May 25, 2020";
   public static privacyLastUpdated = "May 25, 2020";
   public static copyRightRenewedYear = "2020";
-  public static forgot = "forgot";
+  public static resetPassword = "reset";
   public static forgotPassword = "forgot-password";
   public static login = "login";
   public static signUp = "sign-up";
