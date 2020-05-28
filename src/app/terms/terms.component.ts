@@ -9,7 +9,6 @@ import { GlobalConstants } from 'shared/constants';
   styleUrls: ['./terms.component.scss']
 })
 export class TermsComponent implements OnInit {
-  loggedIn = false;
   siteTitle: string = GlobalConstants.siteTitle;
   helloEmail: string = GlobalConstants.helloEmail;
   policyLink: string;
@@ -25,10 +24,5 @@ export class TermsComponent implements OnInit {
     this.router.navigate(['/']);
   }
   ngOnInit() {
-    if (this.loginService.getUserProfile()) {
-      this.loggedIn = true;
-    } else {
-      this.loggedIn = false;
-    }
   }
 }

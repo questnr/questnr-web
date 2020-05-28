@@ -10,7 +10,6 @@ import { GlobalConstants } from 'shared/constants';
 })
 
 export class PolicyComponent implements OnInit {
-  loggedIn = false;
   cookiePath = GlobalConstants.cookiePath;
   siteTitle: string = GlobalConstants.siteTitle;
   helloEmail: string = GlobalConstants.helloEmail;
@@ -26,10 +25,5 @@ export class PolicyComponent implements OnInit {
     this.router.navigate(['/']);
   }
   ngOnInit() {
-    if (this.loginService.getUserProfile()) {
-      this.loggedIn = true;
-    } else {
-      this.loggedIn = false;
-    }
   }
 }

@@ -5,6 +5,7 @@ import { User } from '../../../../models/user.model';
 import { UserFollowersService } from '../../../../user-followers/user-followers.service';
 import { UserProfileCardServiceComponent } from '../../../../user-profile-card/user-profile-card-service.component';
 import { UserListService } from './user-list.service';
+import { Page } from 'models/page.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -45,6 +46,9 @@ export class UserListComponent implements OnInit {
       this.getFollowingUser(this.data.userId);
     } else if (this.data.type === 'followers') {
       this.getFollowers(this.data.userId);
+    } else if (this.data.type === 'like') {
+      console.log("postId", this.data);
+      this.getUserLikedList(this.data.postId);
     } else {
       const url = window.location.pathname.split('/')[2];
       this.getCommunityMembers(url);
@@ -63,7 +67,7 @@ export class UserListComponent implements OnInit {
             if (this.data.type === 'following') {
               this.getFollowingUser(this.data.userId);
             } else if (this.data.type === 'followers') {
-              this.getFollowers(this.data.userId);
+              this.getUserLikedList(this.data.postId);
             } else {
               const url = window.location.pathname.split('/')[2];
               this.getCommunityMembers(url);
@@ -161,6 +165,26 @@ export class UserListComponent implements OnInit {
       this.loading = false;
     });
   }
+
+  getUserLikedList(postId) {
+    this.followersService.getUserLikedList(postId, this.page).subscribe((res: any) => {
+      // console.log('liked content', res);
+      if (res.content.length) {
+        res.content.forEach(userLikedData => {
+          this.userList.push(userLikedData.user);
+          this.loading = false;
+        });
+      } else {
+        this.loading = false;
+        this.endOfResult = true;
+      }
+      // console.log('follower content', this.userList);
+    }, error => {
+      // console.log(error.error.errorMessage);
+      this.loading = false;
+    });
+  }
+
 
   getCommunityMembers(url) {
     this.loading = true;

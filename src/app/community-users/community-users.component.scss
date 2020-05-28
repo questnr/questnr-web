@@ -6,6 +6,12 @@
   margin: 0 0 20px 0;
   border-radius: 10px;
   background: $white;
+  .title{
+    font-size: 16px;
+    font-weight: 500;
+    color: $heading;
+    display: flex;
+  }
   span{
     text-align: center;
     width: 100%;
@@ -15,12 +21,6 @@
   .members-list{
     max-height: 350px;
     overflow: scroll;
-  }
-
-  h3 {
-    font-size: 16px;
-    font-weight: 500;
-    color: $heading;
   }
 
   //.com-member-det {
