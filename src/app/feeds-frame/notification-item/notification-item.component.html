@@ -1,12 +1,15 @@
 <div class="profile-icon col-md-2" routerLink="/user/{{notification?.userActor?.slug}}">
   <img [src]="notification.userActor?.avatarDTO?.avatarLink ?
     notification.userActor?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt="">
-  <div class="type">
+  <div class="type" *ngIf="notification.notificationType !== 'post'">
     <img *ngIf="notification.notificationType === 'like'" src="assets/like.svg">
     <img *ngIf="notification.notificationType === 'comment'" src="assets/comment.svg">
     <img *ngIf="notification.notificationType === 'followedUser'
         || notification.notificationType === 'followedCommunity'" src="assets/follow.svg">
   </div>
+  <!-- <div class="type" *ngIf="notification.postMedia.postMediaLink">
+    <img *ngIf="notification.notificationType === 'post'" [src]="notification.postMedia.postMediaLink">
+  </div> -->
 </div>
 <div class="col-md-9 notification-content">
   <div class="profile-detail">
