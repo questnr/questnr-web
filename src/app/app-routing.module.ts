@@ -34,6 +34,7 @@ import {SignupComponent} from './auth/signup/signup.component';
 import {LoginComponent} from './auth/login/login.component';
 import {SignUpPageComponent} from './sign-up-page/sign-up-page.component';
 import {LoginPageComponent} from './login-page/login-page.component';
+import {ResetPasswordComponent} from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -60,7 +61,8 @@ const routes: Routes = [
   { path: GlobalConstants.hashTagPath + '/:hashTag', component: ExploreComponent },
   { path: GlobalConstants.forgotPassword, component: ForgotPasswordComponent },
   { path: GlobalConstants.signUp, component: SignUpPageComponent},
-  { path: GlobalConstants.login, component: LoginPageComponent}
+  { path: GlobalConstants.login, component: LoginPageComponent},
+  { path: GlobalConstants.forgot, component: ResetPasswordComponent}
   // { path: '**', redirectTo: '' }
 ];
 

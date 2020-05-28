@@ -104,6 +104,7 @@ import { LandingPageResolve } from 'landing-page/landing-page.resolve';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -196,7 +197,8 @@ export function metaFactory(): MetaLoader {
     CreateCommunityBtnComponent,
     ForgotPasswordComponent,
     SignUpPageComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    ResetPasswordComponent
   ],
   imports: [
     MatVideoModule,

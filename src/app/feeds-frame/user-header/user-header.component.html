@@ -9,7 +9,7 @@
 <!--&lt;!&ndash;      <mat-icon>menu</mat-icon>&ndash;&gt;-->
 <!--      -->
 <!--    </button>-->
-    <div class="logo" routerLink="/feeds"><img src="../../assets/main.png" /></div>
+    <div class="logo" (click)="goToLink('/' + routerLink.feedPath)" ><img src="../../assets/main.png" /></div>
     <div class="spacer"></div>
 
     <div class="search-wrapper">
