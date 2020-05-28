@@ -7,6 +7,7 @@ import { MetaList } from 'models/common.model';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ApiService } from 'shared/api.service';
 import { UIService } from 'ui/ui.service';
+import {GlobalConstants} from '../shared/constants';
 
 @Component({
   selector: 'app-landing-page',
@@ -19,6 +20,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   isLoading = false;
   hashtagInput = new FormControl();
   hashtagResults = [];
+  hashTagBasePath = '/' + GlobalConstants.hashTagPath + '/';
   communities = [
     { title: 'Music', src: 'assets/community/music.png', detail: 200 },
     { title: 'Business', src: 'assets/community/business.png', detail: 1200 },

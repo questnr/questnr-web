@@ -24,7 +24,7 @@ export class SidenavComponent implements OnInit {
     { link: '/' + GlobalConstants.policyPath, title: 'Privacy Policy' },
   ];
   siteTitle: string = GlobalConstants.siteTitle;
-  copyRightRenewdYear = GlobalConstants.copyRightRenewdYear;
+  copyRightRenewedYear = GlobalConstants.copyRightRenewedYear;
 
   constructor(private api: ApiService, private loginService: LoginService) { }
 

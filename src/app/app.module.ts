@@ -101,6 +101,10 @@ import { ExploreComponent } from './explore/explore.component';
 import { QuickNavComponent } from './quick-nav/quick-nav.component';
 import { CreateCommunityBtnComponent } from './create-community-btn/create-community-btn.component';
 import { LandingPageResolve } from 'landing-page/landing-page.resolve';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -190,7 +194,11 @@ export function metaFactory(): MetaLoader {
     WelcomeSlidesComponent,
     ExploreComponent,
     QuickNavComponent,
-    CreateCommunityBtnComponent
+    CreateCommunityBtnComponent,
+    ForgotPasswordComponent,
+    SignUpPageComponent,
+    LoginPageComponent,
+    ResetPasswordComponent
   ],
   imports: [
     MatVideoModule,

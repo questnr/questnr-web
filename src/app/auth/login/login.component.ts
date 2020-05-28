@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   errMsg: '';
   email = new FormControl('', Validators.required);
   password = new FormControl('', Validators.required);
+  forgotPassword = GlobalConstants.forgotPassword;
 
   constructor(
     private fb: FormBuilder, private auth: LoginService,
