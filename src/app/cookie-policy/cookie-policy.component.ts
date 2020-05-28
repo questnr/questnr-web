@@ -9,7 +9,6 @@ import { GlobalConstants } from 'shared/constants';
   styleUrls: ['./cookie-policy.component.scss']
 })
 export class CookiePolicyComponent implements OnInit {
-  loggedIn = false;
   siteTitle: string = GlobalConstants.siteTitle;
   helloEmail: string = GlobalConstants.helloEmail;
   policyLink: string;
@@ -23,10 +22,5 @@ export class CookiePolicyComponent implements OnInit {
     this.router.navigate(['/']);
   }
   ngOnInit() {
-    if (this.loginService.getUserProfile()) {
-      this.loggedIn = true;
-    } else {
-      this.loggedIn = false;
-    }
   }
 }
