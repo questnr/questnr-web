@@ -21,8 +21,8 @@ export class MessagingService {
       .pipe(mergeMapTo(this.angularFireMessaging.tokenChanges))
       .subscribe(
         (token) => {
-          // console.log(token);
-          // console.log("saving token");
+          console.log(token);
+          console.log("saving token");
           this.currentToken = token;
           this.apiService.registerPushNotificationToken(token).subscribe();
         },

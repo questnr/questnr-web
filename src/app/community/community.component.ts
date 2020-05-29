@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from 'models/page.model';
 import { UIService } from 'ui/ui.service';
 import { LoginService } from '../auth/login.service';
@@ -38,7 +38,7 @@ export class CommunityComponent implements OnInit {
   scrollCached: boolean = null;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
-    private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService) {
+    private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
   }
   public trackItem(index: number, feed: Post) {
@@ -69,6 +69,9 @@ export class CommunityComponent implements OnInit {
       this.userFeeds = [];
       this.fetchCommunityFeeds(this.communityDTO.communityId);
     });
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    }
   }
 
   ngAfterViewInit() {
@@ -85,6 +88,7 @@ export class CommunityComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    window.removeEventListener('scroll', this.scroll, true);
     this.uiService.resetTitle();
   }
 

@@ -80,6 +80,10 @@ export class UserListComponent implements OnInit {
     this.scrollCached = event;
   }
 
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.scroll, true);
+  }
+
   getUserImage(src) {
     if (src == null) {
       return 'assets/default.jpg';

@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
 import { UserProfilePageService } from './user-profile-page.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterEvent, NavigationEnd } from '@angular/router';
 import { User } from '../models/user.model';
 import { LoginService } from '../auth/login.service';
 import { ApiService } from '../shared/api.service';
@@ -10,6 +10,8 @@ import { Title } from "@angular/platform-browser";
 import { Meta } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 import { GlobalConstants } from 'shared/constants';
+import { Router } from '@angular/router';
+import { filter, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -18,10 +20,13 @@ import { GlobalConstants } from 'shared/constants';
 })
 export class UserProfilePageComponent implements OnInit {
   constructor(public userProfilePageService: UserProfilePageService, public route: ActivatedRoute, public userFollowersService: UserProfileCardServiceComponent,
-    public loginService: LoginService, public api: ApiService, private meta: Meta, private titleService: Title) {
+    public loginService: LoginService, public api: ApiService, private meta: Meta, private titleService: Title, private router: Router) {
     this.userObserver.subscribe((user: User) => {
       this.titleService.setTitle(user.firstName + " " + user.lastName + " | Questnr");
     });
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    }
   }
   feeds: Post[];
   url: string;
@@ -45,7 +50,6 @@ export class UserProfilePageComponent implements OnInit {
     this.getUserProfileDetails();
     // this.getUserInfo();
     this.getCommunityFollowedByUser();
-
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;
@@ -73,6 +77,8 @@ export class UserProfilePageComponent implements OnInit {
     this.scrollCached = event;
   }
   ngOnDestroy() {
+    window.removeEventListener('scroll', this.scroll, true);
+    this.userObserver.complete();
     this.titleService.setTitle(GlobalConstants.siteTitle);
   }
   postFeed(event) {

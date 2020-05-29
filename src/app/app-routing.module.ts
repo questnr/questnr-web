@@ -75,7 +75,8 @@ export interface Tile {
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      initialNavigation: 'enabled'
+      initialNavigation: 'enabled',
+      onSameUrlNavigation: 'reload'
       // enableTracing: true // <-- debugging purposes only
     })],
   exports: [RouterModule]
