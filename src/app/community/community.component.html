@@ -41,7 +41,8 @@
         <app-community-users [communitySlug]="communityDTO?.slug" [userListType]="'ribbon'" *ngIf="mobileView">
         </app-community-users>
         <div *ngIf="mobileView && owner !== 'owned'" class="mobile_view">
-          <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId">
+          <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId"
+            (actionEvent)="actionEvent($event)">
           </app-community-relation-action-button>
         </div>
         <div class="com-dets">
@@ -52,7 +53,8 @@
             </button>
           </div>
           <div class="btn-container float-right" *ngIf="!mobileView && owner !== 'owned'">
-            <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId">
+            <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId"
+              (actionEvent)="actionEvent($event)">
             </app-community-relation-action-button>
           </div>
         </div>

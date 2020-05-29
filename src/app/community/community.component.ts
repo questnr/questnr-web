@@ -163,4 +163,8 @@ export class CommunityComponent implements OnInit {
       };
     }
   }
+
+  actionEvent($event) {
+    this.owner = $event;
+  }
 }
