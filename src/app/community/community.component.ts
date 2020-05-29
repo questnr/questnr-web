@@ -11,6 +11,7 @@ import { Post } from '../models/post-action.model';
 import { User } from '../models/user.model';
 import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
 import { CommunityService } from './community.service';
+import { CommunityUsersComponent } from 'community-users/community-users.component';
 
 @Component({
   selector: 'app-community',
@@ -19,6 +20,12 @@ import { CommunityService } from './community.service';
 })
 export class CommunityComponent implements OnInit {
   @ViewChild("feedPartRef") feedPartRef: ElementRef;
+  communityUsersComponentRef: CommunityUsersComponent;
+  @ViewChild('communityUsersComponentRef') set content(content: CommunityUsersComponent) {
+    if (content) { // initially setter gets called with undefined
+      this.communityUsersComponentRef = content;
+    }
+  }
   isSidenavopen = false;
   communitySlug: string;
   communityDTO: Community;
@@ -166,5 +173,6 @@ export class CommunityComponent implements OnInit {
 
   actionEvent($event) {
     this.owner = $event;
+    this.communityUsersComponentRef.ngOnInit();
   }
 }
