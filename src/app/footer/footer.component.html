@@ -76,55 +76,43 @@
   <!--    </div>-->
   <!--  </div>-->
   <!--  <hr>-->
-<!--  <div class="sub-footer">-->
-<!--    <div class="container">-->
-<!--      <div class="row">-->
-<!--        <div class="col">-->
-<!--          <a [routerLink]="[termsPath]" target="_blank">Terms of Use</a>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--          <a [routerLink]="[policyPath]" target="_blank">Privacy Policy</a>-->
-<!--        </div>-->
-<!--        <div class="col">-->
-<!--          <a [routerLink]="[policyPath]" target="_blank">Privacy Policy</a>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--          <a [routerLink]="[policyPath]" target="_blank">Privacy Policy</a>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+  <!--  <div class="sub-footer">-->
+  <!--    <div class="container">-->
+  <!--      <div class="row">-->
+  <!--        <div class="col">-->
+  <!--          <a [routerLink]="[termsPath]" target="_blank">Terms of Use</a>-->
+  <!--        </div>-->
+  <!--        <div class="col">-->
+  <!--          <a [routerLink]="[policyPath]" target="_blank">Privacy Policy</a>-->
+  <!--        </div>-->
+  <!--        <div class="col">-->
+  <!--          <a [routerLink]="[policyPath]" target="_blank">Privacy Policy</a>-->
+  <!--        </div>-->
+  <!--        <div>-->
+  <!--          <a [routerLink]="[policyPath]" target="_blank">Privacy Policy</a>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
 
-<!--  </div>-->
-  <div >
-    <div class="row" style="margin: auto; padding: 14px 0">
-      <div class="col-md-6" style="align-items: center;">
-        <div style="">
-          <img src="assets/logo.png" alt="logo" style="margin: 0; width:2rem; cursor: pointer" [routerLink]="siteLink">
-          <span >
-                    <i class="fa fa-copyright"></i>
-                    <span> {{copyRightRenewedYear}} Questnr.com. All rights Reserved.</span>
-                  </span>
+  <!--  </div>-->
+  <div style="padding-left: 10px;">
+    <div style="margin: auto; padding: 14px 0">
+      <div class="row">
+        <div class="col-md-6" style="align-items: center;">
+          <div>
+            <img src="assets/logo.png" alt="logo" style="margin: 0; width:2rem; cursor: pointer"
+              [routerLink]="siteLink">
+            <app-company-footer-span></app-company-footer-span>
+          </div>
+
         </div>
-
-      </div>
-      <div class="col-md-6">
-        <div>
-          <ul style="color: #ffffff" class="social">
-            <li shareButton="facebook" [url]="siteLink">
-              <i class="fa fa-facebook-f"></i>
-            </li>
-            <li shareButton="twitter" [url]="siteLink">
-              <i class="fa fa-twitter"></i>
-            </li>
-            <li shareButton="whatsapp" [url]="siteLink" >
-              <i class="fa fa-whatsapp"></i>
-            </li>
-            <li shareButton="linkedin" [url]="siteLink">
-              <i class="fa fa-linkedin"></i>
-            </li>
-          </ul>
+        <div class="col-md-6">
+          <app-social-media-links></app-social-media-links>
         </div>
       </div>
+      <!-- <div class="row company-terms-policy">
+        
+      </div> -->
     </div>
   </div>
 </footer>

@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   baseUrl: 'https://questnr.com/api/v1/',
   googleKey: '836632017511-na1k4gagi79qlvdp644q1shd0rjffoc9.apps.googleusercontent.com',
-  fbKey: '508905489804238',
+  fbKey: '1336590906533811',
   firebase: {
     apiKey: "AIzaSyAgfiLd02cWEIMafWhLrl4kBzpQrRE266k",
     authDomain: "questnr-web-1586188588294.firebaseapp.com",
