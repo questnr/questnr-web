@@ -1,0 +1,31 @@
+@import "./src/app/variables";
+
+.heading {
+  padding: 20px 0 0 20px;
+}
+//input {
+//  border: 1px solid grey;
+//  font-size: 14px;
+//  padding: 11px 12px;
+//  line-height: 16px;
+//  height: auto;
+//  border-radius: 4px;
+//  color: $grey;
+//  width: 100%;
+//}
+.btn-color{
+  background: $primary;
+  color: $white;
+}
+.container-header{padding: 0 0 40px 0}
+
+.mobile-nav-btn {
+  width: 100%;
+  position: fixed;
+  background: #eeeeee;
+  z-index: 1;
+  padding: 8px;
+}
+.form-container_mobile{
+  padding-top: 54px;
+}

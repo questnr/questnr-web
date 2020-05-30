@@ -10,6 +10,8 @@ import { Title } from "@angular/platform-browser";
 import { Meta } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 import { GlobalConstants } from 'shared/constants';
+import {EditUserComponent} from '../shared/components/dialogs/edit-user/edit-user.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -18,7 +20,7 @@ import { GlobalConstants } from 'shared/constants';
 })
 export class UserProfilePageComponent implements OnInit {
   constructor(public userProfilePageService: UserProfilePageService, public route: ActivatedRoute, public userFollowersService: UserProfileCardServiceComponent,
-    public loginService: LoginService, public api: ApiService, private meta: Meta, private titleService: Title) {
+              public loginService: LoginService, public api: ApiService, private meta: Meta, private titleService: Title, public dialog: MatDialog) {
     this.userObserver.subscribe((user: User) => {
       this.titleService.setTitle(user.firstName + " " + user.lastName + " | Questnr");
     });
@@ -139,5 +141,35 @@ export class UserProfilePageComponent implements OnInit {
     } else {
       return 'assets/default.jpg';
     }
+  }
+  openEditDialog(): void {
+    let config = null;
+    if (this.mobileView) {
+      config = {
+        position: {
+          top: '0',
+          right: '0'
+        },
+        height: '100%',
+        borderRadius: '0px',
+        width: '100%',
+        maxWidth: '100vw',
+        marginTop: '0px',
+        marginRight: '0px !important',
+        panelClass: 'full-screen-modal',
+        data: { slug: this.url }
+      };
+    } else {
+      config = {
+        width: '500px',
+        // height: '400px',
+        data: { slug: this.url }
+      };
+    }
+    const dialogRef = this.dialog.open(EditUserComponent, config);
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
   }
 }

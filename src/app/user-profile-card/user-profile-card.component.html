@@ -23,8 +23,8 @@
           </app-profile-icon>
         </div>
         <div>
-          <div class="owner-name" routerLink="['/', userPath, slug]">
-            <p class="link"> {{username}}</p>
+          <div class="owner-name" [routerLink]="['/', userPath, slug]">
+            <p class="link" [routerLink]="['/', userPath, slug]"> {{username}}</p>
           </div>
         </div>
       </div>

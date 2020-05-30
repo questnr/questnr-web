@@ -1,12 +1,32 @@
-<div  class="desc_container">
+<div class="desc_container">
   <div class="back-drop"></div>
   <div class="Heading">
-    <h3>Description</h3>
+    <h3>Description
+    </h3>
   </div>
   <hr>
   <div class="description">
-    <p>
+    <p *ngIf="editDescription">
+      <textarea [value]="descriptionText" #description class="edit-description"></textarea>
+    </p>
+    <p *ngIf="!editDescription" class="description-text">
       {{descriptionText}}
     </p>
+    <div *ngIf="owner">
+      <mat-icon (click)="toggleEdit()" *ngIf="!editDescription">edit</mat-icon>
+      <span *ngIf="editDescription">
+        <span class="edit-action">
+                  <mat-icon (click)="editDescriptionText()" *ngIf="!loading">check</mat-icon>
+          <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status">
+          <span class="sr-only">Loading...</span>
+        </span>
+
+        </span>
+        <span class="edit-action" (click)="toggleEdit()">
+                  <mat-icon>clear</mat-icon>
+        </span>
+      </span>
+
+    </div>
   </div>
 </div>

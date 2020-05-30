@@ -17,11 +17,11 @@
       <!--        <span> ○ </span>{{user?.username}}-->
       <!--        <span>{{stats?.followers}} Followers ○ {{stats?.followingTo}} Followings ○ {{stats?.posts}} Posts</span></p>-->
       <div class="actions">
-        <button mat-stroked-button *ngIf="relation ==='owned'&& !mobileView ">
+        <button mat-stroked-button *ngIf="relation ==='owned'&& !mobileView " (click)="openEditDialog()">
           <mat-icon>edit</mat-icon>
           Edit Profile
         </button>
-        <button mat-stroked-button *ngIf="relation ==='owned'&& mobileView ">
+        <button mat-stroked-button *ngIf="relation ==='owned'&& mobileView " (click)="openEditDialog()">
           <mat-icon>edit</mat-icon>
         </button>
         <app-relation-action-button [relation]="relation" [userId]="userId" [mobileView]="mobileView">
@@ -37,7 +37,7 @@
       <div class="flex">
         <div class="flex-section-left">
           <app-usercommunity [userId]="user?.userId" [relation]="relation"></app-usercommunity>
-          <app-joined-community></app-joined-community>
+          <app-joined-community [userId]="user?.userId"></app-joined-community>
           <div *ngIf="!mobileView">
             <app-floating-footer></app-floating-footer>
           </div>
