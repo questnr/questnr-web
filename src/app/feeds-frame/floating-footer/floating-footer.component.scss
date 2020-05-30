@@ -1,13 +1,29 @@
-.blocks{
-  padding: 0 8px;
+@import "../../variables";
+.footer {
+  margin-top: 10px;
+  .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    a {
+      font-weight: 500;
+      padding: 5px 10px;
+      &:hover {
+        text-decoration: none;
+        color: $primary;
+      }
+    }
+  }
+  .copyright {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.4;
+  }
 }
-
-a{
-  color: #757373;
+.list-item {
+  display: flex;
+  align-items: center;
 }
-
-a:hover{
-  color: rgb(255, 46, 82) ;
-
+img {
+  max-width: 100%;
 }
-
