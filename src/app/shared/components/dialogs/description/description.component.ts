@@ -1,5 +1,5 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Component, ElementRef, Inject, Input, OnInit, ViewChild} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-description',
@@ -9,9 +9,14 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 export class DescriptionComponent implements OnInit {
   descriptionText: any;
   background: any;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+  editDescription = false;
+  loading = false;
+  owner = true;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<DescriptionComponent>) {
 
   }
+  @ViewChild('description') editDesc: ElementRef;
   ngOnInit() {
     this.descriptionText = this.data.text;
     this.background = this.data.communityAvatar;
@@ -19,5 +24,22 @@ export class DescriptionComponent implements OnInit {
 
   getImgUrl(src: string) {
     return src ? `url(${src})` : `url("assets/default.jpg")`;
+  }
+
+  toggleEdit() {
+    this.loading = false;
+    this.editDescription = !this.editDescription;
+  }
+
+  editDescriptionText() {
+    const desc = this.editDesc.nativeElement.value;
+    if (desc) {
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+        this.editDescription = false;
+        this.descriptionText = desc;
+      }, 2000);
+    }
   }
 }

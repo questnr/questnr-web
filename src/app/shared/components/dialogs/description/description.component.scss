@@ -1,17 +1,55 @@
+@import "./src/app/variables";
+
 .Heading{
   padding: 10px 20px 0;
 }
 .description{
   padding: 10px 20px;
+  position: relative;
+  .description-text{
+    padding: 10px 13px;
+  }
+  .edit-description{
+    border: 1px solid $grey;
+    font-size: 14px;
+    padding: 11px 12px;
+    line-height: 16px;
+    height: auto;
+    color: #282c3f;
+    width: 100%;
+  }
+  div{
+    position: absolute;
+    bottom: 4%;
+    right: 2%;
+    margin: -4px;
+    cursor: pointer;
+    mat-icon{
+      font-size: 18px;
+    }
+    .spinner-border{
+      position: relative;
+      top: -3px;
+      left: -4px;
+    }
+  }
+  .edit-action{
+    padding: 2px;
+    //border: 1px solid $primary;
+    margin-right: 4px;
+  }
 }
 hr{
   margin: 8px 0;
 }
 
 .desc_container{
-  background-position: center !important;
-  background-size: cover !important;
-  background-repeat: no-repeat !important;
+  //background-position: center !important;
+  //background-size: cover !important;
+  //background-repeat: no-repeat !important;
   height: 100%;
   width: 100%;
+  padding: 10px;
+  position: relative;
+  border: 1px solid;
 }

@@ -1,7 +1,13 @@
 <div class="com-members-container box" *ngIf="userListType === 'list'">
   <div class="title">
     <div>Members</div>
-    <div *ngIf="numberOfMembers">{{"&nbsp;- "+numberOfMembers}}
+    <div *ngIf="numberOfMembers" class="noOfMembers">
+      <div style="line-height: 26px">
+        &nbsp;{{numberOfMembers}} &nbsp;
+      </div>
+      <div>
+        <mat-icon>group</mat-icon>
+      </div>
     </div>
   </div>
   <div *ngIf="communityMemberList?.length ; else noMembers" class="members-list">

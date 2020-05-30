@@ -11,6 +11,13 @@
     font-weight: 500;
     color: $heading;
     display: flex;
+    position: relative;
+    .noOfMembers{
+      display: flex;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
   }
   span{
     text-align: center;

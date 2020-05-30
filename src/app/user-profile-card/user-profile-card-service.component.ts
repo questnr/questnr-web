@@ -9,7 +9,6 @@ import { GlobalConstants } from 'shared/constants';
 
 export class UserProfileCardServiceComponent {
   baseUrl = environment.baseUrl;
-  userPath: string = GlobalConstants.userPath;
 
   constructor(private http: HttpClient) {
 

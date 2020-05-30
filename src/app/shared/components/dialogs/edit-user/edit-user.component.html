@@ -1,0 +1,76 @@
+<div class="mobile-nav-btn" *ngIf="mobileView">
+  <button mat-icon-button (click)="onNoClick()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</div>
+<div class="form-container" [ngClass]="{'form-container_mobile': mobileView}">
+  <div class="heading">
+    <h5>Edit Profile</h5>
+  </div>
+  <hr>
+  <div class="container-header">
+    <form [formGroup]="group">
+      <div class="alert alert-danger" *ngIf="errMsg"> <strong>Error! </strong> {{errMsg }}</div>
+      <div class="row">
+        <mat-form-field class="col-md-12" appearance="fill">
+          <mat-label>First Name</mat-label>
+          <input type="text" matInput [formControl]="firstName" placeholder="Enter your First Name">
+          <mat-error *ngIf="firstName.hasError('required')">First Name is required.</mat-error>
+          <mat-error *ngIf="firstName.errors?.pattern">
+            Spaces are not allowed
+          </mat-error>
+          <mat-error *ngIf="firstName.errors?.minlength">
+            Field should contain at least 3 characters
+          </mat-error>
+          <mat-error *ngIf="firstName.errors?.maxlength">
+            Field can have max 25 characters
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-12" appearance="fill">
+          <mat-label>Last Name</mat-label>
+          <input type="text" matInput [formControl]="lastName" placeholder="Enter Your Last Name">
+          <mat-error *ngIf="lastName.hasError('required')">Last Name is required.</mat-error>
+          <mat-error *ngIf="lastName.errors?.pattern">
+            Spaces are not allowed
+          </mat-error>
+          <mat-error *ngIf="lastName.errors?.minlength">
+            Field should contain at least 3 characters
+          </mat-error>
+          <mat-error *ngIf="lastName.errors?.maxlength">
+            Field can have max 25 characters
+          </mat-error>
+        </mat-form-field>
+
+<!--        <mat-form-field class="col-md-12" appearance="fill">-->
+<!--          <mat-label>Username</mat-label>-->
+<!--          <input type="text" matInput [formControl]="username" placeholder="Enter your Username">-->
+<!--          <mat-error *ngIf="username.hasError('required')">Username is required.</mat-error>-->
+<!--          <mat-error *ngIf="username.errors?.pattern">-->
+<!--            Only upper case, lower case, numbers and underscore (_) are allowed-->
+<!--          </mat-error>-->
+<!--          <mat-error *ngIf="username.errors?.minlength">-->
+<!--            Field should contain at least 3 characters-->
+<!--          </mat-error>-->
+<!--          <mat-error *ngIf="username.errors?.maxlength">-->
+<!--            Field can have max 32 characters-->
+<!--          </mat-error>-->
+<!--          <mat-error *ngIf="username.errors?.exists">-->
+<!--            Username has been taken-->
+<!--          </mat-error>-->
+<!--        </mat-form-field>-->
+
+      </div>
+
+      <div *ngIf="formError && formError.length > 0" style="color: red;display: flex;justify-content: center;">{{formError}}
+      </div>
+      <button mat-button class="btn-color w-100" (click)="submit()">
+        <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
+          <span class="sr-only">Loading...</span>
+        </div> &nbsp;
+        SAVE
+      </button>
+    </form>
+  </div>
+
+</div>

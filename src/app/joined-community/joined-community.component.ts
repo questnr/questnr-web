@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Community } from '../models/community.model';
-import { LoginService } from '../auth/login.service';
-import { ApiService } from '../shared/api.service';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
-import { MatDialog } from '@angular/material/dialog';
-import { GlobalConstants } from 'shared/constants';
+import {Component, Input, OnInit} from '@angular/core';
+import {Community} from '../models/community.model';
+import {LoginService} from '../auth/login.service';
+import {ApiService} from '../shared/api.service';
+import {OwlOptions} from 'ngx-owl-carousel-o';
+import {CommunityListComponent} from '../shared/components/dialogs/community-list/community-list.component';
+import {MatDialog} from '@angular/material/dialog';
+import {GlobalConstants} from 'shared/constants';
 
 @Component({
   selector: 'app-joined-community',
@@ -14,6 +14,7 @@ import { GlobalConstants } from 'shared/constants';
 })
 export class JoinedCommunityComponent implements OnInit {
   @Input() joinedCommunity: Community[];
+  @Input() userId: any;
   loadingCommunities = true;
   listItems = Array(5);
   screenWidth = window.innerWidth;
@@ -44,19 +45,12 @@ export class JoinedCommunityComponent implements OnInit {
     nav: false,
     autoplay: true
   };
-  constructor(public api: ApiService, public loginService: LoginService, public dialog: MatDialog) { }
+
+  constructor(public api: ApiService, public loginService: LoginService, public dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.loadingCommunities = true;
-    this.api.getJoinedCommunities(this.loginService.getUserId(), 0).subscribe(
-      (res: any) => {
-        this.loadingCommunities = false;
-        if (res.content.length) {
-          this.joinedCommunity = res.content;
-        }
-      }, err => { this.loadingCommunities = false; }
-    );
-
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;
@@ -65,6 +59,24 @@ export class JoinedCommunityComponent implements OnInit {
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
     }
+    setTimeout(() => {
+      let id = '';
+      if (this.userId) {
+        id = this.userId;
+      } else {
+        id = this.loginService.getUserId();
+      }
+      this.api.getJoinedCommunities(id, 0).subscribe(
+        (res: any) => {
+          this.loadingCommunities = false;
+          if (res.content.length) {
+            this.joinedCommunity = res.content;
+          }
+        }, err => {
+          this.loadingCommunities = false;
+        }
+      );
+    }, 2000);
   }
   checkImageUrl(src) {
     if (src) {
@@ -73,6 +85,7 @@ export class JoinedCommunityComponent implements OnInit {
       return '/assets/default.jpg';
     }
   }
+
   openCommunityDialog(community): void {
     let config = null;
     if (this.mobileView) {
@@ -88,12 +101,12 @@ export class JoinedCommunityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: { userId: null, community, type: 'joinedCommunity' }
+        data: {userId: null, community, type: 'joinedCommunity'}
       };
     } else {
       config = {
         width: '700px',
-        data: { userId: null, community, type: 'joinedCommunity' }
+        data: {userId: null, community, type: 'joinedCommunity'}
       };
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);

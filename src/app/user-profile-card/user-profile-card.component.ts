@@ -3,6 +3,7 @@ import { UserProfileCardServiceComponent } from './user-profile-card-service.com
 import { LoginService } from '../auth/login.service';
 import { UserActivityService } from '../user-activity/user-activity.service';
 import { ActivatedRoute } from '@angular/router';
+import {GlobalConstants} from '../shared/constants';
 @Component({
   selector: 'app-user-profile-card',
   templateUrl: './user-profile-card.component.html',
@@ -18,6 +19,7 @@ export class UserProfileCardComponent implements OnInit {
   owner = false;
   noOfFollowers: number;
   userInfo: any;
+  userPath = GlobalConstants.userPath;
 
   constructor(public auth: UserProfileCardServiceComponent, public loginAuth: LoginService, public route: ActivatedRoute,
     public userActivity: UserActivityService) { }

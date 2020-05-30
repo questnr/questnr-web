@@ -454,6 +454,11 @@ input:focus {
   padding: 0 40px;
   margin: 0 auto;
 }
+.container-header{
+  max-width: calc(100% - 30px);
+  //padding: 0 40px;
+  margin: 0 auto;
+}
 
 .mat-drawer-container {
   background: transparent !important;
