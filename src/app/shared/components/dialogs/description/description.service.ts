@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../../../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DescriptionService {
   baseUrl = environment.baseUrl;
-  constructor() { }
+  constructor(public http: HttpClient) { }
+
+  updateDescription(desc: string, communityId: number)  {
+    return this.http.put(this.baseUrl + `/user/community/${communityId}`, {description: desc});
+  }
 }

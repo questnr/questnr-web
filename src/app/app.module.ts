@@ -105,8 +105,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { FloatingMobileNavComponent } from './floating-mobile-nav/floating-mobile-nav.component';
 import { CompanyFooterSpanComponent } from 'shared/company-footer-span/company-footer-span.component';
-
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
   theme: 'circles-light',
@@ -200,6 +200,7 @@ export function metaFactory(): MetaLoader {
     SignUpPageComponent,
     LoginPageComponent,
     ResetPasswordComponent,
+    FloatingMobileNavComponent,
     CompanyFooterSpanComponent
   ],
   imports: [

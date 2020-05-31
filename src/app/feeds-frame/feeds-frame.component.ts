@@ -1,11 +1,12 @@
-import { Component, OnInit, OnDestroy, HostListener, ViewChildren, QueryList } from '@angular/core';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { FeedsService } from './feeds.service';
-import { ApiService } from 'shared/api.service';
-import { MessagingService } from '../service/messaging.service';
-import { RecommendedFeedsComponent } from './recommended-feeds/recommended-feeds.component';
-import { CreateCommunityComponent } from 'shared/components/dialogs/create.community/create-community.component';
-import { MatDialog } from '@angular/material/dialog';
+import {Component, OnInit, OnDestroy, HostListener, ViewChildren, QueryList} from '@angular/core';
+import {OwlOptions} from 'ngx-owl-carousel-o';
+import {FeedsService} from './feeds.service';
+import {ApiService} from 'shared/api.service';
+import {MessagingService} from '../service/messaging.service';
+import {RecommendedFeedsComponent} from './recommended-feeds/recommended-feeds.component';
+import {CreateCommunityComponent} from 'shared/components/dialogs/create.community/create-community.component';
+import {MatDialog} from '@angular/material/dialog';
+import {GlobalConstants} from '../shared/constants';
 
 @Component({
   selector: 'app-feeds-frame',
@@ -15,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class FeedsFrameComponent implements OnInit, OnDestroy {
   @ViewChildren(RecommendedFeedsComponent) recommendedFeedsComponent!: QueryList<RecommendedFeedsComponent>;
   userFeeds = [];
+  pathLink = GlobalConstants.feedPath;
   page = 0;
   sideConfig = 'side';
   isSidenavopen = false;
@@ -69,9 +71,10 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   }
 
   constructor(private service: FeedsService,
-    private api: ApiService,
-    private messagingService: MessagingService,
-    public dialog: MatDialog) { }
+              private api: ApiService,
+              private messagingService: MessagingService,
+              public dialog: MatDialog) {
+  }
 
   postFeed(event) {
     if (event.postActionId) {
@@ -83,6 +86,14 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.onresize();
+    const width = this.screenWidth;
+    if (width <= 800) {
+      this.mobileView = true;
+    } else if (width >= 1368) {
+      this.mobileView = false;
+    } else if (width >= 800 && width <= 1368) {
+      this.mobileView = false;
+    }
     window.addEventListener('scroll', this.scroll, true);
     this.getUserFeeds();
     this.getSuggestedCommunities();
@@ -91,9 +102,11 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     // Request notification permission
     this.messagingService.requestPermission();
   }
+
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);
   }
+
   scroll = (event): void => {
     if (!this.scrollCached) {
       setTimeout(() => {
@@ -108,7 +121,8 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
       }, 100);
     }
     this.scrollCached = event;
-  }
+  };
+
   getUserFeeds() {
     this.loading = true;
     this.service.getFeeds(this.page).subscribe(
@@ -138,7 +152,8 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
             return item;
           });
         }
-      }, err => { }
+      }, err => {
+      }
     );
   }
 

@@ -12,10 +12,17 @@
       </div>
     </div>
     <div class="profile-actions">
-      <p>{{user?.username}}</p>
-      <!--        {{user?.lastName}}-->
-      <!--        <span> ○ </span>{{user?.username}}-->
-      <!--        <span>{{stats?.followers}} Followers ○ {{stats?.followingTo}} Followings ○ {{stats?.posts}} Posts</span></p>-->
+<!--      <p>{{user?.username}}</p>-->
+<!--      <div _ngcontent-serverapp-c271="" style="-->
+<!--    position: absolute;-->
+<!--    bottom: 2%;-->
+<!--    font-size: 10px;-->
+<!--">Average joe with average dreams.-->
+<!--      </div>-->
+      <p>
+        {{user?.username}}
+<!--              <span> ○ </span><span style="font-size: 14px">{{user?.firstName}}&nbsp;{{user?.lastName}}</span>-->
+      </p>
       <div class="actions">
         <button mat-stroked-button *ngIf="relation ==='owned'&& !mobileView " (click)="openEditDialog()">
           <mat-icon>edit</mat-icon>
@@ -61,3 +68,5 @@
     </div>
   </div>
 </div>
+
+<app-floating-mobile-nav [url]="url" *ngIf="mobileView"></app-floating-mobile-nav>

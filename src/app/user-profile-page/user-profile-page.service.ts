@@ -21,4 +21,7 @@ export class UserProfilePageService {
   updateProfilePicture(file) {
     return this.http.post(this.baseUrl + 'user/avatar', file);
   }
+  updateUser(formData) {
+    return this.http.put(this.baseUrl + 'user', formData);
+  }
 }

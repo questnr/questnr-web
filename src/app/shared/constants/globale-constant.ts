@@ -18,6 +18,7 @@ export class GlobalConstants {
   public static hashTagPath = 'hash-tag';
   public static headerPath = 'header';
   public static explorePath = 'explore';
+  public static trendingPath = 'trending';
   public static contactPath = 'contact';
 
   public static supportEmail = "support@questnr.com";

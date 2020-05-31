@@ -17,6 +17,7 @@ export class ExploreComponent implements OnInit {
   }
 
   explore: Post[] = [];
+  pathLink = GlobalConstants.explorePath;
   suggestedCommunities: Community[] = [];
   hasTags = [];
   mobileView = false;
@@ -25,7 +26,7 @@ export class ExploreComponent implements OnInit {
   loading = true;
   scrollCached: boolean = null;
   page = 0;
-  hashTagUrl = '/' + GlobalConstants.hashTagPath + '/';
+  hashTagUrl =  GlobalConstants.hashTagPath ;
   queryString: string;
 
   ngOnInit(): void {

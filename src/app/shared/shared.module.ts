@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { SocialMediaLinksComponent } from './social-media-links/social-media-links.component';
 import { CompanyRightsFooterComponent } from './company-rights-footer/company-rights-footer.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -19,14 +20,15 @@ import { CompanyRightsFooterComponent } from './company-rights-footer/company-ri
     SocialMediaLinksComponent,
     CompanyRightsFooterComponent,
   ],
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule
-  ],
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDatepickerModule
+    ],
   entryComponents: [
   ],
   exports: [

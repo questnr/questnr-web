@@ -12,7 +12,7 @@
     <form [formGroup]="group">
       <div class="alert alert-danger" *ngIf="errMsg"> <strong>Error! </strong> {{errMsg }}</div>
       <div class="row">
-        <mat-form-field class="col-md-12" appearance="fill">
+        <mat-form-field class="col-md-6" appearance="fill">
           <mat-label>First Name</mat-label>
           <input type="text" matInput [formControl]="firstName" placeholder="Enter your First Name">
           <mat-error *ngIf="firstName.hasError('required')">First Name is required.</mat-error>
@@ -27,7 +27,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="col-md-12" appearance="fill">
+        <mat-form-field class="col-md-6" appearance="fill">
           <mat-label>Last Name</mat-label>
           <input type="text" matInput [formControl]="lastName" placeholder="Enter Your Last Name">
           <mat-error *ngIf="lastName.hasError('required')">Last Name is required.</mat-error>
@@ -42,23 +42,36 @@
           </mat-error>
         </mat-form-field>
 
-<!--        <mat-form-field class="col-md-12" appearance="fill">-->
-<!--          <mat-label>Username</mat-label>-->
-<!--          <input type="text" matInput [formControl]="username" placeholder="Enter your Username">-->
-<!--          <mat-error *ngIf="username.hasError('required')">Username is required.</mat-error>-->
-<!--          <mat-error *ngIf="username.errors?.pattern">-->
-<!--            Only upper case, lower case, numbers and underscore (_) are allowed-->
-<!--          </mat-error>-->
-<!--          <mat-error *ngIf="username.errors?.minlength">-->
-<!--            Field should contain at least 3 characters-->
-<!--          </mat-error>-->
-<!--          <mat-error *ngIf="username.errors?.maxlength">-->
-<!--            Field can have max 32 characters-->
-<!--          </mat-error>-->
-<!--          <mat-error *ngIf="username.errors?.exists">-->
-<!--            Username has been taken-->
-<!--          </mat-error>-->
-<!--        </mat-form-field>-->
+        <mat-form-field class="col-md-6" appearance="fill">
+          <mat-label>Username</mat-label>
+          <input type="text" matInput [formControl]="username" placeholder="Enter your Username">
+          <mat-error *ngIf="username.hasError('required')">Username is required.</mat-error>
+          <mat-error *ngIf="username.errors?.pattern">
+            Only upper case, lower case, numbers and underscore (_) are allowed
+          </mat-error>
+          <mat-error *ngIf="username.errors?.minlength">
+            Field should contain at least 3 characters
+          </mat-error>
+          <mat-error *ngIf="username.errors?.maxlength">
+            Field can have max 32 characters
+          </mat-error>
+          <mat-error *ngIf="username.errors?.exists">
+            Username has been taken
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6" appearance="fill" color="accent">
+          <mat-label>Date of Birth</mat-label>
+          <input matInput [matDatepicker]="picker" [formControl]="dob" (focus)="picker.open()" [max]="maxAllowedDOB">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="dob.hasError('required')">Date of Birth is required.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-12" appearance="fill">
+          <mat-label>Bio</mat-label>
+          <textarea    matInput [formControl]="bio" placeholder="Add a Brief Bio"></textarea>
+        </mat-form-field>
 
       </div>
 
@@ -71,6 +84,8 @@
         SAVE
       </button>
     </form>
+    <div class="alert-success alert" *ngIf="successMsg"> <strong>Success! </strong> <span
+      [innerHTML]="successMsg"></span></div>
   </div>
 
 </div>

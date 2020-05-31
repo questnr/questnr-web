@@ -8,6 +8,7 @@ export class User {
     slug: string;
     avatarDTO: AvatarDTO;
     userMeta: UserMeta;
+    bio: string;
 }
 
 export class UserMeta {
