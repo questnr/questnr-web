@@ -3,9 +3,9 @@
         <h3>Description</h3>
         <div *ngIf="!isLoading">
             <div class="user-description">
-                <div *ngIf="!bio" class="description">{{bio}}</div>
+                <div *ngIf="bio" class="description">{{bio}}</div>
             </div>
-            <div *ngIf="bio && relation === 'owned'">
+            <div *ngIf="!bio && relation === 'owned'">
                 You haven't set a description of yourself yet
                 <br />
                 Please describe yourself by going to Edit Profile Section
