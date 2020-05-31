@@ -9,6 +9,7 @@ export class User {
     avatarDTO: AvatarDTO;
     userMeta: UserMeta;
     bio: string;
+    dob: string;
 }
 
 export class UserMeta {

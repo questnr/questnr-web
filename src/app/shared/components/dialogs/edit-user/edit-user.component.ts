@@ -1,13 +1,13 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {GlobalConstants, REGEX} from '../../../constants';
-import {AsyncValidator, CustomValidations} from '../../../../custom-validations';
-import {LoginService} from '../../../../auth/login.service';
-import {UserActivityService} from '../../../../user-activity/user-activity.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {UserProfilePageService} from '../../../../user-profile-page/user-profile-page.service';
-import {User} from '../../../../models/user.model';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { GlobalConstants, REGEX } from '../../../constants';
+import { AsyncValidator, CustomValidations } from '../../../../custom-validations';
+import { LoginService } from '../../../../auth/login.service';
+import { UserActivityService } from '../../../../user-activity/user-activity.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UserProfilePageService } from '../../../../user-profile-page/user-profile-page.service';
+import { User } from '../../../../models/user.model';
 import set = Reflect.set;
 
 @Component({
@@ -21,6 +21,7 @@ export class EditUserComponent implements OnInit {
   successMsg = '';
   formError = '';
   isLoading = false;
+  isFetchingDetails = true;
   screenWidth = window.innerWidth;
   mobileView = false;
   firstName = new FormControl('',
@@ -51,9 +52,8 @@ export class EditUserComponent implements OnInit {
   bio = new FormControl('');
   maxAllowedDOB = new Date(new Date().setFullYear(new Date().getFullYear() - GlobalConstants.signUpAgeRestriction));
 
-
   constructor(public fb: FormBuilder, private auth: LoginService, public profilePageService: UserProfilePageService, @Inject(MAT_DIALOG_DATA) private data: any,
-              public dialogRef: MatDialogRef<EditUserComponent>, public router: Router) {
+    public dialogRef: MatDialogRef<EditUserComponent>, public router: Router) {
   }
 
   ngOnInit() {
@@ -77,15 +77,24 @@ export class EditUserComponent implements OnInit {
       this.group.controls.firstName.setValue(res.firstName);
       this.group.controls.lastName.setValue(res.lastName);
       this.group.controls.bio.setValue(res.bio);
-      // this.group.controls.dob.setValue();
-      console.log(res);
+      this.group.controls.dob.setValue(this.getDateFromNumber(res.dob));
+      this.isFetchingDetails = false;
     }, error => console.log(error.error.errorMessage));
+  }
+
+  getDateFromNumber(value: string) {
+    const d = new Date(value);
+    let month = '01';
+    if (d.getMonth() + 1 < 10) {
+      month = `0${d.getMonth() + 1}`;
+    }
+    return `${d.getFullYear()}-${month}-${d.getDate()}`;
   }
 
   submit() {
     if (this.group.valid) {
       this.isLoading = true;
-      const obj = {...this.group.value, dob: new Date(this.dob.value).getTime()};
+      const obj = { ...this.group.value, dob: new Date(this.dob.value).getTime() };
       this.profilePageService.updateUser(obj).subscribe((res: any) => {
         this.isLoading = false;
         if (res.loginSuccess) {
