@@ -124,6 +124,7 @@ export class UsercommunityComponent implements OnInit {
 
   getUserOwnedCommunity() {
     this.loader = true;
+    if (!this.userId) return;
     this.usercommunityService.getUserOwnedCommunity(this.userId, this.page).subscribe((res: any) => {
       this.loader = false;
       this.ownedCommunity = res.content;

@@ -75,6 +75,7 @@ export class CommunityListComponent implements OnInit {
 
   getUserOwnedCommunity(userId) {
     this.loader = true;
+    if (!userId) return;
     this.usercommunityService.getUserOwnedCommunity(userId, this.page).subscribe((res: any) => {
       if (res.content.length) {
         res.content.forEach(community => {
