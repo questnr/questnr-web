@@ -69,8 +69,8 @@
         </mat-form-field>
 
         <mat-form-field class="col-md-12" appearance="fill">
-          <mat-label>Bio</mat-label>
-          <textarea matInput [formControl]="bio" placeholder="Add a Brief Bio"></textarea>
+          <mat-label>Describe yourself</mat-label>
+          <textarea matInput [formControl]="bio" placeholder="Describe Yourself"></textarea>
         </mat-form-field>
 
       </div>
@@ -79,21 +79,15 @@
         {{formError}}
       </div>
       <button mat-button class="btn-color w-100" (click)="submit()">
-        <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
-          <span class="sr-only">Loading...</span>
-        </div> &nbsp;
+        <app-small-loader *ngIf="isLoading"></app-small-loader> &nbsp;
         SAVE
       </button>
     </form>
     <div class="response-div">
       <div class="alert-success alert" *ngIf="successMsg">
-        <div class="response-content"><strong>Success! </strong> <span [innerHTML]="successMsg"></span></div>
+        <div class="response-content" [innerHTML]="successMsg"></div>
       </div>
     </div>
-    <div *ngIf="isFetchingDetails" class="loader">
-      <div class="spinner-border spinner-border-sm" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-
   </div>
+  <app-small-loader *ngIf="isFetchingDetails" class="loader"></app-small-loader>
+</div>

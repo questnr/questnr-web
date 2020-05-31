@@ -107,6 +107,9 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { FloatingMobileNavComponent } from './floating-mobile-nav/floating-mobile-nav.component';
 import { CompanyFooterSpanComponent } from 'shared/company-footer-span/company-footer-span.component';
+import { SmallLoaderComponent } from 'shared/small-loader/small-loader.component';
+import { EditUserComponent } from 'edit-user/edit-user.component';
+import { UserDescriptionCardComponent } from 'shared/user-description-card/user-description-card.component';
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
   theme: 'circles-light',
@@ -201,7 +204,10 @@ export function metaFactory(): MetaLoader {
     LoginPageComponent,
     ResetPasswordComponent,
     FloatingMobileNavComponent,
-    CompanyFooterSpanComponent
+    CompanyFooterSpanComponent,
+    SmallLoaderComponent,
+    EditUserComponent,
+    UserDescriptionCardComponent
   ],
   imports: [
     MatVideoModule,

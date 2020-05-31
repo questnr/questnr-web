@@ -12,7 +12,7 @@ import { Subject } from 'rxjs';
 import { GlobalConstants } from 'shared/constants';
 import { Router } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
-import { EditUserComponent } from '../shared/components/dialogs/edit-user/edit-user.component';
+import { EditUserComponent } from '../edit-user/edit-user.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

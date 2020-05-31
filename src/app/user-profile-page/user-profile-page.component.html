@@ -12,16 +12,16 @@
       </div>
     </div>
     <div class="profile-actions">
-<!--      <p>{{user?.username}}</p>-->
-<!--      <div _ngcontent-serverapp-c271="" style="-->
-<!--    position: absolute;-->
-<!--    bottom: 2%;-->
-<!--    font-size: 10px;-->
-<!--">Average joe with average dreams.-->
-<!--      </div>-->
+      <!--      <p>{{user?.username}}</p>-->
+      <!--      <div _ngcontent-serverapp-c271="" style="-->
+      <!--    position: absolute;-->
+      <!--    bottom: 2%;-->
+      <!--    font-size: 10px;-->
+      <!--">Average joe with average dreams.-->
+      <!--      </div>-->
       <p>
         {{user?.username}}
-<!--              <span> ○ </span><span style="font-size: 14px">{{user?.firstName}}&nbsp;{{user?.lastName}}</span>-->
+        <!--              <span> ○ </span><span style="font-size: 14px">{{user?.firstName}}&nbsp;{{user?.lastName}}</span>-->
       </p>
       <div class="actions">
         <button mat-stroked-button *ngIf="relation ==='owned'&& !mobileView " (click)="openEditDialog()">
@@ -36,9 +36,16 @@
       </div>
     </div>
   </div>
-  <app-user-activity [userId]="user?.userId"></app-user-activity>
-
-
+  <div class="user-meta-info-div row">
+    <div class="col-md-6">
+      <app-user-description-card [bio]="user?.bio" [relation]="relation" [mobileView]="mobileView"
+        [username]="user?.username">
+      </app-user-description-card>
+    </div>
+    <div class="col-md-6">
+      <app-user-activity [userId]="user?.userId"></app-user-activity>
+    </div>
+  </div>
   <div>
     <div class="profile-page-container" [ngClass]="{'profile-page-container-mobile' : mobileView}">
       <div class="flex">

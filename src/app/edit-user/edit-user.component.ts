@@ -1,13 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { GlobalConstants, REGEX } from '../../../constants';
-import { AsyncValidator, CustomValidations } from '../../../../custom-validations';
-import { LoginService } from '../../../../auth/login.service';
-import { UserActivityService } from '../../../../user-activity/user-activity.service';
+import { GlobalConstants, REGEX } from '../shared/constants';
+import { AsyncValidator, CustomValidations } from '../custom-validations';
+import { LoginService } from '../auth/login.service';
+import { UserActivityService } from '../user-activity/user-activity.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { UserProfilePageService } from '../../../../user-profile-page/user-profile-page.service';
-import { User } from '../../../../models/user.model';
+import { UserProfilePageService } from '../user-profile-page/user-profile-page.service';
+import { User } from '../models/user.model';
 import set = Reflect.set;
 
 @Component({
@@ -20,10 +20,10 @@ export class EditUserComponent implements OnInit {
   errMsg = '';
   successMsg = '';
   formError = '';
-  isLoading = false;
-  isFetchingDetails = true;
+  isLoading: boolean = false;
   screenWidth = window.innerWidth;
-  mobileView = false;
+  mobileView: boolean = false;
+  isFetchingDetails: boolean = true;
   firstName = new FormControl('',
     [
       Validators.required,
@@ -72,6 +72,9 @@ export class EditUserComponent implements OnInit {
       dob: this.dob,
       bio: this.bio
     });
+
+    this.isFetchingDetails = true;
+    console.log("isFetchingDetails", this.isFetchingDetails);
     this.profilePageService.getUserProfile(this.data.slug).subscribe((res: User) => {
       this.group.controls.username.setValue(res.username);
       this.group.controls.firstName.setValue(res.firstName);
