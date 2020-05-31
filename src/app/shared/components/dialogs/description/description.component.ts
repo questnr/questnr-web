@@ -1,5 +1,6 @@
 import {Component, ElementRef, Inject, Input, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {DescriptionService} from './description.service';
 
 @Component({
   selector: 'app-description',
@@ -11,15 +12,20 @@ export class DescriptionComponent implements OnInit {
   background: any;
   editDescription = false;
   loading = false;
-  owner = true;
+  owner: string;
+  communityId: number;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<DescriptionComponent>) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<DescriptionComponent>, public descriptionService: DescriptionService) {
 
   }
+
   @ViewChild('description') editDesc: ElementRef;
+
   ngOnInit() {
     this.descriptionText = this.data.text;
     this.background = this.data.communityAvatar;
+    this.owner = this.data.owner;
+    this.communityId = this.data.communityId;
   }
 
   getImgUrl(src: string) {
@@ -33,13 +39,17 @@ export class DescriptionComponent implements OnInit {
 
   editDescriptionText() {
     const desc = this.editDesc.nativeElement.value;
-    if (desc) {
+    if (desc){
       this.loading = true;
-      setTimeout(() => {
+      this.descriptionService.updateDescription(desc, this.communityId).subscribe((res: any) => {
+        console.log(res);
         this.loading = false;
         this.editDescription = false;
         this.descriptionText = desc;
-      }, 2000);
+      }, error => {
+        console.log(error.error.errorMessage);
+        this.loading = true;
+      });
     }
   }
 }

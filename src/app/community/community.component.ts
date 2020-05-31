@@ -57,7 +57,7 @@ export class CommunityComponent implements OnInit {
     const dialogRef = this.dialog.open(DescriptionComponent, {
       width: '500px',
       // height: '300px',
-      data: { text: desc, communityAvatar: communityImg, owner: this.owner }
+      data: { text: desc, communityAvatar: communityImg, owner: this.owner, communityId: this.communityDTO.communityId }
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -12,7 +12,7 @@
     <p *ngIf="!editDescription" class="description-text">
       {{descriptionText}}
     </p>
-    <div *ngIf="owner">
+    <div *ngIf="owner === 'owned'">
       <mat-icon (click)="toggleEdit()" *ngIf="!editDescription">edit</mat-icon>
       <span *ngIf="editDescription">
         <span class="edit-action">

@@ -33,7 +33,7 @@
 <div class="link-card box" *ngIf="!mobileView">
   <h3>Your Communities</h3>
   <div *ngIf="ownedCommunity?.length; else noCommunity">
-    <div *ngIf="false">
+    <div *ngIf="!loader">
       <ng-container *ngIf="ownedCommunity?.length">
         <div class="links" *ngFor="let item of ownedCommunity">
           <app-profile-icon [avatarLink]="item.avatarDTO.avatarLink" [height]="35"
@@ -50,7 +50,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="true">
+  <div *ngIf="loader">
     <div class="o-vertical-spacing o-vertical-spacing--l">
       <div class="grid blog-post o-media">
         <div class="community_image o-media__figure">
