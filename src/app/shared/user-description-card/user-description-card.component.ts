@@ -14,10 +14,9 @@ export class UserDescriptionCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.isLoading = false;
-
   }
   ngAfterViewInit() {
+    this.isLoading = false;
   }
 
 }
