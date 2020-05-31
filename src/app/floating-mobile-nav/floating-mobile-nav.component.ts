@@ -26,7 +26,6 @@ export class FloatingMobileNavComponent implements OnInit {
 
   ngOnInit(): void {
     this.profileLink = this.loginService.getUserProfile().slug;
-    console.log(this.loginService.getUserProfile());
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;

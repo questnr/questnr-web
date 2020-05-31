@@ -126,7 +126,7 @@
     </mat-menu>
 
     <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="before">
-      <button mat-menu-item [routerLink]="'/user/'+ userDetail?.slug">
+      <button mat-menu-item [routerLink]="['/user/',profile.slug]">
         <mat-icon>account_circle</mat-icon>
         <span>Profile</span>
       </button>
