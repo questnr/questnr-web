@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommunityMembersService } from '../../../../community-users/community-members.service';
 import { User } from '../../../../models/user.model';
@@ -14,6 +14,7 @@ import { Page } from 'models/page.model';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+  @ViewChild("elementOnHTML") elementOnHTML: ElementRef;
   loading = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public userProfileCardServiceComponent: UserProfileCardServiceComponent,
@@ -33,6 +34,9 @@ export class UserListComponent implements OnInit {
   scrollCached: boolean = null;
 
   ngOnInit(): void {
+    this.fetchData();
+  }
+  ngAfterViewInit() {
     window.addEventListener('scroll', this.scroll, true);
     const width = this.screenWidth;
     if (width <= 800) {
@@ -42,21 +46,11 @@ export class UserListComponent implements OnInit {
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
     }
-    if (this.data.type === 'following') {
-      this.getFollowingUser(this.data.userId);
-    } else if (this.data.type === 'followers') {
-      this.getFollowers(this.data.userId);
-    } else if (this.data.type === 'like') {
-      this.getUserLikedList(this.data.postId);
-    } else if (this.data.type === "members") {
-      this.getCommunityMembers(this.data.communitySlug);
-    }
   }
 
   scroll = (event): void => {
-    console.log("scroll");
+    event.preventDefault();
     if (!this.scrollCached) {
-      console.log("scroll", this.scrollCached);
       setTimeout(() => {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
           // console.log('no im  here');
@@ -64,15 +58,7 @@ export class UserListComponent implements OnInit {
             // console.log('check network call');
             this.loading = true;
             ++this.page;
-            if (this.data.type === 'following') {
-              this.getFollowingUser(this.data.userId);
-            } else if (this.data.type === 'followers') {
-              this.getUserLikedList(this.data.postId);
-            } else if (this.data.type === 'like') {
-              this.getUserLikedList(this.data.postId);
-            } else if (this.data.type === "members") {
-              this.getCommunityMembers(this.data.communitySlug);
-            }
+            this.fetchData();
           }
         }
         this.scrollCached = null;
@@ -83,6 +69,18 @@ export class UserListComponent implements OnInit {
 
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);
+  }
+
+  fetchData() {
+    if (this.data.type === 'following') {
+      this.getFollowingUser(this.data.userId);
+    } else if (this.data.type === 'followers') {
+      this.getUserLikedList(this.data.postId);
+    } else if (this.data.type === 'like') {
+      this.getUserLikedList(this.data.postId);
+    } else if (this.data.type === "members") {
+      this.getCommunityMembers(this.data.communitySlug);
+    }
   }
 
   getUserImage(src) {

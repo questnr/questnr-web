@@ -15,7 +15,7 @@
       <app-user-list-view *ngIf="ind < 5" [user]="i"></app-user-list-view>
     </div>
   </div>
-  <app-view-more-button (click)="openUserGroupDialog('members')" *ngIf="communityMemberList?.length > 5">
+  <app-view-more-button (click)="openUserGroupDialog('members')" *ngIf="communityMemberList?.length >= 5">
   </app-view-more-button>
 
   <ng-template #noMembers>

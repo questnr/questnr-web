@@ -34,6 +34,9 @@ export class CommunityUsersComponent implements OnInit {
   ngOnInit(): void {
     this.getCommunityMembers(this.communitySlug);
     this.getCommunityMetaInfo(this.communitySlug);
+  }
+
+  ngAfterViewInit() {
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;
@@ -103,6 +106,7 @@ export class CommunityUsersComponent implements OnInit {
     } else {
       config = {
         width: '500px',
+        maxHeight: '70vh',
         // data: userList
         data: { communitySlug: this.communitySlug, type }
       };

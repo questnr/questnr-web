@@ -1,12 +1,12 @@
-  <div class="mobile-nav-btn" *ngIf="mobileView">
-    <button mat-icon-button (click)="onNoClick()">
-      <mat-icon> arrow_back</mat-icon>
-    </button>
-  </div>
-  <div class="user_list_container" [ngClass]="{'user_list_container-mobile': mobileView}">
-<!--  <div>-->
-<!--    <input #inputBox type="text" placeholder="Search..." (keypress)="searchUserList(inputBox.value)">-->
-<!--  </div>-->
+<div class="mobile-nav-btn" *ngIf="mobileView">
+  <button mat-icon-button (click)="onNoClick()">
+    <mat-icon> arrow_back</mat-icon>
+  </button>
+</div>
+<div class="user_list_container" [ngClass]="{'user_list_container-mobile': mobileView}">
+  <!--  <div>-->
+  <!--    <input #inputBox type="text" placeholder="Search..." (keypress)="searchUserList(inputBox.value)">-->
+  <!--  </div>-->
   <div class="user_list">
     <div class="center">
       <div id="myUL">
@@ -17,11 +17,11 @@
           </div>
         </div>
 
-<!--        <div *ngFor="let i of searchResultList">-->
-<!--          <div [id]="i?.userId" *ngIf="searchResult && !noResultFound">-->
-<!--            <app-user-list-view [user]="i"></app-user-list-view>-->
-<!--          </div>-->
-<!--        </div>-->
+        <!--        <div *ngFor="let i of searchResultList">-->
+        <!--          <div [id]="i?.userId" *ngIf="searchResult && !noResultFound">-->
+        <!--            <app-user-list-view [user]="i"></app-user-list-view>-->
+        <!--          </div>-->
+        <!--        </div>-->
         <div class="user-flex no-result-found" style="margin: auto" *ngIf="noResultFound">
           <p style="text-align: center"> No Result found ....</p>
         </div>

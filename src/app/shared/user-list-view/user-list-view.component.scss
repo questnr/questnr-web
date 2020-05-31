@@ -2,8 +2,9 @@
 
 .flex{
   display: flex;
+  align-items: center;
   background: $white;
-  height: 100px;
+  height: 80px;
   margin: 10px 0;
   border-radius: 6px;
   border: 1px solid #eeeeee;
@@ -35,13 +36,6 @@
     }
   }
 }
-.relation-btn{
-  min-width: 120px;
-  button{
-    width: 100%;
-  }
-}
-
 .flex-mobile {
   height: auto;
   .flex-50 {
@@ -61,13 +55,23 @@
         color: $primary;
       }
     }
-    .relation-btn{
-      padding: 0px;
-      button{
-        width: fit-content;
-        width: -moz-fit-content;
-      }
-    }
+  }
+}
+.relation-btn{
+  padding: 0px;
+  min-width: 120px;
+  button{
+    font-size: 0.8rem;
+    border-radius: 0.5rem;
+    border: 1px solid $grey;
+    background-color: $white;
+    padding: 2px;
+    width: 100%;
+  }
+  button:hover{
+    border: 1px solid $primary;
+    font-size: 0.85rem;
+    padding: 3px;
   }
 }
 .align-right{

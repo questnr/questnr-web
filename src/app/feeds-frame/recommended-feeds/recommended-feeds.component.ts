@@ -53,6 +53,8 @@ export class RecommendedFeedsComponent implements OnInit {
   postLink;
   page = 1;
   endOfComments = false;
+  screenWidth = window.innerWidth;
+  mobileView = false;
   customOptions: OwlOptions = {
     loop: false,
     mouseDrag: true,
@@ -113,6 +115,14 @@ export class RecommendedFeedsComponent implements OnInit {
     if (this.feed.text) {
       let detectedLink: string = this.commonService.parseTextToFindURL(this.feed.text);
       this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
+    }
+    const width = this.screenWidth;
+    if (width <= 800) {
+      this.mobileView = true;
+    } else if (width >= 1368) {
+      this.mobileView = false;
+    } else if (width >= 800 && width <= 1368) {
+      this.mobileView = false;
     }
   }
   onError(index: number) {
@@ -236,13 +246,31 @@ export class RecommendedFeedsComponent implements OnInit {
     });
   }
   openUserGroupDialog(type): void {
-    const dialogRef = this.dialog.open(UserListComponent, {
-      width: '500px',
-      data: {
-        type: type,
-        postId: this.feed.postActionId
-      }
-    });
+    let config = null;
+    if (this.mobileView) {
+      config = {
+        position: {
+          top: '0',
+          right: '0'
+        },
+        height: '100%',
+        borderRadius: '0px',
+        width: '100%',
+        maxWidth: '100vw',
+        marginTop: '0px',
+        marginRight: '0px !important',
+        panelClass: 'full-screen-modal',
+        data: { postId: this.feed.postActionId, type }
+      };
+    } else {
+      config = {
+        width: '500px',
+        maxHeight: '70vh',
+        // data: userList
+        data: { postId: this.feed.postActionId, type }
+      };
+    }
+    const dialogRef = this.dialog.open(UserListComponent, config);
     dialogRef.afterClosed().subscribe(result => {
 
     });
