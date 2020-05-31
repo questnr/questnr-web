@@ -92,6 +92,7 @@ export class UserProfilePageComponent implements OnInit {
     }
   }
   getUserFeeds(userId) {
+    if (!userId) return;
     this.userProfilePageService.getUserFeeds(userId, this.page).subscribe((res: any) => {
       if (res.content.length) {
         res.content.forEach(post => {
