@@ -1,0 +1,14 @@
+@import "../../variables";
+.company-terms-policy{
+    margin: auto;
+    font-size: 0.7rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+  
+.link:hover{
+    cursor: pointer;
+    color: $link-primary;
+    text-decoration: none;
+}

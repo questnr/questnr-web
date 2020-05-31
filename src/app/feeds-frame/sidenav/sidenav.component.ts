@@ -18,11 +18,6 @@ export class SidenavComponent implements OnInit {
   loadingCommunities = true;
   loadingHashtags = true;
 
-  footerLinks = [
-    { link: '/' + GlobalConstants.feedPath, title: 'Home' },
-    { link: '/' + GlobalConstants.termsPath, title: 'Terms' },
-    { link: '/' + GlobalConstants.policyPath, title: 'Privacy Policy' },
-  ];
   siteTitle: string = GlobalConstants.siteTitle;
   copyRightRenewedYear = GlobalConstants.copyRightRenewedYear;
 

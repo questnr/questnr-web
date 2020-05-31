@@ -69,6 +69,10 @@ export class ExploreComponent implements OnInit {
     this.scrollCached = event;
   };
 
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.scroll, true);
+  }
+
   fetchExplore() {
     this.exploreService.explore(this.page).subscribe((res: any) => {
       // console.log(res);

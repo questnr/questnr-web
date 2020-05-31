@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { LoginService } from 'auth/login.service';
 import { CommunityService } from 'community/community.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 @Component({
   selector: 'app-community-relation-action-button',
   templateUrl: './community-relation-action-button.component.html',
@@ -11,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CommunityRelationActionButtonComponent implements OnInit {
   @Input() relation: string;
   @Input() communityId: number;
+  @Output() actionEvent = new EventEmitter();
   constructor(private auth: CommunityService,
     private loginAuth: LoginService,
     public snackBar: MatSnackBar) { }
@@ -21,8 +21,8 @@ export class CommunityRelationActionButtonComponent implements OnInit {
 
   followThisCommunty() {
     this.auth.followCommunity(this.communityId).subscribe((res: any) => {
-      // console.log('started following' + this.communityDTO.communityName, res);
       this.relation = 'followed';
+      this.sendAction(this.relation);
     }, error => {
       // console.log('failed to join this community', error.error.errorMessage);
       this.snackBar.open(error.error.errorMessage, 'close', { duration: 3000 });
@@ -32,10 +32,14 @@ export class CommunityRelationActionButtonComponent implements OnInit {
   unfollowThisCommunity() {
     const userId = this.loginAuth.getUserProfile().id;
     this.auth.unfollowCommunityService(this.communityId, userId).subscribe((res: any) => {
-      // console.log('unfollowed' + this.communityDTO.communityName, res);
       this.relation = '';
+      this.sendAction(this.relation);
     }, error => {
       // console.log('failed to unfollow' + this.communityDTO.communityName, error.error.errorMessage);
     });
+  }
+
+  sendAction(hasFollowed) {
+    this.actionEvent.emit(hasFollowed);
   }
 }

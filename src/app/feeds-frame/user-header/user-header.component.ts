@@ -169,7 +169,7 @@ export class UserHeaderComponent {
   */
   receiveMessage() {
     this.angularFireMessaging.onMessage((message) => {
-      // console.log("received a message:", message);
+      console.log("received a message:", message);
       if (typeof message !== 'undefined' && typeof message.data !== 'undefined') {
         let data = message.data;
         if (typeof data.isNotification !== 'undefined' && data.isNotification == "true") {

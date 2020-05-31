@@ -38,10 +38,12 @@
         <!--          <div class="col-md-9">-->
         <!--          </div>-->
         <!--        </div>-->
-        <app-community-users [communitySlug]="communityDTO?.slug" [userListType]="'ribbon'" *ngIf="mobileView">
+        <app-community-users [communitySlug]="communityDTO?.slug" [userListType]="'ribbon'" *ngIf="mobileView"
+          #communityUsersComponentRef>
         </app-community-users>
         <div *ngIf="mobileView && owner !== 'owned'" class="mobile_view">
-          <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId">
+          <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId"
+            (actionEvent)="actionEvent($event)">
           </app-community-relation-action-button>
         </div>
         <div class="com-dets">
@@ -52,7 +54,8 @@
             </button>
           </div>
           <div class="btn-container float-right" *ngIf="!mobileView && owner !== 'owned'">
-            <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId">
+            <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId"
+              (actionEvent)="actionEvent($event)">
             </app-community-relation-action-button>
           </div>
         </div>
@@ -100,7 +103,8 @@
 
       <div class="flex-3" *ngIf="!mobileView">
         <app-create-community-btn [type]="'card'"></app-create-community-btn>
-        <app-community-users [communitySlug]="communityDTO?.slug" [userListType]="'list'"></app-community-users>
+        <app-community-users [communitySlug]="communityDTO?.slug" [userListType]="'list'" #communityUsersComponentRef>
+        </app-community-users>
         <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>
         <app-suggestion></app-suggestion>
         <app-trending></app-trending>

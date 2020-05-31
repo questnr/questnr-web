@@ -56,7 +56,7 @@ export class MessagingService {
       }))
       .subscribe(
         (token) => {
-          console.log('Token deleted!', token);
+          // console.log('Token deleted!', token);
         },
       );
   }

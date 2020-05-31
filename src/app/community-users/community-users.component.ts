@@ -98,13 +98,13 @@ export class CommunityUsersComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: { userId: null, type }
+        data: { communitySlug: this.communitySlug, type }
       };
     } else {
       config = {
         width: '500px',
         // data: userList
-        data: { userId: null, type }
+        data: { communitySlug: this.communitySlug, type }
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);

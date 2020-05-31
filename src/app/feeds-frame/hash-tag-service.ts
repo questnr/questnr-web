@@ -17,6 +17,11 @@ export class HashTagService {
   mouseUpFunc = (e) => {
     this.onMouseUp(e, this.elementId);
   };
+  clickHashTagFunc = (e: any, hashTagSpan) => {
+    if (e.target)
+      this.selectedHashTagSubject.next(e.target.innerHTML);
+    hashTagSpan.removeEventListener('click', this.clickHashTagFunc);
+  }
   selectedHashTagSubject: Subject<string> = new Subject();
   keyDownFunc = (e) => {
     this.onKeyDown(e, this);
@@ -241,6 +246,11 @@ export class HashTagService {
     if (this.hashTagSubscriber) this.hashTagSubscriber.unsubscribe();
   }
 
+  ngOnDestroy() {
+    document.removeEventListener("mouseup", this.mouseUpFunc);
+    document.removeEventListener("keydown", this.keyDownFunc);
+  }
+
 
   getCaretCoordinates(element, position, hashTagList: HashTag[]) {
     // var isFirefox = !(window.mozInnerScreenX == null);
@@ -297,10 +307,9 @@ export class HashTagService {
       let hashTagSpan = document.createElement("span");
       hashTagSpan.classList.add("hash-tag-suggested");
       hashTagSpan.textContent = hashTag.hashTagValue
-      hashTagSpan.addEventListener("click", (e: any) => {
-        if (e.target)
-          this.selectedHashTagSubject.next(e.target.innerHTML);
-      })
+      hashTagSpan.addEventListener("click", (event) => {
+        this.clickHashTagFunc(event, hashTagSpan);
+      });
       mirrorDiv.appendChild(hashTagSpan);
     }
 

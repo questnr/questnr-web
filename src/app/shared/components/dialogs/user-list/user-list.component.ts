@@ -47,16 +47,16 @@ export class UserListComponent implements OnInit {
     } else if (this.data.type === 'followers') {
       this.getFollowers(this.data.userId);
     } else if (this.data.type === 'like') {
-      console.log("postId", this.data);
       this.getUserLikedList(this.data.postId);
-    } else {
-      const url = window.location.pathname.split('/')[2];
-      this.getCommunityMembers(url);
+    } else if (this.data.type === "members") {
+      this.getCommunityMembers(this.data.communitySlug);
     }
   }
 
   scroll = (event): void => {
+    console.log("scroll");
     if (!this.scrollCached) {
+      console.log("scroll", this.scrollCached);
       setTimeout(() => {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
           // console.log('no im  here');
@@ -68,9 +68,10 @@ export class UserListComponent implements OnInit {
               this.getFollowingUser(this.data.userId);
             } else if (this.data.type === 'followers') {
               this.getUserLikedList(this.data.postId);
-            } else {
-              const url = window.location.pathname.split('/')[2];
-              this.getCommunityMembers(url);
+            } else if (this.data.type === 'like') {
+              this.getUserLikedList(this.data.postId);
+            } else if (this.data.type === "members") {
+              this.getCommunityMembers(this.data.communitySlug);
             }
           }
         }
@@ -78,6 +79,10 @@ export class UserListComponent implements OnInit {
       }, 100);
     }
     this.scrollCached = event;
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.scroll, true);
   }
 
   getUserImage(src) {
