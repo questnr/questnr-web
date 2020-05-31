@@ -105,6 +105,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { FloatingMobileNavComponent } from './floating-mobile-nav/floating-mobile-nav.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -198,7 +199,8 @@ export function metaFactory(): MetaLoader {
     ForgotPasswordComponent,
     SignUpPageComponent,
     LoginPageComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    FloatingMobileNavComponent
   ],
   imports: [
     MatVideoModule,

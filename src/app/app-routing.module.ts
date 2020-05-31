@@ -58,6 +58,7 @@ const routes: Routes = [
   },
   { path: GlobalConstants.userPath + '/:userSlug', component: UserProfilePageComponent },
   { path: GlobalConstants.explorePath, component: ExploreComponent },
+  { path: GlobalConstants.trendingPath, component: ExploreComponent },
   { path: GlobalConstants.hashTagPath + '/:hashTag', component: ExploreComponent },
   { path: GlobalConstants.forgotPassword, component: ForgotPasswordComponent },
   { path: GlobalConstants.signUp, component: SignUpPageComponent },

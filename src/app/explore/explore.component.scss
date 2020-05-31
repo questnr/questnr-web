@@ -14,8 +14,8 @@
       }
       .row{
         .col-lg-6{
-          margin: 8px 0;
-          //padding: 0px;
+          margin: 4px 0;
+          padding: 0 4px;
         }
       }
       .community_image{
@@ -86,9 +86,9 @@
 }
 
 
-.community_image:hover{
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-}
+//.community_image:hover{
+//  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+//}
 
 .hashtags-container{
   //background: $white;
@@ -102,10 +102,12 @@
     color: $primary;
   }
   mat-chip{
-    //color: $white;
+    color: $hash-tag;
+    background: $white;
     font-weight: 400 !important;
     font-style: italic;
     display: block;
+    line-height: 18px;
   }
 }
 mat-chip:hover {
@@ -132,6 +134,6 @@ mat-chip:hover {
   font-weight: 400;
 }
 .active_tag{
-  background: $primary;
-  color: $white;
+  background: $primary !important;
+  color: $white !important;
 }
