@@ -20,4 +20,13 @@ export class CommonService {
         var indexOf = content.substring(startpos || 0).search(regex);
         return (indexOf >= 0) ? (indexOf + (startpos || 0)) : indexOf;
     }
+    getDateFromNumber(value: string) {
+        console.log("value", value);
+        const d = new Date(value);
+        let month = '01';
+        if (d.getMonth() + 1 < 10) {
+            month = `0${d.getMonth() + 1}`;
+        }
+        return `${d.getFullYear()}-${month}-${d.getDate()}`;
+    }
 }

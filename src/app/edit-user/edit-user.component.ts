@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UserProfilePageService } from '../user-profile-page/user-profile-page.service';
 import { User } from '../models/user.model';
+import { CommonService } from '../common/common.service';
 import set = Reflect.set;
 
 @Component({
@@ -53,7 +54,7 @@ export class EditUserComponent implements OnInit {
   maxAllowedDOB = new Date(new Date().setFullYear(new Date().getFullYear() - GlobalConstants.signUpAgeRestriction));
 
   constructor(public fb: FormBuilder, private auth: LoginService, public profilePageService: UserProfilePageService, @Inject(MAT_DIALOG_DATA) private data: any,
-    public dialogRef: MatDialogRef<EditUserComponent>, public router: Router) {
+    public dialogRef: MatDialogRef<EditUserComponent>, public router: Router, private commonService: CommonService) {
   }
 
   ngOnInit() {
@@ -74,30 +75,22 @@ export class EditUserComponent implements OnInit {
     });
 
     this.isFetchingDetails = true;
-    console.log("isFetchingDetails", this.isFetchingDetails);
     this.profilePageService.getUserProfile(this.data.slug).subscribe((res: User) => {
       this.group.controls.username.setValue(res.username);
       this.group.controls.firstName.setValue(res.firstName);
       this.group.controls.lastName.setValue(res.lastName);
       this.group.controls.bio.setValue(res.bio);
-      this.group.controls.dob.setValue(this.getDateFromNumber(res.dob));
+      this.group.controls.dob.setValue(this.commonService.getDateFromNumber(res.dob));
       this.isFetchingDetails = false;
     }, error => console.log(error.error.errorMessage));
   }
 
-  getDateFromNumber(value: string) {
-    const d = new Date(value);
-    let month = '01';
-    if (d.getMonth() + 1 < 10) {
-      month = `0${d.getMonth() + 1}`;
-    }
-    return `${d.getFullYear()}-${month}-${d.getDate()}`;
-  }
+
 
   submit() {
     if (this.group.valid) {
       this.isLoading = true;
-      const obj = { ...this.group.value, dob: new Date(this.dob.value).getTime() };
+      const obj = { ...this.group.value, dob: this.commonService.getDateFromNumber(this.group.get("dob").value) };
       this.profilePageService.updateUser(obj).subscribe((res: any) => {
         this.isLoading = false;
         if (res.loginSuccess) {

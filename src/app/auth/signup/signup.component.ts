@@ -7,6 +7,7 @@ import { AsyncValidator, CustomValidations } from '../../custom-validations';
 import { GlobalConstants, REGEX } from 'shared/constants';
 import { WelcomeSlidesComponent } from 'shared/components/dialogs/welcome-slides/welcome-slides.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CommonService } from 'common/common.service';
 
 @Component({
   selector: 'app-signup',
@@ -60,7 +61,7 @@ export class SignupComponent implements OnInit {
   maxAllowedDOB = new Date(new Date().setFullYear(new Date().getFullYear() - GlobalConstants.signUpAgeRestriction));
   constructor(
     private fb: FormBuilder, private auth: LoginService, private dialog: MatDialog,
-    private socialAuth: AuthService, private router: Router) { }
+    private socialAuth: AuthService, private router: Router, private commonService: CommonService) { }
 
   ngOnInit() {
     this.group = this.fb.group({
@@ -78,7 +79,7 @@ export class SignupComponent implements OnInit {
     // this.openWelcomeDialog();
     if (this.group.valid) {
       this.isLoading = true;
-      const obj = { ...this.group.value, dob: new Date(this.dob.value).getTime() };
+      const obj = { ...this.group.value, dob: this.commonService.getDateFromNumber(this.group.get("dob").value) };
       this.auth.signUp(obj).subscribe(
         res => {
           if (res.loginSuccess) {
