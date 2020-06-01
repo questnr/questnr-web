@@ -10,9 +10,9 @@ import { CommunityUsers, CommunityProfileMeta } from 'models/community.model';
 export class CommunityMembersService {
   baseUrl = environment.baseUrl;
   constructor(public http: HttpClient) { }
-  getCommunityMembers(url, page): Observable<CommunityUsers> {
+  getCommunityMembers(url: string, page, size = "4"): Observable<CommunityUsers> {
     if (!url) return of();
-    return this.http.get<CommunityUsers>(this.baseUrl + 'user/community/' + url + '/users', { params: { page } });
+    return this.http.get<CommunityUsers>(this.baseUrl + 'user/community/' + url + '/users', { params: { page, size } });
   }
 
   getCommunityMetaInfo(url): Observable<CommunityProfileMeta> {

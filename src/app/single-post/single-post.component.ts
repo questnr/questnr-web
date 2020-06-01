@@ -118,7 +118,7 @@ export class SinglePostComponent implements OnInit {
     if (this.singlePost.postActionMeta.liked) {
       this.dislikedPost();
       this.api.dislikePost(id).subscribe(
-        res => {
+        (res: any) => {
           if (res.status !== 200) { this.likedPost(); }
         }, err => { this.likedPost(); }
       );

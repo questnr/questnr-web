@@ -150,7 +150,7 @@ export class UserHeaderComponent {
   }
   removeNotification(id) {
     this.api.removeNotification(id).subscribe(
-      res => {
+      (res: any) => {
         if (res.status === 200) {
           const index = this.notifications.findIndex((i: NotificationDTO) => i.notificationId);
           this.notifications.splice(index, 1);

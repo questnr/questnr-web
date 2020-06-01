@@ -204,7 +204,7 @@ export class RecommendedFeedsComponent implements OnInit {
     if (this.feed.postActionMeta.liked) {
       this.dislikedPost();
       this.api.dislikePost(id).subscribe(
-        res => {
+        (res: any) => {
           if (res.status !== 200) { this.likedPost(); }
         }, err => { this.likedPost(); }
       );

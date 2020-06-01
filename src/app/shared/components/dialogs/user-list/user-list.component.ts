@@ -34,9 +34,10 @@ export class UserListComponent implements OnInit {
   scrollCached: boolean = null;
 
   ngOnInit(): void {
-    this.fetchData();
+
   }
   ngAfterViewInit() {
+    this.fetchData();
     window.addEventListener('scroll', this.scroll, true);
     const width = this.screenWidth;
     if (width <= 800) {
@@ -46,6 +47,11 @@ export class UserListComponent implements OnInit {
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
     }
+    setTimeout(() => {
+      this.loading = true;
+      ++this.page;
+      this.fetchData();
+    }, 1000);
   }
 
   scroll = (event): void => {
@@ -214,7 +220,6 @@ export class UserListComponent implements OnInit {
 
   getCommunityMembers(communitySlug: string) {
     if (!communitySlug) return;
-    this.loading = true;
     this.communityMembersService.getCommunityMembers(communitySlug, this.page).subscribe((data: any) => {
       if (data.content.length) {
         data.content.forEach(user => {

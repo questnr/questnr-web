@@ -81,6 +81,7 @@ export class UserFollowersComponent implements OnInit {
   openUserGroupDialog(userList): void {
     const dialogRef = this.dialog.open(UserListComponent, {
       width: '500px',
+      maxHeight: "60vh",
       data: userList
     });
 

@@ -108,7 +108,7 @@ export class CommunityUsersComponent implements OnInit {
     } else {
       config = {
         width: '500px',
-        maxHeight: '70vh',
+        maxHeight: '60vh',
         // data: userList
         data: { communitySlug: this.communitySlug, type }
       };

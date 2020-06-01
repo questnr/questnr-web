@@ -63,7 +63,8 @@ export class UserActivityComponent implements OnInit {
     } else {
       config = {
         width: '500px',
-        // data: userList
+        // data: userList,
+        maxHeight: "60vh",
         data: { userId: this.userId, type }
       };
     }
