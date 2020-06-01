@@ -1,6 +1,7 @@
-import {Component, ElementRef, Inject, Input, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {DescriptionService} from './description.service';
+import { Component, ElementRef, Inject, Input, OnInit, ViewChild, Output } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DescriptionService } from './description.service';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-description',
@@ -14,6 +15,7 @@ export class DescriptionComponent implements OnInit {
   loading = false;
   owner: string;
   communityId: number;
+  descriptionEmit;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<DescriptionComponent>, public descriptionService: DescriptionService) {
 
@@ -26,6 +28,7 @@ export class DescriptionComponent implements OnInit {
     this.background = this.data.communityAvatar;
     this.owner = this.data.owner;
     this.communityId = this.data.communityId;
+    this.descriptionEmit = this.data.descriptionEmit;
   }
 
   getImgUrl(src: string) {
@@ -39,13 +42,13 @@ export class DescriptionComponent implements OnInit {
 
   editDescriptionText() {
     const desc = this.editDesc.nativeElement.value;
-    if (desc){
+    if (desc) {
       this.loading = true;
       this.descriptionService.updateDescription(desc, this.communityId).subscribe((res: any) => {
-        console.log(res);
         this.loading = false;
         this.editDescription = false;
         this.descriptionText = desc;
+        this.descriptionEmit(desc);
       }, error => {
         console.log(error.error.errorMessage);
         this.loading = true;

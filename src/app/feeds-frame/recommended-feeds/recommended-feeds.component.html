@@ -56,7 +56,7 @@
   </div>
   <div class="mb-2">
     <app-feed-text [text]="feed?.text" [hashTagsData]="hashTagsData"></app-feed-text>
-    <app-meta-card [iFramelyData]="iFramelyData"></app-meta-card>
+    <app-meta-card *ngIf="iFramelyData?.url" [iFramelyData]="iFramelyData"></app-meta-card>
     <div *ngIf="feed.postMediaList?.length" class="media-container">
       <owl-carousel-o [options]="customOptions">
         <ng-container *ngFor="let media of feed.postMediaList;let i=index">

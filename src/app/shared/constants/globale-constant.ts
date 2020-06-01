@@ -5,6 +5,7 @@ export class GlobalConstants {
   public static description = 'The New Era of Online Communities. Having real social contacts can sometimes be difficult. With a bit of a FUN, everthing becomes much simpler!';
   public static image = '';
   public static fbAppId = "1336590906533811";
+  public static gtagId = 'UA-168117128-1';
 
   public static signUpAgeRestriction = 16;
 

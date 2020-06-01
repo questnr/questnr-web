@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Community} from '../models/community.model';
-import {LoginService} from '../auth/login.service';
-import {ApiService} from '../shared/api.service';
-import {OwlOptions} from 'ngx-owl-carousel-o';
-import {CommunityListComponent} from '../shared/components/dialogs/community-list/community-list.component';
-import {MatDialog} from '@angular/material/dialog';
-import {GlobalConstants} from 'shared/constants';
+import { Component, Input, OnInit } from '@angular/core';
+import { Community } from '../models/community.model';
+import { LoginService } from '../auth/login.service';
+import { ApiService } from '../shared/api.service';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
+import { MatDialog } from '@angular/material/dialog';
+import { GlobalConstants } from 'shared/constants';
 
 @Component({
   selector: 'app-joined-community',
@@ -101,12 +101,13 @@ export class JoinedCommunityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: {userId: null, community, type: 'joinedCommunity'}
+        data: { userId: null, community, type: 'joinedCommunity' }
       };
     } else {
       config = {
         width: '700px',
-        data: {userId: null, community, type: 'joinedCommunity'}
+        maxHeight: "60vh",
+        data: { userId: null, community, type: 'joinedCommunity' }
       };
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);

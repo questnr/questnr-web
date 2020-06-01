@@ -29,6 +29,7 @@ export class CommunityComponent implements OnInit {
   isSidenavopen = false;
   communitySlug: string;
   communityDTO: Community;
+  description: string;
   owner: any;
   comUserList: any[];
   ownerDTO: User;
@@ -52,12 +53,12 @@ export class CommunityComponent implements OnInit {
     return feed.slug;
   }
 
-  openCommunityDesc(desc: any, communityImg: any): void {
+  openCommunityDesc(): void {
     // console.log();
     const dialogRef = this.dialog.open(DescriptionComponent, {
       width: '500px',
       // height: '300px',
-      data: { text: desc, communityAvatar: communityImg, owner: this.owner, communityId: this.communityDTO.communityId }
+      data: { text: this.description, communityAvatar: this.communityImage, owner: this.owner, communityId: this.communityDTO.communityId, descriptionEmit: this.descriptionEmit }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -66,10 +67,15 @@ export class CommunityComponent implements OnInit {
     });
   }
 
+  descriptionEmit = (desc: string) => {
+    this.description = desc;
+  }
+
   ngOnInit() {
     this.communitySlug = this.route.snapshot.paramMap.get('communitySlug');
     this.route.data.subscribe((data: { community: Community }) => {
       this.communityDTO = data.community;
+      this.description = data.community.description;
       this.communityImage = this.communityDTO.avatarDTO.avatarLink;
       this.ownerDTO = this.communityDTO.ownerUserDTO;
       this.owner = this.communityDTO.communityMeta.relationShipType;
