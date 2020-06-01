@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <app-meta-card [iFramelyData]="iFramelyData"></app-meta-card>
+  <app-meta-card *ngIf="iFramelyData?.url" [iFramelyData]="iFramelyData"></app-meta-card>
 
   <div class="media" [@expand]="isMediaEnabled ? 'expanded' : 'collapsed'">
     <div class="media-wrap">
