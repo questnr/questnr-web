@@ -9,8 +9,8 @@
       <app-community-card-mobile-view [community]="community"></app-community-card-mobile-view>
     </div>
     <div [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngIf="!endOfResult" style="margin: auto 0">
-      <div >
-<!--        <mat-icon (click)="loadMoreCommunity()">arrow_forward</mat-icon>-->
+      <div class="load-more-button">
+        <!--        <mat-icon (click)="loadMoreCommunity()">arrow_forward</mat-icon>-->
         <img src="assets/next.png" alt="load more" (click)="loadMoreCommunity()" width="100px">
       </div>
     </div>

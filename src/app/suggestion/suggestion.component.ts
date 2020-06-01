@@ -89,12 +89,13 @@ export class SuggestionComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: { userId: null, community, type: 'joinedCommunity' }
+        data: { userId: null, community, type: 'suggestedCommunity' }
       };
     } else {
       config = {
         width: '700px',
-        data: { userId: null, community, type: 'joinedCommunity' }
+        maxHeight: "60vh",
+        data: { userId: null, community, type: 'suggestedCommunity' }
       };
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);
