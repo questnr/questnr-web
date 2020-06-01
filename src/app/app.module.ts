@@ -110,6 +110,7 @@ import { CompanyFooterSpanComponent } from 'shared/company-footer-span/company-f
 import { SmallLoaderComponent } from 'shared/small-loader/small-loader.component';
 import { EditUserComponent } from 'edit-user/edit-user.component';
 import { UserDescriptionCardComponent } from 'shared/user-description-card/user-description-card.component';
+import { OtpVerificationComponent } from 'otp-verification/otp-verification.component';
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
   theme: 'circles-light',
@@ -207,7 +208,8 @@ export function metaFactory(): MetaLoader {
     CompanyFooterSpanComponent,
     SmallLoaderComponent,
     EditUserComponent,
-    UserDescriptionCardComponent
+    UserDescriptionCardComponent,
+    OtpVerificationComponent
   ],
   imports: [
     MatVideoModule,

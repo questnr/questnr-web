@@ -1,0 +1,28 @@
+@import '../variables';
+
+.wrapper{
+}
+.btn-primary{
+    color: $white;
+    background-color: $primary;
+    border: 0;
+    border-radius: 4px;
+    width: 112px;
+}
+.input-container{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+.otp-action-btn-column{
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    .btn-action{
+        @extend .btn-primary;
+        margin: 5px;
+    }
+    .btn-action:active {
+        background-color: $heading;
+    }
+}

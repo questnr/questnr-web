@@ -21,6 +21,7 @@ export class SignupComponent implements OnInit {
   formError = '';
   termsPath = GlobalConstants.termsPath;
   policyPath = GlobalConstants.policyPath;
+  hasEmailVerified: boolean = false;
   firstName = new FormControl('',
     [
       Validators.required,
@@ -77,19 +78,24 @@ export class SignupComponent implements OnInit {
 
   submit() {
     // this.openWelcomeDialog();
+    this.formError = "";
     if (this.group.valid) {
-      this.isLoading = true;
-      const obj = { ...this.group.value, dob: this.commonService.getDateFromNumber(this.group.get("dob").value) };
-      this.auth.signUp(obj).subscribe(
-        res => {
-          if (res.loginSuccess) {
-            this.signUpSuccess(res);
-          } else {
-            this.errMsg = res.errorMessage;
-          }
-          this.isLoading = false;
-        }, err => { this.isLoading = false; }
-      );
+      if (this.hasEmailVerified) {
+        this.isLoading = true;
+        const obj = { ...this.group.value, dob: this.commonService.getDateFromNumber(this.group.get("dob").value) };
+        this.auth.signUp(obj).subscribe(
+          res => {
+            if (res.loginSuccess) {
+              this.signUpSuccess(res);
+            } else {
+              this.errMsg = res.errorMessage;
+            }
+            this.isLoading = false;
+          }, err => { this.isLoading = false; }
+        );
+      } else {
+        this.formError = "Email has not been verified";
+      }
     } else {
       this.group.markAllAsTouched();
     }
@@ -116,6 +122,7 @@ export class SignupComponent implements OnInit {
     });
   }
   signUp(user) {
+
     this.auth.signUp(user).subscribe(
       res => {
         this.formError = '';
@@ -128,11 +135,16 @@ export class SignupComponent implements OnInit {
         }
       }, err => { }
     );
+
   }
 
   signUpSuccess(res) {
     localStorage.setItem('token', res.accessToken);
     this.router.navigate(['/', GlobalConstants.feedPath]);
     this.openWelcomeDialog();
+  }
+
+  emailHasBeenVerified(event) {
+    this.hasEmailVerified = event;
   }
 }

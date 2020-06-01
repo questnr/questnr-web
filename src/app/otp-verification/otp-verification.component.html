@@ -1,0 +1,26 @@
+<div class="wrapper">
+    <div *ngIf="!hasOTPBeenSent">
+        <button class="btn-primary w-100" (click)="sendOTP($event)">
+            <app-small-loader *ngIf="isSendingOTP"></app-small-loader> &nbsp;
+            Send OTP
+        </button>
+    </div>
+    <div *ngIf="hasOTPBeenSent" class="input-container">
+        <div>
+            <mat-form-field appearance="fill">
+                <input type="text" matInput [formControl]='otp' placeholder="Enter OTP" style="width: 200px">
+                <mat-error *ngIf="otp.hasError('required')">Please provide OTP</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="otp-action-btn-column">
+            <button class="btn-action w-100" (click)="resendOTP($event)">
+                <app-small-loader *ngIf="isResendingOTP"></app-small-loader> &nbsp;
+                Resend the mail
+            </button>
+            <button class="btn-action w-100" (click)="verifyOTP($event)">
+                <app-small-loader *ngIf="isVerifying"></app-small-loader> &nbsp;
+                Verify
+            </button>
+        </div>
+    </div>
+</div>
