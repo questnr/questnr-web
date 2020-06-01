@@ -17,12 +17,12 @@ export class CommunityListComponent implements OnInit {
   loader = false;
   page = 0;
   endOfResult = false;
-  ownedCommunity: Community[] = [];
+  communityList: Community[] = [];
   // tslint:disable-next-line:max-line-length
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<CommunityListComponent>, public usercommunityService: UsercommunityService, public api: ApiService
     , public loginService: LoginService) {
     data.community.forEach(item => {
-      this.ownedCommunity.push(item);
+      this.communityList.push(item);
     });
   }
 
@@ -56,14 +56,14 @@ export class CommunityListComponent implements OnInit {
   //   }
   // }
   loadMoreCommunity() {
-    if (this.ownedCommunity.length >= 0 && !this.endOfResult) {
+    if (this.communityList.length >= 0 && !this.endOfResult) {
       // console.log('check network call');
       this.loader = true;
       ++this.page;
       if (this.data.type === 'ownedCommunity') {
         if (this.data.userId)
           this.getUserOwnedCommunity(this.data.userId);
-      } else {
+      } else if (this.data.type === 'joinedCommunity') {
         this.getJoinedCommunities();
       }
     }
@@ -79,7 +79,7 @@ export class CommunityListComponent implements OnInit {
     this.usercommunityService.getUserOwnedCommunity(userId, this.page).subscribe((res: any) => {
       if (res.content.length) {
         res.content.forEach(community => {
-          this.ownedCommunity.push(community);
+          this.communityList.push(community);
         });
       } else {
         this.endOfResult = true;
@@ -96,7 +96,7 @@ export class CommunityListComponent implements OnInit {
       (res: any) => {
         if (res.content.length) {
           res.content.forEach(community => {
-            this.ownedCommunity.push(community);
+            this.communityList.push(community);
           });
         } else {
           this.endOfResult = true;

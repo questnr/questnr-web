@@ -5,7 +5,7 @@
 </div>
 <div class="container-header" [ngClass]="{'container-header-mobile': mobileView}">
   <div class="row">
-    <div [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngFor="let community of ownedCommunity">
+    <div [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngFor="let community of communityList">
       <app-community-card-mobile-view [community]="community"></app-community-card-mobile-view>
     </div>
     <div [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngIf="!endOfResult" style="margin: auto 0">

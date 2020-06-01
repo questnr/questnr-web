@@ -111,7 +111,7 @@ export class UsercommunityComponent implements OnInit {
     } else {
       config = {
         width: '700px',
-        maxHeight: "60vh",
+        maxHeight: "70vh",
         data: { userId: this.userId, community, type: 'ownedCommunity' }
       };
     }

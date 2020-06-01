@@ -106,7 +106,7 @@ export class JoinedCommunityComponent implements OnInit {
     } else {
       config = {
         width: '700px',
-        maxHeight: "60vh",
+        maxHeight: "70vh",
         data: { userId: null, community, type: 'joinedCommunity' }
       };
     }
