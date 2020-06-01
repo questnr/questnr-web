@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Renderer2, Input } from '@angular/core';
 import { SocialMediaConstants } from 'shared/constants/social-media-constant';
 
 @Component({
@@ -7,15 +7,21 @@ import { SocialMediaConstants } from 'shared/constants/social-media-constant';
   styleUrls: ['./social-media-links.component.scss']
 })
 export class SocialMediaLinksComponent implements OnInit {
-
+  @ViewChild("socialMediaList") socialMediaList: ElementRef;
+  @Input() color: string;
   facebookLink: string = SocialMediaConstants.facebookLink;
   twitterLink: string = SocialMediaConstants.twitterLink;
   instagramLink: string = SocialMediaConstants.instagramLink;
   linkedInLink: string = SocialMediaConstants.linkedInLink;
 
-  constructor() { }
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
+    console.log("this.color", this.color);
+    this.renderer.addClass(this.socialMediaList.nativeElement, this.color);
   }
 
 }

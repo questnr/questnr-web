@@ -1,9 +1,15 @@
+@import '../../variables';
 .social {
-    color: #ffffff;
     float: right;
     margin-right: 40px !important;
     margin: 0px;
     font-size: 1rem;
+}
+.primary{
+    color: $white;
+}
+.seconday{
+    color: $black;
 }
 ul {
     padding: 0;
@@ -12,6 +18,5 @@ ul {
         float: left;
         margin: 0 8px;
         cursor: pointer;
-        color: #ffffff;
     }
 }

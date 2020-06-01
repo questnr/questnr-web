@@ -1,6 +1,7 @@
 <div class="footer">
   <div class="wrap">
     <a *ngFor="let item of footerLinks" [routerLink]="item.link">{{item.title}}</a>
+    <app-social-media-links [color]="'seconday'"></app-social-media-links>
   </div>
   <hr>
   <div class="copyright">
