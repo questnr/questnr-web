@@ -10,6 +10,7 @@ import { CommunityMembersService } from './community-members.service';
 import { Community, CommunityProfileMeta } from '../models/community.model';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-community-users',
@@ -72,6 +73,7 @@ export class CommunityUsersComponent implements OnInit {
   }
 
   sendFollowInvite(i) {
+    if (!i) return of();
     this.http.post(this.baseUrl + 'user/follow/user/' + i, '').subscribe((res: any) => {
       // console.log(res);
     }, error => {

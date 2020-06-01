@@ -75,7 +75,7 @@ export class UserListComponent implements OnInit {
     if (this.data.type === 'following') {
       this.getFollowingUser(this.data.userId);
     } else if (this.data.type === 'followers') {
-      this.getUserLikedList(this.data.postId);
+      this.getUserFollowers(this.data.userId);
     } else if (this.data.type === 'like') {
       this.getUserLikedList(this.data.postId);
     } else if (this.data.type === "members") {
@@ -134,6 +134,7 @@ export class UserListComponent implements OnInit {
 
   getFollowers(userId) {
     // console.log('test userId', userId);
+    if (!userId) return;
     this.followersService.getUserFollowers(userId, this.page).subscribe((res: any) => {
       if (res.content.length) {
         res.content.forEach(user => {
@@ -150,7 +151,28 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  getUserFollowers(userId) {
+    if (!userId) return;
+    this.followersService.getUserFollowers(userId, this.page).subscribe((res: any) => {
+      // console.log('followed content' + res.content);
+      if (res.content.length) {
+        res.content.forEach(user => {
+          this.userList.push(user);
+          this.loading = false;
+        });
+      } else {
+        this.loading = false;
+        this.endOfResult = true;
+      }
+      // console.log('follower content', this.userList);
+    }, error => {
+      // console.log(error.error.errorMessage);
+      this.loading = false;
+    });
+  }
+
   getFollowingUser(userId) {
+    if (!userId) return;
     this.followersService.getFollowedBy(userId, this.page).subscribe((res: any) => {
       // console.log('followed content' + res.content);
       if (res.content.length) {
@@ -170,6 +192,7 @@ export class UserListComponent implements OnInit {
   }
 
   getUserLikedList(postId) {
+    if (!postId) return;
     this.followersService.getUserLikedList(postId, this.page).subscribe((res: any) => {
       // console.log('liked content', res);
       if (res.content.length) {
@@ -189,9 +212,10 @@ export class UserListComponent implements OnInit {
   }
 
 
-  getCommunityMembers(url) {
+  getCommunityMembers(communitySlug: string) {
+    if (!communitySlug) return;
     this.loading = true;
-    this.communityMembersService.getCommunityMembers(url, this.page).subscribe((data: any) => {
+    this.communityMembersService.getCommunityMembers(communitySlug, this.page).subscribe((data: any) => {
       if (data.content.length) {
         data.content.forEach(user => {
           this.userList.push(user);

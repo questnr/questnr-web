@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { CommunityUsers, CommunityProfileMeta } from 'models/community.model';
 
 @Injectable({
@@ -11,10 +11,12 @@ export class CommunityMembersService {
   baseUrl = environment.baseUrl;
   constructor(public http: HttpClient) { }
   getCommunityMembers(url, page): Observable<CommunityUsers> {
+    if (!url) return of();
     return this.http.get<CommunityUsers>(this.baseUrl + 'user/community/' + url + '/users', { params: { page } });
   }
 
   getCommunityMetaInfo(url): Observable<CommunityProfileMeta> {
+    if (!url) return of();
     return this.http.get<CommunityProfileMeta>(this.baseUrl + `/community/meta/${url}/info`);
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { GlobalConstants } from 'shared/constants';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class UserProfileCardServiceComponent {
   }
 
   followMe(id) {
+    if (!id) return of();
     return this.http.post(this.baseUrl + 'user/follow/user/' + id, '');
   }
   unfollowMe(ownerId, userId) {
@@ -23,7 +25,8 @@ export class UserProfileCardServiceComponent {
     };
     return this.http.delete(this.baseUrl + 'user/follow/user/' + userId, httpOptions);
   }
-  fetchUserFollowing(slug) {
+  fetchUserFollowing(slug: string) {
+    if (!slug) return of();
     return this.http.get(this.baseUrl + 'community/meta/' + slug + '/info');
   }
 }

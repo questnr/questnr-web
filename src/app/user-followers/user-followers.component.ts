@@ -42,6 +42,7 @@ export class UserFollowersComponent implements OnInit {
 
   getFollowingUser() {
     // console.log('test userId', this.profileId);
+    if (!this.userId) return;
     this.followersService.getUserFollowers(this.userId, this.page).subscribe((res: any) => {
       // console.log('follower content' + res.content);
       this.followers = res.content;
@@ -51,6 +52,7 @@ export class UserFollowersComponent implements OnInit {
   }
 
   getFollowedBy() {
+    if (!this.userId) return;
     this.followersService.getFollowedBy(this.userId, this.page).subscribe((res: any) => {
       // console.log('followed content' + res.content);
       this.following = res.content;

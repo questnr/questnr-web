@@ -6,6 +6,7 @@ import { User } from 'models/user.model';
 import { Community } from 'models/community.model';
 import { Page } from 'models/page.model';
 import { NotificationDTO } from 'models/notification.model';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,7 @@ export class ApiService {
     return this.http.get(this.baseUrl + 'users-with-highest-rank');
   }
   getJoinedCommunities(userId, page) {
+    if (!userId) return of();
     return this.http.get(this.baseUrl + `user/${userId}/join/community`, { params: { page } });
   }
   getSuggestedCommunities() {
@@ -46,6 +48,7 @@ export class ApiService {
     return this.http.get<NotificationDTO[]>(this.baseUrl + 'user/notification', { params: { page } });
   }
   removeNotification(id) {
+    if (!id) return of();
     return this.http.delete(this.baseUrl + 'user/notification/' + id, { observe: 'response' });
   }
   registerPushNotificationToken(token: string) {
