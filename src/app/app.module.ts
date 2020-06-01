@@ -302,4 +302,6 @@ export function metaFactory(): MetaLoader {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}
