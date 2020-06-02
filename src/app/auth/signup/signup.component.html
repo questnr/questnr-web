@@ -67,11 +67,6 @@
       </mat-error>
     </mat-form-field>
 
-    <div *ngIf="!email.invalid" class="otp-container">
-      <app-otp-verification [email]='email.value' (emailHasBeenVerifiedEvent)="emailHasBeenVerified($event)">
-      </app-otp-verification>
-    </div>
-
     <mat-form-field class="col-md-12" appearance="fill">
       <mat-label>Password</mat-label>
       <input type="password" matInput [formControl]="password" placeholder="Enter your Password">
@@ -90,6 +85,14 @@
       <mat-error *ngIf="confirmPassword.hasError('required')">Re-enter your Password</mat-error>
       <mat-error *ngIf="confirmPassword.hasError('MatchPassword')">Password does not match.</mat-error>
     </mat-form-field>
+
+    <div *ngIf="group.valid" class="otp-container col-md-11">
+      <div class="verify-email-label">Verify your email</div>
+      <div>
+        <app-otp-verification [email]='email.value' (emailHasBeenVerifiedEvent)="emailHasBeenVerified($event)">
+        </app-otp-verification>
+      </div>
+    </div>
 
     <div class="col-md-12">
       <p class="terms-msg">
