@@ -23,9 +23,13 @@ export class CommonService {
     getDateFromNumber(value: string) {
         const d = new Date(value);
         let month = '01';
+        let day = '01';
         if (d.getMonth() + 1 < 10) {
             month = `0${d.getMonth() + 1}`;
         }
-        return `${d.getFullYear()}-${month}-${d.getDate()}`;
+        if (d.getDate() < 10) {
+            day = `0${d.getMonth()}`;
+        }
+        return `${d.getFullYear()}-${month}-${day}`;
     }
 }
