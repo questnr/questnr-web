@@ -1,14 +1,15 @@
-import { Component, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { FormControl } from '@angular/forms';
-import { LoginService } from 'auth/login.service';
-import { FeedsService } from 'feeds-frame/feeds.service';
-import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { HashTagService } from 'feeds-frame/hash-tag-service';
-import { MetaCardComponent } from 'meta-card/meta-card.component';
-import { CommonService } from 'common/common.service';
-import { IFramelyData } from 'models/iframely.model';
-import { IFramelyService } from 'meta-card/iframely.service';
+import {Component, Output, EventEmitter, Input, ViewChild, ElementRef} from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {FormControl} from '@angular/forms';
+import {LoginService} from 'auth/login.service';
+import {FeedsService} from 'feeds-frame/feeds.service';
+import {HttpEvent, HttpEventType} from '@angular/common/http';
+import {HashTagService} from 'feeds-frame/hash-tag-service';
+import {MetaCardComponent} from 'meta-card/meta-card.component';
+import {CommonService} from 'common/common.service';
+import {IFramelyData} from 'models/iframely.model';
+import {IFramelyService} from 'meta-card/iframely.service';
+import {emojis} from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 @Component({
   selector: 'app-post-feed',
@@ -16,18 +17,18 @@ import { IFramelyService } from 'meta-card/iframely.service';
   styleUrls: ['./post-feed.component.scss'],
   animations: [
     trigger('expand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
 })
 export class PostFeedComponent {
-  @ViewChild("userInputRef") userInputRef: ElementRef;
+  @ViewChild('userInputRef') userInputRef: ElementRef;
   @Input() isCommunityPost = false;
   @Input() communityId;
   // @ViewChild("metaCardCompRef") metaCardCompRef: MetaCardComponent;
-  iFramelyData: IFramelyData
+  iFramelyData: IFramelyData;
   isLoading = false;
   uploading = false;
   uploadProgress = 0;
@@ -42,14 +43,16 @@ export class PostFeedComponent {
   isHashOn = false;
 
   constructor(public login: LoginService,
-    private service: FeedsService,
-    private hashTagService: HashTagService,
-    private commonService: CommonService,
-    private iFramelyService: IFramelyService) { }
+              private service: FeedsService,
+              private hashTagService: HashTagService,
+              private commonService: CommonService,
+              private iFramelyService: IFramelyService) {
+  }
 
   ngAfterViewInit(): void {
     this.hashTagService.registerInputElement(this.userInputRef.nativeElement);
   }
+
   toggleAddMedia() {
     if (this.isMediaEnabled) {
       this.addedMedias = [];
@@ -69,23 +72,27 @@ export class PostFeedComponent {
       }
     });
   }
+
   loadPreview(file) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      const obj = { type: file.type, src: reader.result };
+      const obj = {type: file.type, src: reader.result};
       this.addedMediaSrc.push(obj);
     };
   }
+
   selectFiles(event) {
     if (event.target.files.length > 0) {
       this.filesDropped(event.target.files);
     }
   }
+
   removeMedia(index) {
     this.addedMedias.splice(index, 1);
     this.addedMediaSrc.splice(index, 1);
   }
+
   postFeed() {
     if (this.text.value || this.addedMediaSrc.length) {
       this.isLoading = true;
@@ -110,16 +117,20 @@ export class PostFeedComponent {
             this.postData.emit(event.body);
             this.reset();
           }
-        }, err => { this.reset(); }
+        }, err => {
+          this.reset();
+        }
       );
     }
   }
+
   isPostInvalid() {
     if (this.text.value || this.addedMedias.length) {
       return false;
     }
     return true;
   }
+
   reset() {
     this.isLoading = false;
     this.uploading = false;
@@ -132,15 +143,16 @@ export class PostFeedComponent {
 
   typeCheckOnUserInput(e): string {
 
-    if (e.target.value == "") {
+    if (e.target.value == '') {
       this.isHashOn = false;
       this.iFramelyData = null;
       this.hashTagService.clearHashCheck();
       return;
     }
 
-    if (!!e.keyCode)
+    if (!!e.keyCode) {
       this.isHashOn = this.hashTagService.typeCheckForHashTag(e, this.isHashOn);
+    }
     // if (this.isHashOn) {
     //   this.hashTagService.hideHashTagSuggesionList();
     // }
@@ -165,7 +177,7 @@ export class PostFeedComponent {
     this.iFramelyService.getIFramelyData(detectedLink).then((iFramelyData: IFramelyData) => {
       this.iFramelyData = iFramelyData;
       // this.metaCardCompRef.setIFramelyData(iFramelyData);
-    })
+    });
 
     // if (output != this.detectedLink) {
     //   this.detectedLink = output;
@@ -173,4 +185,9 @@ export class PostFeedComponent {
     // }
   }
 
+  addEmoji(event) {
+    console.log(event);
+    const text =  this.text.value ? this.text?.value : '';
+    this.text.setValue( text + event.native);
+  }
 }
