@@ -132,6 +132,9 @@
             [placeholder]="replyingTo? 'Reply to ' + replyingTo.username : 'Write a Comment..'"
             (keyup.enter)="postComment(feed.postActionId)">
           <button mat-icon-button color="accent" (click)="postComment(feed.postActionId)" [disabled]="!comment.valid">
+            <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
+          </button>
+          <button mat-icon-button color="accent" (click)="postComment(feed.postActionId)" [disabled]="!comment.valid">
             <mat-icon>send</mat-icon>
           </button>
         </div>

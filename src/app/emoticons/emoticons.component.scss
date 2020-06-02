@@ -1,0 +1,24 @@
+@import "../variables";
+.emoji-container{
+  width: 25px;
+  text-align: right;
+  position: relative;
+  right: 1%;
+  top: 66%;
+  img{
+    width: inherit;
+    height: auto;
+  }
+  .more-option-container{
+    position: absolute;
+    z-index: 100;
+    //background: ;
+  }
+}
+.mat-menu-panel{
+  max-width: none !important;
+}
+::ng-deep.emoji-mart{
+  border: none !important;
+  color: $primary !important;
+}

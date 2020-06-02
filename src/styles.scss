@@ -3,6 +3,13 @@
 @import "~ngx-owl-carousel-o/lib/styles/scss/owl.carousel";
 @import "~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default";
 @import "~@ngx-share/button/themes/default/default-theme";
+@import '~@ctrl/ngx-emoji-mart/picker';
+//.emoji-mart-preview{
+//  display: none !important;
+//}
+//emoji-search{
+//  display: none;
+//}
 
 @import "./app/variables";
 html,
