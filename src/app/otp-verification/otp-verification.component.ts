@@ -63,7 +63,7 @@ export class OtpVerificationComponent implements OnInit {
       this.otpVerificationService.verifyOTP(this.email, this.otp.value).subscribe((res: any) => {
         this.isVerifying = false;
         if (res?.status) {
-          this.emailHasBeenVerifiedEvent.emit(true);
+          this.emailHasBeenVerifiedEvent.emit({ hasVerified: true, otp: this.otp.value });
           this.snackbar.open('Email has been verified successfully', 'close', { duration: 5000 });
         } else if (res?.errorMessage) {
           this.isVerifying = false;

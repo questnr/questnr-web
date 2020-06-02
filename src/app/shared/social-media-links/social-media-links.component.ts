@@ -20,7 +20,6 @@ export class SocialMediaLinksComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    console.log("this.color", this.color);
     this.renderer.addClass(this.socialMediaList.nativeElement, this.color);
   }
 

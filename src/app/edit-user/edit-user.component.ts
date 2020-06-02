@@ -82,7 +82,9 @@ export class EditUserComponent implements OnInit {
       this.group.controls.bio.setValue(res.bio);
       this.group.controls.dob.setValue(this.commonService.getDateFromNumber(res.dob));
       this.isFetchingDetails = false;
-    }, error => console.log(error.error.errorMessage));
+    }, error => {
+      // console.log(error.error.errorMessage)
+    });
   }
 
 

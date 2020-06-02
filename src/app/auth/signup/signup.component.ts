@@ -22,6 +22,7 @@ export class SignupComponent implements OnInit {
   termsPath = GlobalConstants.termsPath;
   policyPath = GlobalConstants.policyPath;
   hasEmailVerified: boolean = false;
+  otp: string;
   firstName = new FormControl('',
     [
       Validators.required,
@@ -82,7 +83,7 @@ export class SignupComponent implements OnInit {
     if (this.group.valid) {
       if (this.hasEmailVerified) {
         this.isLoading = true;
-        const obj = { ...this.group.value, dob: this.commonService.getDateFromNumber(this.group.get("dob").value) };
+        const obj = { ...this.group.value, dob: this.commonService.getDateFromNumber(this.group.get("dob").value), otp: this.otp };
         this.auth.signUp(obj).subscribe(
           res => {
             if (res.loginSuccess) {
@@ -145,6 +146,7 @@ export class SignupComponent implements OnInit {
   }
 
   emailHasBeenVerified(event) {
-    this.hasEmailVerified = event;
+    this.hasEmailVerified = event.hasVerified;
+    this.otp = event.otp;
   }
 }

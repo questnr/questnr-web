@@ -21,7 +21,6 @@ export class CommonService {
         return (indexOf >= 0) ? (indexOf + (startpos || 0)) : indexOf;
     }
     getDateFromNumber(value: string) {
-        console.log("value", value);
         const d = new Date(value);
         let month = '01';
         if (d.getMonth() + 1 < 10) {

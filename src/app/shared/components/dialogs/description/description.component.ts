@@ -50,7 +50,6 @@ export class DescriptionComponent implements OnInit {
         this.descriptionText = desc;
         this.descriptionEmit(desc);
       }, error => {
-        console.log(error.error.errorMessage);
         this.loading = true;
       });
     }
