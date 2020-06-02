@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -46,6 +47,7 @@ export class UserProfilePageComponent implements OnInit {
   mobileView = false;
   screenWidth = window.innerWidth;
   scrollCached: boolean = null;
+  @ViewChild("imageCropperRef") imageCropperRef: ImgCropperWrapperComponent;
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.scroll, true);
@@ -118,24 +120,37 @@ export class UserProfilePageComponent implements OnInit {
       // console.log(error.error.errorMessage);
     });
   }
-  updateUserAvatar(event) {
-    let file = null;
-    if (event.target.files && event.target.files.length) {
+  // updateUserAvatar(event) {
+  //   let file = null;
+  //   if (event.target.files && event.target.files.length) {
+  //     const formData: FormData = new FormData();
+  //     file = event.target.files[0];
+  //     formData.set('file', file, file.name);
+  //     this.userProfilePageService.updateProfilePicture(formData).subscribe((res: any) => {
+  //       this.userAvatarImage = res.avatarLink;
+  //     }, error => {
+  //       // console.log(error.error.errorMessage);
+  //     });
+  //   } else {
+  //     // console.log('Upload valid Picture');
+  //   }
+  // }
+
+  triggerFalseClick() {
+    // const src = document.getElementById('fileInput').click();
+    this.imageCropperRef.openImageCropper();
+  }
+  imageDataReceiver(file) {
+    const reader = new FileReader();
+    if (file) {
       const formData: FormData = new FormData();
-      file = event.target.files[0];
       formData.set('file', file, file.name);
       this.userProfilePageService.updateProfilePicture(formData).subscribe((res: any) => {
         this.userAvatarImage = res.avatarLink;
       }, error => {
         // console.log(error.error.errorMessage);
       });
-    } else {
-      // console.log('Upload valid Picture');
     }
-  }
-
-  triggerFalseClick() {
-    const src = document.getElementById('fileInput').click();
   }
   getCommunityFollowedByUser() {
     this.api.getJoinedCommunities(this.loginService.getUserId(), 0).subscribe((res: any) => {

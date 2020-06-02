@@ -1,0 +1,29 @@
+<div class="mobile-nav-btn" *ngIf="mobileView">
+    <button mat-icon-button (click)="onNoClick()">
+        <mat-icon> arrow_back</mat-icon>
+    </button>
+</div>
+<div class="wrapper">
+    <div class="cropper-tool">
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="aspectRatio"
+            format="jpeg" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"
+            style="max-height: 40vh;max-width:50vw;" class="cropper"></image-cropper>
+    </div>
+
+    <button mat-button>Rotate</button>
+
+    <div class="cropped-image-container">
+        <img [src]="croppedImage ? croppedImage : 'assets/default.jpg'" class="cropped-image" />
+    </div>
+
+    <div class="button-row">
+        <div class="upload-container">
+            <button mat-button class="btn-primary" (click)="uploadImage()">Upload Image</button>
+            <input type="file" style="display: none" (change)="fileChangeEvent($event)" #chooseFileForAvatarRef />
+        </div>
+        <div>
+            <button mat-button class="btn-secondary" (click)="actionDone()">Crop</button>
+        </div>
+    </div>
+</div>

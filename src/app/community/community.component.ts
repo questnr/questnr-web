@@ -12,6 +12,7 @@ import { User } from '../models/user.model';
 import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
 import { CommunityService } from './community.service';
 import { CommunityUsersComponent } from 'community-users/community-users.component';
+import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
 
 @Component({
   selector: 'app-community',
@@ -26,6 +27,7 @@ export class CommunityComponent implements OnInit {
       this.communityUsersComponentRef = content;
     }
   }
+  @ViewChild("imageCropperRef") imageCropperRef: ImgCropperWrapperComponent;
   isSidenavopen = false;
   communitySlug: string;
   communityDTO: Community;
@@ -155,27 +157,41 @@ export class CommunityComponent implements OnInit {
   }
 
   previewImage() {
-    const src = document.getElementById('communityImageSrc').click();
+    // const src = document.getElementById('communityImageSrc').click();
+    this.imageCropperRef.openImageCropper();
   }
+
+  imageDataReceiver(file) {
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.communityImage = reader.result as string;
+        this.comUpdatedAvatar = file;
+        this.changeCommunityAvatar();
+      };
+    }
+  }
+
   navigate(slug) {
     window.open('/user/' + slug, '_self');
   }
 
-  onFileChange(event) {
-    const reader = new FileReader();
-    if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
+  // onFileChange(event) {
+  //   const reader = new FileReader();
+  //   if (event.target.files && event.target.files.length) {
+  //     const [file] = event.target.files;
+  //     reader.readAsDataURL(file);
 
-      reader.onload = () => {
-        this.communityImage = reader.result as string;
-        if (event.target.files.length > 0) {
-          this.comUpdatedAvatar = event.target.files[0];
-          this.changeCommunityAvatar();
-        }
-      };
-    }
-  }
+  //     reader.onload = () => {
+  //       this.communityImage = reader.result as string;
+  //       if (event.target.files.length > 0) {
+  //         this.comUpdatedAvatar = event.target.files[0];
+  //         this.changeCommunityAvatar();
+  //       }
+  //     };
+  //   }
+  // }
 
   actionEvent($event) {
     this.owner = $event;
