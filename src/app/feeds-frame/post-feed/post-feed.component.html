@@ -4,11 +4,14 @@
     <mat-progress-bar *ngIf="uploading" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
   </div>
   <div class="post-wrap">
-    <div class="icon"> <img [src]="login.profileImg"> </div>
-    <div class="textbox-wrap">
+    <div class="icon"><img [src]="login.profileImg"></div>
+    <div class="textbox-wrap" style="position:relative;">
       <textarea rows="3" placeholder="Post Something...." [formControl]="text" (input)="typeCheckOnUserInput($event)"
-        (keyup)="typeCheckOnUserInput($event)" #userInputRef>
+                (keyup)="typeCheckOnUserInput($event)" #userInputRef>
       </textarea>
+      <div class="emoticon-container">
+        <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
+      </div>
     </div>
   </div>
 
@@ -27,17 +30,18 @@
       </div>
       <div class="drop-area m-2" appDragDrop (fileDropped)="filesDropped($event)" (click)="fileInput.click()">
         <input type="file" (change)="selectFiles($event)" #fileInput style="display: none" multiple
-          accept="image/*,video/*" />
+               accept="image/*,video/*"/>
         <div class="text-center">
           <mat-icon>add_photo_alternate</mat-icon>
-          <div> Drop Image/Video </div>
+          <div> Drop Image/Video</div>
         </div>
       </div>
     </div>
   </div>
   <div class="btn-wrap">
     <button mat-button (click)="toggleAddMedia()" [ngClass]="{ active: isMediaEnabled}">
-      <mat-icon>add_a_photo</mat-icon> <span class="sm-d-none"> &nbsp; Photo/Video </span>
+      <mat-icon>add_a_photo</mat-icon>
+      <span class="sm-d-none"> &nbsp; Photo/Video </span>
     </button>
     <!-- <button mat-button>
       <mat-icon>help</mat-icon> <span class="sm-d-none"> &nbsp; Ask a Question </span>
@@ -46,7 +50,8 @@
     <button mat-flat-button class="btn-post" (click)="postFeed()" [disabled]="isPostInvalid() || isLoading">
       <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
         <span class="sr-only">Loading...</span>
-      </div> &nbsp; Post &nbsp; <mat-icon>send</mat-icon>
+      </div> &nbsp; Post &nbsp;
+      <mat-icon>send</mat-icon>
     </button>
   </div>
 </div>

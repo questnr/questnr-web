@@ -282,4 +282,10 @@ export class RecommendedFeedsComponent implements OnInit {
       // console.log(error.error.errorMessage);
     });
   }
+
+  addEmoji(event) {
+    // console.log(event);
+    const text =  this.comment.value ? this.comment?.value : '';
+    this.comment.setValue( text + event.native);
+  }
 }
