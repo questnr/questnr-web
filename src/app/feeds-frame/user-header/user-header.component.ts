@@ -24,6 +24,7 @@ export class UserHeaderComponent {
   @Output() menuToggle = new EventEmitter();
   user: string;
   userDetail: User;
+  userPath: string = GlobalConstants.userPath;
   isLoading = false;
   profile;
   endOfNotifications = false;
@@ -127,7 +128,7 @@ export class UserHeaderComponent {
     );
   }
   handleRouterLink(slug: string) {
-    let path: string = GlobalConstants.userPath;
+    let path: string = this.userPath;
     if (this.selectedSearchOption == 1)
       path = GlobalConstants.communityPath;
     else if (this.selectedSearchOption == 2)

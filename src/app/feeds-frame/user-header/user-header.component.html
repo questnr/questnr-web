@@ -88,7 +88,8 @@
       <mat-icon *ngIf="hasNewNotifications">notifications_active</mat-icon>
     </button>
 
-    <button mat-button [matMenuTriggerFor]="menu" class="d-none d-sm-block d-md-block d-lg-block profile-btn">
+    <button mat-button class="d-none d-sm-block d-md-block d-lg-block profile-btn"
+      [routerLink]="['/', userPath, userDetail?.slug]">
       <div>
         <div class="icon">
           <img [src]="auth.profileImg" />
@@ -97,7 +98,7 @@
       </div>
     </button>
 
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="mobile_view">
+    <button mat-icon-button class="mobile_view" [routerLink]="['/', userPath, userDetail?.slug]">
       <div class="icon">
         <img [src]="auth.profileImg" />
       </div>
@@ -108,6 +109,7 @@
     <mat-menu #info="matMenu" [overlapTrigger]="false" xPosition="before">
       <button mat-menu-item (click)="goToLink(routerLink.termsPath)">Terms & Conditions</button>
       <button mat-menu-item (click)="goToLink(routerLink.policyPath)">Privacy Policy</button>
+      <button (click)="logOut()" mat-menu-item>Log Out</button>
       <!--      <button mat-menu-item>FAQ</button>-->
     </mat-menu>
     <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="before">
@@ -119,10 +121,6 @@
       <!--        <mat-icon>settings</mat-icon>-->
       <!--        <span>Settings</span>-->
       <!--      </button>-->
-      <button (click)="logOut()" mat-menu-item>
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Log Out</span>
-      </button>
     </mat-menu>
 
     <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="before">
@@ -138,11 +136,6 @@
         <mat-icon>exit_to_app</mat-icon>
         <span>Log Out</span>
       </button>
-    </mat-menu>
-    <mat-menu #settings="matMenu">
-      <button mat-menu-item>Terms & Conditions</button>
-      <button mat-menu-item>Privacy Policy</button>
-      <button mat-menu-item>FAQ</button>
     </mat-menu>
   </div>
 </header>
