@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommunityService } from './create-community.servive';
 import { HttpHeaders } from '@angular/common/http';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatDialogRef} from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialogRef } from '@angular/material/dialog';
+import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
 
 @Component({
   selector: 'app-create-community',
@@ -13,6 +14,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 
 export class CreateCommunityComponent implements OnInit {
   @Input() communityImage = 'assets/default.jpg';
+  @ViewChild("imageCropperRef") imageCropperRef: ImgCropperWrapperComponent;
   screenWidth = window.innerWidth;
   mobileView = false;
 
@@ -43,27 +45,40 @@ export class CreateCommunityComponent implements OnInit {
     }
   }
 
-  onFileChange(event) {
+  // onFileChange(event) {
+  //   const reader = new FileReader();
+
+  //   if (event.target.files && event.target.files.length) {
+  //     const [file] = event.target.files;
+  //     reader.readAsDataURL(file);
+
+  //     reader.onload = () => {
+
+  //       this.communityImage = reader.result as string;
+  //       if (event.target.files.length > 0) {
+  //         this.userCommunityimage = event.target.files[0];
+  //         this.group.get('avatar').updateValueAndValidity();
+  //       }
+  //     };
+
+  //   }
+  // }
+
+  imageDataReceiver(file) {
     const reader = new FileReader();
-
-    if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
+    if (file) {
       reader.readAsDataURL(file);
-
       reader.onload = () => {
-
         this.communityImage = reader.result as string;
-        if (event.target.files.length > 0) {
-          this.userCommunityimage = event.target.files[0];
-          this.group.get('avatar').updateValueAndValidity();
-        }
+        this.userCommunityimage = file;
+        this.group.get('avatar').updateValueAndValidity();
       };
-
     }
   }
 
   previewImage() {
-    const src = document.getElementById('imageSrc').click();
+    // const src = document.getElementById('imageSrc').click();
+    this.imageCropperRef.openImageCropper();
   }
 
   submit() {
@@ -72,16 +87,16 @@ export class CreateCommunityComponent implements OnInit {
       const formData: FormData = new FormData();
       formData.set('communityName', this.group.get('communityName').value);
       formData.set('description', this.group.get('description').value);
-      if (this.group.get('avatar').value != null){
+      if (this.group.get('avatar').value != null) {
         formData.set('avatarFile', this.userCommunityimage, this.userCommunityimage.name);
       }
       this.auth.createCommunity(formData).subscribe((res: any) => {
         this.loading = false;
         this.dialogRef.close();
-        this.snackbar.open('community created successfully', 'close',{duration: 5000});
+        this.snackbar.open('community created successfully', 'close', { duration: 5000 });
       }, error => {
         this.loading = false;
-        this.snackbar.open('something went wrong.', 'close',{duration: 5000});
+        this.snackbar.open('something went wrong.', 'close', { duration: 5000 });
         this.dialogRef.close();
       });
     }
