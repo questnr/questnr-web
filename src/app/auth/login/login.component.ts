@@ -74,8 +74,9 @@ export class LoginComponent implements OnInit {
 
   facebookLogin() {
     const fbLoginOptions: LoginOpt = {
-      scope: 'email, birthday, first_name, last_name',
-      return_scopes: true
+      scope: 'email,birthday,first_name,last_name',
+      return_scopes: true,
+      enable_profile_selector: true
     };
     this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID, fbLoginOptions).then(user => {
       console.log("user", user);

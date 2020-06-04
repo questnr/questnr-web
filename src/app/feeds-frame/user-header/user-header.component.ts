@@ -12,6 +12,7 @@ import { Community } from 'models/community.model';
 import { Page } from 'models/page.model';
 import { NotificationDTO } from 'models/notification.model';
 import { GlobalConstants } from 'shared/constants';
+import { AuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-user-header',
@@ -41,6 +42,7 @@ export class UserHeaderComponent {
   routerLink = GlobalConstants;
 
   constructor(private router: Router, public auth: LoginService,
+    private authService: AuthService,
     private api: ApiService,
     private messagingService: MessagingService,
     private angularFireMessaging: AngularFireMessaging,
@@ -161,6 +163,7 @@ export class UserHeaderComponent {
   }
   logOut() {
     localStorage.clear();
+    this.authService.signOut();
     this.router.navigateByUrl('/');
     this.messagingService.deleteToken();
   }
