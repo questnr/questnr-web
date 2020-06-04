@@ -79,7 +79,7 @@
         {{formError}}
       </div>
       <button mat-button class="btn-color w-100" (click)="submit()">
-        <app-small-loader *ngIf="isLoading"></app-small-loader> &nbsp;
+        <app-loader [size]="'sm'" *ngIf="isLoading"></app-loader> &nbsp;
         SAVE
       </button>
     </form>
@@ -89,5 +89,5 @@
       </div>
     </div>
   </div>
-  <app-small-loader *ngIf="isFetchingDetails" class="loader"></app-small-loader>
+  <app-loader [size]="'md'" *ngIf="isFetchingDetails" class="loader"></app-loader>
 </div>

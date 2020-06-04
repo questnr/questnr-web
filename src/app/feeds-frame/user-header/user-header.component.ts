@@ -39,7 +39,11 @@ export class UserHeaderComponent {
   notificationColor: string = 'black';
   filterSearchOptionList: string[] = ["users", 'communities', 'hashtags'];
   selectedSearchOption: number = 0;
-  routerLink = GlobalConstants;
+  feedPath: string = GlobalConstants.feedPath;
+  termsPath: string = GlobalConstants.termsPath;
+  policyPath: string = GlobalConstants.policyPath;
+  unReadNotificationCount: number = 0;
+  isNotificationLoading: boolean = true;
 
   constructor(private router: Router, public auth: LoginService,
     private authService: AuthService,
@@ -47,8 +51,14 @@ export class UserHeaderComponent {
     private messagingService: MessagingService,
     private angularFireMessaging: AngularFireMessaging,
     private renderer: Renderer2) {
+  }
+
+  ngOnInit() {
     this.profile = this.auth.getUserProfile();
     this.auth.getUserProfileImg();
+    // Receive notification messages
+    this.receiveMessage();
+    this.getUserDetail();
     this.searchInput.valueChanges
       .pipe(
         debounceTime(500),
@@ -63,16 +73,14 @@ export class UserHeaderComponent {
         }
       });
   }
-  ngOnInit() {
-    // Receive notification messages
-    this.receiveMessage();
-    this.getUserDetail();
-  }
 
   ngAfterViewInit() {
     this.searchInputRef.nativeElement.onfocus = () => {
       this.renderer.setStyle(this.suggestionBoxRef.nativeElement, "display", "block");
     }
+    this.api.getUnreadNotificationCount().subscribe((count: number) => {
+      this.unReadNotificationCount = count;
+    })
   }
 
   closeSearchBox() {
@@ -141,6 +149,7 @@ export class UserHeaderComponent {
     this.api.getNotifications(this.page + 1).subscribe(
       (res: any) => {
         if (res.length) {
+          this.readNotifications(res);
           res.forEach(element => {
             ++this.page;
             this.notifications.push(element);
@@ -180,6 +189,7 @@ export class UserHeaderComponent {
           if (data.type == "normal") {
             this.notificationColor = "red";
             this.hasNewNotifications = true;
+            this.unReadNotificationCount += 1;
             setTimeout(() => {
               this.hasNewNotifications = false;
             }, 5000);
@@ -193,11 +203,19 @@ export class UserHeaderComponent {
 
   readNewNotification() {
     this.notificationColor = "black";
+    this.isNotificationLoading = true;
     this.api.getNotifications().subscribe(
       (res: NotificationDTO[]) => {
         this.notifications = res;
+        this.readNotifications(res);
+        this.isNotificationLoading = false;
       }
     );
+  }
+  readNotifications(notificationList: NotificationDTO[]) {
+    notificationList.forEach((notification: NotificationDTO) => {
+      this.api.readNotification(notification.notificationId).subscribe();
+    });
   }
   getUserDetail() {
     this.auth.getUserDetails(this.auth.getUserProfile().id).subscribe((res: any) => {
@@ -206,8 +224,5 @@ export class UserHeaderComponent {
     }, error => {
       // console.log(error.error.errorMessage)''
     });
-  }
-  goToLink(src) {
-    window.open(src, '_self');
   }
 }

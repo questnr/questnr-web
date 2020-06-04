@@ -107,7 +107,6 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { FloatingMobileNavComponent } from './floating-mobile-nav/floating-mobile-nav.component';
 import { CompanyFooterSpanComponent } from 'shared/company-footer-span/company-footer-span.component';
-import { SmallLoaderComponent } from 'shared/small-loader/small-loader.component';
 import { EditUserComponent } from 'edit-user/edit-user.component';
 import { UserDescriptionCardComponent } from 'shared/user-description-card/user-description-card.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
@@ -116,6 +115,7 @@ import { OtpVerificationComponent } from 'otp-verification/otp-verification.comp
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImgCropperComponent } from 'img-cropper/img-cropper.component';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
+import { LoaderComponent } from 'shared/loader/loader.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -215,13 +215,13 @@ export function metaFactory(): MetaLoader {
     ResetPasswordComponent,
     FloatingMobileNavComponent,
     CompanyFooterSpanComponent,
-    SmallLoaderComponent,
     EditUserComponent,
     UserDescriptionCardComponent,
     EmoticonsComponent,
     OtpVerificationComponent,
     ImgCropperComponent,
-    ImgCropperWrapperComponent
+    ImgCropperWrapperComponent,
+    LoaderComponent
   ],
   imports: [
     MatVideoModule,

@@ -105,7 +105,7 @@
   <div *ngIf="formError && formError.length > 0" style="color: red;display: flex;justify-content: center;">{{formError}}
   </div>
   <button mat-button class="btn-color w-100" (click)="submit()">
-    <app-small-loader *ngIf="isLoading"></app-small-loader> &nbsp;
+    <app-loader [size]="'sm'" *ngIf="isLoading"></app-loader> &nbsp;
     Sign Up
   </button>
 </form>

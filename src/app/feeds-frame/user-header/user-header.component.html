@@ -2,15 +2,14 @@
 
 <header id="extended-nav" class="nav-main-container">
   <div class="toolbar" role="banner">
-    <div style="width: 32px; height: 32px; margin: auto 8px;" class="mobile_logo"
-      (click)="goToLink('/' + routerLink.feedPath)">
+    <div style="width: 32px; height: 32px; margin: auto 8px;" class="mobile_logo" [routerLink]="['/', feedPath]">
       <img src="/assets/logo.png" alt="logo" style="width: 100%">
     </div>
     <!--    <button class="toggle" mat-button (click)="toggleMenu()">-->
     <!--&lt;!&ndash;      <mat-icon>menu</mat-icon>&ndash;&gt;-->
     <!--      -->
     <!--    </button>-->
-    <div class="logo" (click)="goToLink('/' + routerLink.feedPath)"><img src="../../assets/main.png" /></div>
+    <div class="logo" [routerLink]="['/', feedPath]"><img src="../../assets/main.png" /></div>
     <div class="spacer"></div>
 
     <div class="search-wrapper">
@@ -56,15 +55,22 @@
 
     <button mat-button class="d-none d-sm-block d-md-block d-lg-block h-100" [matMenuTriggerFor]="notificationsMenu"
       [style.color]="notificationColor" (click)="readNewNotification()">
-      <mat-icon *ngIf="!hasNewNotifications">notifications</mat-icon>
+      <mat-icon *ngIf="!hasNewNotifications && unReadNotificationCount <= 0">notifications
+      </mat-icon>
 
-      <mat-icon *ngIf="hasNewNotifications">notifications_active</mat-icon>
+      <mat-icon *ngIf="!hasNewNotifications && unReadNotificationCount > 0" matBadge="{{unReadNotificationCount}}"
+        matBadgeColor="warn">
+        notifications
+      </mat-icon>
+
+      <mat-icon matBadge="{{unReadNotificationCount}}" matBadgeColor="warn" *ngIf="hasNewNotifications">
+        notifications_active</mat-icon>
     </button>
 
     <!-- notifications_active, notifications_none -->
     <mat-menu #notificationsMenu="matMenu" [overlapTrigger]="false" xPosition="before">
       <ng-template matMenuContent>
-        <div class="notification-wrap">
+        <div class="notification-wrap" *ngIf="!isNotificationLoading">
           <div *ngIf="notifications?.length > 0">
             <app-notification-item *ngFor="let item of notifications" [notification]="item"
               (remove)="removeNotification($event)"></app-notification-item>
@@ -78,14 +84,24 @@
             No more Notifications
           </p>
         </div>
+        <div class="notification-wrap" *ngIf="isNotificationLoading">
+          <app-loader [size]="'sm'" class="notification-loader" [text]="'Fetching Notifications...'"></app-loader>
+        </div>
       </ng-template>
     </mat-menu>
 
     <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" [style.color]="notificationColor"
       class="mobile_view" (click)="readNewNotification()">
-      <mat-icon *ngIf="!hasNewNotifications">notifications</mat-icon>
+      <mat-icon *ngIf="!hasNewNotifications && unReadNotificationCount <= 0">notifications
+      </mat-icon>
 
-      <mat-icon *ngIf="hasNewNotifications">notifications_active</mat-icon>
+      <mat-icon *ngIf="!hasNewNotifications && unReadNotificationCount > 0" matBadge="{{unReadNotificationCount}}"
+        matBadgeColor="warn">
+        notifications
+      </mat-icon>
+
+      <mat-icon matBadge="{{unReadNotificationCount}}" matBadgeColor="warn" *ngIf="hasNewNotifications">
+        notifications_active</mat-icon>
     </button>
 
     <button mat-button class="d-none d-sm-block d-md-block d-lg-block profile-btn"
@@ -107,13 +123,13 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #info="matMenu" [overlapTrigger]="false" xPosition="before">
-      <button mat-menu-item (click)="goToLink(routerLink.termsPath)">Terms & Conditions</button>
-      <button mat-menu-item (click)="goToLink(routerLink.policyPath)">Privacy Policy</button>
+      <button mat-menu-item [routerLink]="['/', termsPath]">Terms & Conditions</button>
+      <button mat-menu-item [routerLink]="['/', policyPath]">Privacy Policy</button>
       <button (click)="logOut()" mat-menu-item>Log Out</button>
       <!--      <button mat-menu-item>FAQ</button>-->
     </mat-menu>
     <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="before">
-      <button mat-menu-item [routerLink]="'/user/'+ userDetail?.slug">
+      <button mat-menu-item [routerLink]="['/', userPath, userDetail?.slug]">
         <mat-icon>account_circle</mat-icon>
         <span>Profile</span>
       </button>
@@ -121,21 +137,6 @@
       <!--        <mat-icon>settings</mat-icon>-->
       <!--        <span>Settings</span>-->
       <!--      </button>-->
-    </mat-menu>
-
-    <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="before">
-      <button mat-menu-item [routerLink]="['/user/',profile.slug]">
-        <mat-icon>account_circle</mat-icon>
-        <span>Profile</span>
-      </button>
-      <!--      <button mat-menu-item [matMenuTriggerFor]="settings">-->
-      <!--        <mat-icon>settings</mat-icon>-->
-      <!--        <span>Settings</span>-->
-      <!--      </button>-->
-      <button (click)="logOut()" mat-menu-item>
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Log Out</span>
-      </button>
     </mat-menu>
   </div>
 </header>

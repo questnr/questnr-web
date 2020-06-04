@@ -54,6 +54,12 @@ export class ApiService {
   registerPushNotificationToken(token: string) {
     return this.http.post(this.baseUrl + 'user/push-notification/token', { token: token });
   }
+  readNotification(notificationId) {
+    return this.http.put(this.baseUrl + `user/notification/${notificationId}`, {});
+  }
+  getUnreadNotificationCount() {
+    return this.http.get<number>(this.baseUrl + `user/unread-notification`);
+  }
   // deletePushNotificationToken(token: string) {
   //   const httpOptions = {
   //     headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: { token: token }
