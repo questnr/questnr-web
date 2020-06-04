@@ -3,7 +3,7 @@ import { ExploreService } from './explore.service';
 import { Post } from '../models/post-action.model';
 import { ApiService } from '../shared/api.service';
 import { Community } from '../models/community.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from '../shared/constants';
 
 @Component({
@@ -13,7 +13,10 @@ import { GlobalConstants } from '../shared/constants';
 })
 export class ExploreComponent implements OnInit {
 
-  constructor(public exploreService: ExploreService, public api: ApiService, public route: ActivatedRoute) {
+  constructor(public exploreService: ExploreService, public api: ApiService, public route: ActivatedRoute, private router: Router) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    }
   }
 
   explore: Post[] = [];
@@ -26,7 +29,7 @@ export class ExploreComponent implements OnInit {
   loading = true;
   scrollCached: boolean = null;
   page = 0;
-  hashTagUrl =  GlobalConstants.hashTagPath ;
+  hashTagUrl = GlobalConstants.hashTagPath;
   queryString: string;
 
   ngOnInit(): void {
@@ -44,6 +47,10 @@ export class ExploreComponent implements OnInit {
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
     }
+    this.fetchData();
+  }
+
+  fetchData() {
     if (this.queryString) {
       this.getHashtagRelatedPost();
     } else {
@@ -60,7 +67,7 @@ export class ExploreComponent implements OnInit {
             // console.log('check network call', this.endOfPosts);
             this.loading = true;
             ++this.page;
-            this.fetchExplore();
+            this.fetchData();
           }
         }
         this.scrollCached = null;
