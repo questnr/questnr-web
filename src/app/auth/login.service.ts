@@ -30,6 +30,10 @@ export class LoginService {
     return this.http.get(this.baseUrl + 'oauth2/google/login/token', { params: data });
   }
 
+  loginWithFacebook(data) {
+    return this.http.get(this.baseUrl + 'oauth2/facebook/login/token', { params: data });
+  }
+
   signUp(user) {
     return this.http.post<any>(this.baseUrl + 'sign-up', user);
   }
