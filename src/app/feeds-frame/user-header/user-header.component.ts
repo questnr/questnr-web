@@ -203,6 +203,7 @@ export class UserHeaderComponent {
 
   readNewNotification() {
     this.notificationColor = "black";
+    this.unReadNotificationCount = 0;
     this.isNotificationLoading = true;
     this.api.getNotifications().subscribe(
       (res: NotificationDTO[]) => {
