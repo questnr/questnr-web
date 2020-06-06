@@ -8,7 +8,7 @@ import { IFramelyData } from 'models/iframely.model';
 })
 export class IFramelyService {
 
-  apiKey = 'b45f06cd090f9e75148e93';
+  apiKey = '95939a19484a6828ab8ae8';
   iframelyLink = 'https://iframe.ly/api/iframely';
 
   constructor(private http: HttpClient) { }
