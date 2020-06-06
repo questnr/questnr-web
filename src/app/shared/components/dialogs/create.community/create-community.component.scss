@@ -55,6 +55,9 @@ mat-dialog-container{
 .cret-com-container{
   position: relative;
   background: $black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   .back-drop{
     position: absolute;
     width: 100%;
@@ -63,20 +66,31 @@ mat-dialog-container{
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
   }
 }
+// @media (max-width: 800px) {
+//   // Making the modal fullscreen in mobiles
+//   ::ng-deep .cdk-overlay-pane {
+//     width: 100vw !important;
+//   }
+// }
+.cret-com-container-desktop{
+  max-width: 80vW;
+}
+.cret-com-container-mobile{
+  max-width: 100vW;
+}
 .com-img-container{
   display: block;
   position: relative;
   width: 100%;
   max-height: 350px;
-  max-width: 500px;
   // height: 350px;
   overflow: hidden;
   img{
-    width: 100%;
     object-fit: scale-down;
     object-position: top;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    max-width: 100%;
   }
   .com-head-container{
     position: absolute;

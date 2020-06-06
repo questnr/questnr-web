@@ -1,5 +1,6 @@
 <div>
-  <div class="cret-com-container">
+  <div class="cret-com-container"
+    [ngClass]="{'cret-com-container-desktop': !mobileView, 'cret-com-container-mobile': mobileView}">
     <div class="loader" *ngIf="loading">
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
@@ -12,8 +13,8 @@
           <div class="com-input-container">
             <input type="text" [formControl]="communityName" placeholder="Enter Community name..."
               (change)="checkFormValid()">
-            = <textarea [formControl]="description" placeholder="write a short description for the community..."
-              cols="50" rows="1"></textarea>
+            <textarea [formControl]="description" placeholder="write a short description for the community..." cols="50"
+              rows="1"></textarea>
             <!-- <input id="imageSrc" type="file" [formControl]="avatar" (change)="onFileChange($event)"> -->
             <app-img-cropper-wrapper (imageDataEvent)="imageDataReceiver($event)" [aspectRatio]="12 / 4"
               #imageCropperRef>

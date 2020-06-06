@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {GlobalConstants} from '../shared/constants';
-import {ActivatedRoute} from '@angular/router';
-import {CreateCommunityComponent} from '../shared/components/dialogs/create.community/create-community.component';
-import {MatDialog} from '@angular/material/dialog';
-import {LoginService} from '../auth/login.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { GlobalConstants } from '../shared/constants';
+import { ActivatedRoute } from '@angular/router';
+import { CreateCommunityComponent } from '../shared/components/dialogs/create.community/create-community.component';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginService } from '../auth/login.service';
 
 @Component({
   selector: 'app-floating-mobile-nav',
@@ -48,7 +48,8 @@ export class FloatingMobileNavComponent implements OnInit {
 
   createCommunity(): void {
     const dialogRef = this.dialog.open(CreateCommunityComponent, {
-      width: '800px',
+      // width: '800px',
+      maxWidth: this.mobileView ? "100vw" : "80vw"
       // data: { desc : event.target.innerText}
     });
 

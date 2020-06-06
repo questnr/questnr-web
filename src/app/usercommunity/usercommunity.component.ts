@@ -81,7 +81,8 @@ export class UsercommunityComponent implements OnInit {
   }
   createCommunity(): void {
     const dialogRef = this.dialog.open(CreateCommunityComponent, {
-      width: '800px',
+      maxWidth: this.mobileView ? "100vw" : "80vw"
+      // width: '800px',
       // data: { desc : event.target.innerText}
     });
 
