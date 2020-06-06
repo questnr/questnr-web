@@ -60,6 +60,7 @@ export class CommunityUsersComponent implements OnInit {
       this.loader = false;
       this.communityMemberList = data.content;
       // console.log(this.communityMemberList);
+      console.log("communityMemberList", this.communityMemberList.length);
     }, error => {
       // console.log('something went wrong while fetching community Members.');
       this.loader = false;
