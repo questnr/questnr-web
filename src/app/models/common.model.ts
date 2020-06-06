@@ -13,6 +13,9 @@ export class MetaInformation {
 
 export class AvatarDTO {
     avatarLink: string;
+    iconLink: string;
+    smallLink: string;
+    mediumLink: string;
 }
 
 export class MetaData {

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Renderer2, ViewChild, ElementRef } from '@angular/core';
+import { AvatarDTO } from 'models/common.model';
 
 @Component({
   selector: 'app-profile-icon',
@@ -6,17 +7,28 @@ import { Component, OnInit, Input, Renderer2, ViewChild, ElementRef } from '@ang
   styleUrls: ['./profile-icon.component.scss']
 })
 export class ProfileIconComponent implements OnInit {
-  @Input() avatarLink: string;
+  @Input() avatar: AvatarDTO;
   @Input() height: number = 25;
   @Input() border: number = 10;
+  @Input() sizeRef: string;
+  avatarLink: string;
   @Input() alt: string = "image";
   loading: boolean = true;
   @ViewChild('elementOnHTML', { static: false }) elementOnHTML: ElementRef;
 
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2) {
+  }
 
   ngOnInit(): void {
-
+    if (this.sizeRef === "icon" && this.avatar.iconLink) {
+      this.avatarLink = this.avatar.iconLink;
+    } else if (this.sizeRef === "small" && this.avatar.smallLink) {
+      this.avatarLink = this.avatar.smallLink;
+    } else if (this.sizeRef === "medium" && this.avatar.mediumLink) {
+      this.avatarLink = this.avatar.mediumLink;
+    } else {
+      this.avatarLink = this.avatar.avatarLink;
+    }
   }
   ngAfterViewInit() {
     this.renderer.setStyle(this.elementOnHTML.nativeElement, 'height', this.height + "px");

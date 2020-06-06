@@ -3,14 +3,14 @@ import { UserProfileCardServiceComponent } from './user-profile-card-service.com
 import { LoginService } from '../auth/login.service';
 import { UserActivityService } from '../user-activity/user-activity.service';
 import { ActivatedRoute } from '@angular/router';
-import {GlobalConstants} from '../shared/constants';
+import { GlobalConstants } from '../shared/constants';
 @Component({
   selector: 'app-user-profile-card',
   templateUrl: './user-profile-card.component.html',
   styleUrls: ['./user-profile-card.component.scss']
 })
 export class UserProfileCardComponent implements OnInit {
-  @Input() avatarLink = 'assets/default.jpg';
+  @Input() avatar;
   @Input() username;
   @Input() slug: string;
   @Input() relationship;
@@ -25,9 +25,6 @@ export class UserProfileCardComponent implements OnInit {
     public userActivity: UserActivityService) { }
 
   ngOnInit(): void {
-    if (this.avatarLink == null) {
-      this.avatarLink = 'assets/default.jpg';
-    }
     if (this.relationship === 'owned') {
       this.owner = true;
     }

@@ -149,11 +149,13 @@ export class CommunityComponent implements OnInit {
   }
 
   changeCommunityAvatar() {
-    const formData = new FormData();
-    formData.set('file', this.comUpdatedAvatar, this.comUpdatedAvatar.name);
-    this.auth.updateCommunityAvatar(formData, this.communityDTO.communityId).subscribe((res: any) => {
-    }, error => {
-    });
+    if (this.comUpdatedAvatar) {
+      const formData = new FormData();
+      formData.set('file', this.comUpdatedAvatar, this.comUpdatedAvatar.name);
+      this.auth.updateCommunityAvatar(formData, this.communityDTO.communityId).subscribe((res: any) => {
+      }, error => {
+      });
+    }
   }
 
   previewImage() {

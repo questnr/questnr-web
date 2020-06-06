@@ -29,7 +29,7 @@
     </mat-menu>
   </div>
   <div class="head-wrap" *ngIf="!feed.communityDTO">
-    <app-profile-icon [avatarLink]="feed.userDTO.avatarDTO.avatarLink" [height]="50"
+    <app-profile-icon [avatar]="feed.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
       [routerLink]="['/', userPath, feed.userDTO.slug]">
     </app-profile-icon>
     <div class="profile-detail">

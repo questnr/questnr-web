@@ -19,7 +19,8 @@
       </div>
       <div class="com-owner-det" [id]="userId">
         <div class="owner-img">
-          <app-profile-icon [avatarLink]="avatarLink" [height]="90" [alt]="username" routerLink="['/', userPath, slug]">
+          <app-profile-icon [avatar]="avatar" [height]="90" [sizeRef]="'medium'" [alt]="username"
+            routerLink="['/', userPath, slug]">
           </app-profile-icon>
         </div>
         <div>
