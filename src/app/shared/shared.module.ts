@@ -10,13 +10,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { SocialMediaLinksComponent } from './social-media-links/social-media-links.component';
 import { CompanyRightsFooterComponent } from './company-rights-footer/company-rights-footer.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { CommunityBannerComponent } from './community-banner/community-banner.component';
 
 @NgModule({
   declarations: [
     ViewMoreButtonComponent,
     ProfileIconComponent,
     SocialMediaLinksComponent,
-    CompanyRightsFooterComponent
+    CompanyRightsFooterComponent,
+    CommunityBannerComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     ViewMoreButtonComponent,
     ProfileIconComponent,
     SocialMediaLinksComponent,
-    CompanyRightsFooterComponent
+    CompanyRightsFooterComponent,
+    CommunityBannerComponent
   ]
 })
 export class SharedModule { }

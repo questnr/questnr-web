@@ -2,18 +2,17 @@ import { Component, OnInit, Input, Renderer2, ViewChild, ElementRef } from '@ang
 import { AvatarDTO } from 'models/common.model';
 
 @Component({
-  selector: 'app-profile-icon',
-  templateUrl: './profile-icon.component.html',
-  styleUrls: ['./profile-icon.component.scss']
+  selector: 'app-community-banner',
+  templateUrl: './community-banner.component.html',
+  styleUrls: ['./community-banner.component.scss']
 })
-export class ProfileIconComponent implements OnInit {
+export class CommunityBannerComponent implements OnInit {
   @Input() avatar: AvatarDTO;
-  @Input() height: number = 25;
-  @Input() border: number = 10;
+  @Input() height: number = 100;
   @Input() sizeRef: string;
   avatarLink: string;
   @Input() alt: string = "image";
-  @ViewChild('elementOnHTML', { static: false }) elementOnHTML: ElementRef;
+  @ViewChild('imageOnHTML', { static: false }) imageOnHTML: ElementRef;
 
   constructor(private renderer: Renderer2) {
   }
@@ -30,8 +29,8 @@ export class ProfileIconComponent implements OnInit {
     }
   }
   ngAfterViewInit() {
-    this.renderer.setStyle(this.elementOnHTML.nativeElement, 'height', this.height + "px");
-    this.renderer.setStyle(this.elementOnHTML.nativeElement, 'width', this.height + "px");
+    this.renderer.setStyle(this.imageOnHTML.nativeElement, 'height', this.height + "px");
+    this.renderer.setStyle(this.imageOnHTML.nativeElement, 'min-height', this.height + "px");
   }
   checkImageSrc(src) {
     if (src) {

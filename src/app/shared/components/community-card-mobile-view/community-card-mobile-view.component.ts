@@ -19,17 +19,11 @@ export class CommunityCardMobileViewComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.relation = this.community?.communityMeta?.relationShipType;
+    console.log("mediumLink", this.community.avatarDTO.mediumLink);
   }
 
   routeToCommunity(slug) {
     window.open('/community/' + slug, '_self');
-  }
-  checkImageSrc(src) {
-    if (src) {
-      return src;
-    } else {
-      return 'assets/default.jpg';
-    }
   }
   followThisCommunty(communityId) {
     this.communityService.followCommunity(communityId).subscribe((res: any) => {
