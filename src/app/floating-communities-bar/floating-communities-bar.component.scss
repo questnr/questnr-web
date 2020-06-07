@@ -1,0 +1,29 @@
+@import "../variables";
+
+:host {
+  display: block;
+  overflow: hidden;
+}
+
+.panes {
+  height: 100%;
+  width: 200%;
+
+  display: flex;
+
+  div {
+    flex: 1;
+  }
+}
+
+.container {
+  background: $white;
+  padding: 0;
+
+  .grid-container {
+    display: grid;
+    height: 50px;
+    width: 100%;
+    grid-template-columns: 20% auto;
+  }
+}

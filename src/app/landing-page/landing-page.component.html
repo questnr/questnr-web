@@ -1,7 +1,7 @@
 <app-header (btnClick)="goTo($event)"></app-header>
 
 <section id="hero" class="hero-container"
-  style="background: url('assets/questnr-back.jpg') center center/cover no-repeat fixed; margin-bottom: 0">
+         style="background: url('assets/questnr-back.jpg') center center/cover no-repeat fixed; margin-bottom: 0">
   <div class="overlay"></div>
   <div class="container">
     <div class="row">
@@ -20,7 +20,8 @@
             <div class="suggestions">
               <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="height: 2px">
               </mat-progress-bar>
-              <button class="w-100" mat-button *ngFor="let item of hashtagResults" [routerLink]="hashTagBasePath + '/' + item.hashTagValue">{{item.hashTagValue}}</button>
+              <button class="w-100" mat-button *ngFor="let item of hashtagResults"
+                      [routerLink]="hashTagBasePath + '/' + item.hashTagValue">{{item.hashTagValue}}</button>
             </div>
           </div>
           <div class="hashtags-wrapper">
@@ -51,9 +52,7 @@
       </div>
     </div>
   </div>
-
 </section>
-
 <!--<section class="row">-->
 <!--  <div class="container">-->
 <!--    <div class="top-community">-->

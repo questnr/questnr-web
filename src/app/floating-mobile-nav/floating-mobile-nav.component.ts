@@ -1,9 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { GlobalConstants } from '../shared/constants';
-import { ActivatedRoute } from '@angular/router';
-import { CreateCommunityComponent } from '../shared/components/dialogs/create.community/create-community.component';
-import { MatDialog } from '@angular/material/dialog';
-import { LoginService } from '../auth/login.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {GlobalConstants} from '../shared/constants';
+import {ActivatedRoute} from '@angular/router';
+import {CreateCommunityComponent} from '../shared/components/dialogs/create.community/create-community.component';
+import {MatDialog} from '@angular/material/dialog';
+import {LoginService} from '../auth/login.service';
+import {UsercommunityService} from '../usercommunity/usercommunity.service';
+import {Community} from '../models/community.model';
+import {ApiService} from '../shared/api.service';
+import {CommunityListComponent} from '../shared/components/dialogs/community-list/community-list.component';
 
 @Component({
   selector: 'app-floating-mobile-nav',
@@ -18,10 +22,13 @@ export class FloatingMobileNavComponent implements OnInit {
   profileLink: string;
   music = false;
   mobileView = false;
+  ownedCommunity: Community[] = [];
+  joinedCommunity: Community[] = [];
+  communityPath = GlobalConstants.communityPath;
   screenWidth = window.innerWidth;
   @Input() url: string;
-
-  constructor(public route: ActivatedRoute, public dialog: MatDialog, public loginService: LoginService) {
+  isLeftVisible = false;
+  constructor(public route: ActivatedRoute, public dialog: MatDialog, public loginService: LoginService, public usercommunityService: UsercommunityService, public api: ApiService) {
   }
 
   ngOnInit(): void {
@@ -44,6 +51,8 @@ export class FloatingMobileNavComponent implements OnInit {
     } else if (this.url === 'youtube-music--7204285218705300364') {
       this.music = true;
     }
+    this.getUserOwnedCommunity();
+    this.getJoinedCommunity();
   }
 
   createCommunity(): void {
@@ -54,6 +63,47 @@ export class FloatingMobileNavComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+  getUserOwnedCommunity() {
+    if (!this.loginService.getUserProfile().id) return;
+    this.usercommunityService.getUserOwnedCommunity(this.loginService.getUserProfile().id, 0).subscribe((res: any) => {
+      this.ownedCommunity = res.content;
+    }, error => {
+      // console.log(error);
+    });
+  }
+  getJoinedCommunity() {
+    this.api.getJoinedCommunities(this.loginService.getUserProfile().id, 0).subscribe(
+      (res: any) => {
+        if (res.content.length) {
+          this.joinedCommunity = res.content;
+        }
+      }, err => {
+      }
+    );
+  }
+
+  openCommunityDialog(community, type): void {
+    let config = null;
+    config = {
+        position: {
+          top: '0',
+          right: '0'
+        },
+        height: '100%',
+        borderRadius: '0px',
+        width: '100%',
+        maxWidth: '100vw',
+        marginTop: '0px',
+        marginRight: '0px !important',
+        panelClass: 'full-screen-modal',
+        data: { userId: null, community, type }
+    }
+    const dialogRef = this.dialog.open(CommunityListComponent, config);
+
+    dialogRef.afterClosed().subscribe(result => {
+
     });
   }
 }
