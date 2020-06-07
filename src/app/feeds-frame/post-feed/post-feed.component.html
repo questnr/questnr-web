@@ -4,7 +4,7 @@
     <mat-progress-bar *ngIf="uploading" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
   </div>
   <div class="post-wrap">
-    <div class="icon"><img [src]="login.profileImg"></div>
+    <div class="icon" [routerLink]="['/user/',login.getUserProfile().slug]"><img [src]="login.profileImg"></div>
     <div class="textbox-wrap" style="position:relative;">
       <textarea rows="3" placeholder="Post Something...." [formControl]="text" (input)="typeCheckOnUserInput($event)"
         (keyup)="typeCheckOnUserInput($event)" #userInputRef>

@@ -1,3 +1,54 @@
+<app-floating-communities-bar [activePane]="isLeftVisible ? 'left' : 'right'">
+  <div rightPane>
+    <div class="joined-community-container">
+      <div (click)="isLeftVisible = !isLeftVisible" class="toggle-btn">
+        <div>owned</div> &nbsp;
+        <span><mat-icon>arrow_right</mat-icon></span>
+      </div>
+      <div>
+        <ul>
+          <li *ngFor="let i of joinedCommunity">
+            <div>
+              <app-profile-icon [avatar]="i.avatarDTO" [height]="32" [sizeRef]="'small'"
+                                [routerLink]="['/', communityPath, i.slug]" [matTooltip]="i.communityName">
+              </app-profile-icon>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="view-more" *ngIf="joinedCommunity.length ===5" (click)="openCommunityDialog(joinedCommunity, 'joinedCommunity')">
+        <button mat-icon-button >
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div leftPane>
+    <div class="owned-community-container" [ngClass]="{'view_all_community': ownedCommunity.length === 5}">
+      <div>
+        <ul>
+          <li *ngFor="let i of ownedCommunity">
+            <div>
+              <app-profile-icon [avatar]="i.avatarDTO" [height]="32" [sizeRef]="'small'"
+                                [routerLink]="['/', communityPath, i.slug]" [matTooltip]="i.communityName">
+              </app-profile-icon>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="view-more" *ngIf="ownedCommunity.length === 5" (click)="openCommunityDialog(ownedCommunity, 'ownedCommunity')">
+        <button mat-icon-button>
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+      <div (click)="isLeftVisible = !isLeftVisible" class="toggle-btn">
+        <div>Joined</div>&nbsp;
+        <mat-icon>arrow_left</mat-icon>
+      </div>
+    </div>
+  </div>
+</app-floating-communities-bar>
+
 <div style="width: 100%; height: 40px">
   <div class="quick-nav-container">
     <div class="quick_nav">

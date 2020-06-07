@@ -35,6 +35,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import {ErrorPageComponent} from './error-page/error-page.component';
 
 const routes: Routes = [
   {
@@ -63,8 +64,9 @@ const routes: Routes = [
   { path: GlobalConstants.forgotPassword, component: ForgotPasswordComponent },
   { path: GlobalConstants.signUp, component: SignUpPageComponent },
   { path: GlobalConstants.login, component: LoginPageComponent },
-  { path: GlobalConstants.resetPassword, component: ResetPasswordComponent }
-  // { path: '**', redirectTo: '' }
+  { path: GlobalConstants.resetPassword, component: ResetPasswordComponent },
+  { path: GlobalConstants.error, component: ErrorPageComponent },
+  { path: '**', redirectTo:  GlobalConstants.error }
 ];
 
 export interface Tile {

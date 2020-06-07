@@ -33,6 +33,7 @@ export class GlobalConstants {
   public static forgotPassword = "forgot-password";
   public static login = "login";
   public static signUp = "sign-up";
+  public static error = "error";
 
 
 

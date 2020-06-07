@@ -1,76 +1,76 @@
-import { ClipboardModule } from '@angular/cdk/clipboard';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireMessagingModule } from '@angular/fire/messaging';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {NgModule} from '@angular/core';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireMessagingModule} from '@angular/fire/messaging';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatListModule} from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
-import { ShareButtonsModule } from '@ngx-share/buttons';
-import { ShareButtonsConfig } from '@ngx-share/core';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, SocialLoginModule } from 'angularx-social-login';
-import { AuthGuard } from 'auth/auth.guard';
-import { LoginService } from 'auth/login.service';
-import { DragDropDirective } from 'drag-drop.directive';
-import { MatVideoModule } from 'mat-video';
-import { CarouselModule } from 'ngx-owl-carousel-o';
-import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { GlobalConstants } from 'shared/constants';
-import { AsyncPipe } from '../../node_modules/@angular/common';
-import { environment } from '../environments/environment';
-import { AppRoutingModule, routingComponent } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { CommunityUsersComponent } from './community-users/community-users.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning} from '@ngx-meta/core';
+import {ShareButtonsModule} from '@ngx-share/buttons';
+import {ShareButtonsConfig} from '@ngx-share/core';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, SocialLoginModule} from 'angularx-social-login';
+import {AuthGuard} from 'auth/auth.guard';
+import {LoginService} from 'auth/login.service';
+import {DragDropDirective} from 'drag-drop.directive';
+import {MatVideoModule} from 'mat-video';
+import {CarouselModule} from 'ngx-owl-carousel-o';
+import {NgxSkeletonLoaderModule} from 'ngx-skeleton-loader';
+import {GlobalConstants} from 'shared/constants';
+import {AsyncPipe} from '../../node_modules/@angular/common';
+import {environment} from '../environments/environment';
+import {AppRoutingModule, routingComponent} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {LoginComponent} from './auth/login/login.component';
+import {SignupComponent} from './auth/signup/signup.component';
+import {CommunityUsersComponent} from './community-users/community-users.component';
 // import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 // import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import { CommunityComponent } from './community/community.component';
-import { CommunityResolve } from './community/community.resolve';
-import { DotComponent } from './shared/components/dot/dot.component';
-import { DynamicHTMLModule } from './dynamic-html';
+import {CommunityComponent} from './community/community.component';
+import {CommunityResolve} from './community/community.resolve';
+import {DotComponent} from './shared/components/dot/dot.component';
+import {DynamicHTMLModule} from './dynamic-html';
 // import {MatDialogModule, MatSelectModule, MatTooltipModule} from '@angular/material';
-import { CommentBoxComponent } from './feeds-frame/recommended-feeds/comment-box/comment-box.component';
-import { HashTagComponent } from './hash-tag/hash-tag.component';
-import { HomeComponent } from './home/home.component';
-import { HorizontalProfileComponent } from './horizontal-profile/horizontal-profile.component';
-import { InterceptorService } from './interceptor.service';
-import { JoinedCommunityComponent } from './joined-community/joined-community.component';
-import { MetaCardComponent } from './meta-card/meta-card.component';
-import { MessagingService } from './service/messaging.service';
-import { CardComponent } from './shared/components/card/card.component';
-import { CommunityCardMobileViewComponent } from './shared/components/community-card-mobile-view/community-card-mobile-view.component';
-import { CommunityListComponent } from './shared/components/dialogs/community-list/community-list.component';
-import { CreateCommunityComponent } from './shared/components/dialogs/create.community/create-community.component';
-import { DescriptionComponent } from './shared/components/dialogs/description/description.component';
+import {CommentBoxComponent} from './feeds-frame/recommended-feeds/comment-box/comment-box.component';
+import {HashTagComponent} from './hash-tag/hash-tag.component';
+import {HomeComponent} from './home/home.component';
+import {HorizontalProfileComponent} from './horizontal-profile/horizontal-profile.component';
+import {InterceptorService} from './interceptor.service';
+import {JoinedCommunityComponent} from './joined-community/joined-community.component';
+import {MetaCardComponent} from './meta-card/meta-card.component';
+import {MessagingService} from './service/messaging.service';
+import {CardComponent} from './shared/components/card/card.component';
+import {CommunityCardMobileViewComponent} from './shared/components/community-card-mobile-view/community-card-mobile-view.component';
+import {CommunityListComponent} from './shared/components/dialogs/community-list/community-list.component';
+import {CreateCommunityComponent} from './shared/components/dialogs/create.community/create-community.component';
+import {DescriptionComponent} from './shared/components/dialogs/description/description.component';
 // import { ShareModule, ShareButtonsConfig } from '@ngx-share/core';
 import { SharePostComponent } from './shared/components/dialogs/share-post/share-post.component';
 import { UserListComponent } from './shared/components/dialogs/user-list/user-list.component';
@@ -115,6 +115,8 @@ import { OtpVerificationComponent } from 'otp-verification/otp-verification.comp
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImgCropperComponent } from 'img-cropper/img-cropper.component';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { FloatingCommunitiesBarComponent } from './floating-communities-bar/floating-communities-bar.component';
 import { LoaderComponent } from 'shared/loader/loader.component';
 import { AdsenseModule } from 'ng2-adsense';
 import { AdsenseComponent } from 'shared/adsense/adsense.component';
@@ -224,6 +226,8 @@ export function metaFactory(): MetaLoader {
     OtpVerificationComponent,
     ImgCropperComponent,
     ImgCropperWrapperComponent,
+    ErrorPageComponent,
+    FloatingCommunitiesBarComponent,
     LoaderComponent,
     AdsenseComponent,
     FloatingSuggestionBoxComponent
@@ -232,7 +236,7 @@ export function metaFactory(): MetaLoader {
     MatVideoModule,
     AngularFireMessagingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({appId: 'serverApp'}),
     BrowserAnimationsModule,
     CarouselModule,
     AppRoutingModule,
@@ -278,7 +282,7 @@ export function metaFactory(): MetaLoader {
     ClipboardModule,
     DynamicHTMLModule.forRoot({
       components: [
-        { component: HashTagComponent, selector: 'app-hash-tag' }
+        {component: HashTagComponent, selector: 'app-hash-tag'}
       ]
     }),
     MetaModule.forRoot({
@@ -314,7 +318,7 @@ export function metaFactory(): MetaLoader {
       useFactory: provideConfig
     },
     MatDatepickerModule,
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
     MessagingService,
     CommunityResolve,
     LandingPageResolve
