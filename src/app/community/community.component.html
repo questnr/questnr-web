@@ -82,7 +82,7 @@
                     <app-joined-community></app-joined-community>
                   </div>
                   <div *ngIf="mobileView && userFeeds.length > 5 && idx === 7">
-                    <app-sponsered></app-sponsered>
+                    <app-sponsored></app-sponsored>
                   </div>
                   <div *ngIf="mobileView && userFeeds.length > 5 && idx === 10">
                     <app-suggestion></app-suggestion>
@@ -111,7 +111,7 @@
         <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>
         <app-suggestion></app-suggestion>
         <app-trending></app-trending>
-        <app-sponsered></app-sponsered>
+        <app-sponsored></app-sponsored>
       </div>
     </div>
   </div>

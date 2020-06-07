@@ -83,7 +83,7 @@ import { UserListLoaderComponent } from './shared/loaders/user-list-loader/user-
 import { SafePipe } from './shared/safe.pipe';
 import { UserListViewComponent } from './shared/user-list-view/user-list-view.component';
 import { SinglePostComponent } from './single-post/single-post.component';
-import { SponseredComponent } from './sponsered/sponsered.component';
+import { SponsoredComponent } from './sponsored/sponsored.component';
 import { SuggestionComponent } from './suggestion/suggestion.component';
 import { TimeStringComponent } from './time-string/time-string.component';
 import { TrendingComponent } from './trending/trending.component';
@@ -116,6 +116,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImgCropperComponent } from 'img-cropper/img-cropper.component';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
 import { LoaderComponent } from 'shared/loader/loader.component';
+import { AdsenseModule } from 'ng2-adsense';
+import { AdsenseComponent } from 'shared/adsense/adsense.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -174,7 +176,7 @@ export function metaFactory(): MetaLoader {
     MoreOptionComponent,
     DescriptionComponent,
     SuggestionComponent,
-    SponseredComponent,
+    SponsoredComponent,
     UsercommunityComponent,
     TrendingComponent,
     CommunityUsersComponent,
@@ -221,7 +223,8 @@ export function metaFactory(): MetaLoader {
     OtpVerificationComponent,
     ImgCropperComponent,
     ImgCropperWrapperComponent,
-    LoaderComponent
+    LoaderComponent,
+    AdsenseComponent
   ],
   imports: [
     MatVideoModule,
@@ -283,7 +286,10 @@ export function metaFactory(): MetaLoader {
     }),
     SharedModule,
     PickerModule,
-    ImageCropperModule
+    ImageCropperModule,
+    AdsenseModule.forRoot({
+      adClient: 'ca-pub-9349182666561379'
+    }),
   ],
   entryComponents: [
     CreateCommunityComponent,

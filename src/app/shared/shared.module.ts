@@ -11,6 +11,7 @@ import { SocialMediaLinksComponent } from './social-media-links/social-media-lin
 import { CompanyRightsFooterComponent } from './company-rights-footer/company-rights-footer.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CommunityBannerComponent } from './community-banner/community-banner.component';
+import { AdsenseComponent } from './adsense/adsense.component';
 
 @NgModule({
   declarations: [
