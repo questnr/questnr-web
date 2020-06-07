@@ -70,7 +70,10 @@
 
         <mat-form-field class="col-md-12" appearance="fill">
           <mat-label>Describe yourself</mat-label>
-          <textarea matInput [formControl]="bio" placeholder="Describe Yourself"></textarea>
+          <textarea matInput [formControl]="bio" rows="5" placeholder="Describe Yourself" #bioInputRef></textarea>
+          <div class="emoticon-container">
+            <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
+          </div>
         </mat-form-field>
 
       </div>

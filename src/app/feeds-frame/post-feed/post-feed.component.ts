@@ -1,15 +1,15 @@
-import {Component, Output, EventEmitter, Input, ViewChild, ElementRef} from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {FormControl} from '@angular/forms';
-import {LoginService} from 'auth/login.service';
-import {FeedsService} from 'feeds-frame/feeds.service';
-import {HttpEvent, HttpEventType} from '@angular/common/http';
-import {HashTagService} from 'feeds-frame/hash-tag-service';
-import {MetaCardComponent} from 'meta-card/meta-card.component';
-import {CommonService} from 'common/common.service';
-import {IFramelyData} from 'models/iframely.model';
-import {IFramelyService} from 'meta-card/iframely.service';
-import {emojis} from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { Component, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { FormControl } from '@angular/forms';
+import { LoginService } from 'auth/login.service';
+import { FeedsService } from 'feeds-frame/feeds.service';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { HashTagService } from 'feeds-frame/hash-tag-service';
+import { MetaCardComponent } from 'meta-card/meta-card.component';
+import { CommonService } from 'common/common.service';
+import { IFramelyData } from 'models/iframely.model';
+import { IFramelyService } from 'meta-card/iframely.service';
+import { emojis } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 @Component({
   selector: 'app-post-feed',
@@ -17,8 +17,8 @@ import {emojis} from '@ctrl/ngx-emoji-mart/ngx-emoji';
   styleUrls: ['./post-feed.component.scss'],
   animations: [
     trigger('expand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
@@ -43,10 +43,10 @@ export class PostFeedComponent {
   isHashOn = false;
 
   constructor(public login: LoginService,
-              private service: FeedsService,
-              private hashTagService: HashTagService,
-              private commonService: CommonService,
-              private iFramelyService: IFramelyService) {
+    private service: FeedsService,
+    private hashTagService: HashTagService,
+    private commonService: CommonService,
+    private iFramelyService: IFramelyService) {
   }
 
   ngAfterViewInit(): void {
@@ -77,7 +77,7 @@ export class PostFeedComponent {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      const obj = {type: file.type, src: reader.result};
+      const obj = { type: file.type, src: reader.result };
       this.addedMediaSrc.push(obj);
     };
   }
@@ -186,8 +186,12 @@ export class PostFeedComponent {
   }
 
   addEmoji(event) {
-    console.log(event);
-    const text =  this.text.value ? this.text?.value : '';
-    this.text.setValue( text + event.native);
+    // console.log(event);
+    const text = this.text.value ? this.text?.value : '';
+    const start = this.userInputRef.nativeElement.selectionStart;
+    const end = this.userInputRef.nativeElement.selectionEnd;
+    const before = text.substring(0, start);
+    const after = text.substring(end, text.length);
+    this.text.setValue(before + event.native + after);
   }
 }
