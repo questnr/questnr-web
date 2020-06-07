@@ -19,7 +19,6 @@ export class CommunityCardMobileViewComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.relation = this.community?.communityMeta?.relationShipType;
-    console.log("mediumLink", this.community.avatarDTO.mediumLink);
   }
 
   routeToCommunity(slug) {
