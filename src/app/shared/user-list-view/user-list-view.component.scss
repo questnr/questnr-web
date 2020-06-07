@@ -21,9 +21,9 @@
       border-radius: 10px;
     }
     div{
-      display: table-cell;
-      vertical-align: middle;
-      height: 80px;
+      //display: table-cell;
+      //vertical-align: middle;
+      //height: 80px;
       p{
         margin: 0 !important;
         a {
@@ -60,6 +60,9 @@
 .relation-btn{
   padding: 0px;
   min-width: 120px;
+  width: fit-content;
+  width: -moz-fit-content;
+  float: right;
   button{
     font-size: 0.8rem;
     border-radius: 0.5rem;
