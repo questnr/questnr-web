@@ -9,7 +9,7 @@
         <ul>
           <li *ngFor="let i of joinedCommunity">
             <div>
-              <app-profile-icon [avatarLink]="i.avatarDTO.avatarLink" [height]="32"
+              <app-profile-icon [avatar]="i.avatarDTO" [height]="32" [sizeRef]="'small'"
                                 [routerLink]="['/', communityPath, i.slug]" [matTooltip]="i.communityName">
               </app-profile-icon>
             </div>
@@ -29,7 +29,7 @@
         <ul>
           <li *ngFor="let i of ownedCommunity">
             <div>
-              <app-profile-icon [avatarLink]="i.avatarDTO.avatarLink" [height]="32"
+              <app-profile-icon [avatar]="i.avatarDTO" [height]="32" [sizeRef]="'small'"
                                 [routerLink]="['/', communityPath, i.slug]" [matTooltip]="i.communityName">
               </app-profile-icon>
             </div>
