@@ -16,8 +16,8 @@
         </aside>
         <div class="feeds">
           <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=false></app-post-feed>
-          <h5 *ngIf="!loading">Trending Communities</h5>
-          <owl-carousel-o [options]="customOptions">
+          <h5>Trending Communities</h5>
+          <owl-carousel-o [options]="customOptions" *ngIf="!trendingCommunitiesLoader">
             <ng-container *ngFor="let community of trendingCommunities;let i=index">
               <ng-template carouselSlide [id]="i">
                 <app-community-card-mobile-view [community]="community"></app-community-card-mobile-view>
@@ -25,7 +25,7 @@
             </ng-container>
           </owl-carousel-o>
           <div>
-            <div class="row card-loader" *ngIf="loading">
+            <div class="row card-loader" *ngIf="trendingCommunitiesLoader">
               <div class="col">
                 <app-community-card-loader></app-community-card-loader>
               </div>
