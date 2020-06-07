@@ -55,7 +55,6 @@ export class UserListComponent implements OnInit {
   }
 
   scroll = (event): void => {
-    event.preventDefault();
     if (!this.scrollCached) {
       setTimeout(() => {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
@@ -138,29 +137,10 @@ export class UserListComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  getFollowers(userId) {
-    // console.log('test userId', userId);
-    if (!userId) return;
-    this.followersService.getUserFollowers(userId, this.page).subscribe((res: any) => {
-      if (res.content.length) {
-        res.content.forEach(user => {
-          this.userList.push(user);
-        });
-      } else {
-        this.endOfResult = true;
-        this.loading = false;
-      }
-      // console.log('follower content', this.userList);
-    }, error => {
-      // console.log(error.error.errorMessage);
-      this.loading = false;
-    });
-  }
-
   getUserFollowers(userId) {
     if (!userId) return;
     this.followersService.getUserFollowers(userId, this.page).subscribe((res: any) => {
-      // console.log('followed content' + res.content);
+      // console.log('getUserFollowers', res);
       if (res.content.length) {
         res.content.forEach(user => {
           this.userList.push(user);
@@ -180,7 +160,7 @@ export class UserListComponent implements OnInit {
   getFollowingUser(userId) {
     if (!userId) return;
     this.followersService.getFollowedBy(userId, this.page).subscribe((res: any) => {
-      // console.log('followed content' + res.content);
+      // console.log('getFollowingUser', res);
       if (res.content.length) {
         res.content.forEach(user => {
           this.userList.push(user);
