@@ -1,0 +1,5 @@
+<div class="floating-box suggestion-list" id="{{elementId}}" #elementOnHTML>
+    <div class="entity-suggested" *ngFor="let hashTag of hashTagList" (click)="selectHashTag(hashTag.hashTagValue)">
+        {{"#"+hashTag.hashTagValue}}
+    </div>
+</div>

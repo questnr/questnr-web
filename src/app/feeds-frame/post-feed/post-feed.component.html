@@ -7,7 +7,7 @@
     <div class="icon"><img [src]="login.profileImg"></div>
     <div class="textbox-wrap" style="position:relative;">
       <textarea rows="3" placeholder="Post Something...." [formControl]="text" (input)="typeCheckOnUserInput($event)"
-                (keyup)="typeCheckOnUserInput($event)" #userInputRef>
+        (keyup)="typeCheckOnUserInput($event)" #userInputRef>
       </textarea>
       <div class="emoticon-container">
         <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
@@ -30,7 +30,7 @@
       </div>
       <div class="drop-area m-2" appDragDrop (fileDropped)="filesDropped($event)" (click)="fileInput.click()">
         <input type="file" (change)="selectFiles($event)" #fileInput style="display: none" multiple
-               accept="image/*,video/*"/>
+          accept="image/*,video/*" />
         <div class="text-center">
           <mat-icon>add_photo_alternate</mat-icon>
           <div> Drop Image/Video</div>
@@ -55,3 +55,6 @@
     </button>
   </div>
 </div>
+
+<app-floating-suggestion-box #floatingSuggestionBoxRef>
+</app-floating-suggestion-box>

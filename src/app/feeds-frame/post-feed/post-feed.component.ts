@@ -10,6 +10,7 @@ import { CommonService } from 'common/common.service';
 import { IFramelyData } from 'models/iframely.model';
 import { IFramelyService } from 'meta-card/iframely.service';
 import { emojis } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
 
 @Component({
   selector: 'app-post-feed',
@@ -25,6 +26,14 @@ import { emojis } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 })
 export class PostFeedComponent {
   @ViewChild('userInputRef') userInputRef: ElementRef;
+  @ViewChild("floatingSuggestionBoxRef")
+  set floatingSuggestionBoxRef(element: FloatingSuggestionBoxComponent) {
+    setTimeout(() => {
+      this.floatingSuggestionBoxElement = element;
+      this.hashTagService.registerFloatingSuggestionBoxElement(this.floatingSuggestionBoxElement);
+    }, 0);
+  }
+  floatingSuggestionBoxElement: FloatingSuggestionBoxComponent;
   @Input() isCommunityPost = false;
   @Input() communityId;
   // @ViewChild("metaCardCompRef") metaCardCompRef: MetaCardComponent;

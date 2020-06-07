@@ -118,6 +118,7 @@ import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrap
 import { LoaderComponent } from 'shared/loader/loader.component';
 import { AdsenseModule } from 'ng2-adsense';
 import { AdsenseComponent } from 'shared/adsense/adsense.component';
+import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -224,7 +225,8 @@ export function metaFactory(): MetaLoader {
     ImgCropperComponent,
     ImgCropperWrapperComponent,
     LoaderComponent,
-    AdsenseComponent
+    AdsenseComponent,
+    FloatingSuggestionBoxComponent
   ],
   imports: [
     MatVideoModule,
