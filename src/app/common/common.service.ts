@@ -23,12 +23,15 @@ export class CommonService {
     getDateFromNumber(value: string) {
         const d = new Date(value);
         let month = '01';
-        let day = '01';
+        let day: string;
+        let dayInt: number = d.getDate();
         if (d.getMonth() + 1 < 10) {
             month = `0${d.getMonth() + 1}`;
         }
-        if (d.getDate() < 10) {
-            day = `0${d.getMonth()}`;
+        if (dayInt < 10) {
+            day = `0${dayInt}`;
+        } else {
+            day = `${dayInt}`
         }
         return `${d.getFullYear()}-${month}-${day}`;
     }
