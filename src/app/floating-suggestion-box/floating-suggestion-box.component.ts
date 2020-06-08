@@ -11,6 +11,7 @@ export class FloatingSuggestionBoxComponent implements OnInit {
   @ViewChild('elementOnHTML', { static: false }) elementOnHTML: ElementRef;
   // @Output() selectedValueEvent = new EventEmitter();
   hashTagList: HashTag[];
+  heading: string;
   selectedHashTagSubject: Subject<string>;
 
   elementId: string = "div--hash-tag-suggestion-div";
@@ -27,7 +28,6 @@ export class FloatingSuggestionBoxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
   ngAfterViewInit() {
 
@@ -42,6 +42,7 @@ export class FloatingSuggestionBoxComponent implements OnInit {
     document.addEventListener("mouseup", this.mouseUpFunc);
     // document.addEventListener("keydown", this.keyDownFunc);
     this.hashTagList = hashTagList;
+    this.heading = "Mention Hash Tags";
   }
 
   hideBox() {
