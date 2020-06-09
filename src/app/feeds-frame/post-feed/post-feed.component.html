@@ -5,13 +5,22 @@
   </div>
   <div class="post-wrap">
     <div class="icon" [routerLink]="['/user/',login.getUserProfile().slug]"><img [src]="login.profileImg"></div>
-    <div class="textbox-wrap" style="position:relative;">
-      <textarea rows="3" placeholder="Post Something...." [formControl]="text" (input)="typeCheckOnUserInput($event)"
-        (keyup)="typeCheckOnUserInput($event)" #userInputRef>
+    <div class="textbox-wrap md-form" style="position:relative;">
+      <div *ngIf="!isBlogEditor">
+        <textarea rows="4" placeholder="Post Something...." [formControl]="text" (input)="typeCheckOnUserInput($event)"
+          (keyup)="typeCheckOnUserInput($event)" class="md-textarea md-textarea-auto" mdbInput #userInputRef>
       </textarea>
-      <div class="emoticon-container">
-        <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
+        <div class="emoticon-container">
+          <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
+        </div>
       </div>
+      <div *ngIf="isBlogEditor">
+        <app-rich-text-area (typeCheckOnUserInputEvent)="typeCheckOnUserInputEvent($event)"
+          (registerEditorEvent)="registerEditor($event)">
+        </app-rich-text-area>
+      </div>
+      <span *ngIf="isBlogEditor" (click)="switchEditor(false)" class="editor-mode">switch to normal editor</span>
+      <span *ngIf="!isBlogEditor" (click)="switchEditor(true)" class="editor-mode">switch to blog editor</span>
     </div>
   </div>
 

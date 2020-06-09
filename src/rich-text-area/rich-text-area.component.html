@@ -1,0 +1,3 @@
+<ckeditor id="myckeditor" [(ngModel)]="mycontent" #ckeditor="ngModel" [config]="config" name="myckeditor"
+    (change)="typeCheckOnUserInput($event)" debounce="500">
+</ckeditor>
