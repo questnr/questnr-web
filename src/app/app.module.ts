@@ -37,7 +37,7 @@ import { ShareButtonsModule } from '@ngx-share/buttons';
 import { ShareButtonsConfig } from '@ngx-share/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, SocialLoginModule } from 'angularx-social-login';
+import { AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, SocialLoginModule, LoginOpt } from 'angularx-social-login';
 import { AuthGuard } from 'auth/auth.guard';
 import { LoginService } from 'auth/login.service';
 import { DragDropDirective } from 'drag-drop.directive';
@@ -132,6 +132,12 @@ const customConfig: ShareButtonsConfig = {
   autoSetMeta: true,
 };
 
+const fbLoginOptions: LoginOpt = {
+  scope: 'email,birthday,first_name,last_name',
+  return_scopes: true,
+  enable_profile_selector: true
+};
+
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -139,7 +145,7 @@ const config = new AuthServiceConfig([
   },
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider(environment.fbKey)
+    provider: new FacebookLoginProvider(environment.fbKey, fbLoginOptions)
   }
 ]);
 
