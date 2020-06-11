@@ -63,7 +63,8 @@
           </app-post-feed>
           <ng-container *ngIf="userFeeds?.length; else noFeeds">
             <div class="feed-wrap" *ngFor="let feed of userFeeds">
-              <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
+              <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+              </app-recommended-feeds>
             </div>
             <p class="text-center" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
           </ng-container>

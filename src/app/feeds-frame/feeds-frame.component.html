@@ -39,7 +39,8 @@
           </div>
           <ng-container *ngIf="userFeeds.length; else noFeeds">
             <div class="feed-wrap" *ngFor="let feed of userFeeds">
-              <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
+              <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+              </app-recommended-feeds>
             </div>
             <p class="text-center" style="margin-top :30px" *ngIf="userFeeds.length===1 && userFeeds[0] === null">
               <mat-chip>We couldn't find more post for you!</mat-chip>

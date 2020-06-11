@@ -195,4 +195,10 @@ export class UserProfilePageComponent implements OnInit {
 
     });
   }
+
+  removePostNotify($event) {
+    this.userFeeds = this.userFeeds.filter((post: Post) =>
+      post.postActionId !== $event
+    );
+  }
 }

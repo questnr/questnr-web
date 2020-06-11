@@ -41,7 +41,7 @@ export class CommunityComponent implements OnInit {
   loggedInUserId: any;
   page = 0;
   endOfPosts = false;
-  userFeeds = [];
+  userFeeds: Post[] = [];
   loading = true;
   communityId: any;
   mobileView = false;
@@ -203,6 +203,11 @@ export class CommunityComponent implements OnInit {
       this.commonService.copyToClipboard(res.clickAction);
       snackBarRef.dismiss();
     });
+  }
+
+  removePostNotify($event) {
+    this.userFeeds = this.userFeeds.filter((userFeed: Post) =>
+      userFeed.postActionId !== $event);
   }
 
   actionEvent($event) {

@@ -160,7 +160,7 @@ export class PostFeedComponent {
     this.isBlogEditor = false;
     this.addedMediaSrc = this.addedMedias = [];
     this.richText = '';
-    this.myckeditor.value = "";
+    if (this.myckeditor) this.myckeditor.value = "";
   }
 
   typeCheckOnUserInput(e): string {

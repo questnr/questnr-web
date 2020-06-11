@@ -1,6 +1,6 @@
 
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from 'auth/login.service';
@@ -35,6 +35,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class RecommendedFeedsComponent implements OnInit {
   @Input() feed: Post;
   @ViewChild('commentInput') commentInput: ElementRef;
+  @Output() removePostEvent = new EventEmitter();
   // @ViewChild("metaCardComponentRef", { static: true }) metaCardComponentRef: MetaCardComponent;
   // @ViewChild(MetaCardComponent, { static: true }) set metaCard(metaCardComponentRef: MetaCardComponent) {
   //   if (!!metaCardComponentRef) {
@@ -280,6 +281,8 @@ export class RecommendedFeedsComponent implements OnInit {
   removePost(postId) {
     this.api.removePost(postId).subscribe((res: any) => {
       // console.log(res);
+      this.snackbar.open("Post has been deleted", 'close', { duration: 5000 });
+      this.removePostEvent.emit(postId);
     }, error => {
       // console.log(error.error.errorMessage);
     });

@@ -1,12 +1,13 @@
-import {Component, OnInit, OnDestroy, HostListener, ViewChildren, QueryList} from '@angular/core';
-import {OwlOptions} from 'ngx-owl-carousel-o';
-import {FeedsService} from './feeds.service';
-import {ApiService} from 'shared/api.service';
-import {MessagingService} from '../service/messaging.service';
-import {RecommendedFeedsComponent} from './recommended-feeds/recommended-feeds.component';
-import {CreateCommunityComponent} from 'shared/components/dialogs/create.community/create-community.component';
-import {MatDialog} from '@angular/material/dialog';
-import {GlobalConstants} from '../shared/constants';
+import { Component, OnInit, OnDestroy, HostListener, ViewChildren, QueryList } from '@angular/core';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { FeedsService } from './feeds.service';
+import { ApiService } from 'shared/api.service';
+import { MessagingService } from '../service/messaging.service';
+import { RecommendedFeedsComponent } from './recommended-feeds/recommended-feeds.component';
+import { CreateCommunityComponent } from 'shared/components/dialogs/create.community/create-community.component';
+import { MatDialog } from '@angular/material/dialog';
+import { GlobalConstants } from '../shared/constants';
+import { Post } from 'models/post-action.model';
 
 @Component({
   selector: 'app-feeds-frame',
@@ -71,9 +72,9 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   }
 
   constructor(private service: FeedsService,
-              private api: ApiService,
-              private messagingService: MessagingService,
-              public dialog: MatDialog) {
+    private api: ApiService,
+    private messagingService: MessagingService,
+    public dialog: MatDialog) {
   }
 
   postFeed(event) {
@@ -191,4 +192,10 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     });
   }
 
+  removePostNotify($event) {
+    this.userFeeds = this.userFeeds.filter((post: Post) => {
+      return post.postActionId !== $event
+    }
+    );
+  }
 }

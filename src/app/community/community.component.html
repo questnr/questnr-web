@@ -92,7 +92,8 @@
                   <div *ngIf="mobileView && userFeeds.length > 5 && idx === 10">
                     <app-suggestion></app-suggestion>
                   </div>
-                  <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
+                  <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+                  </app-recommended-feeds>
                 </div>
                 <p class="text-center" *ngIf="userFeeds?.length===1 && userFeeds[0] === null">No Feeds Found...!</p>
               </ng-container>
