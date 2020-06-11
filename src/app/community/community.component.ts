@@ -13,6 +13,7 @@ import { DescriptionComponent } from '../shared/components/dialogs/description/d
 import { CommunityService } from './community.service';
 import { CommunityUsersComponent } from 'community-users/community-users.component';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
+import { CommonService } from 'common/common.service';
 
 @Component({
   selector: 'app-community',
@@ -48,7 +49,8 @@ export class CommunityComponent implements OnInit {
   scrollCached: boolean = null;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
-    private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router) {
+    private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
+    private snackbar: MatSnackBar, private commonService: CommonService) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
   }
   public trackItem(index: number, feed: Post) {
@@ -194,6 +196,14 @@ export class CommunityComponent implements OnInit {
   //     };
   //   }
   // }
+
+  copyLinkOfPost() {
+    let snackBarRef = this.snackbar.open("Copying Link..");
+    this.auth.getSharableLink(this.communityId).subscribe((res: any) => {
+      this.commonService.copyToClipboard(res.clickAction);
+      snackBarRef.dismiss();
+    });
+  }
 
   actionEvent($event) {
     this.owner = $event;
