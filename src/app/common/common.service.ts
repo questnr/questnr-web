@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CommonService {
     url: RegExp = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+    constructor(public snackbar: MatSnackBar) {
+
+    }
     parseTextToFindURL(text): string {
         let urls, output = null;
         while ((urls = this.url.exec(text)) !== null) {
@@ -34,5 +38,20 @@ export class CommonService {
             day = `${dayInt}`
         }
         return `${d.getFullYear()}-${month}-${day}`;
+    }
+
+    copyToClipboard(str) {
+        const copyText = document.createElement('textarea');
+        copyText.value = str;
+        copyText.setAttribute('readonly', '');
+        copyText.style.position = 'absolute';
+        copyText.style.left = '-9999px';
+        document.body.appendChild(copyText);
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+        document.execCommand('copy');
+        document.body.removeChild(copyText);
+        this.snackbar.open("Link copied to clipboard", 'close', { duration: 5000 });
     }
 }

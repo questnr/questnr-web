@@ -18,6 +18,7 @@ import { UserProfileCardServiceComponent } from '../../user-profile-card/user-pr
 import { GlobalConstants } from 'shared/constants';
 import { User } from 'models/user.model';
 import { Page } from 'models/page.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -90,7 +91,8 @@ export class RecommendedFeedsComponent implements OnInit {
     private dialog: MatDialog,
     public userProfileCardServiceComponent: UserProfileCardServiceComponent,
     private commonService: CommonService,
-    private iFramelyService: IFramelyService) { }
+    private iFramelyService: IFramelyService,
+    public snackbar: MatSnackBar) { }
 
   ngOnInit() {
     this.loggedInUsername = this.login.getUserProfile().sub;
@@ -283,9 +285,17 @@ export class RecommendedFeedsComponent implements OnInit {
     });
   }
 
+  copyLinkOfPost() {
+    let snackBarRef = this.snackbar.open("Copying Link..");
+    this.api.getSharableLink(this.feed.postActionId).subscribe((res: any) => {
+      this.commonService.copyToClipboard(res.clickAction);
+      snackBarRef.dismiss();
+    });
+  }
+
   addEmoji(event) {
     // console.log(event);
-    const text =  this.comment.value ? this.comment?.value : '';
-    this.comment.setValue( text + event.native);
+    const text = this.comment.value ? this.comment?.value : '';
+    this.comment.setValue(text + event.native);
   }
 }

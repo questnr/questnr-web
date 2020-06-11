@@ -20,11 +20,16 @@
       <div *ngIf="feed?.userDTO?.userId === loggedInUserId ; else notComUser">
         <button mat-menu-item>Edit Post</button>
         <button mat-menu-item (click)="removePost(feed?.postActionId)">Delete Post</button>
-        <button mat-menu-item>Copy Link</button>
+        <button mat-menu-item (click)="copyLinkOfPost()">
+          Copy Link
+        </button>
       </div>
       <ng-template #notComUser>
         <button mat-menu-item>Unfollow {{feed?.communityDTO?.communityName}}</button>
         <button mat-menu-item>Report Post</button>
+        <button mat-menu-item (click)="copyLinkOfPost()">
+          Copy Link
+        </button>
       </ng-template>
     </mat-menu>
   </div>
