@@ -3,8 +3,7 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';

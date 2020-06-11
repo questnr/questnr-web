@@ -47,9 +47,9 @@ export class LoginService {
   getUserProfileImg() {
     this.getUser().subscribe(
       (res) => {
-        this.profileImg = res?.avatarLink ? res.avatarLink : 'assets/default.jpg';
+         this.profileImg = res?.avatarLink ? res.avatarLink : 'assets/default.jpg';
       }, err => {
-        this.profileImg = 'assets/default.jpg';
+         this.profileImg =  'assets/default.jpg';
       }
     );
   }
