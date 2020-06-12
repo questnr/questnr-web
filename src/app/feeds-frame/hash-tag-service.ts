@@ -144,10 +144,12 @@ export class HashTagService {
               this.hashTagSubscriber.unsubscribe();
               return false;
             });
+            return false;
           }
         });
       } else {
         this.hideHashTagSuggesionList();
+        return false;
       }
       return true;
     } else {
