@@ -10,6 +10,7 @@ import { CommonService } from 'common/common.service';
 import { IFramelyData } from 'models/iframely.model';
 import { IFramelyService } from 'meta-card/iframely.service';
 import { emojis } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
 
 @Component({
   selector: 'app-post-feed',
@@ -25,6 +26,14 @@ import { emojis } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 })
 export class PostFeedComponent {
   @ViewChild('userInputRef') userInputRef: ElementRef;
+  @ViewChild("floatingSuggestionBoxRef")
+  set floatingSuggestionBoxRef(element: FloatingSuggestionBoxComponent) {
+    setTimeout(() => {
+      this.floatingSuggestionBoxElement = element;
+      this.hashTagService.registerFloatingSuggestionBoxElement(this.floatingSuggestionBoxElement);
+    }, 0);
+  }
+  floatingSuggestionBoxElement: FloatingSuggestionBoxComponent;
   @Input() isCommunityPost = false;
   @Input() communityId;
   // @ViewChild("metaCardCompRef") metaCardCompRef: MetaCardComponent;
@@ -33,6 +42,7 @@ export class PostFeedComponent {
   uploading = false;
   uploadProgress = 0;
   text = new FormControl();
+  richText: string;
   profileImg;
   addedMedias = [];
   addedMediaSrc = [];
@@ -41,6 +51,8 @@ export class PostFeedComponent {
   isMediaEnabled = false;
   textAreaInput: string;
   isHashOn = false;
+  isBlogEditor: boolean = false;
+  myckeditor: any;
 
   constructor(public login: LoginService,
     private service: FeedsService,
@@ -94,10 +106,15 @@ export class PostFeedComponent {
   }
 
   postFeed() {
-    if (this.text.value || this.addedMediaSrc.length) {
+    if ((this.text.value && !this.isBlogEditor) ||
+      (this.richText && this.isBlogEditor) || this.addedMediaSrc.length) {
       this.isLoading = true;
       const formData = new FormData();
-      formData.append('text', this.text.value);
+      if (this.isBlogEditor) {
+        formData.append('text', this.richText);
+      } else {
+        formData.append('text', this.text.value);
+      }
       if (this.addedMedias.length) {
         this.addedMedias.forEach(file => {
           formData.append('files', file);
@@ -125,7 +142,9 @@ export class PostFeedComponent {
   }
 
   isPostInvalid() {
-    if (this.text.value || this.addedMedias.length) {
+    if ((!this.isBlogEditor && this.text.value)
+      || this.addedMedias.length
+      || (this.isBlogEditor && this.richText && this.richText.length > 0)) {
       return false;
     }
     return true;
@@ -138,12 +157,14 @@ export class PostFeedComponent {
     this.uploadProgress = 0;
     this.text.setValue('');
     this.iFramelyData = null;
+    this.isBlogEditor = false;
     this.addedMediaSrc = this.addedMedias = [];
+    this.richText = '';
+    if (this.myckeditor) this.myckeditor.value = "";
   }
 
   typeCheckOnUserInput(e): string {
-
-    if (e.target.value == '') {
+    if (e.target && e.target.value == '') {
       this.isHashOn = false;
       this.iFramelyData = null;
       this.hashTagService.clearHashCheck();
@@ -172,12 +193,13 @@ export class PostFeedComponent {
       return;
     }
 
-
-    let detectedLink = this.commonService.parseTextToFindURL(e.target.value);
-    this.iFramelyService.getIFramelyData(detectedLink).then((iFramelyData: IFramelyData) => {
-      this.iFramelyData = iFramelyData;
-      // this.metaCardCompRef.setIFramelyData(iFramelyData);
-    });
+    if (e.target && e.target.value) {
+      let detectedLink = this.commonService.parseTextToFindURL(e.target.value);
+      this.iFramelyService.getIFramelyData(detectedLink).then((iFramelyData: IFramelyData) => {
+        this.iFramelyData = iFramelyData;
+        // this.metaCardCompRef.setIFramelyData(iFramelyData);
+      });
+    }
 
     // if (output != this.detectedLink) {
     //   this.detectedLink = output;
@@ -193,5 +215,19 @@ export class PostFeedComponent {
     const before = text.substring(0, start);
     const after = text.substring(end, text.length);
     this.text.setValue(before + event.native + after);
+  }
+
+  switchEditor(isBlogEditor) {
+    this.isBlogEditor = isBlogEditor;
+  }
+
+  typeCheckOnUserInputEvent($event) {
+    // console.log("richText", $event);
+    this.richText = $event;
+  }
+
+  registerEditor(myckeditor: any) {
+    this.myckeditor = myckeditor;
+    // console.log("mycdkEditor", myckeditor);
   }
 }

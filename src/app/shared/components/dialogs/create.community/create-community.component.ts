@@ -5,6 +5,9 @@ import { HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
+import { Community } from 'models/community.model';
+import { Router } from '@angular/router';
+import { GlobalConstants } from 'shared/constants';
 
 @Component({
   selector: 'app-create-community',
@@ -18,7 +21,11 @@ export class CreateCommunityComponent implements OnInit {
   screenWidth = window.innerWidth;
   mobileView = false;
 
-  constructor(public fb: FormBuilder, public auth: CommunityService, public snackbar: MatSnackBar, private dialogRef: MatDialogRef<CreateCommunityComponent>) {
+  constructor(public fb: FormBuilder,
+    public auth: CommunityService,
+    public snackbar: MatSnackBar,
+    private dialogRef: MatDialogRef<CreateCommunityComponent>,
+    private router: Router) {
   }
 
   src: any;
@@ -90,7 +97,8 @@ export class CreateCommunityComponent implements OnInit {
       if (this.group.get('avatar').value != null) {
         formData.set('avatarFile', this.userCommunityimage, this.userCommunityimage.name);
       }
-      this.auth.createCommunity(formData).subscribe((res: any) => {
+      this.auth.createCommunity(formData).subscribe((res: Community) => {
+        this.router.navigate(["/", GlobalConstants.communityPath, res.slug]);
         this.loading = false;
         this.dialogRef.close();
         this.snackbar.open('community created successfully', 'close', { duration: 5000 });

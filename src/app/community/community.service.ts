@@ -42,4 +42,9 @@ export class CommunityService {
     if (!communityId) return of();
     return this.http.delete(this.baseUrl + 'user/join/community/' + communityId, httpOptions);
   }
+
+  getSharableLink(communityId) {
+    if (!communityId) return of();
+    return this.http.get(this.baseUrl + `user/community/${communityId}/link`, {});
+  }
 }

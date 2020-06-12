@@ -44,16 +44,21 @@
         <app-community-users [communitySlug]="communityDTO?.slug" [userListType]="'ribbon'" *ngIf="mobileView"
           #communityUsersComponentRef>
         </app-community-users>
-        <div *ngIf="mobileView && owner !== 'owned'" class="mobile_view">
+        <div *ngIf="mobileView && owner !== 'owned'" class="action-mobile-view">
           <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId"
             (actionEvent)="actionEvent($event)">
           </app-community-relation-action-button>
+          <div>
+            <button mat-stroked-button [matMenuTriggerFor]="menu">
+              More
+            </button>
+          </div>
         </div>
         <div class="com-dets">
           <div class="btn-container" *ngIf="!mobileView">
             <!--            <button mat-stroked-button> Owner</button>-->
-            <button mat-stroked-button>
-              Invite
+            <button mat-stroked-button [matMenuTriggerFor]="menu">
+              More
             </button>
           </div>
           <div class="btn-container float-right" *ngIf="!mobileView && owner !== 'owned'">
@@ -87,7 +92,8 @@
                   <div *ngIf="mobileView && userFeeds.length > 5 && idx === 10">
                     <app-suggestion></app-suggestion>
                   </div>
-                  <app-recommended-feeds *ngIf="feed" [feed]="feed"></app-recommended-feeds>
+                  <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+                  </app-recommended-feeds>
                 </div>
                 <p class="text-center" *ngIf="userFeeds?.length===1 && userFeeds[0] === null">No Feeds Found...!</p>
               </ng-container>
@@ -117,3 +123,12 @@
   </div>
 </div>
 <app-floating-mobile-nav [url]="communitySlug" *ngIf="mobileView"></app-floating-mobile-nav>
+
+<mat-menu #menu="matMenu" xPosition="before">
+  <div>
+    <button mat-menu-item *ngIf="!mobileView">Invite</button>
+    <button mat-menu-item (click)="copyLinkOfPost()">
+      Copy Link
+    </button>
+  </div>
+</mat-menu>

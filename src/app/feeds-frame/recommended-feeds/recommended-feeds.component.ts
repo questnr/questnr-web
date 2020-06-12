@@ -1,6 +1,6 @@
 
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from 'auth/login.service';
@@ -18,6 +18,7 @@ import { UserProfileCardServiceComponent } from '../../user-profile-card/user-pr
 import { GlobalConstants } from 'shared/constants';
 import { User } from 'models/user.model';
 import { Page } from 'models/page.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -34,6 +35,7 @@ import { Page } from 'models/page.model';
 export class RecommendedFeedsComponent implements OnInit {
   @Input() feed: Post;
   @ViewChild('commentInput') commentInput: ElementRef;
+  @Output() removePostEvent = new EventEmitter();
   // @ViewChild("metaCardComponentRef", { static: true }) metaCardComponentRef: MetaCardComponent;
   // @ViewChild(MetaCardComponent, { static: true }) set metaCard(metaCardComponentRef: MetaCardComponent) {
   //   if (!!metaCardComponentRef) {
@@ -90,7 +92,8 @@ export class RecommendedFeedsComponent implements OnInit {
     private dialog: MatDialog,
     public userProfileCardServiceComponent: UserProfileCardServiceComponent,
     private commonService: CommonService,
-    private iFramelyService: IFramelyService) { }
+    private iFramelyService: IFramelyService,
+    public snackbar: MatSnackBar) { }
 
   ngOnInit() {
     this.loggedInUsername = this.login.getUserProfile().sub;
@@ -217,14 +220,7 @@ export class RecommendedFeedsComponent implements OnInit {
       );
     }
   }
-  openShareDialog() {
-    this.api.getSharableLink(this.feed.postActionId).subscribe((res: any) => {
-      this.dialog.open(SharePostComponent, {
-        width: '500px',
-        data: { url: res.clickAction }
-      });
-    });
-  }
+
   likedPost() {
     this.isLoading = false;
     this.feed.postActionMeta.liked = true;
@@ -275,17 +271,14 @@ export class RecommendedFeedsComponent implements OnInit {
 
     });
   }
-  removePost(postId) {
-    this.api.removePost(postId).subscribe((res: any) => {
-      // console.log(res);
-    }, error => {
-      // console.log(error.error.errorMessage);
-    });
+
+  removePost($event) {
+    this.removePostEvent.emit($event);
   }
 
   addEmoji(event) {
     // console.log(event);
-    const text =  this.comment.value ? this.comment?.value : '';
-    this.comment.setValue( text + event.native);
+    const text = this.comment.value ? this.comment?.value : '';
+    this.comment.setValue(text + event.native);
   }
 }

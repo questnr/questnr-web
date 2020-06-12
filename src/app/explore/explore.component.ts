@@ -155,4 +155,9 @@ export class ExploreComponent implements OnInit {
       this.loading = false;
     });
   }
+
+  removePostNotify($event) {
+    this.explore = this.explore.filter((post: Post) =>
+      post.postActionId !== $event);
+  }
 }

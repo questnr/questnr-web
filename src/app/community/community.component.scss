@@ -119,7 +119,7 @@
 .com-ban-img-container {
   width: 100%;
   // height: 130px;
-  min-height: 130px;
+  //min-height: 130px;
   overflow: hidden;
   position: relative;
   border-radius: 10px;
@@ -322,9 +322,23 @@
     }
   }
 }
-.mobile_view {
+.action-mobile-view {
   padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   app-community-relation-action-button{
     width: 100%;
   }
+}
+
+.mat-menu-item{
+  font-size: 13px;
+  padding: 0 12px !important;
+  line-height:10px;
+  height:38px;
+}
+
+::ng-deep.mat-menu-panel{
+  min-height: auto !important;
 }

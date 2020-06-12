@@ -192,3 +192,13 @@
   right: 1%;
   top: 66%;
 }
+
+.editor-mode{
+  font-size: 0.7rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.editor-mode:hover{
+  color: $primary;
+}

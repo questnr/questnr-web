@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LoginOpt } from 'angularx-social-login';
 import { LoginService } from 'auth/login.service';
 import { AsyncValidator, CustomValidations } from '../../custom-validations';
 import { GlobalConstants, REGEX } from 'shared/constants';
@@ -119,7 +119,15 @@ export class SignupComponent implements OnInit {
 
   facebookLogin() {
     this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID).then(user => {
-      this.signUp(user);
+      console.log("user", user);
+      const obj = { authToken: user.authToken, source: "WEB" };
+      this.auth.loginWithFacebook(obj).subscribe(
+        (res: any) => {
+          if (res.loginSuccess) {
+            this.signUpSuccess(res);
+          }
+        }, err => { }
+      );
     });
   }
   signUp(user) {
