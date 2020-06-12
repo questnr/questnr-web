@@ -10,6 +10,9 @@ import { SinglePostService } from './single-post.service';
 import { SharePostComponent } from '../shared/components/dialogs/share-post/share-post.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GlobalConstants } from '../shared/constants';
+import { IFramelyData } from 'models/iframely.model';
+import { CommonService } from 'common/common.service';
+import { IFramelyService } from 'meta-card/iframely.service';
 
 @Component({
   selector: 'app-single-post',
@@ -59,12 +62,15 @@ export class SinglePostComponent implements OnInit {
     autoplay: false
   };
   screenWidth = window.innerWidth;
+  iFramelyData: IFramelyData;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
     public loginService: LoginService,
     public uiService: UIService,
     public dialog: MatDialog,
-    private router: Router) {
+    private router: Router,
+    private iFramelyService: IFramelyService,
+    private commonService: CommonService) {
     this.postSlug = this.route.snapshot.paramMap.get('postSlug');
   }
 
@@ -86,6 +92,13 @@ export class SinglePostComponent implements OnInit {
     });
     // this.fetchPost(this.postSlug);
     // console.log(this.loginService.getUserProfileImg());
+  }
+
+  async ngAfterViewInit() {
+    if (this.singlePost.text) {
+      let detectedLink: string = this.commonService.parseTextToFindURL(this.singlePost.text);
+      this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
+    }
   }
 
   ngOnDestroy() {

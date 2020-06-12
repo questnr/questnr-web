@@ -1,5 +1,5 @@
 <!--<app-header></app-header>-->
-  <app-user-header *ngIf="mobileView"></app-user-header>
+<app-user-header *ngIf="mobileView"></app-user-header>
 <!--<div class="container">-->
 <!--  <div class="box single-entity">-->
 <!--    <div class="loader">-->
@@ -147,10 +147,10 @@
               </ng-container>
             </owl-carousel-o>
           </div>
-<!--          <div *ngIf="singlePost.postMediaList?.length === 1">-->
-<!--            <img *ngFor="let media of singlePost.postMediaList" [src]="media.postMediaLink">-->
-<!--            <mat-video  *ngFor="let media of singlePost.postMediaList" color="accent" [src]="media.postMediaLink"></mat-video>-->
-<!--          </div>-->
+          <!--          <div *ngIf="singlePost.postMediaList?.length === 1">-->
+          <!--            <img *ngFor="let media of singlePost.postMediaList" [src]="media.postMediaLink">-->
+          <!--            <mat-video  *ngFor="let media of singlePost.postMediaList" color="accent" [src]="media.postMediaLink"></mat-video>-->
+          <!--          </div>-->
           <!--            <img *ngFor="let media of singlePost.postMediaList" [src]="media.postMediaLink" alt="">-->
           <!--          <div class="blur"  *ngFor="let media of singlePost.postMediaList"  [style.backgroundImage]="'url(' + media.postMediaLink + ')'">-->
           <!--          </div>-->
@@ -158,7 +158,7 @@
           <div class="logo" [routerLink]="['/', feedUrl]">
             <img src="/assets/logo.png" alt="">
           </div>
-          <div class="fullscreen" >
+          <div class="fullscreen">
             <mat-icon *ngIf="!fullscreen" (click)="fullScreen()">fullscreen</mat-icon>
             <mat-icon *ngIf="fullscreen" (click)="exitFullscreen()">fullscreen_exit</mat-icon>
           </div>
@@ -171,11 +171,10 @@
               singlePost.communityDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""></div>
             <div class="profile-detail" *ngIf="singlePost.communityDTO">
               <div class="head"><a
-                [href]="'/community/' + singlePost.communityDTO.slug">{{singlePost.communityDTO?.communityName}}
-              </a></div>
+                  [href]="'/community/' + singlePost.communityDTO.slug">{{singlePost.communityDTO?.communityName}}
+                </a></div>
               <div class="subhead"> Posted in Community -
-                <span
-                  [matTooltip]="singlePost.metaData.updatedAtTimeInUTC | date">{{singlePost.metaData.timeString}}
+                <span [matTooltip]="singlePost.metaData.updatedAtTimeInUTC | date">{{singlePost.metaData.timeString}}
                   ago</span>
               </div>
             </div>
@@ -185,16 +184,16 @@
               singlePost.userDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""></div>
             <div class="profile-detail">
               <div class=" head"><a
-                [href]="'/user/' + singlePost.userDTO?.slug">{{singlePost.userDTO?.username | titlecase}}</a>
+                  [href]="'/user/' + singlePost.userDTO?.slug">{{singlePost.userDTO?.username | titlecase}}</a>
               </div>
               <div class="subhead" [matTooltip]="singlePost.metaData.updatedAtTimeInUTC | date">
                 {{singlePost.metaData.timeString}} ago
               </div>
             </div>
           </div>
-          <div class="text" *ngIf="singlePost?.text && singlePost.text !== 'null'"
-               [innerHtml]="singlePost?.text">
+          <div class="text" *ngIf="singlePost?.text && singlePost.text !== 'null'" [innerHtml]="singlePost?.text">
           </div>
+          <app-meta-card *ngIf="iFramelyData?.url" [iFramelyData]="iFramelyData"></app-meta-card>
           <div class="count-box">
             <div><span>{{singlePost.totalLikes ? singlePost.totalLikes : 0}} </span>
               {{singlePost.totalLikes > 1 ? 'Likes' : 'Like'}}</div>
@@ -204,7 +203,7 @@
           </div>
           <div class="footer-wrap">
             <button mat-button [disabled]="isLoading" (click)="likePost(singlePost.postActionId)"
-                    [ngClass]="singlePost?.postActionMeta?.liked? 'liked':''">
+              [ngClass]="singlePost?.postActionMeta?.liked? 'liked':''">
               <mat-icon [innerHtml]="singlePost?.postActionMeta?.liked?'favorite' :'favorite_border'"></mat-icon>
               &nbsp;
               <span [innerHtml]="singlePost?.postActionMeta?.liked?'Liked' :'Like'"> Like </span>
@@ -220,16 +219,19 @@
           </div>
           <hr style="margin: 0">
           <div class="comment-box-wrap">
-            <div class="profile-icon"> <img [src]="loginService.profileImg ? loginService.profileImg : '/assets/default.jpg' "> </div>
+            <div class="profile-icon"> <img
+                [src]="loginService.profileImg ? loginService.profileImg : '/assets/default.jpg' "> </div>
             <div class="comment-wrapper">
               <span *ngIf="replyingTo">{{replyingTo.username}}</span>
               <input type="text" [formControl]="comment" #commentInput
-                     [placeholder]="replyingTo? 'Reply to ' + replyingTo.username : 'Write a Comment..'"
-                     (keyup.enter)="postComment(singlePost.postActionId)">
-              <button mat-icon-button color="accent" (click)="postComment(singlePost.postActionId)" [disabled]="!comment.valid">
+                [placeholder]="replyingTo? 'Reply to ' + replyingTo.username : 'Write a Comment..'"
+                (keyup.enter)="postComment(singlePost.postActionId)">
+              <button mat-icon-button color="accent" (click)="postComment(singlePost.postActionId)"
+                [disabled]="!comment.valid">
                 <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
               </button>
-              <button mat-icon-button color="accent" (click)="postComment(singlePost.postActionId)" [disabled]="!comment.valid">
+              <button mat-icon-button color="accent" (click)="postComment(singlePost.postActionId)"
+                [disabled]="!comment.valid">
                 <mat-icon>send</mat-icon>
               </button>
             </div>
@@ -237,26 +239,25 @@
           <div class="comment-window">
             <div *ngIf="singlePost.commentActionList?.length;">
               <div class="comment-box" *ngFor="let comment of singlePost.commentActionList"
-                   [ngClass]="comment.userActorDTO?.userId === getUserId()? 'myComment' : ''">
-                <app-comment-box class="comment-item" [comment]="comment"
-                                 [postId]="singlePost.postActionId" (update)="getComments()">
+                [ngClass]="comment.userActorDTO?.userId === getUserId()? 'myComment' : ''">
+                <app-comment-box class="comment-item" [comment]="comment" [postId]="singlePost.postActionId"
+                  (update)="getComments()">
                 </app-comment-box>
                 <div class="subComments" *ngIf="comment.childCommentDTOSet?.length">
                   <div class="child-comment" *ngFor="let item of comment.childCommentDTOSet">
                     <app-comment-box class="comment-item"
-                                     [ngClass]="item.userActorDTO?.userId === getUserId()? 'myComment' : ''"
-                                     [comment]="item" [postId]="singlePost.postActionId"
-                                     (update)="getComments()"></app-comment-box>
+                      [ngClass]="item.userActorDTO?.userId === getUserId()? 'myComment' : ''" [comment]="item"
+                      [postId]="singlePost.postActionId" (update)="getComments()"></app-comment-box>
                   </div>
                 </div>
               </div>
             </div>
-              <div class="loader">
-                <div *ngIf="isCommentLoading" class="spinner-border spinner-border-sm" role="status">
-                  <span class="sr-only">Loading...</span>
-                </div>
-                <!--                <mat-spinner *ngIf="isCommentLoading" color="accent"></mat-spinner>-->
+            <div class="loader">
+              <div *ngIf="isCommentLoading" class="spinner-border spinner-border-sm" role="status">
+                <span class="sr-only">Loading...</span>
               </div>
+              <!--                <mat-spinner *ngIf="isCommentLoading" color="accent"></mat-spinner>-->
+            </div>
           </div>
           <button mat-button (click)="getComments()" *ngIf="!endOfComments && !isCommentLoading">Load more
             comments</button>
