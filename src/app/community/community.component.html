@@ -19,7 +19,7 @@
               </app-img-cropper-wrapper>
               <!-- <input type="file" style="display: none" id="communityImageSrc" (change)="onFileChange($event)"> -->
             </div>
-            <img [src]="communityImage" alt="banner" class="comm-ban-img" *ngIf="communityImage">
+            <img [src]="communityImage" alt="banner" class="comm-ban-img" [ngClass]="{'d-none': !communityImage}">
             <!--            <img [src]="comUpdatedAvatar" alt="editedImage" *ngif="!isImageEdited">-->
             <div class="com-ban-overlay"></div>
             <div class="com-head-container">
