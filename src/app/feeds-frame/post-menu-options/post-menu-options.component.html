@@ -1,0 +1,21 @@
+<button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_horiz</mat-icon>
+</button>
+<mat-menu #menu="matMenu" xPosition="before">
+    <div *ngIf="feed?.userDTO?.userId === loggedInUserId ; else notComUser">
+        <button mat-menu-item>Edit Post</button>
+        <button mat-menu-item (click)="removePost(feed?.postActionId)">Delete Post</button>
+        <button mat-menu-item (click)="copyLinkOfPost()">
+            Copy Link
+        </button>
+        <button mat-menu-item (click)="openShareDialog()">Share on other platforms</button>
+    </div>
+    <ng-template #notComUser>
+        <button mat-menu-item>Unfollow {{feed?.communityDTO?.communityName}}</button>
+        <button mat-menu-item>Report Post</button>
+        <button mat-menu-item (click)="copyLinkOfPost()">
+            Copy Link
+        </button>
+        <button mat-menu-item (click)="openShareDialog()">Share on other platforms</button>
+    </ng-template>
+</mat-menu>
