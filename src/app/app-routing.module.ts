@@ -35,7 +35,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import {ErrorPageComponent} from './error-page/error-page.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { SinglePostResolve } from 'single-post/single-post.resolve';
 
 const routes: Routes = [
   {
@@ -55,6 +56,7 @@ const routes: Routes = [
   },
   {
     path: GlobalConstants.postPath + '/:postSlug', component: SinglePostComponent,
+    resolve: { singlePost: SinglePostResolve },
     canActivateChild: [MetaGuard]
   },
   { path: GlobalConstants.userPath + '/:userSlug', component: UserProfilePageComponent },
@@ -66,7 +68,7 @@ const routes: Routes = [
   { path: GlobalConstants.login, component: LoginPageComponent },
   { path: GlobalConstants.resetPassword, component: ResetPasswordComponent },
   { path: GlobalConstants.error, component: ErrorPageComponent },
-  { path: '**', redirectTo:  GlobalConstants.error }
+  { path: '**', redirectTo: GlobalConstants.error }
 ];
 
 export interface Tile {

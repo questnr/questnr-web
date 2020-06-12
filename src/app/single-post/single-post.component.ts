@@ -1,15 +1,15 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {LoginService} from 'auth/login.service';
-import {FeedsService} from 'feeds-frame/feeds.service';
-import {SinglePost} from 'models/signle-post.model';
-import {OwlOptions} from 'ngx-owl-carousel-o';
-import {UIService} from 'ui/ui.service';
-import {SinglePostService} from './single-post.service';
-import {SharePostComponent} from '../shared/components/dialogs/share-post/share-post.component';
-import {MatDialog} from '@angular/material/dialog';
-import {GlobalConstants} from '../shared/constants';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from 'auth/login.service';
+import { FeedsService } from 'feeds-frame/feeds.service';
+import { SinglePost } from 'models/signle-post.model';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { UIService } from 'ui/ui.service';
+import { SinglePostService } from './single-post.service';
+import { SharePostComponent } from '../shared/components/dialogs/share-post/share-post.component';
+import { MatDialog } from '@angular/material/dialog';
+import { GlobalConstants } from '../shared/constants';
 
 @Component({
   selector: 'app-single-post',
@@ -61,9 +61,10 @@ export class SinglePostComponent implements OnInit {
   screenWidth = window.innerWidth;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
-              public loginService: LoginService,
-              public uiService: UIService,
-              public dialog: MatDialog) {
+    public loginService: LoginService,
+    public uiService: UIService,
+    public dialog: MatDialog,
+    private router: Router) {
     this.postSlug = this.route.snapshot.paramMap.get('postSlug');
   }
 
@@ -76,9 +77,15 @@ export class SinglePostComponent implements OnInit {
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
     }
-    this.fetchPost(this.postSlug);
-    console.log(
-      this.loginService.getUserProfileImg());
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    }
+    this.route.data.subscribe((data: { singlePost: SinglePost }) => {
+      this.singlePost = data.singlePost;
+      this.isLoading = false;
+    });
+    // this.fetchPost(this.postSlug);
+    // console.log(this.loginService.getUserProfileImg());
   }
 
   ngOnDestroy() {
@@ -209,7 +216,7 @@ export class SinglePostComponent implements OnInit {
     this.api.getSharableLink(this.singlePost.postActionId).subscribe((res: any) => {
       this.dialog.open(SharePostComponent, {
         width: '500px',
-        data: {url: res.clickAction}
+        data: { url: res.clickAction }
       });
     });
   }
