@@ -61,4 +61,12 @@ export class FeedsService {
     if (!postId) return of();
     return this.http.delete(this.baseUrl + '/user/posts/' + postId, httpOptions);
   }
+
+  deleteComment(postId, commentId) {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    if (!postId || !commentId) return of();
+    return this.http.delete(this.baseUrl + `user/posts/${postId}/comment/${commentId}`, httpOptions);
+  }
 }

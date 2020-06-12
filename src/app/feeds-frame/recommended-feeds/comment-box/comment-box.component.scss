@@ -21,3 +21,20 @@
     padding: 0.2rem;
   }
 }
+
+
+.comment-object{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .comment-left-part{
+
+  }
+  
+  .comment-trash{
+    img{
+      height: 1rem;
+      cursor: pointer;
+    }
+  }
+}

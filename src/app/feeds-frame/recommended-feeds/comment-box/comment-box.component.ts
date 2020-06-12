@@ -1,6 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { CommentAction } from 'models/comment-action.model';
+import { Post } from 'models/post-action.model';
+import { LoginService } from 'auth/login.service';
 
 @Component({
   selector: 'app-comment-box',
@@ -8,15 +10,28 @@ import { CommentAction } from 'models/comment-action.model';
   styleUrls: ['../recommended-feeds.component.scss', './comment-box.component.scss'],
 })
 export class CommentBoxComponent {
+  @ViewChild("commentTrash") commentTrash: ElementRef;
   isLoading = false;
   isReplying = false;
   @Input() comment: CommentAction;
   @Input() parentComment: CommentAction;
-  @Input() postId;
+  @Input() post: Post;
   @Output() reply = new EventEmitter();
   @Output() update = new EventEmitter();
+  @Output() deleteEvent = new EventEmitter();
+  loggedInUserId: any;
 
-  constructor(private api: FeedsService) {
+  constructor(private api: FeedsService,
+    public loginAuth: LoginService) {
+    this.loggedInUserId = loginAuth.getUserProfile().id;
+  }
+
+  hover() {
+    this.commentTrash.nativeElement.setAttribute('src', '/assets/red-trash-can.svg');
+  }
+
+  unhover() {
+    this.commentTrash.nativeElement.setAttribute('src', '/assets/trash-can.svg');
   }
 
   likeComment(id) {
@@ -50,5 +65,15 @@ export class CommentBoxComponent {
   dislikedComment() {
     this.isLoading = false;
     this.comment.commentActionMeta.liked = false;
+  }
+
+  allowDelete() {
+    return this.post.userDTO.userId == this.loggedInUserId || this.comment.userActorDTO.userId == this.loggedInUserId;
+  }
+
+  deleteComment() {
+    this.api.deleteComment(this.post.postActionId, this.comment.commentActionId).subscribe((res: any) => {
+      this.deleteEvent.emit(this.comment.commentActionId);
+    });
   }
 }

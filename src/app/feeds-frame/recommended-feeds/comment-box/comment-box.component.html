@@ -5,8 +5,16 @@
 <div>
   <!-- <div class="head-wrap"> -->
   <div class="profile-detail">
-    <div class=" head">{{comment.userActorDTO?.username}}</div>
-    <div> {{comment.commentObject}} </div>
+    <div class="head">{{comment.userActorDTO?.username}}</div>
+    <div class="comment-object">
+      <div class="comment-left-part">
+        {{comment.commentObject}}
+      </div>
+      <div class="comment-trash" *ngIf="allowDelete()" (click)="deleteComment()">
+        <img src="assets/trash-can.svg" (mouseover)="hover()" (mouseout)="unhover()" #commentTrash />
+      </div>
+    </div>
+
   </div>
   <!-- </div> -->
   <div class="commmentActions">

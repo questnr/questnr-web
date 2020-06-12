@@ -13,6 +13,7 @@ import { GlobalConstants } from '../shared/constants';
 import { IFramelyData } from 'models/iframely.model';
 import { CommonService } from 'common/common.service';
 import { IFramelyService } from 'meta-card/iframely.service';
+import { CommentAction } from 'models/comment-action.model';
 
 @Component({
   selector: 'app-single-post',
@@ -167,6 +168,7 @@ export class SinglePostComponent implements OnInit {
     if (this.comment.valid) {
       this.api.postComment(id, body).subscribe(
         (res: any) => {
+          this.isCommentLoading = false;
           if (res) {
             this.singlePost.commentActionList.push(res);
           }
@@ -246,5 +248,11 @@ export class SinglePostComponent implements OnInit {
   exitFullscreen() {
     document.exitFullscreen();
     this.fullscreen = !this.fullscreen;
+  }
+
+  deleteComment($event) {
+    this.singlePost.commentActionList = this.singlePost.commentActionList.filter((comment: CommentAction) =>
+      $event != comment.commentActionId
+    )
   }
 }
