@@ -13,25 +13,7 @@
     </div>
 
     <div class="spacer"></div>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>more_horiz</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu" xPosition="before">
-      <div *ngIf="feed?.userDTO?.userId === loggedInUserId ; else notComUser">
-        <button mat-menu-item>Edit Post</button>
-        <button mat-menu-item (click)="removePost(feed?.postActionId)">Delete Post</button>
-        <button mat-menu-item (click)="copyLinkOfPost()">
-          Copy Link
-        </button>
-      </div>
-      <ng-template #notComUser>
-        <button mat-menu-item>Unfollow {{feed?.communityDTO?.communityName}}</button>
-        <button mat-menu-item>Report Post</button>
-        <button mat-menu-item (click)="copyLinkOfPost()">
-          Copy Link
-        </button>
-      </ng-template>
-    </mat-menu>
+    <app-post-menu-options [feed]="feed" (removePostEvent)="removePost($event)"></app-post-menu-options>
   </div>
   <div class="head-wrap" *ngIf="!feed.communityDTO">
     <app-profile-icon [avatar]="feed.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
@@ -44,20 +26,7 @@
       <app-time-string [metaData]="feed.metaData"></app-time-string>
     </div>
     <div class="spacer"></div>
-    <button mat-icon-button [matMenuTriggerFor]="moreOptions">
-      <mat-icon>more_horiz</mat-icon>
-    </button>
-    <mat-menu #moreOptions="matMenu" xPosition="before">
-      <div *ngIf="feed?.userDTO?.userId === loggedInUserId ; else notUser">
-        <button mat-menu-item>Edit Post</button>
-        <button mat-menu-item (click)="removePost(feed?.postActionId)">Delete Post</button>
-        <button mat-menu-item>Copy Link</button>
-      </div>
-      <ng-template #notUser>
-        <button mat-menu-item (click)="unFollow(feed?.userDTO?.userId)">Unfollow {{feed.userDTO?.username}}</button>
-        <button mat-menu-item>Report Post</button>
-      </ng-template>
-    </mat-menu>
+    <app-post-menu-options [feed]="feed" (removePostEvent)="removePost($event)"></app-post-menu-options>
   </div>
   <div class="mb-2">
     <app-feed-text [text]="feed?.text" [hashTagsData]="hashTagsData"></app-feed-text>
@@ -100,10 +69,10 @@
       <mat-icon>insert_comment</mat-icon> &nbsp;
       <span> Comment </span>
     </button>
-    <button mat-button (click)="openShareDialog()">
+    <!-- <button mat-button (click)="openShareDialog()">
       <mat-icon>share</mat-icon> &nbsp;
       <span> Share </span>
-    </button>
+    </button> -->
   </div>
   <div class="comments" [@expand]="isCommenting ? 'expanded' : 'collapsed'">
     <div class="wrap">

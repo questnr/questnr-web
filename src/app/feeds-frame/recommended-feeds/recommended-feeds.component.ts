@@ -220,14 +220,7 @@ export class RecommendedFeedsComponent implements OnInit {
       );
     }
   }
-  openShareDialog() {
-    this.api.getSharableLink(this.feed.postActionId).subscribe((res: any) => {
-      this.dialog.open(SharePostComponent, {
-        width: '500px',
-        data: { url: res.clickAction }
-      });
-    });
-  }
+
   likedPost() {
     this.isLoading = false;
     this.feed.postActionMeta.liked = true;
@@ -278,22 +271,9 @@ export class RecommendedFeedsComponent implements OnInit {
 
     });
   }
-  removePost(postId) {
-    this.api.removePost(postId).subscribe((res: any) => {
-      // console.log(res);
-      this.snackbar.open("Post has been deleted", 'close', { duration: 5000 });
-      this.removePostEvent.emit(postId);
-    }, error => {
-      // console.log(error.error.errorMessage);
-    });
-  }
 
-  copyLinkOfPost() {
-    let snackBarRef = this.snackbar.open("Copying Link..");
-    this.api.getSharableLink(this.feed.postActionId).subscribe((res: any) => {
-      this.commonService.copyToClipboard(res.clickAction);
-      snackBarRef.dismiss();
-    });
+  removePost($event) {
+    this.removePostEvent.emit($event);
   }
 
   addEmoji(event) {

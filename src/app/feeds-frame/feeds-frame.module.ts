@@ -27,6 +27,8 @@ import { SharedModule } from 'shared/shared.module';
   ],
   providers: [
     FeedsService
+  ],
+  exports: [
   ]
 })
 export class FeedsFrameModule { }
