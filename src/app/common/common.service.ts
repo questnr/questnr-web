@@ -41,15 +41,31 @@ export class CommonService {
     }
 
     copyToClipboard(str) {
-        const copyText = document.createElement('textarea');
+        const copyText: any = document.createElement('textarea');
         copyText.value = str;
-        copyText.setAttribute('readonly', '');
         copyText.style.position = 'absolute';
         copyText.style.left = '-9999px';
         document.body.appendChild(copyText);
+
+        let oldContentEditable = copyText.contentEditable,
+            oldReadOnly = copyText.readOnly,
+            range = document.createRange();
+
+        copyText.contentEditable = true;
+        copyText.readOnly = false;
+        range.selectNodeContents(copyText);
+
+        var s = window.getSelection();
+        s.removeAllRanges();
+        s.addRange(range);
+
         /* Select the text field */
         copyText.select();
         copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+        copyText.contentEditable = oldContentEditable;
+        copyText.readOnly = oldReadOnly;
+
         document.execCommand('copy');
         document.body.removeChild(copyText);
         this.snackbar.open("Link copied to clipboard", 'close', { duration: 5000 });
