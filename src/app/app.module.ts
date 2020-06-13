@@ -123,9 +123,10 @@ import { AdsenseComponent } from 'shared/adsense/adsense.component';
 import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { CKEditorModule } from 'ng2-ckeditor';
-import { RichTextAreaComponent } from '../rich-text-area/rich-text-area.component';
+import { RichTextAreaComponent } from './rich-text-area/rich-text-area.component';
 import { PostMenuOptionsComponent } from 'feeds-frame/post-menu-options/post-menu-options.component';
 import { SinglePostResolve } from 'single-post/single-post.resolve';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -311,7 +312,8 @@ export function metaFactory(): MetaLoader {
     }),
     MDBBootstrapModule.forRoot(),
     FormsModule,
-    CKEditorModule
+    CKEditorModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [
     CreateCommunityComponent,
