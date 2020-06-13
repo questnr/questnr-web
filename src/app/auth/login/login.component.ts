@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { LoginService } from '../login.service';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { AuthService, LoginOpt } from 'angularx-social-login';
 import { ApiService } from '../../shared/api.service';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
@@ -16,15 +16,17 @@ import { GlobalConstants } from 'shared/constants';
 })
 export class LoginComponent implements OnInit {
   isLoading = false;
+  url = GlobalConstants;
   group: FormGroup;
   errMsg: '';
   email = new FormControl('', Validators.required);
   password = new FormControl('', Validators.required);
   forgotPassword = GlobalConstants.forgotPassword;
+  redirectURL: any;
 
   constructor(
     private fb: FormBuilder, private auth: LoginService,
-    private router: Router, private socialAuth: AuthService,
+    private router: Router, private socialAuth: AuthService,private route: ActivatedRoute,
     private angularFireMessaging: AngularFireMessaging, private apiService: ApiService) { }
 
   ngOnInit() {
@@ -46,7 +48,17 @@ export class LoginComponent implements OnInit {
             this.angularFireMessaging.getToken.subscribe(token => {
               this.apiService.registerPushNotificationToken(token).subscribe();
             });
-            this.router.navigate(["/", GlobalConstants.feedPath]);
+            const params = this.route.snapshot.queryParams;
+            if (params.redirectURL) {
+              this.redirectURL = params.redirectURL;
+            }
+            if (this.redirectURL) {
+              this.router.navigateByUrl(this.redirectURL)
+                .catch(() => this.router.navigate([this.url.feedPath]));
+            } else {
+              this.router.navigate([this.url.feedPath]);
+            }
+            // this.router.navigate(["/", GlobalConstants.feedPath]);
           } else {
             this.errMsg = res.errorMessage;
           }

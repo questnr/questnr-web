@@ -253,8 +253,8 @@ button.liked {
   display: flex;
   width: calc(100% - 10px);
   margin: 0 auto;
-  position: absolute;
-  bottom: 0;
+  //position: absolute;
+  //bottom: 0;
   padding: 10px 0;
   background: #fff;
   .profile-icon {
@@ -329,6 +329,7 @@ button.liked {
   top: 0;
   left: 0;
   margin: 10px;
+  z-index: 1;
   img{
     width: 100%;
   }
@@ -340,6 +341,7 @@ button.liked {
   top: 0;
   right: 0;
   margin: 10px;
+  z-index: 1;
   mat-icon{
     color: $white;
     font-size: 50px;
@@ -368,4 +370,23 @@ button.liked {
   .profile-detail{
     padding: 8px !important;
   }
+}
+
+.none-media-post{
+  margin: auto;
+  min-width: 1000px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.text-post{
+  margin-top: 54px;
+}
+
+.text-container{
+  max-height: 100px;
+  overflow: scroll;
+}
+.subComments{
+  margin-left: 40px;
 }

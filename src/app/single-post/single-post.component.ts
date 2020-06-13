@@ -1,22 +1,31 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService } from 'auth/login.service';
-import { FeedsService } from 'feeds-frame/feeds.service';
-import { SinglePost } from 'models/signle-post.model';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { UIService } from 'ui/ui.service';
-import { SinglePostService } from './single-post.service';
-import { SharePostComponent } from '../shared/components/dialogs/share-post/share-post.component';
-import { MatDialog } from '@angular/material/dialog';
-import { GlobalConstants } from '../shared/constants';
-
+import {Component, HostListener, OnInit} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LoginService} from 'auth/login.service';
+import {FeedsService} from 'feeds-frame/feeds.service';
+import {SinglePost} from 'models/signle-post.model';
+import {OwlOptions} from 'ngx-owl-carousel-o';
+import {UIService} from 'ui/ui.service';
+import {SinglePostService} from './single-post.service';
+import {SharePostComponent} from '../shared/components/dialogs/share-post/share-post.component';
+import {MatDialog} from '@angular/material/dialog';
+import {GlobalConstants} from '../shared/constants';
+import {IFramelyData} from '../models/iframely.model';
+import {CommonService} from '../common/common.service';
+import {IFramelyService} from '../meta-card/iframely.service';
+import {HashTag} from '../models/hashtag.model';
+enum postType {
+  media, text, metacard
+}
 @Component({
   selector: 'app-single-post',
   templateUrl: './single-post.component.html',
   styleUrls: ['./single-post.component.scss']
 })
+
 export class SinglePostComponent implements OnInit {
+  iFramelyData: IFramelyData;
+  loginURL = GlobalConstants.login;
   replyingTo: any;
   fullscreen = false;
   page = 0;
@@ -30,7 +39,7 @@ export class SinglePostComponent implements OnInit {
   comment = new FormControl('', Validators.required);
   replyComment = new FormControl('', Validators.required);
   mobileView = false;
-
+  type = postType.media;
   postSlug: string;
   singlePost: SinglePost;
   customOptions: OwlOptions = {
@@ -59,16 +68,37 @@ export class SinglePostComponent implements OnInit {
     autoplay: false
   };
   screenWidth = window.innerWidth;
+  hashTagsData: any = {};
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
-    public loginService: LoginService,
-    public uiService: UIService,
-    public dialog: MatDialog,
-    private router: Router) {
+              public loginService: LoginService,
+              public uiService: UIService,
+              public dialog: MatDialog,
+              private router: Router,
+              private commonService: CommonService,
+              private iFramelyService: IFramelyService,) {
     this.postSlug = this.route.snapshot.paramMap.get('postSlug');
   }
 
+  async ngAfterViewInit() {
+    if (this.singlePost.text) {
+      const detectedLink: string = this.commonService.parseTextToFindURL(this.singlePost.text);
+      this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
+      if (this.singlePost.postMediaList.length) {
+        this.type = postType.media;
+      } else {
+        if (this.iFramelyData) {
+          this.type = postType.metacard;
+          console.log(this.type);
+        } else {
+          this.type = postType.text;
+        }
+      }
+    }
+  }
+
   ngOnInit(): void {
+    // console.log(this.loginService.getUserProfileImg());
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;
@@ -77,17 +107,34 @@ export class SinglePostComponent implements OnInit {
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
     }
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
-    }
+    };
     this.route.data.subscribe((data: { singlePost: SinglePost }) => {
       this.singlePost = data.singlePost;
+      if (this.singlePost.postMediaList.length){
+        this.type = postType.media;
+      }
       this.isLoading = false;
     });
     // this.fetchPost(this.postSlug);
     // console.log(this.loginService.getUserProfileImg());
+    this.parseFeed();
   }
-
+  parseFeed() {
+    this.singlePost.text.replace('\n', '<br>');
+    this.singlePost.hashTags.forEach((hashTag: HashTag) => {
+      // let hashTagNode = document.createElement("span");
+      // hashTagNode.style.color = 'red';
+      var regEx = new RegExp("#" + hashTag.hashTagValue, "ig");
+      const index = this.commonService.indexOfUsingRegex(this.singlePost.text, regEx, 0);
+      if (index >= 0)
+        this.hashTagsData[index] = hashTag.hashTagValue.length + 1;
+      this.singlePost.text = this.singlePost.text.replace(regEx,
+        "<app-hash-tag hash-tag-value=\"" + hashTag.hashTagValue + "\"></app-hash-tag>"
+      );
+    });
+  }
   ngOnDestroy() {
     this.uiService.resetTitle();
   }
@@ -96,6 +143,8 @@ export class SinglePostComponent implements OnInit {
     this.singlePostService.getSinglePost(postSlug).subscribe((singlePost: SinglePost) => {
       this.uiService.setMetaTagsAndTitle('Post', singlePost.metaList);
       this.singlePost = singlePost;
+      this.type = singlePost.metaList.length ? postType.media : postType.text;
+      console.log(this.type);
       this.isLoading = false;
     });
   }
@@ -127,7 +176,7 @@ export class SinglePostComponent implements OnInit {
   //     }
   //   );
   // }
-  getComments() {
+  getComments(){
     this.isCommentLoading = true;
     this.api.getComments(this.singlePost.postActionId, this.page).subscribe(
       (res: any) => {
@@ -156,8 +205,10 @@ export class SinglePostComponent implements OnInit {
         (res: any) => {
           if (res) {
             this.singlePost.commentActionList.push(res);
+            this.comment.setValue('');
           }
           this.isCommenting = false;
+          this.isCommentLoading = false;
         }
       );
     }
@@ -216,7 +267,7 @@ export class SinglePostComponent implements OnInit {
     this.api.getSharableLink(this.singlePost.postActionId).subscribe((res: any) => {
       this.dialog.open(SharePostComponent, {
         width: '500px',
-        data: { url: res.clickAction }
+        data: {url: res.clickAction}
       });
     });
   }

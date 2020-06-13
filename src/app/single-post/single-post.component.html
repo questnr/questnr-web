@@ -1,139 +1,11 @@
-<!--<app-header></app-header>-->
-  <app-user-header *ngIf="mobileView"></app-user-header>
-<!--<div class="container">-->
-<!--  <div class="box single-entity">-->
-<!--    <div class="loader">-->
-<!--      <mat-spinner *ngIf="isLoading" color="accent"></mat-spinner>-->
-<!--    </div>-->
-<!--    <div *ngIf="!isLoading">-->
-<!--      <div class="post-window">-->
-<!--        <div *ngIf="singlePost.postMediaList?.length" class="post-media-window" id="post-media-window">-->
-<!--          <owl-carousel-o [options]="customOptions">-->
-<!--            <ng-container *ngFor="let media of singlePost.postMediaList;let i=index">-->
-<!--              <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'image'">-->
-<!--                <img class="w-100" [src]="media.postMediaLink" alt="">-->
-<!--              </ng-template>-->
-<!--              <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'video'">-->
-<!--                <mat-video color="accent" [src]="media.postMediaLink"></mat-video>-->
-<!--              </ng-template>-->
-<!--            </ng-container>-->
-<!--          </owl-carousel-o>-->
-<!--          <div class="text" *ngIf="singlePost?.text && singlePost.text !== 'null'"-->
-<!--               [innerHtml]="singlePost?.text">-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="post-head" id="post-head">-->
-<!--          <div class="head-wrap" *ngIf="singlePost.communityDTO">-->
-<!--            <div class="profile-icon"><img [src]="singlePost.communityDTO?.avatarDTO?.avatarLink ?-->
-<!--              singlePost.communityDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""></div>-->
-<!--            <div class="profile-detail" *ngIf="singlePost.communityDTO">-->
-<!--              <div class="head"><a-->
-<!--                [href]="'/community/' + singlePost.communityDTO.slug">{{singlePost.communityDTO?.communityName}}-->
-<!--              </a></div>-->
-<!--              <div class="subhead"> Posted in Community - -->
-<!--                <span-->
-<!--                  [matTooltip]="singlePost.metaData.updatedAtTimeInUTC | date">{{singlePost.metaData.timeString}}-->
-<!--                  ago</span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="head-wrap" *ngIf="!singlePost.communityDTO">-->
-<!--            <div class="profile-icon"><img [src]="singlePost.userDTO?.avatarDTO?.avatarLink ?-->
-<!--              singlePost.userDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""></div>-->
-<!--            <div class="profile-detail">-->
-<!--              <div class=" head"><a-->
-<!--                [href]="'/user/' + singlePost.userDTO?.slug">{{singlePost.userDTO?.username | titlecase}}</a>-->
-<!--              </div>-->
-<!--              <div class="subhead" [matTooltip]="singlePost.metaData.updatedAtTimeInUTC | date">-->
-<!--                {{singlePost.metaData.timeString}} ago-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="comment-window">-->
-<!--            <div *ngIf="singlePost.commentActionList?.length && !isCommentLoading;  else noComments">-->
-<!--              <div class="comment-box" *ngFor="let comment of singlePost.commentActionList"-->
-<!--                   [ngClass]="comment.userActorDTO?.userId === getUserId()? 'myComment' : ''">-->
-<!--                <app-comment-box class="comment-item" [comment]="comment"-->
-<!--                                 [postId]="singlePost.postActionId" (update)="getComments()">-->
-<!--                </app-comment-box>-->
-<!--                <div class="subComments" *ngIf="comment.childCommentDTOSet?.length">-->
-<!--                  <div class="child-comment" *ngFor="let item of comment.childCommentDTOSet">-->
-<!--                    <app-comment-box class="comment-item"-->
-<!--                                     [ngClass]="item.userActorDTO?.userId === getUserId()? 'myComment' : ''"-->
-<!--                                     [comment]="item" [postId]="singlePost.postActionId"-->
-<!--                                     (update)="getComments()"></app-comment-box>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <ng-template #noComments>-->
-<!--              <div class="loader">-->
-<!--                <mat-spinner *ngIf="isCommentLoading" color="accent"></mat-spinner>-->
-<!--              </div>-->
-<!--            </ng-template>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="count-box">-->
-<!--        <div><span>{{singlePost.totalLikes ? singlePost.totalLikes : 0}} </span>-->
-<!--          {{singlePost.totalLikes > 1 ? 'Likes' : 'Like'}}</div>-->
-<!--        <div class="dot"></div>-->
-<!--        <div><span> {{singlePost.totalComments ? singlePost.totalComments : 0}} </span>-->
-<!--          {{singlePost.totalComments > 1 ? 'Comments' : 'Comment'}} </div>-->
-<!--      </div>-->
-<!--      <div class="footer-wrap">-->
-<!--        <button mat-button [disabled]="isLoading" (click)="likePost(singlePost.postActionId)"-->
-<!--                [ngClass]="singlePost?.postActionMeta?.liked? 'liked':''">-->
-<!--          <mat-icon [innerHtml]="singlePost?.postActionMeta?.liked?'favorite' :'favorite_border'"></mat-icon>-->
-<!--          &nbsp;-->
-<!--          <span [innerHtml]="singlePost?.postActionMeta?.liked?'Liked' :'Like'"> Like </span>-->
-<!--        </button>-->
-<!--        <button mat-button (click)="toggleComments()">-->
-<!--          <mat-icon>insert_comment</mat-icon> &nbsp;-->
-<!--          <span> Comment </span>-->
-<!--        </button>-->
-<!--        <button mat-button (click)="toggleSharing()">-->
-<!--          <mat-icon>share</mat-icon> &nbsp;-->
-<!--          <span> Share </span>-->
-<!--        </button>-->
-<!--      </div>-->
-<!--      <div class="comments">-->
-<!--        <div class="wrap">-->
-<!--          <div class="comment-wrapper">-->
-<!--            <input type="text" [formControl]="comment" placeholder="Write a Comment..">-->
-<!--            <button mat-flat-button color="accent" (click)="postComment(singlePost.postActionId)"-->
-<!--                    [disabled]="!comment.valid">-->
-<!--              <mat-icon>send</mat-icon>-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-<!--<div>-->
-<!--  <div class="">-->
-<!--    <div class="row">-->
-<!--      <div class="col-lg-8 ">-->
-<!--        <div class="post-img-ctn">-->
-<!--          <img src="/assets/default.jpg" alt="demo">-->
-<!--          <div class="blur">-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="col-lg-4">-->
-
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+<app-header *ngIf="!loginService.loggedIn()" ></app-header>
+  <app-user-header *ngIf="mobileView || type ===1 && loginService.loggedIn()"></app-user-header>
 
 
 <div>
-  <div class="container-header">
-    <div class="row">
-      <div class="col-lg-8 " style="padding: 0">
+  <div class="container-header" [ngClass]="{'text-post': type===1}">
+    <div class="row" style="background: #ffffff">
+      <div class="col-lg-8 " style="padding: 0" *ngIf="type===0 || type === 2">
         <div class="post-img-ctn">
           <div *ngIf="singlePost?.postMediaList?.length" class="post-media-window" id="post-media-window">
             <owl-carousel-o [options]="customOptions">
@@ -147,7 +19,9 @@
               </ng-container>
             </owl-carousel-o>
           </div>
-<!--          <div *ngIf="singlePost.postMediaList?.length === 1">-->
+          <app-meta-card *ngIf="iFramelyData?.url" [iFramelyData]="iFramelyData"></app-meta-card>
+
+          <!--          <div *ngIf="singlePost.postMediaList?.length === 1">-->
 <!--            <img *ngFor="let media of singlePost.postMediaList" [src]="media.postMediaLink">-->
 <!--            <mat-video  *ngFor="let media of singlePost.postMediaList" color="accent" [src]="media.postMediaLink"></mat-video>-->
 <!--          </div>-->
@@ -155,16 +29,16 @@
           <!--          <div class="blur"  *ngFor="let media of singlePost.postMediaList"  [style.backgroundImage]="'url(' + media.postMediaLink + ')'">-->
           <!--          </div>-->
 
-          <div class="logo" [routerLink]="['/', feedUrl]">
+          <div class="logo" [routerLink]="['/', feedUrl]" *ngIf="!mobileView">
             <img src="/assets/logo.png" alt="">
           </div>
-          <div class="fullscreen" >
+          <div class="fullscreen" *ngIf="!mobileView">
             <mat-icon *ngIf="!fullscreen" (click)="fullScreen()">fullscreen</mat-icon>
             <mat-icon *ngIf="fullscreen" (click)="exitFullscreen()">fullscreen_exit</mat-icon>
           </div>
         </div>
       </div>
-      <div class="col-lg-4 content-ctn">
+      <div class="col-lg-4 content-ctn" [ngClass]="{'none-media-post': type===1 && !mobileView}">
         <div class="post-head" id="post-head">
           <div class="head-wrap" *ngIf="singlePost.communityDTO">
             <div class="profile-icon"><img [src]="singlePost.communityDTO?.avatarDTO?.avatarLink ?
@@ -192,8 +66,11 @@
               </div>
             </div>
           </div>
-          <div class="text" *ngIf="singlePost?.text && singlePost.text !== 'null'"
-               [innerHtml]="singlePost?.text">
+<!--          <div class="text" *ngIf="singlePost?.text && singlePost.text !== 'null'"-->
+<!--               [innerHtml]="singlePost?.text">-->
+<!--          </div>-->
+          <div class="text-container">
+            <app-feed-text [text]="singlePost?.text" [hashTagsData]="hashTagsData"></app-feed-text>
           </div>
           <div class="count-box">
             <div><span>{{singlePost.totalLikes ? singlePost.totalLikes : 0}} </span>
@@ -219,7 +96,7 @@
             </button>
           </div>
           <hr style="margin: 0">
-          <div class="comment-box-wrap">
+          <div class="comment-box-wrap" *ngIf="loginService.loggedIn()">
             <div class="profile-icon"> <img [src]="loginService.profileImg ? loginService.profileImg : '/assets/default.jpg' "> </div>
             <div class="comment-wrapper">
               <span *ngIf="replyingTo">{{replyingTo.username}}</span>
@@ -233,6 +110,9 @@
                 <mat-icon>send</mat-icon>
               </button>
             </div>
+          </div>
+          <div class="comment-box-wrap">
+              <button mat-stroked-button  [routerLink]="['/', loginURL]" style="width: 100%" *ngIf="!loginService.loggedIn()">Login to comment</button>
           </div>
           <div class="comment-window">
             <div *ngIf="singlePost.commentActionList?.length;">
@@ -258,7 +138,7 @@
                 <!--                <mat-spinner *ngIf="isCommentLoading" color="accent"></mat-spinner>-->
               </div>
           </div>
-          <button mat-button (click)="getComments()" *ngIf="!endOfComments && !isCommentLoading">Load more
+          <button mat-button (click)="getComments()" *ngIf="!endOfComments && !isCommentLoading &&  singlePost.commentActionList?.length ===3 && loginService.loggedIn()">Load more
             comments</button>
 
         </div>

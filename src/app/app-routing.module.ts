@@ -52,17 +52,18 @@ const routes: Routes = [
     path: GlobalConstants.communityPath + '/:communitySlug', component: CommunityComponent, resolve: {
       community: CommunityResolve
     },
-    canActivateChild: [MetaGuard]
+    canActivateChild: [MetaGuard],
+    canActivate: [AuthGuard]
   },
   {
     path: GlobalConstants.postPath + '/:postSlug', component: SinglePostComponent,
     resolve: { singlePost: SinglePostResolve },
-    canActivateChild: [MetaGuard]
+    canActivateChild: [MetaGuard],
   },
-  { path: GlobalConstants.userPath + '/:userSlug', component: UserProfilePageComponent },
-  { path: GlobalConstants.explorePath, component: ExploreComponent },
-  { path: GlobalConstants.trendingPath, component: ExploreComponent },
-  { path: GlobalConstants.hashTagPath + '/:hashTag', component: ExploreComponent },
+  { path: GlobalConstants.userPath + '/:userSlug', component: UserProfilePageComponent , canActivate: [AuthGuard]},
+  { path: GlobalConstants.explorePath, component: ExploreComponent , canActivate: [AuthGuard]},
+  { path: GlobalConstants.trendingPath, component: ExploreComponent ,  canActivate: [AuthGuard]},
+  { path: GlobalConstants.hashTagPath + '/:hashTag', component: ExploreComponent ,  canActivate: [AuthGuard]},
   { path: GlobalConstants.forgotPassword, component: ForgotPasswordComponent },
   { path: GlobalConstants.signUp, component: SignUpPageComponent },
   { path: GlobalConstants.login, component: LoginPageComponent },
