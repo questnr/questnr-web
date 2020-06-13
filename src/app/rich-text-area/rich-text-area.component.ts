@@ -29,6 +29,7 @@ export class RichTextAreaComponent implements OnInit {
     dialog_buttonsOrder: "OS",
     font_names: 'Arial;Times New Roman;Verdana',
     extraPlugins: '',
+    enterMode: CKEDITOR.ENTER_BR,
     toolbarGroups: [
       { name: 'styles', groups: ['styles'] },
       '/',
