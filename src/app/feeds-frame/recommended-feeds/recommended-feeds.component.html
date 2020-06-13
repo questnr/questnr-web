@@ -87,11 +87,13 @@
         </div>
         <div *ngIf="feed.commentActionList?.length">
           <div class="comment-box" *ngFor="let comment of feed.commentActionList">
-            <app-comment-box class="comment-item" [comment]="comment" (reply)="replyTo($event)"></app-comment-box>
+            <app-comment-box class="comment-item" [comment]="comment" (reply)="replyTo($event)" [post]="feed"
+              (deleteEvent)="deleteComment($event)">
+            </app-comment-box>
             <div class="subComments" *ngIf="comment.childCommentDTOSet?.length">
               <div class="child-comment" *ngFor="let item of comment.childCommentDTOSet">
                 <app-comment-box class="comment-item" [comment]="item" [parentComment]="comment"
-                  (reply)="replyTo($event)"></app-comment-box>
+                  (reply)="replyTo($event)" [post]="feed" (deleteEvent)="deleteComment($event)"></app-comment-box>
               </div>
             </div>
           </div>

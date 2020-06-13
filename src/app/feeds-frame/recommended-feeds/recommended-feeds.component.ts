@@ -281,4 +281,10 @@ export class RecommendedFeedsComponent implements OnInit {
     const text = this.comment.value ? this.comment?.value : '';
     this.comment.setValue(text + event.native);
   }
+
+  deleteComment($event) {
+    this.feed.commentActionList = this.feed.commentActionList.filter((comment: CommentAction) =>
+      $event != comment.commentActionId
+    )
+  }
 }

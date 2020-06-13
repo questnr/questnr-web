@@ -14,6 +14,7 @@ import {IFramelyData} from '../models/iframely.model';
 import {CommonService} from '../common/common.service';
 import {IFramelyService} from '../meta-card/iframely.service';
 import {HashTag} from '../models/hashtag.model';
+import {CommentAction} from '../models/comment-action.model';
 enum postType {
   media, text, metacard
 }
@@ -76,7 +77,7 @@ export class SinglePostComponent implements OnInit {
               public dialog: MatDialog,
               private router: Router,
               private commonService: CommonService,
-              private iFramelyService: IFramelyService,) {
+              private iFramelyService: IFramelyService) {
     this.postSlug = this.route.snapshot.paramMap.get('postSlug');
   }
 
@@ -112,7 +113,7 @@ export class SinglePostComponent implements OnInit {
     };
     this.route.data.subscribe((data: { singlePost: SinglePost }) => {
       this.singlePost = data.singlePost;
-      if (this.singlePost.postMediaList.length){
+      if (this.singlePost.postMediaList.length) {
         this.type = postType.media;
       }
       this.isLoading = false;
@@ -126,15 +127,17 @@ export class SinglePostComponent implements OnInit {
     this.singlePost.hashTags.forEach((hashTag: HashTag) => {
       // let hashTagNode = document.createElement("span");
       // hashTagNode.style.color = 'red';
-      var regEx = new RegExp("#" + hashTag.hashTagValue, "ig");
+      let regEx = new RegExp('#' + hashTag.hashTagValue, 'ig');
       const index = this.commonService.indexOfUsingRegex(this.singlePost.text, regEx, 0);
-      if (index >= 0)
+      if (index >= 0) {
         this.hashTagsData[index] = hashTag.hashTagValue.length + 1;
+      }
       this.singlePost.text = this.singlePost.text.replace(regEx,
-        "<app-hash-tag hash-tag-value=\"" + hashTag.hashTagValue + "\"></app-hash-tag>"
+        '<app-hash-tag hash-tag-value="' + hashTag.hashTagValue + '"></app-hash-tag>'
       );
     });
   }
+
   ngOnDestroy() {
     this.uiService.resetTitle();
   }
@@ -176,7 +179,7 @@ export class SinglePostComponent implements OnInit {
   //     }
   //   );
   // }
-  getComments(){
+  getComments() {
     this.isCommentLoading = true;
     this.api.getComments(this.singlePost.postActionId, this.page).subscribe(
       (res: any) => {
@@ -203,6 +206,7 @@ export class SinglePostComponent implements OnInit {
     if (this.comment.valid) {
       this.api.postComment(id, body).subscribe(
         (res: any) => {
+          this.isCommentLoading = false;
           if (res) {
             this.singlePost.commentActionList.push(res);
             this.comment.setValue('');
@@ -284,5 +288,11 @@ export class SinglePostComponent implements OnInit {
   exitFullscreen() {
     document.exitFullscreen();
     this.fullscreen = !this.fullscreen;
+  }
+
+  deleteComment($event) {
+    this.singlePost.commentActionList = this.singlePost.commentActionList.filter((comment: CommentAction) =>
+      $event !== comment.commentActionId
+    );
   }
 }
