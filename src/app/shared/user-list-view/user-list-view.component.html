@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="flex-50 align-right">
-    <div class="relation-btn">
+    <div class="relation-btn" *ngIf="!isInviteList">
       <button *ngIf="relation === 'owned' else notOwner">
         It's you
       </button>
@@ -26,6 +26,14 @@
           Follow
         </button>
       </ng-template>
+    </div>
+    <div class="relation-btn" *ngIf="isInviteList">
+      <button class="invite-btn" (click)="invite()" *ngIf="!isInvited">
+        Invite
+      </button>
+      <button class="invite-btn" (click)="invite()" *ngIf="isInvited" disabled>
+        Invited
+      </button>
     </div>
   </div>
 </div>

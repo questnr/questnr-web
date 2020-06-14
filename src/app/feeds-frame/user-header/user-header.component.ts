@@ -148,7 +148,7 @@ export class UserHeaderComponent {
   getNotification() {
     this.api.getNotifications(this.page + 1).subscribe(
       (res: any) => {
-        if (res.length) {
+        if (res && res.length > 0) {
           this.readNotifications(res);
           res.forEach(element => {
             ++this.page;

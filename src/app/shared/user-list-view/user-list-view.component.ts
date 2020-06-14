@@ -3,6 +3,8 @@ import { User } from '../../models/user.model';
 import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
 import { LoginService } from '../../auth/login.service';
 import { GlobalConstants } from 'shared/constants';
+import { InviteUsetService } from './invite-user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-list-view',
@@ -12,12 +14,18 @@ import { GlobalConstants } from 'shared/constants';
 export class UserListViewComponent implements OnInit {
   @Input() user: User;
   @Input() userListRibbon;
+  @Input() isInviteList: boolean = false;
+  @Input() otherUserId;
+  @Input() communityId;
   userPath: string = GlobalConstants.userPath;
   relation: any;
   screenWidth = window.innerWidth;
   mobileView = false;
+  isInvited: boolean = false;
 
-  constructor(public userProfileCardServiceComponent: UserProfileCardServiceComponent, public loginService: LoginService) { }
+  constructor(public userProfileCardServiceComponent: UserProfileCardServiceComponent, public loginService: LoginService,
+    private inviteUserService: InviteUsetService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.relation = this.user?.userMeta?.relationShipType;
@@ -47,5 +55,17 @@ export class UserListViewComponent implements OnInit {
     }, error => {
       // console.log(error.error.errorMessage);
     });
+  }
+
+  invite() {
+    if (this.isInviteList) {
+      this.inviteUserService.inviteUser(this.communityId, this.otherUserId).subscribe((res: any) => {
+
+      }, (err) => {
+
+      });
+      this.snackBar.open("Invitation has been sent!", 'close', { duration: 3000 });
+      this.isInvited = true;
+    }
   }
 }

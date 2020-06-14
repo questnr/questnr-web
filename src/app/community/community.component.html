@@ -126,7 +126,8 @@
 
 <mat-menu #menu="matMenu" xPosition="before">
   <div>
-    <button mat-menu-item *ngIf="!mobileView">Invite</button>
+    <button mat-menu-item *ngIf="!mobileView && (owner===owned || owner===followed)"
+      (click)="openUserGroupDialog()">Invite</button>
     <button mat-menu-item (click)="copyLinkOfPost()">
       Copy Link
     </button>

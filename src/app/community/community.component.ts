@@ -14,6 +14,8 @@ import { CommunityService } from './community.service';
 import { CommunityUsersComponent } from 'community-users/community-users.component';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
 import { CommonService } from 'common/common.service';
+import { UserListComponent } from 'shared/components/dialogs/user-list/user-list.component';
+import { RelationType } from 'shared/constants/relation-type';
 
 @Component({
   selector: 'app-community',
@@ -47,11 +49,15 @@ export class CommunityComponent implements OnInit {
   mobileView = false;
   screenWidth = window.innerWidth;
   scrollCached: boolean = null;
+  owned: string = RelationType.OWNED;
+  followed: string = RelationType.FOLLOWED;
+  none: string = RelationType.NONE;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
     private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
     private snackbar: MatSnackBar, private commonService: CommonService) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
+
   }
   public trackItem(index: number, feed: Post) {
     return feed.slug;
@@ -215,4 +221,44 @@ export class CommunityComponent implements OnInit {
     // console.log("Event", $event);
     this.communityUsersComponentRef.ngOnInit();
   }
+  openUserGroupDialog(): void {
+    let config = null;
+    if (this.mobileView) {
+      config = {
+        position: {
+          top: '0',
+          right: '0'
+        },
+        height: '100%',
+        borderRadius: '0px',
+        width: '100%',
+        maxWidth: '100vw',
+        marginTop: '0px',
+        marginRight: '0px !important',
+        panelClass: 'full-screen-modal',
+        data: {
+          userId: this.loggedInUserId,
+          communityId: this.communityId,
+          type: "inviteUserList"
+        }
+      };
+    } else {
+      config = {
+        width: '500px',
+        // data: userList,
+        maxHeight: "60vh",
+        data: {
+          userId: this.loggedInUserId,
+          communityId: this.communityId,
+          type: "inviteUserList"
+        }
+      };
+    }
+    const dialogRef = this.dialog.open(UserListComponent, config);
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+
 }

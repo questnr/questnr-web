@@ -6,6 +6,7 @@ import { UserFollowersService } from '../../../../user-followers/user-followers.
 import { UserProfileCardServiceComponent } from '../../../../user-profile-card/user-profile-card-service.component';
 import { UserListService } from './user-list.service';
 import { Page } from 'models/page.model';
+import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,12 +16,15 @@ import { Page } from 'models/page.model';
 })
 export class UserListComponent implements OnInit {
   @ViewChild("elementOnHTML") elementOnHTML: ElementRef;
-  loading = false;
+  loading: boolean = false;
+  isInviteList: boolean = false;
+  communityId;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public userProfileCardServiceComponent: UserProfileCardServiceComponent,
     // tslint:disable-next-line:max-line-length
     public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>, public followersService: UserFollowersService,
-    public communityMembersService: CommunityMembersService) {
+    public communityMembersService: CommunityMembersService,
+    private inviteUserService: InviteUsetService) {
   }
 
   userList: User[] = [];
@@ -85,6 +89,12 @@ export class UserListComponent implements OnInit {
       this.getUserLikedList(this.data.postId);
     } else if (this.data.type === "members") {
       this.getCommunityMembers(this.data.communitySlug);
+    } else if (this.data.type === "inviteUserList") {
+      // To show invite button
+      this.isInviteList = true;
+      console.log("this", this.data);
+      this.communityId = this.data.communityId;
+      this.getInviteUserList(this.communityId);
     }
   }
 
@@ -212,6 +222,26 @@ export class UserListComponent implements OnInit {
       }
       this.loading = false;
     }, error => {
+      this.loading = false;
+    });
+  }
+
+  getInviteUserList(communityId) {
+    if (!communityId) return;
+    this.inviteUserService.getInviteUserList(communityId, this.page).subscribe((res: any) => {
+      // console.log('getUserFollowers', res);
+      if (res.content.length) {
+        res.content.forEach(user => {
+          this.userList.push(user);
+          this.loading = false;
+        });
+      } else {
+        this.loading = false;
+        this.endOfResult = true;
+      }
+      // console.log('follower content', this.userList);
+    }, error => {
+      // console.log(error.error.errorMessage);
       this.loading = false;
     });
   }

@@ -13,7 +13,8 @@
 
         <div *ngFor="let i of userList">
           <div [id]="i?.userId" *ngIf=" !searchResult">
-            <app-user-list-view [user]="i"></app-user-list-view>
+            <app-user-list-view [isInviteList]="isInviteList" [otherUserId]="i?.userId" [communityId]="communityId"
+              [user]="i"></app-user-list-view>
           </div>
         </div>
 
