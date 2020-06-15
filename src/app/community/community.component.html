@@ -41,8 +41,8 @@
         <!--          <div class="col-md-9">-->
         <!--          </div>-->
         <!--        </div>-->
-        <app-community-users [communitySlug]="communityDTO?.slug" [userListType]="'ribbon'" *ngIf="mobileView"
-          #communityUsersComponentRef>
+        <app-community-users [communityId]="communityDTO?.communityId" [communitySlug]="communityDTO?.slug"
+          [userListType]="'ribbon'" *ngIf="mobileView" #communityUsersComponentRef>
         </app-community-users>
         <div *ngIf="mobileView && owner !== 'owned'" class="action-mobile-view">
           <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId"
@@ -112,7 +112,8 @@
 
       <div class="flex-3" *ngIf="!mobileView">
         <app-create-community-btn [type]="'card'"></app-create-community-btn>
-        <app-community-users [communitySlug]="communityDTO?.slug" [userListType]="'list'" #communityUsersComponentRef>
+        <app-community-users [communityId]="communityDTO?.communityId" [communitySlug]="communityDTO?.slug"
+          [userListType]="'list'" #communityUsersComponentRef>
         </app-community-users>
         <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>
         <app-suggestion></app-suggestion>
@@ -127,7 +128,7 @@
 <mat-menu #menu="matMenu" xPosition="before">
   <div>
     <button mat-menu-item *ngIf="!mobileView && (owner===owned || owner===followed)"
-      (click)="openUserGroupDialog()">Invite</button>
+      (click)="openUserGroupDialog('inviteUserList')">Invite</button>
     <button mat-menu-item (click)="copyLinkOfPost()">
       Copy Link
     </button>

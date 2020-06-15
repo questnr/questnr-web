@@ -22,14 +22,17 @@ export class CommunityUsersComponent implements OnInit {
   @Input() communitySlug: string;
   @Input() userListType;
   @Input() ownerUser: User;
+  @Input() communityId;
   communityMemberList: User[] = [];
   loader = false;
   mobileView = false;
   screenWidth = window.innerWidth;
   numberOfMembers: string;
+  loggedInUserId;
 
   constructor(public http: HttpClient, public userService: UserProfileCardServiceComponent, public loginService: LoginService, public route: ActivatedRoute,
-    public dialog: MatDialog, public communityMembersService: CommunityMembersService) {
+    public dialog: MatDialog, public communityMembersService: CommunityMembersService, private loginAuth: LoginService) {
+    this.loggedInUserId = loginAuth.getUserProfile().id;
   }
 
   ngOnInit(): void {
@@ -111,6 +114,46 @@ export class CommunityUsersComponent implements OnInit {
         maxHeight: '60vh',
         // data: userList
         data: { communitySlug: this.communitySlug, type }
+      };
+    }
+    const dialogRef = this.dialog.open(UserListComponent, config);
+
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+  openUserGroupDialogToInvite(): void {
+    let config = null;
+    let type = 'inviteUserList';
+    if (this.mobileView) {
+      config = {
+        position: {
+          top: '0',
+          right: '0'
+        },
+        height: '100%',
+        borderRadius: '0px',
+        width: '100%',
+        maxWidth: '100vw',
+        marginTop: '0px',
+        marginRight: '0px !important',
+        panelClass: 'full-screen-modal',
+        data: {
+          userId: this.loggedInUserId,
+          communityId: this.communityId,
+          type
+        }
+      };
+    } else {
+      config = {
+        width: '500px',
+        // data: userList,
+        maxHeight: "60vh",
+        data: {
+          userId: this.loggedInUserId,
+          communityId: this.communityId,
+          type
+        }
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);

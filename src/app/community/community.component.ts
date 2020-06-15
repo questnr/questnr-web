@@ -221,7 +221,7 @@ export class CommunityComponent implements OnInit {
     // console.log("Event", $event);
     this.communityUsersComponentRef.ngOnInit();
   }
-  openUserGroupDialog(): void {
+  openUserGroupDialog(type): void {
     let config = null;
     if (this.mobileView) {
       config = {
@@ -239,7 +239,7 @@ export class CommunityComponent implements OnInit {
         data: {
           userId: this.loggedInUserId,
           communityId: this.communityId,
-          type: "inviteUserList"
+          type
         }
       };
     } else {
@@ -250,7 +250,7 @@ export class CommunityComponent implements OnInit {
         data: {
           userId: this.loggedInUserId,
           communityId: this.communityId,
-          type: "inviteUserList"
+          type
         }
       };
     }
