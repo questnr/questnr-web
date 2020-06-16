@@ -1,0 +1,63 @@
+@import "../../variables";
+.post-report-container{
+    padding: 10px;
+    button{
+        border: 0;
+        border-radius: 5px;
+        padding: 5px 15px;
+        color: $white;
+        background-color: $primary;
+    }
+    button:hover{
+        background-color: $heading;
+    }
+    textarea{
+        padding: 0.5rem;
+        background: rgba(0, 0, 0, 0.03);
+        border: 0;
+        width: 100%;
+        border-radius: 5px;
+        &::placeholder {
+          margin: 1rem 0;
+          color: rgba(0, 0, 0, 0.5);
+        }
+        &:focus {
+          background: rgba(0, 0, 0, 0.05);
+        }
+    }
+}
+
+.form-radio{
+    cursor: pointer;
+    padding: 0.15rem;
+}
+
+.header{
+    padding-bottom: 0.6rem;
+}
+
+.hr{
+    border-bottom: 1px solid $grey;
+    margin-bottom: 0.6rem;
+}
+
+.label{
+    padding-left: 0.5rem;
+}
+
+.form-title{
+    padding-bottom: 0.3rem;
+    font-size: 0.9rem;
+}
+
+.subheader{
+    color: $black;
+    font-size: 0.7rem;
+}
+
+.footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

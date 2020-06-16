@@ -126,6 +126,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { RichTextAreaComponent } from './rich-text-area/rich-text-area.component';
 import { PostMenuOptionsComponent } from 'feeds-frame/post-menu-options/post-menu-options.component';
 import { SinglePostResolve } from 'single-post/single-post.resolve';
+import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -243,7 +244,8 @@ export function metaFactory(): MetaLoader {
     AdsenseComponent,
     FloatingSuggestionBoxComponent,
     RichTextAreaComponent,
-    PostMenuOptionsComponent
+    PostMenuOptionsComponent,
+    PostReportComponent
   ],
   imports: [
     MatVideoModule,

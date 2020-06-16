@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { LoginService } from 'auth/login.service';
+import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
 
 @Component({
   selector: 'app-post-menu-options',
@@ -16,6 +17,8 @@ export class PostMenuOptionsComponent implements OnInit {
   @Input() feed: Post;
   @Output() removePostEvent = new EventEmitter();
   loggedInUserId: any;
+  mobileView = false;
+  screenWidth = window.innerWidth;
   constructor(private api: FeedsService,
     private commonService: CommonService,
     private snackBar: MatSnackBar,
@@ -24,6 +27,14 @@ export class PostMenuOptionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedInUserId = this.login.getUserProfile().id;
+    const width = this.screenWidth;
+    if (width <= 800) {
+      this.mobileView = true;
+    } else if (width >= 1368) {
+      this.mobileView = false;
+    } else if (width >= 800 && width <= 1368) {
+      this.mobileView = false;
+    }
   }
 
   openShareDialog() {
@@ -53,4 +64,19 @@ export class PostMenuOptionsComponent implements OnInit {
     });
   }
 
+  openPostReportDialog() {
+    let config = null;
+    if (this.mobileView) {
+      config = {
+        width: '100%',
+        maxWidth: '100vw'
+      };
+    } else {
+      config = {
+        width: '40vw'
+      };
+    }
+    config.data = { postId: this.feed.postActionId }
+    this.dialog.open(PostReportComponent, config);
+  }
 }

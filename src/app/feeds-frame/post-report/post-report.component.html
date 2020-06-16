@@ -1,0 +1,24 @@
+<div class="post-report-container">
+    <h4 class="header hr">Report This Post</h4>
+    <div class="post-report-form">
+        <div class="form-title">Please tell us about the post</div>
+        <form [formGroup]="formGroup">
+            <div *ngFor="let option of reportOptions" (click)="selectOption(option)" class="form-radio">
+                <input type="radio" value="{{option}}" [formControl]="postReportCategory">
+                <span class="label">{{option}}
+                </span>
+            </div>
+            <mat-error *ngIf="postReportCategory.hasError('required')">Please select one of the options</mat-error>
+            <div>
+                <textarea matInput type="text" [formControl]="reportText"
+                    placeholder="Type here the reason..."></textarea>
+            </div>
+            <div class="hr"></div>
+            <div class="footer">
+                <div class="subheader">(We won't let any user know that
+                    you have reported this post)</div>
+                <div><button (click)="reportThisPost()">Report</button></div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -12,7 +12,7 @@
     </div>
     <ng-template #notComUser>
         <button mat-menu-item>Unfollow {{feed?.communityDTO?.communityName}}</button>
-        <button mat-menu-item>Report Post</button>
+        <button mat-menu-item (click)="openPostReportDialog()">Report Post</button>
         <button mat-menu-item (click)="copyLinkOfPost()">
             Copy Link
         </button>
