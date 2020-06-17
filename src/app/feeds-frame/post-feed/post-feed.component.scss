@@ -25,10 +25,10 @@
 }
 
 .media {
-  overflow: hidden;
+  overflow: scroll;
   .media-wrap {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-evenly;
     & > div {
       width: 180px;
@@ -72,8 +72,8 @@
   }
 }
 .post-wrap {
-  display: flex;
-  align-items: flex-start;
+  //display: flex;
+  //align-items: flex-start;
   padding: 0.5rem;
   .icon {
     height: 60px;
@@ -94,13 +94,15 @@
     flex: auto;
     textarea {
       padding: 0.5rem;
-      background: rgba(0, 0, 0, 0.03);
+      //background: rgba(0, 0, 0, 0.03);
       border: 0;
       width: 100%;
       border-radius: 5px;
+
       &::placeholder {
         margin: 1rem 0;
         color: rgba(0, 0, 0, 0.5);
+        font-size: 20px;
       }
       &:focus {
         background: rgba(0, 0, 0, 0.05);
@@ -117,12 +119,13 @@
     flex: 1 1 0;
   }
   button {
+    width: 100% !important;
     display: flex;
     align-items: center;
-    margin: 10px;
-    width: auto;
     height: auto;
     transition: background 0.2s ease-in-out;
+    justify-content: center;
+    margin: 16px 0;
     &:not(:disabled) {
       border: 1px solid $primary;
     }
@@ -189,8 +192,8 @@
   width: 25px;
   text-align: right;
   position: absolute !important;
-  right: 1%;
-  top: 66%;
+  right: 0%;
+  top: 0%;
 }
 
 .editor-mode{
@@ -201,4 +204,43 @@
 
 .editor-mode:hover{
   color: $primary;
+}
+.heading{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: $heading;
+  .close-modal{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px;
+  }
+}
+
+.add-more-option{
+  height: 50px;
+  display: inherit;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  box-shadow: 0 0px 5px -4px;
+  margin-top: 8px;
+  .row {
+    margin: auto;
+    align-items: center;
+    display: flex;
+    height: 100%
+  }
+  .options{
+    justify-content: flex-end;
+    display: flex;
+    button{
+      color: $primary;
+    }
+  }
 }

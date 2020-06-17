@@ -1,16 +1,18 @@
-import { Component, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { FormControl } from '@angular/forms';
-import { LoginService } from 'auth/login.service';
-import { FeedsService } from 'feeds-frame/feeds.service';
-import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { HashTagService } from 'feeds-frame/hash-tag-service';
-import { MetaCardComponent } from 'meta-card/meta-card.component';
-import { CommonService } from 'common/common.service';
-import { IFramelyData } from 'models/iframely.model';
-import { IFramelyService } from 'meta-card/iframely.service';
-import { emojis } from '@ctrl/ngx-emoji-mart/ngx-emoji';
-import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
+import {Component, Output, EventEmitter, Input, ViewChild, ElementRef, OnInit, Inject} from '@angular/core';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {FormControl} from '@angular/forms';
+import {LoginService} from 'auth/login.service';
+import {FeedsService} from 'feeds-frame/feeds.service';
+import {HttpEvent, HttpEventType} from '@angular/common/http';
+import {HashTagService} from 'feeds-frame/hash-tag-service';
+import {MetaCardComponent} from 'meta-card/meta-card.component';
+import {CommonService} from 'common/common.service';
+import {IFramelyData} from 'models/iframely.model';
+import {IFramelyService} from 'meta-card/iframely.service';
+import {emojis} from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import {FloatingSuggestionBoxComponent} from 'floating-suggestion-box/floating-suggestion-box.component';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-post-feed',
@@ -18,24 +20,26 @@ import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating
   styleUrls: ['./post-feed.component.scss'],
   animations: [
     trigger('expand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
 })
-export class PostFeedComponent {
+export class PostFeedComponent implements OnInit  {
   @ViewChild('userInputRef') userInputRef: ElementRef;
-  @ViewChild("floatingSuggestionBoxRef")
+
+  @ViewChild('floatingSuggestionBoxRef')
   set floatingSuggestionBoxRef(element: FloatingSuggestionBoxComponent) {
     setTimeout(() => {
       this.floatingSuggestionBoxElement = element;
       this.hashTagService.registerFloatingSuggestionBoxElement(this.floatingSuggestionBoxElement);
     }, 0);
   }
+
   floatingSuggestionBoxElement: FloatingSuggestionBoxComponent;
-  @Input() isCommunityPost = false;
-  @Input() communityId;
+  // @Input() isCommunityPost = false;
+  // @Input() communityId;
   // @ViewChild("metaCardCompRef") metaCardCompRef: MetaCardComponent;
   iFramelyData: IFramelyData;
   isLoading = false;
@@ -46,23 +50,38 @@ export class PostFeedComponent {
   profileImg;
   addedMedias = [];
   addedMediaSrc = [];
-  @Output() postData = new EventEmitter();
+  // @Output() postData = new EventEmitter();
   apiUrl: any;
   isMediaEnabled = false;
   textAreaInput: string;
   isHashOn = false;
-  isBlogEditor: boolean = false;
+  isBlogEditor = false;
   myckeditor: any;
+  @Input() editing: any;
 
   constructor(public login: LoginService,
-    private service: FeedsService,
-    private hashTagService: HashTagService,
-    private commonService: CommonService,
-    private iFramelyService: IFramelyService) {
+              private service: FeedsService,
+              private hashTagService: HashTagService,
+              private commonService: CommonService,
+              private iFramelyService: IFramelyService,
+              public dialogRef: MatDialogRef<PostFeedComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              public snackBar: MatSnackBar
+              ) {
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
+    // console.log(this.data);
+  }
+
+  ngAfterViewInit(key: string): void {
     this.hashTagService.registerInputElement(this.userInputRef.nativeElement);
+    if (this.data.feed) {
+      this.text.setValue(this.data.feed.text);
+      // this.editing = true;
+      const event = new KeyboardEvent('keyup', {bubbles: true});
+      this.userInputRef.nativeElement.dispatchEvent(event);
+    }
   }
 
   toggleAddMedia() {
@@ -81,6 +100,7 @@ export class PostFeedComponent {
       if (file.type.includes('image') || file.type.includes('video')) {
         this.addedMedias.push(file);
         this.loadPreview(file);
+        this.isMediaEnabled = true;
       }
     });
   }
@@ -89,7 +109,7 @@ export class PostFeedComponent {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      const obj = { type: file.type, src: reader.result };
+      const obj = {type: file.type, src: reader.result};
       this.addedMediaSrc.push(obj);
     };
   }
@@ -120,24 +140,34 @@ export class PostFeedComponent {
           formData.append('files', file);
         });
       }
-      if (this.isCommunityPost && this.communityId != null) {
-        this.apiUrl = 'user/community/' + this.communityId + '/posts';
+      if ( this.data.editing ) {
+        this.service.editPost( this.text.value, this.data.feed.postActionId).subscribe((res: any) => {
+          this.uploading = true;
+          this.closeDialog(res);
+          // console.log('close', res);
+          this.snackBar.open('Post Edited Successfully', 'close', { duration: 5000 });
+        });
       } else {
-        this.apiUrl = 'user/posts';
-      }
-      this.service.postFeed(formData, this.apiUrl).subscribe(
-        (event: HttpEvent<any>) => {
-          if (event.type === HttpEventType.UploadProgress) {
-            this.uploading = true;
-            this.uploadProgress = Math.round(event.loaded / event.total * 100);
-          } else if (event.type === HttpEventType.Response) {
-            this.postData.emit(event.body);
+        if (this.data.isCommunityPost && this.data.communityId != null) {
+          this.apiUrl = 'user/community/' + this.data.communityId + '/posts';
+        } else {
+          this.apiUrl = 'user/posts';
+        }
+        this.service.postFeed(formData, this.apiUrl).subscribe(
+          (event: HttpEvent<any>) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.uploading = true;
+              this.uploadProgress = Math.round(event.loaded / event.total * 100);
+            } else if (event.type === HttpEventType.Response) {
+              // this.postData.emit(event.body);
+              this.closeDialog(event.body);
+              this.reset();
+            }
+          }, err => {
             this.reset();
           }
-        }, err => {
-          this.reset();
-        }
-      );
+        );
+      }
     }
   }
 
@@ -160,7 +190,9 @@ export class PostFeedComponent {
     this.isBlogEditor = false;
     this.addedMediaSrc = this.addedMedias = [];
     this.richText = '';
-    if (this.myckeditor) this.myckeditor.value = "";
+    if (this.myckeditor) {
+      this.myckeditor.value = '';
+    }
   }
 
   typeCheckOnUserInput(e): string {
@@ -229,5 +261,8 @@ export class PostFeedComponent {
   registerEditor(myckeditor: any) {
     this.myckeditor = myckeditor;
     // console.log("mycdkEditor", myckeditor);
+  }
+  closeDialog(data) {
+    this.dialogRef.close({  data });
   }
 }

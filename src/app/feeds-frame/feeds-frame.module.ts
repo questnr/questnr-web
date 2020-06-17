@@ -15,15 +15,15 @@ import { UserHeaderComponent } from './user-header/user-header.component';
   declarations: [
     UserHeaderComponent,
     SidenavComponent,
-    PostFeedComponent,
+    // PostFeedComponent,
     FeedsLoaderComponent,
-    NotificationItemComponent,
-    SharedModule
+    NotificationItemComponent
   ],
   imports: [
     CommonModule,
     NgxSkeletonLoaderModule,
-    AppModule
+    AppModule,
+    SharedModule
   ],
   providers: [
     FeedsService

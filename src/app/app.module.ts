@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -126,6 +126,8 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { RichTextAreaComponent } from './rich-text-area/rich-text-area.component';
 import { PostMenuOptionsComponent } from 'feeds-frame/post-menu-options/post-menu-options.component';
 import { SinglePostResolve } from 'single-post/single-post.resolve';
+import {PostFeedsComponent} from './feeds-frame/feeds/post-feeds/post-feeds.component';
+import {PostFeedComponent} from './feeds-frame/post-feed/post-feed.component';
 import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
 
 const customConfig: ShareButtonsConfig = {
@@ -245,6 +247,7 @@ export function metaFactory(): MetaLoader {
     FloatingSuggestionBoxComponent,
     RichTextAreaComponent,
     PostMenuOptionsComponent,
+    PostFeedComponent,
     PostReportComponent
   ],
   imports: [
@@ -320,7 +323,8 @@ export function metaFactory(): MetaLoader {
     DescriptionComponent,
     UserListComponent,
     MetaCardComponent,
-    WelcomeSlidesComponent
+    WelcomeSlidesComponent,
+    PostFeedComponent
   ],
   providers: [
     AsyncPipe,
@@ -340,7 +344,15 @@ export function metaFactory(): MetaLoader {
     MessagingService,
     CommunityResolve,
     LandingPageResolve,
-    SinglePostResolve
+    SinglePostResolve,
+    {
+      provide: MatDialogRef,
+      useValue: []
+    },
+    {
+      provide: MAT_DIALOG_DATA,
+      useValue: []
+    }
   ],
   exports: [
     JoinedCommunityComponent,
