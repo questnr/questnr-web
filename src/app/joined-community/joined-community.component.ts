@@ -45,6 +45,7 @@ export class JoinedCommunityComponent implements OnInit {
     nav: false,
     autoplay: true
   };
+  isOwner: boolean = false;
 
   constructor(public api: ApiService, public loginService: LoginService, public dialog: MatDialog) {
   }
@@ -77,6 +78,9 @@ export class JoinedCommunityComponent implements OnInit {
         }
       );
     }, 2000);
+    if (this.loginService.getUserId() === this.userId) {
+      this.isOwner = true;
+    }
   }
   checkImageUrl(src) {
     if (src) {

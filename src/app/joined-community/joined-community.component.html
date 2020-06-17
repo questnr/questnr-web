@@ -24,8 +24,11 @@
     </div>
   </ng-container>
   <ng-container *ngIf="!joinedCommunity?.length && !loadingCommunities">
-    <p>
-      You have not created any communities yet.
+    <p *ngIf="isOwner">
+      You have not joined any communities yet.
+    </p>
+    <p *ngIf="!isOwner">
+      User has not joined any communities yet.
     </p>
   </ng-container>
 </div>
