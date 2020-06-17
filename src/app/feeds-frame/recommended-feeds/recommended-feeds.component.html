@@ -13,7 +13,7 @@
     </div>
 
     <div class="spacer"></div>
-    <app-post-menu-options [feed]="feed" (removePostEvent)="removePost($event)"></app-post-menu-options>
+    <app-post-menu-options [feed]="editableFeed" (removePostEvent)="removePost($event)"></app-post-menu-options>
   </div>
   <div class="head-wrap" *ngIf="!feed.communityDTO">
     <app-profile-icon [avatar]="feed.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
@@ -26,7 +26,7 @@
       <app-time-string [metaData]="feed.metaData"></app-time-string>
     </div>
     <div class="spacer"></div>
-    <app-post-menu-options [feed]="feed" (removePostEvent)="removePost($event)"></app-post-menu-options>
+    <app-post-menu-options [feed]="editableFeed" (removePostEvent)="removePost($event)" ></app-post-menu-options>
   </div>
   <div class="mb-2">
     <app-feed-text [text]="feed?.text" [hashTagsData]="hashTagsData"></app-feed-text>

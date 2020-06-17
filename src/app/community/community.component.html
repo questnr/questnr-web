@@ -77,9 +77,11 @@
           </div>
           <div class="flex-7">
             <div class="community-feeds">
-              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true
-                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'">
-              </app-post-feed>
+<!--              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true-->
+<!--                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'">-->
+<!--              </app-post-feed>-->
+              <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="true"
+                              [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'" [type]="'Create'" ></app-post-feeds>
               <!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
               <ng-container *ngIf="userFeeds?.length; else noFeeds">
                 <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index; trackBy: trackItem">

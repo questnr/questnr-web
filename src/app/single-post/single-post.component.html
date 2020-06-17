@@ -32,28 +32,35 @@
       <div class="col-lg-4 content-ctn" [ngClass]="{'none-media-post': type===1 && !mobileView}">
         <div class="post-head" id="post-head">
           <div class="head-wrap" *ngIf="singlePost.communityDTO">
-            <div class="profile-icon"><img [src]="singlePost.communityDTO?.avatarDTO?.avatarLink ?
-              singlePost.communityDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""></div>
+            <div class="profile-icon">
+              <app-profile-icon [avatar]="singlePost.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
+                                [routerLink]="['/', userSlug , singlePost.userDTO.slug]">
+              </app-profile-icon>
+            </div>
             <div class="profile-detail" *ngIf="singlePost.communityDTO">
               <div class="head"><a
-                  [href]="'/community/' + singlePost.communityDTO.slug">{{singlePost.communityDTO?.communityName}}
+                  [href]="'/community/' + singlePost.userDTO.slug">{{singlePost.userDTO?.username}}
                 </a></div>
-              <div class="subhead"> Posted in Community -
-                <span [matTooltip]="singlePost.metaData.updatedAtTimeInUTC | date">{{singlePost.metaData.timeString}}
-                  ago</span>
+              <div class="subhead"> Posted in <a
+                [href]="'/community/' + singlePost?.communityDTO.slug">{{singlePost?.communityDTO?.communityName}}</a>
               </div>
+              <app-time-string [metaData]="singlePost.metaData"></app-time-string>
             </div>
           </div>
           <div class="head-wrap" *ngIf="!singlePost.communityDTO">
-            <div class="profile-icon"><img [src]="singlePost.userDTO?.avatarDTO?.avatarLink ?
-              singlePost.userDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""></div>
+            <div class="profile-icon">
+              <app-profile-icon [avatar]="singlePost.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
+                                [routerLink]="['/', userSlug , singlePost.userDTO.slug]">
+              </app-profile-icon>
+            </div>
             <div class="profile-detail">
               <div class=" head"><a
                   [href]="'/user/' + singlePost.userDTO?.slug">{{singlePost.userDTO?.username | titlecase}}</a>
               </div>
-              <div class="subhead" [matTooltip]="singlePost.metaData.updatedAtTimeInUTC | date">
-                {{singlePost.metaData.timeString}} ago
-              </div>
+<!--              <div class="subhead" [matTooltip]="singlePost.metaData.updatedAtTimeInUTC | date">-->
+<!--                {{singlePost.metaData.timeString}} ago-->
+<!--              </div>-->
+              <app-time-string [metaData]="singlePost.metaData"></app-time-string>
             </div>
           </div>
 <!--          <div class="text" *ngIf="singlePost?.text && singlePost.text !== 'null'"-->

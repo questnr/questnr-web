@@ -3,7 +3,7 @@
 </button>
 <mat-menu #menu="matMenu" xPosition="before">
     <div *ngIf="feed?.userDTO?.userId === loggedInUserId ; else notComUser">
-        <button mat-menu-item>Edit Post</button>
+        <button mat-menu-item (click)="editPost('','',true, feed)">Edit Post</button>
         <button mat-menu-item (click)="removePost(feed?.postActionId)">Delete Post</button>
         <button mat-menu-item (click)="copyLinkOfPost()">
             Copy Link

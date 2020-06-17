@@ -26,6 +26,7 @@ enum postType {
 
 export class SinglePostComponent implements OnInit {
   iFramelyData: IFramelyData;
+  userSlug = GlobalConstants.userPath;
   loginURL = GlobalConstants.login;
   replyingTo: any;
   fullscreen = false;

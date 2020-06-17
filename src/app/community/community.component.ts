@@ -23,14 +23,16 @@ import { RelationType } from 'shared/constants/relation-type';
   styleUrls: ['./community.component.scss']
 })
 export class CommunityComponent implements OnInit {
-  @ViewChild("feedPartRef") feedPartRef: ElementRef;
+  @ViewChild('feedPartRef') feedPartRef: ElementRef;
   communityUsersComponentRef: CommunityUsersComponent;
+
   @ViewChild('communityUsersComponentRef') set content(content: CommunityUsersComponent) {
     if (content) { // initially setter gets called with undefined
       this.communityUsersComponentRef = content;
     }
   }
-  @ViewChild("imageCropperRef") imageCropperRef: ImgCropperWrapperComponent;
+
+  @ViewChild('imageCropperRef') imageCropperRef: ImgCropperWrapperComponent;
   isSidenavopen = false;
   communitySlug: string;
   communityDTO: Community;
@@ -54,11 +56,12 @@ export class CommunityComponent implements OnInit {
   none: string = RelationType.NONE;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
-    private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
-    private snackbar: MatSnackBar, private commonService: CommonService) {
+              private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
+              private snackbar: MatSnackBar, private commonService: CommonService) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
 
   }
+
   public trackItem(index: number, feed: Post) {
     return feed.slug;
   }
@@ -68,7 +71,13 @@ export class CommunityComponent implements OnInit {
     const dialogRef = this.dialog.open(DescriptionComponent, {
       width: '500px',
       // height: '300px',
-      data: { text: this.description, communityAvatar: this.communityImage, owner: this.owner, communityId: this.communityDTO.communityId, descriptionEmit: this.descriptionEmit }
+      data: {
+        text: this.description,
+        communityAvatar: this.communityImage,
+        owner: this.owner,
+        communityId: this.communityDTO.communityId,
+        descriptionEmit: this.descriptionEmit
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -79,7 +88,7 @@ export class CommunityComponent implements OnInit {
 
   descriptionEmit = (desc: string) => {
     this.description = desc;
-  }
+  };
 
   ngOnInit() {
     this.communitySlug = this.route.snapshot.paramMap.get('communitySlug');
@@ -92,9 +101,9 @@ export class CommunityComponent implements OnInit {
       this.userFeeds = [];
       this.fetchCommunityFeeds(this.communityDTO.communityId);
     });
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
-    }
+    };
   }
 
   ngAfterViewInit() {
@@ -131,7 +140,7 @@ export class CommunityComponent implements OnInit {
       }, 100);
     }
     this.scrollCached = event;
-  }
+  };
 
   postFeed(event) {
     if (event.postActionId) {
@@ -140,6 +149,7 @@ export class CommunityComponent implements OnInit {
       this.fetchCommunityFeeds(this.communityId);
     }
   }
+
   fetchCommunityFeeds(communityId) {
     this.communityId = communityId;
     this.auth.getCommunityFeeds(communityId, this.page).subscribe((res: Page<Post>) => {
@@ -204,7 +214,7 @@ export class CommunityComponent implements OnInit {
   // }
 
   copyLinkOfPost() {
-    let snackBarRef = this.snackbar.open("Copying Link..");
+    let snackBarRef = this.snackbar.open('Copying Link..');
     this.auth.getSharableLink(this.communityId).subscribe((res: any) => {
       this.commonService.copyToClipboard(res.clickAction);
       snackBarRef.dismiss();

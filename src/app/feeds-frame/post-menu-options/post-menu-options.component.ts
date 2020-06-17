@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { LoginService } from 'auth/login.service';
+import { PostFeedComponent } from '../post-feed/post-feed.component';
 import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
 
 @Component({
@@ -16,14 +17,16 @@ import { PostReportComponent } from 'feeds-frame/post-report/post-report.compone
 export class PostMenuOptionsComponent implements OnInit {
   @Input() feed: Post;
   @Output() removePostEvent = new EventEmitter();
+  @Output() postData = new EventEmitter();
   loggedInUserId: any;
   mobileView = false;
   screenWidth = window.innerWidth;
   constructor(private api: FeedsService,
-    private commonService: CommonService,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog,
-    private login: LoginService) { }
+              private commonService: CommonService,
+              private snackBar: MatSnackBar,
+              private dialog: MatDialog,
+              private login: LoginService) {
+  }
 
   ngOnInit(): void {
     this.loggedInUserId = this.login.getUserProfile().id;
@@ -41,7 +44,7 @@ export class PostMenuOptionsComponent implements OnInit {
     this.api.getSharableLink(this.feed.postActionId).subscribe((res: any) => {
       this.dialog.open(SharePostComponent, {
         width: '500px',
-        data: { url: res.clickAction }
+        data: {url: res.clickAction}
       });
     });
   }
@@ -49,7 +52,7 @@ export class PostMenuOptionsComponent implements OnInit {
   removePost(postId) {
     this.api.removePost(postId).subscribe((res: any) => {
       // console.log(res);
-      this.snackBar.open("Post has been deleted", 'close', { duration: 5000 });
+      this.snackBar.open('Post has been deleted', 'close', {duration: 5000});
       this.removePostEvent.emit(postId);
     }, error => {
       // console.log(error.error.errorMessage);
@@ -57,13 +60,29 @@ export class PostMenuOptionsComponent implements OnInit {
   }
 
   copyLinkOfPost() {
-    let snackBarRef = this.snackBar.open("Copying Link..");
+    const snackBarRef = this.snackBar.open('Copying Link..');
     this.api.getSharableLink(this.feed.postActionId).subscribe((res: any) => {
       this.commonService.copyToClipboard(res.clickAction);
       snackBarRef.dismiss();
     });
   }
 
+  editPost(communityId, isCommunityPost, editing, feed): void {
+    const dialogRef = this.dialog.open(PostFeedComponent, {
+      width: '500px',
+      // height: '600px',
+      // backdropClass: 'custom-dialog-backdrop-class',
+      // panelClass: 'custom-dialog-panel-class',
+      // disableClose:true
+      data: {communityId, isCommunityPost, editing, feed}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result?.data) {
+        this.postData.emit(result.data);
+      }
+    });
+  }
   openPostReportDialog() {
     let config = null;
     if (this.mobileView) {
@@ -76,7 +95,7 @@ export class PostMenuOptionsComponent implements OnInit {
         width: '40vw'
       };
     }
-    config.data = { postId: this.feed.postActionId }
+    config.data = { postId: this.feed.postActionId };
     this.dialog.open(PostReportComponent, config);
   }
 }

@@ -1,26 +1,12 @@
-<div style="margin-top:43px">
-  <mat-accordion>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Start a gossip..
-        </mat-panel-title>
-        <!--          <mat-panel-description>-->
-        <!--            Currently I am-->
-        <!--          </mat-panel-description>-->
-      </mat-expansion-panel-header>
-      <div>
-        <!-- <form class="example-form">
-          <mat-form-field class="example-full-width">
-            <textarea matInput rows="5" ></textarea>
-          </mat-form-field>
-                          <mat-icon>add_a_photo</mat-icon>
-                          <mat-icon>videocam</mat-icon>
-                          <mat-icon> insert_drive_file</mat-icon>
-          <button mat-raised-button color="primary" style="float: right">Click me!</button>
-        </form> -->
+<div class="box post-cnt">
+  <div>
+    <div class="flex-box">
+      <div class="user-profile">
+        <div class="icon" [routerLink]="['/user/',login.getUserProfile().slug]"><img [src]="login.profileImg"></div>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
-
+      <div class="write-post">
+        <button mat-stroked-button (click)="createPost(communityId, isCommunityPost, type)" style="width: 100%">Write a post...</button>
+      </div>
+    </div>
+  </div>
 </div>

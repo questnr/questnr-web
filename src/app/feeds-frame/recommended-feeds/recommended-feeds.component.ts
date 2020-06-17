@@ -19,6 +19,7 @@ import { GlobalConstants } from 'shared/constants';
 import { User } from 'models/user.model';
 import { Page } from 'models/page.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {PostFeedComponent} from '../post-feed/post-feed.component';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -42,7 +43,7 @@ export class RecommendedFeedsComponent implements OnInit {
   //     this.metaCardComponentRef = metaCardComponentRef;
   //   }
   // }
-  iFramelyData: IFramelyData
+  iFramelyData: IFramelyData;
   isCommenting = false;
   replyingTo: any;
   isLoading = false;
@@ -86,6 +87,7 @@ export class RecommendedFeedsComponent implements OnInit {
   hashTagsData: any = {};
   errorOnImageIndexList: number[] = [];
   userPath: string = GlobalConstants.userPath;
+  editableFeed: Post;
 
   constructor(private api: FeedsService,
     public login: LoginService,
@@ -96,6 +98,8 @@ export class RecommendedFeedsComponent implements OnInit {
     public snackbar: MatSnackBar) { }
 
   ngOnInit() {
+    this.editableFeed = Object.assign({}, this.feed);
+    console.log('BEFORE', this.editableFeed);
     this.loggedInUsername = this.login.getUserProfile().sub;
     this.loggedInUserId = this.login.getUserProfile().id;
     this.parseFeed();
@@ -284,7 +288,7 @@ export class RecommendedFeedsComponent implements OnInit {
 
   deleteComment($event) {
     this.feed.commentActionList = this.feed.commentActionList.filter((comment: CommentAction) =>
-      $event != comment.commentActionId
-    )
+      $event !== comment.commentActionId
+    );
   }
 }

@@ -1,12 +1,12 @@
-import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CommunityMembersService } from '../../../../community-users/community-members.service';
-import { User } from '../../../../models/user.model';
-import { UserFollowersService } from '../../../../user-followers/user-followers.service';
-import { UserProfileCardServiceComponent } from '../../../../user-profile-card/user-profile-card-service.component';
-import { UserListService } from './user-list.service';
-import { Page } from 'models/page.model';
-import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
+import {Component, Inject, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {CommunityMembersService} from '../../../../community-users/community-members.service';
+import {User} from '../../../../models/user.model';
+import {UserFollowersService} from '../../../../user-followers/user-followers.service';
+import {UserProfileCardServiceComponent} from '../../../../user-profile-card/user-profile-card-service.component';
+import {UserListService} from './user-list.service';
+import {Page} from 'models/page.model';
+import {InviteUsetService} from 'shared/user-list-view/invite-user.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,16 +15,16 @@ import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  @ViewChild("elementOnHTML") elementOnHTML: ElementRef;
+  @ViewChild('elementOnHTML') elementOnHTML: ElementRef;
   loading: boolean = false;
   isInviteList: boolean = false;
   communityId;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public userProfileCardServiceComponent: UserProfileCardServiceComponent,
-    // tslint:disable-next-line:max-line-length
-    public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>, public followersService: UserFollowersService,
-    public communityMembersService: CommunityMembersService,
-    private inviteUserService: InviteUsetService) {
+              // tslint:disable-next-line:max-line-length
+              public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>, public followersService: UserFollowersService,
+              public communityMembersService: CommunityMembersService,
+              private inviteUserService: InviteUsetService) {
   }
 
   userList: User[] = [];
@@ -40,6 +40,7 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
   ngAfterViewInit() {
     this.fetchData();
     window.addEventListener('scroll', this.scroll, true);
@@ -74,7 +75,7 @@ export class UserListComponent implements OnInit {
       }, 100);
     }
     this.scrollCached = event;
-  }
+  };
 
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);
@@ -87,12 +88,12 @@ export class UserListComponent implements OnInit {
       this.getUserFollowers(this.data.userId);
     } else if (this.data.type === 'like') {
       this.getUserLikedList(this.data.postId);
-    } else if (this.data.type === "members") {
+    } else if (this.data.type === 'members') {
       this.getCommunityMembers(this.data.communitySlug);
-    } else if (this.data.type === "inviteUserList") {
+    } else if (this.data.type === 'inviteUserList') {
       // To show invite button
       this.isInviteList = true;
-      console.log("this", this.data);
+      console.log('this', this.data);
       this.communityId = this.data.communityId;
       this.getInviteUserList(this.communityId);
     }
@@ -148,7 +149,9 @@ export class UserListComponent implements OnInit {
   }
 
   getUserFollowers(userId) {
-    if (!userId) return;
+    if (!userId) {
+      return;
+    }
     this.followersService.getUserFollowers(userId, this.page).subscribe((res: any) => {
       // console.log('getUserFollowers', res);
       if (res.content.length) {
@@ -168,7 +171,9 @@ export class UserListComponent implements OnInit {
   }
 
   getFollowingUser(userId) {
-    if (!userId) return;
+    if (!userId) {
+      return;
+    }
     this.followersService.getFollowedBy(userId, this.page).subscribe((res: any) => {
       // console.log('getFollowingUser', res);
       if (res.content.length) {
@@ -188,7 +193,9 @@ export class UserListComponent implements OnInit {
   }
 
   getUserLikedList(postId) {
-    if (!postId) return;
+    if (!postId) {
+      return;
+    }
     this.followersService.getUserLikedList(postId, this.page).subscribe((res: any) => {
       // console.log('liked content', res);
       if (res.content.length) {
@@ -209,7 +216,9 @@ export class UserListComponent implements OnInit {
 
 
   getCommunityMembers(communitySlug: string) {
-    if (!communitySlug) return;
+    if (!communitySlug) {
+      return;
+    }
     this.communityMembersService.getCommunityMembers(communitySlug, this.page).subscribe((data: any) => {
       if (data.content.length) {
         data.content.forEach(user => {
@@ -227,7 +236,9 @@ export class UserListComponent implements OnInit {
   }
 
   getInviteUserList(communityId) {
-    if (!communityId) return;
+    if (!communityId) {
+      return;
+    }
     this.inviteUserService.getInviteUserList(communityId, this.page).subscribe((res: any) => {
       // console.log('getUserFollowers', res);
       if (res.content.length) {
