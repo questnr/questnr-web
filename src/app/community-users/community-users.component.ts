@@ -11,6 +11,7 @@ import { Community, CommunityProfileMeta } from '../models/community.model';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
+import { RelationType } from 'shared/constants/relation-type';
 
 @Component({
   selector: 'app-community-users',
@@ -23,12 +24,16 @@ export class CommunityUsersComponent implements OnInit {
   @Input() userListType;
   @Input() ownerUser: User;
   @Input() communityId;
+  @Input() relationshipType: string;
   communityMemberList: User[] = [];
   loader = false;
   mobileView = false;
   screenWidth = window.innerWidth;
   numberOfMembers: string;
   loggedInUserId;
+  owned: string = RelationType.OWNED;
+  followed: string = RelationType.FOLLOWED;
+  none: string = RelationType.NONE;
 
   constructor(public http: HttpClient, public userService: UserProfileCardServiceComponent, public loginService: LoginService, public route: ActivatedRoute,
     public dialog: MatDialog, public communityMembersService: CommunityMembersService, private loginAuth: LoginService) {

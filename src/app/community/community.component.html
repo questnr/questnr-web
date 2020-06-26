@@ -41,7 +41,8 @@
         <!--          <div class="col-md-9">-->
         <!--          </div>-->
         <!--        </div>-->
-        <app-community-users [communityId]="communityDTO?.communityId" [communitySlug]="communityDTO?.slug"
+        <app-community-users [communityId]="communityDTO?.communityId"
+          [relationshipType]="communityDTO.communityMeta.relationShipType" [communitySlug]="communityDTO?.slug"
           [userListType]="'ribbon'" *ngIf="mobileView" #communityUsersComponentRef>
         </app-community-users>
         <div *ngIf="mobileView && owner !== 'owned'" class="action-mobile-view">
@@ -77,11 +78,12 @@
           </div>
           <div class="flex-7">
             <div class="community-feeds">
-<!--              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true-->
-<!--                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'">-->
-<!--              </app-post-feed>-->
+              <!--              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true-->
+              <!--                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'">-->
+              <!--              </app-post-feed>-->
               <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="true"
-                              [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'" [type]="'Create'" ></app-post-feeds>
+                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"
+                [type]="'Create'"></app-post-feeds>
               <!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
               <ng-container *ngIf="userFeeds?.length; else noFeeds">
                 <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index; trackBy: trackItem">
@@ -114,7 +116,8 @@
 
       <div class="flex-3" *ngIf="!mobileView">
         <app-create-community-btn [type]="'card'"></app-create-community-btn>
-        <app-community-users [communityId]="communityDTO?.communityId" [communitySlug]="communityDTO?.slug"
+        <app-community-users [communityId]="communityDTO?.communityId"
+          [relationshipType]="communityDTO.communityMeta.relationShipType" [communitySlug]="communityDTO?.slug"
           [userListType]="'list'" #communityUsersComponentRef>
         </app-community-users>
         <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>
@@ -129,7 +132,7 @@
 
 <mat-menu #menu="matMenu" xPosition="before">
   <div>
-    <button mat-menu-item *ngIf="!mobileView && (owner===owned || owner===followed)"
+    <button mat-menu-item *ngIf="!mobileView && (owner===owned)"
       (click)="openUserGroupDialog('inviteUserList')">Invite</button>
     <button mat-menu-item (click)="copyLinkOfPost()">
       Copy Link
