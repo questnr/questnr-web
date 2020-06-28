@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
-import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -118,7 +118,6 @@ import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrap
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { FloatingCommunitiesBarComponent } from './floating-communities-bar/floating-communities-bar.component';
 import { LoaderComponent } from 'shared/loader/loader.component';
-import { AdsenseModule } from 'ng2-adsense';
 import { AdsenseComponent } from 'shared/adsense/adsense.component';
 import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
@@ -126,8 +125,8 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { RichTextAreaComponent } from './rich-text-area/rich-text-area.component';
 import { PostMenuOptionsComponent } from 'feeds-frame/post-menu-options/post-menu-options.component';
 import { SinglePostResolve } from 'single-post/single-post.resolve';
-import {PostFeedsComponent} from './feeds-frame/feeds/post-feeds/post-feeds.component';
-import {PostFeedComponent} from './feeds-frame/post-feed/post-feed.component';
+import { PostFeedsComponent } from './feeds-frame/feeds/post-feeds/post-feeds.component';
+import { PostFeedComponent } from './feeds-frame/post-feed/post-feed.component';
 import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
 
 const customConfig: ShareButtonsConfig = {
@@ -311,9 +310,6 @@ export function metaFactory(): MetaLoader {
     SharedModule,
     PickerModule,
     ImageCropperModule,
-    AdsenseModule.forRoot({
-      adClient: 'ca-pub-9349182666561379'
-    }),
     MDBBootstrapModule.forRoot(),
     FormsModule,
     CKEditorModule

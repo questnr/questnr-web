@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GoogleAdsenseConstants } from 'shared/constants/google-adsense-constants';
+import { AdsenseConstants } from 'shared/constants/adsense-constants';
+declare var window: any;
 
 @Component({
   selector: 'app-adsense',
@@ -9,9 +10,16 @@ import { GoogleAdsenseConstants } from 'shared/constants/google-adsense-constant
 export class AdsenseComponent implements OnInit {
   @Input() height: number;
   @Input() width: number;
-  adClient: string = GoogleAdsenseConstants.adClient;
+  adClient: string = AdsenseConstants.adClient;
 
-  constructor() { }
+  constructor() {
+    try {
+      window._mNHandle.queue.push(function () {
+        window._mNDetails.loadTag("822897141", "300x250", "822897141");
+      });
+    }
+    catch (error) { }
+  }
 
   ngOnInit(): void {
   }
