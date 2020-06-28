@@ -173,8 +173,8 @@ export class UserHeaderComponent {
   logOut() {
     localStorage.clear();
     this.authService.signOut();
-    this.router.navigateByUrl('/');
     this.messagingService.deleteToken();
+    this.router.navigate(['/']);
   }
 
   /**
