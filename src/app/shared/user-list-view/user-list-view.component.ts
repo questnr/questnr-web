@@ -60,11 +60,12 @@ export class UserListViewComponent implements OnInit {
   invite() {
     if (this.isInviteList) {
       this.inviteUserService.inviteUser(this.communityId, this.otherUserId).subscribe((res: any) => {
-
+        this.snackBar.open("Invitation has been sent!", 'close', { duration: 3000 });
       }, (err) => {
-
+        if (err?.error?.errorMessage) {
+          this.snackBar.open(err.error.errorMessage, 'close', { duration: 3000 });
+        }
       });
-      this.snackBar.open("Invitation has been sent!", 'close', { duration: 3000 });
       this.isInvited = true;
     }
   }
