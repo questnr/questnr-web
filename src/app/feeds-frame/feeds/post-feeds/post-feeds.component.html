@@ -5,7 +5,24 @@
         <div class="icon" [routerLink]="['/user/',login.getUserProfile().slug]"><img [src]="login.profileImg"></div>
       </div>
       <div class="write-post">
-        <button mat-stroked-button (click)="createPost(communityId, isCommunityPost, type)" style="width: 100%">Write a post...</button>
+        <button mat-stroked-button (click)="createPost(communityId, isCommunityPost, type, '')" style="width: 100%">Write a
+          post...
+        </button>
+      </div>
+    </div>
+    <hr>
+    <div class="row more-post-options">
+      <div class="col-6" style="border-right: 1px solid rgba(0,0,0,.1)">
+        <app-ask-question-btn [type]="'button'" [isCommunityQuestion]="isCommunityPost" [communityId]="communityId" (questionData)="emitQuestionData($event)"
+                              class="ask-questionBtn"></app-ask-question-btn>
+      </div>
+      <div class="col-6">
+        <button mat-button class="add-mediaBtn" (click)="createPost(communityId, isCommunityPost, type, 'addMediaAction')">
+          <mat-icon>photo</mat-icon>
+          <span>
+            Add Photos/Videos
+        </span>
+        </button>
       </div>
     </div>
   </div>

@@ -1,0 +1,97 @@
+@import "./src/app/variables";
+
+#questionText {
+  mat-form-field {
+    width: 100% !important;
+  }
+}
+
+#answerOptions .col-md-6 {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+::ng-deep .mat-step-header {
+  background-color: #ffffff !important;
+
+  .mat-step-icon-selected {
+    background-color: $accent;
+  }
+
+  .mat-step-icon-state-done {
+    background-color: $primary;
+  }
+
+  .mat-step-icon-state-check , .mat-step-icon-state-question_answer{
+    background-color: $grey;
+  }
+}
+
+.actions {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.success {
+  display: block;
+
+  div {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  p {
+    margin-top: 10px;
+  }
+}
+
+
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-o-keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.loader {
+  -webkit-animation: blink 1s;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation: blink 1s;
+  -moz-animation-iteration-count: infinite;
+  -o-animation: blink 1s;
+  -o-animation-iteration-count: infinite;
+}
+

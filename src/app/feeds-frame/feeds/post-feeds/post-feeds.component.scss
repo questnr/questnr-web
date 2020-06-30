@@ -46,3 +46,27 @@
   background: $white;
   border-radius: 10px;
 }
+
+.more-post-options{
+  text-align: center;
+  color: grey;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  .col-6{
+    display: flex;
+    justify-content: center;
+  }
+  .ask-questionBtn , .add-mediaBtn{
+    display: flex;
+    justify-content: center;
+    mat-icon{
+      margin-right: 4px;
+      color: $primary
+    }
+  }
+}
+@media screen and (max-width: $tablet) {
+  .more-post-options button{
+    font-size: 12px;
+  }
+}

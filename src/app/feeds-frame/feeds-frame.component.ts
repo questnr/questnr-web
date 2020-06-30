@@ -8,6 +8,7 @@ import { CreateCommunityComponent } from 'shared/components/dialogs/create.commu
 import { MatDialog } from '@angular/material/dialog';
 import { GlobalConstants } from '../shared/constants';
 import { Post } from 'models/post-action.model';
+import {AskQuestionComponent} from '../shared/components/dialogs/ask-question/ask-question.component';
 
 @Component({
   selector: 'app-feeds-frame',
@@ -194,7 +195,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
 
   removePostNotify($event) {
     this.userFeeds = this.userFeeds.filter((post: Post) => {
-      return post.postActionId !== $event
+      return post.postActionId !== $event;
     }
     );
   }

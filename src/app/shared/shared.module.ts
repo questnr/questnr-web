@@ -12,6 +12,9 @@ import { CompanyRightsFooterComponent } from './company-rights-footer/company-ri
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CommunityBannerComponent } from './community-banner/community-banner.component';
 import { AdsenseComponent } from './adsense/adsense.component';
+import { AskQuestionComponent } from './components/dialogs/ask-question/ask-question.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -19,17 +22,20 @@ import { AdsenseComponent } from './adsense/adsense.component';
     ProfileIconComponent,
     SocialMediaLinksComponent,
     CompanyRightsFooterComponent,
-    CommunityBannerComponent
+    CommunityBannerComponent,
+    AskQuestionComponent
   ],
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDatepickerModule
-  ],
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDatepickerModule,
+        MatStepperModule,
+        MatProgressSpinnerModule
+    ],
   entryComponents: [
   ],
   exports: [
