@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter, Input, ViewChild, ElementRef, OnInit, Inject} from '@angular/core';
+import {Component, Output, EventEmitter, Input, ViewChild, ElementRef, OnInit, Inject, Renderer2} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {FormControl} from '@angular/forms';
 import {LoginService} from 'auth/login.service';
@@ -28,6 +28,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class PostFeedComponent implements OnInit  {
   @ViewChild('userInputRef') userInputRef: ElementRef;
+  @ViewChild('fileInput') fileInput: ElementRef;
 
   @ViewChild('floatingSuggestionBoxRef')
   set floatingSuggestionBoxRef(element: FloatingSuggestionBoxComponent) {
@@ -66,7 +67,8 @@ export class PostFeedComponent implements OnInit  {
               private iFramelyService: IFramelyService,
               public dialogRef: MatDialogRef<PostFeedComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              public snackBar: MatSnackBar
+              public snackBar: MatSnackBar,
+              public renderer: Renderer2
               ) {
   }
 
@@ -81,6 +83,10 @@ export class PostFeedComponent implements OnInit  {
       // this.editing = true;
       const event = new KeyboardEvent('keyup', {bubbles: true});
       this.userInputRef.nativeElement.dispatchEvent(event);
+    }
+    if (this.data.addMediaAction) {
+      const el = this.fileInput.nativeElement;
+      el.click();
     }
   }
 

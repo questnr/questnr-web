@@ -99,7 +99,6 @@ export class RecommendedFeedsComponent implements OnInit {
 
   ngOnInit() {
     this.editableFeed = Object.assign({}, this.feed);
-    console.log('BEFORE', this.editableFeed);
     this.loggedInUsername = this.login.getUserProfile().sub;
     this.loggedInUserId = this.login.getUserProfile().id;
     this.parseFeed();
