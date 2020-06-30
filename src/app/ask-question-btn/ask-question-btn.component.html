@@ -1,0 +1,12 @@
+<div *ngIf="type =='icon'">
+  <button mat-icon-button (click)="askQuestion()">
+    <mat-icon>help_outline</mat-icon>
+  </button>
+</div>
+
+<div *ngIf="type =='button'">
+  <button mat-button (click)="askQuestion()">
+    <mat-icon>contact_support</mat-icon>
+    Ask a Question
+  </button>
+</div>

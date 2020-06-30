@@ -17,14 +17,14 @@ export class PostFeedsComponent implements OnInit {
 
   ngOnInit() {
   }
-  createPost(communityId, isCommunityPost, type): void {
+  createPost(communityId, isCommunityPost, type, addMediaAction): void {
     const dialogRef = this.dialog.open(PostFeedComponent, {
       width: '500px',
       // height: '600px',
       // backdropClass: 'custom-dialog-backdrop-class',
       // panelClass: 'custom-dialog-panel-class',
       // disableClose:true
-      data: {communityId, isCommunityPost, type }
+      data: {communityId, isCommunityPost, type, addMediaAction }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -32,5 +32,9 @@ export class PostFeedsComponent implements OnInit {
         this.postData.emit(result.data);
       }
     });
+  }
+  emitQuestionData(event) {
+    console.log('event', event);
+    this.postData.emit(event.data);
   }
 }
