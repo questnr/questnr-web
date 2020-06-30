@@ -45,9 +45,9 @@
           [relationshipType]="communityDTO.communityMeta.relationShipType" [communitySlug]="communityDTO?.slug"
           [userListType]="'ribbon'" *ngIf="mobileView" #communityUsersComponentRef>
         </app-community-users>
-        <div *ngIf="mobileView && owner !== 'owned'" class="action-mobile-view">
-          <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId"
-            (actionEvent)="actionEvent($event)">
+        <div *ngIf="mobileView" class="action-mobile-view">
+          <app-community-relation-action-button *ngIf="owner !== 'owned'" [relation]="owner"
+            [communityId]="communityDTO.communityId" (actionEvent)="actionEvent($event)">
           </app-community-relation-action-button>
           <div>
             <button mat-stroked-button [matMenuTriggerFor]="menu">
@@ -137,8 +137,10 @@
 
 <mat-menu #menu="matMenu" xPosition="before">
   <div>
-    <button mat-menu-item *ngIf="!mobileView && (owner===owned)"
-      (click)="openUserGroupDialog('inviteUserList')">Invite</button>
+    <button mat-menu-item *ngIf="(owner===owned)" (click)="openUserGroupDialog('inviteUserList')">Invite</button>
+    <button mat-menu-item (click)="openShareDialog()">
+      Share on other platforms
+    </button>
     <button mat-menu-item (click)="copyLinkOfPost()">
       Copy Link
     </button>

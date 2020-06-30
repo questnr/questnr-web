@@ -32,9 +32,9 @@
 
 <div class="user_list_ribbon" *ngIf="userListType ==='ribbon'">
   <div class="flex">
-    <div class="invite" *ngIf="relationshipType===owned" (click)="openUserGroupDialogToInvite()">
+    <!-- <div class="invite" *ngIf="relationshipType===owned" (click)="openUserGroupDialogToInvite()">
       <img src="/assets/add.png" alt="" style="width: 70px">
-    </div>
+    </div> -->
     <div class="col-sm-10">
       <ul class="ribbon">
         <li class="ribbon_list" *ngFor="let i of communityMemberList let idx = index">

@@ -16,6 +16,7 @@ import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrap
 import { CommonService } from 'common/common.service';
 import { UserListComponent } from 'shared/components/dialogs/user-list/user-list.component';
 import { RelationType } from 'shared/constants/relation-type';
+import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 
 @Component({
   selector: 'app-community',
@@ -56,8 +57,8 @@ export class CommunityComponent implements OnInit {
   none: string = RelationType.NONE;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
-              private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
-              private snackbar: MatSnackBar, private commonService: CommonService) {
+    private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
+    private snackbar: MatSnackBar, private commonService: CommonService) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
 
   }
@@ -101,7 +102,7 @@ export class CommunityComponent implements OnInit {
       this.userFeeds = [];
       this.fetchCommunityFeeds(this.communityDTO.communityId);
     });
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
   }
@@ -271,4 +272,12 @@ export class CommunityComponent implements OnInit {
     });
   }
 
+  openShareDialog() {
+    this.auth.getSharableLink(this.communityId).subscribe((res: any) => {
+      this.dialog.open(SharePostComponent, {
+        width: '500px',
+        data: { url: res.clickAction }
+      });
+    });
+  }
 }
