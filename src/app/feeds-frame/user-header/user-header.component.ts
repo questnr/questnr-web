@@ -36,13 +36,16 @@ export class UserHeaderComponent {
   notifications: NotificationDTO[] = [];
   page = 0;
   hasNewNotifications: boolean = false;
+  hasNewNotificationAnswers: boolean = false;
   notificationColor: string = 'black';
+  notificationAnswerColor: string = 'black';
   filterSearchOptionList: string[] = ["users", 'communities', 'hashtags'];
   selectedSearchOption: number = 0;
   feedPath: string = GlobalConstants.feedPath;
   termsPath: string = GlobalConstants.termsPath;
   policyPath: string = GlobalConstants.policyPath;
   unReadNotificationCount: number = 0;
+  unReadNotificationAnswerCount: number = 0;
   isNotificationLoading: boolean = true;
 
   constructor(private router: Router, public auth: LoginService,
@@ -80,6 +83,9 @@ export class UserHeaderComponent {
     }
     this.api.getUnreadNotificationCount().subscribe((count: number) => {
       this.unReadNotificationCount = count;
+    })
+    this.api.getUnreadNotificationAnswerCount().subscribe((count: number) => {
+      this.unReadNotificationAnswerCount = count;
     })
   }
 
@@ -170,6 +176,21 @@ export class UserHeaderComponent {
       }
     );
   }
+  getNotificationAnswer() {
+    this.api.getNotificationAnswers(this.page + 1).subscribe(
+      (res: any) => {
+        if (res && res.length > 0) {
+          this.readNotifications(res);
+          res.forEach(element => {
+            ++this.page;
+            this.notifications.push(element);
+          });
+        } else {
+          this.endOfNotifications = true;
+        }
+      }
+    );
+  }
   logOut() {
     localStorage.clear();
     this.authService.signOut();
@@ -193,6 +214,13 @@ export class UserHeaderComponent {
             setTimeout(() => {
               this.hasNewNotifications = false;
             }, 5000);
+          } else if (data.type == "answer") {
+            this.notificationAnswerColor = "red";
+            this.hasNewNotificationAnswers = true;
+            this.unReadNotificationAnswerCount += 1;
+            setTimeout(() => {
+              this.hasNewNotificationAnswers = false;
+            }, 5000);
           }
         }
         // window.open(message.fcmOptions.link, "_blank");
@@ -206,6 +234,19 @@ export class UserHeaderComponent {
     this.unReadNotificationCount = 0;
     this.isNotificationLoading = true;
     this.api.getNotifications().subscribe(
+      (res: NotificationDTO[]) => {
+        this.notifications = res;
+        this.readNotifications(res);
+        this.isNotificationLoading = false;
+      }
+    );
+  }
+
+  readNewNotificationAnswer() {
+    this.notificationAnswerColor = "black";
+    this.unReadNotificationAnswerCount = 0;
+    this.isNotificationLoading = true;
+    this.api.getNotificationAnswers().subscribe(
       (res: NotificationDTO[]) => {
         this.notifications = res;
         this.readNotifications(res);

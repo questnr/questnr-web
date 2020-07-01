@@ -6,6 +6,7 @@
     <img *ngIf="notification.notificationType === 'comment'" src="assets/comment.svg">
     <img *ngIf="notification.notificationType === 'followedUser'
         || notification.notificationType === 'followedCommunity'" src="assets/follow.svg">
+    <img *ngIf="notification.notificationType === 'pollAnswer'" src="assets/question-mark.png">
   </div>
   <!-- <div class="type" *ngIf="notification.postMedia.postMediaLink">
     <img *ngIf="notification.notificationType === 'post'" [src]="notification.postMedia.postMediaLink">

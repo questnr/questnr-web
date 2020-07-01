@@ -250,6 +250,8 @@
 .no-notification{
   color: $secondary-font-color;
   margin: 10px;
+  display: flex;
+  justify-content: center;
 }
 .notification-loader{
   @extend .no-notification;
@@ -263,4 +265,14 @@
   padding: 0 12px !important;
   line-height:10px;
   height:38px;
+}
+
+.notification-answer-icon{
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  img {
+    width: 2rem;
+    height: 2rem;
+  }
 }

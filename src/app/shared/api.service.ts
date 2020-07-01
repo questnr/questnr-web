@@ -47,6 +47,9 @@ export class ApiService {
   getNotifications(page: any = 0) {
     return this.http.get<NotificationDTO[]>(this.baseUrl + 'user/notification', { params: { page } });
   }
+  getNotificationAnswers(page: any = 0) {
+    return this.http.get<NotificationDTO[]>(this.baseUrl + 'user/notification/answer', { params: { page } });
+  }
   removeNotification(id) {
     if (!id) return of();
     return this.http.delete(this.baseUrl + 'user/notification/' + id, { observe: 'response' });
@@ -59,6 +62,9 @@ export class ApiService {
   }
   getUnreadNotificationCount() {
     return this.http.get<number>(this.baseUrl + `user/unread-notification`);
+  }
+  getUnreadNotificationAnswerCount() {
+    return this.http.get<number>(this.baseUrl + `user/unread-notification/answer`);
   }
   // deletePushNotificationToken(token: string) {
   //   const httpOptions = {
