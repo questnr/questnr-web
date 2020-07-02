@@ -390,3 +390,24 @@ button.liked {
 .subComments{
   margin-left: 40px;
 }
+
+.question-ctn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: absolute;
+  background: $black;
+  padding: 0;
+  right: 0;
+  width: 100%;
+  left: 0;
+  max-width: none;
+}
+
+@media screen  and (max-width: $tablet) {
+  .question-ctn{
+    margin-top: 54px;
+    display: block;
+  }
+}
