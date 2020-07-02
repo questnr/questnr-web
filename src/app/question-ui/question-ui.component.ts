@@ -1,7 +1,7 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild} from '@angular/core';
-import {Post} from '../models/post-action.model';
-import {AskQuestionService} from '../shared/components/dialogs/ask-question/ask-question.service';
-import {GlobalConstants} from '../shared/constants';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { Post } from '../models/post-action.model';
+import { AskQuestionService } from '../shared/components/dialogs/ask-question/ask-question.service';
+import { GlobalConstants } from '../shared/constants';
 
 @Component({
   selector: 'app-question-ui',
@@ -23,11 +23,13 @@ export class QuestionUIComponent implements OnInit {
   agreePercentage: string;
   disagreePercentage: string;
   isResponded = false;
+  totalAnswered: number = 0;
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
+    this.totalAnswered = this.question.pollQuestionMeta.totalAnswered;
     if (this.question.pollQuestionMeta.pollAnswer) {
       this.isResponded = true;
       this.progressIndicator(this.question.pollQuestion);
@@ -38,6 +40,7 @@ export class QuestionUIComponent implements OnInit {
     if (postId != null && !this.question.pollQuestionMeta.pollAnswer) {
       this.askQuestionService.respondToQuestion(postId, pollAnswer).subscribe((res: any) => {
         // console.log(res);
+        this.totalAnswered++;
         this.progressIndicator(res);
       });
     }

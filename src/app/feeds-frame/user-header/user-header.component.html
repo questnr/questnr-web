@@ -54,20 +54,6 @@
     <div class="spacer"></div>
 
     <button mat-button class="d-none d-sm-block d-md-block d-lg-block h-100" [matMenuTriggerFor]="notificationsMenu"
-      [style.color]="notificationColor" (click)="readNewNotification()">
-      <mat-icon *ngIf="!hasNewNotifications && unReadNotificationCount <= 0">notifications
-      </mat-icon>
-
-      <mat-icon *ngIf="!hasNewNotifications && unReadNotificationCount > 0" matBadge="{{unReadNotificationCount}}"
-        matBadgeColor="warn">
-        notifications
-      </mat-icon>
-
-      <mat-icon matBadge="{{unReadNotificationCount}}" matBadgeColor="warn" *ngIf="hasNewNotifications">
-        notifications_active</mat-icon>
-    </button>
-
-    <button mat-button class="d-none d-sm-block d-md-block d-lg-block h-100" [matMenuTriggerFor]="notificationsMenu"
       [style.color]="notificationAnswerColor" (click)="readNewNotificationAnswer()">
 
       <mat-icon *ngIf="!hasNewNotificationAnswers && unReadNotificationAnswerCount <= 0">
@@ -82,6 +68,33 @@
       <mat-icon matBadge="{{unReadNotificationAnswerCount}}" matBadgeColor="warn" *ngIf="hasNewNotifications">
         question_answer
       </mat-icon>
+      <!-- <div class="notification-answer-icon" *ngIf="!hasNewNotificationAnswers && unReadNotificationAnswerCount <= 0">
+      <img src="/assets/question-mark-ios.png" />
+    </div>
+
+    <div class="notification-answer-icon" *ngIf="!hasNewNotificationAnswers && unReadNotificationAnswerCount > 0"
+      matBadge="{{unReadNotificationAnswerCount}}" matBadgeColor="warn">
+      <img src="/assets/question-mark-ios.png" />
+    </div>
+
+    <div class="notification-answer-icon" matBadge="{{unReadNotificationAnswerCount}}" matBadgeColor="warn"
+      *ngIf="hasNewNotifications">
+      <img src="/assets/question-mark-ios.png" />
+    </div> -->
+    </button>
+
+    <button mat-button class="d-none d-sm-block d-md-block d-lg-block h-100" [matMenuTriggerFor]="notificationsMenu"
+      [style.color]="notificationColor" (click)="readNewNotification()">
+      <mat-icon *ngIf="!hasNewNotifications && unReadNotificationCount <= 0">notifications
+      </mat-icon>
+
+      <mat-icon *ngIf="!hasNewNotifications && unReadNotificationCount > 0" matBadge="{{unReadNotificationCount}}"
+        matBadgeColor="warn">
+        notifications
+      </mat-icon>
+
+      <mat-icon matBadge="{{unReadNotificationCount}}" matBadgeColor="warn" *ngIf="hasNewNotifications">
+        notifications_active</mat-icon>
     </button>
 
     <!-- notifications_active, notifications_none -->
