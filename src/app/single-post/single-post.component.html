@@ -2,7 +2,7 @@
   <app-user-header *ngIf="mobileView || type ===1 && loginService.loggedIn()"></app-user-header>
 
 
-<div>
+<div *ngIf="singlePost.postType==='simple'">
   <div class="container-header" [ngClass]="{'text-post': type===1}">
     <div class="row" style="background: #ffffff">
       <div class="col-lg-8 " style="padding: 0" *ngIf="type===0 || type === 2">
@@ -142,6 +142,16 @@
             comments</button>
 
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="singlePost.postType==='question'" style="position: relative; height: 100%">
+  <div class="container question-ctn">
+    <div class="row">
+      <div class="col-md-12">
+        <app-question-ui [question]="singlePost" ></app-question-ui>
       </div>
     </div>
   </div>
