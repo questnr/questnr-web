@@ -13,9 +13,10 @@
             </mat-form-field>
         </div>
         <div class="otp-action-btn-column">
-            <button class="btn-action w-100" (click)="resendOTP($event)">
+            <button class="btn-action w-100" [ngClass]="{'disabled': !canResend }" (click)="resendOTP($event)"
+                [disabled]="!canResend">
                 <app-loader [size]="'sm'" *ngIf="isResendingOTP"></app-loader> &nbsp;
-                Resend the mail
+                Resend OTP <span *ngIf="!canResend">{{timeToEnableResend}}</span>
             </button>
             <button class="btn-action w-100" (click)="verifyOTP($event)">
                 <app-loader [size]="'sm'" *ngIf="isVerifying"></app-loader> &nbsp;

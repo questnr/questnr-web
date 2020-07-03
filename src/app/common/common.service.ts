@@ -70,4 +70,10 @@ export class CommonService {
         document.body.removeChild(copyText);
         this.snackbar.open("Link copied to clipboard", 'close', { duration: 5000 });
     }
+    appendZero(num: number): string {
+        if (num < 9) {
+            return '0' + num;
+        }
+        return num.toString();
+    }
 }
