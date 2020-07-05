@@ -1,0 +1,39 @@
+@import '../../variables';
+
+.poster-container{
+    position: relative;
+    cursor: pointer;
+    .poster-img-container{
+        img.poster-img{
+            width: 100%;
+        }
+    }
+}
+
+// .poster-link-container{
+//     visibility: hidden;
+// }
+
+.poster-link-container{
+    background-color: $primary;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    opacity: 0.7;
+    a.poster-link{
+        width: 100%;
+        font-size: 0.85rem;
+        color: $white;
+    }
+    a.poster-link:hover{
+        font-size: 0.9rem;
+        background-color: $accent;
+    }
+}
+
+// .poster-container:hover .poster-link-container{
+//     visibility: visible;
+// }
