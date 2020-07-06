@@ -109,7 +109,7 @@
             (0) Notifications
           </div>
           <button *ngIf="notifications?.length > 0 && !endOfNotifications" mat-button class="w-100"
-            (click)="getNotification(); $event.stopPropagation();"> Load more</button>
+            (click)="loadMoreNotifications(); $event.stopPropagation();"> Load more</button>
           <p *ngIf="endOfNotifications" style="justify-content: center;display: flex;cursor: pointer;">
             No more Notifications
           </p>

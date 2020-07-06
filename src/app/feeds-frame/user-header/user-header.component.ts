@@ -47,6 +47,7 @@ export class UserHeaderComponent {
   unReadNotificationCount: number = 0;
   unReadNotificationAnswerCount: number = 0;
   isNotificationLoading: boolean = true;
+  openedNotificationType: string;
 
   constructor(private router: Router, public auth: LoginService,
     private authService: AuthService,
@@ -191,6 +192,14 @@ export class UserHeaderComponent {
       }
     );
   }
+  loadMoreNotifications() {
+    console.log("openedNotificationType", this.openedNotificationType);
+    if (this.openedNotificationType === 'normal') {
+      this.getNotification();
+    } else if (this.openedNotificationType === 'question') {
+      this.getNotificationAnswer();
+    }
+  }
   logOut() {
     localStorage.clear();
     this.authService.signOut();
@@ -230,9 +239,11 @@ export class UserHeaderComponent {
   }
 
   readNewNotification() {
+    this.openedNotificationType = "normal";
     this.notificationColor = "black";
     this.unReadNotificationCount = 0;
     this.isNotificationLoading = true;
+    this.endOfNotifications = false;
     this.api.getNotifications().subscribe(
       (res: NotificationDTO[]) => {
         this.notifications = res;
@@ -243,9 +254,11 @@ export class UserHeaderComponent {
   }
 
   readNewNotificationAnswer() {
+    this.openedNotificationType = "question";
     this.notificationAnswerColor = "black";
     this.unReadNotificationAnswerCount = 0;
     this.isNotificationLoading = true;
+    this.endOfNotifications = false;
     this.api.getNotificationAnswers().subscribe(
       (res: NotificationDTO[]) => {
         this.notifications = res;
