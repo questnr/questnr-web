@@ -1,20 +1,20 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {LoginService} from 'auth/login.service';
-import {FeedsService} from 'feeds-frame/feeds.service';
-import {SinglePost} from 'models/signle-post.model';
-import {OwlOptions} from 'ngx-owl-carousel-o';
-import {UIService} from 'ui/ui.service';
-import {SinglePostService} from './single-post.service';
-import {SharePostComponent} from '../shared/components/dialogs/share-post/share-post.component';
-import {MatDialog} from '@angular/material/dialog';
-import {GlobalConstants} from '../shared/constants';
-import {IFramelyData} from '../models/iframely.model';
-import {CommonService} from '../common/common.service';
-import {IFramelyService} from '../meta-card/iframely.service';
-import {HashTag} from '../models/hashtag.model';
-import {CommentAction} from '../models/comment-action.model';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from 'auth/login.service';
+import { FeedsService } from 'feeds-frame/feeds.service';
+import { SinglePost } from 'models/signle-post.model';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { UIService } from 'ui/ui.service';
+import { SinglePostService } from './single-post.service';
+import { SharePostComponent } from '../shared/components/dialogs/share-post/share-post.component';
+import { MatDialog } from '@angular/material/dialog';
+import { GlobalConstants } from '../shared/constants';
+import { IFramelyData } from '../models/iframely.model';
+import { CommonService } from '../common/common.service';
+import { IFramelyService } from '../meta-card/iframely.service';
+import { HashTag } from '../models/hashtag.model';
+import { CommentAction } from '../models/comment-action.model';
 enum postType {
   media, text, metacard
 }
@@ -73,12 +73,12 @@ export class SinglePostComponent implements OnInit {
   hashTagsData: any = {};
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
-              public loginService: LoginService,
-              public uiService: UIService,
-              public dialog: MatDialog,
-              private router: Router,
-              private commonService: CommonService,
-              private iFramelyService: IFramelyService) {
+    public loginService: LoginService,
+    public uiService: UIService,
+    public dialog: MatDialog,
+    private router: Router,
+    private commonService: CommonService,
+    private iFramelyService: IFramelyService) {
     this.postSlug = this.route.snapshot.paramMap.get('postSlug');
   }
 
@@ -109,7 +109,7 @@ export class SinglePostComponent implements OnInit {
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
     }
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
     this.route.data.subscribe((data: { singlePost: SinglePost }) => {
@@ -132,10 +132,13 @@ export class SinglePostComponent implements OnInit {
       const index = this.commonService.indexOfUsingRegex(this.singlePost.text, regEx, 0);
       if (index >= 0) {
         this.hashTagsData[index] = hashTag.hashTagValue.length + 1;
+        let hashTagValue = hashTag.hashTagValue + " ";
+        this.singlePost.text = this.singlePost.text.substring(0, index) + '<app-hash-tag hash-tag-value="' + hashTagValue + '"></app-hash-tag>' +
+          this.singlePost.text.substring(index + this.hashTagsData[index] + 1);
       }
-      this.singlePost.text = this.singlePost.text.replace(regEx,
-        '<app-hash-tag hash-tag-value="' + hashTag.hashTagValue + '"></app-hash-tag>'
-      );
+      // this.singlePost.text = this.singlePost.text.replace(regEx,
+      //   '<app-hash-tag hash-tag-value="' + hashTag.hashTagValue + '"></app-hash-tag>'
+      // );
     });
   }
 
@@ -272,7 +275,7 @@ export class SinglePostComponent implements OnInit {
     this.api.getSharableLink(this.singlePost.postActionId).subscribe((res: any) => {
       this.dialog.open(SharePostComponent, {
         width: '500px',
-        data: {url: res.clickAction}
+        data: { url: res.clickAction }
       });
     });
   }

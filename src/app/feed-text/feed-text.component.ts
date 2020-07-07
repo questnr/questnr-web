@@ -14,6 +14,7 @@ export class FeedTextComponent implements OnInit {
   textToShow: string = "";
   hasMoreText: boolean = false;
   hashTagPosList: string[];
+  newLinePositionList: number[];
 
   constructor() { }
 
@@ -28,6 +29,11 @@ export class FeedTextComponent implements OnInit {
       this.hasMoreText = false;
     }
   }
+  // calculateNewLinePositions(text: string) {
+  //   for (let pos = text.indexOf("\n"); pos != -1; pos = text.indexOf("\n", pos + 1)) {
+  //     this.newLinePositionList.push(pos);
+  //   }
+  // }
 
 
   readMore(): void {
