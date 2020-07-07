@@ -15,8 +15,8 @@
           </div>
         </aside>
         <div class="feeds">
-<!--          <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=false></app-post-feed>-->
-          <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="false" [type]="'Create'" ></app-post-feeds>
+          <!--          <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=false></app-post-feed>-->
+          <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="false" [type]="'Create'"></app-post-feeds>
           <h5>Trending Communities</h5>
           <owl-carousel-o [options]="customOptions" *ngIf="!trendingCommunitiesLoader">
             <ng-container *ngFor="let community of trendingCommunities;let i=index">
@@ -39,7 +39,10 @@
             </div>
           </div>
           <ng-container *ngIf="userFeeds.length; else noFeeds">
-            <div class="feed-wrap" *ngFor="let feed of userFeeds">
+            <div class="feed-wrap" *ngFor="let feed of userFeeds;let idx = index">
+              <div *ngIf="userFeeds?.length && idx % 4 == 0 && mobileView">
+                <app-trend-post-question></app-trend-post-question>
+              </div>
               <div *ngIf="feed.postType !== 'question'">
                 <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
                 </app-recommended-feeds>
@@ -70,9 +73,10 @@
           <div class="stick">
             <div class="" style="padding: 20px 0px">
               <app-create-community-btn [type]="'card'"></app-create-community-btn>
-              <app-suggestion></app-suggestion>
+              <app-trend-post-question></app-trend-post-question>
             </div>
             <app-sponsored></app-sponsored>
+            <app-suggestion></app-suggestion>
           </div>
         </aside>
       </div>

@@ -128,9 +128,10 @@ import { SinglePostResolve } from 'single-post/single-post.resolve';
 import { PostFeedsComponent } from './feeds-frame/feeds/post-feeds/post-feeds.component';
 import { PostFeedComponent } from './feeds-frame/post-feed/post-feed.component';
 import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
-import {AskQuestionComponent} from './shared/components/dialogs/ask-question/ask-question.component';
+import { AskQuestionComponent } from './shared/components/dialogs/ask-question/ask-question.component';
 import { AskQuestionBtnComponent } from './ask-question-btn/ask-question-btn.component';
 import { QuestionUIComponent } from './question-ui/question-ui.component';
+import { TrendingPostPollQuestionComponent } from 'trend-post-question/trend-post-question.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -252,7 +253,8 @@ export function metaFactory(): MetaLoader {
     PostFeedComponent,
     PostReportComponent,
     AskQuestionBtnComponent,
-    QuestionUIComponent
+    QuestionUIComponent,
+    TrendingPostPollQuestionComponent
   ],
   imports: [
     MatVideoModule,

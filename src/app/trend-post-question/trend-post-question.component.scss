@@ -1,0 +1,88 @@
+@import "../variables";
+
+.link-card {
+  background: #fff;
+  padding: 20px;
+  margin: 0 0 20px 0;
+  border-radius: 10px;
+  h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: $heading;
+  }
+  .links {
+    display: flex;
+    align-items: center;
+    margin: 15px 10px;
+    .icon {
+      cursor: pointer;
+      max-width: 25px;
+      margin-right: 10px;
+      border-radius: 50%;
+      overflow: hidden;
+      height: 25px;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .link {
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: $link-primary;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+footer {
+  .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    a {
+      font-weight: 500;
+      padding: 5px 10px;
+      color: $link-primary;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  .copyright {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.4;
+  }
+}
+.list-item {
+  display: flex;
+  align-items: center;
+}
+img {
+  max-width: 100%;
+}
+
+.mobile-view-joined-community{
+  margin: 20px 0;
+  position: relative;
+  .mobile-create-btn{
+    position: absolute;
+    right: 1%;
+    top: 0;
+    mat-icon{
+      margin: 0 4px;
+    }
+  }
+  .mobile_action_btn{
+    text-align: center;
+    button {
+      background: white;
+      color: $black;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<!-- <app-create-community-btn [type]="'card'"></app-create-community-btn> -->
+<div *ngIf="trendingPostPollQuestionList?.length > 0">
+  <div class="link-card box" *ngIf="!mobileView">
+    <h3 *ngIf="trendingPostPollQuestionList?.length">Trending Questions
+    </h3>
+    <ng-container *ngIf="loadingTrendingPost">
+      <div class="list-item" *ngFor="let i of listItems">
+        <ngx-skeleton-loader class="w-100" count="1" appearance="line"></ngx-skeleton-loader>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="trendingPostPollQuestionList?.length">
+      <div class="links" *ngFor="let item of trendingPostPollQuestionList">
+        <a class="link" [routerLink]="['/', postPath, item.slug]">{{item.text}}</a>
+      </div>
+    </ng-container>
+    <!-- <ng-container *ngIf="!trendingPostPollQuestionList?.length && !trendingPostPollQuestionList">
+    <p>
+      Trending Questions will show up here!
+    </p>
+  </ng-container> -->
+  </div>
+</div>

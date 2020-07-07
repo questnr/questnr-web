@@ -35,6 +35,9 @@ export class ApiService {
   getTrendingCommunities() {
     return this.http.get(this.baseUrl + 'community/trending-community-list');
   }
+  getTrendingPostPollQuestion() {
+    return this.http.get(this.baseUrl + 'user/explore/question');
+  }
   searchHashtags(userInput: string) {
     return this.http.get<HashTag[]>(this.baseUrl + `search/hash-tag`, { params: { hashTag: userInput } });
   }
