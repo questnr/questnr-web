@@ -45,21 +45,25 @@
       </app-user-description-card>
     </div>
     <div class="col-md-6">
-      <app-user-activity [userId]="user?.userId"></app-user-activity>
+      <app-user-activity [userId]="user?.userId" [userInfo]="userInfo"></app-user-activity>
     </div>
   </div>
   <div>
     <div class="profile-page-container" [ngClass]="{'profile-page-container-mobile' : mobileView}">
       <div class="flex">
         <div class="flex-section-left">
-          <app-usercommunity [userId]="user?.userId" [relation]="relation"></app-usercommunity>
-          <app-joined-community [userId]="user?.userId"></app-joined-community>
+          <app-usercommunity [userId]="user?.userId" [relation]="relation"
+            [ownsCommunities]="userInfo?.ownsCommunities">
+          </app-usercommunity>
+          <app-joined-community [userId]="user?.userId" [followsCommunities]="userInfo?.followsCommunities">
+          </app-joined-community>
           <div *ngIf="!mobileView">
             <app-floating-footer></app-floating-footer>
           </div>
         </div>
         <div class="flex-section-center" id="user-feed">
-          <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]=false *ngIf="relation === 'owned'" [type]="'Create'" >
+          <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]=false *ngIf="relation === 'owned'"
+            [type]="'Create'">
           </app-post-feeds>
           <ng-container *ngIf="userFeeds?.length; else noFeeds">
             <div class="feed-wrap" *ngFor="let feed of userFeeds">
@@ -70,8 +74,8 @@
               <div *ngIf="feed.postType === 'question'">
                 <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"></app-question-ui>
               </div>
-<!--              <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">-->
-<!--              </app-recommended-feeds>-->
+              <!--              <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">-->
+              <!--              </app-recommended-feeds>-->
             </div>
             <p class="text-center" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
           </ng-container>

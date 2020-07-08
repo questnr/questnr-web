@@ -24,10 +24,12 @@
   padding: 20px;
   margin: 0 0 20px 0;
   border-radius: 10px;
-  h3 {
+  .header {
     font-size: 16px;
     font-weight: 500;
     color: $heading;
+    display: flex;
+    justify-content: space-between;
   }
   .links {
     display: flex;
@@ -128,6 +130,8 @@
     position: absolute;
     right: 1%;
     top: 0;
+    display: flex;
+    align-items: center;
     mat-icon{
       margin: 0 4px;
     }
@@ -152,4 +156,8 @@
       padding: 4px;
     }
   }
+}
+
+.community-counts{
+  font-size: 0.8rem;
 }

@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Community } from '../models/community.model';
-import { LoginService } from '../auth/login.service';
-import { ApiService } from '../shared/api.service';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
 import { MatDialog } from '@angular/material/dialog';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { GlobalConstants } from 'shared/constants';
+import { LoginService } from '../auth/login.service';
+import { Community } from '../models/community.model';
+import { ApiService } from '../shared/api.service';
+import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
 
 @Component({
   selector: 'app-joined-community',
@@ -15,6 +15,7 @@ import { GlobalConstants } from 'shared/constants';
 export class JoinedCommunityComponent implements OnInit {
   @Input() joinedCommunity: Community[];
   @Input() userId: any;
+  @Input() followsCommunities: number;
   loadingCommunities = true;
   listItems = Array(5);
   screenWidth = window.innerWidth;

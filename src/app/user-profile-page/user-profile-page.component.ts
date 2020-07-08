@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
 import { UserProfilePageService } from './user-profile-page.service';
 import { ActivatedRoute, RouterEvent, NavigationEnd } from '@angular/router';
-import { User } from '../models/user.model';
+import { User, UserInfo } from '../models/user.model';
 import { LoginService } from '../auth/login.service';
 import { ApiService } from '../shared/api.service';
 import { Post } from '../models/post-action.model';
@@ -15,6 +15,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
+import { UserActivityService } from 'user-activity/user-activity.service';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -24,6 +25,7 @@ import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrap
 export class UserProfilePageComponent implements OnInit {
   constructor(public userProfilePageService: UserProfilePageService, public route: ActivatedRoute, public userFollowersService: UserProfileCardServiceComponent,
     public loginService: LoginService, public api: ApiService, private meta: Meta, private titleService: Title, private router: Router,
+    private userActivityService: UserActivityService,
     public dialog: MatDialog) {
     this.userObserver.subscribe((user: User) => {
       this.titleService.setTitle(user.firstName + " " + user.lastName + " | Questnr");
@@ -48,12 +50,13 @@ export class UserProfilePageComponent implements OnInit {
   screenWidth = window.innerWidth;
   scrollCached: boolean = null;
   @ViewChild("imageCropperRef") imageCropperRef: ImgCropperWrapperComponent;
+  userInfo: UserInfo;
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.scroll, true);
     this.url = this.route.snapshot.paramMap.get('userSlug');
     this.getUserProfileDetails();
-    // this.getUserInfo();
+    this.getUserInfo();
     this.getCommunityFollowedByUser();
     const width = this.screenWidth;
     if (width <= 800) {
@@ -201,4 +204,15 @@ export class UserProfilePageComponent implements OnInit {
       post.postActionId !== $event
     );
   }
+
+  getUserInfo() {
+    // console.log('getUserInfo entered');
+    this.userActivityService.getUserInfo(this.url).subscribe((res: UserInfo) => {
+      this.userInfo = res;
+      // console.log(res);
+    }, error => {
+      // console.log(error.error.errorMessage);
+    });
+  }
+
 }

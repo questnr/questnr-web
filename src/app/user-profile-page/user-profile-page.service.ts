@@ -1,7 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
 import { of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +17,6 @@ export class UserProfilePageService {
   getUserProfile(slug) {
     if (!slug) return of();
     return this.http.get(this.baseUrl + 'user/profile/' + slug);
-  }
-  getUserInfo(slug) {
-    if (!slug) return of();
-    return this.http.get(this.baseUrl + 'user/profile/meta/' + slug + '/info');
   }
   updateProfilePicture(file) {
     return this.http.post(this.baseUrl + 'user/avatar', file);

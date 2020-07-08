@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserActivityService } from './user-activity.service';
 import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserFollowersService } from '../user-followers/user-followers.service';
+import { UserInfo } from 'models/user.model';
 
 @Component({
   selector: 'app-user-activity',
@@ -12,9 +13,10 @@ import { UserFollowersService } from '../user-followers/user-followers.service';
 })
 export class UserActivityComponent implements OnInit {
   url: string;
-  userInfo: any;
+  @Input() userInfo: UserInfo;
   mobileView = false;
   @Input() userId: any;
+  shouldFetch: boolean = false;
   screenWidth = window.innerWidth;
 
   constructor(public route: ActivatedRoute, public userActivityService: UserActivityService, public dialog: MatDialog, public followersService: UserFollowersService) {
@@ -34,8 +36,9 @@ export class UserActivityComponent implements OnInit {
   }
 
   getUserInfo() {
+    if (!this.shouldFetch) return;
     // console.log('entered');
-    this.userActivityService.getUserInfo(this.url).subscribe((res: any) => {
+    this.userActivityService.getUserInfo(this.url).subscribe((res: UserInfo) => {
       this.userInfo = res;
       // console.log(res);
     }, error => {

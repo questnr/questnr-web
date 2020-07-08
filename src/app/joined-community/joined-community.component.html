@@ -1,6 +1,10 @@
 <div class="link-card box" *ngIf="!mobileView">
-  <h3>Joined Communities
-  </h3>
+  <div class="header">
+    <div>
+      Joined Communities
+    </div>
+    <div *ngIf="followsCommunities">{{followsCommunities+" "}}<i class="fa fa-group"></i></div>
+  </div>
   <ng-container *ngIf="loadingCommunities">
     <div class="list-item" *ngFor="let i of listItems">
       <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
@@ -37,6 +41,8 @@
   <div class="user-owned-community">
     <h5>Joined Communities.
       <div class="mobile-create-btn">
+        <span class="community-counts" *ngIf="followsCommunities">{{followsCommunities+" "}}<i
+            class="fa fa-group"></i></span>
         <mat-icon (click)="openCommunityDialog(joinedCommunity)" *ngIf="joinedCommunity?.length > 2">arrow_forward
         </mat-icon>
       </div>

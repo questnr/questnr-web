@@ -1,14 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CreateCommunityComponent } from '../shared/components/dialogs/create.community/create-community.component';
-import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
-import { Community } from '../models/community.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
-import { UsercommunityService } from './usercommunity.service';
 import { GlobalConstants } from 'shared/constants';
+import { environment } from '../../environments/environment';
+import { Community } from '../models/community.model';
+import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
+import { CreateCommunityComponent } from '../shared/components/dialogs/create.community/create-community.component';
+import { UsercommunityService } from './usercommunity.service';
 
 @Component({
   selector: 'app-usercommunity',
@@ -24,6 +23,7 @@ export class UsercommunityComponent implements OnInit {
   @Input() hasCommunity = true;
   @Input() defaultImage = 'assets/default.jpg';
   @Input() relation;
+  @Input() ownsCommunities: number;
   communityPath: string = GlobalConstants.communityPath;
   baseUrl = environment.baseUrl;
   ownedCommunity: Community[];
