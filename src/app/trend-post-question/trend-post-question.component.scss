@@ -27,7 +27,7 @@
       }
     }
     .link {
-      font-weight: 500;
+      font-weight: lighter;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -45,7 +45,7 @@ footer {
     flex-wrap: wrap;
     justify-content: center;
     a {
-      font-weight: 500;
+      font-weight: lighter;
       padding: 5px 10px;
       color: $link-primary;
       &:hover {

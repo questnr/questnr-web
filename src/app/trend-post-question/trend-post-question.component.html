@@ -1,7 +1,7 @@
 <!-- <app-create-community-btn [type]="'card'"></app-create-community-btn> -->
 <div *ngIf="trendingPostPollQuestionList?.length > 0">
   <div class="link-card box" *ngIf="!mobileView">
-    <h3 *ngIf="trendingPostPollQuestionList?.length">Trending Questions
+    <h3 *ngIf="trendingPostPollQuestionList?.length">Popular Questions
     </h3>
     <ng-container *ngIf="loadingTrendingPost">
       <div class="list-item" *ngFor="let i of listItems">
