@@ -6,8 +6,9 @@
           <div class="mobile-create-btn">
             <span class="community-counts" *ngIf="ownsCommunities">{{ownsCommunities+" "}}<i
                 class="fa fa-group"></i></span>
-            <mat-icon (click)="createCommunity()" *ngIf="relation==='owned' ">add_circle_outline
-            </mat-icon>
+<!--            <mat-icon (click)="createCommunity()" *ngIf="relation==='owned' ">add_circle_outline-->
+<!--            </mat-icon>-->
+<!--            <app-create-community-btn [type]="'icon'"></app-create-community-btn>-->
             <mat-icon (click)="openCommunityDialog(ownedCommunity)" *ngIf="ownedCommunity?.length > 3">arrow_forward
             </mat-icon>
           </div>

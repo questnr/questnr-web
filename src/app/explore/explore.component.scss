@@ -5,6 +5,12 @@
   .explore-grid{
     display: grid;
     grid-template-columns: 300px auto 300px;
+    .left-section{
+      width: 300px;
+    }
+    .right-section{
+      width: 300px;
+    }
     .explore-section{
       max-width: 710px;
       width: calc(100% - 20px);
@@ -102,12 +108,16 @@
     color: $primary;
   }
   mat-chip{
-    color: $hash-tag;
-    background: $white;
-    font-weight: 400 !important;
+    display: inline-flex;
+    align-items: center;
+    margin: 6px;
     font-style: italic;
-    display: block;
-    line-height: 18px;
+    font-size: 15px;
+    font-family: sans-serif;
+    //border: 1px solid aliceblue;
+    padding: 4px 16px;
+    border-radius: 20px;
+    background: $hash-tag-background;
   }
 }
 mat-chip:hover {

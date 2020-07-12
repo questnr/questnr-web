@@ -8,9 +8,9 @@
   <mat-sidenav-content>
     <div class="container" [ngClass]="{'container_mobile': mobileView}">
       <div class="main-wrap">
-        <aside *ngIf="!mobileView">
-          <div class="stick">
-            <app-quick-nav></app-quick-nav>
+        <aside *ngIf="!mobileView" style="width: 300px">
+          <div class="stick fixed-frame">
+<!--            <app-quick-nav></app-quick-nav>-->
             <app-sidenav></app-sidenav>
           </div>
         </aside>
@@ -69,14 +69,14 @@
             </div>
           </ng-template>
         </div>
-        <aside class="right" *ngIf="!mobileView">
-          <div class="stick">
+        <aside class="right" *ngIf="!mobileView" style="width: 300px">
+          <div class="stick fixed-frame">
             <div class="" style="padding: 20px 0px">
-              <app-create-community-btn [type]="'card'"></app-create-community-btn>
+<!--              <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
               <app-trend-post-question></app-trend-post-question>
+              <app-sponsored></app-sponsored>
+              <app-suggestion></app-suggestion>
             </div>
-            <app-sponsored></app-sponsored>
-            <app-suggestion></app-suggestion>
           </div>
         </aside>
       </div>

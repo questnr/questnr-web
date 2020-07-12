@@ -1,11 +1,13 @@
 <div class="card box" *ngIf="type ==='card'">
   <div class="card-content">
     <div class="card-description">
+      <img src="/assets/add.png" (click)="createCommunity()" style=" width: 23px; margin-right: 8px; ">
       <span class="link" (click)="createCommunity()">Create Community</span>
     </div>
   </div>
 </div>
 
-<div *ngIf="type ==='icon'">
-  <mat-icon (click)="createCommunity()">control_point</mat-icon>
+<div *ngIf="type ==='icon'" style="display: flex; align-content: center">
+<!--  <mat-icon (click)="createCommunity()">control_point</mat-icon>-->
+  <img src="/assets/add.png" (click)="createCommunity()" style=" width: 23px; margin-left: 8px; ">
 </div>
