@@ -4,6 +4,7 @@
   <div class="container" [ngClass]="{'container_mobile': mobileView}">
     <div class="explore-grid" [ngClass]="{'explore-grid-mobile': mobileView}">
       <div class="left-section" *ngIf="!mobileView">
+        <div class="fixed-frame">
         <!--        <app-joined-community></app-joined-community>-->
         <div class="hashtags-container">
           <div class="hashtags">
@@ -17,6 +18,7 @@
         </div>
         <hr>
         <app-floating-footer></app-floating-footer>
+        </div>
       </div>
       <div class="explore-section">
         <div style="margin-top:10px">
@@ -25,8 +27,8 @@
           </div>
           <div *ngIf="queryString">
             <h4>
-              Related to:&nbsp;
-              <!--              <img src="/assets/hashtag.svg" alt="">-->
+
+<!--                            <img src="/assets/hashtag.svg" alt="" style=" width: 30px; height: 30px">-->
               <span class="queryString">#{{queryString}}</span></h4>
           </div>
           <!--                    <div class="suggestion-container" *ngIf="!queryString">-->
@@ -95,8 +97,10 @@
         </div>
       </div>
       <div class="right-section" *ngIf="!mobileView">
+        <div class="fixed-frame">
         <app-suggestion></app-suggestion>
         <app-sponsored></app-sponsored>
+        </div>
       </div>
     </div>
   </div>
