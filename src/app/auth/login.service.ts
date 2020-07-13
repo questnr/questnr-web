@@ -47,22 +47,26 @@ export class LoginService {
   getUserProfileImg() {
     this.getUser().subscribe(
       (res) => {
-         this.profileImg = res?.avatarLink ? res.avatarLink : 'assets/default.jpg';
+        this.profileImg = res?.avatarLink ? res.avatarLink : 'assets/default.jpg';
       }, err => {
-         this.profileImg =  'assets/default.jpg';
+        this.profileImg = 'assets/default.jpg';
       }
     );
   }
 
   getUserProfile() {
     const decodedData = jwtDecode(localStorage.getItem('token'));
+    var current_time = Date.now() / 1000;
+    if (decodedData.exp < current_time) {
+      this.logOut();
+    }
     return decodedData;
   }
 
   logOut() {
     this.profileImg = null;
     localStorage.clear();
-    this.router.navigateByUrl('/');
+    this.router.navigate(['/']);
   }
   loggedIn() {
     return !!localStorage.getItem('token');
