@@ -23,20 +23,20 @@ export class SignupComponent implements OnInit {
   policyPath = GlobalConstants.policyPath;
   hasEmailVerified: boolean = false;
   otp: string;
-  firstName = new FormControl('',
-    [
-      Validators.required,
-      Validators.pattern(/^[\S]*$/),
-      Validators.minLength(3),
-      Validators.maxLength(25)
-    ]);
-  lastName = new FormControl('',
-    [
-      Validators.required,
-      Validators.pattern(/^[\S]*$/),
-      Validators.minLength(3),
-      Validators.maxLength(25)
-    ]);
+  // firstName = new FormControl('',
+  //   [
+  //     Validators.required,
+  //     Validators.pattern(/^[\S]*$/),
+  //     Validators.minLength(3),
+  //     Validators.maxLength(25)
+  //   ]);
+  // lastName = new FormControl('',
+  //   [
+  //     Validators.required,
+  //     Validators.pattern(/^[\S]*$/),
+  //     Validators.minLength(3),
+  //     Validators.maxLength(25)
+  //   ]);
   email = new FormControl('',
     {
       validators: [Validators.required, Validators.pattern(REGEX.EMAIL)],
@@ -59,7 +59,7 @@ export class SignupComponent implements OnInit {
       Validators.maxLength(100)
     ]);
   confirmPassword = new FormControl('', Validators.required);
-  dob = new FormControl('', Validators.required);
+  // dob = new FormControl('', Validators.required);
   maxAllowedDOB = new Date(new Date().setFullYear(new Date().getFullYear() - GlobalConstants.signUpAgeRestriction));
   constructor(
     private fb: FormBuilder, private auth: LoginService, private dialog: MatDialog,
@@ -67,14 +67,16 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.group = this.fb.group({
-      firstName: this.firstName,
-      lastName: this.lastName,
+      // firstName: this.firstName,
+      // lastName: this.lastName,
       emailId: this.email,
       username: this.username,
       password: this.password,
-      confirmPassword: this.confirmPassword,
-      dob: this.dob
-    }, { validators: CustomValidations.MatchPassword });
+      // confirmPassword: this.confirmPassword,
+      // dob: this.dob
+    }, {
+      // validators: CustomValidations.MatchPassword
+    });
   }
 
   submit() {
@@ -83,7 +85,8 @@ export class SignupComponent implements OnInit {
     if (this.group.valid) {
       if (this.hasEmailVerified) {
         this.isLoading = true;
-        const obj = { ...this.group.value, dob: this.commonService.getDateFromNumber(this.group.get("dob").value), otp: this.otp };
+        // const obj = { ...this.group.value, dob: this.commonService.getDateFromNumber(this.group.get("dob").value), otp: this.otp };
+        const obj = { ...this.group.value, otp: this.otp };
         this.auth.signUp(obj).subscribe(
           res => {
             if (res.loginSuccess) {
