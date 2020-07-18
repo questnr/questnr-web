@@ -91,13 +91,13 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     if (this.loginService.loggedIn()) {
       this.router.navigate(['feed']);
     }
-    this.api.getTopUsers().subscribe(
-      (res: any) => {
-        if (res.content) {
-          this.users = [...res.content].slice(0, 8);
-        }
-      }, err => {
-      });
+    // this.api.getTopUsers().subscribe(
+    //   (res: any) => {
+    //     if (res.content) {
+    //       this.users = [...res.content].slice(0, 8);
+    //     }
+    //   }, err => {
+    //   });
     this.api.getTopHashtags().subscribe(
       (res: any) => {
         if (res.content) {

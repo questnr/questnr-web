@@ -32,12 +32,12 @@ export class HomeComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.api.getTopUsers().subscribe(
-      (res: any) => {
-        if (res.content) {
-          this.users = res.content;
-        }
-      }, err => { });
+    // this.api.getTopUsers().subscribe(
+    //   (res: any) => {
+    //     if (res.content) {
+    //       this.users = res.content;
+    //     }
+    //   }, err => { });
     this.api.getTopHashtags().subscribe(
       (res: any) => {
         if (res.content) {
