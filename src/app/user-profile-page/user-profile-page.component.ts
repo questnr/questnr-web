@@ -28,7 +28,11 @@ export class UserProfilePageComponent implements OnInit {
     private userActivityService: UserActivityService,
     public dialog: MatDialog) {
     this.userObserver.subscribe((user: User) => {
-      this.titleService.setTitle(user.firstName + " " + user.lastName + " | Questnr");
+      if (user.firstName || user.lastName) {
+        this.titleService.setTitle((user.firstName + " " + user.lastName).trim() + " | Questnr");
+      } else {
+        this.titleService.setTitle(user.username + " | Questnr");
+      }
     });
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
