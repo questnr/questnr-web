@@ -26,7 +26,7 @@
       <app-time-string [metaData]="feed.metaData"></app-time-string>
     </div>
     <div class="spacer"></div>
-    <app-post-menu-options [feed]="editableFeed" (removePostEvent)="removePost($event)" ></app-post-menu-options>
+    <app-post-menu-options [feed]="editableFeed" (removePostEvent)="removePost($event)"></app-post-menu-options>
   </div>
   <div class="mb-2">
     <div *ngIf="feed.postMediaList?.length" class="media-container">
@@ -107,9 +107,7 @@
           <input type="text" [formControl]="comment" #commentInput
             [placeholder]="replyingTo? 'Reply to ' + replyingTo.username : 'Write a Comment..'"
             (keyup.enter)="postComment(feed.postActionId)">
-          <button mat-icon-button color="accent" (click)="postComment(feed.postActionId)" [disabled]="!comment.valid">
-            <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
-          </button>
+          <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
           <button mat-icon-button color="accent" (click)="postComment(feed.postActionId)" [disabled]="!comment.valid">
             <mat-icon>send</mat-icon>
           </button>
