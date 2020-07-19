@@ -46,14 +46,14 @@
         </div>
         <div *ngIf="selectedSearchOption==2">
           <button class="w-100" mat-button *ngFor="let hashTag of hashtags"
-            (click)="handleRouterLink(hashTag)">{{"#"+hashTag.hashTagValue}}</button>
+            (click)="handleRouterLink(hashTag.hashTagValue)">{{"#"+hashTag.hashTagValue}}</button>
         </div>
       </div>
     </div>
 
     <div class="spacer"></div>
     <button mat-button class="d-none d-sm-block d-md-block d-lg-block profile-btn"
-            [routerLink]="['/', userPath, userDetail?.slug]">
+      [routerLink]="['/', userPath, userDetail?.slug]">
       <div>
         <div class="icon">
           <img [src]="auth.profileImg" />
@@ -61,7 +61,8 @@
         <span class="user_name">{{profile?.sub}}</span>
       </div>
     </button>
-    <button mat-button class="d-none d-sm-block d-md-block d-lg-block h-100 explore-header" [routerLink]="['/', explorePath]">
+    <button mat-button class="d-none d-sm-block d-md-block d-lg-block h-100 explore-header"
+      [routerLink]="['/', explorePath]">
       <img src="/assets/safari.svg" style=" width: 23px; margin-right: 10px; "> Explore
     </button>
     <button mat-button class="d-none d-sm-block d-md-block d-lg-block h-100 explore-header" (click)="createCommunity()">
