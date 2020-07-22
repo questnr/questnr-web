@@ -2,6 +2,11 @@
 
 .wrapper{
     margin: 10px;
+    scrollbar-width: none; /* Firefox 64 */
+    -ms-overflow-style: none; /* Internet Explorer 11 */
+    &::-webkit-scrollbar { /** WebKit */
+        display: none;
+    }
 }
 .button-row{
     display: flex;
