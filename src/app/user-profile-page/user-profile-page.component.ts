@@ -38,11 +38,14 @@ export class UserProfilePageComponent implements OnInit {
       return false;
     }
   }
+  @ViewChild('imageCropperRef') imageCropperRef: ImgCropperWrapperComponent;
   feeds: Post[];
   url: string;
   user: User;
   userObserver: Subject<User> = new Subject();
   userAvatarImage = 'assets/default.jpg';
+  userBannerImage = 'assets/boat-on-the-water.jpg';
+  comUpdatedAvatar: any;
   stats: any;
   relation: any;
   loading = false;
@@ -53,7 +56,7 @@ export class UserProfilePageComponent implements OnInit {
   mobileView = false;
   screenWidth = window.innerWidth;
   scrollCached: boolean = null;
-  @ViewChild("imageCropperRef") imageCropperRef: ImgCropperWrapperComponent;
+  @ViewChild("userBannerImageCropperRef") userBannerImageCropperRef: ImgCropperWrapperComponent;
   userInfo: UserInfo;
 
   ngOnInit(): void {
@@ -119,6 +122,9 @@ export class UserProfilePageComponent implements OnInit {
     this.userProfilePageService.getUserProfile(this.url).subscribe((res: User) => {
       this.userObserver.next(res);
       this.user = res;
+      if (res?.banner?.avatarLink) {
+        this.userBannerImage = res.banner.avatarLink;
+      }
       this.userAvatarImage = res.avatarDTO.avatarLink;
       this.relation = res.userMeta.relationShipType;
       this.userId = res.userId;
@@ -217,6 +223,33 @@ export class UserProfilePageComponent implements OnInit {
     }, error => {
       // console.log(error.error.errorMessage);
     });
+  }
+
+  previewImage() {
+    // const src = document.getElementById('communityImageSrc').click();
+    this.userBannerImageCropperRef.openImageCropper();
+  }
+
+  imageDataReceiverOfBanner(file) {
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.userBannerImage = reader.result as string;
+        this.comUpdatedAvatar = file;
+        this.changeUserBanner();
+      };
+    }
+  }
+
+  changeUserBanner() {
+    if (this.comUpdatedAvatar) {
+      const formData = new FormData();
+      formData.set('file', this.comUpdatedAvatar, this.comUpdatedAvatar.name);
+      this.userProfilePageService.updateUserBanner(formData).subscribe((res: any) => {
+      }, error => {
+      });
+    }
   }
 
 }

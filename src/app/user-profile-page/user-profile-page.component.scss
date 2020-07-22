@@ -20,11 +20,17 @@
   width: 100%;
   margin: 0 auto;
 }
+.site-body.desktop{
+  margin-top: 60px;
+}
+.site-body.mobile{
+}
 .profile-section{
   display: grid;
   grid-template-columns: 16% auto;
   position: relative;
   top: -100px;
+  margin: 0 1rem;
   .profile-img{
     width: 200px;
     height: 200px;
@@ -148,6 +154,9 @@
         mat-icon {
           font-size: 16px;
         }
+        border-radius: 20px;
+        border: 0.1rem solid #f15152;
+        box-shadow: 1px 1px #9b211f;
       }
     }
   }
@@ -163,6 +172,51 @@
   }
 }
 
-.user-meta-info-div{
-  margin: 0 auto;
+.user-meta-info-div.desktop{
+  margin: -25px auto;
+}
+.user-meta-info-div.mobile{
+}
+
+.user-profile-banner{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  .com-ban-img-container {
+    min-height: 130px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+    background: #a52b31;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+      object-position: top;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      max-height: 280px;
+    }
+  }
+  .com-ban-img-container.desktop{
+    width: 80%;
+  }
+  .com-ban-img-container.mobile{
+    width: 100%;
+  }
+}
+
+.change-comm-img{
+  color: $heading;
+  opacity: 0.4;
+  width: auto;
+  position: absolute;
+  bottom: 0%;
+  right: 0%;
+  transition: all 500ms ease-in-out;
+  cursor: pointer;
+  z-index: 100;
+  mat-icon{
+    margin: 14px;
+  }
 }

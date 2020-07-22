@@ -7,6 +7,7 @@ export class User {
     lastName: string;
     slug: string;
     avatarDTO: AvatarDTO;
+    banner: AvatarDTO;
     userMeta: UserMeta;
     bio: string;
     dob: string;

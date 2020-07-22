@@ -24,4 +24,7 @@ export class UserProfilePageService {
   updateUser(formData) {
     return this.http.put(this.baseUrl + 'user', formData);
   }
+  updateUserBanner(formData) {
+    return this.http.post(this.baseUrl + 'user/banner', formData);
+  }
 }

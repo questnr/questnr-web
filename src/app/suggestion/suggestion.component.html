@@ -1,6 +1,6 @@
 <!-- <app-create-community-btn [type]="'card'"></app-create-community-btn> -->
 <div class="link-card box" *ngIf="!mobileView && suggestedCommunityList?.length">
-  <h3 *ngIf="suggestedCommunityList?.length">Suggested Communities
+  <h3 *ngIf="suggestedCommunityList?.length">Communities You Might Like
   </h3>
   <ng-container *ngIf="loadingCommunities">
     <div class="list-item" *ngFor="let i of listItems">
@@ -25,7 +25,7 @@
 
 <div class="mobile-view-joined-community" *ngIf="mobileView && suggestedCommunityList?.length">
   <div class="user-owned-community">
-    <h5 *ngIf="suggestedCommunityList?.length">Suggested Communities.
+    <h5 *ngIf="suggestedCommunityList?.length">Communities You Might Like
       <div class="mobile-create-btn">
         <mat-icon (click)="openCommunityDialog(suggestedCommunityList)" *ngIf="suggestedCommunityList?.length > 2">
           arrow_forward
