@@ -298,4 +298,13 @@ export class RecommendedFeedsComponent implements OnInit {
       $event !== comment.commentActionId
     );
   }
+
+  openShareDialog() {
+    this.api.getSharableLink(this.feed.postActionId).subscribe((res: any) => {
+      this.dialog.open(SharePostComponent, {
+        width: '500px',
+        data: { url: res.clickAction }
+      });
+    });
+  }
 }

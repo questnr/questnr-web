@@ -22,10 +22,10 @@ export class PostMenuOptionsComponent implements OnInit {
   mobileView = false;
   screenWidth = window.innerWidth;
   constructor(private api: FeedsService,
-              private commonService: CommonService,
-              private snackBar: MatSnackBar,
-              private dialog: MatDialog,
-              private login: LoginService) {
+    private commonService: CommonService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    private login: LoginService) {
   }
 
   ngOnInit(): void {
@@ -40,19 +40,19 @@ export class PostMenuOptionsComponent implements OnInit {
     }
   }
 
-  openShareDialog() {
-    this.api.getSharableLink(this.feed.postActionId).subscribe((res: any) => {
-      this.dialog.open(SharePostComponent, {
-        width: '500px',
-        data: {url: res.clickAction}
-      });
-    });
-  }
+  // openShareDialog() {
+  //   this.api.getSharableLink(this.feed.postActionId).subscribe((res: any) => {
+  //     this.dialog.open(SharePostComponent, {
+  //       width: '500px',
+  //       data: {url: res.clickAction}
+  //     });
+  //   });
+  // }
 
   removePost(postId) {
     this.api.removePost(postId).subscribe((res: any) => {
       // console.log(res);
-      this.snackBar.open('Post has been deleted', 'close', {duration: 5000});
+      this.snackBar.open('Post has been deleted', 'close', { duration: 5000 });
       this.removePostEvent.emit(postId);
     }, error => {
       // console.log(error.error.errorMessage);
@@ -74,7 +74,7 @@ export class PostMenuOptionsComponent implements OnInit {
       // backdropClass: 'custom-dialog-backdrop-class',
       // panelClass: 'custom-dialog-panel-class',
       // disableClose:true
-      data: {communityId, isCommunityPost, editing, feed}
+      data: { communityId, isCommunityPost, editing, feed }
     });
 
     dialogRef.afterClosed().subscribe(result => {
