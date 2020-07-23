@@ -55,6 +55,8 @@ export class CommunityComponent implements OnInit {
   owned: string = RelationType.OWNED;
   followed: string = RelationType.FOLLOWED;
   none: string = RelationType.NONE;
+  // To show user post header instead of community post header
+  showUserHeader: boolean = true;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
     private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,

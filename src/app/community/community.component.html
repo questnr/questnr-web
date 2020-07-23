@@ -97,7 +97,8 @@
                     <app-suggestion></app-suggestion>
                   </div>
                   <div *ngIf="feed.postType !== 'question'">
-                    <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+                    <app-recommended-feeds [showUserHeader]="showUserHeader"
+                      (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
                     </app-recommended-feeds>
                   </div>
                   <div *ngIf="feed.postType === 'question'">

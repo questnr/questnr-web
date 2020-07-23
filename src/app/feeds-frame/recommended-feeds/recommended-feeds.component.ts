@@ -19,7 +19,7 @@ import { GlobalConstants } from 'shared/constants';
 import { User } from 'models/user.model';
 import { Page } from 'models/page.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {PostFeedComponent} from '../post-feed/post-feed.component';
+import { PostFeedComponent } from '../post-feed/post-feed.component';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -37,6 +37,7 @@ export class RecommendedFeedsComponent implements OnInit {
   @Input() feed: Post;
   @ViewChild('commentInput') commentInput: ElementRef;
   @Output() removePostEvent = new EventEmitter();
+  @Input() showUserHeader: boolean = false;
   // @ViewChild("metaCardComponentRef", { static: true }) metaCardComponentRef: MetaCardComponent;
   // @ViewChild(MetaCardComponent, { static: true }) set metaCard(metaCardComponentRef: MetaCardComponent) {
   //   if (!!metaCardComponentRef) {
@@ -98,6 +99,13 @@ export class RecommendedFeedsComponent implements OnInit {
     public snackbar: MatSnackBar) { }
 
   ngOnInit() {
+    if (!this.showUserHeader) {
+      if (this.feed?.communityDTO) {
+        this.showUserHeader = false;
+      } else {
+        this.showUserHeader = true;
+      }
+    }
     this.editableFeed = Object.assign({}, this.feed);
     this.loggedInUsername = this.login.getUserProfile().sub;
     this.loggedInUserId = this.login.getUserProfile().id;

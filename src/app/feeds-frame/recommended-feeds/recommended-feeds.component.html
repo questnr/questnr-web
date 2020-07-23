@@ -1,5 +1,5 @@
 <div class="box">
-  <div class="head-wrap" *ngIf="feed?.communityDTO">
+  <div class="head-wrap" *ngIf="!showUserHeader">
     <div class="profile-icon"> <img [src]="feed?.communityDTO?.avatarDTO?.avatarLink ?
       feed?.communityDTO?.avatarDTO?.avatarLink : 'assets/default.jpg'" alt=""> </div>
     <div class="profile-detail" *ngIf="feed.communityDTO">
@@ -15,7 +15,7 @@
     <div class="spacer"></div>
     <app-post-menu-options [feed]="editableFeed" (removePostEvent)="removePost($event)"></app-post-menu-options>
   </div>
-  <div class="head-wrap" *ngIf="!feed.communityDTO">
+  <div class="head-wrap" *ngIf="showUserHeader">
     <app-profile-icon [avatar]="feed.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
       [routerLink]="['/', userPath, feed.userDTO.slug]">
     </app-profile-icon>
