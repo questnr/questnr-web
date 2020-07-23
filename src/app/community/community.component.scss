@@ -116,11 +116,14 @@
   margin: 0;
 }
 
+.com-avatar-height{
+  min-height: 130px;  
+}
 
 .com-ban-img-container {
   width: 100%;
   // height: 130px;
-  min-height: 130px;
+  height: 100%;
   overflow: hidden;
   position: relative;
   border-radius: 10px;

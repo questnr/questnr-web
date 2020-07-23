@@ -5,7 +5,7 @@
     <div class="flex-frame">
       <div class="flex-7" [ngClass]="{'flex-7-mobile' : mobileView}">
         <div class="community-feeds-container">
-          <div class="com-ban-img-container">
+          <div class="com-ban-img-container" [ngClass]="!communityImage ? 'com-avatar-height' : ''">
             <!--            <div *ngIf="mobileView" class="community_owner">-->
             <!--              <div class="owner-img" (click)="navigate(communityDTO?.ownerUserDTO?.slug)">-->
             <!--                <img [src]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink ? communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink: '/assets/default.jpg' "-->
@@ -120,7 +120,7 @@
 
 
       <div class="flex-3" *ngIf="!mobileView">
-<!--        <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
+        <!--        <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
         <app-community-users [communityId]="communityDTO?.communityId"
           [relationshipType]="communityDTO.communityMeta.relationShipType" [communitySlug]="communityDTO?.slug"
           [userListType]="'list'" #communityUsersComponentRef>

@@ -183,7 +183,8 @@
   flex-direction: row;
   justify-content: center;
   .com-ban-img-container {
-    min-height: 130px;
+    height: 100%;
+    // min-height: 130px;
     overflow: hidden;
     position: relative;
     border-radius: 10px;
