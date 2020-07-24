@@ -52,12 +52,13 @@
     <app-meta-card *ngIf="iFramelyData?.url" [iFramelyData]="iFramelyData"></app-meta-card>
   </div>
   <div class="count-box">
-    <div (click)="openUserGroupDialog('like')"> <span>{{feed.totalLikes? feed.totalLikes: 0}}
+    <div (click)="openUserGroupDialog('like')">
+      <span>{{feed.postActionMeta.totalLikes? feed.postActionMeta.totalLikes: 0}}
       </span>
-      {{feed.totalLikes>1? 'Likes': 'Like'}}</div>
+      {{feed.postActionMeta.totalLikes>1? 'Likes': 'Like'}}</div>
     <div class="dot"></div>
-    <div> <span> {{feed.totalComments?feed.totalComments:0}} </span>
-      {{feed.totalComments> 1? 'Comments': 'Comment'}} </div>
+    <div> <span> {{feed.postActionMeta.totalComments ? feed.postActionMeta.totalComments : 0}} </span>
+      {{feed.postActionMeta.totalComments> 1? 'Comments': 'Comment'}} </div>
   </div>
   <div class="footer-wrap">
     <button mat-button [disabled]="isLoading" (click)="likePost(feed.postActionId)"

@@ -18,6 +18,7 @@ export class RichTextAreaComponent implements OnInit {
     }, 0);
   }
   myckeditor: any;
+  @Input() richText: string;
   @Output() typeCheckOnUserInputEvent = new EventEmitter();
   @Output() registerEditorEvent = new EventEmitter();
 
@@ -57,6 +58,11 @@ export class RichTextAreaComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+    // console.log("this.richText", this.richText);
+    // setTimeout(() => {
+    //   console.log("CKEDITOR.instances", CKEDITOR.instances, CKEDITOR);
+    //   CKEDITOR.instances['myckeditor'].setData(this.richText);
+    // }, 3000);
   }
 
   typeCheckOnUserInput($event) {

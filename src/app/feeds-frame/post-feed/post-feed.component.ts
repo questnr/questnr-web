@@ -1,18 +1,19 @@
-import {Component, Output, EventEmitter, Input, ViewChild, ElementRef, OnInit, Inject, Renderer2} from '@angular/core';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {FormControl} from '@angular/forms';
-import {LoginService} from 'auth/login.service';
-import {FeedsService} from 'feeds-frame/feeds.service';
-import {HttpEvent, HttpEventType} from '@angular/common/http';
-import {HashTagService} from 'feeds-frame/hash-tag-service';
-import {MetaCardComponent} from 'meta-card/meta-card.component';
-import {CommonService} from 'common/common.service';
-import {IFramelyData} from 'models/iframely.model';
-import {IFramelyService} from 'meta-card/iframely.service';
-import {emojis} from '@ctrl/ngx-emoji-mart/ngx-emoji';
-import {FloatingSuggestionBoxComponent} from 'floating-suggestion-box/floating-suggestion-box.component';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { Component, Output, EventEmitter, Input, ViewChild, ElementRef, OnInit, Inject, Renderer2 } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { FormControl } from '@angular/forms';
+import { LoginService } from 'auth/login.service';
+import { FeedsService } from 'feeds-frame/feeds.service';
+import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { HashTagService } from 'feeds-frame/hash-tag-service';
+import { MetaCardComponent } from 'meta-card/meta-card.component';
+import { CommonService } from 'common/common.service';
+import { IFramelyData } from 'models/iframely.model';
+import { IFramelyService } from 'meta-card/iframely.service';
+import { emojis } from '@ctrl/ngx-emoji-mart/ngx-emoji';
+import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PostEditorType } from 'models/post-action.model';
 
 @Component({
   selector: 'app-post-feed',
@@ -20,13 +21,13 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./post-feed.component.scss'],
   animations: [
     trigger('expand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
 })
-export class PostFeedComponent implements OnInit  {
+export class PostFeedComponent implements OnInit {
   @ViewChild('userInputRef') userInputRef: ElementRef;
   @ViewChild('fileInput') fileInput: ElementRef;
 
@@ -61,15 +62,15 @@ export class PostFeedComponent implements OnInit  {
   @Input() editing: any;
 
   constructor(public login: LoginService,
-              private service: FeedsService,
-              private hashTagService: HashTagService,
-              private commonService: CommonService,
-              private iFramelyService: IFramelyService,
-              public dialogRef: MatDialogRef<PostFeedComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              public snackBar: MatSnackBar,
-              public renderer: Renderer2
-              ) {
+    private service: FeedsService,
+    private hashTagService: HashTagService,
+    private commonService: CommonService,
+    private iFramelyService: IFramelyService,
+    public dialogRef: MatDialogRef<PostFeedComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public snackBar: MatSnackBar,
+    public renderer: Renderer2
+  ) {
   }
 
   ngOnInit(): void {
@@ -79,9 +80,15 @@ export class PostFeedComponent implements OnInit  {
   ngAfterViewInit(key: string): void {
     this.hashTagService.registerInputElement(this.userInputRef.nativeElement);
     if (this.data.feed) {
-      this.text.setValue(this.data.feed.text);
+      console.log("this.data.feed", this.data.feed);
+      if (this.data.feed.postEditorType == PostEditorType.blog) {
+        this.isBlogEditor = true;
+        this.richText = this.data.feed.text;
+      } else {
+        this.text.setValue(this.data.feed.text);
+      }
       // this.editing = true;
-      const event = new KeyboardEvent('keyup', {bubbles: true});
+      const event = new KeyboardEvent('keyup', { bubbles: true });
       this.userInputRef.nativeElement.dispatchEvent(event);
     }
     if (this.data.addMediaAction) {
@@ -115,7 +122,7 @@ export class PostFeedComponent implements OnInit  {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      const obj = {type: file.type, src: reader.result};
+      const obj = { type: file.type, src: reader.result };
       this.addedMediaSrc.push(obj);
     };
   }
@@ -136,6 +143,7 @@ export class PostFeedComponent implements OnInit  {
       (this.richText && this.isBlogEditor) || this.addedMediaSrc.length) {
       this.isLoading = true;
       const formData = new FormData();
+      formData.append("postEditorType", this.isBlogEditor ? "blog" : "normal");
       if (this.isBlogEditor) {
         formData.append('text', this.richText);
       } else {
@@ -146,8 +154,8 @@ export class PostFeedComponent implements OnInit  {
           formData.append('files', file);
         });
       }
-      if ( this.data.editing ) {
-        this.service.editPost( this.text.value, this.data.feed.postActionId).subscribe((res: any) => {
+      if (this.data.editing) {
+        this.service.editPost(this.text.value, this.data.feed.postActionId).subscribe((res: any) => {
           this.uploading = true;
           this.closeDialog(res);
           // console.log('close', res);
@@ -269,6 +277,6 @@ export class PostFeedComponent implements OnInit  {
     // console.log("mycdkEditor", myckeditor);
   }
   closeDialog(data) {
-    this.dialogRef.close({  data });
+    this.dialogRef.close({ data });
   }
 }

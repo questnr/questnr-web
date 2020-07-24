@@ -66,15 +66,17 @@
           <!--               [innerHtml]="singlePost?.text">-->
           <!--          </div>-->
           <div class="text-container">
-            <app-feed-text [text]="singlePost?.text" [hashTagsData]="hashTagsData"></app-feed-text>
+            <app-feed-text [text]="singlePost?.text" [hashTagsData]="hashTagsData" [readMore]="readMore">
+            </app-feed-text>
           </div>
           <app-meta-card *ngIf="iFramelyData?.url && mobileView" [iFramelyData]="iFramelyData"></app-meta-card>
           <div class="count-box">
-            <div><span>{{singlePost.totalLikes ? singlePost.totalLikes : 0}} </span>
-              {{singlePost.totalLikes > 1 ? 'Likes' : 'Like'}}</div>
+            <div><span>{{singlePost.postActionMeta.totalLikes ? singlePost.postActionMeta.totalLikes : 0}} </span>
+              {{singlePost.postActionMeta.totalLikes > 1 ? 'Likes' : 'Like'}}</div>
             <div class="dot"></div>
-            <div><span> {{singlePost.totalComments ? singlePost.totalComments : 0}} </span>
-              {{singlePost.totalComments > 1 ? 'Comments' : 'Comment'}} </div>
+            <div><span> {{singlePost.postActionMeta.totalComments ? singlePost.postActionMeta.totalComments : 0}}
+              </span>
+              {{singlePost.postActionMeta.totalComments > 1 ? 'Comments' : 'Comment'}} </div>
           </div>
           <div class="footer-wrap">
             <button mat-button [disabled]="isLoading" (click)="likePost(singlePost.postActionId)"

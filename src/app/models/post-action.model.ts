@@ -20,13 +20,15 @@ export class Post {
   postActionMeta: PostActionMeta;
   likeActionList: LikeAction[];
   commentActionList: CommentAction[];
-  totalLikes: number;
-  totalComments: number;
-  totalPostVisits: number;
   postMediaList: PostMedia[];
   hashTags: HashTag[];
   pollQuestion: PollQuestion;
   pollQuestionMeta: PollQuestionMeta;
+  postEditorType: PostEditorType;
+}
+
+export enum PostEditorType {
+  normal = "normal", blog = "blog"
 }
 
 export class PostMedia {
@@ -36,6 +38,9 @@ export class PostMedia {
 
 export class PostActionMeta {
   liked: boolean;
+  totalLikes: number;
+  totalComments: number;
+  totalPostVisits: number;
 }
 
 export class PostActionForMedia {

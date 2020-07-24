@@ -19,6 +19,7 @@ export class IFramelyService {
     const iFramelyResp: any = await this.http.get(this.iframelyLink, { params: { url: detectedLink, api_key: this.apiKey } }).toPromise();
     let iFramelyData = new IFramelyData();
     if (!iFramelyResp || iFramelyResp.error) {
+      // Note this! If the link does not have any meta data then error will be set
       iFramelyData.error = true;
     } else {
       iFramelyData.error = false;

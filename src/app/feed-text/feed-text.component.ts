@@ -9,6 +9,8 @@ export class FeedTextComponent implements OnInit {
   @Input() text: string;
   @Input() maxLength: number = 300;
   @Input() hashTagsData = {};
+  // "read more" functionality to be use
+  @Input() readMore: boolean = true;
   endPart: string = "...";
   countReadMoreTimes: number = 0;
   textToShow: string = "";
@@ -22,8 +24,8 @@ export class FeedTextComponent implements OnInit {
     if (this.hashTagsData != {}) {
       this.hashTagPosList = Object.keys(this.hashTagsData);
     }
-    if (this.text.length > this.maxLength) {
-      this.readMore();
+    if (this.text.length > this.maxLength && this.readMore) {
+      this.readMoreText();
     } else {
       this.textToShow = this.text;
       this.hasMoreText = false;
@@ -36,7 +38,7 @@ export class FeedTextComponent implements OnInit {
   // }
 
 
-  readMore(): void {
+  readMoreText(): void {
     if ((this.countReadMoreTimes + 1) * this.maxLength > this.text.length) {
       this.appendText(this.textToShow.length, this.text.length);
       this.hasMoreText = false;

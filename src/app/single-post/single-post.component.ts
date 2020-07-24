@@ -71,6 +71,8 @@ export class SinglePostComponent implements OnInit {
   };
   screenWidth = window.innerWidth;
   hashTagsData: any = {};
+  // Thie will turn off "read more" functionality
+  readMore: boolean = false;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
     public loginService: LoginService,
@@ -89,7 +91,7 @@ export class SinglePostComponent implements OnInit {
       if (this.singlePost.postMediaList.length) {
         this.type = postType.media;
       } else {
-        if (this.iFramelyData) {
+        if (this.iFramelyData && !this.iFramelyData.error) {
           this.type = postType.metacard;
           console.log(this.type);
         } else {
@@ -114,6 +116,7 @@ export class SinglePostComponent implements OnInit {
     };
     this.route.data.subscribe((data: { singlePost: SinglePost }) => {
       this.singlePost = data.singlePost;
+      console.log("this.singlePost", this.singlePost);
       if (this.singlePost.postMediaList.length) {
         this.type = postType.media;
       }
@@ -252,13 +255,13 @@ export class SinglePostComponent implements OnInit {
   likedPost() {
     this.isLoading = false;
     this.singlePost.postActionMeta.liked = true;
-    ++this.singlePost.totalLikes;
+    ++this.singlePost.postActionMeta.totalLikes;
   }
 
   dislikedPost() {
     this.isLoading = false;
     this.singlePost.postActionMeta.liked = false;
-    --this.singlePost.totalLikes;
+    --this.singlePost.postActionMeta.totalLikes;
   }
 
   getUserId() {

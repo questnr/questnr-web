@@ -196,7 +196,7 @@ export class RecommendedFeedsComponent implements OnInit {
             } else {
               this.feed.commentActionList.unshift(res);
             }
-            ++this.feed.totalComments;
+            ++this.feed.postActionMeta.totalComments;
             this.isCommentLoading = false;
             this.replyingTo = null;
             this.comment.setValue('');
@@ -235,12 +235,12 @@ export class RecommendedFeedsComponent implements OnInit {
   likedPost() {
     this.isLoading = false;
     this.feed.postActionMeta.liked = true;
-    ++this.feed.totalLikes;
+    ++this.feed.postActionMeta.totalLikes;
   }
   dislikedPost() {
     this.isLoading = false;
     this.feed.postActionMeta.liked = false;
-    --this.feed.totalLikes;
+    --this.feed.postActionMeta.totalLikes;
   }
   getUserId() {
     return this.login.getUserId();
