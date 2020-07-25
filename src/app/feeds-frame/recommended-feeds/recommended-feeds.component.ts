@@ -12,7 +12,7 @@ import { IFramelyData } from 'models/iframely.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { CommentAction } from '../../models/comment-action.model';
-import { Post, PostActionForMedia } from '../../models/post-action.model';
+import { Post, PostActionForMedia, PostEditorType } from '../../models/post-action.model';
 import { UserListComponent } from '../../shared/components/dialogs/user-list/user-list.component';
 import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
 import { GlobalConstants } from 'shared/constants';
@@ -20,6 +20,7 @@ import { User } from 'models/user.model';
 import { Page } from 'models/page.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PostFeedComponent } from '../post-feed/post-feed.component';
+import { FeedTextComponent } from 'feed-text/feed-text.component';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -36,6 +37,7 @@ import { PostFeedComponent } from '../post-feed/post-feed.component';
 export class RecommendedFeedsComponent implements OnInit {
   @Input() feed: Post;
   @ViewChild('commentInput') commentInput: ElementRef;
+  @ViewChild('feedTextComponent') feedTextComponent: FeedTextComponent;
   @Output() removePostEvent = new EventEmitter();
   @Input() showUserHeader: boolean = false;
   // @ViewChild("metaCardComponentRef", { static: true }) metaCardComponentRef: MetaCardComponent;
@@ -89,6 +91,7 @@ export class RecommendedFeedsComponent implements OnInit {
   errorOnImageIndexList: number[] = [];
   userPath: string = GlobalConstants.userPath;
   editableFeed: Post;
+  displayText: string;
 
   constructor(private api: FeedsService,
     public login: LoginService,
@@ -109,27 +112,29 @@ export class RecommendedFeedsComponent implements OnInit {
     this.editableFeed = Object.assign({}, this.feed);
     this.loggedInUsername = this.login.getUserProfile().sub;
     this.loggedInUserId = this.login.getUserProfile().id;
-    this.parseFeed();
+    this.parseFeedText();
   }
-  parseFeed() {
-    this.feed.text.replace('\n', '<br>');
-    this.feed.hashTags.forEach((hashTag: HashTag) => {
-      // let hashTagNode = document.createElement("span");
-      // hashTagNode.style.color = 'red';
-      var regEx = new RegExp("#" + hashTag.hashTagValue, "ig");
-      let index = this.commonService.indexOfUsingRegex(this.feed.text, regEx, 0);
-      if (index >= 0)
-        this.hashTagsData[index] = hashTag.hashTagValue.length + 1;
-      this.feed.text = this.feed.text.replace(regEx,
-        "<app-hash-tag hash-tag-value=\"" + hashTag.hashTagValue + "\"></app-hash-tag>"
-      );
-    });
-  }
-  async ngAfterViewInit() {
-    if (this.feed.text) {
-      let detectedLink: string = this.commonService.parseTextToFindURL(this.feed.text);
+  async parseFeedText() {
+    if (this.feed.text)
+      this.displayText = this.feed.text;
+    if (this.feed.postEditorType !== PostEditorType.blog) {
+      this.displayText.replace('\n', '<br>');
+      this.feed.hashTags.forEach((hashTag: HashTag) => {
+        // let hashTagNode = document.createElement("span");
+        // hashTagNode.style.color = 'red';
+        var regEx = new RegExp("#" + hashTag.hashTagValue, "ig");
+        let index = this.commonService.indexOfUsingRegex(this.displayText, regEx, 0);
+        if (index >= 0)
+          this.hashTagsData[index] = hashTag.hashTagValue.length + 1;
+        this.displayText = this.displayText.substr(0, index) +
+          "<app-hash-tag hash-tag-value=\"" + hashTag.hashTagValue + "\"></app-hash-tag>" +
+          this.displayText.substr(index + hashTag.hashTagValue.length + 1);
+      });
+      let detectedLink: string = this.commonService.parseTextToFindURL(this.displayText);
       this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
     }
+  }
+  ngAfterViewInit() {
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;
@@ -306,5 +311,12 @@ export class RecommendedFeedsComponent implements OnInit {
         data: { url: res.clickAction }
       });
     });
+  }
+
+  updatePostEvent($event) {
+    this.feed = $event;
+    this.parseFeedText();
+    this.feedTextComponent.text = this.displayText;
+    this.feedTextComponent.ngOnInit();
   }
 }

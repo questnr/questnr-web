@@ -1,3 +1,4 @@
 <div class="time-string" [matTooltip]="metaData.createdAtTimeInUTC | date">
     {{metaData.timeString == "now" ? "just now" : metaData.timeString+" ago"}}
+    <span *ngIf="metaData?.edited">/ edited</span>
 </div>

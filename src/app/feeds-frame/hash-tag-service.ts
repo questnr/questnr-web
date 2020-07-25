@@ -171,7 +171,8 @@ export class HashTagService {
   }
 
   hideHashTagSuggesionList(): void {
-    this.floatingSuggestionBoxRef.hideBox();
+    if (this.floatingSuggestionBoxRef)
+      this.floatingSuggestionBoxRef.hideBox();
     if (this.hashTagSubscriber) this.hashTagSubscriber.unsubscribe();
   }
 

@@ -26,7 +26,7 @@
           (registerEditorEvent)="registerEditor($event)" [richText]="richText">
         </app-rich-text-area>
       </div>
-      <div style="position: relative">
+      <div style="position: relative" *ngIf="!data?.feed?.postEditorType">
         <span *ngIf="isBlogEditor" (click)="switchEditor(false)" class="editor-mode">switch to normal editor</span>
         <span *ngIf="!isBlogEditor" (click)="switchEditor(true)" class="editor-mode">switch to blog editor</span>
         <div class="emoticon-container">

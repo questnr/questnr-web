@@ -80,8 +80,7 @@ export class PostFeedComponent implements OnInit {
   ngAfterViewInit(key: string): void {
     this.hashTagService.registerInputElement(this.userInputRef.nativeElement);
     if (this.data.feed) {
-      console.log("this.data.feed", this.data.feed);
-      if (this.data.feed.postEditorType == PostEditorType.blog) {
+      if (this.data?.feed?.postEditorType == PostEditorType.blog) {
         this.isBlogEditor = true;
         this.richText = this.data.feed.text;
       } else {
@@ -142,26 +141,26 @@ export class PostFeedComponent implements OnInit {
     if ((this.text.value && !this.isBlogEditor) ||
       (this.richText && this.isBlogEditor) || this.addedMediaSrc.length) {
       this.isLoading = true;
-      const formData = new FormData();
-      formData.append("postEditorType", this.isBlogEditor ? "blog" : "normal");
-      if (this.isBlogEditor) {
-        formData.append('text', this.richText);
-      } else {
-        formData.append('text', this.text.value);
-      }
-      if (this.addedMedias.length) {
-        this.addedMedias.forEach(file => {
-          formData.append('files', file);
-        });
-      }
       if (this.data.editing) {
-        this.service.editPost(this.text.value, this.data.feed.postActionId).subscribe((res: any) => {
+        this.service.editPost(this.isBlogEditor ? this.richText : this.text.value, this.data.feed.postActionId).subscribe((res: any) => {
           this.uploading = true;
           this.closeDialog(res);
           // console.log('close', res);
           this.snackBar.open('Post Edited Successfully', 'close', { duration: 5000 });
         });
       } else {
+        const formData = new FormData();
+        formData.append("postEditorType", this.isBlogEditor ? "blog" : "normal");
+        if (this.isBlogEditor) {
+          formData.append('text', this.richText);
+        } else {
+          formData.append('text', this.text.value);
+        }
+        if (this.addedMedias.length) {
+          this.addedMedias.forEach(file => {
+            formData.append('files', file);
+          });
+        }
         if (this.data.isCommunityPost && this.data.communityId != null) {
           this.apiUrl = 'user/community/' + this.data.communityId + '/posts';
         } else {

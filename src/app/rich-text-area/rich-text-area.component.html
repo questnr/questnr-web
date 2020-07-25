@@ -1,3 +1,7 @@
 <ckeditor id="myckeditor" [(ngModel)]="mycontent" #ckeditor="ngModel" [config]="config" name="myckeditor"
     (change)="typeCheckOnUserInput($event)" debounce="500">
 </ckeditor>
+
+<div *ngIf="isInstanceLoading">
+    <app-loader [size]="'sm'" *ngIf="isInstanceLoading"></app-loader>&nbsp;Creating Editor
+</div>

@@ -13,7 +13,8 @@
     </div>
 
     <div class="spacer"></div>
-    <app-post-menu-options [feed]="editableFeed" (removePostEvent)="removePost($event)"></app-post-menu-options>
+    <app-post-menu-options (postData)="updatePostEvent($event)" [feed]="editableFeed"
+      (removePostEvent)="removePost($event)"></app-post-menu-options>
   </div>
   <div class="head-wrap" *ngIf="showUserHeader">
     <app-profile-icon [avatar]="feed.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
@@ -26,7 +27,8 @@
       <app-time-string [metaData]="feed.metaData"></app-time-string>
     </div>
     <div class="spacer"></div>
-    <app-post-menu-options [feed]="editableFeed" (removePostEvent)="removePost($event)"></app-post-menu-options>
+    <app-post-menu-options (postData)="updatePostEvent($event)" [feed]="editableFeed"
+      (removePostEvent)="removePost($event)"></app-post-menu-options>
   </div>
   <div class="mb-2">
     <div *ngIf="feed.postMediaList?.length" class="media-container">
@@ -48,7 +50,7 @@
         </ng-container>
       </owl-carousel-o>
     </div>
-    <app-feed-text [text]="feed?.text" [hashTagsData]="hashTagsData"></app-feed-text>
+    <app-feed-text [text]="displayText" [hashTagsData]="hashTagsData" #feedTextComponent></app-feed-text>
     <app-meta-card *ngIf="iFramelyData?.url" [iFramelyData]="iFramelyData"></app-meta-card>
   </div>
   <div class="count-box">
