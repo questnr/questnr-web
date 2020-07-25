@@ -316,6 +316,7 @@ export class RecommendedFeedsComponent implements OnInit {
   updatePostEvent($event) {
     this.feed = $event;
     this.parseFeedText();
+    this.editableFeed = Object.assign({}, this.feed);
     this.feedTextComponent.text = this.displayText;
     this.feedTextComponent.ngOnInit();
   }
