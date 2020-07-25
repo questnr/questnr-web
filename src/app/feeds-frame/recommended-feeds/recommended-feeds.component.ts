@@ -124,11 +124,12 @@ export class RecommendedFeedsComponent implements OnInit {
         // hashTagNode.style.color = 'red';
         var regEx = new RegExp("#" + hashTag.hashTagValue, "ig");
         let index = this.commonService.indexOfUsingRegex(this.displayText, regEx, 0);
-        if (index >= 0)
+        if (index >= 0) {
           this.hashTagsData[index] = hashTag.hashTagValue.length + 1;
-        this.displayText = this.displayText.substr(0, index) +
-          "<app-hash-tag hash-tag-value=\"" + hashTag.hashTagValue + "\"></app-hash-tag>" +
-          this.displayText.substr(index + hashTag.hashTagValue.length + 1);
+          this.displayText = this.displayText.substr(0, index) +
+            "<app-hash-tag hash-tag-value=\"" + hashTag.hashTagValue + "\"></app-hash-tag>" +
+            this.displayText.substr(index + hashTag.hashTagValue.length + 1);
+        }
       });
       let detectedLink: string = this.commonService.parseTextToFindURL(this.displayText);
       this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
