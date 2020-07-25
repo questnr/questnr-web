@@ -24,6 +24,7 @@ export class Post {
   hashTags: HashTag[];
   pollQuestion: PollQuestion;
   pollQuestionMeta: PollQuestionMeta;
+  blogTitle: string;
   postEditorType: PostEditorType;
 }
 

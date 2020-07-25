@@ -48,6 +48,7 @@ export class PostFeedComponent implements OnInit {
   uploading = false;
   uploadProgress = 0;
   text = new FormControl();
+  blogTitle = new FormControl();
   richText: string;
   profileImg;
   addedMedias = [];
@@ -83,6 +84,7 @@ export class PostFeedComponent implements OnInit {
       if (this.data?.feed?.postEditorType == PostEditorType.blog) {
         this.isBlogEditor = true;
         this.richText = this.data.feed.text;
+        this.blogTitle.setValue(this.data.feed.blogTitle);
       } else {
         this.text.setValue(this.data.feed.text);
       }
@@ -103,6 +105,16 @@ export class PostFeedComponent implements OnInit {
       this.isMediaEnabled = false;
     } else {
       this.isMediaEnabled = true;
+    }
+  }
+
+  validateBlogTitle(): boolean {
+    if (this.blogTitle.value && this.blogTitle.value.length > 100) {
+      this.blogTitle.setErrors({ 'invalid': true });
+      return false;
+    } else {
+      this.blogTitle.setErrors({ 'invalid': false });
+      return true;
     }
   }
 
@@ -142,17 +154,20 @@ export class PostFeedComponent implements OnInit {
       (this.richText && this.isBlogEditor) || this.addedMediaSrc.length) {
       this.isLoading = true;
       if (this.data.editing) {
-        this.service.editPost(this.isBlogEditor ? this.richText : this.text.value, this.data.feed.postActionId).subscribe((res: any) => {
-          this.uploading = true;
-          this.closeDialog(res);
-          // console.log('close', res);
-          this.snackBar.open('Post Edited Successfully', 'close', { duration: 5000 });
-        });
+        if (this.validateBlogTitle()) {
+          this.service.editPost(this.isBlogEditor ? this.richText : this.text.value, this.blogTitle.value, this.data.feed.postActionId).subscribe((res: any) => {
+            this.uploading = true;
+            this.closeDialog(res);
+            // console.log('close', res);
+            this.snackBar.open('Post Edited Successfully', 'close', { duration: 5000 });
+          });
+        }
       } else {
         const formData = new FormData();
         formData.append("postEditorType", this.isBlogEditor ? "blog" : "normal");
         if (this.isBlogEditor) {
           formData.append('text', this.richText);
+          formData.append('blogTitle', this.blogTitle.value);
         } else {
           formData.append('text', this.text.value);
         }
@@ -161,33 +176,35 @@ export class PostFeedComponent implements OnInit {
             formData.append('files', file);
           });
         }
-        if (this.data.isCommunityPost && this.data.communityId != null) {
-          this.apiUrl = 'user/community/' + this.data.communityId + '/posts';
-        } else {
-          this.apiUrl = 'user/posts';
-        }
-        this.service.postFeed(formData, this.apiUrl).subscribe(
-          (event: HttpEvent<any>) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              this.uploading = true;
-              this.uploadProgress = Math.round(event.loaded / event.total * 100);
-            } else if (event.type === HttpEventType.Response) {
-              // this.postData.emit(event.body);
-              this.closeDialog(event.body);
+        // Check if the blog title is valid
+        if ((!this.isBlogEditor) || (this.isBlogEditor && this.validateBlogTitle())) {
+          if (this.data.isCommunityPost && this.data.communityId != null) {
+            this.apiUrl = 'user/community/' + this.data.communityId + '/posts';
+          } else {
+            this.apiUrl = 'user/posts';
+          }
+          this.service.postFeed(formData, this.apiUrl).subscribe(
+            (event: HttpEvent<any>) => {
+              if (event.type === HttpEventType.UploadProgress) {
+                this.uploading = true;
+                this.uploadProgress = Math.round(event.loaded / event.total * 100);
+              } else if (event.type === HttpEventType.Response) {
+                // this.postData.emit(event.body);
+                this.closeDialog(event.body);
+                this.reset();
+              }
+            }, err => {
               this.reset();
             }
-          }, err => {
-            this.reset();
-          }
-        );
+          );
+        }
       }
     }
   }
 
   isPostInvalid() {
-    if ((!this.isBlogEditor && this.text.value)
-      || this.addedMedias.length
-      || (this.isBlogEditor && this.richText && this.richText.length > 0)) {
+    if ((!this.isBlogEditor && (this.text.value || this.addedMedias.length))
+      || (this.isBlogEditor && this.richText && this.richText.length > 0 && this.validateBlogTitle())) {
       return false;
     }
     return true;

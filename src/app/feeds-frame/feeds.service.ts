@@ -20,9 +20,9 @@ export class FeedsService {
     const req = new HttpRequest('POST', this.baseUrl + apiUrl, data, { reportProgress: true });
     return this.http.request(req);
   }
-  editPost(text: string, postId: number) {
+  editPost(text: string, blogTitle: string, postId: number) {
     if (!postId) return of();
-    return this.http.put(this.baseUrl + `user/posts/${postId}`, { text });
+    return this.http.put(this.baseUrl + `user/posts/${postId}`, { text, blogTitle });
   }
   getFeeds(page) {
     return this.http.get(this.baseUrl + 'user/feed', { params: { page } });

@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {PostFeedComponent} from '../../post-feed/post-feed.component';
-import {MatDialog} from '@angular/material/dialog';
-import {LoginService} from '../../../auth/login.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { PostFeedComponent } from '../../post-feed/post-feed.component';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginService } from '../../../auth/login.service';
 
 @Component({
   selector: 'app-post-feeds',
@@ -13,18 +13,18 @@ export class PostFeedsComponent implements OnInit {
   @Input() isCommunityPost = false;
   @Input() communityId;
   @Input() type: any;
-  constructor(public dialog: MatDialog, public  login: LoginService) { }
+  constructor(public dialog: MatDialog, public login: LoginService) { }
 
   ngOnInit() {
   }
   createPost(communityId, isCommunityPost, type, addMediaAction): void {
     const dialogRef = this.dialog.open(PostFeedComponent, {
-      width: '500px',
+      width: '550px',
       // height: '600px',
       // backdropClass: 'custom-dialog-backdrop-class',
       // panelClass: 'custom-dialog-panel-class',
       // disableClose:true
-      data: {communityId, isCommunityPost, type, addMediaAction }
+      data: { communityId, isCommunityPost, type, addMediaAction }
     });
 
     dialogRef.afterClosed().subscribe(result => {
