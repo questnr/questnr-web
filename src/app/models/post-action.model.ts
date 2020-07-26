@@ -21,6 +21,7 @@ export class Post {
   commentActionList: CommentAction[];
   postMediaList: PostMedia[];
   hashTags: HashTag[];
+  questionText: string;
   pollQuestion: PollQuestion;
   pollQuestionMeta: PollQuestionMeta;
   postData: NormalPostData;
@@ -60,7 +61,6 @@ export class PollQuestion {
   disagreePercentage: number;
   agreeText: string;
   disagreeText: string;
-  question: string;
 }
 export class PollQuestionMeta {
   pollAnswer: string;

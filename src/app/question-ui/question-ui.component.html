@@ -18,7 +18,7 @@
           <app-post-menu-options [feed]="question" (removePostEvent)="removePost($event)"></app-post-menu-options>
         </div>
         <hr>
-        <p>{{question.pollQuestion.question}}</p>
+        <p>{{question.questionText}}</p>
         <div class="row">
           <div class="col-lg-12">
             <div class="answer-box agree" (click)="respondToQuestion(question?.postActionId, 'agree')">
