@@ -283,3 +283,9 @@ button.liked {
 ::ng-deep.mat-menu-panel{
   min-height: auto !important;
 }
+
+.link-hide-border{
+  &:hover{
+    border: 0;
+  }
+}

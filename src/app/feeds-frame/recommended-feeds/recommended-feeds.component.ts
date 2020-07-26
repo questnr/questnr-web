@@ -21,6 +21,7 @@ import { Page } from 'models/page.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PostFeedComponent } from '../post-feed/post-feed.component';
 import { FeedTextComponent } from 'feed-text/feed-text.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -92,6 +93,7 @@ export class RecommendedFeedsComponent implements OnInit {
   userPath: string = GlobalConstants.userPath;
   editableFeed: Post;
   displayText: string;
+  postPath: string = GlobalConstants.postPath;
 
   constructor(private api: FeedsService,
     public login: LoginService,
@@ -99,7 +101,8 @@ export class RecommendedFeedsComponent implements OnInit {
     public userProfileCardServiceComponent: UserProfileCardServiceComponent,
     private commonService: CommonService,
     private iFramelyService: IFramelyService,
-    public snackbar: MatSnackBar) { }
+    public snackbar: MatSnackBar,
+    private router: Router) { }
 
   ngOnInit() {
     if (!this.showUserHeader) {
@@ -320,5 +323,15 @@ export class RecommendedFeedsComponent implements OnInit {
     this.editableFeed = Object.assign({}, this.feed);
     this.feedTextComponent.text = this.displayText;
     this.feedTextComponent.ngOnInit();
+  }
+
+  openBlog() {
+    if (this.feed.slug) {
+      const url = this.router.serializeUrl(
+        this.router.createUrlTree(['/', this.postPath, this.feed.slug])
+      );
+
+      window.open(url, '_blank');
+    }
   }
 }

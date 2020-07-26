@@ -53,9 +53,9 @@
     <app-feed-text [text]="displayText" [hashTagsData]="hashTagsData" #feedTextComponent></app-feed-text>
     <app-meta-card *ngIf="iFramelyData?.url" [iFramelyData]="iFramelyData"></app-meta-card>
   </div>
-  <div class="mb-2" *ngIf="feed.postData.postEditorType=='blog'">
-    {{feed.postData.blogTitle}}
-  </div>
+  <app-blog-title class="mb-2 link-hide-border" *ngIf="feed.postData.postEditorType=='blog'"
+    [blogTitle]="feed.postData.blogTitle" (click)="openBlog()">
+  </app-blog-title>
   <div class="count-box">
     <div (click)="openUserGroupDialog('like')">
       <span>{{feed.postActionMeta.totalLikes? feed.postActionMeta.totalLikes: 0}}

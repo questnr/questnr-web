@@ -133,6 +133,7 @@ import { AskQuestionBtnComponent } from './ask-question-btn/ask-question-btn.com
 import { QuestionUIComponent } from './question-ui/question-ui.component';
 import { TrendingPostPollQuestionComponent } from 'trend-post-question/trend-post-question.component';
 import { LoaderTextComponent } from 'shared/loader-text/loader-text.component';
+import { BlogTitleComponent } from 'blog-title/blog-title.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -256,7 +257,8 @@ export function metaFactory(): MetaLoader {
     AskQuestionBtnComponent,
     QuestionUIComponent,
     TrendingPostPollQuestionComponent,
-    LoaderTextComponent
+    LoaderTextComponent,
+    BlogTitleComponent
   ],
   imports: [
     MatVideoModule,
