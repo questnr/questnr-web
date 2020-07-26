@@ -112,7 +112,6 @@
 .footer-wrap {
   display: flex;
   padding: 0 1rem;
-  justify-content: space-between;
 
   button {
     display: flex;
@@ -133,7 +132,13 @@
   }
 }
 
+.footer-wrap.mobile{
+  justify-content: center;
+  padding: 1rem;
+}
+
 .footer-wrap.desktop{
+  justify-content: space-between;
   margin: 1rem;
 }
 
@@ -447,6 +452,10 @@ button.liked {
 .login-register-btn{
   display: flex;
   align-items: center;
+}
+
+.login-register-btn.mobile{
+  padding: 7px;
 }
 
 .blog-media-container{

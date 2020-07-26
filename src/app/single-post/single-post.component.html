@@ -129,7 +129,8 @@
               </button>
             </div>
             <div class="row">
-              <app-login-register-btn *ngIf="!actionAllowed" class="login-register-btn" [openNewTab]="true">
+              <app-login-register-btn *ngIf="!actionAllowed" class="login-register-btn"
+                [ngClass]="mobileView ? 'mobile' : 'desktop'" [openNewTab]="true">
               </app-login-register-btn>
             </div>
           </div>
