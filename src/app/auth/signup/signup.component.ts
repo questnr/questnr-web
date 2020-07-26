@@ -8,6 +8,7 @@ import { GlobalConstants, REGEX } from 'shared/constants';
 import { WelcomeSlidesComponent } from 'shared/components/dialogs/welcome-slides/welcome-slides.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonService } from 'common/common.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-signup',
@@ -62,8 +63,13 @@ export class SignupComponent implements OnInit {
   // dob = new FormControl('', Validators.required);
   maxAllowedDOB = new Date(new Date().setFullYear(new Date().getFullYear() - GlobalConstants.signUpAgeRestriction));
   constructor(
+    private titleService: Title,
     private fb: FormBuilder, private auth: LoginService, private dialog: MatDialog,
-    private socialAuth: AuthService, private router: Router, private commonService: CommonService) { }
+    private socialAuth: AuthService, private router: Router, private commonService: CommonService) {
+    if (this.router.routerState.snapshot.url == ['/', GlobalConstants.signUp].join("")) {
+      this.titleService.setTitle(GlobalConstants.signupTitle);
+    }
+  }
 
   ngOnInit() {
     this.group = this.fb.group({
@@ -77,6 +83,10 @@ export class SignupComponent implements OnInit {
     }, {
       // validators: CustomValidations.MatchPassword
     });
+  }
+
+  ngOnDestroy() {
+    this.titleService.setTitle(GlobalConstants.siteTitle);
   }
 
   submit() {

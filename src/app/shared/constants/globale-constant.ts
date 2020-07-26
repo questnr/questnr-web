@@ -6,6 +6,9 @@ export class GlobalConstants {
   public static image = '';
   public static fbAppId = "1336590906533811";
   public static gtagId = 'UA-168117128-1';
+  public static welcomeTitle = "Welcome To " + GlobalConstants.siteTitle;
+  public static loginTitle = "Login To " + GlobalConstants.siteTitle;
+  public static signupTitle = "Signup To " + GlobalConstants.siteTitle;
 
   public static signUpAgeRestriction = 16;
 

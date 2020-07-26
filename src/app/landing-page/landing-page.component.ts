@@ -9,6 +9,7 @@ import { ApiService } from 'shared/api.service';
 import { UIService } from 'ui/ui.service';
 import { GlobalConstants } from '../shared/constants';
 import { LoginService } from 'auth/login.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-landing-page',
@@ -58,11 +59,13 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   ];
 
   metaList: MetaList[] = [];
+  feedPath: string = GlobalConstants.feedPath;
 
   topHashtags = [];
 
-  constructor(public api: ApiService, public router: Router, private uiService: UIService, private route: ActivatedRoute,
+  constructor(private titleService: Title, public api: ApiService, public router: Router, private uiService: UIService, private route: ActivatedRoute,
     private loginService: LoginService) {
+    this.titleService.setTitle(GlobalConstants.welcomeTitle);
     this.hashtagInput.valueChanges
       .pipe(
         debounceTime(500),
@@ -89,7 +92,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     this.route.data.subscribe((data: { siteTitle: string }) => {
     });
     if (this.loginService.loggedIn()) {
-      this.router.navigate(['feed']);
+      this.router.navigate(['/', this.feedPath]);
     }
     // this.api.getTopUsers().subscribe(
     //   (res: any) => {
