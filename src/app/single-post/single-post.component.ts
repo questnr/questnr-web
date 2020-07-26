@@ -3,7 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
-import { SinglePost } from 'models/signle-post.model';
+import { SinglePost } from 'models/single-post.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { UIService } from 'ui/ui.service';
 import { SinglePostService } from './single-post.service';
@@ -15,9 +15,9 @@ import { CommonService } from '../common/common.service';
 import { IFramelyService } from '../meta-card/iframely.service';
 import { HashTag } from '../models/hashtag.model';
 import { CommentAction } from '../models/comment-action.model';
-import { PostEditorType } from 'models/post-action.model';
+import { PostEditorType, Post } from 'models/post-action.model';
 enum postType {
-  media, text, metacard
+  media, text, metacard, blog
 }
 @Component({
   selector: 'app-single-post',
@@ -106,9 +106,7 @@ export class SinglePostComponent implements OnInit {
     this.route.data.subscribe((data: { singlePost: SinglePost }) => {
       this.singlePost = data.singlePost;
       console.log("this.singlePost", this.singlePost);
-      if (this.singlePost.postMediaList.length) {
-        this.viewType = postType.media;
-      }
+      this.checkPostViewType();
       this.parseFeed();
       this.isLoading = false;
     });
@@ -138,15 +136,15 @@ export class SinglePostComponent implements OnInit {
   }
 
   checkPostViewType() {
-    if (this.singlePost.postMediaList.length) {
-      this.viewType = postType.media;
-    } else {
-      if (this.iFramelyData && !this.iFramelyData.error) {
-        this.viewType = postType.metacard;
-      } else {
-        this.viewType = postType.text;
-      }
+    if (this.singlePost.postData.postEditorType === PostEditorType.blog) {
+      return this.viewType = postType.blog;
     }
+    if (this.singlePost.postMediaList.length) {
+      return this.viewType = postType.media;
+    } else if (this.iFramelyData && !this.iFramelyData.error) {
+      return this.viewType = postType.metacard;
+    }
+    return this.viewType = postType.text;
   }
 
   ngOnDestroy() {

@@ -34,7 +34,6 @@ export class PostFeedsComponent implements OnInit {
     });
   }
   emitQuestionData(event) {
-    console.log('event', event);
     this.postData.emit(event.data);
   }
 }

@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class BlogTitleComponent implements OnInit {
   @Input() blogTitle: string;
+  @Input() onFeed: boolean = true;
 
   constructor() { }
 

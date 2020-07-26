@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { SinglePost } from 'models/signle-post.model';
+import { SinglePost } from 'models/single-post.model';
 import { map } from 'rxjs/operators';
 import { UIService } from 'ui/ui.service';
 import { SinglePostService } from './single-post.service';
