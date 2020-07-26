@@ -2,6 +2,4 @@
     (change)="typeCheckOnUserInput($event)" debounce="500">
 </ckeditor>
 
-<div class="instance-loading" *ngIf="isInstanceLoading">
-    <app-loader [size]="'sm'"></app-loader>&nbsp;Creating Editor
-</div>
+<app-loader-text *ngIf="isInstanceLoading" [size]="'sm'" [text]="'Creating Editor'"></app-loader-text>

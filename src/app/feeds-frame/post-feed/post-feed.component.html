@@ -22,15 +22,18 @@
       </textarea>
       </div>
       <div *ngIf="isBlogEditor">
-        <mat-form-field class="col-md-12" appearance="fill" floatLabel="always">
-          <input [formControl]="blogTitle" type="text" placeholder="Blog Title" matInput />
-          <mat-error *ngIf="blogTitle.hasError('invalid')">Title has more than 100 words</mat-error>
-        </mat-form-field>
-        <app-rich-text-area (typeCheckOnUserInputEvent)="typeCheckOnUserInputEvent($event)"
-          (registerEditorEvent)="registerEditor($event)" [richText]="richText">
-        </app-rich-text-area>
+        <app-loader-text *ngIf="isFetchingPostData" [size]="'sm'" [text]="'Fetching Your Blog'"></app-loader-text>
+        <div *ngIf="!isFetchingPostData">
+          <mat-form-field class="col-md-12" appearance="fill" floatLabel="always">
+            <input [formControl]="blogTitle" type="text" placeholder="Blog Title" matInput />
+            <mat-error *ngIf="blogTitle.hasError('invalid')">Title has more than 100 words</mat-error>
+          </mat-form-field>
+          <app-rich-text-area (typeCheckOnUserInputEvent)="typeCheckOnUserInputEvent($event)"
+            (registerEditorEvent)="registerEditor($event)" [richText]="richText">
+          </app-rich-text-area>
+        </div>
       </div>
-      <div style="position: relative" *ngIf="!data?.feed?.postEditorType">
+      <div style="position: relative" *ngIf="!data?.feed?.postData.postEditorType">
         <span *ngIf="isBlogEditor" (click)="switchEditor(false)" class="editor-mode">switch to normal editor</span>
         <span *ngIf="!isBlogEditor" (click)="switchEditor(true)" class="editor-mode">switch to blog editor</span>
         <div class="emoticon-container">

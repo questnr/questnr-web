@@ -30,7 +30,7 @@
     <app-post-menu-options (postData)="updatePostEvent($event)" [feed]="editableFeed"
       (removePostEvent)="removePost($event)"></app-post-menu-options>
   </div>
-  <div class="mb-2">
+  <div class="mb-2" *ngIf="feed.postData.postEditorType!='blog'">
     <div *ngIf="feed.postMediaList?.length" class="media-container">
       <owl-carousel-o [options]="customOptions">
         <ng-container *ngFor="let media of feed.postMediaList;let i=index">
@@ -52,6 +52,9 @@
     </div>
     <app-feed-text [text]="displayText" [hashTagsData]="hashTagsData" #feedTextComponent></app-feed-text>
     <app-meta-card *ngIf="iFramelyData?.url" [iFramelyData]="iFramelyData"></app-meta-card>
+  </div>
+  <div class="mb-2" *ngIf="feed.postData.postEditorType=='blog'">
+    {{feed.postData.blogTitle}}
   </div>
   <div class="count-box">
     <div (click)="openUserGroupDialog('like')">

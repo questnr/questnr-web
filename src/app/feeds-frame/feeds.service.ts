@@ -1,10 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { PostActionForMedia } from 'models/post-action.model';
+import { Injectable } from '@angular/core';
+import { NormalPostData, PostActionForMedia } from 'models/post-action.model';
 import { Observable, of } from 'rxjs';
-import { User } from 'models/user.model';
-import { Page } from 'models/page.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +21,10 @@ export class FeedsService {
   editPost(text: string, blogTitle: string, postId: number) {
     if (!postId) return of();
     return this.http.put(this.baseUrl + `user/posts/${postId}`, { text, blogTitle });
+  }
+  getPostText(postId: number): Observable<NormalPostData> {
+    if (!postId) return of();
+    return this.http.get<NormalPostData>(this.baseUrl + `post/data/${postId}`);
   }
   getFeeds(page) {
     return this.http.get(this.baseUrl + 'user/feed', { params: { page } });

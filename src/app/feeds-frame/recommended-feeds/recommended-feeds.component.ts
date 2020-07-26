@@ -115,9 +115,9 @@ export class RecommendedFeedsComponent implements OnInit {
     this.parseFeedText();
   }
   async parseFeedText() {
-    if (this.feed.text)
-      this.displayText = this.feed.text;
-    if (this.feed.postEditorType !== PostEditorType.blog) {
+    if (this.feed.postData.text)
+      this.displayText = this.feed.postData.text;
+    if (this.feed.postData.postEditorType !== PostEditorType.blog) {
       this.displayText.replace('\n', '<br>');
       this.feed.hashTags.forEach((hashTag: HashTag) => {
         // let hashTagNode = document.createElement("span");

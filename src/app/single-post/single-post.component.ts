@@ -15,6 +15,7 @@ import { CommonService } from '../common/common.service';
 import { IFramelyService } from '../meta-card/iframely.service';
 import { HashTag } from '../models/hashtag.model';
 import { CommentAction } from '../models/comment-action.model';
+import { PostEditorType } from 'models/post-action.model';
 enum postType {
   media, text, metacard
 }
@@ -41,7 +42,7 @@ export class SinglePostComponent implements OnInit {
   comment = new FormControl('', Validators.required);
   replyComment = new FormControl('', Validators.required);
   mobileView = false;
-  type = postType.media;
+  viewType = postType.media;
   postSlug: string;
   singlePost: SinglePost;
   customOptions: OwlOptions = {
@@ -73,6 +74,7 @@ export class SinglePostComponent implements OnInit {
   hashTagsData: any = {};
   // Thie will turn off "read more" functionality
   readMore: boolean = false;
+  displayText: string;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
     public loginService: LoginService,
@@ -84,21 +86,8 @@ export class SinglePostComponent implements OnInit {
     this.postSlug = this.route.snapshot.paramMap.get('postSlug');
   }
 
-  async ngAfterViewInit() {
-    if (this.singlePost.text) {
-      const detectedLink: string = this.commonService.parseTextToFindURL(this.singlePost.text);
-      this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
-      if (this.singlePost.postMediaList.length) {
-        this.type = postType.media;
-      } else {
-        if (this.iFramelyData && !this.iFramelyData.error) {
-          this.type = postType.metacard;
-          console.log(this.type);
-        } else {
-          this.type = postType.text;
-        }
-      }
-    }
+  ngAfterViewInit() {
+
   }
 
   ngOnInit(): void {
@@ -118,46 +107,61 @@ export class SinglePostComponent implements OnInit {
       this.singlePost = data.singlePost;
       console.log("this.singlePost", this.singlePost);
       if (this.singlePost.postMediaList.length) {
-        this.type = postType.media;
+        this.viewType = postType.media;
       }
+      this.parseFeed();
       this.isLoading = false;
     });
     // this.fetchPost(this.postSlug);
     // console.log(this.loginService.getUserProfileImg());
-    this.parseFeed();
   }
-  parseFeed() {
-    this.singlePost.text.replace('\n', '<br>');
-    this.singlePost.hashTags.forEach((hashTag: HashTag) => {
-      // let hashTagNode = document.createElement("span");
-      // hashTagNode.style.color = 'red';
-      let regEx = new RegExp('#' + hashTag.hashTagValue, 'ig');
-      const index = this.commonService.indexOfUsingRegex(this.singlePost.text, regEx, 0);
-      if (index >= 0) {
-        this.hashTagsData[index] = hashTag.hashTagValue.length + 1;
-        let hashTagValue = hashTag.hashTagValue + " ";
-        this.singlePost.text = this.singlePost.text.substring(0, index) + '<app-hash-tag hash-tag-value="' + hashTagValue + '"></app-hash-tag>' +
-          this.singlePost.text.substring(index + this.hashTagsData[index] + 1);
+  async parseFeed() {
+    if (this.singlePost.postData.text)
+      this.displayText = this.singlePost.postData.text;
+    if (this.singlePost.postData.postEditorType !== PostEditorType.blog) {
+      this.displayText.replace('\n', '<br>');
+      this.singlePost.hashTags.forEach((hashTag: HashTag) => {
+        // let hashTagNode = document.createElement("span");
+        // hashTagNode.style.color = 'red';
+        var regEx = new RegExp("#" + hashTag.hashTagValue, "ig");
+        let index = this.commonService.indexOfUsingRegex(this.displayText, regEx, 0);
+        if (index >= 0) {
+          this.hashTagsData[index] = hashTag.hashTagValue.length + 1;
+          this.displayText = this.displayText.substr(0, index) +
+            "<app-hash-tag hash-tag-value=\"" + hashTag.hashTagValue + "\"></app-hash-tag>" +
+            this.displayText.substr(index + hashTag.hashTagValue.length + 1);
+        }
+      });
+      let detectedLink: string = this.commonService.parseTextToFindURL(this.displayText);
+      this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
+    }
+  }
+
+  checkPostViewType() {
+    if (this.singlePost.postMediaList.length) {
+      this.viewType = postType.media;
+    } else {
+      if (this.iFramelyData && !this.iFramelyData.error) {
+        this.viewType = postType.metacard;
+      } else {
+        this.viewType = postType.text;
       }
-      // this.singlePost.text = this.singlePost.text.replace(regEx,
-      //   '<app-hash-tag hash-tag-value="' + hashTag.hashTagValue + '"></app-hash-tag>'
-      // );
-    });
+    }
   }
 
   ngOnDestroy() {
     this.uiService.resetTitle();
   }
 
-  fetchPost(postSlug: string) {
-    this.singlePostService.getSinglePost(postSlug).subscribe((singlePost: SinglePost) => {
-      this.uiService.setMetaTagsAndTitle('Post', singlePost.metaList);
-      this.singlePost = singlePost;
-      this.type = singlePost.metaList.length ? postType.media : postType.text;
-      console.log(this.type);
-      this.isLoading = false;
-    });
-  }
+  // fetchPost(postSlug: string) {
+  //   this.singlePostService.getSinglePost(postSlug).subscribe((singlePost: SinglePost) => {
+  //     this.uiService.setMetaTagsAndTitle('Post', singlePost.metaList);
+  //     this.singlePost = singlePost;
+  //     this.checkPostViewType();
+  //     console.log(this.viewType);
+  //     this.isLoading = false;
+  //   });
+  // }
 
   toggleComments() {
     this.isSharing = false;

@@ -13,7 +13,7 @@ import { emojis } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PostEditorType } from 'models/post-action.model';
+import { PostEditorType, Post, NormalPostData } from 'models/post-action.model';
 
 @Component({
   selector: 'app-post-feed',
@@ -59,6 +59,7 @@ export class PostFeedComponent implements OnInit {
   textAreaInput: string;
   isHashOn = false;
   isBlogEditor = false;
+  isFetchingPostData: boolean = false;
   myckeditor: any;
   @Input() editing: any;
 
@@ -68,7 +69,13 @@ export class PostFeedComponent implements OnInit {
     private commonService: CommonService,
     private iFramelyService: IFramelyService,
     public dialogRef: MatDialogRef<PostFeedComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: {
+      feed: Post,
+      addMediaAction: any,
+      communityId: any,
+      isCommunityPost: boolean,
+      editing: any
+    },
     public snackBar: MatSnackBar,
     public renderer: Renderer2
   ) {
@@ -81,12 +88,17 @@ export class PostFeedComponent implements OnInit {
   ngAfterViewInit(key: string): void {
     this.hashTagService.registerInputElement(this.userInputRef.nativeElement);
     if (this.data.feed) {
-      if (this.data?.feed?.postEditorType == PostEditorType.blog) {
+      if (this.data?.feed?.postData.postEditorType == PostEditorType.blog) {
         this.isBlogEditor = true;
-        this.richText = this.data.feed.text;
-        this.blogTitle.setValue(this.data.feed.blogTitle);
+        this.isFetchingPostData = true;
+        this.service.getPostText(this.data.feed.postActionId).subscribe((postData: NormalPostData) => {
+          this.isFetchingPostData = false;
+          this.data.feed.postData = postData;
+          this.richText = this.data.feed.postData.text;
+          this.blogTitle.setValue(this.data.feed.postData.blogTitle);
+        });
       } else {
-        this.text.setValue(this.data.feed.text);
+        this.text.setValue(this.data.feed.postData.text);
       }
       // this.editing = true;
       const event = new KeyboardEvent('keyup', { bubbles: true });

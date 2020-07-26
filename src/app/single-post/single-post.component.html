@@ -1,11 +1,11 @@
 <app-header *ngIf="!loginService.loggedIn()"></app-header>
-<app-user-header *ngIf="mobileView || type ===1 && loginService.loggedIn()"></app-user-header>
+<app-user-header *ngIf="mobileView || viewType === 1 && loginService.loggedIn()"></app-user-header>
 
 
 <div *ngIf="singlePost.postType==='simple'">
-  <div class="container-header" [ngClass]="{'text-post': type===1}">
+  <div class="container-header" [ngClass]="{'text-post': viewType===1}">
     <div class="row" style="background: #ffffff">
-      <div class="col-lg-8 " style="padding: 0" *ngIf="type===0 || type === 2">
+      <div class="col-lg-8 " style="padding: 0" *ngIf="viewType===0 || viewType === 2">
         <div class="post-img-ctn">
           <div *ngIf="singlePost?.postMediaList?.length" class="post-media-window" id="post-media-window">
             <owl-carousel-o [options]="customOptions">
@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 content-ctn" [ngClass]="{'none-media-post': type===1 && !mobileView}">
+      <div class="col-lg-4 content-ctn" [ngClass]="{'none-media-post': viewType === 1 && !mobileView}">
         <div class="post-head" id="post-head">
           <div class="head-wrap" *ngIf="singlePost.communityDTO">
             <div class="profile-icon">
@@ -66,7 +66,7 @@
           <!--               [innerHtml]="singlePost?.text">-->
           <!--          </div>-->
           <div class="text-container">
-            <app-feed-text [text]="singlePost?.text" [hashTagsData]="hashTagsData" [readMore]="readMore">
+            <app-feed-text [text]="displayText" [hashTagsData]="hashTagsData" [readMore]="readMore">
             </app-feed-text>
           </div>
           <app-meta-card *ngIf="iFramelyData?.url && mobileView" [iFramelyData]="iFramelyData"></app-meta-card>

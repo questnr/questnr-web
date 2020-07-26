@@ -8,7 +8,6 @@ import { HashTag } from './hashtag.model';
 export class Post {
   postActionId: number;
   slug: string;
-  text: string;
   postActionPrivacy: string;
   featured: boolean;
   popular: boolean;
@@ -24,6 +23,11 @@ export class Post {
   hashTags: HashTag[];
   pollQuestion: PollQuestion;
   pollQuestionMeta: PollQuestionMeta;
+  postData: NormalPostData;
+}
+
+export class NormalPostData {
+  text: string;
   blogTitle: string;
   postEditorType: PostEditorType;
 }
@@ -56,6 +60,7 @@ export class PollQuestion {
   disagreePercentage: number;
   agreeText: string;
   disagreeText: string;
+  question: string;
 }
 export class PollQuestionMeta {
   pollAnswer: string;
