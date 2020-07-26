@@ -15,7 +15,7 @@ import { CommonService } from '../common/common.service';
 import { IFramelyService } from '../meta-card/iframely.service';
 import { HashTag } from '../models/hashtag.model';
 import { CommentAction } from '../models/comment-action.model';
-import { PostEditorType, Post } from 'models/post-action.model';
+import { PostEditorType, Post, PostActionForMedia } from 'models/post-action.model';
 enum postType {
   media, text, metacard, blog
 }
@@ -75,6 +75,7 @@ export class SinglePostComponent implements OnInit {
   // Thie will turn off "read more" functionality
   readMore: boolean = false;
   displayText: string;
+  errorOnImageIndexList: number[] = [];
   actionAllowed: boolean = false;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
@@ -307,5 +308,20 @@ export class SinglePostComponent implements OnInit {
     this.singlePost.commentActionList = this.singlePost.commentActionList.filter((comment: CommentAction) =>
       $event !== comment.commentActionId
     );
+  }
+
+  onError(index: number) {
+    this.errorOnImageIndexList.push(index);
+  }
+  onLoad(index: number) {
+    if (this.errorOnImageIndexList.includes(index)) {
+      this.errorOnImageIndexList.splice(index, this.errorOnImageIndexList.length);
+    }
+  }
+  onRefreshImageAtIndex(index: number) {
+    this.api.getPostMediaList(this.singlePost.postActionId).subscribe((res: PostActionForMedia) => {
+      this.singlePost.postMediaList = res.postMediaList;
+      this.errorOnImageIndexList = [];
+    });
   }
 }
