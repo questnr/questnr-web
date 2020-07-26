@@ -100,7 +100,8 @@
               </button>
             </div>
             <div class="row">
-              <app-login-register-btn class="login-register-btn" [openNewTab]="true"></app-login-register-btn>
+              <app-login-register-btn *ngIf="!actionAllowed" class="login-register-btn" [openNewTab]="true">
+              </app-login-register-btn>
             </div>
           </div>
           <hr style="margin: 0">
