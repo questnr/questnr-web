@@ -44,14 +44,15 @@
           <div class="head-wrap" *ngIf="singlePost.communityDTO">
             <div class="profile-icon">
               <app-profile-icon [avatar]="singlePost.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
-                [routerLink]="['/', userSlug , singlePost.userDTO.slug]">
+                [routerLink]="['/', userPath , singlePost.userDTO.slug]">
               </app-profile-icon>
             </div>
             <div class="profile-detail" *ngIf="singlePost.communityDTO">
-              <div class="head"><a [href]="'/community/' + singlePost.userDTO.slug">{{singlePost.userDTO?.username}}
+              <div class="head"><a
+                  [routerLink]="['/', userPath , singlePost.userDTO.slug]">{{singlePost.userDTO?.username}}
                 </a></div>
               <div class="subhead"> Posted in <a
-                  [href]="'/community/' + singlePost?.communityDTO.slug">{{singlePost?.communityDTO?.communityName}}</a>
+                  [routerLink]="['/', communityPath, singlePost?.communityDTO.slug]">{{singlePost?.communityDTO?.communityName}}</a>
               </div>
               <app-time-string [metaData]="singlePost.metaData"></app-time-string>
             </div>
@@ -59,7 +60,7 @@
           <div class="head-wrap" *ngIf="!singlePost.communityDTO">
             <div class="profile-icon">
               <app-profile-icon [avatar]="singlePost.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
-                [routerLink]="['/', userSlug , singlePost.userDTO.slug]">
+                [routerLink]="['/', userPath , singlePost.userDTO.slug]">
               </app-profile-icon>
             </div>
             <div class="profile-detail">

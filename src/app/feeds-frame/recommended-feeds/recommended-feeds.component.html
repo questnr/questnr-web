@@ -7,7 +7,7 @@
           [routerLink]="['/', userPath, feed.userDTO.slug]">{{feed?.userDTO?.username}}</a>
       </div>
       <div class="subhead"> Posted in <a
-          [href]="'/community/' + feed?.communityDTO.slug">{{feed?.communityDTO?.communityName}}</a>
+          [routerLink]="['/', communityPath, feed?.communityDTO.slug]">{{feed?.communityDTO?.communityName}}</a>
       </div>
       <app-time-string [metaData]="feed.metaData"></app-time-string>
     </div>

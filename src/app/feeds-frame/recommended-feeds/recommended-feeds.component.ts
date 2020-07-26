@@ -91,6 +91,7 @@ export class RecommendedFeedsComponent implements OnInit {
   hashTagsData: any = {};
   errorOnImageIndexList: number[] = [];
   userPath: string = GlobalConstants.userPath;
+  communityPath: string = GlobalConstants.communityPath;
   editableFeed: Post;
   displayText: string;
   postPath: string = GlobalConstants.postPath;
