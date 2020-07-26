@@ -1,26 +1,19 @@
-<!--header-->
-
 <header id="extended-nav" class="nav-main-container">
   <div class="toolbar" role="banner">
-    <div class="logo" routerLink="/"><img src="../../assets/main.png" /></div>
+    <div class="logo" [routerLink]="['/']"><img src="../../assets/main.png" /></div>
     <div class="spacer"></div>
     <ng-container *ngIf="!loginService.loggedIn()">
-      <button mat-button class="btn-white" [routerLink]="'/' + link.login">
-        Login
-      </button>
-      <button mat-button class="btn-color" [routerLink]="'/'+ link.signUp">
-        Join Now!
-      </button>
+      <app-login-register-btn (activeAuthEmitter)="activeAuthEvent($event)" [openNewTab]="true">
+      </app-login-register-btn>
     </ng-container>
     <ng-container *ngIf="loginService.loggedIn()">
       <!--<<<<<<< HEAD-->
       <!--      <button mat-button class="btn-white" (click)="signOut()">-->
       <!--        Sign Out-->
       <!--=======-->
-      <button mat-button class="btn-white" routerLink="/feed">
+      <button mat-button class="btn-white" routerLink="['/', feedPath]">
         Go to Feeds
       </button>
     </ng-container>
-
   </div>
 </header>

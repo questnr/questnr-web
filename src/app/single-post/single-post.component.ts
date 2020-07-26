@@ -75,6 +75,7 @@ export class SinglePostComponent implements OnInit {
   // Thie will turn off "read more" functionality
   readMore: boolean = false;
   displayText: string;
+  actionAllowed: boolean = false;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
     public loginService: LoginService,
@@ -91,6 +92,9 @@ export class SinglePostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.loginService.loggedIn()) {
+      this.actionAllowed = true;
+    }
     // console.log(this.loginService.getUserProfileImg());
     const width = this.screenWidth;
     if (width <= 800) {
@@ -105,7 +109,7 @@ export class SinglePostComponent implements OnInit {
     };
     this.route.data.subscribe((data: { singlePost: SinglePost }) => {
       this.singlePost = data.singlePost;
-      console.log("this.singlePost", this.singlePost);
+      // console.log("this.singlePost", this.singlePost);
       this.checkPostViewType();
       this.parseFeed();
       this.isLoading = false;

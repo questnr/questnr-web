@@ -9,7 +9,7 @@
 
 @media only screen and (max-width : $mobile-large) and (min-width: $mobile-small){
   .toolbar{
-    width: calc(100% - 20px);
+    width: calc(100% - 20px) !important;
   }
   .btn-white {
     //width: 70px;

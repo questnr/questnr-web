@@ -54,9 +54,7 @@ const routes: Routes = [
   },
   {
     path: GlobalConstants.postPath + '/:postSlug', component: SinglePostComponent,
-    resolve: { singlePost: SinglePostResolve },
-    canActivateChild: [MetaGuard],
-    canActivate: [AuthGuard]
+    resolve: { singlePost: SinglePostResolve }
   },
   { path: GlobalConstants.userPath + '/:userSlug', component: UserProfilePageComponent, canActivate: [AuthGuard] },
   { path: GlobalConstants.explorePath, component: ExploreComponent, canActivate: [AuthGuard] },

@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { LoginService } from 'auth/login.service';
-import {GlobalConstants} from '../shared/constants';
+import { GlobalConstants } from '../shared/constants';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +9,11 @@ import {GlobalConstants} from '../shared/constants';
 })
 export class HeaderComponent {
   @Output() btnClick = new EventEmitter<any>();
-  link = GlobalConstants;
+  feedPath: string = GlobalConstants.feedPath;
   constructor(public loginService: LoginService) { }
 
-  onClick(val) {
-    this.btnClick.emit(val);
+  activeAuthEvent($event) {
+    // Uncomment below line to scroll to respective form component
+    // this.btnClick.emit($event);
   }
 }

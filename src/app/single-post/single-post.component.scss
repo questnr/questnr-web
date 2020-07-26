@@ -98,6 +98,7 @@
 .footer-wrap {
   display: flex;
   padding: 0 1rem;
+  justify-content: space-between;
 
   button {
     display: flex;
@@ -116,6 +117,10 @@
   button:first-child {
     margin-left: 0;
   }
+}
+
+.footer-wrap.desktop{
+  margin: 1rem;
 }
 
 .align-center {
@@ -388,8 +393,12 @@ button.liked {
   overflow: scroll;
 }
 
-.blog-container{
+.blog-container.desktop{
   margin: 0 121px;
+}
+
+.blog-container.mobile{
+  margin: 0 10px;
 }
 
 .subComments{
@@ -415,4 +424,13 @@ button.liked {
     margin-top: 54px;
     display: block;
   }
+}
+
+.disabled-button{
+  cursor: not-allowed !important;
+}
+
+.login-register-btn{
+  display: flex;
+  align-items: center;
 }

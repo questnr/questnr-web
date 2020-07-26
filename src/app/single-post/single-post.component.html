@@ -1,11 +1,11 @@
 <app-header *ngIf="!loginService.loggedIn()"></app-header>
-<app-user-header
-  *ngIf="mobileView || (viewType===1 || viewType===3 || singlePost.postType==='question') && loginService.loggedIn()">
+<app-user-header *ngIf="(viewType===1 || viewType===3 || singlePost.postType==='question') && loginService.loggedIn()">
 </app-user-header>
 
 <div *ngIf="singlePost.postType==='simple'">
   <div class="container-header" [ngClass]="{'text-post': (viewType===1 || viewType===3)}">
-    <div class="row" [ngClass]="viewType === 3 ? 'blog-container' : ''" style="background: #ffffff">
+    <div class="row" [ngClass]="[viewType === 3 ? 'blog-container' : '', mobileView ? 'mobile' : 'desktop']"
+      style="background: #ffffff">
       <div class="col-lg-8 " style="padding: 0" *ngIf="viewType===0 || viewType === 2">
         <div class="post-img-ctn">
           <div *ngIf="singlePost?.postMediaList?.length" class="post-media-window" id="post-media-window">
@@ -80,21 +80,28 @@
               </span>
               {{singlePost.postActionMeta.totalComments > 1 ? 'Comments' : 'Comment'}} </div>
           </div>
-          <div class="footer-wrap">
-            <button mat-button [disabled]="isLoading" (click)="likePost(singlePost.postActionId)"
-              [ngClass]="singlePost?.postActionMeta?.liked? 'liked':''">
-              <mat-icon [innerHtml]="singlePost?.postActionMeta?.liked?'favorite' :'favorite_border'"></mat-icon>
-              &nbsp;
-              <span [innerHtml]="singlePost?.postActionMeta?.liked?'Liked' :'Like'"> Like </span>
-            </button>
-            <button mat-button (click)="toggleComments()">
-              <mat-icon>insert_comment</mat-icon> &nbsp;
-              <span> Comment </span>
-            </button>
-            <button mat-button (click)="openShareDialog()">
-              <mat-icon>share</mat-icon> &nbsp;
-              <span> Share </span>
-            </button>
+          <div class="footer-wrap row" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+            <div class="row">
+              <button mat-button [disabled]="isLoading" (click)="likePost(singlePost.postActionId)"
+                [ngClass]="[singlePost?.postActionMeta?.liked? 'liked':'', actionAllowed ? '' : 'disabled-button']"
+                [disabled]="!actionAllowed">
+                <mat-icon [innerHtml]="singlePost?.postActionMeta?.liked?'favorite' :'favorite_border'"></mat-icon>
+                &nbsp;
+                <span [innerHtml]="singlePost?.postActionMeta?.liked?'Liked' :'Like'"> Like </span>
+              </button>
+              <button [ngClass]="actionAllowed ? '' : 'disabled-button'" mat-button (click)="toggleComments()"
+                [disabled]="!actionAllowed">
+                <mat-icon>insert_comment</mat-icon> &nbsp;
+                <span> Comment </span>
+              </button>
+              <button mat-button (click)="openShareDialog()">
+                <mat-icon>share</mat-icon> &nbsp;
+                <span> Share </span>
+              </button>
+            </div>
+            <div class="row">
+              <app-login-register-btn class="login-register-btn" [openNewTab]="true"></app-login-register-btn>
+            </div>
           </div>
           <hr style="margin: 0">
           <div class="comment-box-wrap" *ngIf="loginService.loggedIn()">
@@ -115,10 +122,10 @@
               </button>
             </div>
           </div>
-          <div class="comment-box-wrap">
-            <button mat-stroked-button [routerLink]="['/', loginURL]" style="width: 100%"
-              *ngIf="!loginService.loggedIn()">Login to comment</button>
-          </div>
+          <!-- <div class="comment-box-wrap">
+            <button mat-stroked-button [routerLink]="['/', loginURL]" style="width: 100%" *ngIf="!actionAllowed">Login
+              To Comment</button>
+          </div> -->
           <div class="comment-window">
             <div *ngIf="singlePost.commentActionList?.length;">
               <div class="comment-box" *ngFor="let comment of singlePost.commentActionList"
