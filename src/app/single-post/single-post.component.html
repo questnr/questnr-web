@@ -4,8 +4,8 @@
 
 <div *ngIf="singlePost.postType==='simple'">
   <div class="container-header" [ngClass]="{'text-post': (viewType===1 || viewType===3)}">
-    <div class="row" [ngClass]="[viewType === 3 ? 'blog-container' : '', mobileView ? 'mobile' : 'desktop']"
-      style="background: #ffffff">
+    <div class="row single-post-container"
+      [ngClass]="[viewType === 3 ? 'blog-container' : '', mobileView ? 'mobile' : 'desktop']">
       <div class="col-lg-8 " style="padding: 0" *ngIf="viewType===0 || viewType === 2">
         <div class="post-img-ctn">
           <div *ngIf="singlePost?.postMediaList?.length" class="post-media-window" id="post-media-window">
@@ -39,7 +39,8 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 content-ctn" [ngClass]="{'none-media-post': (viewType===1 || viewType===3) && !mobileView}">
+      <div
+        [ngClass]="[((viewType===1) && !mobileView) ? 'none-media-post' : '', viewType!=3 ? 'col-lg-4 content-ctn': 'blog-data']">
         <div class="post-head" id="post-head">
           <div class="head-wrap" *ngIf="singlePost.communityDTO">
             <div class="profile-icon">
@@ -96,7 +97,7 @@
               </ng-container>
             </owl-carousel-o>
           </div>
-          <div [ngClass]="viewType == 3 ? '' : 'text-container'">
+          <div [ngClass]="viewType == 3 ? 'blog-text' : 'text-container'">
             <app-feed-text [text]="displayText" [hashTagsData]="hashTagsData" [readMore]="readMore">
             </app-feed-text>
           </div>

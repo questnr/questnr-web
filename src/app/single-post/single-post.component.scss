@@ -1,5 +1,9 @@
 @import "../variables";
 
+.single-post-container {
+  background: #ffffff;
+}
+
 .single-entity {
   position: relative;
   top: 5rem;
@@ -412,12 +416,23 @@ button.liked {
   overflow: scroll;
 }
 
+.blog-data{
+  width: 100%;
+}
+
+.blog-text{
+  font-size: 1.2rem;
+  color: #212121;
+}
+
 .blog-container.desktop{
-  margin: 0 121px;
+  margin: 0 calc(20vw);
+  padding: 0 50px;
 }
 
 .blog-container.mobile{
-  margin: 0 10px;
+  margin: 0;
+  padding: 0 10px;
 }
 
 .subComments{
