@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'shared/api.service';
-import { LoginService } from '../auth/login.service';
 import { GlobalConstants } from 'shared/constants';
+import { UIService } from 'ui/ui.service';
+import { LoginService } from '../auth/login.service';
 
 @Component({
   templateUrl: './policy.component.html',
@@ -18,12 +19,18 @@ export class PolicyComponent implements OnInit {
   addressLine1: string = GlobalConstants.addressLine1;
   privacyLastUpdated: string = GlobalConstants.privacyLastUpdated;
   contactPath: string = GlobalConstants.siteLink + GlobalConstants.contactPath;
-  constructor(private router: Router, private api: ApiService, public loginService: LoginService) { }
+  constructor(private uiService: UIService, private router: Router, private api: ApiService, public loginService: LoginService) {
+    this.uiService.setTitle(GlobalConstants.policyTitle);
+  }
 
   goTo(val) {
     this.api.activeAuth = val;
     this.router.navigate(['/']);
   }
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.uiService.resetTitle();
   }
 }

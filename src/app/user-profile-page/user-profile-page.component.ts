@@ -1,21 +1,18 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Meta } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
+import { Subject } from 'rxjs';
+import { UIService } from 'ui/ui.service';
+import { UserActivityService } from 'user-activity/user-activity.service';
+import { LoginService } from '../auth/login.service';
+import { EditUserComponent } from '../edit-user/edit-user.component';
+import { Post } from '../models/post-action.model';
+import { User, UserInfo } from '../models/user.model';
+import { ApiService } from '../shared/api.service';
 import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
 import { UserProfilePageService } from './user-profile-page.service';
-import { ActivatedRoute, RouterEvent, NavigationEnd } from '@angular/router';
-import { User, UserInfo } from '../models/user.model';
-import { LoginService } from '../auth/login.service';
-import { ApiService } from '../shared/api.service';
-import { Post } from '../models/post-action.model';
-import { Title } from "@angular/platform-browser";
-import { Meta } from '@angular/platform-browser';
-import { Subject } from 'rxjs';
-import { GlobalConstants } from 'shared/constants';
-import { Router } from '@angular/router';
-import { filter, takeUntil } from 'rxjs/operators';
-import { EditUserComponent } from '../edit-user/edit-user.component';
-import { MatDialog } from '@angular/material/dialog';
-import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
-import { UserActivityService } from 'user-activity/user-activity.service';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -24,14 +21,14 @@ import { UserActivityService } from 'user-activity/user-activity.service';
 })
 export class UserProfilePageComponent implements OnInit {
   constructor(public userProfilePageService: UserProfilePageService, public route: ActivatedRoute, public userFollowersService: UserProfileCardServiceComponent,
-    public loginService: LoginService, public api: ApiService, private meta: Meta, private titleService: Title, private router: Router,
+    public loginService: LoginService, public api: ApiService, private meta: Meta, private uiService: UIService, private router: Router,
     private userActivityService: UserActivityService,
     public dialog: MatDialog) {
     this.userObserver.subscribe((user: User) => {
       if (user.firstName || user.lastName) {
-        this.titleService.setTitle((user.firstName + " " + user.lastName).trim() + " | Questnr");
+        this.uiService.setTitle((user.firstName + " " + user.lastName).trim() + " | Questnr");
       } else {
-        this.titleService.setTitle(user.username + " | Questnr");
+        this.uiService.setTitle(user.username + " | Questnr");
       }
     });
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -94,7 +91,7 @@ export class UserProfilePageComponent implements OnInit {
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);
     this.userObserver.complete();
-    this.titleService.setTitle(GlobalConstants.siteTitle);
+    this.uiService.resetTitle();
   }
   postFeed(event) {
     if (event.postActionId) {

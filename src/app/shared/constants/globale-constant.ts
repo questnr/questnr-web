@@ -9,6 +9,9 @@ export class GlobalConstants {
   public static welcomeTitle = "Welcome To " + GlobalConstants.siteTitle;
   public static loginTitle = "Login To " + GlobalConstants.siteTitle;
   public static signupTitle = "Signup To " + GlobalConstants.siteTitle;
+  public static policyTitle = "Privacy Policy | " + GlobalConstants.siteTitle;
+  public static termsOfUseTitle = "Terms of Use | " + GlobalConstants.siteTitle;
+  public static cookiePolicyTitle = "Cookie Policy | " + GlobalConstants.siteTitle;
 
   public static signUpAgeRestriction = 16;
 

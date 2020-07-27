@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { MetaService } from '@ngx-meta/core';
 import { MetaList } from 'models/common.model';
 import { GlobalConstants } from 'shared/constants';
-import { Title } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,9 @@ export class UIService {
         metaList[i].metaInformation.content
       );
     }
+  }
+  setTitle(title) {
+    this.titleService.setTitle(title);
   }
   resetTitle() {
     this.titleService.setTitle(GlobalConstants.siteTitle);

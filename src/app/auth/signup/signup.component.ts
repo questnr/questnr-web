@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LoginOpt } from 'angularx-social-login';
-import { LoginService } from 'auth/login.service';
-import { AsyncValidator, CustomValidations } from '../../custom-validations';
-import { GlobalConstants, REGEX } from 'shared/constants';
-import { WelcomeSlidesComponent } from 'shared/components/dialogs/welcome-slides/welcome-slides.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import { LoginService } from 'auth/login.service';
 import { CommonService } from 'common/common.service';
-import { Title } from '@angular/platform-browser';
+import { GlobalConstants, REGEX } from 'shared/constants';
+import { UIService } from 'ui/ui.service';
+import { AsyncValidator } from '../../custom-validations';
 
 @Component({
   selector: 'app-signup',
@@ -63,11 +62,11 @@ export class SignupComponent implements OnInit {
   // dob = new FormControl('', Validators.required);
   maxAllowedDOB = new Date(new Date().setFullYear(new Date().getFullYear() - GlobalConstants.signUpAgeRestriction));
   constructor(
-    private titleService: Title,
+    private uiService: UIService,
     private fb: FormBuilder, private auth: LoginService, private dialog: MatDialog,
     private socialAuth: AuthService, private router: Router, private commonService: CommonService) {
     if (this.router.routerState.snapshot.url == ['/', GlobalConstants.signUp].join("")) {
-      this.titleService.setTitle(GlobalConstants.signupTitle);
+      this.uiService.setTitle(GlobalConstants.signupTitle);
     }
   }
 
@@ -86,7 +85,7 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.titleService.setTitle(GlobalConstants.siteTitle);
+    this.uiService.resetTitle();
   }
 
   submit() {

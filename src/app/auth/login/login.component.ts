@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
-import { LoginService } from '../login.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, LoginOpt } from 'angularx-social-login';
-import { ApiService } from '../../shared/api.service';
-import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { AngularFireMessaging } from '@angular/fire/messaging';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { GlobalConstants } from 'shared/constants';
-import { Title } from '@angular/platform-browser';
+import { UIService } from 'ui/ui.service';
+import { ApiService } from '../../shared/api.service';
+import { LoginService } from '../login.service';
 
 
 @Component({
@@ -26,12 +25,12 @@ export class LoginComponent implements OnInit {
   redirectURL: any;
 
   constructor(
-    private titleService: Title,
+    private uiService: UIService,
     private fb: FormBuilder, private auth: LoginService,
     private router: Router, private socialAuth: AuthService, private route: ActivatedRoute,
     private angularFireMessaging: AngularFireMessaging, private apiService: ApiService) {
     if (this.router.routerState.snapshot.url == ['/', GlobalConstants.login].join("")) {
-      this.titleService.setTitle(GlobalConstants.loginTitle);
+      this.uiService.setTitle(GlobalConstants.loginTitle);
     }
   }
 
@@ -43,7 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.titleService.setTitle(GlobalConstants.siteTitle);
+    this.uiService.resetTitle();
   }
 
   login() {
