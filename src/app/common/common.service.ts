@@ -76,4 +76,11 @@ export class CommonService {
         }
         return num.toString();
     }
+
+    getYouTubeVideoId(url: string): string {
+        if (!url) return null;
+        let VID_REGEX =
+            /(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+        return url.match(VID_REGEX) ? url.match(VID_REGEX)[1] : null;
+    }
 }

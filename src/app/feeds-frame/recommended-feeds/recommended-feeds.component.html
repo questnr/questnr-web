@@ -51,7 +51,11 @@
       </owl-carousel-o>
     </div>
     <app-feed-text [text]="displayText" [hashTagsData]="hashTagsData" #feedTextComponent></app-feed-text>
-    <app-meta-card *ngIf="iFramelyData?.url" [iFramelyData]="iFramelyData"></app-meta-card>
+    <app-meta-card *ngIf="!isYouTubeVideoLink && iFramelyData?.url" [iFramelyData]="iFramelyData"></app-meta-card>
+    <div *ngIf="isYouTubeVideoLink" class="y-video-container">
+      <iframe [src]="safeYoutubeLink" width="100%" height="100%" frameborder="0" webkitallowfullscreen
+        mozallowfullscreen allowfullscreen></iframe>
+    </div>
   </div>
   <app-blog-title class="mb-2 link-hide-border" *ngIf="feed.postData.postEditorType=='blog'"
     [blogTitle]="feed.postData.blogTitle" (click)="openBlog()">

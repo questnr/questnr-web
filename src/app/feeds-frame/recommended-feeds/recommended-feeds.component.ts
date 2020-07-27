@@ -22,6 +22,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PostFeedComponent } from '../post-feed/post-feed.component';
 import { FeedTextComponent } from 'feed-text/feed-text.component';
 import { Router } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -95,6 +96,9 @@ export class RecommendedFeedsComponent implements OnInit {
   editableFeed: Post;
   displayText: string;
   postPath: string = GlobalConstants.postPath;
+  isYouTubeVideoLink: boolean = false;
+  safeYoutubeLink: SafeResourceUrl;
+  youtubeLinkTemplate: string = "https://youtube.com/embed/";
 
   constructor(private api: FeedsService,
     public login: LoginService,
@@ -103,7 +107,8 @@ export class RecommendedFeedsComponent implements OnInit {
     private commonService: CommonService,
     private iFramelyService: IFramelyService,
     public snackbar: MatSnackBar,
-    private router: Router) { }
+    private router: Router,
+    private _sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     if (!this.showUserHeader) {
@@ -136,7 +141,16 @@ export class RecommendedFeedsComponent implements OnInit {
         }
       });
       let detectedLink: string = this.commonService.parseTextToFindURL(this.displayText);
-      this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
+      if (detectedLink) {
+        let youTubeId = this.commonService.getYouTubeVideoId(detectedLink);
+        if (youTubeId) {
+          this.isYouTubeVideoLink = true;
+          this.safeYoutubeLink = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtubeLinkTemplate + youTubeId);
+        } else {
+          this.isYouTubeVideoLink = false;
+          this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
+        }
+      }
     }
   }
   ngAfterViewInit() {
