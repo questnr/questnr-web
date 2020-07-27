@@ -10,6 +10,7 @@ import { GlobalConstants } from '../shared/constants';
   styleUrls: ['./user-profile-card.component.scss']
 })
 export class UserProfileCardComponent implements OnInit {
+  @Input() userBannerImage;
   @Input() avatar;
   @Input() username;
   @Input() slug: string;
@@ -27,6 +28,9 @@ export class UserProfileCardComponent implements OnInit {
   ngOnInit(): void {
     if (this.relationship === 'owned') {
       this.owner = true;
+    }
+    if (!this.userBannerImage) {
+      this.userBannerImage = "/assets/boat-on-the-water.jpg";
     }
   }
   ngOnChanges() {

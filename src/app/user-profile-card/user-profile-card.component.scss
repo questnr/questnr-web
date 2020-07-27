@@ -31,7 +31,7 @@
   width: 100%;
   border-radius: 50%;
   padding: 2px;
-  background: #ffffff;
+  // background: #ffffff;
   min-height: 90px !important;
   max-height: 90px !important;
 }
@@ -235,12 +235,12 @@
   padding-bottom: 10px;
   margin-top: -50px;
 }
-.profile-background{
+.profile-background img{
   width: 100%;
   height: 100px;
-  background-image: url("/assets/boat-on-the-water.jpg");
-  background-position: center;
-  background-size: cover;
+  // background-image: url("/assets/boat-on-the-water.jpg");
+  // background-position: center;
+  // background-size: cover;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }

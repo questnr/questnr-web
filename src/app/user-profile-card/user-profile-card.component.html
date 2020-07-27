@@ -15,7 +15,7 @@
   <div class="community-info">
     <div class="com-det-container">
       <div class="profile-background">
-
+        <img [src]="userBannerImage" alt="banner" class="comm-ban-img" [ngClass]="[userBannerImage ? '' : 'd-none']">
       </div>
       <div class="com-owner-det" [id]="userId">
         <div class="owner-img">
@@ -47,7 +47,7 @@
     </div>
     <hr style="margin: 8px">
     <div class="follow-user">
-      <a [href]="'/user/'+ slug" *ngIf="relationship =='owned'; else public">
+      <a [routerLink]="['/', userPath, slug]" *ngIf="relationship =='owned'; else public">
         <button mat-button>
           Profile
         </button>

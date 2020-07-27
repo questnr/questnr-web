@@ -71,6 +71,7 @@
         <div class="flex-view">
           <div class="flex-3" *ngIf="!mobileView">
             <app-user-profile-card [avatar]="communityDTO?.ownerUserDTO?.avatarDTO"
+              [userBannerImage]="communityDTO.ownerUserDTO?.banner?.avatarLink"
               [relationship]="communityDTO?.ownerUserDTO?.userMeta?.relationShipType"
               [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username"
               [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
