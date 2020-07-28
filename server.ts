@@ -1,7 +1,7 @@
 import 'zone.js/dist/zone-node';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
-// const expressStaticGzip = require("express-static-gzip");
+const expressStaticGzip = require("express-static-gzip");
 import * as express from 'express';
 import { join } from 'path';
 const cors = require('cors');
@@ -45,9 +45,6 @@ export function app() {
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
-  // server.get('*.*', expressStaticGzip(distFolder, {
-  //   enableBrotli: true
-  // }))
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
@@ -60,6 +57,10 @@ export function app() {
   server.get('*', (req, res) => {
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });
+
+  server.get('*.*', expressStaticGzip(distFolder, {
+    enableBrotli: true
+  }))
 
   return server;
 }
