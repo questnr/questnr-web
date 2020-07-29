@@ -25,12 +25,19 @@ export class AuthGuard implements CanActivate {
     }
   }
   async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (next.paramMap.get('communitySlug')) {
-      let metaTagsCard: MetaTagCard = await this.communityService.getCommunityMetaCard(next.paramMap.get('communitySlug')).toPromise();
-      this.uiService.setMetaTagsAndTitle(metaTagsCard.title, metaTagsCard.metaList);
+    if (this.authService.loggedIn()) {
+      return true;
     } else {
-      this.uiService.setDetault();
+      if (next.paramMap.get('communitySlug')) {
+        let metaTagsCard: MetaTagCard = await this.communityService.getCommunityMetaCard(next.paramMap.get('communitySlug')).toPromise();
+        this.uiService.setMetaTagsAndTitle(metaTagsCard.title, metaTagsCard.metaList);
+      } else {
+        this.uiService.setDetault();
+      }
+      localStorage.clear();
+      // this.router.navigateByUrl('/');
+      this.router.navigate(['login'], { queryParams: { redirectURL: state.url } });
+      return false;
     }
-    return this.handleUser(state);
   }
 }
