@@ -176,11 +176,20 @@ export function metaFactory(): MetaLoader {
     pageTitleSeparator: ' | ',
     applicationName: GlobalConstants.siteTitle,
     defaults: {
-      title: GlobalConstants.siteTitle,
-      description: GlobalConstants.description,
+      "title": GlobalConstants.siteTitle,
+      "description": GlobalConstants.description,
+      'author': GlobalConstants.siteTitle,
+      'robots': 'index, follow, max-image-preview:standard',
+      "googlebot": "index, follow, max-image-preview:standard",
       'og:image': GlobalConstants.image,
       'og:type': 'website',
       'og:locale': 'en_US',
+      'og:url': GlobalConstants.siteLink,
+      'fb:app_id': GlobalConstants.fbAppId,
+      'twitter:title': GlobalConstants.siteTitle,
+      'twitter:description': GlobalConstants.description,
+      "twitter:url": GlobalConstants.siteLink,
+      "twitter:image": GlobalConstants.siteLogo
     }
   });
 }

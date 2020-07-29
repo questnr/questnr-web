@@ -28,6 +28,8 @@ export class AuthGuard implements CanActivate {
     if (next.paramMap.get('communitySlug')) {
       let metaTagsCard: MetaTagCard = await this.communityService.getCommunityMetaCard(next.paramMap.get('communitySlug')).toPromise();
       this.uiService.setMetaTagsAndTitle(metaTagsCard.title, metaTagsCard.metaList);
+    } else {
+      this.uiService.setDetault();
     }
     return this.handleUser(state);
   }
