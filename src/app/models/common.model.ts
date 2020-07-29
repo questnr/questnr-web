@@ -28,3 +28,8 @@ export class MetaData {
     updatedAtTimestamp: number;
     edited: boolean
 }
+
+export class MetaTagCard {
+    title: string;
+    metaList: MetaList[]
+}

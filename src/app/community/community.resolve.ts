@@ -12,7 +12,8 @@ export class CommunityResolve implements Resolve<Promise<Community>> {
 
   resolve(route: ActivatedRouteSnapshot): Promise<Community> {
     return this.communityService.getCommunityDetails(route.paramMap.get('communitySlug')).pipe(map((communityDTO: Community) => {
-      this.uiService.setMetaTagsAndTitle(communityDTO.communityName, communityDTO.metaList)
+      this.uiService.setMetaTagsAndTitle(communityDTO.communityName, communityDTO.metaList);
+      console.log("sending community");
       return communityDTO;
     })).toPromise();
   }

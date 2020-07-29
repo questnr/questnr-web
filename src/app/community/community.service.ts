@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Community } from '../models/community.model';
 import { Observable, of } from 'rxjs';
+import { MetaTagCard } from 'models/common.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,10 @@ export class CommunityService {
     };
     if (!communityId) return of();
     return this.http.delete(this.baseUrl + 'user/join/community/' + communityId, httpOptions);
+  }
+  getCommunityMetaCard(communitySlug: string): Observable<MetaTagCard> {
+    if (!communitySlug) return of();
+    return this.http.get<MetaTagCard>(this.baseUrl + 'community/meta-information/' + communitySlug);
   }
 
   getSharableLink(communityId) {

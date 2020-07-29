@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CommunityService } from './create-community.servive';
+import { CreateCommunityService } from './create-community.servive';
 import { HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -22,7 +22,7 @@ export class CreateCommunityComponent implements OnInit {
   mobileView = false;
 
   constructor(public fb: FormBuilder,
-    public auth: CommunityService,
+    public auth: CreateCommunityService,
     public snackbar: MatSnackBar,
     private dialogRef: MatDialogRef<CreateCommunityComponent>,
     private router: Router) {

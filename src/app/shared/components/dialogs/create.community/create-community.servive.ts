@@ -7,7 +7,7 @@ import { Community } from 'models/community.model';
   providedIn: 'root'
 })
 
-export class CommunityService {
+export class CreateCommunityService {
 
   baseUrl = environment.baseUrl;
 
