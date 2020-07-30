@@ -2,6 +2,7 @@ export class GlobalConstants {
   public static siteTitle = 'Questnr';
   public static siteLink = "https://questnr.com";
   public static siteLogo = "https://questnr.com/assets/logo.png";
+  public static siteLogoExternalLink = "https://lh3.googleusercontent.com/pw/ACtC-3cA5INfBc_BXY2vdXrlznXQ1QpPyhvkTx_WeFg21DxvymA0e4x7ZnoGb4UqkvFjnozBF9zbz8SDp5DQhVVFzR6bXB9xwhWLUahDR9hYcfE91XrHgmupHYyaipkmM4Cq0SlQ7r9FweUlGoV6x74ObA7y=s512-no";
   public static description = 'The New Era of Online Communities. Having real social contacts can sometimes be difficult. With a bit of a FUN, everthing becomes much simpler!';
   public static image = '';
   public static fbAppId = "1336590906533811";

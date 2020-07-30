@@ -1,4 +1,4 @@
-import { AvatarDTO, MetaList } from './common.model';
+import { AvatarDTO, MetaList, MetaTagCard } from './common.model';
 import { User } from './user.model';
 
 export class Community {
@@ -11,11 +11,15 @@ export class Community {
   status: string;
   avatarDTO: AvatarDTO;
   communityUsers: User[];
-  metaList: MetaList[];
   tags: string;
   // metaData: MetaData;
   communityMeta: CommunityMeta;
 }
+
+export class CommunityPublic extends Community {
+  metaTagCard: MetaTagCard;
+}
+
 export class UserMeta {
   relationShipType: string;
 }

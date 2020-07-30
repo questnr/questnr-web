@@ -13,7 +13,7 @@ export class SinglePostResolve implements Resolve<Promise<SinglePost>> {
 
   resolve(route: ActivatedRouteSnapshot): Promise<SinglePost> {
     return this.singlePostService.getSinglePost(route.paramMap.get('postSlug')).pipe(map((singlePost: SinglePost) => {
-      this.uiService.setMetaTagsAndTitle(singlePost.postData.postEditorType == PostEditorType.blog ? singlePost.postData.blogTitle : "Post", singlePost.metaList);
+      this.uiService.setMetaTagsAndTitle(singlePost.metaTagCard.title, singlePost.metaTagCard.metaList);
       return singlePost;
     })).toPromise();
   }

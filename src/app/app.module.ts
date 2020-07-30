@@ -189,7 +189,7 @@ export function metaFactory(): MetaLoader {
       'twitter:title': GlobalConstants.siteTitle,
       'twitter:description': GlobalConstants.description,
       "twitter:url": GlobalConstants.siteLink,
-      "twitter:image": GlobalConstants.siteLogo
+      "twitter:image": GlobalConstants.siteLogoExternalLink
     }
   });
 }

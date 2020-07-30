@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Community } from '../models/community.model';
+import { Community, CommunityPublic } from '../models/community.model';
 import { Observable, of } from 'rxjs';
 import { MetaTagCard } from 'models/common.model';
 
@@ -15,9 +15,9 @@ export class CommunityService {
 
 
   constructor(private http: HttpClient) { }
-  getCommunityDetails(slug): Observable<Community> {
+  getCommunityDetails(slug): Observable<CommunityPublic> {
     if (!slug) return of();
-    return this.http.get<Community>(this.baseUrl + 'community/' + slug);
+    return this.http.get<CommunityPublic>(this.baseUrl + 'community/' + slug);
   }
 
   getCommunityUserList(slug) {
