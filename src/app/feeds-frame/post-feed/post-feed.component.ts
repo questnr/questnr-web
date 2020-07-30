@@ -270,7 +270,7 @@ export class PostFeedComponent implements OnInit {
     if (e.target && e.target.value) {
       let detectedLink = this.commonService.parseTextToFindURL(e.target.value);
       let youTubeId = this.commonService.getYouTubeVideoId(detectedLink);
-      console.log("youTubeId", youTubeId);
+      // console.log("youTubeId", youTubeId);
       this.iFramelyService.getIFramelyData(detectedLink).then((iFramelyData: IFramelyData) => {
         this.iFramelyData = iFramelyData;
         // this.metaCardCompRef.setIFramelyData(iFramelyData);
