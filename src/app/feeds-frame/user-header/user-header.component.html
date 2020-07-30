@@ -31,7 +31,8 @@
           <button class="w-100" mat-button *ngFor="let user of users" (click)="handleRouterLink(user?.slug)">
             <app-horizontal-profile
               [avatarLink]="user?.avatarDTO?.avatarLink ? user?.avatarDTO?.avatarLink : 'assets/default.jpg'"
-              [head]="user?.username" [subhead]="user?.firstName+' '+user?.lastName">
+              [head]="user?.username"
+              [subhead]="user?.firstName && user?.lastName ? user?.firstName+' '+user?.lastName: ''">
             </app-horizontal-profile>
           </button>
         </div>
