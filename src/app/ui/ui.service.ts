@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Title, Meta } from '@angular/platform-browser';
 import { MetaService } from '@ngx-meta/core';
 import { MetaList } from 'models/common.model';
 import { GlobalConstants } from 'shared/constants';
@@ -9,7 +9,7 @@ import { GlobalConstants } from 'shared/constants';
 })
 export class UIService {
 
-  constructor(private readonly metaService: MetaService, private titleService: Title) {
+  constructor(private readonly metaService: MetaService, private titleService: Title, private meta: Meta) {
   }
   setMetaTagsAndTitle(title: string, metaList: MetaList[]) {
     if (title) {
@@ -21,6 +21,7 @@ export class UIService {
         metaList[i].metaInformation.content
       );
     }
+    this.meta.addTag({ name: 'fb:app_id', content: GlobalConstants.fbAppId });
   }
   setDetault() {
     this.resetTitle();
@@ -33,11 +34,11 @@ export class UIService {
     this.metaService.setTag("og:image", GlobalConstants.siteLogo);
     this.metaService.setTag("og:type", "website");
     this.metaService.setTag("og:locale", "en_US");
-    this.metaService.setTag("fb:app_id", GlobalConstants.fbAppId);
     this.metaService.setTag("twitter:title", GlobalConstants.siteTitle);
     this.metaService.setTag("twitter:description", GlobalConstants.description);
     this.metaService.setTag("twitter:url", GlobalConstants.siteLink);
     this.metaService.setTag("twitter:image", GlobalConstants.siteLogo);
+    this.meta.addTag({ name: 'fb:app_id', content: GlobalConstants.fbAppId });
   }
   setTitle(title) {
     this.titleService.setTitle(title);
