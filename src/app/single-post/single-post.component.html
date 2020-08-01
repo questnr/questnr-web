@@ -162,14 +162,15 @@
             <div *ngIf="singlePost.commentActionList?.length;">
               <div class="comment-box" *ngFor="let comment of singlePost.commentActionList"
                 [ngClass]="comment.userActorDTO?.userId === getUserId()? 'myComment' : ''">
-                <app-comment-box class="comment-item" [comment]="comment" [post]="singlePost" (update)="getComments()"
+                <app-comment-box class="comment-item" [comment]="comment" (reply)="replyTo($event)" [post]="singlePost"
                   (deleteEvent)="deleteComment($event)">
                 </app-comment-box>
                 <div class="subComments" *ngIf="comment.childCommentDTOSet?.length">
                   <div class="child-comment" *ngFor="let item of comment.childCommentDTOSet">
                     <app-comment-box class="comment-item"
                       [ngClass]="item.userActorDTO?.userId === getUserId()? 'myComment' : ''" [comment]="item"
-                      [post]="singlePost" (update)="getComments()" (deleteEvent)="deleteComment($event)">
+                      [parentComment]="comment" (reply)="replyTo($event)" [post]="singlePost"
+                      (deleteEvent)="deleteComment($event)">
                     </app-comment-box>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'auth/login.service';
@@ -78,6 +78,7 @@ export class SinglePostComponent implements OnInit {
   displayText: string;
   errorOnImageIndexList: number[] = [];
   actionAllowed: boolean = false;
+  @ViewChild('commentInput') commentInput: ElementRef;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
     public loginService: LoginService,
@@ -211,25 +212,42 @@ export class SinglePostComponent implements OnInit {
     );
   }
 
+  replyTo(event) {
+    this.replyingTo = event;
+    this.commentInput.nativeElement.focus();
+  }
+
   postComment(id) {
-    this.isCommentLoading = true;
-    const body = {
-      postId: id,
-      parentCommentId: 0,
-      commentObject: this.comment.value
-    };
-    if (this.comment.valid) {
-      this.api.postComment(id, body).subscribe(
-        (res: any) => {
-          this.isCommentLoading = false;
-          if (res) {
-            this.singlePost.commentActionList.push(res);
+    if (this.comment.value) {
+      this.isCommentLoading = true;
+      const formData = new FormData();
+      formData.append('postId', id);
+      formData.append('parentCommentId', this.replyingTo ? this.replyingTo.parentCommentId || this.replyingTo.commentId : 0);
+      formData.append('commentObject', this.comment.value);
+      if (this.comment.valid) {
+        this.api.postComment(id, formData).subscribe(
+          (res: CommentAction) => {
+            if (this.replyingTo && (this.replyingTo.parentCommentId || this.replyingTo.commentId)) {
+              this.singlePost.commentActionList.forEach(c => {
+                if (c.commentActionId === this.replyingTo.commentId || c.commentActionId === this.replyingTo.parentCommentId) {
+                  if (!c.childCommentDTOSet) {
+                    c.childCommentDTOSet = [];
+                  }
+                  c.childCommentDTOSet.unshift(res);
+                }
+              });
+            } else {
+              this.singlePost.commentActionList.unshift(res);
+            }
+            ++this.singlePost.postActionMeta.totalComments;
+            this.isCommentLoading = false;
+            this.replyingTo = null;
             this.comment.setValue('');
+          }, err => {
+            this.isCommentLoading = false;
           }
-          this.isCommenting = false;
-          this.isCommentLoading = false;
-        }
-      );
+        );
+      }
     }
   }
 

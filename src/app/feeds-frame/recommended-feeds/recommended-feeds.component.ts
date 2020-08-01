@@ -200,13 +200,12 @@ export class RecommendedFeedsComponent implements OnInit {
   postComment(id) {
     if (this.comment.value) {
       this.isCommentLoading = true;
-      const body = {
-        postId: id,
-        parentCommentId: this.replyingTo ? this.replyingTo.parentCommentId || this.replyingTo.commentId : 0,
-        commentObject: this.comment.value
-      };
+      const formData = new FormData();
+      formData.append('postId', id);
+      formData.append('parentCommentId', this.replyingTo ? this.replyingTo.parentCommentId || this.replyingTo.commentId : 0);
+      formData.append('commentObject', this.comment.value);
       if (this.comment.valid) {
-        this.api.postComment(id, body).subscribe(
+        this.api.postComment(id, formData).subscribe(
           (res: CommentAction) => {
             if (this.replyingTo && (this.replyingTo.parentCommentId || this.replyingTo.commentId)) {
               this.feed.commentActionList.forEach(c => {

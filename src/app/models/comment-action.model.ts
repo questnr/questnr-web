@@ -1,5 +1,6 @@
 import { User } from './user.model';
 import { MetaData } from './common.model';
+import { PostMedia } from './post-action.model';
 
 export class CommentAction {
     commentActionId: number;
@@ -9,6 +10,7 @@ export class CommentAction {
     childComment: boolean;
     metaData: MetaData;
     commentActionMeta: CommentActionMeta;
+    commentMediaList: PostMedia[];
 }
 
 export class ChildCommentAction {
@@ -18,6 +20,7 @@ export class ChildCommentAction {
     childComment: boolean;
     metaData: MetaData;
     commentActionMeta: CommentActionMeta;
+    commentMediaList: PostMedia[];
 }
 
 export class CommentActionMeta {
