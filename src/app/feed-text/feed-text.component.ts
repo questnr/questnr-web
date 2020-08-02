@@ -21,14 +21,16 @@ export class FeedTextComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    if (this.hashTagsData != {}) {
-      this.hashTagPosList = Object.keys(this.hashTagsData);
-    }
-    if (this.text.length > this.maxLength && this.readMore) {
-      this.readMoreText();
-    } else {
-      this.textToShow = this.text;
-      this.hasMoreText = false;
+    if (this.text && this.text.length > 0) {
+      if (this.hashTagsData != {}) {
+        this.hashTagPosList = Object.keys(this.hashTagsData);
+      }
+      if (this.text.length > this.maxLength && this.readMore) {
+        this.readMoreText();
+      } else {
+        this.textToShow = this.text;
+        this.hasMoreText = false;
+      }
     }
   }
   // calculateNewLinePositions(text: string) {

@@ -112,15 +112,29 @@
 
       <div class="comment-box-wrap">
         <div class="profile-icon"> <img [src]="login.profileImg"> </div>
-        <div class="comment-wrapper">
-          <span *ngIf="replyingTo">{{replyingTo.username}}</span>
-          <input type="text" [formControl]="comment" #commentInput
-            [placeholder]="replyingTo? 'Reply to ' + replyingTo.username : 'Write a Comment..'"
-            (keyup.enter)="postComment(feed.postActionId)">
-          <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
-          <button mat-icon-button color="accent" (click)="postComment(feed.postActionId)" [disabled]="!comment.valid">
-            <mat-icon>send</mat-icon>
-          </button>
+        <div class="comment-wrapper-container">
+          <div class="comment-user-interaction">
+            <div class="comment-wrapper">
+              <span *ngIf="replyingTo">{{replyingTo.username}}</span>
+              <input type="text" [formControl]="comment" #commentInput
+                [placeholder]="replyingTo? 'Reply to ' + replyingTo.username : 'Write a Comment..'"
+                (keyup.enter)="postComment(feed.postActionId)">
+              <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
+              <button mat-icon-button color="accent" (click)="postComment(feed.postActionId)"
+                [disabled]="!comment.valid">
+                <mat-icon>send</mat-icon>
+              </button>
+            </div>
+            <div class="comment-features">
+              <div class="comment-feature">
+                <input type="file" (change)="selectFiles($event)" multiple accept="image/*,application/*"
+                  #commentAttachFileInput />
+                <mat-icon class="attach-file" (click)="openFileSelector()">attachment</mat-icon>
+              </div>
+            </div>
+          </div>
+          <app-attached-file (finalizedAttachedFileListListener)="finalizedAttachedFileListListener($event)"
+            #attachedFileComponent></app-attached-file>
         </div>
       </div>
     </div>

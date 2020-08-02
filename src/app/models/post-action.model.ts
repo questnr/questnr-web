@@ -40,6 +40,7 @@ export enum PostEditorType {
 export class PostMedia {
   postMediaLink: string;
   resourceType: string;
+  fileExtension: string;
 }
 
 export class PostActionMeta {

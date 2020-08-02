@@ -23,6 +23,7 @@ import { PostFeedComponent } from '../post-feed/post-feed.component';
 import { FeedTextComponent } from 'feed-text/feed-text.component';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { AttachedFileComponent } from 'attached-file/attached-file.component';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -40,6 +41,12 @@ export class RecommendedFeedsComponent implements OnInit {
   @Input() feed: Post;
   @ViewChild('commentInput') commentInput: ElementRef;
   @ViewChild('feedTextComponent') feedTextComponent: FeedTextComponent;
+  @ViewChild('commentAttachFileInput')
+  set commentAttachFileInput(commentAttachFileInputRef: any) {
+    this.commentAttachFileInputRef = commentAttachFileInputRef;
+  }
+  commentAttachFileInputRef: ElementRef;
+  @ViewChild('attachedFileComponent') attachedFileComponent: AttachedFileComponent;
   @Output() removePostEvent = new EventEmitter();
   @Input() showUserHeader: boolean = false;
   // @ViewChild("metaCardComponentRef", { static: true }) metaCardComponentRef: MetaCardComponent;
@@ -99,6 +106,7 @@ export class RecommendedFeedsComponent implements OnInit {
   isYouTubeVideoLink: boolean = false;
   safeYoutubeLink: SafeResourceUrl;
   youtubeLinkTemplate: string = "https://youtube.com/embed/";
+  attachedFileList = [];
 
   constructor(private api: FeedsService,
     public login: LoginService,
@@ -126,7 +134,7 @@ export class RecommendedFeedsComponent implements OnInit {
   async parseFeedText() {
     if (this.feed.postData.text)
       this.displayText = this.feed.postData.text;
-    if (this.feed.postData.postEditorType !== PostEditorType.blog) {
+    if (this.displayText && this.displayText.length > 0 && this.feed.postData.postEditorType !== PostEditorType.blog) {
       this.displayText.replace('\n', '<br>');
       this.feed.hashTags.forEach((hashTag: HashTag) => {
         // let hashTagNode = document.createElement("span");
@@ -184,7 +192,7 @@ export class RecommendedFeedsComponent implements OnInit {
   getComments() {
     this.isCommentLoading = true;
     this.api.getComments(this.feed.postActionId, this.page).subscribe(
-      (res: any) => {
+      (res: Page<CommentAction>) => {
         this.isCommentLoading = false;
         if (res.content.length) {
           res.content.forEach(comment => {
@@ -204,6 +212,11 @@ export class RecommendedFeedsComponent implements OnInit {
       formData.append('postId', id);
       formData.append('parentCommentId', this.replyingTo ? this.replyingTo.parentCommentId || this.replyingTo.commentId : 0);
       formData.append('commentObject', this.comment.value);
+      if (this.attachedFileList.length > 0) {
+        this.attachedFileList.forEach(attachedFile => {
+          formData.append('files', attachedFile);
+        });
+      }
       if (this.comment.valid) {
         this.api.postComment(id, formData).subscribe(
           (res: CommentAction) => {
@@ -223,6 +236,7 @@ export class RecommendedFeedsComponent implements OnInit {
             this.isCommentLoading = false;
             this.replyingTo = null;
             this.comment.setValue('');
+            this.clearAttachedFileList();
           }, err => {
             this.isCommentLoading = false;
           }
@@ -347,5 +361,38 @@ export class RecommendedFeedsComponent implements OnInit {
 
       window.open(url, '_blank');
     }
+  }
+  openFileSelector() {
+    this.commentAttachFileInputRef.nativeElement.click();
+  }
+
+  selectFiles(event) {
+    if (event.target.files.length > 0) {
+      this.filesDroppedOnComment(event.target.files);
+    }
+  }
+
+  filesDroppedOnComment(droppedFiles) {
+    this.attachedFileList = [];
+    const files = Object.values(droppedFiles);
+    files.forEach((file: any) => {
+      if (file.type.includes('image') || file.type.includes('application')) {
+        this.attachedFileList.push(file);
+        this.showOnAttachedFileContainer(file);
+      }
+    });
+  }
+
+  showOnAttachedFileContainer(file) {
+    this.attachedFileComponent.pushFile(file);
+  }
+
+  finalizedAttachedFileListListener($event) {
+    this.attachedFileComponent = $event;
+  }
+
+  clearAttachedFileList() {
+    this.attachedFileList = [];
+    this.attachedFileComponent.clearAttachedFileList();
   }
 }
