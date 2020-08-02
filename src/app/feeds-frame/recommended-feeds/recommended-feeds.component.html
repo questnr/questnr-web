@@ -31,7 +31,7 @@
       (removePostEvent)="removePost($event)"></app-post-menu-options>
   </div>
   <div class="mb-2" *ngIf="feed.postData.postEditorType!='blog'">
-    <div *ngIf="feed.postMediaList?.length" class="media-container">
+    <div *ngIf="viewMediaList?.length" class="media-container">
       <owl-carousel-o [options]="customOptions">
         <ng-container *ngFor="let media of feed.postMediaList;let i=index">
           <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'image'">
@@ -50,6 +50,7 @@
         </ng-container>
       </owl-carousel-o>
     </div>
+    <app-attached-file-list [attachedFileLinkList]="applicationMediaList"></app-attached-file-list>
     <app-feed-text [text]="displayText" [hashTagsData]="hashTagsData" #feedTextComponent></app-feed-text>
     <app-meta-card *ngIf="!isYouTubeVideoLink && iFramelyData?.url" [iFramelyData]="iFramelyData"></app-meta-card>
     <div *ngIf="isYouTubeVideoLink" class="y-video-container">
@@ -110,32 +111,29 @@
         </div>
       </div>
 
-      <div class="comment-box-wrap">
-        <div class="profile-icon"> <img [src]="login.profileImg"> </div>
-        <div class="comment-wrapper-container">
-          <div class="comment-user-interaction">
-            <div class="comment-wrapper">
-              <span *ngIf="replyingTo">{{replyingTo.username}}</span>
-              <input type="text" [formControl]="comment" #commentInput
-                [placeholder]="replyingTo? 'Reply to ' + replyingTo.username : 'Write a Comment..'"
-                (keyup.enter)="postComment(feed.postActionId)">
-              <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
-              <button mat-icon-button color="accent" (click)="postComment(feed.postActionId)"
-                [disabled]="!comment.valid">
-                <mat-icon>send</mat-icon>
-              </button>
-            </div>
-            <div class="comment-features">
-              <div class="comment-feature">
-                <input type="file" (change)="selectFiles($event)" multiple accept="image/*,application/*"
-                  #commentAttachFileInput />
-                <mat-icon class="attach-file" (click)="openFileSelector()">attachment</mat-icon>
-              </div>
+      <div class="comment-wrapper-container">
+        <div class="comment-user-interaction">
+          <div class="profile-icon"> <img [src]="login.profileImg"> </div>
+          <div class="comment-wrapper">
+            <span *ngIf="replyingTo">{{replyingTo.username}}</span>
+            <input type="text" [formControl]="comment" #commentInput
+              [placeholder]="replyingTo? 'Reply to ' + replyingTo.username : 'Write a Comment..'"
+              (keyup.enter)="postComment(feed.postActionId)">
+            <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
+            <button mat-icon-button color="accent" (click)="postComment(feed.postActionId)" [disabled]="!comment.valid">
+              <mat-icon>send</mat-icon>
+            </button>
+          </div>
+          <div class="comment-features">
+            <div class="comment-feature">
+              <input type="file" (change)="selectFiles($event)" multiple accept="image/*,application/*"
+                #commentAttachFileInput />
+              <mat-icon class="attach-file" (click)="openFileSelector()">attachment</mat-icon>
             </div>
           </div>
-          <app-attached-file (finalizedAttachedFileListListener)="finalizedAttachedFileListListener($event)"
-            #attachedFileComponent></app-attached-file>
         </div>
+        <app-attached-file-list (finalizedAttachedFileListListener)="finalizedAttachedFileListListener($event)"
+          #attachedFileListComponent></app-attached-file-list>
       </div>
     </div>
   </div>

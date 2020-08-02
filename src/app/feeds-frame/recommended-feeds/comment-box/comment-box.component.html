@@ -14,7 +14,7 @@
         <img src="assets/trash-can.svg" (mouseover)="hover()" (mouseout)="unhover()" #commentTrash />
       </div>
     </div>
-    <app-attached-file [attachedFileLinkList]="comment.commentMediaList" #attachedFileComponent></app-attached-file>
+    <app-attached-file-list [attachedFileLinkList]="comment.commentMediaList"></app-attached-file-list>
   </div>
   <!-- </div> -->
   <div class="commmentActions">

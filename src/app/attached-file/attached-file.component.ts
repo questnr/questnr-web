@@ -8,20 +8,17 @@ import { PostMedia } from 'models/post-action.model';
   styleUrls: ['./attached-file.component.scss']
 })
 export class AttachedFileComponent implements OnInit {
-  @Input() attachedFileLinkList: PostMedia[];
-  attachedFileList: any[];
-  @Output() finalizedAttachedFileListListener = new EventEmitter();
+  @Input() ind: number;
+  @Input() useLink: boolean = false;
+  @Input() attachedFile: File;
+  @Input() attachedFileLink: PostMedia;
+  @Output() removeAttachedFileListener = new EventEmitter();
   hoveredIndex: number = -1;
-  useLink: boolean = false;
   noneFileExtension: string = "unrecognised file";
 
   constructor(public commonService: CommonService) { }
 
   ngOnInit(): void {
-    this.clearAttachedFileList();
-    if (this.attachedFileLinkList?.length) {
-      this.useLink = true;
-    }
   }
 
   hover(ind) {
@@ -40,10 +37,6 @@ export class AttachedFileComponent implements OnInit {
     return ind === this.hoveredIndex;
   }
 
-  pushFile(file) {
-    this.attachedFileList.push(file);
-  }
-
   checkFileExtension(file: File) {
     const extension = this.commonService.checkFileExtension(file);
     if (extension) return extension;
@@ -53,18 +46,7 @@ export class AttachedFileComponent implements OnInit {
   }
 
   removeAttachedFile(ind) {
-    if (ind !== -1) {
-      this.attachedFileList.splice(ind, 1);
-      this.finalizedAttachedList();
-    }
-  }
-
-  finalizedAttachedList() {
-    this.finalizedAttachedFileListListener.emit(this.attachedFileList);
-  }
-
-  clearAttachedFileList() {
-    this.attachedFileList = [];
+    this.removeAttachedFileListener.emit(ind);
   }
 
   getFileExtension(attachedFile: PostMedia) {
@@ -75,7 +57,6 @@ export class AttachedFileComponent implements OnInit {
   }
 
   downloadAttachedFile(mediaLink: string) {
-    console.log("downloadAttachedFile", mediaLink);
     let a = document.createElement('a')
     a.href = mediaLink;
     a.download = mediaLink.split('/').pop()

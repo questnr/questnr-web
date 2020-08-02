@@ -162,6 +162,11 @@
 .comment-wrapper-container{
   display: flex;
   flex-direction: column;
+  .profile-icon {
+    width: 40px;
+    margin: auto 10px;
+    height: 40px;
+  }
   .comment-user-interaction{
     display: flex;
     align-items: center;
@@ -284,14 +289,6 @@ button.liked {
 }
 .subComments {
   margin-left: 40px;
-}
-.comment-box-wrap {
-  display: flex;
-  .profile-icon {
-    width: 40px;
-    margin: auto 10px;
-    height: 40px;
-  }
 }
 
 .username-link {

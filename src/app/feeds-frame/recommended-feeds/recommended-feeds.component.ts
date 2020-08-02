@@ -12,7 +12,7 @@ import { IFramelyData } from 'models/iframely.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { CommentAction } from '../../models/comment-action.model';
-import { Post, PostActionForMedia, PostEditorType } from '../../models/post-action.model';
+import { Post, PostActionForMedia, PostEditorType, PostMedia, ResourceType } from '../../models/post-action.model';
 import { UserListComponent } from '../../shared/components/dialogs/user-list/user-list.component';
 import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
 import { GlobalConstants } from 'shared/constants';
@@ -24,6 +24,7 @@ import { FeedTextComponent } from 'feed-text/feed-text.component';
 import { Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AttachedFileComponent } from 'attached-file/attached-file.component';
+import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -46,7 +47,7 @@ export class RecommendedFeedsComponent implements OnInit {
     this.commentAttachFileInputRef = commentAttachFileInputRef;
   }
   commentAttachFileInputRef: ElementRef;
-  @ViewChild('attachedFileComponent') attachedFileComponent: AttachedFileComponent;
+  @ViewChild('attachedFileListComponent') attachedFileListComponent: AttachedFileListComponent;
   @Output() removePostEvent = new EventEmitter();
   @Input() showUserHeader: boolean = false;
   // @ViewChild("metaCardComponentRef", { static: true }) metaCardComponentRef: MetaCardComponent;
@@ -107,6 +108,8 @@ export class RecommendedFeedsComponent implements OnInit {
   safeYoutubeLink: SafeResourceUrl;
   youtubeLinkTemplate: string = "https://youtube.com/embed/";
   attachedFileList = [];
+  viewMediaList: PostMedia[] = [];
+  applicationMediaList: PostMedia[] = [];
 
   constructor(private api: FeedsService,
     public login: LoginService,
@@ -124,6 +127,13 @@ export class RecommendedFeedsComponent implements OnInit {
         this.showUserHeader = false;
       } else {
         this.showUserHeader = true;
+      }
+    }
+    for (let mediaIndex = 0; mediaIndex < this.feed.postMediaList.length; mediaIndex++) {
+      if (this.feed.postMediaList[mediaIndex]?.resourceType === ResourceType.application) {
+        this.applicationMediaList.push(this.feed.postMediaList[mediaIndex]);
+      } else {
+        this.viewMediaList.push(this.feed.postMediaList[mediaIndex]);
       }
     }
     this.editableFeed = Object.assign({}, this.feed);
@@ -384,15 +394,15 @@ export class RecommendedFeedsComponent implements OnInit {
   }
 
   showOnAttachedFileContainer(file) {
-    this.attachedFileComponent.pushFile(file);
+    this.attachedFileListComponent.pushFile(file);
   }
 
   finalizedAttachedFileListListener($event) {
-    this.attachedFileComponent = $event;
+    this.attachedFileList = $event;
   }
 
   clearAttachedFileList() {
     this.attachedFileList = [];
-    this.attachedFileComponent.clearAttachedFileList();
+    this.attachedFileListComponent.clearAttachedFileList();
   }
 }

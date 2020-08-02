@@ -37,9 +37,13 @@ export enum PostEditorType {
   normal = "normal", blog = "blog"
 }
 
+export enum ResourceType {
+  image = "image", video = "video", application = "application"
+}
+
 export class PostMedia {
   postMediaLink: string;
-  resourceType: string;
+  resourceType: ResourceType;
   fileExtension: string;
 }
 

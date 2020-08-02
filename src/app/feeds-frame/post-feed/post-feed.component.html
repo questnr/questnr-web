@@ -48,21 +48,26 @@
 
   <div class="media" [@expand]="isMediaEnabled ? 'expanded' : 'collapsed'">
     <div class="media-wrap">
-      <div class="media-item" *ngFor="let item of addedMedias; let i=index">
-        <button mat-icon-button (click)="removeMedia(i)">
-          <mat-icon>close</mat-icon>
-        </button>
-        <img *ngIf="addedMediaSrc[i]?.type.includes('image')" [src]="addedMediaSrc[i]?.src">
-        <video *ngIf="addedMediaSrc[i]?.type.includes('video')">
-          <source [src]="addedMediaSrc[i]?.src" [type]="addedMediaSrc[i].type">
-        </video>
+      <div *ngFor="let item of addedMedias; let i=index">
+        <div class="media-item" *ngIf="!addedMediaSrc[i]?.type.includes('application')">
+          <button mat-icon-button (click)="removeMedia(i)">
+            <mat-icon>close</mat-icon>
+          </button>
+          <img *ngIf="addedMediaSrc[i]?.type.includes('image')" [src]="addedMediaSrc[i]?.src">
+          <video *ngIf="addedMediaSrc[i]?.type.includes('video')">
+            <source [src]="addedMediaSrc[i]?.src" [type]="addedMediaSrc[i].type">
+          </video>
+        </div>
+        <app-attached-file *ngIf="addedMediaSrc[i]?.type.includes('application')" [attachedFile]="addedMediaSrc[i]"
+          [ind]="i" [useLink]="false" (removeAttachedFileListener)="removeMedia($event)">
+        </app-attached-file>
       </div>
       <div class="drop-area m-2" appDragDrop (fileDropped)="filesDropped($event)" (click)="fileInput.click()">
         <input type="file" (change)="selectFiles($event)" #fileInput style="display: none" multiple
-          accept="image/*,video/*" />
+          accept="image/*,video/*,application/*" />
         <div class="text-center">
           <mat-icon>add_photo_alternate</mat-icon>
-          <div> Drop Image/Video</div>
+          <div>Drop Image/Video/Document</div>
         </div>
       </div>
     </div>
@@ -72,7 +77,7 @@
       <div class="row">
         <div class="col-6">
           <div style="margin-top: 8px">
-            <h6>Add to post</h6>
+            <h6>Add To Post</h6>
           </div>
         </div>
 

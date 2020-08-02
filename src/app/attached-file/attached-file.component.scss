@@ -1,42 +1,38 @@
 @import '../variables';
 
-.attached-file-container{
-    display: flex;
-    margin: 0.5rem;
-    .attached-file{
-        padding: 1rem;
-        margin: 0.3rem;
-        position: relative;
-        background-color: $primary;
+.attached-file{
+    padding: 1rem;
+    margin: 0.3rem;
+    position: relative;
+    background-color: $primary;
+    border-radius: 5px;
+    font-size: 0.7rem;
+    .attached-file-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .action{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        background-color: $heading;
+        color: white;
+        font-size: 16px;
+        // padding: 12px 24px;
+        width: 110%;
+        height: 110%;
+        border: none;
+        cursor: pointer;
         border-radius: 5px;
-        font-size: 0.7rem;
-        .attached-file-content{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .action{
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            -ms-transform: translate(-50%, -50%);
-            background-color: $heading;
-            color: white;
-            font-size: 16px;
-            // padding: 12px 24px;
-            width: 110%;
-            height: 110%;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            z-index: 100;
-            opacity: 0.2;
-        }
-        a {
-            &:hover{
-                text-decoration: none;
-            }
+        z-index: 100;
+        opacity: 0.2;
+    }
+    a {
+        &:hover{
+            text-decoration: none;
         }
     }
 }

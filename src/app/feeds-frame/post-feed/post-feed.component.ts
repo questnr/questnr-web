@@ -133,7 +133,7 @@ export class PostFeedComponent implements OnInit {
   filesDropped(droppedFiles) {
     const files = Object.values(droppedFiles);
     files.forEach((file: any) => {
-      if (file.type.includes('image') || file.type.includes('video')) {
+      if (file.type.includes('image') || file.type.includes('video') || file.type.includes('application')) {
         this.addedMedias.push(file);
         this.loadPreview(file);
         this.isMediaEnabled = true;
@@ -142,12 +142,17 @@ export class PostFeedComponent implements OnInit {
   }
 
   loadPreview(file) {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      const obj = { type: file.type, src: reader.result };
+    if (file.type.includes('application')) {
+      const obj = file;
       this.addedMediaSrc.push(obj);
-    };
+    } else {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        const obj = { type: file.type, src: reader.result };
+        this.addedMediaSrc.push(obj);
+      };
+    }
   }
 
   selectFiles(event) {
