@@ -33,9 +33,12 @@
   <div class="mb-2" *ngIf="feed.postData.postEditorType!='blog'">
     <div *ngIf="viewMediaList?.length" class="media-container">
       <owl-carousel-o [options]="customOptions">
-        <ng-container *ngFor="let media of feed.postMediaList;let i=index">
+        <ng-container *ngFor="let media of viewMediaList;let i=index">
           <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'image'">
             <div class="media">
+              <div *ngIf="viewMediaList.length > 1" class="media-count">
+                {{'('+(i+1)+'/'+(viewMediaList.length)+')'}}
+              </div>
               <img class="post-media" [src]="media.postMediaLink" alt="" (error)="onError(i)" (load)="onLoad(i)">
               <button class="reload-btn" *ngIf="errorOnImageIndexList.indexOf(i) > -1"
                 (click)="onRefreshImageAtIndex(i)">
