@@ -15,7 +15,9 @@ import { CommonService } from '../common/common.service';
 import { IFramelyService } from '../meta-card/iframely.service';
 import { HashTag } from '../models/hashtag.model';
 import { CommentAction } from '../models/comment-action.model';
-import { PostEditorType, Post, PostActionForMedia } from 'models/post-action.model';
+import { PostEditorType, Post, PostActionForMedia, PostMedia, ResourceType } from 'models/post-action.model';
+import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 enum postType {
   media, text, metacard, blog
 }
@@ -78,7 +80,20 @@ export class SinglePostComponent implements OnInit {
   displayText: string;
   errorOnImageIndexList: number[] = [];
   actionAllowed: boolean = false;
+  isYouTubeVideoLink: boolean = false;
+  safeYoutubeLink: SafeResourceUrl;
+  youtubeLinkTemplate: string = "https://youtube.com/embed/";
   @ViewChild('commentInput') commentInput: ElementRef;
+  @ViewChild('commentAttachFileInput')
+  set commentAttachFileInput(commentAttachFileInputRef: any) {
+    this.commentAttachFileInputRef = commentAttachFileInputRef;
+  }
+  commentAttachFileInputRef: ElementRef;
+  @ViewChild('attachedFileListComponent') attachedFileListComponent: AttachedFileListComponent;
+  attachedFileList = [];
+  viewMediaList: PostMedia[] = [];
+  applicationMediaList: PostMedia[] = [];
+  showUserHeader: boolean = false;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
     public loginService: LoginService,
@@ -86,7 +101,8 @@ export class SinglePostComponent implements OnInit {
     public dialog: MatDialog,
     private router: Router,
     private commonService: CommonService,
-    private iFramelyService: IFramelyService) {
+    private iFramelyService: IFramelyService,
+    private _sanitizer: DomSanitizer) {
     this.postSlug = this.route.snapshot.paramMap.get('postSlug');
   }
 
@@ -113,12 +129,29 @@ export class SinglePostComponent implements OnInit {
     this.route.data.subscribe((data: { singlePost: SinglePost }) => {
       this.singlePost = data.singlePost;
       // console.log("this.singlePost", this.singlePost);
-      this.checkPostViewType();
-      this.parseFeed();
+      this.startThread();
       this.isLoading = false;
     });
     // this.fetchPost(this.postSlug);
     // console.log(this.loginService.getUserProfileImg());
+  }
+  startThread() {
+    if (!this.showUserHeader) {
+      if (this.singlePost?.communityDTO) {
+        this.showUserHeader = false;
+      } else {
+        this.showUserHeader = true;
+      }
+    }
+    for (let mediaIndex = 0; mediaIndex < this.singlePost.postMediaList?.length; mediaIndex++) {
+      if (this.singlePost.postMediaList[mediaIndex]?.resourceType === ResourceType.application) {
+        this.applicationMediaList.push(this.singlePost.postMediaList[mediaIndex]);
+      } else {
+        this.viewMediaList.push(this.singlePost.postMediaList[mediaIndex]);
+      }
+    }
+    this.checkPostViewType();
+    this.parseFeed();
   }
   async parseFeed() {
     if (this.singlePost.postData.text)
@@ -138,7 +171,16 @@ export class SinglePostComponent implements OnInit {
         }
       });
       let detectedLink: string = this.commonService.parseTextToFindURL(this.displayText);
-      this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
+      if (detectedLink) {
+        let youTubeId = this.commonService.getYouTubeVideoId(detectedLink);
+        if (youTubeId) {
+          this.isYouTubeVideoLink = true;
+          this.safeYoutubeLink = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtubeLinkTemplate + youTubeId);
+        } else {
+          this.isYouTubeVideoLink = false;
+          this.iFramelyData = await this.iFramelyService.getIFramelyData(detectedLink);
+        }
+      }
     }
   }
 
@@ -146,11 +188,12 @@ export class SinglePostComponent implements OnInit {
     if (this.singlePost.postData.postEditorType === PostEditorType.blog) {
       return this.viewType = postType.blog;
     }
-    if (this.singlePost.postMediaList.length) {
+    if (this.viewMediaList.length) {
       return this.viewType = postType.media;
-    } else if (this.iFramelyData && !this.iFramelyData.error) {
-      return this.viewType = postType.metacard;
     }
+    // else if (this.iFramelyData && !this.iFramelyData.error) {
+    //   return this.viewType = postType.metacard;
+    // }
     return this.viewType = postType.text;
   }
 
@@ -342,5 +385,39 @@ export class SinglePostComponent implements OnInit {
       this.singlePost.postMediaList = res.postMediaList;
       this.errorOnImageIndexList = [];
     });
+  }
+
+  openFileSelector() {
+    this.commentAttachFileInputRef.nativeElement.click();
+  }
+
+  selectFiles(event) {
+    if (event.target.files.length > 0) {
+      this.filesDroppedOnComment(event.target.files);
+    }
+  }
+
+  filesDroppedOnComment(droppedFiles) {
+    this.attachedFileList = [];
+    const files = Object.values(droppedFiles);
+    files.forEach((file: any) => {
+      if (file.type.includes('image') || file.type.includes('application')) {
+        this.attachedFileList.push(file);
+        this.showOnAttachedFileContainer(file);
+      }
+    });
+  }
+
+  showOnAttachedFileContainer(file) {
+    this.attachedFileListComponent.pushFile(file);
+  }
+
+  finalizedAttachedFileListListener($event) {
+    this.attachedFileList = $event;
+  }
+
+  clearAttachedFileList() {
+    this.attachedFileList = [];
+    this.attachedFileListComponent.clearAttachedFileList();
   }
 }

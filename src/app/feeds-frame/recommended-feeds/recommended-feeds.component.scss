@@ -109,9 +109,9 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  height: 50px;
+  height: 40px;
   border-radius: 50%;
-  width: 50px;
+  width: 40px;
   img {
     width: auto;
     height: 100%;
@@ -250,10 +250,10 @@
       padding: 1rem;
       padding-top: 0;
     }
-    .profile-icon {
-      height: 50px;
-      width: 50px;
-    }
+    // .profile-icon {
+    //   height: 50px;
+    //   width: 50px;
+    // }
     .profile-detail {
       padding: 0.6rem;
       .head {
