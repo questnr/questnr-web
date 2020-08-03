@@ -10,6 +10,8 @@ import { PostFeedComponent } from '../post-feed/post-feed.component';
 import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
 import { GlobalConstants } from 'shared/constants';
 import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
+import { UserProfileCardServiceComponent } from 'user-profile-card/user-profile-card-service.component';
+import { CommunityService } from 'community/community.service';
 
 @Component({
   selector: 'app-post-menu-options',
@@ -18,6 +20,7 @@ import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component'
 })
 export class PostMenuOptionsComponent implements OnInit {
   @Input() feed: Post;
+  @Input() isCommunityPost: boolean = false;
   @Output() removePostEvent = new EventEmitter();
   @Output() postData = new EventEmitter();
   loggedInUserId: any;
@@ -27,10 +30,13 @@ export class PostMenuOptionsComponent implements OnInit {
     public commonService: CommonService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private login: LoginService) {
+    private login: LoginService,
+    private userProfileCardService: UserProfileCardServiceComponent,
+    private communityService: CommunityService) {
   }
 
   ngOnInit(): void {
+    console.log("isCommunityPost", this.isCommunityPost)
     this.loggedInUserId = this.login.getUserProfile().id;
     const width = this.screenWidth;
     if (width <= 800) {
@@ -126,5 +132,67 @@ export class PostMenuOptionsComponent implements OnInit {
     }
     config.data = { postId: this.feed.postActionId };
     this.dialog.open(PostReportComponent, config);
+  }
+
+  showUnfollowBtn() {
+    if (this.feed.communityDTO?.communityId) {
+      return this.feed.communityDTO?.ownerUserDTO?.userId !== this.loggedInUserId;
+    }
+    return true;
+  }
+
+  unfollow() {
+    let unfollowingName;
+    if (this.isCommunityPost) {
+      unfollowingName = this.feed.communityDTO.communityName;
+    }
+    else {
+      unfollowingName = this.feed.userDTO.username;
+    }
+    let dialogConfig;
+    let title = "Do you want to unfollow " + unfollowingName + "?";
+    if (this.mobileView) {
+      dialogConfig = {
+        maxWidth: '100vw',
+        width: '100%',
+        data: {
+          title,
+          mobileView: this.mobileView
+        }
+      }
+    } else {
+      dialogConfig = {
+        width: '550px',
+        maxWidth: '80vw',
+        data: {
+          title,
+          mobileView: this.mobileView
+        }
+      }
+    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result?.data) {
+        const snackBarRef = this.snackBar.open('Unfollowing...');
+        if (this.isCommunityPost) {
+          this.communityService.unfollowCommunityService(this.feed.communityDTO.communityId, this.loggedInUserId).subscribe((res: any) => {
+            snackBarRef.dismiss();
+            this.snackBar.open("Unfollowed " + this.feed.communityDTO.communityName, 'close', { duration: 3000 });
+          }, error => {
+            snackBarRef.dismiss();
+            this.snackBar.open(error.error.errorMessage, 'close', { duration: 3000 });
+          });
+        } else {
+          this.userProfileCardService.unfollowMe(this.loggedInUserId, this.feed.userDTO.userId).subscribe((res: any) => {
+            snackBarRef.dismiss();
+            this.snackBar.open("Unfollowed " + this.feed.userDTO.username, 'close', { duration: 3000 });
+          }, error => {
+            snackBarRef.dismiss();
+            this.snackBar.open(error.error.errorMessage, 'close', { duration: 3000 });
+          });
+        }
+      }
+    });
   }
 }

@@ -16,8 +16,8 @@
     </div>
 
     <div class="spacer"></div>
-    <app-post-menu-options (postData)="updatePostEvent($event)" [feed]="editableFeed"
-      (removePostEvent)="removePost($event)"></app-post-menu-options>
+    <app-post-menu-options [isCommunityPost]="!showUserHeader" (postData)="updatePostEvent($event)"
+      [feed]="editableFeed" (removePostEvent)="removePost($event)"></app-post-menu-options>
   </div>
   <div class="head-wrap" *ngIf="showUserHeader">
     <app-profile-icon [avatar]="feed.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
@@ -30,8 +30,8 @@
       <app-time-string [metaData]="feed.metaData"></app-time-string>
     </div>
     <div class="spacer"></div>
-    <app-post-menu-options (postData)="updatePostEvent($event)" [feed]="editableFeed"
-      (removePostEvent)="removePost($event)"></app-post-menu-options>
+    <app-post-menu-options [isCommunityPost]="!showUserHeader" (postData)="updatePostEvent($event)"
+      [feed]="editableFeed" (removePostEvent)="removePost($event)"></app-post-menu-options>
   </div>
   <div class="mb-2" *ngIf="feed.postData.postEditorType!='blog'">
     <div *ngIf="viewMediaList?.length" class="media-container">

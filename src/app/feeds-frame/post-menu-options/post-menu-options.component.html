@@ -12,7 +12,8 @@
         <!-- <button mat-menu-item (click)="openShareDialog()">Share on other platforms</button> -->
     </div>
     <ng-template #notComUser>
-        <button mat-menu-item>Unfollow {{feed?.communityDTO?.communityName}}</button>
+        <button mat-menu-item *ngIf="showUnfollowBtn()" (click)="unfollow()">Unfollow
+            {{feed?.communityDTO?.communityName}}</button>
         <button mat-menu-item (click)="openPostReportDialog()">Report Post</button>
         <button mat-menu-item [cdkCopyToClipboard]="commonService.getPostSharableLink(feed.slug)"
             (cdkCopyToClipboardCopied)="copyLinkOfPost($event)">

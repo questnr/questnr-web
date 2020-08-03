@@ -15,7 +15,8 @@
             <h5>{{question.userDTO.username}} wants to know.......</h5>
           </div>
           <div class="spacer"></div>
-          <app-post-menu-options [feed]="question" (removePostEvent)="removePost($event)"></app-post-menu-options>
+          <app-post-menu-options [isCommunityPost]="!showUserHeader" [feed]="question"
+            (removePostEvent)="removePost($event)"></app-post-menu-options>
         </div>
         <hr>
         <p>{{question.questionText}}</p>

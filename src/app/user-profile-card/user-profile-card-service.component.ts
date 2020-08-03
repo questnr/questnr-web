@@ -20,6 +20,7 @@ export class UserProfileCardServiceComponent {
     return this.http.post(this.baseUrl + 'user/follow/user/' + id, '');
   }
   unfollowMe(ownerId, userId) {
+    if (!ownerId || !ownerId) of();
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: { userId: ownerId }
     };

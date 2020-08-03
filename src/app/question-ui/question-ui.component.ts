@@ -24,11 +24,19 @@ export class QuestionUIComponent implements OnInit {
   disagreePercentage: string;
   isResponded = false;
   totalAnswered: number = 0;
+  showUserHeader: boolean = true;
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
+    if (!this.showUserHeader) {
+      if (this.question?.communityDTO) {
+        this.showUserHeader = false;
+      } else {
+        this.showUserHeader = true;
+      }
+    }
     this.totalAnswered = this.question.pollQuestionMeta.totalAnswered;
     if (this.question.pollQuestionMeta.pollAnswer) {
       this.isResponded = true;

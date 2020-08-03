@@ -37,6 +37,7 @@ export class CommunityService {
     return this.http.post(this.baseUrl + 'user/join/community/' + id, '');
   }
   unfollowCommunityService(communityId, userId) {
+    if (!communityId || !userId) of();
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: { userId }
     };
