@@ -29,7 +29,7 @@
   display: grid;
   grid-template-columns: 16% auto;
   position: relative;
-  top: -100px;
+  top: -140px;
   margin: 0 1rem;
   .profile-img{
     width: 200px;
@@ -173,7 +173,7 @@
 }
 
 .user-meta-info-div.desktop{
-  margin: -25px auto;
+  margin: -65px auto -25px auto;
 }
 .user-meta-info-div.mobile{
 }
