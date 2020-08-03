@@ -344,11 +344,10 @@ export class SinglePostComponent implements OnInit {
   }
 
   openShareDialog() {
-    this.api.getSharableLink(this.singlePost.postActionId).subscribe((res: any) => {
-      this.dialog.open(SharePostComponent, {
-        width: '500px',
-        data: { url: res.clickAction }
-      });
+    let clickAction = this.commonService.getPostSharableLink(this.singlePost.slug);
+    this.dialog.open(SharePostComponent, {
+      width: '500px',
+      data: { url: clickAction }
     });
   }
 

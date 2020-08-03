@@ -347,11 +347,10 @@ export class RecommendedFeedsComponent implements OnInit {
   }
 
   openShareDialog() {
-    this.api.getSharableLink(this.feed.postActionId).subscribe((res: any) => {
-      this.dialog.open(SharePostComponent, {
-        width: '500px',
-        data: { url: res.clickAction }
-      });
+    let clickAction = this.commonService.getPostSharableLink(this.feed.slug);
+    this.dialog.open(SharePostComponent, {
+      width: '500px',
+      data: { url: clickAction }
     });
   }
 

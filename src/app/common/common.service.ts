@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { GlobalConstants } from 'shared/constants';
 
 @Injectable({
     providedIn: 'root'
@@ -86,5 +87,15 @@ export class CommonService {
 
     checkFileExtension(file: File) {
         return file.name.split('.').pop();
+    }
+
+    getCommunitySharableLink(communitySlug: string) {
+        // Get community sharable link locally
+        return [GlobalConstants.siteLink, GlobalConstants.communityPath, communitySlug].join("/");
+    }
+
+    getPostSharableLink(postSlug: string) {
+        // Get post sharable link locally
+        return [GlobalConstants.siteLink, GlobalConstants.postPath, postSlug].join("/");
     }
 }

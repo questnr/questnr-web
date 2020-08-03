@@ -8,6 +8,7 @@ import { SharePostComponent } from 'shared/components/dialogs/share-post/share-p
 import { LoginService } from 'auth/login.service';
 import { PostFeedComponent } from '../post-feed/post-feed.component';
 import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
+import { GlobalConstants } from 'shared/constants';
 
 @Component({
   selector: 'app-post-menu-options',
@@ -22,7 +23,7 @@ export class PostMenuOptionsComponent implements OnInit {
   mobileView = false;
   screenWidth = window.innerWidth;
   constructor(private api: FeedsService,
-    private commonService: CommonService,
+    public commonService: CommonService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private login: LoginService) {
@@ -59,12 +60,15 @@ export class PostMenuOptionsComponent implements OnInit {
     });
   }
 
-  copyLinkOfPost() {
-    const snackBarRef = this.snackBar.open('Copying Link..');
-    this.api.getSharableLink(this.feed.postActionId).subscribe((res: any) => {
-      this.commonService.copyToClipboard(res.clickAction);
-      snackBarRef.dismiss();
-    });
+  copyLinkOfPost($event) {
+    this.snackBar.open("Link copied to clipboard", 'close', { duration: 5000 });
+    // const snackBarRef = this.snackBar.open('Copying Link..');
+    // this.commonService.copyToClipboard(this.commonService.getPostSharableLink(this.feed.slug));
+    // snackBarRef.dismiss();
+    // this.api.getSharableLink(this.feed.postActionId).subscribe((res: any) => {
+    //   this.commonService.copyToClipboard(res.clickAction);
+    //   snackBarRef.dismiss();
+    // });
   }
 
   editPost(communityId, isCommunityPost, editing, feed): void {
