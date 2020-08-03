@@ -9,7 +9,10 @@
         <div class="com-ban-img-container"
           [ngClass]="[mobileView ? 'mobile': 'desktop', mobileView ? 'profile-banner-mobile' : '']">
           <img [src]="userBannerImage" alt="banner" class="comm-ban-img"
-            [ngClass]="[mobileView ? 'mobile': 'desktop', userBannerImage? '' : 'd-none']">
+            [ngClass]="[mobileView ? 'mobile': 'desktop', userBannerImage ? '' : 'd-none']">
+          <div *ngIf="isBannerLoding" class="banner-loading">
+            <app-loader [size]="'md'" [color]="'dark'"></app-loader>
+          </div>
           <div class="change-comm-img">
             <mat-icon (click)="previewImage()" *ngIf="relation == 'owned'">camera</mat-icon>
             <app-img-cropper-wrapper (imageDataEvent)="imageDataReceiverOfBanner($event)" [aspectRatio]="12 / 4"

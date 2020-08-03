@@ -42,6 +42,7 @@ export class UserProfilePageComponent implements OnInit {
   userObserver: Subject<User> = new Subject();
   userAvatarImage = 'assets/default.jpg';
   userBannerImage = 'assets/boat-on-the-water.jpg';
+  isBannerLoding: boolean = true;
   comUpdatedAvatar: any;
   stats: any;
   relation: any;
@@ -126,6 +127,7 @@ export class UserProfilePageComponent implements OnInit {
       this.relation = res.userMeta.relationShipType;
       this.userId = res.userId;
       this.getUserFeeds(res.userId);
+      this.isBannerLoding = false;
     }, error => {
       // console.log(error.error.errorMessage);
     });
