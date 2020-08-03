@@ -51,7 +51,8 @@
             <button mat-stroked-button *ngIf="relation ==='owned'&& mobileView " (click)="openEditDialog()">
               <mat-icon>edit</mat-icon>
             </button>
-            <app-relation-action-button [relation]="relation" [userId]="userId" [mobileView]="mobileView">
+            <app-relation-action-button [username]="user?.username" [relation]="relation" [userId]="userId"
+              [mobileView]="mobileView">
             </app-relation-action-button>
           </div>
         </div>

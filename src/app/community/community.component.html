@@ -46,8 +46,9 @@
           [userListType]="'ribbon'" *ngIf="mobileView" #communityUsersComponentRef>
         </app-community-users>
         <div *ngIf="mobileView" class="action-mobile-view">
-          <app-community-relation-action-button *ngIf="owner !== 'owned'" [relation]="owner"
-            [communityId]="communityDTO.communityId" (actionEvent)="actionEvent($event)">
+          <app-community-relation-action-button *ngIf="owner !== 'owned'" [relation]="owner" [mobileView]="mobileView"
+            [communityName]="communityDTO.communityName" [communityId]="communityDTO.communityId"
+            (actionEvent)="actionEvent($event)">
           </app-community-relation-action-button>
           <div>
             <button mat-stroked-button [matMenuTriggerFor]="menu">
@@ -63,8 +64,8 @@
             </button>
           </div>
           <div class="btn-container float-right" *ngIf="!mobileView && owner !== 'owned'">
-            <app-community-relation-action-button [relation]="owner" [communityId]="communityDTO.communityId"
-              (actionEvent)="actionEvent($event)">
+            <app-community-relation-action-button [mobileView]="mobileView" [communityName]="communityDTO.communityName"
+              [relation]="owner" [communityId]="communityDTO.communityId" (actionEvent)="actionEvent($event)">
             </app-community-relation-action-button>
           </div>
         </div>
