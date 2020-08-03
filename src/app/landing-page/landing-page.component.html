@@ -1,7 +1,7 @@
 <app-header (btnClick)="goTo($event)"></app-header>
 
 <section id="hero" class="hero-container"
-         style="background: url('assets/questnr-back.jpg') center center/cover no-repeat fixed; margin-bottom: 0">
+  style="background: url('assets/questnr-back.jpg') center center/cover no-repeat fixed; margin-bottom: 0">
   <div class="overlay"></div>
   <div class="container">
     <div class="row">
@@ -11,7 +11,10 @@
             The New Era of Online Communities
           </h1>
           <h5>
-            Having real social contacts can sometimes be difficult. With a bit of a FUN, everthing becomes much simpler!
+            Let's discuss what you love or any issues you have, also know similar things from others to improve your
+            skills.
+            <br />
+            Create Post or Blog, or Ask a Question, Now!
           </h5>
 
           <div class="search-wrapper">
@@ -21,7 +24,7 @@
               <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="height: 2px">
               </mat-progress-bar>
               <button class="w-100" mat-button *ngFor="let item of hashtagResults"
-                      [routerLink]="hashTagBasePath + '/' + item.hashTagValue">{{item.hashTagValue}}</button>
+                [routerLink]="hashTagBasePath + '/' + item.hashTagValue">{{item.hashTagValue}}</button>
             </div>
           </div>
           <div class="hashtags-wrapper">
