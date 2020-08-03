@@ -34,7 +34,7 @@ export class QuestionUIComponent implements OnInit {
       this.isResponded = true;
       this.progressIndicator(this.question.pollQuestion);
     }
-    console.log("question", this.question)
+    // console.log("question", this.question)
   }
 
   respondToQuestion(postId, pollAnswer) {

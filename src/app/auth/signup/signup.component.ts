@@ -131,7 +131,7 @@ export class SignupComponent implements OnInit {
 
   facebookLogin() {
     this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID).then(user => {
-      console.log("user", user);
+      // console.log("user", user);
       const obj = { authToken: user.authToken, source: "WEB" };
       this.auth.loginWithFacebook(obj).subscribe(
         (res: any) => {
