@@ -1,0 +1,12 @@
+<div class="wrapper">
+    <div class="title">{{title | uppercase}}</div>
+    <div class="row action-btn-list">
+        <div class="col-md-6 action-btn">
+            <button class="active" (click)="action(true)" (mousedown)="mousedown(true)"
+                #agreeTextBtn>{{agreeText}}</button>
+        </div>
+        <div class="col-md-6 action-btn">
+            <button (click)="action(false)" (mousedown)="mousedown(false)" #disagreeTextBtn>{{disagreeText}}</button>
+        </div>
+    </div>
+</div>

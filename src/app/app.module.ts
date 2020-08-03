@@ -137,6 +137,7 @@ import { BlogTitleComponent } from 'blog-title/blog-title.component';
 import { LoginRegisterBtnComponent } from 'login-register-btn/login-register-btn.component';
 import { AttachedFileComponent } from 'attached-file/attached-file.component';
 import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
+import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -273,7 +274,8 @@ export function metaFactory(): MetaLoader {
     BlogTitleComponent,
     LoginRegisterBtnComponent,
     AttachedFileComponent,
-    AttachedFileListComponent
+    AttachedFileListComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     MatVideoModule,

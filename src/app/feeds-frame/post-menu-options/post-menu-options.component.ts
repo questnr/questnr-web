@@ -9,6 +9,7 @@ import { LoginService } from 'auth/login.service';
 import { PostFeedComponent } from '../post-feed/post-feed.component';
 import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
 import { GlobalConstants } from 'shared/constants';
+import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-post-menu-options',
@@ -51,12 +52,36 @@ export class PostMenuOptionsComponent implements OnInit {
   // }
 
   removePost(postId) {
-    this.api.removePost(postId).subscribe((res: any) => {
-      // console.log(res);
-      this.snackBar.open('Post has been deleted', 'close', { duration: 5000 });
-      this.removePostEvent.emit(postId);
-    }, error => {
-      // console.log(error.error.errorMessage);
+    let dialogConfig;
+    if (this.mobileView) {
+      dialogConfig = {
+        maxWidth: '100vw',
+        width: '100%',
+        data: {
+          mobileView: this.mobileView
+        }
+      }
+    } else {
+      dialogConfig = {
+        width: '550px',
+        maxWidth: '80vw',
+        data: {
+          mobileView: this.mobileView
+        }
+      }
+    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result?.data) {
+        this.api.removePost(postId).subscribe((res: any) => {
+          // console.log(res);
+          this.snackBar.open('Post has been deleted', 'close', { duration: 5000 });
+          this.removePostEvent.emit(postId);
+        }, error => {
+          // console.log(error.error.errorMessage);
+        });
+      }
     });
   }
 
