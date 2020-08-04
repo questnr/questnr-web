@@ -1,6 +1,6 @@
-<app-header *ngIf="!loginService.loggedIn()"></app-header>
+<app-header *ngIf="(!(viewType===0 && !mobileView)) && !loginService.loggedIn()"></app-header>
 <app-user-header
-  *ngIf="((viewType===1 && mobileView) || (viewType===2) || (viewType===3) || ((singlePost.postType==='question'))) && loginService.loggedIn()">
+  *ngIf="((viewType===0 && mobileView) || (viewType===1) || (viewType===3) || ((singlePost.postType==='question'))) && loginService.loggedIn()">
 </app-user-header>
 
 <div *ngIf="singlePost.postType==='simple'">
@@ -144,7 +144,7 @@
             </div>
           </div>
           <hr style="margin: 0">
-          <div class="comments" [@expand]="isCommenting ? 'expanded' : 'collapsed'">
+          <div class="comments" [@expand]="isCommenting ? 'expanded' : 'collapsed'" *ngIf="loginService.loggedIn()">
             <div class="wrap">
               <div class="wrap-items">
                 <button mat-button (click)="getComments()">Load more
