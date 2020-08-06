@@ -7,13 +7,18 @@
       <p>{{community?.description}}</p>
     </div>
   </div>
-  <div class="action-btn">
-    <button mat-button *ngIf="relation ==='none'" (click)="followThisCommunty(community?.communityId)">Follow</button>
-    <!--    <button mat-button *ngIf="community?.communityMeta?.relationShipType ==='owned'" disabled>Owner</button>-->
-    <button mat-button *ngIf="relation==='followed'" style="background: green; color: #ffffff"
-      (click)="unfollowThisCommunity(community?.communityId)">Following</button>
-    <!--    <button mat-button *ngIf="community?.communityMeta?.relationShipType ==='none'" (click)="followThisCommunty(community?.communityId)">Follow</button>-->
-    <!--    &lt;!&ndash;    <button mat-button *ngIf="community?.communityMeta?.relationShipType ==='owned'" disabled>Owner</button>&ndash;&gt;-->
-    <!--    <button mat-button *ngIf="community?.communityMeta?.relationShipType==='followed'" style="background: green; color: #ffffff" (click)="unfollowThisCommunity(community?.communityId)">Following</button>-->
-  </div>
+  <app-community-relation-action-button class="action-btn" *ngIf="allowAction && relation !== 'owned'"
+    [relation]="relation" [mobileView]="mobileView" [communityName]="community.communityName"
+    [communityId]="community.communityId" (actionEvent)="actionEvent($event)">
+  </app-community-relation-action-button>
+  <!-- <div class="action-btn"> -->
+
+  <!-- <button mat-button *ngIf="relation ==='none'" (click)="followThisCommunty(community?.communityId)">Follow</button> -->
+  <!--    <button mat-button *ngIf="community?.communityMeta?.relationShipType ==='owned'" disabled>Owner</button>-->
+  <!-- <button mat-button *ngIf="relation==='followed'" style="background: green; color: #ffffff"
+      (click)="unfollowThisCommunity(community?.communityId)">Following</button> -->
+  <!--    <button mat-button *ngIf="community?.communityMeta?.relationShipType ==='none'" (click)="followThisCommunty(community?.communityId)">Follow</button>-->
+  <!--    &lt;!&ndash;    <button mat-button *ngIf="community?.communityMeta?.relationShipType ==='owned'" disabled>Owner</button>&ndash;&gt;-->
+  <!--    <button mat-button *ngIf="community?.communityMeta?.relationShipType==='followed'" style="background: green; color: #ffffff" (click)="unfollowThisCommunity(community?.communityId)">Following</button>-->
+  <!-- </div> -->
 </div>

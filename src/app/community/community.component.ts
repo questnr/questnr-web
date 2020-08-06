@@ -15,7 +15,7 @@ import { CommunityUsersComponent } from 'community-users/community-users.compone
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
 import { CommonService } from 'common/common.service';
 import { UserListComponent } from 'shared/components/dialogs/user-list/user-list.component';
-import { RelationType } from 'shared/constants/relation-type';
+import { RelationType } from 'models/relation-type';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { GlobalConstants } from 'shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
@@ -200,7 +200,7 @@ export class CommunityComponent implements OnInit {
   }
 
   navigate(slug) {
-    window.open('/user/' + slug, '_self');
+    window.open([GlobalConstants.userPath, slug].join("/"), '_blank');
   }
 
   // onFileChange(event) {

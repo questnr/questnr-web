@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { GlobalConstants } from 'shared/constants';
@@ -41,6 +41,7 @@ export class TrendingComponent implements OnInit {
     autoplay: true
   };
   @Input() type: any;
+  @Input() mobileView: boolean;
   loadingCommunities = true;
   listItems = Array(5);
   communityPath: string = GlobalConstants.communityPath;

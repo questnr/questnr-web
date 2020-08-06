@@ -4,6 +4,8 @@ import { LoginService } from '../auth/login.service';
 import { UserActivityService } from '../user-activity/user-activity.service';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalConstants } from '../shared/constants';
+import { RelationType } from 'models/relation-type';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 @Component({
   selector: 'app-user-profile-card',
   templateUrl: './user-profile-card.component.html',
@@ -14,7 +16,7 @@ export class UserProfileCardComponent implements OnInit {
   @Input() avatar;
   @Input() username;
   @Input() slug: string;
-  @Input() relationship;
+  @Input() relationship: RelationType;
   @Input() userId;
   followed: any;
   owner = false;
@@ -30,7 +32,7 @@ export class UserProfileCardComponent implements OnInit {
       this.owner = true;
     }
     if (!this.userBannerImage) {
-      this.userBannerImage = "/assets/boat-on-the-water.jpg";
+      this.userBannerImage = StaticMediaSrc.userBannerFile;
     }
   }
   ngOnChanges() {
@@ -41,7 +43,7 @@ export class UserProfileCardComponent implements OnInit {
     this.auth.followMe(this.userId).subscribe((response: any) => {
       this.relationship = response.userMeta.relationShipType;
     }, error => {
-      this.relationship = '';
+      this.relationship = RelationType.NONE;
       // console.log(error.error.errorMessage);
     });
   }
@@ -50,7 +52,7 @@ export class UserProfileCardComponent implements OnInit {
     // console.log(ownerId, userId);
     this.auth.unfollowMe(ownerId, userId).subscribe((res: any) => {
       // console.log('sucess');
-      this.relationship = '';
+      this.relationship = RelationType.NONE;
     }, error => {
       // console.log(error.error.errorMessage);
     });

@@ -1,5 +1,6 @@
 import { AvatarDTO, MetaList, MetaTagCard } from './common.model';
 import { User } from './user.model';
+import { RelationType } from './relation-type';
 
 export class Community {
   communityId: number;
@@ -20,9 +21,6 @@ export class CommunityPublic extends Community {
   metaTagCard: MetaTagCard;
 }
 
-export class UserMeta {
-  relationShipType: string;
-}
 export class CommunityUsers {
   userId: number;
   username: string;
@@ -46,7 +44,7 @@ export class CommunityMetaData {
   edited: boolean;
 }
 export class CommunityMeta {
-  relationShipType: string;
+  relationShipType: RelationType;
 }
 export class CommunityProfileMeta {
   followers: string;

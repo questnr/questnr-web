@@ -10,7 +10,7 @@
       <div class="main-wrap">
         <aside *ngIf="!mobileView" style="width: 300px">
           <div class="stick fixed-frame">
-<!--            <app-quick-nav></app-quick-nav>-->
+            <!--            <app-quick-nav></app-quick-nav>-->
             <app-sidenav></app-sidenav>
           </div>
         </aside>
@@ -21,7 +21,8 @@
           <owl-carousel-o [options]="customOptions" *ngIf="!trendingCommunitiesLoader">
             <ng-container *ngFor="let community of trendingCommunities;let i=index">
               <ng-template carouselSlide [id]="i">
-                <app-community-card-mobile-view [community]="community"></app-community-card-mobile-view>
+                <app-community-card-mobile-view [allowAction]="false" [mobileView]="mobileView" [community]="community">
+                </app-community-card-mobile-view>
               </ng-template>
             </ng-container>
           </owl-carousel-o>
@@ -72,7 +73,7 @@
         <aside class="right" *ngIf="!mobileView" style="width: 300px">
           <div class="stick fixed-frame">
             <div class="" style="padding: 20px 0px">
-<!--              <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
+              <!--              <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
               <app-trend-post-question></app-trend-post-question>
               <app-sponsored></app-sponsored>
               <app-suggestion></app-suggestion>

@@ -14,6 +14,7 @@ import { ApiService } from '../shared/api.service';
 import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
 import { UserProfilePageService } from './user-profile-page.service';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { RelationType } from 'models/relation-type';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -46,7 +47,7 @@ export class UserProfilePageComponent implements OnInit {
   isBannerLoding: boolean = true;
   comUpdatedAvatar: any;
   stats: any;
-  relation: any;
+  relation: RelationType;
   loading = false;
   page = 0;
   endOfPosts = false;

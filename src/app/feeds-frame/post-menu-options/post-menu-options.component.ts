@@ -36,7 +36,6 @@ export class PostMenuOptionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("isCommunityPost", this.isCommunityPost)
     this.loggedInUserId = this.login.getUserProfile().id;
     const width = this.screenWidth;
     if (width <= 800) {

@@ -6,7 +6,8 @@
 <div class="container-header" [ngClass]="{'container-header-mobile': mobileView}">
   <div class="row">
     <div [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngFor="let community of communityList">
-      <app-community-card-mobile-view [community]="community"></app-community-card-mobile-view>
+      <app-community-card-mobile-view [mobileView]="mobileView" [community]="community">
+      </app-community-card-mobile-view>
     </div>
     <div [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngIf="!endOfResult" style="margin: auto 0">
       <div class="load-more-button">

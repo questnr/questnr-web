@@ -5,6 +5,7 @@ import { LoginService } from '../../auth/login.service';
 import { GlobalConstants } from 'shared/constants';
 import { InviteUsetService } from './invite-user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RelationType } from 'models/relation-type';
 
 @Component({
   selector: 'app-user-list-view',
@@ -18,7 +19,7 @@ export class UserListViewComponent implements OnInit {
   @Input() otherUserId;
   @Input() communityId;
   userPath: string = GlobalConstants.userPath;
-  relation: any;
+  relation: RelationType;
   screenWidth = window.innerWidth;
   mobileView = false;
   isInvited: boolean = false;
@@ -43,7 +44,7 @@ export class UserListViewComponent implements OnInit {
   unfollow() {
     const ownerId = this.loginService.getUserProfile().id;
     this.userProfileCardServiceComponent.unfollowMe(ownerId, this.user.userId).subscribe((res: any) => {
-      this.relation = 'none';
+      this.relation = RelationType.NONE;
     }, error => {
       // console.log(error.error.errorMessage);
     });
@@ -51,7 +52,7 @@ export class UserListViewComponent implements OnInit {
 
   follow() {
     this.userProfileCardServiceComponent.followMe(this.user.userId).subscribe((res: any) => {
-      this.relation = 'followed';
+      this.relation = RelationType.FOLLOWED;
     }, error => {
       // console.log(error.error.errorMessage);
     });

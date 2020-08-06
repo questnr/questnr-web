@@ -5,30 +5,30 @@
     <div class="explore-grid" [ngClass]="{'explore-grid-mobile': mobileView}">
       <div class="left-section" *ngIf="!mobileView">
         <div class="fixed-frame">
-        <!--        <app-joined-community></app-joined-community>-->
-        <div class="hashtags-container">
-          <div class="hashtags">
-            <mat-chip-list aria-label="hashtags">
-              <mat-chip *ngFor="let h of hasTags" [ngClass]="{'active_tag': queryString === h?.hashTagValue}"
-                [routerLink]="'/' + hashTagUrl + '/' +h?.hashTagValue">
-                <span>#{{h?.hashTagValue}}</span>
-              </mat-chip>
-            </mat-chip-list>
+          <!--        <app-joined-community></app-joined-community>-->
+          <div class="hashtags-container">
+            <div class="hashtags">
+              <mat-chip-list aria-label="hashtags">
+                <mat-chip *ngFor="let h of hasTags" [ngClass]="{'active_tag': queryString === h?.hashTagValue}"
+                  [routerLink]="'/' + hashTagUrl + '/' +h?.hashTagValue">
+                  <span>#{{h?.hashTagValue}}</span>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
           </div>
-        </div>
-        <hr>
-        <app-floating-footer></app-floating-footer>
+          <hr>
+          <app-floating-footer></app-floating-footer>
         </div>
       </div>
       <div class="explore-section">
         <div style="margin-top:10px">
           <div *ngIf="!queryString">
-            <app-trending [type]="'slider'"></app-trending>
+            <app-trending [mobileView]="mobileView" [type]="'slider'"></app-trending>
           </div>
           <div *ngIf="queryString">
             <h4>
 
-<!--                            <img src="/assets/hashtag.svg" alt="" style=" width: 30px; height: 30px">-->
+              <!--                            <img src="/assets/hashtag.svg" alt="" style=" width: 30px; height: 30px">-->
               <span class="queryString">#{{queryString}}</span></h4>
           </div>
           <!--                    <div class="suggestion-container" *ngIf="!queryString">-->
@@ -98,8 +98,8 @@
       </div>
       <div class="right-section" *ngIf="!mobileView">
         <div class="fixed-frame">
-        <app-suggestion></app-suggestion>
-        <app-sponsored></app-sponsored>
+          <app-suggestion></app-suggestion>
+          <app-sponsored></app-sponsored>
         </div>
       </div>
     </div>

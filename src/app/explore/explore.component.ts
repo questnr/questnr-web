@@ -113,11 +113,7 @@ export class ExploreComponent implements OnInit {
   }
 
   goToLink(slug) {
-    window.open(slug, '_self');
-  }
-
-  searchHastag(hashTag) {
-    window.open();
+    window.open(slug, '_blank');
   }
 
   checkImg(src) {

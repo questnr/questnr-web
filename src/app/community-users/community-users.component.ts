@@ -11,8 +11,9 @@ import { Community, CommunityProfileMeta } from '../models/community.model';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
-import { RelationType } from 'shared/constants/relation-type';
+import { RelationType } from 'models/relation-type';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { GlobalConstants } from 'shared/constants';
 
 @Component({
   selector: 'app-community-users',
@@ -25,7 +26,7 @@ export class CommunityUsersComponent implements OnInit {
   @Input() userListType;
   @Input() ownerUser: User;
   @Input() communityId;
-  @Input() relationshipType: string;
+  @Input() relationshipType: RelationType;
   communityMemberList: User[] = [];
   loader = false;
   mobileView = false;
@@ -176,6 +177,6 @@ export class CommunityUsersComponent implements OnInit {
     }
   }
   navigate(slug) {
-    window.open('/user/' + slug, '_self');
+    window.open([GlobalConstants.userPath, slug].join("/"), '_blank');
   }
 }

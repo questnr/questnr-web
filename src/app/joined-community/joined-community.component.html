@@ -50,7 +50,7 @@
     <owl-carousel-o [options]="customOptions">
       <ng-container *ngFor="let list of joinedCommunity;let i=index">
         <ng-template carouselSlide [id]="i">
-          <app-community-card-mobile-view [community]="list"></app-community-card-mobile-view>
+          <app-community-card-mobile-view [mobileView]="mobileView" [community]="list"></app-community-card-mobile-view>
         </ng-template>
       </ng-container>
     </owl-carousel-o>

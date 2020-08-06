@@ -1,4 +1,5 @@
 import { AvatarDTO } from './common.model';
+import { RelationType } from './relation-type';
 
 export class User {
     userId: number;
@@ -14,7 +15,7 @@ export class User {
 }
 
 export class UserMeta {
-    relationShipType: string;
+    relationShipType: RelationType;
 }
 
 export class UserInfo {

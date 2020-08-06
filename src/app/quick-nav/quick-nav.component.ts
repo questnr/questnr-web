@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {GlobalConstants} from '../shared/constants';
+import { GlobalConstants } from '../shared/constants';
 
 @Component({
   selector: 'app-quick-nav',
@@ -15,6 +15,6 @@ export class QuickNavComponent implements OnInit {
   ngOnInit(): void {
   }
   goToLink(slug) {
-    window.open(slug, '_self');
+    window.open(slug, '_blank');
   }
 }
