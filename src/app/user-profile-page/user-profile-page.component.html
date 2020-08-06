@@ -23,7 +23,7 @@
       </div>
       <div class="profile-section" [ngClass]="{'profile-section-mobile' : mobileView}">
         <div class="profile-img">
-          <img [src]="userAvatarImage ? userAvatarImage : 'assets/default.jpg'" alt="">
+          <img [src]="userAvatarImage ? userAvatarImage : defaultUserSrc" alt="">
           <app-img-cropper-wrapper (imageDataEvent)="imageDataReceiver($event)" [aspectRatio]="4 / 4" #imageCropperRef>
           </app-img-cropper-wrapper>
           <!-- <input id="fileInput" type="file" style="display: none" (change)="updateUserAvatar($event)"> -->

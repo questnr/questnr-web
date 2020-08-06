@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   selector: 'app-img-cropper',
@@ -11,10 +12,14 @@ export class ImgCropperComponent implements OnInit {
   @ViewChild("chooseFileForAvatarRef") chooseFileForAvatarRef: ElementRef;
   mobileView = false;
   screenWidth = window.innerWidth;
+  defaultSrc: string = StaticMediaSrc.userFile;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ImgCropperComponent>) {
     if (this.data.aspectRatio)
       this.aspectRatio = this.data.aspectRatio;
+    if (this.data.isCommunityAvatar) {
+      this.defaultSrc = StaticMediaSrc.communityFile;
+    }
   }
 
   ngOnInit(): void {

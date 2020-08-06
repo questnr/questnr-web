@@ -12,6 +12,7 @@ import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { RelationType } from 'shared/constants/relation-type';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   selector: 'app-community-users',
@@ -171,7 +172,7 @@ export class CommunityUsersComponent implements OnInit {
     if (src) {
       return src;
     } else {
-      return '/assets/default.jpg';
+      return StaticMediaSrc.userFile;
     }
   }
   navigate(slug) {

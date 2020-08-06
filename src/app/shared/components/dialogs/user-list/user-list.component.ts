@@ -1,12 +1,13 @@
-import {Component, Inject, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {CommunityMembersService} from '../../../../community-users/community-members.service';
-import {User} from '../../../../models/user.model';
-import {UserFollowersService} from '../../../../user-followers/user-followers.service';
-import {UserProfileCardServiceComponent} from '../../../../user-profile-card/user-profile-card-service.component';
-import {UserListService} from './user-list.service';
-import {Page} from 'models/page.model';
-import {InviteUsetService} from 'shared/user-list-view/invite-user.service';
+import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CommunityMembersService } from '../../../../community-users/community-members.service';
+import { User } from '../../../../models/user.model';
+import { UserFollowersService } from '../../../../user-followers/user-followers.service';
+import { UserProfileCardServiceComponent } from '../../../../user-profile-card/user-profile-card-service.component';
+import { UserListService } from './user-list.service';
+import { Page } from 'models/page.model';
+import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -21,10 +22,10 @@ export class UserListComponent implements OnInit {
   communityId;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public userProfileCardServiceComponent: UserProfileCardServiceComponent,
-              // tslint:disable-next-line:max-line-length
-              public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>, public followersService: UserFollowersService,
-              public communityMembersService: CommunityMembersService,
-              private inviteUserService: InviteUsetService) {
+    // tslint:disable-next-line:max-line-length
+    public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>, public followersService: UserFollowersService,
+    public communityMembersService: CommunityMembersService,
+    private inviteUserService: InviteUsetService) {
   }
 
   userList: User[] = [];
@@ -101,7 +102,7 @@ export class UserListComponent implements OnInit {
 
   getUserImage(src) {
     if (src == null) {
-      return 'assets/default.jpg';
+      return StaticMediaSrc.userFile;
     } else {
       return src;
     }

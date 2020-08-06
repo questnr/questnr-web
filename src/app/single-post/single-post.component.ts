@@ -18,6 +18,7 @@ import { CommentAction } from '../models/comment-action.model';
 import { PostEditorType, Post, PostActionForMedia, PostMedia, ResourceType } from 'models/post-action.model';
 import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 enum postType {
   media, text, metacard, blog
 }
@@ -94,6 +95,7 @@ export class SinglePostComponent implements OnInit {
   viewMediaList: PostMedia[] = [];
   applicationMediaList: PostMedia[] = [];
   showUserHeader: boolean = false;
+  defaultUserSrc: string = StaticMediaSrc.userFile;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
     public loginService: LoginService,

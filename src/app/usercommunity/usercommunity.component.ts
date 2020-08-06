@@ -8,6 +8,7 @@ import { Community } from '../models/community.model';
 import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
 import { CreateCommunityComponent } from '../shared/components/dialogs/create.community/create-community.component';
 import { UsercommunityService } from './usercommunity.service';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   selector: 'app-usercommunity',
@@ -21,7 +22,7 @@ export class UsercommunityComponent implements OnInit {
   @Input() profileUserId: number;
   @Input() userId: number;
   @Input() hasCommunity = true;
-  @Input() defaultImage = 'assets/default.jpg';
+  @Input() defaultImage = StaticMediaSrc.communityFile;
   @Input() relation;
   @Input() ownsCommunities: number;
   communityPath: string = GlobalConstants.communityPath;
@@ -76,7 +77,7 @@ export class UsercommunityComponent implements OnInit {
     if (src) {
       return src;
     } else {
-      return '/assets/default.jpg';
+      return StaticMediaSrc.communityFile;
     }
   }
   createCommunity(): void {
@@ -139,7 +140,7 @@ export class UsercommunityComponent implements OnInit {
     if (src) {
       return src;
     } else {
-      return 'assests/default.jpg';
+      return StaticMediaSrc.communityFile;
     }
   }
 }

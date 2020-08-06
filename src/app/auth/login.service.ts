@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import * as jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Injectable({
   providedIn: 'root'
@@ -47,9 +48,9 @@ export class LoginService {
   getUserProfileImg() {
     this.getUser().subscribe(
       (res) => {
-        this.profileImg = res?.avatarLink ? res.avatarLink : 'assets/default.jpg';
+        this.profileImg = res?.avatarLink ? res.avatarLink : StaticMediaSrc.userFile;
       }, err => {
-        this.profileImg = 'assets/default.jpg';
+        this.profileImg = StaticMediaSrc.userFile;
       }
     );
   }

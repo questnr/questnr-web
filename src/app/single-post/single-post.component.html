@@ -47,8 +47,8 @@
         <div class="post-head" id="post-head">
           <div class="head-wrap" *ngIf="!showUserHeader">
             <div class="profile-icon">
-              <app-profile-icon [avatar]="singlePost.communityDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
-                [routerLink]="['/', communityPath , singlePost.communityDTO.slug]">
+              <app-profile-icon [isCommunityAvatar]="true" [avatar]="singlePost.communityDTO.avatarDTO" [height]="50"
+                [sizeRef]="'small'" [routerLink]="['/', communityPath , singlePost.communityDTO.slug]">
               </app-profile-icon>
             </div>
             <div class="profile-detail" *ngIf="singlePost.communityDTO">
@@ -173,7 +173,7 @@
               <div class="comment-wrapper-container" *ngIf="loginService.loggedIn()">
                 <div class="comment-user-interaction">
                   <div class="profile-icon">
-                    <img [src]="loginService.profileImg ? loginService.profileImg : '/assets/default.jpg' ">
+                    <img [src]="loginService.profileImg ? loginService.profileImg : defaultUserSrc ">
                   </div>
                   <div class="comment-wrapper">
                     <span *ngIf="replyingTo">{{replyingTo.username}}</span>

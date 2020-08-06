@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   selector: 'qnr-card',
@@ -6,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  @Input() imgSrc = 'assets/default.jpg';
+  @Input() imgSrc = StaticMediaSrc.communityFile;
   @Input() title;
   @Input() detail;
   @Input() slug;

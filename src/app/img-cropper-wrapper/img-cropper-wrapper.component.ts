@@ -13,6 +13,7 @@ export class ImgCropperWrapperComponent implements OnInit {
   screenWidth = window.innerWidth;
   @Output() imageDataEvent = new EventEmitter();
   @Input() aspectRatio: number;
+  @Input() isCommunityAvatar: boolean = false;
 
   constructor(private dialog: MatDialog) { }
 
@@ -46,7 +47,8 @@ export class ImgCropperWrapperComponent implements OnInit {
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
         data: {
-          aspectRatio: this.aspectRatio
+          aspectRatio: this.aspectRatio,
+          isCommunityAvatar: this.isCommunityAvatar
         }
       };
     } else {
@@ -54,7 +56,8 @@ export class ImgCropperWrapperComponent implements OnInit {
         width: '600px',
         maxHeight: "90vh",
         data: {
-          aspectRatio: this.aspectRatio
+          aspectRatio: this.aspectRatio,
+          isCommunityAvatar: this.isCommunityAvatar
         }
       };
     }

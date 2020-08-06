@@ -30,7 +30,7 @@
         <div *ngIf="selectedSearchOption==0">
           <button class="w-100" mat-button *ngFor="let user of users" (click)="handleRouterLink(user?.slug)">
             <app-horizontal-profile
-              [avatarLink]="user?.avatarDTO?.avatarLink ? user?.avatarDTO?.avatarLink : 'assets/default.jpg'"
+              [avatarLink]="user?.avatarDTO?.avatarLink ? user?.avatarDTO?.avatarLink : defaultUserSrc"
               [head]="user?.username"
               [subhead]="user?.firstName && user?.lastName ? user?.firstName+' '+user?.lastName: ''">
             </app-horizontal-profile>
@@ -40,7 +40,7 @@
           <button class="w-100" mat-button *ngFor="let community of communities"
             (click)="handleRouterLink(community?.slug)">
             <app-horizontal-profile
-              [avatarLink]="community?.avatarDTO?.avatarLink ? community?.avatarDTO?.avatarLink : 'assets/default.jpg'"
+              [avatarLink]="community?.avatarDTO?.avatarLink ? community?.avatarDTO?.avatarLink : defaultUserSrc"
               [head]="community?.communityName" [subhead]="community?.ownerUserDTO?.username">
             </app-horizontal-profile>
           </button>

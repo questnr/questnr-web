@@ -10,7 +10,7 @@
   </ng-container>
   <ng-container *ngIf="suggestedCommunityList?.length">
     <div class="links" *ngFor="let item of suggestedCommunityList">
-      <app-profile-icon [avatar]="item.avatarDTO" [height]="35" [sizeRef]="'small'"
+      <app-profile-icon [avatar]="item.avatarDTO" [height]="35" [sizeRef]="'small'" [isCommunityAvatar]="true"
         [routerLink]="['/', communityPath, item.slug]">
       </app-profile-icon>
       <a class="link" [routerLink]="['/', communityPath, item.slug]">{{item.communityName}}</a>

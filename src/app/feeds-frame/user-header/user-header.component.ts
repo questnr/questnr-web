@@ -1,21 +1,22 @@
-import {Component, EventEmitter, Output, ElementRef, ViewChild, Renderer2} from '@angular/core';
-import {Router} from '@angular/router';
-import {LoginService} from 'auth/login.service';
-import {ApiService} from 'shared/api.service';
-import {FormControl} from '@angular/forms';
-import {debounceTime, distinctUntilChanged, tap, map} from 'rxjs/operators';
-import {MessagingService} from '../../service/messaging.service';
-import {AngularFireMessaging} from '@angular/fire/messaging';
-import {HashTag} from 'models/hashtag.model';
-import {User} from 'models/user.model';
-import {Community} from 'models/community.model';
-import {Page} from 'models/page.model';
-import {NotificationDTO} from 'models/notification.model';
-import {GlobalConstants} from 'shared/constants';
-import {AuthService} from 'angularx-social-login';
-import {CreateCommunityComponent} from '../../shared/components/dialogs/create.community/create-community.component';
-import {MatDialog} from '@angular/material/dialog';
-import {UsercommunityService} from '../../usercommunity/usercommunity.service';
+import { Component, EventEmitter, Output, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoginService } from 'auth/login.service';
+import { ApiService } from 'shared/api.service';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, tap, map } from 'rxjs/operators';
+import { MessagingService } from '../../service/messaging.service';
+import { AngularFireMessaging } from '@angular/fire/messaging';
+import { HashTag } from 'models/hashtag.model';
+import { User } from 'models/user.model';
+import { Community } from 'models/community.model';
+import { Page } from 'models/page.model';
+import { NotificationDTO } from 'models/notification.model';
+import { GlobalConstants } from 'shared/constants';
+import { AuthService } from 'angularx-social-login';
+import { CreateCommunityComponent } from '../../shared/components/dialogs/create.community/create-community.component';
+import { MatDialog } from '@angular/material/dialog';
+import { UsercommunityService } from '../../usercommunity/usercommunity.service';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
     selector: 'app-user-header',
@@ -52,15 +53,16 @@ export class UserHeaderComponent {
     unReadNotificationAnswerCount: number = 0;
     isNotificationLoading: boolean = true;
     openedNotificationType: string;
+    defaultUserSrc: string = StaticMediaSrc.userFile;
 
     constructor(private router: Router, public auth: LoginService,
-                private authService: AuthService,
-                private api: ApiService,
-                private messagingService: MessagingService,
-                private angularFireMessaging: AngularFireMessaging,
-                private renderer: Renderer2,
-                private dialog: MatDialog,
-                private usercommunityService: UsercommunityService) {
+        private authService: AuthService,
+        private api: ApiService,
+        private messagingService: MessagingService,
+        private angularFireMessaging: AngularFireMessaging,
+        private renderer: Renderer2,
+        private dialog: MatDialog,
+        private usercommunityService: UsercommunityService) {
     }
 
     ngOnInit() {
@@ -301,7 +303,7 @@ export class UserHeaderComponent {
 
     createCommunity(): void {
         const dialogRef = this.dialog.open(CreateCommunityComponent, {
-            maxWidth:  '80vw'
+            maxWidth: '80vw'
             // width: '800px',
             // data: { desc : event.target.innerText}
         });

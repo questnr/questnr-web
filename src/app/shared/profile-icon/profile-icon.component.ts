@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { AvatarDTO } from 'models/common.model';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   selector: 'app-profile-icon',
@@ -13,6 +14,8 @@ export class ProfileIconComponent implements OnInit {
   @Input() sizeRef: string;
   avatarLink: string;
   @Input() alt: string = "image";
+  defaultSrc: string = StaticMediaSrc.userFile;
+  @Input() isCommunityAvatar: boolean = false;
   @ViewChild('elementOnHTML', { static: false }) elementOnHTML: ElementRef;
 
   constructor(private renderer: Renderer2) {
@@ -28,6 +31,9 @@ export class ProfileIconComponent implements OnInit {
     } else {
       this.avatarLink = this.avatar.avatarLink;
     }
+    if (this.isCommunityAvatar) {
+      this.defaultSrc = StaticMediaSrc.communityFile;
+    }
   }
   ngAfterViewInit() {
     this.renderer.setStyle(this.elementOnHTML.nativeElement, 'height', this.height + "px");
@@ -37,7 +43,7 @@ export class ProfileIconComponent implements OnInit {
     if (src) {
       return src;
     } else {
-      return '/assets/default.jpg';
+      return this.defaultSrc;
     }
   }
 }

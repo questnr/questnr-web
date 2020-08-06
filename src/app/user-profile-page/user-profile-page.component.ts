@@ -13,6 +13,7 @@ import { User, UserInfo } from '../models/user.model';
 import { ApiService } from '../shared/api.service';
 import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
 import { UserProfilePageService } from './user-profile-page.service';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -40,8 +41,8 @@ export class UserProfilePageComponent implements OnInit {
   url: string;
   user: User;
   userObserver: Subject<User> = new Subject();
-  userAvatarImage = 'assets/default.jpg';
-  userBannerImage = 'assets/boat-on-the-water.jpg';
+  userAvatarImage = StaticMediaSrc.userFile;
+  userBannerImage = StaticMediaSrc.userBannerFile;
   isBannerLoding: boolean = true;
   comUpdatedAvatar: any;
   stats: any;
@@ -56,6 +57,7 @@ export class UserProfilePageComponent implements OnInit {
   scrollCached: boolean = null;
   @ViewChild("userBannerImageCropperRef") userBannerImageCropperRef: ImgCropperWrapperComponent;
   userInfo: UserInfo;
+  defaultUserSrc: string = StaticMediaSrc.userFile;
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.scroll, true);
@@ -174,7 +176,7 @@ export class UserProfilePageComponent implements OnInit {
     if (url) {
       return url;
     } else {
-      return 'assets/default.jpg';
+      return StaticMediaSrc.userFile;
     }
   }
   openEditDialog(): void {

@@ -8,6 +8,7 @@ import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrap
 import { Community } from 'models/community.model';
 import { Router } from '@angular/router';
 import { GlobalConstants } from 'shared/constants';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   selector: 'app-create-community',
@@ -16,7 +17,7 @@ import { GlobalConstants } from 'shared/constants';
 })
 
 export class CreateCommunityComponent implements OnInit {
-  @Input() communityImage = 'assets/default.jpg';
+  @Input() communityImage = StaticMediaSrc.communityFile;
   @ViewChild("imageCropperRef") imageCropperRef: ImgCropperWrapperComponent;
   screenWidth = window.innerWidth;
   mobileView = false;

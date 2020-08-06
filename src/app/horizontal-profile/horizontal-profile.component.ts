@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   selector: 'app-horizontal-profile',
@@ -9,6 +10,7 @@ export class HorizontalProfileComponent implements OnInit {
   @Input() avatarLink: string;
   @Input() head: string;
   @Input() subhead: string;
+  defaultUserSrc: string = StaticMediaSrc.userFile;
 
   constructor() { }
 

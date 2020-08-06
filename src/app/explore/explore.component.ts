@@ -5,6 +5,7 @@ import { ApiService } from '../shared/api.service';
 import { Community } from '../models/community.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from '../shared/constants';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   selector: 'app-explore',
@@ -123,7 +124,7 @@ export class ExploreComponent implements OnInit {
     if (src) {
       return src;
     } else {
-      return '/assets/default.jpg';
+      return StaticMediaSrc.userFile;
     }
   }
 

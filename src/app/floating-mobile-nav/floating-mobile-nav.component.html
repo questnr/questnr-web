@@ -3,21 +3,24 @@
     <div class="joined-community-container">
       <div (click)="isLeftVisible = !isLeftVisible" class="toggle-btn">
         <div>Owned</div> &nbsp;
-        <span><mat-icon>arrow_right</mat-icon></span>
+        <span>
+          <mat-icon>arrow_right</mat-icon>
+        </span>
       </div>
       <div>
         <ul>
           <li *ngFor="let i of joinedCommunity">
             <div>
-              <app-profile-icon [avatar]="i.avatarDTO" [height]="32" [sizeRef]="'small'"
-                                [routerLink]="['/', communityPath, i.slug]" [matTooltip]="i.communityName">
+              <app-profile-icon [isCommunityAvatar]="true" [avatar]="i.avatarDTO" [height]="32" [sizeRef]="'small'"
+                [routerLink]="['/', communityPath, i.slug]" [matTooltip]="i.communityName">
               </app-profile-icon>
             </div>
           </li>
         </ul>
       </div>
-      <div class="view-more" *ngIf="joinedCommunity.length ===5" (click)="openCommunityDialog(joinedCommunity, 'joinedCommunity')">
-        <button mat-icon-button >
+      <div class="view-more" *ngIf="joinedCommunity.length ===5"
+        (click)="openCommunityDialog(joinedCommunity, 'joinedCommunity')">
+        <button mat-icon-button>
           <mat-icon>chevron_right</mat-icon>
         </button>
       </div>
@@ -30,13 +33,14 @@
           <li *ngFor="let i of ownedCommunity">
             <div>
               <app-profile-icon [avatar]="i.avatarDTO" [height]="32" [sizeRef]="'small'"
-                                [routerLink]="['/', communityPath, i.slug]" [matTooltip]="i.communityName">
+                [routerLink]="['/', communityPath, i.slug]" [matTooltip]="i.communityName">
               </app-profile-icon>
             </div>
           </li>
         </ul>
       </div>
-      <div class="view-more" *ngIf="ownedCommunity.length === 5" (click)="openCommunityDialog(ownedCommunity, 'ownedCommunity')">
+      <div class="view-more" *ngIf="ownedCommunity.length === 5"
+        (click)="openCommunityDialog(ownedCommunity, 'ownedCommunity')">
         <button mat-icon-button>
           <mat-icon>chevron_right</mat-icon>
         </button>

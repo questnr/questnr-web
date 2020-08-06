@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { GlobalConstants } from 'shared/constants';
 import { CommunityListComponent } from 'shared/components/dialogs/community-list/community-list.component';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -71,7 +72,7 @@ export class SuggestionComponent implements OnInit {
     if (src) {
       return src;
     } else {
-      return '/assets/default.jpg';
+      return StaticMediaSrc.communityFile;
     }
   }
   openCommunityDialog(community): void {

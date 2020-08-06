@@ -13,7 +13,7 @@
   </ng-container>
   <ng-container *ngIf="joinedCommunity?.length">
     <div class="links" *ngFor="let item of joinedCommunity">
-      <app-profile-icon [avatar]="item.avatarDTO" [height]="25" [sizeRef]="'small'"
+      <app-profile-icon [isCommunityAvatar]="true" [avatar]="item.avatarDTO" [height]="25" [sizeRef]="'small'"
         [routerLink]="['/', communityPath, item.slug]">
       </app-profile-icon>
       <a class="link" [routerLink]="['/', communityPath, item.slug]">{{item.communityName}}</a>

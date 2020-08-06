@@ -6,6 +6,7 @@ import { LoginService } from '../auth/login.service';
 import { Community } from '../models/community.model';
 import { ApiService } from '../shared/api.service';
 import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   selector: 'app-joined-community',
@@ -87,7 +88,7 @@ export class JoinedCommunityComponent implements OnInit {
     if (src) {
       return src;
     } else {
-      return '/assets/default.jpg';
+      return StaticMediaSrc.communityFile;
     }
   }
 

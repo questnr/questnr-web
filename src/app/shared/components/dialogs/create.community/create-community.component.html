@@ -16,8 +16,8 @@
             <textarea [formControl]="description" placeholder="write a short description for the community..." cols="50"
               rows="1"></textarea>
             <!-- <input id="imageSrc" type="file" [formControl]="avatar" (change)="onFileChange($event)"> -->
-            <app-img-cropper-wrapper (imageDataEvent)="imageDataReceiver($event)" [aspectRatio]="12 / 4"
-              #imageCropperRef>
+            <app-img-cropper-wrapper [isCommunityAvatar]="true" (imageDataEvent)="imageDataReceiver($event)"
+              [aspectRatio]="12 / 4" #imageCropperRef>
             </app-img-cropper-wrapper>
           </div>
           <div class="submit-btn">

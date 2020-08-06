@@ -31,10 +31,6 @@ export class DescriptionComponent implements OnInit {
     this.descriptionEmit = this.data.descriptionEmit;
   }
 
-  getImgUrl(src: string) {
-    return src ? `url(${src})` : `url("assets/default.jpg")`;
-  }
-
   toggleEdit() {
     this.loading = false;
     this.editDescription = !this.editDescription;

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   selector: 'qnr-rank-card',
@@ -18,6 +19,6 @@ export class RankCardComponent implements OnInit {
   ngOnInit() {
   }
   getImgUrl(src: string) {
-    return src ? `url(${src})` : `url("assets/default.jpg")`;
+    return src ? `url(${src})` : `url("${StaticMediaSrc.userFile}")`;
   }
 }

@@ -1,3 +1,5 @@
 export class StaticMediaSrc {
-  public static communityFile = '/assets/community-svg/use.png';
+  public static userFile = '/assets/user-svg/default.png';
+  public static userBannerFile = '/assets/boat-on-the-water.jpg';
+  public static communityFile = '/assets/community-svg/default.png';
 }
