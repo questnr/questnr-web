@@ -18,6 +18,7 @@ import { UserListComponent } from 'shared/components/dialogs/user-list/user-list
 import { RelationType } from 'shared/constants/relation-type';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { GlobalConstants } from 'shared/constants';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   selector: 'app-community',
@@ -43,7 +44,7 @@ export class CommunityComponent implements OnInit {
   comUserList: any[];
   ownerDTO: User;
   comUpdatedAvatar: any;
-  communityImage: any;
+  communityImage: string = StaticMediaSrc.communityFile;
   loggedInUserId: any;
   page = 0;
   endOfPosts = false;
@@ -98,7 +99,9 @@ export class CommunityComponent implements OnInit {
     this.route.data.subscribe((data: { community: Community }) => {
       this.communityDTO = data.community;
       this.description = data.community.description;
-      this.communityImage = this.communityDTO.avatarDTO.avatarLink;
+      if (this.communityDTO?.avatarDTO?.avatarLink) {
+        this.communityImage = this.communityDTO.avatarDTO.avatarLink;
+      }
       this.ownerDTO = this.communityDTO.ownerUserDTO;
       this.owner = this.communityDTO.communityMeta.relationShipType;
       this.userFeeds = [];
