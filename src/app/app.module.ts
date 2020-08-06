@@ -138,6 +138,7 @@ import { LoginRegisterBtnComponent } from 'login-register-btn/login-register-btn
 import { AttachedFileComponent } from 'attached-file/attached-file.component';
 import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
 import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
+import { CommunityBannerComponent } from 'shared/community-banner/community-banner.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -260,6 +261,7 @@ export function metaFactory(): MetaLoader {
     ImgCropperWrapperComponent,
     ErrorPageComponent,
     FloatingCommunitiesBarComponent,
+    CommunityBannerComponent,
     LoaderComponent,
     AdsenseComponent,
     FloatingSuggestionBoxComponent,

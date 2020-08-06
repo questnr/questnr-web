@@ -21,7 +21,6 @@ import { ViewMoreButtonComponent } from './view-more-button/view-more-button.com
     ProfileIconComponent,
     SocialMediaLinksComponent,
     CompanyRightsFooterComponent,
-    CommunityBannerComponent,
     AskQuestionComponent
   ],
   imports: [
@@ -41,8 +40,7 @@ import { ViewMoreButtonComponent } from './view-more-button/view-more-button.com
     ViewMoreButtonComponent,
     ProfileIconComponent,
     SocialMediaLinksComponent,
-    CompanyRightsFooterComponent,
-    CommunityBannerComponent
+    CompanyRightsFooterComponent
   ]
 })
 export class SharedModule { }
