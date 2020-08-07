@@ -125,7 +125,7 @@
             <input type="text" [formControl]="comment" #commentInput
               [placeholder]="replyingTo? 'Reply to ' + replyingTo.username : 'Write a Comment..'"
               (keyup.enter)="postComment(feed.postActionId)">
-            <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
+            <app-emoticons [userInputRef]="commentInputRef"></app-emoticons>
             <button mat-icon-button color="accent" (click)="postComment(feed.postActionId)" [disabled]="!comment.valid">
               <mat-icon>send</mat-icon>
             </button>

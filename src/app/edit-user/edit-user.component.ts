@@ -116,14 +116,4 @@ export class EditUserComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-  addEmoji(event) {
-    // console.log(event);
-    const text = this.group.get("bio").value ? this.group.get("bio").value : '';
-    const start = this.bioInputRef.nativeElement.selectionStart;
-    const end = this.bioInputRef.nativeElement.selectionEnd;
-    const before = text.substring(0, start);
-    const after = text.substring(end, text.length);
-    this.group.get("bio").setValue(before + event.native + after);
-  }
 }

@@ -40,7 +40,11 @@ import { AttachedFileListComponent } from 'attached-file-list/attached-file-list
 })
 export class RecommendedFeedsComponent implements OnInit {
   @Input() feed: Post;
-  @ViewChild('commentInput') commentInput: ElementRef;
+  commentInputRef: ElementRef;
+  @ViewChild('commentInput')
+  set commentInput(commentInputRef: ElementRef) {
+    this.commentInputRef = commentInputRef;
+  }
   @ViewChild('feedTextComponent') feedTextComponent: FeedTextComponent;
   @ViewChild('commentAttachFileInput')
   set commentAttachFileInput(commentAttachFileInputRef: any) {
@@ -257,7 +261,7 @@ export class RecommendedFeedsComponent implements OnInit {
 
   replyTo(event) {
     this.replyingTo = event;
-    this.commentInput.nativeElement.focus();
+    this.commentInputRef.nativeElement.focus();
   }
 
   likePost(id) {
@@ -332,12 +336,6 @@ export class RecommendedFeedsComponent implements OnInit {
 
   removePost($event) {
     this.removePostEvent.emit($event);
-  }
-
-  addEmoji(event) {
-    // console.log(event);
-    const text = this.comment.value ? this.comment?.value : '';
-    this.comment.setValue(text + event.native);
   }
 
   deleteComment($event) {

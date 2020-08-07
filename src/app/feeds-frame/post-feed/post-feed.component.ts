@@ -288,16 +288,6 @@ export class PostFeedComponent implements OnInit {
     // }
   }
 
-  addEmoji(event) {
-    // console.log(event);
-    const text = this.text.value ? this.text?.value : '';
-    const start = this.userInputRef.nativeElement.selectionStart;
-    const end = this.userInputRef.nativeElement.selectionEnd;
-    const before = text.substring(0, start);
-    const after = text.substring(end, text.length);
-    this.text.setValue(before + event.native + after);
-  }
-
   switchEditor(isBlogEditor) {
     this.isBlogEditor = isBlogEditor;
   }

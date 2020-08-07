@@ -84,7 +84,11 @@ export class SinglePostComponent implements OnInit {
   isYouTubeVideoLink: boolean = false;
   safeYoutubeLink: SafeResourceUrl;
   youtubeLinkTemplate: string = "https://youtube.com/embed/";
-  @ViewChild('commentInput') commentInput: ElementRef;
+  commentInputRef: ElementRef;
+  @ViewChild('commentInput')
+  set commentInput(commentInputRef: ElementRef) {
+    this.commentInputRef = commentInputRef;
+  }
   @ViewChild('commentAttachFileInput')
   set commentAttachFileInput(commentAttachFileInputRef: any) {
     this.commentAttachFileInputRef = commentAttachFileInputRef;
@@ -259,7 +263,7 @@ export class SinglePostComponent implements OnInit {
 
   replyTo(event) {
     this.replyingTo = event;
-    this.commentInput.nativeElement.focus();
+    this.commentInputRef.nativeElement.focus();
   }
 
   postComment(id) {
@@ -337,12 +341,6 @@ export class SinglePostComponent implements OnInit {
 
   getUserId() {
     return this.loginService.getUserId();
-  }
-
-  addEmoji(event) {
-    // console.log(event);
-    const text = this.comment.value ? this.comment?.value : '';
-    this.comment.setValue(text + event.native);
   }
 
   openShareDialog() {

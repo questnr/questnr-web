@@ -36,8 +36,8 @@
       <div style="position: relative" *ngIf="!data?.feed?.postData.postEditorType">
         <span *ngIf="isBlogEditor" (click)="switchEditor(false)" class="editor-mode">switch to normal editor</span>
         <span *ngIf="!isBlogEditor" (click)="switchEditor(true)" class="editor-mode">switch to blog editor</span>
-        <div class="emoticon-container">
-          <app-emoticons (emojiData)="addEmoji($event)"></app-emoticons>
+        <div *ngIf="!isBlogEditor" class="emoticon-container">
+          <app-emoticons [userInputRef]="userInputRef"></app-emoticons>
         </div>
       </div>
 
