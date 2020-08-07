@@ -64,6 +64,9 @@
       margin-right: 4px;
       color: $primary
     }
+    span {
+      font-size: 0.85rem;
+    }
   }
 }
 @media screen and (max-width: $tablet) {

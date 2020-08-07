@@ -21,8 +21,11 @@
         <button mat-button class="add-mediaBtn"
           (click)="createPost(communityId, isCommunityPost, type, 'addMediaAction')">
           <mat-icon>photo</mat-icon>
-          <span>
-            Add Media To Post
+          <span *ngIf="mobileView">
+            Add Media
+          </span>
+          <span *ngIf="!mobileView">
+            Add Media To Post/Blog
           </span>
         </button>
       </div>

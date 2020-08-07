@@ -62,6 +62,7 @@ export class PostFeedComponent implements OnInit {
   isFetchingPostData: boolean = false;
   myckeditor: any;
   @Input() editing: any;
+  postEditorName: string = "Post";
 
   constructor(public login: LoginService,
     private service: FeedsService,
@@ -290,6 +291,10 @@ export class PostFeedComponent implements OnInit {
 
   switchEditor(isBlogEditor) {
     this.isBlogEditor = isBlogEditor;
+    if (this.isBlogEditor)
+      this.postEditorName = "Blog";
+    else
+      this.postEditorName = "Post";
   }
 
   typeCheckOnUserInputEvent($event) {

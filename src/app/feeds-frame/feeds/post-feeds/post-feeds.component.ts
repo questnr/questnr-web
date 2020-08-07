@@ -13,6 +13,7 @@ export class PostFeedsComponent implements OnInit {
   @Input() isCommunityPost = false;
   @Input() communityId;
   @Input() type: any;
+  @Input() mobileView: boolean = true;
   constructor(public dialog: MatDialog, public login: LoginService) { }
 
   ngOnInit() {

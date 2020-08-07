@@ -16,7 +16,8 @@
         </aside>
         <div class="feeds">
           <!--          <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=false></app-post-feed>-->
-          <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="false" [type]="'Create'"></app-post-feeds>
+          <app-post-feeds [mobileView]="mobileView" (postData)="postFeed($event)" [isCommunityPost]="false"
+            [type]="'Create'"></app-post-feeds>
           <h5>Trending Communities</h5>
           <owl-carousel-o [options]="customOptions" *ngIf="!trendingCommunitiesLoader">
             <ng-container *ngFor="let community of trendingCommunities;let i=index">
