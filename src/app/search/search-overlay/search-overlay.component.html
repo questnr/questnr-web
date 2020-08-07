@@ -1,5 +1,20 @@
-<div class="search-page" #elementOnHTML (click)="handleClick($event)">
-    <!-- <div class="model-content">
+<div #elementOnHTML>
+    <div class="search-page" (click)="handleClick($event)">
 
-    </div> -->
+    </div>
+    <div class="model-content" [ngClass]="mobileView ? 'mobile' : 'desktop'" #searchModel>
+        <div class="search-menu row">
+            <div class="search-option-list row col-md-11">
+                <div *ngFor="let item of filterSearchOptionList;let indexOfelement=index;"
+                    class="search-option col-md-4" (click)="selectSearchOption(indexOfelement)"
+                    [ngClass]="{'selected': indexOfelement==selectedSearchOption}">
+                    <app-dot [radius]="7"></app-dot><span>{{item}}</span>
+                </div>
+            </div>
+            <mat-icon class="close-icon col-md-1" (click)="handleClick($event)">close</mat-icon>
+        </div>
+        <app-searched-entity-list [mobileView]="mobileView" (closeThread)="handleClick($event)"
+            #searchEntityListComponent>
+        </app-searched-entity-list>
+    </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Output, ElementRef, ViewChild, Renderer2, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'auth/login.service';
 import { ApiService } from 'shared/api.service';
@@ -27,6 +27,7 @@ import { SearchOverlayComponent } from 'search/search-overlay/search-overlay.com
 export class UserHeaderComponent {
     @ViewChild('searchInputRef') searchInputRef: ElementRef;
     @ViewChild('suggestionBoxRef') suggestionBoxRef: ElementRef;
+    @Input() mobileView: boolean = false;
     @Output() menuToggle = new EventEmitter();
     user: string;
     userDetail: User;
@@ -36,17 +37,12 @@ export class UserHeaderComponent {
     profile;
     endOfNotifications = false;
     searchInput = new FormControl();
-    hashtags: HashTag[] = [];
-    users: User[] = [];
-    communities: Community[] = [];
     notifications: NotificationDTO[] = [];
     page = 0;
     hasNewNotifications: boolean = false;
     hasNewNotificationAnswers: boolean = false;
     notificationColor: string = 'black';
     notificationAnswerColor: string = 'black';
-    filterSearchOptionList: string[] = ['users', 'communities', 'hashtags'];
-    selectedSearchOption: number = 0;
     feedPath: string = GlobalConstants.feedPath;
     termsPath: string = GlobalConstants.termsPath;
     policyPath: string = GlobalConstants.policyPath;
@@ -74,18 +70,17 @@ export class UserHeaderComponent {
         this.receiveMessage();
         this.getUserDetail();
         this.searchInput.valueChanges
-            .pipe(
-                debounceTime(500),
-                tap(() => {
-                    this.hashtags = [];
-                }),
-                distinctUntilChanged(),
-            )
             .subscribe((val) => {
-                if (val) {
-                    this.searchEntity();
-                }
+                this.searchEntity(val);
             });
+        // .pipe(
+        //     debounceTime(500),
+        //     tap(() => {
+        //         this.hashtags = [];
+        //     }),
+        //     distinctUntilChanged(),
+        // )
+
     }
 
     ngAfterViewInit() {
@@ -101,6 +96,7 @@ export class UserHeaderComponent {
     }
 
     closeSearchBox() {
+        this.searchInput.setValue('');
         this.renderer.setStyle(this.suggestionBoxRef.nativeElement, 'display', 'none');
         this.handleBlur({});
     }
@@ -121,64 +117,8 @@ export class UserHeaderComponent {
         this.closeSearchBox();
     }
 
-    searchEntity() {
-        if (!this.searchInput.value || this.searchInput.value == '') {
-            return;
-        }
-        this.isLoading = true;
-        if (this.selectedSearchOption === 0) {
-            this.searchUsers();
-        } else if (this.selectedSearchOption === 1) {
-            this.searchCommunities();
-        } else if (this.selectedSearchOption === 2) {
-            this.searchHashtags();
-        }
-    }
-
-    selectSearchOption(indexOfelement: number) {
-        if (this.selectedSearchOption != indexOfelement) {
-            this.selectedSearchOption = indexOfelement;
-            this.searchEntity();
-        }
-    }
-
-    searchHashtags() {
-        this.api.searchHashtags(this.searchInput.value).subscribe(
-            (res: HashTag[]) => {
-                this.isLoading = false;
-                this.hashtags = res;
-            }
-        );
-    }
-
-    searchUsers() {
-        this.api.searchUsers(this.searchInput.value).subscribe(
-            (res: Page<User>) => {
-                this.isLoading = false;
-                this.users = res.content;
-                // console.log("users", res);
-            }
-        );
-    }
-
-    searchCommunities() {
-        this.api.searchCommunities(this.searchInput.value).subscribe(
-            (res: Page<Community>) => {
-                this.isLoading = false;
-                this.communities = res.content;
-                // console.log("communities", res);
-            }
-        );
-    }
-
-    handleRouterLink(slug: string) {
-        let path: string = this.userPath;
-        if (this.selectedSearchOption == 1) {
-            path = GlobalConstants.communityPath;
-        } else if (this.selectedSearchOption == 2) {
-            path = GlobalConstants.hashTagPath;
-        }
-        this.router.navigate(['/', path, slug]);
+    searchEntity(value) {
+        this.searchOverlayComponentRef.handleOpitonChanged(value);
     }
 
     getNotification() {

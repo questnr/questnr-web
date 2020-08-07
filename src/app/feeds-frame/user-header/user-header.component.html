@@ -15,41 +15,9 @@
     <div class="search-wrapper">
       <input type="text" placeholder="Type here to search..." [formControl]="searchInput" (focus)="handleFocus($event)"
         #searchInputRef>
-      <mat-icon class="search-icon" (click)="searchEntity()">search</mat-icon>
+      <mat-icon class="search-icon" (click)="searchEntity(searchInput.value)">search</mat-icon>
       <div class="suggestions" #suggestionBoxRef>
         <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="height: 2px"></mat-progress-bar>
-        <div class="search-menu row">
-          <div class="search-option-list row col-md-11">
-            <div *ngFor="let item of filterSearchOptionList;let indexOfelement=index;" class="search-option col-md-3"
-              (click)="selectSearchOption(indexOfelement)"
-              [ngClass]="{'selected': indexOfelement==selectedSearchOption}">
-              <app-dot [radius]="7"></app-dot><span>{{item}}</span>
-            </div>
-          </div>
-          <mat-icon class="close-icon col-md-1" (click)="closeSearchBox()">close</mat-icon>
-        </div>
-        <div class="searched-list" *ngIf="selectedSearchOption==0">
-          <button class="w-100" mat-button *ngFor="let user of users" (click)="handleRouterLink(user?.slug)">
-            <app-horizontal-profile
-              [avatarLink]="user?.avatarDTO?.avatarLink ? user?.avatarDTO?.avatarLink : defaultUserSrc"
-              [head]="user?.username"
-              [subhead]="user?.firstName && user?.lastName ? user?.firstName+' '+user?.lastName: ''">
-            </app-horizontal-profile>
-          </button>
-        </div>
-        <div class="searched-list" *ngIf="selectedSearchOption==1">
-          <button class="w-100" mat-button *ngFor="let community of communities"
-            (click)="handleRouterLink(community?.slug)">
-            <app-horizontal-profile
-              [avatarLink]="community?.avatarDTO?.avatarLink ? community?.avatarDTO?.avatarLink : defaultUserSrc"
-              [head]="community?.communityName" [subhead]="community?.ownerUserDTO?.username">
-            </app-horizontal-profile>
-          </button>
-        </div>
-        <div class="searched-list" *ngIf="selectedSearchOption==2">
-          <button class="w-100" mat-button *ngFor="let hashTag of hashtags"
-            (click)="handleRouterLink(hashTag.hashTagValue)">{{"#"+hashTag.hashTagValue}}</button>
-        </div>
       </div>
     </div>
 
@@ -195,5 +163,6 @@
   </div>
 </header>
 
-<app-search-overlay (closeSearchOverlay)="handleCloseSearchOverlay($event)" #searchOverlayComponentRef>
+<app-search-overlay [mobileView]="mobileView" (closeSearchOverlay)="handleCloseSearchOverlay($event)"
+  #searchOverlayComponentRef>
 </app-search-overlay>

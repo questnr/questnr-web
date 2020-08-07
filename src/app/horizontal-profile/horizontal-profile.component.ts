@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { AvatarDTO } from 'models/common.model';
 
 @Component({
   selector: 'app-horizontal-profile',
@@ -7,7 +8,8 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
   styleUrls: ['./horizontal-profile.component.scss']
 })
 export class HorizontalProfileComponent implements OnInit {
-  @Input() avatarLink: string;
+  @Input() avatar: AvatarDTO;
+  @Input() isCommunityAvatar: boolean = false;
   @Input() head: string;
   @Input() subhead: string;
   defaultUserSrc: string = StaticMediaSrc.userFile;

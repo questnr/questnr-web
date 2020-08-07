@@ -116,7 +116,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   }
 
   searchHashtag() {
-    this.api.searchHashtags(this.hashtagInput.value).subscribe(
+    this.api.searchHashtags(0, this.hashtagInput.value).subscribe(
       (res: any) => {
         this.isLoading = false;
         this.hashtagResults = res;

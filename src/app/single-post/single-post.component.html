@@ -1,5 +1,5 @@
 <app-header *ngIf="(!(viewType===0 && !mobileView)) && !loginService.loggedIn()"></app-header>
-<app-user-header
+<app-user-header [mobileView]="mobileView"
   *ngIf="((viewType===0 && mobileView) || (viewType===1) || (viewType===3) || ((singlePost.postType==='question'))) && loginService.loggedIn()">
 </app-user-header>
 

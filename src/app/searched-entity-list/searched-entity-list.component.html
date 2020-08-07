@@ -1,0 +1,49 @@
+<div class="wrapper">
+    <!-- <div *ngIf="title" class="title hr">
+        <div>{{title}}</div>
+        <div class="close-icon" (click)="closeModal($event)">
+            <mat-icon>close</mat-icon>
+        </div>
+    </div> -->
+    <div class="searched-list" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+        <div>
+            <div *ngIf="selectedSearchOption==0" id="searched-entity-list_searched-list">
+                <a class="w-100 entity" mat-button *ngFor="let user of users"
+                    [routerLink]="['/', currentPath, user?.slug]">
+                    <app-horizontal-profile [avatar]="user?.avatarDTO" [head]="user?.username"
+                        [subhead]="user?.firstName && user?.lastName ? user?.firstName+' '+user?.lastName: ''">
+                    </app-horizontal-profile>
+                </a>
+            </div>
+            <div *ngIf="selectedSearchOption==1">
+                <a class="w-100 entity" mat-button *ngFor="let community of communities"
+                    [routerLink]="['/', currentPath, community?.slug]">
+                    <app-horizontal-profile [isCommunityAvatar]="true" [avatar]="community?.avatarDTO"
+                        [head]="community?.communityName" [subhead]="community?.ownerUserDTO?.username">
+                    </app-horizontal-profile>
+                </a>
+            </div>
+            <div *ngIf="selectedSearchOption==2">
+                <a class="hash-tag w-100 entity" mat-button *ngFor="let hashTag of hashtags"
+                    [routerLink]="['/', currentPath, hashTag.hashTagValue]"><span
+                        class="hash-tag-symbol">#</span>{{hashTag.hashTagValue}}</a>
+            </div>
+        </div>
+        <ng-container *ngIf="isDataLoading">
+            <div class="list-item" *ngFor="let i of listItems">
+                <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
+                <ngx-skeleton-loader class="w-100" count="1" appearance="line"></ngx-skeleton-loader>
+            </div>
+        </ng-container>
+        <div class="load-more" *ngIf="!noDataFound && !isDataLoading && !endOfResults" (click)="fetchEntityList()">
+            <span>Not in the list?</span>
+        </div>
+        <div *ngIf="endOfResults" class="no-more">
+            Sorry, you have reached the end!
+        </div>
+        <div *ngIf="noDataFound" class="no-data">
+            Sorry, we don't have any data matching with given input
+            <span>'{{searchInputValue}}'</span>
+        </div>
+    </div>
+</div>

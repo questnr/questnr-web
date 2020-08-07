@@ -1,8 +1,10 @@
 <div class="profile">
-    <div class="profile-icon">
+    <!-- <div class="profile-icon">
         <img [src]="avatarLink ?
       avatarLink : defaultUserSrc" alt="" />
-    </div>
+    </div> -->
+    <app-profile-icon [isCommunityAvatar]="isCommunityAvatar" [avatar]="avatar" [height]="40" [sizeRef]="'small'">
+    </app-profile-icon>
     <div class="profile-detail">
         <div class="head">{{head}}</div>
         <div class="subhead"><span *ngIf="subhead">{{subhead}}</span></div>

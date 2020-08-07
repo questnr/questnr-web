@@ -38,14 +38,14 @@ export class ApiService {
   getTrendingPostPollQuestion() {
     return this.http.get(this.baseUrl + 'user/explore/question');
   }
-  searchHashtags(userInput: string) {
-    return this.http.get<HashTag[]>(this.baseUrl + `search/hash-tag`, { params: { hashTag: userInput } });
+  searchHashtags(page, userInput: string) {
+    return this.http.get<Page<HashTag>>(this.baseUrl + `search/hash-tag`, { params: { page: page, hashTag: userInput } });
   }
-  searchUsers(userInput: string) {
-    return this.http.get<Page<User>>(this.baseUrl + `user/search/users`, { params: { userString: userInput } });
+  searchUsers(page, userInput: string) {
+    return this.http.get<Page<User>>(this.baseUrl + `user/search/users`, { params: { page: page, userString: userInput } });
   }
-  searchCommunities(userInput: string) {
-    return this.http.get<Page<Community>>(this.baseUrl + `user/search/communities`, { params: { communityString: userInput } });
+  searchCommunities(page, userInput: string) {
+    return this.http.get<Page<Community>>(this.baseUrl + `user/search/communities`, { params: { page: page, communityString: userInput } });
   }
   getNotifications(page: any = 0) {
     return this.http.get<NotificationDTO[]>(this.baseUrl + 'user/notification', { params: { page } });
