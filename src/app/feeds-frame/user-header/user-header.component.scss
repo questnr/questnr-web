@@ -39,7 +39,7 @@
   left: 0;
   height: 45px;
   width: 100%;
-  z-index: 100;
+  z-index: 500;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
@@ -216,6 +216,7 @@
   align-items: center;
   margin: 0.5rem;
   border-bottom: 0.09rem solid #e3e3e3;
+  overflow: hidden;
 
   .search-option-list {
     .search-option {
@@ -241,6 +242,10 @@
       color: $white;
     }
   }
+}
+
+.searched-list{
+  overflow-y: scroll;
 }
 
 .search-icon, .close-icon {

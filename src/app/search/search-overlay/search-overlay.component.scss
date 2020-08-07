@@ -1,0 +1,15 @@
+@import '../../variables';
+
+.search-page {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: $white;
+    opacity: 0.6;
+    left: 0;
+    z-index: 100;
+}
+
+.model-content {
+    z-index: 200;
+}

@@ -13,7 +13,8 @@
     <div class="spacer"></div>
 
     <div class="search-wrapper">
-      <input type="text" placeholder="Type here to search..." [formControl]="searchInput" #searchInputRef>
+      <input type="text" placeholder="Type here to search..." [formControl]="searchInput" (focus)="handleFocus($event)"
+        #searchInputRef>
       <mat-icon class="search-icon" (click)="searchEntity()">search</mat-icon>
       <div class="suggestions" #suggestionBoxRef>
         <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="height: 2px"></mat-progress-bar>
@@ -27,7 +28,7 @@
           </div>
           <mat-icon class="close-icon col-md-1" (click)="closeSearchBox()">close</mat-icon>
         </div>
-        <div *ngIf="selectedSearchOption==0">
+        <div class="searched-list" *ngIf="selectedSearchOption==0">
           <button class="w-100" mat-button *ngFor="let user of users" (click)="handleRouterLink(user?.slug)">
             <app-horizontal-profile
               [avatarLink]="user?.avatarDTO?.avatarLink ? user?.avatarDTO?.avatarLink : defaultUserSrc"
@@ -36,7 +37,7 @@
             </app-horizontal-profile>
           </button>
         </div>
-        <div *ngIf="selectedSearchOption==1">
+        <div class="searched-list" *ngIf="selectedSearchOption==1">
           <button class="w-100" mat-button *ngFor="let community of communities"
             (click)="handleRouterLink(community?.slug)">
             <app-horizontal-profile
@@ -45,7 +46,7 @@
             </app-horizontal-profile>
           </button>
         </div>
-        <div *ngIf="selectedSearchOption==2">
+        <div class="searched-list" *ngIf="selectedSearchOption==2">
           <button class="w-100" mat-button *ngFor="let hashTag of hashtags"
             (click)="handleRouterLink(hashTag.hashTagValue)">{{"#"+hashTag.hashTagValue}}</button>
         </div>
@@ -193,3 +194,6 @@
     </mat-menu>
   </div>
 </header>
+
+<app-search-overlay (closeSearchOverlay)="handleCloseSearchOverlay($event)" #searchOverlayComponentRef>
+</app-search-overlay>

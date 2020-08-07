@@ -17,6 +17,7 @@ import { CreateCommunityComponent } from '../../shared/components/dialogs/create
 import { MatDialog } from '@angular/material/dialog';
 import { UsercommunityService } from '../../usercommunity/usercommunity.service';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { SearchOverlayComponent } from 'search/search-overlay/search-overlay.component';
 
 @Component({
     selector: 'app-user-header',
@@ -54,6 +55,7 @@ export class UserHeaderComponent {
     isNotificationLoading: boolean = true;
     openedNotificationType: string;
     defaultUserSrc: string = StaticMediaSrc.userFile;
+    @ViewChild("searchOverlayComponentRef") searchOverlayComponentRef: SearchOverlayComponent;
 
     constructor(private router: Router, public auth: LoginService,
         private authService: AuthService,
@@ -100,10 +102,23 @@ export class UserHeaderComponent {
 
     closeSearchBox() {
         this.renderer.setStyle(this.suggestionBoxRef.nativeElement, 'display', 'none');
+        this.handleBlur({});
     }
 
     toggleMenu() {
         this.menuToggle.emit();
+    }
+
+    handleFocus($event) {
+        this.searchOverlayComponentRef.show();
+    }
+
+    handleBlur($event) {
+        this.searchOverlayComponentRef.hide();
+    }
+
+    handleCloseSearchOverlay($event) {
+        this.closeSearchBox();
     }
 
     searchEntity() {
