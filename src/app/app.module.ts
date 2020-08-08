@@ -141,7 +141,7 @@ import { UsercommunityComponent } from './usercommunity/usercommunity.component'
 import { SearchedEntityListComponent } from 'searched-entity-list/searched-entity-list.component';
 import { UsernameComponent } from 'username/username.component';
 import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
-
+import { QuillModule } from 'ngx-quill';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -349,7 +349,8 @@ export function metaFactory(): MetaLoader {
     ImageCropperModule,
     MDBBootstrapModule.forRoot(),
     FormsModule,
-    CKEditorModule
+    CKEditorModule,
+    QuillModule.forRoot()
   ],
   entryComponents: [
     CreateCommunityComponent,

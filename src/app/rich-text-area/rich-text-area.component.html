@@ -1,5 +1,4 @@
-<ckeditor id="myckeditor" [(ngModel)]="mycontent" #ckeditor="ngModel" [config]="config" name="myckeditor"
-    (change)="typeCheckOnUserInput($event)" debounce="500">
-</ckeditor>
+<quill-editor #editor [(ngModel)]="content" [modules]="modules" (onEditorCreated)="addBindingCreated($event)">
+</quill-editor>
 
 <app-loader-text *ngIf="isInstanceLoading" [size]="'sm'" [text]="'Creating Editor'"></app-loader-text>

@@ -28,8 +28,7 @@
             <input [formControl]="blogTitle" type="text" placeholder="Blog Title" matInput />
             <mat-error *ngIf="blogTitle.hasError('invalid')">Title has more than 100 words</mat-error>
           </mat-form-field>
-          <app-rich-text-area (typeCheckOnUserInputEvent)="typeCheckOnUserInputEvent($event)"
-            (registerEditorEvent)="registerEditor($event)" [richText]="richText">
+          <app-rich-text-area (registerEditorEvent)="registerEditor($event)">
           </app-rich-text-area>
         </div>
       </div>

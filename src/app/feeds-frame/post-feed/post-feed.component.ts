@@ -14,6 +14,7 @@ import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PostEditorType, Post, NormalPostData } from 'models/post-action.model';
+import Quill from 'quill';
 
 @Component({
   selector: 'app-post-feed',
@@ -50,6 +51,7 @@ export class PostFeedComponent implements OnInit {
   text = new FormControl();
   blogTitle = new FormControl();
   richText: string;
+  editorText: string;
   profileImg;
   addedMedias = [];
   addedMediaSrc = [];
@@ -60,7 +62,8 @@ export class PostFeedComponent implements OnInit {
   isHashOn = false;
   isBlogEditor = false;
   isFetchingPostData: boolean = false;
-  myckeditor: any;
+  quill: Quill;
+  quillLength: number;
   @Input() editing: any;
   postEditorName: string = "Post";
 
@@ -92,10 +95,11 @@ export class PostFeedComponent implements OnInit {
       if (this.data?.feed?.postData.postEditorType == PostEditorType.blog) {
         this.isBlogEditor = true;
         this.isFetchingPostData = true;
+        this.blogTitle.setValue(this.data.feed.postData.blogTitle);
         this.service.getPostText(this.data.feed.postActionId).subscribe((postData: NormalPostData) => {
           this.isFetchingPostData = false;
           this.data.feed.postData = postData;
-          this.richText = this.data.feed.postData.text;
+          this.editorText = this.data.feed.postData.text;
           this.blogTitle.setValue(this.data.feed.postData.blogTitle);
         });
       } else {
@@ -222,7 +226,7 @@ export class PostFeedComponent implements OnInit {
 
   isPostInvalid() {
     if ((!this.isBlogEditor && (this.text.value || this.addedMedias.length))
-      || (this.isBlogEditor && this.richText && this.richText.length > 0 && this.validateBlogTitle())) {
+      || (this.isBlogEditor && this.quillLength > 1 && this.validateBlogTitle())) {
       return false;
     }
     return true;
@@ -238,8 +242,8 @@ export class PostFeedComponent implements OnInit {
     this.isBlogEditor = false;
     this.addedMediaSrc = this.addedMedias = [];
     this.richText = '';
-    if (this.myckeditor) {
-      this.myckeditor.value = '';
+    if (this.quill) {
+      this.quill.root.innerHTML = "";
     }
   }
 
@@ -297,14 +301,21 @@ export class PostFeedComponent implements OnInit {
       this.postEditorName = "Post";
   }
 
-  typeCheckOnUserInputEvent($event) {
-    // console.log("richText", $event);
-    this.richText = $event;
-  }
+  // typeCheckOnUserInputEvent($event) {
+  //   console.log("richText", $event);
+  //   this.richText = $event;
+  // }
 
-  registerEditor(myckeditor: any) {
-    this.myckeditor = myckeditor;
-    // console.log("mycdkEditor", myckeditor);
+  registerEditor(quill: Quill) {
+    // console.log("registerEditor", quill);
+    this.quill = quill;
+    this.quill.on('text-change', () => {
+      this.quillLength = this.quill.getLength();
+      this.richText = this.quill.root.innerHTML;
+    });
+    if (this.data.editing) {
+      this.quill.root.innerHTML = this.data.feed.postData.text;
+    }
   }
   closeDialog(data) {
     this.dialogRef.close({ data });
