@@ -33,12 +33,11 @@ export class RichTextAreaComponent implements OnInit {
     extraPlugins: '',
     enterMode: CKEDITOR.ENTER_BR,
     toolbarGroups: [
-      { name: 'styles', groups: ['styles'] },
-      '/',
       { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
       { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph'] },
       { name: 'links', groups: ['links'] },
       { name: 'insert', groups: ['insert'] },
+      { name: 'styles', groups: ['styles'] },
       '/',
       { name: 'document', groups: ['mode', 'document', 'doctools'] },
       { name: 'clipboard', groups: ['clipboard', 'undo'] },
@@ -50,7 +49,7 @@ export class RichTextAreaComponent implements OnInit {
       { name: 'others', groups: ['others'] },
       { name: 'about', groups: ['about'] }
     ],
-    removeButtons: 'Source,NewPage,Save,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,CopyFormatting,RemoveFormat,CreateDiv,BidiLtr,BidiRtl,Language,Link,Unlink,Anchor,Image,Flash,Table,HorizontalRule,SpecialChar,PageBreak,Smiley,Iframe,FontSize,Font,Format,Styles,TextColor,BGColor,Maximize,ShowBlocks,About'
+    removeButtons: 'Source,NewPage,Save,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,BidiLtr,BidiRtl,CopyFormatting,RemoveFormat,CreateDiv,Language,Link,Unlink,Anchor,Image,Flash,Table,HorizontalRule,SpecialChar,PageBreak,Smiley,Iframe,FontSize,Font,Styles,TextColor,BGColor,ShowBlocks,About'
   };
   constructor() {
   }
