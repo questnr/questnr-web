@@ -48,7 +48,7 @@
           <div class="head-wrap" *ngIf="!showUserHeader">
             <div class="profile-icon">
               <app-profile-icon [isCommunityAvatar]="true" [avatar]="singlePost.communityDTO.avatarDTO" [height]="50"
-                [sizeRef]="'small'" [routerLink]="['/', communityPath , singlePost.communityDTO.slug]">
+                [sizeRef]="'small'" [slug]="singlePost?.communityDTO?.slug">
               </app-profile-icon>
             </div>
             <div class="profile-detail" *ngIf="singlePost.communityDTO">
@@ -63,7 +63,7 @@
           </div>
           <div class="head-wrap" *ngIf="showUserHeader">
             <app-profile-icon [avatar]="singlePost.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
-              [routerLink]="['/', userPath, singlePost.userDTO.slug]">
+              [slug]="singlePost?.userDTO?.slug">
             </app-profile-icon>
             <div class="profile-detail">
               <div class="head" *ngIf="singlePost?.userDTO?.username">

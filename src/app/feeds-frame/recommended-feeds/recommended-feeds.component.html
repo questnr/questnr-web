@@ -2,12 +2,12 @@
   <div class="head-wrap" *ngIf="!showUserHeader">
     <div class="profile-icon">
       <app-profile-icon [isCommunityAvatar]="true" [avatar]="feed?.communityDTO.avatarDTO" [height]="50"
-        [sizeRef]="'small'" [routerLink]="['/', communityPath , feed?.communityDTO.slug]">
+        [sizeRef]="'small'" [slug]="feed?.communityDTO?.slug">
       </app-profile-icon>
     </div>
     <div class="profile-detail" *ngIf="feed.communityDTO">
-      <div class="head"><a class="username-link"
-          [routerLink]="['/', userPath, feed.userDTO.slug]">{{feed?.userDTO?.username}}</a>
+      <div class="head">
+        <app-username [username]="feed?.userDTO?.username" [slug]="feed.userDTO.slug"></app-username>
       </div>
       <div class="subhead"> Posted in <a
           [routerLink]="['/', communityPath, feed?.communityDTO.slug]">{{feed?.communityDTO?.communityName}}</a>
@@ -20,12 +20,11 @@
       [feed]="editableFeed" (removePostEvent)="removePost($event)"></app-post-menu-options>
   </div>
   <div class="head-wrap" *ngIf="showUserHeader">
-    <app-profile-icon [avatar]="feed.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
-      [routerLink]="['/', userPath, feed.userDTO.slug]">
+    <app-profile-icon [avatar]="feed.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'" [slug]="feed?.userDTO?.slug">
     </app-profile-icon>
     <div class="profile-detail">
       <div class="head" *ngIf="feed?.userDTO?.username">
-        <a class="username-link" [routerLink]="['/', userPath, feed.userDTO.slug]">{{feed?.userDTO?.username}}</a>
+        <app-username [username]="feed?.userDTO?.username" [slug]="feed.userDTO.slug"></app-username>
       </div>
       <app-time-string [metaData]="feed.metaData"></app-time-string>
     </div>

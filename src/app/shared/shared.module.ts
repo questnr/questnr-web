@@ -18,7 +18,6 @@ import { ViewMoreButtonComponent } from './view-more-button/view-more-button.com
 @NgModule({
   declarations: [
     ViewMoreButtonComponent,
-    ProfileIconComponent,
     SocialMediaLinksComponent,
     CompanyRightsFooterComponent,
     AskQuestionComponent
@@ -38,7 +37,6 @@ import { ViewMoreButtonComponent } from './view-more-button/view-more-button.com
   ],
   exports: [
     ViewMoreButtonComponent,
-    ProfileIconComponent,
     SocialMediaLinksComponent,
     CompanyRightsFooterComponent
   ]

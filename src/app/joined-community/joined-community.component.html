@@ -14,9 +14,9 @@
   <ng-container *ngIf="joinedCommunity?.length">
     <div class="links" *ngFor="let item of joinedCommunity">
       <app-profile-icon [isCommunityAvatar]="true" [avatar]="item.avatarDTO" [height]="25" [sizeRef]="'small'"
-        [routerLink]="['/', communityPath, item.slug]">
+        [slug]="item?.slug">
       </app-profile-icon>
-      <a class="link" [routerLink]="['/', communityPath, item.slug]">{{item.communityName}}</a>
+      <app-username [isCommunity]="true" [username]="item.communityName" [slug]="item.slug"></app-username>
     </div>
     <div class="row" *ngIf="joinedCommunity?.length === 5">
       <div class="col-4">

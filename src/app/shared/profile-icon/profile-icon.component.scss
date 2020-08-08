@@ -1,14 +1,34 @@
-.icon {
-    cursor: pointer;
-    margin-right: 10px;
-    border-radius: 50%;
-    overflow: hidden;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    img {
-      width: auto;
-      height: 100%;
-    }
+@import '../../variables';
+
+:host {
+  /* remove blue border ring */
+  &:active {
+    outline:0 !important;
   }
+  &:focus {
+    outline:0 !important;
+  }
+}
+.icon {
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 50%;
+  overflow: hidden;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  a {
+    width: auto;
+    height: 100%;
+    margin: auto;
+    // top: 0;
+    // right: 0;
+    // bottom: 0;
+    // left: 0
+  }
+  img {
+    width: auto;
+    height: 100%;
+  }
+}

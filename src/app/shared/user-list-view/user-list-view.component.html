@@ -1,8 +1,7 @@
 <div class="flex" [ngClass]="{'flex-mobile' : mobileView}">
   <div class="flex-50" style="margin: auto; width: fit-content">
     <!--    <img [src]="user?.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';" alt="">-->
-    <app-profile-icon [avatar]="user?.avatarDTO" [height]="60" [sizeRef]="'medium'"
-      [routerLink]="['/', userPath, user.slug]">
+    <app-profile-icon [avatar]="user?.avatarDTO" [height]="60" [sizeRef]="'medium'" [slug]="user?.slug">
     </app-profile-icon>
     <!--    <div class="link"><a [routerLink]="['/', userPath, user.slug]">{{user.username}}</a></div>-->
   </div>

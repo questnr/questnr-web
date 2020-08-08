@@ -139,6 +139,8 @@ import { UserProfileCardComponent } from './user-profile-card/user-profile-card.
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UsercommunityComponent } from './usercommunity/usercommunity.component';
 import { SearchedEntityListComponent } from 'searched-entity-list/searched-entity-list.component';
+import { UsernameComponent } from 'username/username.component';
+import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
 
 
 const customConfig: ShareButtonsConfig = {
@@ -280,7 +282,9 @@ export function metaFactory(): MetaLoader {
     AttachedFileListComponent,
     ConfirmDialogComponent,
     SearchOverlayComponent,
-    SearchedEntityListComponent
+    SearchedEntityListComponent,
+    ProfileIconComponent,
+    UsernameComponent
   ],
   imports: [
     MatVideoModule,

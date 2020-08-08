@@ -4,6 +4,7 @@ import { CommentAction } from 'models/comment-action.model';
 import { Post } from 'models/post-action.model';
 import { LoginService } from 'auth/login.service';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { GlobalConstants } from 'shared/constants';
 
 @Component({
   selector: 'app-comment-box',
@@ -22,6 +23,7 @@ export class CommentBoxComponent {
   @Output() deleteEvent = new EventEmitter();
   loggedInUserId: any;
   defaultUserSrc: string = StaticMediaSrc.userFile;
+  userPath: string = GlobalConstants.userPath;
 
   constructor(private api: FeedsService,
     public loginAuth: LoginService) {

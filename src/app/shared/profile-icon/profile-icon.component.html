@@ -1,3 +1,8 @@
 <div class="icon" #elementOnHTML>
-    <img [src]="checkImageSrc(avatarLink)" [alt]="alt">
+    <ng-container *ngIf="slug; else noSlug">
+        <a [routerLink]="['/', defaultPath, slug]"><img [src]="checkImageSrc(avatarLink)" [alt]="alt"></a>
+    </ng-container>
+    <ng-template #noSlug>
+        <img [src]="checkImageSrc(avatarLink)" [alt]="alt">
+    </ng-template>
 </div>

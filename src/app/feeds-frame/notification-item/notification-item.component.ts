@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NotificationDTO } from '../../models/notification.model';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { GlobalConstants } from 'shared/constants';
 @Component({
   selector: 'app-notification-item',
   templateUrl: './notification-item.component.html',
@@ -9,6 +10,7 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
 export class NotificationItemComponent {
   @Input() notification: NotificationDTO;
   @Output() remove = new EventEmitter<any>();
+  userPath: string = GlobalConstants.userPath;
   defaultUserSrc: string = StaticMediaSrc.userFile;
   constructor() { }
 

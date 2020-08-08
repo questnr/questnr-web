@@ -1,11 +1,11 @@
-<div class="profile-icon">
-  <img [src]="comment.userActorDTO?.avatarDTO?.avatarLink ?
-  comment.userActorDTO?.avatarDTO?.avatarLink : defaultUserSrc" alt="">
-</div>
+<app-profile-icon [slug]="comment?.userActorDTO?.slug" [isCommunityAvatar]="false"
+  [avatar]="comment.userActorDTO.avatarDTO" [height]="45" [sizeRef]="'small'"></app-profile-icon>
 <div>
   <!-- <div class="head-wrap"> -->
   <div class="profile-detail">
-    <div class="head">{{comment.userActorDTO?.username}}</div>
+    <div class="head">
+      <app-username [username]="comment.userActorDTO?.username" [slug]="comment.userActorDTO?.slug"></app-username>
+    </div>
     <div class="comment-object">
       <div class="comment-left-part">
         {{comment.commentObject}}

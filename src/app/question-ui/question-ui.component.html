@@ -5,7 +5,7 @@
         <div class="heading">
           <div class="user-icon">
             <app-profile-icon [avatar]="question.userDTO.avatarDTO" [height]="40" [sizeRef]="'small'"
-              [routerLink]="['/', userPath, question.userDTO.slug]">
+              [slug]="question?.userDTO?.slug">
             </app-profile-icon>
             <div class="questmark">
               <img src="/assets/question-mark.png" alt="">
