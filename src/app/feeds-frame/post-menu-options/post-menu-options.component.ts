@@ -38,8 +38,8 @@ export class PostMenuOptionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.feed) {
-      this.isBlog = this.feed.postData.postEditorType == PostEditorType.blog;
+    if (this.feed?.postData?.postEditorType) {
+      this.isBlog = this.feed?.postData.postEditorType == PostEditorType.blog;
     }
     this.loggedInUserId = this.login.getUserProfile().id;
     const width = this.screenWidth;
