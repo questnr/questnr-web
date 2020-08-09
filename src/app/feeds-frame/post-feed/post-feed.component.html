@@ -4,7 +4,7 @@
     <mat-progress-bar *ngIf="uploading" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
   </div>
   <div class="heading">
-    <div>{{data.editing ? 'Edit' : 'Create'}} Post</div>
+    <div>{{data.editing ? 'Modify' : 'Make'}} Questnr</div>
     <div class="close-modal">
       <button mat-icon-button (click)="closeDialog('')">
         <mat-icon>close</mat-icon>
@@ -17,7 +17,7 @@
     <div class="icon"><img [src]="login.profileImg"></div>
     <div class="textbox-wrap md-form" style="position:relative;">
       <div *ngIf="!isBlogEditor">
-        <textarea rows="4" placeholder="Post Something...." [formControl]="text" (input)="typeCheckOnUserInput($event)"
+        <textarea rows="4" placeholder="Describe Here...." [formControl]="text" (input)="typeCheckOnUserInput($event)"
           (keyup)="typeCheckOnUserInput($event)" class="md-textarea md-textarea-auto" mdbInput #userInputRef>
       </textarea>
       </div>
@@ -26,7 +26,8 @@
         <div *ngIf="!isFetchingPostData">
           <mat-form-field class="col-md-12" appearance="fill" floatLabel="always">
             <input [formControl]="blogTitle" type="text" placeholder="Blog Title" matInput />
-            <mat-error *ngIf="blogTitle.hasError('invalid')">Title has more than 100 words</mat-error>
+            <mat-error *ngIf="blogTitle.hasError('required')">Title is required</mat-error>
+            <mat-error *ngIf="blogTitle.hasError('maxLength')">Title has more than 200 words</mat-error>
           </mat-form-field>
           <app-rich-text-area (registerEditorEvent)="registerEditor($event)">
           </app-rich-text-area>

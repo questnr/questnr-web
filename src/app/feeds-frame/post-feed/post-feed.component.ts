@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, Input, ViewChild, ElementRef, OnInit, Inject, Renderer2 } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
@@ -49,7 +49,13 @@ export class PostFeedComponent implements OnInit {
   uploading = false;
   uploadProgress = 0;
   text = new FormControl();
-  blogTitle = new FormControl();
+  blogTitle = new FormControl('',
+    {
+      validators: [
+        Validators.required,
+        Validators.maxLength(200),
+      ]
+    });
   richText: string;
   editorText: string;
   profileImg;
@@ -132,13 +138,25 @@ export class PostFeedComponent implements OnInit {
   }
 
   validateBlogTitle(): boolean {
-    if (this.blogTitle.value && this.blogTitle.value.length > 100) {
-      this.blogTitle.setErrors({ 'invalid': true });
+    // if (this.blogTitle.value == "" || this.blogTitle.value?.length <= 0) {
+    //   this.blogTitle.setErrors({ 'required': true });
+    //   this.blogTitle.setErrors({ 'invalidLength': false });
+    //   return false;
+    // } else if (this.blogTitle.value?.length > 200) {
+    //   this.blogTitle.setErrors({ 'required': false });
+    //   this.blogTitle.setErrors({ 'invalidLength': true });
+    //   return false;
+    // } else {
+    //   this.blogTitle.setErrors({ 'required': false });
+    //   this.blogTitle.setErrors({ 'invalidLength': false });
+    //   return true;
+    // }
+
+    if (this.isBlogEditor && this.blogTitle.invalid) {
+      this.blogTitle.markAllAsTouched();
       return false;
-    } else {
-      this.blogTitle.setErrors({ 'invalid': false });
-      return true;
     }
+    return true;
   }
 
   filesDropped(droppedFiles) {
@@ -180,9 +198,11 @@ export class PostFeedComponent implements OnInit {
   postFeed() {
     if ((this.text.value && !this.isBlogEditor) ||
       (this.richText && this.isBlogEditor) || this.addedMediaSrc.length) {
-      this.isLoading = true;
       if (this.data.editing) {
-        if (this.validateBlogTitle()) {
+        // Since blogs can not be edited
+        if (this.isPostInvalid() && !this.isBlogEditor) {
+          // if ((this.isPostInvalid()) || (this.validateBlogTitle())) {
+          this.isLoading = true;
           this.service.editPost(this.isBlogEditor ? this.richText : this.text.value, this.blogTitle.value, this.data.feed.postActionId).subscribe((res: any) => {
             this.uploading = true;
             this.closeDialog(res);
@@ -205,7 +225,8 @@ export class PostFeedComponent implements OnInit {
           });
         }
         // Check if the blog title is valid
-        if ((!this.isBlogEditor) || (this.isBlogEditor && this.validateBlogTitle())) {
+        if ((this.isPostInvalid()) || (this.validateBlogTitle())) {
+          this.isLoading = true;
           if (this.data.isCommunityPost && this.data.communityId != null) {
             this.apiUrl = 'user/community/' + this.data.communityId + '/posts';
           } else {
@@ -232,7 +253,7 @@ export class PostFeedComponent implements OnInit {
 
   isPostInvalid() {
     if ((!this.isBlogEditor && (this.text.value || this.addedMedias.length))
-      || (this.isBlogEditor && this.quillLength > 1 && this.validateBlogTitle())) {
+      || (this.isBlogEditor && this.quillLength > 1)) {
       return false;
     }
     return true;
