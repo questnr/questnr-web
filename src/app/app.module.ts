@@ -142,6 +142,7 @@ import { SearchedEntityListComponent } from 'searched-entity-list/searched-entit
 import { UsernameComponent } from 'username/username.component';
 import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
 import { QuillModule } from 'ngx-quill';
+import { RichTextComponent } from 'rich-text/rich-text.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -284,7 +285,8 @@ export function metaFactory(): MetaLoader {
     SearchOverlayComponent,
     SearchedEntityListComponent,
     ProfileIconComponent,
-    UsernameComponent
+    UsernameComponent,
+    RichTextComponent
   ],
   imports: [
     MatVideoModule,

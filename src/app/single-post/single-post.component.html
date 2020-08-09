@@ -100,9 +100,13 @@
               </ng-container>
             </owl-carousel-o>
           </div>
-          <div [ngClass]="viewType == 3 ? 'blog-text' : 'text-container'">
+          <div *ngIf="viewType != 3" class="text-container">
             <app-feed-text [text]="displayText" [hashTagsData]="hashTagsData" [readMore]="readMore">
             </app-feed-text>
+          </div>
+          <div *ngIf="viewType == 3" class="blog-text">
+            <app-rich-text [content]="displayText">
+            </app-rich-text>
           </div>
           <app-attached-file-list [attachedFileLinkList]="applicationMediaList"></app-attached-file-list>
           <app-meta-card *ngIf="iFramelyData?.url && !mobileView" [iFramelyData]="iFramelyData"></app-meta-card>
@@ -144,7 +148,7 @@
             </div>
           </div>
           <hr style="margin: 0">
-          <div class="comments" [@expand]="isCommenting ? 'expanded' : 'collapsed'" *ngIf="loginService.loggedIn()">
+          <div class="comments" *ngIf="loginService.loggedIn()">
             <div class="wrap">
               <div class="wrap-items">
                 <button mat-button (click)="getComments()">Load more

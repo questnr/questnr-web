@@ -1,10 +1,11 @@
 @import '../variables';
 
-.quill-screen {
-    background-color: white !important;
+::ng-deep.ql-container {
+    font-size: 1.2rem;
+    color: #212121;
 }
 
-::ng-deep.ql-toolbar.ql-snow{
+::ng-deep.ql-toolbar.ql-snow {
     border: 1px solid $heading !important;
 }
 
@@ -15,8 +16,4 @@
 
 ::ng-deep.ql-snow .ql-editor pre.ql-syntax {
     background-color: $accent;
-}
-
-::ng-deep.ql-editor.ql-blank::before{
-    content: "Good Luck with Your Blog ;)";
 }

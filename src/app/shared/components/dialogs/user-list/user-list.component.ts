@@ -94,7 +94,7 @@ export class UserListComponent implements OnInit {
     } else if (this.data.type === 'inviteUserList') {
       // To show invite button
       this.isInviteList = true;
-      console.log('this', this.data);
+      // console.log('this', this.data);
       this.communityId = this.data.communityId;
       this.getInviteUserList(this.communityId);
     }
