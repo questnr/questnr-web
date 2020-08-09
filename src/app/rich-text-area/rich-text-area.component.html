@@ -1,4 +1,6 @@
-<quill-editor #editor [(ngModel)]="content" [modules]="modules" (onEditorCreated)="addBindingCreated($event)">
-</quill-editor>
+<div class="quill-screen" #screenRef>
+    <quill-editor #editor [(ngModel)]="content" [modules]="modules" (onEditorCreated)="addBindingCreated($event)">
+    </quill-editor>
 
-<app-loader-text *ngIf="isInstanceLoading" [size]="'sm'" [text]="'Creating Editor'"></app-loader-text>
+    <app-loader-text *ngIf="isInstanceLoading" [size]="'sm'" [text]="'Creating Editor'"></app-loader-text>
+</div>

@@ -115,6 +115,12 @@ export class PostFeedComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    if (this.quill) {
+      this.quill.off('text-change', this.textChangeCallback);
+    }
+  }
+
   toggleAddMedia() {
     if (this.isMediaEnabled) {
       this.addedMedias = [];
@@ -309,13 +315,14 @@ export class PostFeedComponent implements OnInit {
   registerEditor(quill: Quill) {
     // console.log("registerEditor", quill);
     this.quill = quill;
-    this.quill.on('text-change', () => {
-      this.quillLength = this.quill.getLength();
-      this.richText = this.quill.root.innerHTML;
-    });
+    this.quill.on('text-change', this.textChangeCallback);
     if (this.data.editing) {
       this.quill.root.innerHTML = this.data.feed.postData.text;
     }
+  }
+  textChangeCallback = () => {
+    this.quillLength = this.quill.getLength();
+    this.richText = this.quill.root.innerHTML;
   }
   closeDialog(data) {
     this.dialogRef.close({ data });

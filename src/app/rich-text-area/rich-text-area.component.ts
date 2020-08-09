@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
 import Quill from 'quill';
+import * as screenfull from 'screenfull';
 
 @Component({
   selector: 'app-rich-text-area',
@@ -8,11 +9,12 @@ import Quill from 'quill';
 })
 export class RichTextAreaComponent implements OnInit {
   quill: Quill;
-  mycontent: string;
-  editorRef: ElementRef;
+  @ViewChild("screenRef") screenRef: ElementRef;
   isInstanceLoading: boolean = true;
   @Input() richText: string;
   @Output() registerEditorEvent = new EventEmitter();
+  isFullscreen: boolean = false;
+  maximiseMinimizeButton: any;
 
   modules = {};
   toolbarOptions: any = {};
@@ -24,6 +26,7 @@ export class RichTextAreaComponent implements OnInit {
       ['blockquote', 'code-block'],
 
       // [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+      [{ 'align': [] }],
       [{ 'list': 'ordered' }, { 'list': 'bullet' }],
       [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
       [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
@@ -34,9 +37,9 @@ export class RichTextAreaComponent implements OnInit {
 
       [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
       [{ 'font': [] }],
-      [{ 'align': [] }],
 
-      ['clean', 'link']
+      ['link'],
+      ['maximise-minimize']
     ];
     this.modules = {
       formula: true,
@@ -51,11 +54,36 @@ export class RichTextAreaComponent implements OnInit {
   ngAfterViewInit() {
   }
 
+  ngOnDestroy(): void {
+  }
+
   onQuillLoaded(quill: Quill) {
     this.quill = quill;
     this.registerEditorEvent.emit(quill);
+
+    this.maximiseMinimizeButton = document.querySelector('.ql-maximise-minimize');
+
+    this.handleFullScreen(false);
+    this.maximiseMinimizeButton.addEventListener('click', () => {
+      if (screenfull.isEnabled) {
+        screenfull.toggle(this.screenRef.nativeElement).then(() => {
+          screenfull.isEnabled ? this.handleFullScreen(screenfull.isFullscreen) : null;
+        });
+      } else {
+        console.log('Screenfull not enabled');
+      }
+    });
     // var toolbar = this.quill.getModule('toolbar');
     // toolbar.addHandler('link', this.handleLink);
+  }
+
+  handleFullScreen(isFullscreen) {
+    this.isFullscreen = isFullscreen;
+    if (this.isFullscreen) {
+      this.maximiseMinimizeButton.innerHTML = "<img src='/assets/minimize.svg' />";
+    } else {
+      this.maximiseMinimizeButton.innerHTML = "<img src='/assets/maximize.svg' />";
+    }
   }
 
   handleLink(value) {
@@ -88,5 +116,4 @@ export class RichTextAreaComponent implements OnInit {
       // console.log('KEYBINDING SHIFT + B', range, context)
     });
   }
-
 }

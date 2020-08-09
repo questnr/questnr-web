@@ -1,4 +1,22 @@
+@import '../variables';
+
+.quill-screen {
+    background-color: white !important;
+}
+
+::ng-deep.ql-toolbar.ql-snow{
+    border: 1px solid $heading !important;
+}
+
 ::ng-deep.ql-tooltip {
     left: unset !important;
     z-index: 1500;
+}
+
+::ng-deep.ql-editor.ql-blank::before{
+    content: "Good Luck with Your Blog ;)";
+}
+
+::ng-deep.ql-snow .ql-editor pre.ql-syntax {
+    background-color: $accent;
 }
