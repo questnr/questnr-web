@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Post } from 'models/post-action.model';
+import { Post, PostEditorType } from 'models/post-action.model';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { CommonService } from 'common/common.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -26,6 +26,8 @@ export class PostMenuOptionsComponent implements OnInit {
   loggedInUserId: any;
   mobileView = false;
   screenWidth = window.innerWidth;
+  isBlog: boolean = false;
+
   constructor(private api: FeedsService,
     public commonService: CommonService,
     private snackBar: MatSnackBar,
@@ -36,6 +38,9 @@ export class PostMenuOptionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.feed) {
+      this.isBlog = this.feed.postData.postEditorType == PostEditorType.blog;
+    }
     this.loggedInUserId = this.login.getUserProfile().id;
     const width = this.screenWidth;
     if (width <= 800) {
