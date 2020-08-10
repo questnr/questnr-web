@@ -4,7 +4,7 @@
     <mat-progress-bar *ngIf="uploading" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
   </div>
   <div class="heading">
-    <div>{{data.editing ? 'Modify' : 'Make'}} Questnr</div>
+    <div>{{data.editing ? 'Modify' : 'Make'}} a Questnr</div>
     <div class="close-modal">
       <button mat-icon-button (click)="closeDialog('')">
         <mat-icon>close</mat-icon>
@@ -103,7 +103,7 @@
     <button mat-flat-button class="btn-post" (click)="postFeed()" [disabled]="isPostInvalid() || isLoading">
       <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
         <span class="sr-only">Loading...</span>
-      </div> &nbsp; {{data.editing ? 'Edit' : 'Post'}} &nbsp;
+      </div> &nbsp; {{data.editing ? 'Edit' : 'Create'}} &nbsp;
       <!--      <mat-icon>send</mat-icon>-->
     </button>
   </div>
