@@ -6,7 +6,7 @@ import { GlobalConstants } from 'shared/constants';
 import { environment } from '../../environments/environment';
 import { Community } from '../models/community.model';
 import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
-import { CreateCommunityComponent } from '../shared/components/dialogs/create.community/create-community.component';
+import { CreateCommunityComponent } from '../shared/components/dialogs/create-community/create-community.component';
 import { UsercommunityService } from './usercommunity.service';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
@@ -82,7 +82,8 @@ export class UsercommunityComponent implements OnInit {
   }
   createCommunity(): void {
     const dialogRef = this.dialog.open(CreateCommunityComponent, {
-      maxWidth: this.mobileView ? "100vw" : "80vw"
+      maxWidth: this.mobileView ? "90vw" : "60vW",
+      width: this.mobileView ? "90vw" : "60vW"
       // width: '800px',
       // data: { desc : event.target.innerText}
     });

@@ -1,13 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {GlobalConstants} from '../shared/constants';
-import {ActivatedRoute} from '@angular/router';
-import {CreateCommunityComponent} from '../shared/components/dialogs/create.community/create-community.component';
-import {MatDialog} from '@angular/material/dialog';
-import {LoginService} from '../auth/login.service';
-import {UsercommunityService} from '../usercommunity/usercommunity.service';
-import {Community} from '../models/community.model';
-import {ApiService} from '../shared/api.service';
-import {CommunityListComponent} from '../shared/components/dialogs/community-list/community-list.component';
+import { Component, Input, OnInit } from '@angular/core';
+import { GlobalConstants } from '../shared/constants';
+import { ActivatedRoute } from '@angular/router';
+import { CreateCommunityComponent } from '../shared/components/dialogs/create-community/create-community.component';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginService } from '../auth/login.service';
+import { UsercommunityService } from '../usercommunity/usercommunity.service';
+import { Community } from '../models/community.model';
+import { ApiService } from '../shared/api.service';
+import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
 
 @Component({
   selector: 'app-floating-mobile-nav',
@@ -58,7 +58,8 @@ export class FloatingMobileNavComponent implements OnInit {
   createCommunity(): void {
     const dialogRef = this.dialog.open(CreateCommunityComponent, {
       // width: '800px',
-      maxWidth: this.mobileView ? "100vw" : "80vw"
+      maxWidth: this.mobileView ? "90vw" : "60vW",
+      width: this.mobileView ? "90vw" : "60vW"
       // data: { desc : event.target.innerText}
     });
 
@@ -87,18 +88,18 @@ export class FloatingMobileNavComponent implements OnInit {
   openCommunityDialog(community, type): void {
     let config = null;
     config = {
-        position: {
-          top: '0',
-          right: '0'
-        },
-        height: '100%',
-        borderRadius: '0px',
-        width: '100%',
-        maxWidth: '100vw',
-        marginTop: '0px',
-        marginRight: '0px !important',
-        panelClass: 'full-screen-modal',
-        data: { userId: null, community, type }
+      position: {
+        top: '0',
+        right: '0'
+      },
+      height: '100%',
+      borderRadius: '0px',
+      width: '100%',
+      maxWidth: '100vw',
+      marginTop: '0px',
+      marginRight: '0px !important',
+      panelClass: 'full-screen-modal',
+      data: { userId: null, community, type }
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);
 

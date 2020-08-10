@@ -4,11 +4,11 @@ import { FeedsService } from './feeds.service';
 import { ApiService } from 'shared/api.service';
 import { MessagingService } from '../service/messaging.service';
 import { RecommendedFeedsComponent } from './recommended-feeds/recommended-feeds.component';
-import { CreateCommunityComponent } from 'shared/components/dialogs/create.community/create-community.component';
+import { CreateCommunityComponent } from 'shared/components/dialogs/create-community/create-community.component';
 import { MatDialog } from '@angular/material/dialog';
 import { GlobalConstants } from '../shared/constants';
 import { Post } from 'models/post-action.model';
-import {AskQuestionComponent} from '../shared/components/dialogs/ask-question/ask-question.component';
+import { AskQuestionComponent } from '../shared/components/dialogs/ask-question/ask-question.component';
 
 @Component({
   selector: 'app-feeds-frame',
@@ -184,7 +184,8 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
 
   createCommunity(): void {
     const dialogRef = this.dialog.open(CreateCommunityComponent, {
-      width: '800px',
+      maxWidth: this.mobileView ? "90vw" : "60vW",
+      width: this.mobileView ? "90vw" : "60vW"
       // data: { desc : event.target.innerText}
     });
 

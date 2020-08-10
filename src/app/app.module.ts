@@ -113,7 +113,7 @@ import { CardComponent } from './shared/components/card/card.component';
 import { CommunityCardMobileViewComponent } from './shared/components/community-card-mobile-view/community-card-mobile-view.component';
 import { AskQuestionComponent } from './shared/components/dialogs/ask-question/ask-question.component';
 import { CommunityListComponent } from './shared/components/dialogs/community-list/community-list.component';
-import { CreateCommunityComponent } from './shared/components/dialogs/create.community/create-community.component';
+import { CreateCommunityComponent } from './shared/components/dialogs/create-community/create-community.component';
 import { DescriptionComponent } from './shared/components/dialogs/description/description.component';
 // import { ShareModule, ShareButtonsConfig } from '@ngx-share/core';
 import { SharePostComponent } from './shared/components/dialogs/share-post/share-post.component';
@@ -143,6 +143,7 @@ import { UsernameComponent } from 'username/username.component';
 import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
 import { QuillModule } from 'ngx-quill';
 import { RichTextComponent } from 'rich-text/rich-text.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -352,7 +353,8 @@ export function metaFactory(): MetaLoader {
     MDBBootstrapModule.forRoot(),
     FormsModule,
     CKEditorModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    MatStepperModule
   ],
   entryComponents: [
     CreateCommunityComponent,

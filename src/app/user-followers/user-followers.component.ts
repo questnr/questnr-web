@@ -3,7 +3,7 @@ import { UserFollowersService } from './user-followers.service';
 import { LoginService } from '../auth/login.service';
 import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
 import { User } from '../models/user.model';
-import { CreateCommunityComponent } from '../shared/components/dialogs/create.community/create-community.component';
+import { CreateCommunityComponent } from '../shared/components/dialogs/create-community/create-community.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
 

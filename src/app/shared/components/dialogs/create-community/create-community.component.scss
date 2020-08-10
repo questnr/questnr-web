@@ -1,4 +1,4 @@
-@import '../questnr-web/src/app/variables';
+@import '../../../../variables';
 //
 //.createCommuCommunity input{
 //  width: 100%;
@@ -53,6 +53,7 @@ mat-dialog-container{
 }
 
 .cret-com-container{
+  padding: 10px;
   position: relative;
   background: $black;
   display: flex;
@@ -79,18 +80,22 @@ mat-dialog-container{
   max-width: 100vW;
 }
 .com-img-container{
-  display: block;
   position: relative;
   width: 100%;
   max-height: 350px;
   // height: 350px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
   img{
-    object-fit: scale-down;
+    object-fit: cover;
     object-position: top;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    max-width: 100%;
+    width: 60vw;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
   }
   .com-head-container{
     position: absolute;
@@ -170,12 +175,13 @@ mat-form-field{
 }
 .submit-btn{
   margin: auto auto;
+  cursor: pointer;
 }
 
-::ng-deep .mat-focused .mat-form-field-label {
-  /*change color of label*/
-  color: $white !important;
-}
+// ::ng-deep .mat-focused .mat-form-field-label {
+//   /*change color of label*/
+//   color: $white !important;
+// }
 
 ::ng-deep.mat-form-field-underline {
   /*change color of underline*/
@@ -187,7 +193,24 @@ mat-form-field{
   background-color: $text-white !important;;
 }
 
+::ng-deep .mat-step-header {
 
+  .mat-step-icon-selected {
+    background-color: $accent;
+  }
+
+  .mat-step-icon-state-done {
+    background-color: $primary;
+  }
+
+  .mat-step-icon-state-check {
+    background-color: $grey;
+  }
+}
+
+::ng-deep.mat-form-field-label {
+  color: $heading;
+}
 
 .loader{
   position: absolute;
@@ -229,4 +252,68 @@ mat-form-field{
       line-height: 20px !important;
       margin-bottom: 10px !important;
     }
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.step-title {
+  @extend .center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+.community-tag-container {
+  .tag-list-wrapper{
+    // position: relative;
+    display: flex;
+    margin: 0.2rem;
+    padding: 0.2rem;
+    .tag-container {
+      display: flex;
+      margin: 0.3rem;
+      padding: 0.3rem;
+      background-color: $link-primary;
+      color: white;
+      justify-content: space-between;
+      border: 2px solid $link-secondary;
+      border-radius: 4px;
+      .tag {
+        padding: 4px;
+      }
+      .remove {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.com-img-error {
+  @extend .center;
+  padding: 10px;
+}
+
+.actions {
+  display: flex;
+  .btn-primary{
+    color: white;
+    background-color: $heading;
+  }
+  .btn-secondary{
+    color: white;
+    background-color: $primary;
+  }
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.flex-end {
+  justify-content: flex-end;
 }

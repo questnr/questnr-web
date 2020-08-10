@@ -13,7 +13,7 @@ import { Page } from 'models/page.model';
 import { NotificationDTO } from 'models/notification.model';
 import { GlobalConstants } from 'shared/constants';
 import { AuthService } from 'angularx-social-login';
-import { CreateCommunityComponent } from '../../shared/components/dialogs/create.community/create-community.component';
+import { CreateCommunityComponent } from '../../shared/components/dialogs/create-community/create-community.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UsercommunityService } from '../../usercommunity/usercommunity.service';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
@@ -258,7 +258,8 @@ export class UserHeaderComponent {
 
     createCommunity(): void {
         const dialogRef = this.dialog.open(CreateCommunityComponent, {
-            maxWidth: '80vw'
+            maxWidth: this.mobileView ? "90vw" : "60vW",
+            width: this.mobileView ? "90vw" : "60vW"
             // width: '800px',
             // data: { desc : event.target.innerText}
         });

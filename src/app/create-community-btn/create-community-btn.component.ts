@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CreateCommunityComponent } from '../shared/components/dialogs/create.community/create-community.component';
+import { CreateCommunityComponent } from '../shared/components/dialogs/create-community/create-community.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -26,7 +26,8 @@ export class CreateCommunityBtnComponent implements OnInit {
   createCommunity(): void {
     const dialogRef = this.dialog.open(CreateCommunityComponent, {
       // width: '800px',
-      maxWidth: this.mobileView ? "100vw" : "80vw"
+      maxWidth: this.mobileView ? "90vw" : "60vw",
+      width: this.mobileView ? "90vw" : "60vW"
       // data: { desc : event.target.innerText}
     });
 
