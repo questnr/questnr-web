@@ -62,7 +62,7 @@ export class CreateCommunityComponent implements OnInit {
   communityAvatarForm: FormGroup;
   avatar = new FormControl(null);
   communityTagsForm: FormGroup;
-  communityTag = new FormControl('', Validators.pattern(/^[A-z0-9]*$/));
+  communityTag = new FormControl('', Validators.pattern(/^[A-z0-9 ]*$/));
   tagsCount = new FormControl(0, {
     validators: [
       Validators.max(4),
@@ -143,12 +143,13 @@ export class CreateCommunityComponent implements OnInit {
       this.tagList.forEach((tag: Tag, index: number) => {
         if (index == 0)
           communityTags += tag.value;
-        communityTags += "," + tag.value;
+        else
+          communityTags += "," + tag.value;
       });
       const formData: FormData = new FormData();
       formData.set('communityName', this.communityDetailsForm.get('communityName').value);
       formData.set('description', this.communityDetailsForm.get('description').value);
-      formData.set('tags', communityTags);
+      formData.set('communityTags', communityTags);
       if (this.userCommunityimage != null) {
         formData.set('avatarFile', this.userCommunityimage, this.userCommunityimage.name);
       }
@@ -228,10 +229,10 @@ export class CreateCommunityComponent implements OnInit {
     else {
       if (value.length > 30) {
         this.tagMaxLengthError = true;
-      } else {
+      } else if (this.communityTag.valid) {
         this.tagsCount.setValue(Number(this.tagsCount.value) + 1);
         this.communityTag.setValue("");
-        this.tagList.push(new Tag(value));
+        this.tagList.push(new Tag(value.toLocaleUpperCase()));
       }
     }
   }

@@ -70,10 +70,10 @@
         <mat-form-field appearance="fill" floatLabel="always">
           <input type="text" matInput [formControl]="communityTag" (keyup.enter)="addTagToBucket(communityTag.value)"
             placeholder="Enter tag" />
-          <mat-error *ngIf="communityTag.errors?.pattern">
-            Use characters and number only
-          </mat-error>
         </mat-form-field>
+        <mat-error *ngIf="communityTag.hasError('pattern')">
+          Use characters and number only
+        </mat-error>
         <mat-error *ngIf="tagExistsError">Tag already added</mat-error>
         <mat-error *ngIf="tagsCount.hasError('max')">Up to only 5 tags are allowed</mat-error>
         <mat-error *ngIf="tagsCount.hasError('min')">At least 2 tags are required</mat-error>
