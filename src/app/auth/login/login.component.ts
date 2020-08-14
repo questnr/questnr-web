@@ -7,6 +7,7 @@ import { GlobalConstants } from 'shared/constants';
 import { UIService } from 'ui/ui.service';
 import { ApiService } from '../../shared/api.service';
 import { LoginService } from '../login.service';
+import { LoginResponse } from 'models/login.model';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   isLoading = false;
   url = GlobalConstants;
   group: FormGroup;
-  errMsg: '';
+  errMsg: string = '';
   email = new FormControl('', Validators.required);
   password = new FormControl('', Validators.required);
   forgotPassword = GlobalConstants.forgotPassword;
@@ -50,7 +51,7 @@ export class LoginComponent implements OnInit {
     if (this.group.valid) {
       this.isLoading = true;
       this.auth.login(this.group.value).subscribe(
-        res => {
+        (res: LoginResponse) => {
           if (res.accessToken && res.loginSuccess) {
             localStorage.setItem('token', res.accessToken);
             // register token for this user
@@ -63,9 +64,9 @@ export class LoginComponent implements OnInit {
             }
             if (this.redirectURL) {
               this.router.navigateByUrl(this.redirectURL)
-                .catch(() => this.router.navigate([this.url.feedPath]));
+                .catch(() => this.loginThread(res));
             } else {
-              this.router.navigate([this.url.feedPath]);
+              this.loginThread(res);
             }
             // this.router.navigate(["/", GlobalConstants.feedPath]);
           } else {
@@ -83,10 +84,10 @@ export class LoginComponent implements OnInit {
       // console.log("user", user);
       const obj = { idToken: user.idToken, source: 'WEB' };
       this.auth.loginWithGoogle(obj).subscribe(
-        (res: any) => {
-          if (res.loginSuccess) {
+        (res: LoginResponse) => {
+          if (res.accessToken && res.loginSuccess) {
             localStorage.setItem('token', res.accessToken);
-            this.router.navigate(["/", GlobalConstants.feedPath]);
+            this.loginThread(res);
           }
         }, err => { }
       );
@@ -98,14 +99,20 @@ export class LoginComponent implements OnInit {
       // console.log("user", user);
       const obj = { authToken: user.authToken, source: "WEB" };
       this.auth.loginWithFacebook(obj).subscribe(
-        (res: any) => {
-          if (res.loginSuccess) {
+        (res: LoginResponse) => {
+          if (res.accessToken && res.loginSuccess) {
             localStorage.setItem('token', res.accessToken);
-            this.router.navigate(["/", GlobalConstants.feedPath]);
+            this.loginThread(res);
           }
         }, err => { }
       );
     });
+  }
+
+  loginThread(res: LoginResponse) {
+    // show community suggestion box if communitySuggestion is true
+    this.router.navigate(["/", GlobalConstants.feedPath],
+      { state: { communitySuggestion: res.communitySuggestion ? true : false } });
   }
   // socialLogin(user) {
   //   this.auth.login(user).subscribe(

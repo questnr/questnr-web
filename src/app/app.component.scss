@@ -1,0 +1,23 @@
+@import './variables';
+
+.header-div{
+    padding-bottom: 0.6rem;
+}
+
+.hr{
+    border-bottom: 1px solid $grey;
+    margin-bottom: 0.6rem;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+  
+.space-between {
+    justify-content: space-between;
+}
+
+.flex-end {
+    justify-content: flex-end;
+}

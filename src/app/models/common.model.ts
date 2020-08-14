@@ -33,3 +33,10 @@ export class MetaTagCard {
     title: string;
     metaList: MetaList[]
 }
+
+export class Tag {
+    constructor(value) {
+        this.value = value;
+    }
+    value: string;
+}

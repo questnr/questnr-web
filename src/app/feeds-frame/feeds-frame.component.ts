@@ -9,6 +9,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { GlobalConstants } from '../shared/constants';
 import { Post } from 'models/post-action.model';
 import { AskQuestionComponent } from '../shared/components/dialogs/ask-question/ask-question.component';
+import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from 'express';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-feeds-frame',
@@ -55,7 +60,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     autoplay: true
   };
   scrollCached: boolean = null;
-
+  state_: Observable<object>;
   screenWidth = window.innerWidth;
 
   @HostListener('window:resize', ['$event'])
@@ -75,7 +80,23 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   constructor(private service: FeedsService,
     private api: ApiService,
     private messagingService: MessagingService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    public activatedRoute: ActivatedRoute) {
+    this.state_ = this.activatedRoute.paramMap
+      .pipe(map(() => window.history.state));
+    this.state_.subscribe((res: any) => {
+      if (res?.communitySuggestion) {
+        setTimeout(() => {
+          this.dialog.open(CommunitySuggestionGuideComponent, {
+            disableClose: true,
+            width: this.mobileView ? "90vw" : "60vw",
+            data: {
+              mobileView: this.mobileView
+            }
+          });
+        }, 1000);
+      }
+    });
   }
 
   postFeed(event) {

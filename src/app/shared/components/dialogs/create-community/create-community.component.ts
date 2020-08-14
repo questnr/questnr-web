@@ -11,13 +11,7 @@ import { GlobalConstants } from 'shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatStepper } from '@angular/material/stepper';
-
-class Tag {
-  constructor(value) {
-    this.value = value;
-  }
-  value: string;
-}
+import { Tag } from 'models/common.model';
 
 @Component({
   selector: 'app-create-community',

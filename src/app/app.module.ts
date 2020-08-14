@@ -144,6 +144,8 @@ import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component
 import { QuillModule } from 'ngx-quill';
 import { RichTextComponent } from 'rich-text/rich-text.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
+import { InfoTooltipComponent } from 'info-tooltip/info-tooltip.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -287,7 +289,9 @@ export function metaFactory(): MetaLoader {
     SearchedEntityListComponent,
     ProfileIconComponent,
     UsernameComponent,
-    RichTextComponent
+    RichTextComponent,
+    CommunitySuggestionGuideComponent,
+    InfoTooltipComponent
   ],
   imports: [
     MatVideoModule,

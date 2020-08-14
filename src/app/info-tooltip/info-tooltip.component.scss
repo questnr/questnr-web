@@ -1,0 +1,9 @@
+@import '../variables';
+
+.wrapper {
+    display: inline;
+    color: $primary;
+    mat-icon {
+        font-size: 1rem;
+    }
+}

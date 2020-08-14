@@ -1,0 +1,180 @@
+@import '../variables';
+@import '../app.component.scss';
+
+::ng-deep.mat-horizontal-stepper-header-container {
+    display: none !important;
+}
+
+::ng-deep.mat-form-field.mat-focused .mat-form-field-ripple{
+    background-color: $heading;
+}
+
+::ng-deep.mat-input-element{
+    caret-color: $heading;
+}
+
+.step-title {
+  @extend .center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+.wrapper {
+    margin: 0.5rem;
+    .title {
+        display: flex;
+        justify-content: center;
+        font-size: 1.1rem;
+        padding: 0.5rem;
+    }
+    .user-interests-container {
+        margin: 0.5rem;
+        .input-control {
+            width: 100%;
+        }
+        .tag-list-wrapper{
+            display: flex;
+            margin: 0.2rem;
+            padding: 0.2rem;
+            .tag-container {
+                display: flex;
+                margin: 0.3rem;
+                padding: 0.2rem 0.3rem;
+                background-color: $link-primary;
+                color: $white;
+                justify-content: space-between;
+                border: 2px solid $link-secondary;
+                border-radius: 12px;
+                .tag {
+                    padding: 4px;
+                }
+                .remove {
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+    }
+    .community-container {
+      margin: 0.5rem;
+      .community-list {
+        border: 2px solid $primary;
+        overflow: scroll;
+        border-radius: 0.4rem;
+        padding: 0.5rem;
+      }
+      .community-list.mobile {
+        max-height: 70vh;
+      }
+      .community-list.desktop {
+        max-height: 90vh;
+      }
+      .no-data {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: auto;
+        padding: 10px;
+      }
+    }
+}
+
+.filter-wrapper,
+.keyword-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.filter-wrapper {
+    margin-top: 10px;
+    height: 30vh;
+    position: relative;
+}
+.keyword-wrapper {
+  width: 100%;
+  position: relative;
+}
+.filter-select {
+  width: 100%;
+//   list-style: none;
+  font-size: 1.1em;
+  color: $gray-font;
+  border: 1px solid $link-primary;
+  border-top: none;
+  /*so things don't jump around*/
+  position: absolute;
+//   left: 25%;
+//   top: calc(50% + 25px);
+  top: calc(45% - 50px);
+  overflow-y: auto;
+  background: $white;
+}
+
+.filter-select.desktop {
+  // height: 60%;
+  max-height: 300px;
+}
+
+.filter-select.mobile {
+    // height: 60%;
+  max-height: 230px;
+}
+
+.filter-select-list {
+  cursor: pointer;
+  padding: 5px 10px;
+}
+.user-interest {
+  display: inline-block;
+//   position: absolute;
+}
+.filter-select-list:hover {
+  background:  $primary;
+  color: $white;
+}
+// @media only screen and (max-width: 768px) {
+//   .filter-select,
+//   #keyword {
+//     width: 80%;
+//   }
+//   #keyword {
+//     font-size: 1.3em
+//   }
+//   .filter-select {
+//     font-size: 0.9em;
+//     left: 10%;
+//     top: calc(50% + 23px);
+//   }
+// }
+// @media only screen and (max-width: 480px) {
+//   .filter-select,
+//   #keyword {
+//     width: 95%;
+//   }
+//   .filter-select {
+//     left: 2.5%;
+//   }
+// }
+
+
+
+.actions {
+  display: flex;
+  .btn-primary{
+    color: white;
+    background-color: $heading;
+  }
+  .btn-secondary{
+    color: white;
+    background-color: $primary;
+  }
+  button {
+    div {
+      display: flex;
+      /* justify-content: center; */
+      /* align-content: center; */
+      align-items: center;
+    }
+  }
+}

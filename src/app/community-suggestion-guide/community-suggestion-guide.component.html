@@ -1,0 +1,89 @@
+<div class="wrapper">
+    <mat-horizontal-stepper [linear]=isLinear [disableRipple]="true" #stepper>
+        <mat-step [stepControl]="communityTagsForm">
+            <div class="user-interests-container">
+                <div class="step-title">
+                    <span>Let us know your interests <app-info-tooltip
+                            [text]="'This will help us to pick up communities for you'"></app-info-tooltip></span>
+                </div>
+                <div class="filter-wrapper">
+                    <div class="keyword-wrapper">
+                        <mat-form-field appearance="fill" floatLabel="always" class="input-control">
+                            <input type="text" matInput [formControl]="communityTag" autocomplete="off"
+                                (keyup.enter)="addTagToBucket(communityTag.value, true)"
+                                placeholder="Press Enter Key After Typing Your Interest" autofocus />
+                        </mat-form-field>
+                        <div class="filter-select" [ngClass]="mobileView ? 'mobile' : 'desktop'"
+                            *ngIf="searchResults?.length > 0">
+                            <div class="filter-select-list" *ngFor="let userInterest of searchResults"
+                                (click)="addTagToBucket(userInterest.interest, false)">
+                                <span class="user-interest">{{userInterest.interest}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <mat-error *ngIf="communityTag.hasError('pattern')">
+                    Use characters and number only
+                </mat-error>
+                <mat-error *ngIf="tagExistsError">Already added</mat-error>
+                <mat-error *ngIf="communityTag.touched && tagsCount.hasError('min')">Please provide at least one
+                    interest</mat-error>
+                <mat-error *ngIf="tagsCount.hasError('max')">Limit reached</mat-error>
+                <mat-error *ngIf="tagMaxLengthError">Text is too long</mat-error>
+                <div class="tag-list-wrapper row">
+                    <div class="tag-container row" *ngFor="let tag of tagList, let ind = index">
+                        <div class="tag">{{tag.value}}</div>
+                        <div (click)="removeTagFromBucket(ind)" class="remove">
+                            <mat-icon>close</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="actions space-between">
+                <button mat-button (click)="skipDialog()" class="btn-secondary">Skip</button>
+                <button mat-button (click)="nextShowCommuitySuggestions()" class="btn-primary">Next</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <div class="community-container">
+                <div class="step-title">
+                    <span>Communities You Might</span>
+                </div>
+                <div class="row community-list" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+                    <ng-container *ngIf="loadingData">
+                        <div [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" class="list-item"
+                            *ngFor="let i of listItems">
+                            <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
+                            <ngx-skeleton-loader class="w-100" count="1" appearance="line"></ngx-skeleton-loader>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="!loadingData">
+                        <ng-container *ngIf="suggestedCommunityList?.length > 0">
+                            <div [ngClass]="{'col-md-4': !mobileView, 'col-12': mobileView}"
+                                *ngFor="let community of suggestedCommunityList">
+                                <app-community-card-mobile-view [mobileView]="mobileView" [community]="community">
+                                </app-community-card-mobile-view>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="suggestedCommunityList?.length == 0">
+                            <div class="no-data">
+                                Sorry, We don't have any communities matching with your interests.
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="actions flex-end">
+                <button mat-button (click)="finishGuide()" class="btn-primary">
+                    <div>
+                        <span>Finish&nbsp;</span>
+                        <div>
+                            <mat-icon>arrow_forward
+                            </mat-icon>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>

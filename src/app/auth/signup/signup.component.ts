@@ -8,6 +8,7 @@ import { CommonService } from 'common/common.service';
 import { GlobalConstants, REGEX } from 'shared/constants';
 import { UIService } from 'ui/ui.service';
 import { AsyncValidator } from '../../custom-validations';
+import { LoginResponse } from 'models/login.model';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +16,7 @@ import { AsyncValidator } from '../../custom-validations';
   styleUrls: ['../login/login.component.scss']
 })
 export class SignupComponent implements OnInit {
-  errMsg: '';
+  errMsg: string = '';
   isLoading = false;
   group: FormGroup;
   formError = '';
@@ -97,7 +98,7 @@ export class SignupComponent implements OnInit {
         // const obj = { ...this.group.value, dob: this.commonService.getDateFromNumber(this.group.get("dob").value), otp: this.otp };
         const obj = { ...this.group.value, otp: this.otp };
         this.auth.signUp(obj).subscribe(
-          res => {
+          (res: LoginResponse) => {
             if (res.loginSuccess) {
               this.signUpSuccess(res);
             } else {
@@ -143,26 +144,27 @@ export class SignupComponent implements OnInit {
     });
   }
   signUp(user) {
-
     this.auth.signUp(user).subscribe(
-      res => {
+      (res: LoginResponse) => {
         this.formError = '';
         if (res.loginSuccess) {
           this.signUpSuccess(res);
         } else if (typeof res.errorMessage === 'string') {
           this.formError = res.errorMessage;
-        } else if (typeof res.errors === 'object' && res.errors.length > 0) {
-          this.formError = res.errors[0].defaultMessage;
         }
+        //  else if (typeof res.errors === 'object' && res.errors.length > 0) {
+        //   this.formError = res.errors[0].defaultMessage;
+        // }
       }, err => { }
     );
 
   }
 
-  signUpSuccess(res) {
+  signUpSuccess(res: LoginResponse) {
     localStorage.setItem('token', res.accessToken);
-    this.router.navigate(['/', GlobalConstants.feedPath]);
-    this.openWelcomeDialog();
+    // show community suggestion box if communitySuggestion is true
+    this.router.navigate(['/', GlobalConstants.feedPath], { state: { communitySuggestion: res.communitySuggestion ? true : false } });
+    // this.openWelcomeDialog();
   }
 
   emailHasBeenVerified(event) {

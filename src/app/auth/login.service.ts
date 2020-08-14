@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import * as jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { LoginResponse } from 'models/login.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class LoginService {
   }
 
   login(user) {
-    return this.http.post<any>(this.baseUrl + 'login', user);
+    return this.http.post<LoginResponse>(this.baseUrl + 'login', user);
   }
 
   loginWithGoogle(data) {
@@ -36,7 +37,7 @@ export class LoginService {
   }
 
   signUp(user) {
-    return this.http.post<any>(this.baseUrl + 'sign-up', user);
+    return this.http.post<LoginResponse>(this.baseUrl + 'sign-up', user);
   }
 
   getUser() {

@@ -28,3 +28,7 @@ export class UserInfo {
     ownsCommunities: number;
     followsCommunities: number;
 }
+
+export class UserInterest {
+    interest: string;
+}
