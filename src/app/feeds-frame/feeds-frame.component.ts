@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChildren, QueryList, ViewChild, ElementRef } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { FeedsService } from './feeds.service';
 import { ApiService } from 'shared/api.service';
@@ -62,9 +62,9 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   scrollCached: boolean = null;
   state_: Observable<object>;
   screenWidth = window.innerWidth;
+  @ViewChild("feedFrame") feedFrame: ElementRef;
 
   @HostListener('window:resize', ['$event'])
-
   onresize(event: any = this.screenWidth) {
     const width = event.target ? event.target.innerWidth : event;
     if (width <= 800) {
@@ -117,7 +117,6 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
     }
-    window.addEventListener('scroll', this.scroll, true);
     this.getUserFeeds();
     this.getSuggestedCommunities();
     this.getTrendingCommunities();
@@ -126,18 +125,24 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     this.messagingService.requestPermission();
   }
 
-  ngOnDestroy() {
-    window.removeEventListener('scroll', this.scroll, true);
+  ngAfterViewInit(): void {
+    // this.feedFrame.nativeElement.onscroll = this.onScroll;
+    this.feedFrame.nativeElement.addEventListener('scroll', this.onScroll, true);
   }
 
-  scroll = (event): void => {
+  ngOnDestroy() {
+    this.feedFrame.nativeElement.removeEventListener('scroll', this.onScroll, true);
+  }
+
+  onScroll = (event): void => {
     if (!this.scrollCached) {
       setTimeout(() => {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
           if (this.userFeeds.length > 1 && !this.endOfPosts) {
-            this.loading = true;
-            ++this.page;
-            this.getUserFeeds();
+            if (!this.loading) {
+              this.loading = true;
+              this.getUserFeeds();
+            }
           }
         }
         this.scrollCached = null;
@@ -151,6 +156,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     this.service.getFeeds(this.page).subscribe(
       (res: any) => {
         if (res.content.length) {
+          this.page++;
           res.content.forEach(post => {
             this.userFeeds.push(post);
           });

@@ -19,12 +19,20 @@
 .feeds {
   width: 100%;
   max-width: 800px;
+  height: calc(100vh + 1px);
   margin: 0 auto;
-  overflow: hidden;
+  overflow-y: scroll;
   padding: 20px;
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
   h5{
     margin: 20px 0 0;
   }
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.feeds::-webkit-scrollbar {
+  display: none;
 }
 .feed-wrap {
   margin: 0.5rem 0;

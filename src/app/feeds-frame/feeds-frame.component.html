@@ -14,7 +14,7 @@
             <app-sidenav></app-sidenav>
           </div>
         </aside>
-        <div class="feeds">
+        <div class="feeds" #feedFrame>
           <!--          <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=false></app-post-feed>-->
           <app-post-feeds [mobileView]="mobileView" (postData)="postFeed($event)" [isCommunityPost]="false"
             [type]="'Create'"></app-post-feeds>
