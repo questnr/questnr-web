@@ -3,16 +3,16 @@
     <mat-icon> arrow_back</mat-icon>
   </button>
 </div>
-<div class="user_list_container" [ngClass]="{'user_list_container-mobile': mobileView}">
+<div class="user_list_container hide-scrollbar" [ngClass]="{'user_list_container-mobile': mobileView}">
   <!--  <div>-->
   <!--    <input #inputBox type="text" placeholder="Search..." (keypress)="searchUserList(inputBox.value)">-->
   <!--  </div>-->
-  <div class="user_list">
+  <div class="user_list hide-scrollbar" #listContainer>
     <div class="center">
       <div id="myUL">
 
-        <div *ngFor="let i of userList">
-          <div [id]="i?.userId" *ngIf=" !searchResult">
+        <div *ngFor="let i of userList;">
+          <div [id]="i?.userId" *ngIf="!searchResult">
             <app-user-list-view [isInviteList]="isInviteList" [otherUserId]="i?.userId" [communityId]="communityId"
               [user]="i"></app-user-list-view>
           </div>
@@ -34,6 +34,5 @@
         </ng-container>
       </div>
     </div>
-
   </div>
 </div>

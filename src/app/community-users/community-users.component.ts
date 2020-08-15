@@ -117,8 +117,10 @@ export class CommunityUsersComponent implements OnInit {
       };
     } else {
       config = {
-        width: '500px',
+        // width: '500px',
+        maxWidth: "80vw",
         maxHeight: '60vh',
+        overflow: "hidden",
         // data: userList
         data: { communitySlug: this.communitySlug, type }
       };

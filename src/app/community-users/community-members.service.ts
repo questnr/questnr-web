@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { CommunityUsers, CommunityProfileMeta } from 'models/community.model';
+import { Page } from 'models/page.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,9 @@ import { CommunityUsers, CommunityProfileMeta } from 'models/community.model';
 export class CommunityMembersService {
   baseUrl = environment.baseUrl;
   constructor(public http: HttpClient) { }
-  getCommunityMembers(url: string, page, size = "4"): Observable<CommunityUsers> {
+  getCommunityMembers(url: string, page, size = "4"): Observable<Page<CommunityUsers>> {
     if (!url) return of();
-    return this.http.get<CommunityUsers>(this.baseUrl + 'user/community/' + url + '/users', { params: { page, size } });
+    return this.http.get<Page<CommunityUsers>>(this.baseUrl + 'user/community/' + url + '/users', { params: { page, size } });
   }
 
   getCommunityMetaInfo(url): Observable<CommunityProfileMeta> {

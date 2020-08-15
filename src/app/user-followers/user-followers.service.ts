@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { Observable, of } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { LikeAction } from 'models/like-action.model';
 import { Page } from 'models/page.model';
-import { User } from 'models/user.model';
+import { Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,8 @@ export class UserFollowersService {
     if (!userId) return of();
     return this.http.get(this.baseUrl + 'user/follow/user/following/' + userId, { params: { page, size } });
   }
-  getUserLikedList(postId: number, page, size = "4") {
+  getUserLikedList(postId: number, page, size = "4"): Observable<Page<LikeAction>> {
     if (!postId) return of();
-    return this.http.get(this.baseUrl + `user/posts/${postId}/like`, { params: { page, size } });
+    return this.http.get<Page<LikeAction>>(this.baseUrl + `user/posts/${postId}/like`, { params: { page, size } });
   }
 }

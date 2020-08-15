@@ -65,9 +65,11 @@ export class UserActivityComponent implements OnInit {
       };
     } else {
       config = {
-        width: '500px',
+        // width: '500px',
+        maxWidth: "80vw",
         // data: userList,
         maxHeight: "60vh",
+        overflow: "hidden",
         data: { userId: this.userId, type }
       };
     }

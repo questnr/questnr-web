@@ -272,9 +272,11 @@ export class CommunityComponent implements OnInit {
       };
     } else {
       config = {
-        width: '500px',
+        // width: '500px',
         // data: userList,
         maxHeight: "60vh",
+        maxWidth: "80vw",
+        overflow: "hidden",
         data: {
           userId: this.loggedInUserId,
           communityId: this.communityId,

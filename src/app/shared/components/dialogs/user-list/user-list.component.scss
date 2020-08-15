@@ -1,8 +1,10 @@
+@import '../../../../app.component.scss';
+
 .mobile-nav-btn button{
   margin: 10px;
 }
 .user_list_container {
-  padding: 20px;
+  margin: 0px 20px;
 
   input {
     background-image: url('/assets/search.png');
@@ -18,7 +20,8 @@
   }
 
   .user_list {
-    max-height: 600px;
+    overflow-y: scroll;
+    max-height: 60vh;
 
     .user-flex {
       display: flex;

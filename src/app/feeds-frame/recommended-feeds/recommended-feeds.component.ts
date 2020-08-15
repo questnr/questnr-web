@@ -322,8 +322,10 @@ export class RecommendedFeedsComponent implements OnInit {
       };
     } else {
       config = {
-        width: '500px',
+        // width: '500px',
+        maxWidth: "80vw",
         maxHeight: '70vh',
+        overflow: "hidden",
         // data: userList
         data: { postId: this.feed.postActionId, type }
       };

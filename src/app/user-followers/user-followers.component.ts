@@ -80,7 +80,8 @@ export class UserFollowersComponent implements OnInit {
 
   openUserGroupDialog(userList): void {
     const dialogRef = this.dialog.open(UserListComponent, {
-      width: '500px',
+      // width: '500px',
+      maxWidth: "80vw",
       maxHeight: "60vh",
       data: userList
     });
@@ -89,6 +90,4 @@ export class UserFollowersComponent implements OnInit {
 
     });
   }
-
-
 }

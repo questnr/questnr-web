@@ -8,6 +8,8 @@ import { UserListService } from './user-list.service';
 import { Page } from 'models/page.model';
 import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { CommunityUsers } from 'models/community.model';
+import { LikeAction } from 'models/like-action.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -28,23 +30,26 @@ export class UserListComponent implements OnInit {
     private inviteUserService: InviteUsetService) {
   }
 
-  userList: User[] = [];
+  userList: any[] = [];
   searchResultList: User;
   searchResult = false;
   noResultFound = false;
   mobileView = false;
   endOfResult = false;
-  page = 0;
+  page: number = 0;
+  hasTotalPage: number;
   screenWidth = window.innerWidth;
   scrollCached: boolean = null;
+  @ViewChild("listContainer") listContainer: ElementRef;
 
   ngOnInit(): void {
 
   }
 
   ngAfterViewInit() {
+    this.loading = true;
     this.fetchData();
-    window.addEventListener('scroll', this.scroll, true);
+    this.listContainer.nativeElement.addEventListener('scroll', this.onScroll, true);
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;
@@ -53,23 +58,29 @@ export class UserListComponent implements OnInit {
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
     }
-    setTimeout(() => {
-      this.loading = true;
-      ++this.page;
-      this.fetchData();
+    let timer = setInterval(() => {
+      if (!this.loading) {
+        clearInterval(timer);
+        if (this.hasTotalPage > this.page) {
+          this.loading = true;
+          // ++this.page;
+          this.fetchData();
+        }
+      }
     }, 1000);
   }
 
-  scroll = (event): void => {
+  onScroll = (event): void => {
     if (!this.scrollCached) {
       setTimeout(() => {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
           // console.log('no im  here');
           if (this.userList.length >= 0 && !this.endOfResult) {
             // console.log('check network call');
-            this.loading = true;
-            ++this.page;
-            this.fetchData();
+            if (!this.loading && this.hasTotalPage > this.page) {
+              this.loading = true;
+              this.fetchData();
+            }
           }
         }
         this.scrollCached = null;
@@ -79,7 +90,7 @@ export class UserListComponent implements OnInit {
   };
 
   ngOnDestroy() {
-    window.removeEventListener('scroll', this.scroll, true);
+    this.listContainer.nativeElement.removeEventListener('scroll', this.onScroll, true);
   }
 
   fetchData() {
@@ -153,9 +164,11 @@ export class UserListComponent implements OnInit {
     if (!userId) {
       return;
     }
-    this.followersService.getUserFollowers(userId, this.page).subscribe((res: any) => {
+    this.followersService.getUserFollowers(userId, this.page).subscribe((res: Page<User>) => {
       // console.log('getUserFollowers', res);
       if (res.content.length) {
+        this.hasTotalPage = res.totalPages;
+        this.page++;
         res.content.forEach(user => {
           this.userList.push(user);
           this.loading = false;
@@ -175,9 +188,11 @@ export class UserListComponent implements OnInit {
     if (!userId) {
       return;
     }
-    this.followersService.getFollowedBy(userId, this.page).subscribe((res: any) => {
+    this.followersService.getFollowedBy(userId, this.page).subscribe((res: Page<User>) => {
       // console.log('getFollowingUser', res);
       if (res.content.length) {
+        this.hasTotalPage = res.totalPages;
+        this.page++;
         res.content.forEach(user => {
           this.userList.push(user);
           this.loading = false;
@@ -197,9 +212,11 @@ export class UserListComponent implements OnInit {
     if (!postId) {
       return;
     }
-    this.followersService.getUserLikedList(postId, this.page).subscribe((res: any) => {
+    this.followersService.getUserLikedList(postId, this.page).subscribe((res: Page<LikeAction>) => {
       // console.log('liked content', res);
       if (res.content.length) {
+        this.hasTotalPage = res.totalPages;
+        this.page++;
         res.content.forEach(userLikedData => {
           this.userList.push(userLikedData.user);
           this.loading = false;
@@ -220,8 +237,10 @@ export class UserListComponent implements OnInit {
     if (!communitySlug) {
       return;
     }
-    this.communityMembersService.getCommunityMembers(communitySlug, this.page).subscribe((data: any) => {
+    this.communityMembersService.getCommunityMembers(communitySlug, this.page).subscribe((data: Page<CommunityUsers>) => {
       if (data.content.length) {
+        this.hasTotalPage = data.totalPages;
+        this.page++;
         data.content.forEach(user => {
           this.userList.push(user);
           this.loading = false;

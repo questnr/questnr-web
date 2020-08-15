@@ -6,6 +6,8 @@ import { GlobalConstants } from 'shared/constants';
 import { InviteUsetService } from './invite-user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RelationType } from 'models/relation-type';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-user-list-view',
@@ -26,7 +28,8 @@ export class UserListViewComponent implements OnInit {
 
   constructor(public userProfileCardServiceComponent: UserProfileCardServiceComponent, public loginService: LoginService,
     private inviteUserService: InviteUsetService,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.relation = this.user?.userMeta?.relationShipType;
@@ -42,11 +45,37 @@ export class UserListViewComponent implements OnInit {
   }
 
   unfollow() {
-    const ownerId = this.loginService.getUserProfile().id;
-    this.userProfileCardServiceComponent.unfollowMe(ownerId, this.user.userId).subscribe((res: any) => {
-      this.relation = RelationType.NONE;
-    }, error => {
-      // console.log(error.error.errorMessage);
+    let title = "Do you want to unfollow " + this.user.username + "?";
+    let dialogConfig;
+    if (this.mobileView) {
+      dialogConfig = {
+        maxWidth: '100vw',
+        width: '100%',
+        data: {
+          title,
+          mobileView: this.mobileView
+        }
+      }
+    } else {
+      dialogConfig = {
+        width: '550px',
+        maxWidth: '80vw',
+        data: {
+          title,
+          mobileView: this.mobileView
+        }
+      }
+    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result?.data == true) {
+        const ownerId = this.loginService.getUserProfile().id;
+        this.userProfileCardServiceComponent.unfollowMe(ownerId, this.user.userId).subscribe((res: any) => {
+          this.relation = RelationType.NONE;
+        }, error => {
+          // console.log(error.error.errorMessage);
+        });
+      }
     });
   }
 
