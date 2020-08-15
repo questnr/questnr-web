@@ -12,6 +12,9 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatStepper } from '@angular/material/stepper';
 import { Tag } from 'models/common.model';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { UserInterest } from 'models/user.model';
+import { CommunitySuggestionGuideService } from 'community-suggestion-guide/community-suggestion-guide.service';
 
 @Component({
   selector: 'app-create-community',
@@ -30,13 +33,6 @@ export class CreateCommunityComponent implements OnInit {
   defaultSrc: string = StaticMediaSrc.communityFile;
   @ViewChild("stepper") stepper: MatStepper;
   showAvatarNotSet: boolean = false;
-
-  constructor(public fb: FormBuilder,
-    public auth: CreateCommunityService,
-    public snackbar: MatSnackBar,
-    private dialogRef: MatDialogRef<CreateCommunityComponent>,
-    private router: Router) {
-  }
 
   src: any;
   communityDetailsForm: FormGroup;
@@ -72,6 +68,17 @@ export class CreateCommunityComponent implements OnInit {
   userCommunityimage: any;
   isFormDisabled = true;
   isCreatingCommunity: boolean = false;
+  searchResults: UserInterest[];
+  suggestedCommunityList: Community[];
+
+  constructor(public fb: FormBuilder,
+    public auth: CreateCommunityService,
+    public snackbar: MatSnackBar,
+    private dialogRef: MatDialogRef<CreateCommunityComponent>,
+    private router: Router,
+    private _communitySuggestionGuideService: CommunitySuggestionGuideService) {
+  }
+
   ngOnInit() {
     this.communityDetailsForm = this.fb.group({
       communityName: this.communityName,
@@ -92,6 +99,19 @@ export class CreateCommunityComponent implements OnInit {
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
     }
+    this.communityTag.valueChanges
+      .pipe(debounceTime(200))
+      .pipe(distinctUntilChanged())
+      .subscribe((queryField) => {
+        if (!queryField || queryField.length < 1) {
+          this.searchResults = [];
+        } else {
+          this._communitySuggestionGuideService.searchUserInterest(queryField)
+            .subscribe((response: UserInterest[]) => {
+              this.searchResults = response;
+            })
+        }
+      });
   }
   // onFileChange(event) {
   //   const reader = new FileReader();
@@ -210,22 +230,25 @@ export class CreateCommunityComponent implements OnInit {
     return doesNotHave;
   }
 
-  addTagToBucket(value: string) {
+  addTagToBucket(value: string, isInput: boolean) {
     this.resetTagErrors();
     if (!(value && value.length > 0)) return;
     if (this.hasTagInTagList(value)) {
       this.tagExistsError = true;
       return;
     }
-    if (this.tagList.length >= 5) {
+    if (this.tagList.length >= 10) {
       this.bucketFullError = true;
     }
     else {
-      if (value.length > 30) {
+      if (value.length > 30 && isInput) {
         this.tagMaxLengthError = true;
-      } else if (this.communityTag.valid) {
+      } else if (this.communityTag.valid || !isInput) {
         this.tagsCount.setValue(Number(this.tagsCount.value) + 1);
-        this.communityTag.setValue("");
+        if (isInput) {
+          this.communityTag.setValue("");
+          this.searchResults = [];
+        }
         this.tagList.push(new Tag(value.toLocaleUpperCase()));
       }
     }

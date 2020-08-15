@@ -67,10 +67,21 @@
         <div class="step-title">
           Add tags (up to 5) to allow users to search this community
         </div>
-        <mat-form-field appearance="fill" floatLabel="always">
-          <input type="text" matInput [formControl]="communityTag" (keyup.enter)="addTagToBucket(communityTag.value)"
-            placeholder="Enter tag" />
-        </mat-form-field>
+        <div class="filter-wrapper">
+          <div class="keyword-wrapper">
+            <mat-form-field appearance="fill" floatLabel="always" class="input-control">
+              <input type="text" matInput [formControl]="communityTag" autocomplete="off"
+                (keyup.enter)="addTagToBucket(communityTag.value, true)"
+                placeholder="Press Enter Key After Typing Your Interest" autofocus />
+            </mat-form-field>
+            <div class="filter-select" [ngClass]="mobileView ? 'mobile' : 'desktop'" *ngIf="searchResults?.length > 0">
+              <div class="filter-select-list" *ngFor="let userInterest of searchResults"
+                (click)="addTagToBucket(userInterest.interest, false)">
+                <span class="user-interest">{{userInterest.interest}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <mat-error *ngIf="communityTag.hasError('pattern')">
           Use characters and number only
         </mat-error>
