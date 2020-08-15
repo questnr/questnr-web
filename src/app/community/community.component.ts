@@ -19,6 +19,8 @@ import { RelationType } from 'models/relation-type';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { GlobalConstants } from 'shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { QuestnrActivityService } from 'shared/questnr-activity.service';
+import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 
 @Component({
   selector: 'app-community',
@@ -59,10 +61,12 @@ export class CommunityComponent implements OnInit {
   none: string = RelationType.NONE;
   // To show user post header instead of community post header
   showUserHeader: boolean = true;
+  trackerInstance: TrackingInstance;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
     private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
-    public commonService: CommonService) {
+    public commonService: CommonService,
+    private _activityService: QuestnrActivityService) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
   }
 
@@ -106,6 +110,10 @@ export class CommunityComponent implements OnInit {
       this.owner = this.communityDTO.communityMeta.relationShipType;
       this.userFeeds = [];
       this.fetchCommunityFeeds(this.communityDTO.communityId);
+      this._activityService.start(this.communityDTO.communityId, TrackingEntityType.community)
+        .then((trackerInstance: TrackingInstance) => {
+          this.trackerInstance = trackerInstance;
+        })
     });
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -128,6 +136,7 @@ export class CommunityComponent implements OnInit {
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, true);
     this.uiService.resetTitle();
+    this.trackerInstance.destroy();
   }
 
   scroll = (event): void => {

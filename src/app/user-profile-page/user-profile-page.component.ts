@@ -15,6 +15,8 @@ import { UserProfileCardServiceComponent } from '../user-profile-card/user-profi
 import { UserProfilePageService } from './user-profile-page.service';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { RelationType } from 'models/relation-type';
+import { QuestnrActivityService } from 'shared/questnr-activity.service';
+import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -25,7 +27,8 @@ export class UserProfilePageComponent implements OnInit {
   constructor(public userProfilePageService: UserProfilePageService, public route: ActivatedRoute, public userFollowersService: UserProfileCardServiceComponent,
     public loginService: LoginService, public api: ApiService, private meta: Meta, private uiService: UIService, private router: Router,
     private userActivityService: UserActivityService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private _activityService: QuestnrActivityService) {
     this.userObserver.subscribe((user: User) => {
       if (user.firstName || user.lastName) {
         this.uiService.setTitle((user.firstName + " " + user.lastName).trim() + " | Questnr");
@@ -59,6 +62,7 @@ export class UserProfilePageComponent implements OnInit {
   @ViewChild("userBannerImageCropperRef") userBannerImageCropperRef: ImgCropperWrapperComponent;
   userInfo: UserInfo;
   defaultUserSrc: string = StaticMediaSrc.userFile;
+  trackerInstance: TrackingInstance;
 
   ngOnInit(): void {
     window.addEventListener('scroll', this.scroll, true);
@@ -96,6 +100,7 @@ export class UserProfilePageComponent implements OnInit {
     window.removeEventListener('scroll', this.scroll, true);
     this.userObserver.complete();
     this.uiService.resetTitle();
+    this.trackerInstance.destroy();
   }
   postFeed(event) {
     if (event.postActionId) {
@@ -131,6 +136,10 @@ export class UserProfilePageComponent implements OnInit {
       this.userId = res.userId;
       this.getUserFeeds(res.userId);
       this.isBannerLoding = false;
+      this._activityService.start(this.user.userId, TrackingEntityType.user)
+        .then((trackerInstance: TrackingInstance) => {
+          this.trackerInstance = trackerInstance;
+        })
     }, error => {
       // console.log(error.error.errorMessage);
     });

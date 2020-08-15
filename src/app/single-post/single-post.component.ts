@@ -19,6 +19,10 @@ import { PostEditorType, Post, PostActionForMedia, PostMedia, ResourceType } fro
 import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { QuestnrActivityService } from 'shared/questnr-activity.service';
+import { Observable } from 'rxjs';
+import { UserActivity, TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
+
 enum postType {
   media, text, metacard, blog
 }
@@ -100,6 +104,7 @@ export class SinglePostComponent implements OnInit {
   applicationMediaList: PostMedia[] = [];
   showUserHeader: boolean = false;
   defaultUserSrc: string = StaticMediaSrc.userFile;
+  trackerInstance: TrackingInstance;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
     public loginService: LoginService,
@@ -108,12 +113,9 @@ export class SinglePostComponent implements OnInit {
     private router: Router,
     private commonService: CommonService,
     private iFramelyService: IFramelyService,
-    private _sanitizer: DomSanitizer) {
+    private _sanitizer: DomSanitizer,
+    private _activityService: QuestnrActivityService) {
     this.postSlug = this.route.snapshot.paramMap.get('postSlug');
-  }
-
-  ngAfterViewInit() {
-
   }
 
   ngOnInit(): void {
@@ -137,10 +139,18 @@ export class SinglePostComponent implements OnInit {
       // console.log("this.singlePost", this.singlePost);
       this.startThread();
       this.isLoading = false;
+      this._activityService.start(this.singlePost.postActionId, TrackingEntityType.post).then((trackerInstance: TrackingInstance) => {
+        this.trackerInstance = trackerInstance;
+      });
     });
     // this.fetchPost(this.postSlug);
     // console.log(this.loginService.getUserProfileImg());
   }
+
+  ngAfterViewInit() {
+
+  }
+
   startThread() {
     if (!this.showUserHeader) {
       if (this.singlePost?.communityDTO) {
@@ -205,6 +215,7 @@ export class SinglePostComponent implements OnInit {
 
   ngOnDestroy() {
     this.uiService.resetTitle();
+    this.trackerInstance.destroy();
   }
 
   // fetchPost(postSlug: string) {
