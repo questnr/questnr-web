@@ -1,13 +1,14 @@
-import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CommunityMembersService } from '../../../../community-users/community-members.service';
-import { User } from '../../../../models/user.model';
-import { UserFollowersService } from '../../../../user-followers/user-followers.service';
-import { UserProfileCardServiceComponent } from '../../../../user-profile-card/user-profile-card-service.component';
-import { UserListService } from './user-list.service';
-import { Page } from 'models/page.model';
-import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import {Component, Inject, OnInit, ViewChild, ElementRef} from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {CommunityMembersService} from '../../../../community-users/community-members.service';
+import {User} from '../../../../models/user.model';
+import {UserFollowersService} from '../../../../user-followers/user-followers.service';
+import {UserProfileCardServiceComponent} from '../../../../user-profile-card/user-profile-card-service.component';
+import {UserListService} from './user-list.service';
+import {Page} from 'models/page.model';
+import {InviteUsetService} from 'shared/user-list-view/invite-user.service';
+import {StaticMediaSrc} from 'shared/constants/static-media-src';
+import {CommunityService} from '../../../../community/community.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -20,12 +21,13 @@ export class UserListComponent implements OnInit {
   loading: boolean = false;
   isInviteList: boolean = false;
   communityId;
+  isCommunityRequest = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public userProfileCardServiceComponent: UserProfileCardServiceComponent,
-    // tslint:disable-next-line:max-line-length
-    public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>, public followersService: UserFollowersService,
-    public communityMembersService: CommunityMembersService,
-    private inviteUserService: InviteUsetService) {
+              // tslint:disable-next-line:max-line-length
+              public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>, public followersService: UserFollowersService,
+              public communityMembersService: CommunityMembersService, public auth: CommunityService,
+              private inviteUserService: InviteUsetService) {
   }
 
   userList: User[] = [];
@@ -39,7 +41,6 @@ export class UserListComponent implements OnInit {
   scrollCached: boolean = null;
 
   ngOnInit(): void {
-
   }
 
   ngAfterViewInit() {
@@ -91,6 +92,8 @@ export class UserListComponent implements OnInit {
       this.getUserLikedList(this.data.postId);
     } else if (this.data.type === 'members') {
       this.getCommunityMembers(this.data.communitySlug);
+    } else if (this.data.type === 'requests') {
+      this.getCommunityJoinRequests(this.data.communityId);
     } else if (this.data.type === 'inviteUserList') {
       // To show invite button
       this.isInviteList = true;
@@ -255,6 +258,22 @@ export class UserListComponent implements OnInit {
     }, error => {
       // console.log(error.error.errorMessage);
       this.loading = false;
+    });
+  }
+
+  getCommunityJoinRequests(communityId) {
+    this.auth.getCommunityJoinRequests(communityId, this.page).subscribe((res: any) => {
+      this.isCommunityRequest = true;
+      this.communityId = this.data.communityId;
+      if (res.content.length) {
+        res.content.forEach(user => {
+          this.userList.push(user);
+          this.loading = false;
+        });
+      } else {
+        this.loading = false;
+        this.endOfResult = true;
+      }
     });
   }
 }

@@ -1,19 +1,20 @@
-import { Component, Input, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
-import { LoginService } from '../auth/login.service';
-import { ActivatedRoute } from '@angular/router';
-import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
-import { MatDialog } from '@angular/material/dialog';
-import { CommunityMembersService } from './community-members.service';
-import { Community, CommunityProfileMeta } from '../models/community.model';
-import { User } from '../models/user.model';
-import { Router } from '@angular/router';
-import { of } from 'rxjs';
-import { RelationType } from 'models/relation-type';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { GlobalConstants } from 'shared/constants';
+import {Component, Input, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {UserProfileCardServiceComponent} from '../user-profile-card/user-profile-card-service.component';
+import {LoginService} from '../auth/login.service';
+import {ActivatedRoute} from '@angular/router';
+import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
+import {MatDialog} from '@angular/material/dialog';
+import {CommunityMembersService} from './community-members.service';
+import {Community, CommunityProfileMeta} from '../models/community.model';
+import {User} from '../models/user.model';
+import {Router} from '@angular/router';
+import {of} from 'rxjs';
+import {RelationType} from 'models/relation-type';
+import {StaticMediaSrc} from 'shared/constants/static-media-src';
+import {GlobalConstants} from 'shared/constants';
+import {CommunityService} from '../community/community.service';
 
 @Component({
   selector: 'app-community-users',
@@ -27,6 +28,7 @@ export class CommunityUsersComponent implements OnInit {
   @Input() ownerUser: User;
   @Input() communityId;
   @Input() relationshipType: RelationType;
+  @Input() requests = 1;
   communityMemberList: User[] = [];
   loader = false;
   mobileView = false;
@@ -36,9 +38,11 @@ export class CommunityUsersComponent implements OnInit {
   owned: string = RelationType.OWNED;
   followed: string = RelationType.FOLLOWED;
   none: string = RelationType.NONE;
+  pendingJoinRequest: any;
+  pendingRequests = 0;
 
   constructor(public http: HttpClient, public userService: UserProfileCardServiceComponent, public loginService: LoginService, public route: ActivatedRoute,
-    public dialog: MatDialog, public communityMembersService: CommunityMembersService, private loginAuth: LoginService) {
+              public dialog: MatDialog, public communityMembersService: CommunityMembersService, private loginAuth: LoginService, public auth: CommunityService) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
   }
 
@@ -55,6 +59,9 @@ export class CommunityUsersComponent implements OnInit {
       this.mobileView = false;
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
+    }
+    if (this.relationshipType === 'owned') {
+      this.getCommunityJoinRequests(this.communityId);
     }
   }
 
@@ -83,13 +90,16 @@ export class CommunityUsersComponent implements OnInit {
   }
 
   sendFollowInvite(i) {
-    if (!i) return of();
+    if (!i) {
+      return of();
+    }
     this.http.post(this.baseUrl + 'user/follow/user/' + i, '').subscribe((res: any) => {
       // console.log(res);
     }, error => {
       // console.log(error.error.errorMessage);
     });
   }
+
   unfollowUser(userId) {
     const ownerId = this.loginService.getUserProfile().id;
     this.userService.unfollowMe(ownerId, userId).subscribe((res: any) => {
@@ -98,6 +108,7 @@ export class CommunityUsersComponent implements OnInit {
 
     });
   }
+
   openUserGroupDialog(type): void {
     let config = null;
     if (this.mobileView) {
@@ -113,14 +124,14 @@ export class CommunityUsersComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: { communitySlug: this.communitySlug, type }
+        data: {communitySlug: this.communitySlug, type, communityPendingRequests : this.pendingJoinRequest, communityId: this.communityId}
       };
     } else {
       config = {
         width: '500px',
         maxHeight: '60vh',
         // data: userList
-        data: { communitySlug: this.communitySlug, type }
+        data: {communitySlug: this.communitySlug, type, communityPendingRequests : this.pendingJoinRequest, communityId: this.communityId}
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);
@@ -129,6 +140,7 @@ export class CommunityUsersComponent implements OnInit {
 
     });
   }
+
   // openUserGroupDialogToInvite(): void {
   //   let config = null;
   //   let type = 'inviteUserList';
@@ -176,7 +188,20 @@ export class CommunityUsersComponent implements OnInit {
       return StaticMediaSrc.userFile;
     }
   }
+
   navigate(slug) {
-    window.open([GlobalConstants.userPath, slug].join("/"), '_blank');
+    window.open([GlobalConstants.userPath, slug].join('/'), '_blank');
+  }
+
+  getCommunityJoinRequests(communityId) {
+    this.auth.getCommunityJoinRequests(communityId, 0).subscribe((res: any) => {
+      this.pendingJoinRequest = res;
+      this.pendingRequests = res.numberOfElements;
+      console.log(this.pendingJoinRequest);
+    });
+  }
+
+  joinRequestResponse(communityId, userId, response) {
+    this.auth.joinRequestResponse(communityId, userId, response).subscribe();
   }
 }

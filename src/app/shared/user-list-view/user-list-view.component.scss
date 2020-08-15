@@ -63,6 +63,7 @@
   width: fit-content;
   width: -moz-fit-content;
   float: right;
+  display: inline-flex;
   button{
     font-size: 0.8rem;
     border-radius: 0.5rem;
@@ -83,3 +84,17 @@
 .invite-btn{
   font-weight: bold;
 }
+.decline{
+  margin-right: 4px;
+  //background: red;
+  //color: #ffffff;
+}
+.request-btn mat-icon  {
+  width: 10px !important;
+  height: 10px !important;
+  font-size: 10px;
+}
+//.accept{
+//  background: green;
+//  color: #ffffff;
+//}

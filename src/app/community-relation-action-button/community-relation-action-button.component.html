@@ -1,14 +1,23 @@
-<button mat-stroked-button *ngIf="relation ==='followed'; else notFollowing" (click)="unfollowThisCommunity()"
+<button mat-stroked-button *ngIf="relation ==='followed'; else notOwned" (click)="unfollowThisCommunity()"
     class="following">
     <span class="button-content">
         <mat-icon>check</mat-icon>
         Joined
     </span>
 </button>
-<ng-template #notFollowing>
-    <button mat-stroked-button (click)="followThisCommunty()" class="none">
+<ng-template #notOwned>
+    <button mat-stroked-button  class="none" *ngIf="relation==='requested' ; else notFollowed" [disableRipple]="true">
         <span class="button-content">
-            <mat-icon>add</mat-icon>Join
+            <mat-icon>alarm_on</mat-icon>Requested
         </span>
     </button>
+  <ng-template #notFollowed>
+    <button mat-stroked-button (click)="followThisCommunty()" class="none">
+        <span class="button-content">
+            <mat-icon *ngIf="communityType==='pub'">add</mat-icon>
+            <mat-icon *ngIf="communityType==='pri'">lock</mat-icon>
+          Join
+        </span>
+    </button>
+  </ng-template>
 </ng-template>

@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="flex-50 align-right">
-    <div class="relation-btn" *ngIf="!isInviteList">
+    <div class="relation-btn" *ngIf="!isInviteList && !isCommunityRequest">
       <button *ngIf="relation === 'owned' else notOwner">
         It's you
       </button>
@@ -32,6 +32,19 @@
       </button>
       <button class="invite-btn" (click)="invite()" *ngIf="isInvited" disabled>
         Invited
+      </button>
+    </div>
+    <div class="relation-btn" *ngIf="isCommunityRequest">
+      <button class="request-btn decline" (click)="joinRequestResponse(user.userId,'Rejected')" *ngIf="!isResponded"  >
+        Decline
+      </button>
+      <button class="request-btn accept" (click)="joinRequestResponse(user.userId,'Accepted')" *ngIf="!isResponded" >
+        Accept
+      </button>
+      <button class="request-btn " *ngIf="isResponded">
+        <mat-icon *ngIf="response ==='Rejected'">close</mat-icon>
+        <mat-icon *ngIf="response ==='Accepted'">check</mat-icon>
+        {{response}}
       </button>
     </div>
   </div>

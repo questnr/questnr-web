@@ -1,11 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { User } from '../../models/user.model';
-import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
-import { LoginService } from '../../auth/login.service';
-import { GlobalConstants } from 'shared/constants';
-import { InviteUsetService } from './invite-user.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { RelationType } from 'models/relation-type';
+import {Component, Input, OnInit} from '@angular/core';
+import {User} from '../../models/user.model';
+import {UserProfileCardServiceComponent} from '../../user-profile-card/user-profile-card-service.component';
+import {LoginService} from '../../auth/login.service';
+import {GlobalConstants} from 'shared/constants';
+import {InviteUsetService} from './invite-user.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {RelationType} from 'models/relation-type';
+import {Community} from '../../models/community.model';
+import {CommunityService} from '../../community/community.service';
 
 @Component({
   selector: 'app-user-list-view',
@@ -16,6 +18,7 @@ export class UserListViewComponent implements OnInit {
   @Input() user: User;
   @Input() userListRibbon;
   @Input() isInviteList: boolean = false;
+  @Input() isCommunityRequest = false;
   @Input() otherUserId;
   @Input() communityId;
   userPath: string = GlobalConstants.userPath;
@@ -23,10 +26,13 @@ export class UserListViewComponent implements OnInit {
   screenWidth = window.innerWidth;
   mobileView = false;
   isInvited: boolean = false;
+  isResponded = false;
+  response: any;
 
   constructor(public userProfileCardServiceComponent: UserProfileCardServiceComponent, public loginService: LoginService,
-    private inviteUserService: InviteUsetService,
-    private snackBar: MatSnackBar) { }
+              private inviteUserService: InviteUsetService, public auth: CommunityService,
+              private snackBar: MatSnackBar) {
+  }
 
   ngOnInit(): void {
     this.relation = this.user?.userMeta?.relationShipType;
@@ -61,13 +67,20 @@ export class UserListViewComponent implements OnInit {
   invite() {
     if (this.isInviteList) {
       this.inviteUserService.inviteUser(this.communityId, this.otherUserId).subscribe((res: any) => {
-        this.snackBar.open("Invitation has been sent!", 'close', { duration: 3000 });
+        this.snackBar.open('Invitation has been sent!', 'close', {duration: 3000});
       }, (err) => {
         if (err?.error?.errorMessage) {
-          this.snackBar.open(err.error.errorMessage, 'close', { duration: 3000 });
+          this.snackBar.open(err.error.errorMessage, 'close', {duration: 3000});
         }
       });
       this.isInvited = true;
     }
+  }
+
+  joinRequestResponse(userId, response) {
+    this.auth.joinRequestResponse(this.communityId, userId, response).subscribe((res: any) => {
+      this.isResponded = true;
+      this.response = response;
+    });
   }
 }

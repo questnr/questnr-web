@@ -44,7 +44,8 @@ export class CommunityCardMobileViewComponent implements OnInit {
   followThisCommunty(communityId) {
     this.communityService.followCommunity(communityId).subscribe((res: any) => {
       // console.log('started following' + res);
-      this.relation = RelationType.FOLLOWED;
+      // this.relation = RelationType.FOLLOWED;
+      this.relation = res.relationShipType;
     }, error => {
       // console.log('failed to join this community', error.error.errorMessage);
       this.snackBar.open(error.error.errorMessage, 'close', { duration: 3000 });
