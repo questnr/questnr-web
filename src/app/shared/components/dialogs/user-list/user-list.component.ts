@@ -176,9 +176,7 @@ export class UserListComponent implements OnInit {
     this.followersService.getUserFollowers(userId, this.page).subscribe((res: Page<User>) => {
       // console.log('getUserFollowers', res);
       if (res.content.length) {
-        this.hasTotalPage = res.totalPages;
-        this.page++;
-        this.loading = false;
+        this.afterDataFetched(res.totalPages);
         res.content.forEach(user => {
           this.userList.push(user);
         });
@@ -200,9 +198,7 @@ export class UserListComponent implements OnInit {
     this.followersService.getFollowedBy(userId, this.page).subscribe((res: Page<User>) => {
       // console.log('getFollowingUser', res);
       if (res.content.length) {
-        this.hasTotalPage = res.totalPages;
-        this.page++;
-        this.loading = false;
+        this.afterDataFetched(res.totalPages);
         res.content.forEach(user => {
           this.userList.push(user);
         });
@@ -224,9 +220,7 @@ export class UserListComponent implements OnInit {
     this.followersService.getUserLikedList(postId, this.page).subscribe((res: Page<LikeAction>) => {
       // console.log('liked content', res);
       if (res.content.length) {
-        this.hasTotalPage = res.totalPages;
-        this.page++;
-        this.loading = false;
+        this.afterDataFetched(res.totalPages);
         res.content.forEach(userLikedData => {
           this.userList.push(userLikedData.user);
         });
@@ -248,9 +242,7 @@ export class UserListComponent implements OnInit {
     }
     this.communityMembersService.getCommunityMembers(communitySlug, this.page).subscribe((data: Page<CommunityUsers>) => {
       if (data.content.length) {
-        this.hasTotalPage = data.totalPages;
-        this.page++;
-        this.loading = false;
+        this.afterDataFetched(data.totalPages);
         data.content.forEach(user => {
           this.userList.push(user);
         });
@@ -268,9 +260,7 @@ export class UserListComponent implements OnInit {
     this.auth.getCommunityJoinRequests(communityId, this.page).subscribe((res: any) => {
       this.communityId = this.data.communityId;
       if (res.content.length) {
-        this.hasTotalPage = res.totalPages;
-        this.loading = false;
-        this.page++;
+        this.afterDataFetched(res.totalPages);
         res.content.forEach(user => {
           this.userList.push(user);
         });
@@ -288,7 +278,7 @@ export class UserListComponent implements OnInit {
     this.inviteUserService.getInviteUserList(communityId, this.page).subscribe((res: any) => {
       // console.log('getUserFollowers', res);
       if (res.content.length) {
-        this.loading = false;
+        this.afterDataFetched(res.totalPages);
         res.content.forEach(user => {
           this.userList.push(user);
         });
@@ -301,5 +291,11 @@ export class UserListComponent implements OnInit {
       // console.log(error.error.errorMessage);
       this.loading = false;
     });
+  }
+
+  afterDataFetched(totalPages) {
+    this.hasTotalPage = totalPages;
+    this.page++;
+    this.loading = false;
   }
 }
