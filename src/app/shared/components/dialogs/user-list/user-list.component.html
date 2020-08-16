@@ -14,8 +14,11 @@
         <div *ngFor="let i of userList;">
           <div [id]="i?.userId" *ngIf="!searchResult">
             <app-user-list-view [isInviteList]="isInviteList" [otherUserId]="i?.userId" [communityId]="communityId"
-              [user]="i"></app-user-list-view>
+              [isCommunityRequest]="isCommunityRequest" [user]="i"></app-user-list-view>
           </div>
+        </div>
+        <div *ngIf="isCommunityRequest && !loading && userList.length == 0">
+          <p style="text-align: center; margin: 0">No Requests Pending</p>
         </div>
 
         <!--        <div *ngFor="let i of searchResultList">-->
@@ -24,7 +27,7 @@
         <!--          </div>-->
         <!--        </div>-->
         <div class="user-flex no-result-found" style="margin: auto" *ngIf="noResultFound">
-          <p style="text-align: center"> No Result found ....</p>
+          <p style="text-align: center">No Result Found!</p>
         </div>
 
         <ng-container *ngIf="loading">
@@ -34,5 +37,6 @@
         </ng-container>
       </div>
     </div>
+
   </div>
 </div>

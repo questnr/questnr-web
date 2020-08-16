@@ -15,6 +15,7 @@ export class Community {
   tags: string;
   // metaData: MetaData;
   communityMeta: CommunityMeta;
+  communityPrivacy: string;
 }
 
 export class CommunityPublic extends Community {

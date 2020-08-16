@@ -10,6 +10,7 @@ import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { CommunityUsers } from 'models/community.model';
 import { LikeAction } from 'models/like-action.model';
+import { CommunityService } from 'community/community.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -21,12 +22,17 @@ export class UserListComponent implements OnInit {
   @ViewChild('elementOnHTML') elementOnHTML: ElementRef;
   loading: boolean = false;
   isInviteList: boolean = false;
-  communityId;
+  communityId: number;
+  isCommunityRequest: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public userProfileCardServiceComponent: UserProfileCardServiceComponent,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+    public userProfileCardServiceComponent: UserProfileCardServiceComponent,
     // tslint:disable-next-line:max-line-length
-    public userListService: UserListService, public dialogRef: MatDialogRef<UserListComponent>, public followersService: UserFollowersService,
+    public userListService: UserListService,
+    public dialogRef: MatDialogRef<UserListComponent>,
+    public followersService: UserFollowersService,
     public communityMembersService: CommunityMembersService,
+    public auth: CommunityService,
     private inviteUserService: InviteUsetService) {
   }
 
@@ -102,6 +108,9 @@ export class UserListComponent implements OnInit {
       this.getUserLikedList(this.data.postId);
     } else if (this.data.type === 'members') {
       this.getCommunityMembers(this.data.communitySlug);
+    } else if (this.data.type === 'requests') {
+      this.isCommunityRequest = true;
+      this.getCommunityJoinRequests(this.data.communityId);
     } else if (this.data.type === 'inviteUserList') {
       // To show invite button
       this.isInviteList = true;
@@ -252,6 +261,23 @@ export class UserListComponent implements OnInit {
       this.loading = false;
     }, error => {
       this.loading = false;
+    });
+  }
+
+  getCommunityJoinRequests(communityId) {
+    this.auth.getCommunityJoinRequests(communityId, this.page).subscribe((res: any) => {
+      this.communityId = this.data.communityId;
+      if (res.content.length) {
+        this.hasTotalPage = res.totalPages;
+        this.loading = false;
+        this.page++;
+        res.content.forEach(user => {
+          this.userList.push(user);
+        });
+      } else {
+        this.loading = false;
+        this.endOfResult = true;
+      }
     });
   }
 

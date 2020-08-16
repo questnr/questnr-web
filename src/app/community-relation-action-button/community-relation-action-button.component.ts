@@ -14,6 +14,7 @@ export class CommunityRelationActionButtonComponent implements OnInit {
   @Input() communityId: number;
   @Input() communityName: string;
   @Input() mobileView: boolean = false;
+  @Input() communityType: string;
   @Output() actionEvent = new EventEmitter();
   constructor(private auth: CommunityService,
     private loginAuth: LoginService,
@@ -26,7 +27,7 @@ export class CommunityRelationActionButtonComponent implements OnInit {
 
   followThisCommunty() {
     this.auth.followCommunity(this.communityId).subscribe((res: any) => {
-      this.relation = 'followed';
+      this.relation = res.relationShipType;
       this.sendAction(this.relation);
     }, error => {
       // console.log('failed to join this community', error.error.errorMessage);

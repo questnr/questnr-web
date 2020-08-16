@@ -63,6 +63,7 @@ export class CommunityComponent implements OnInit {
   showUserHeader: boolean = true;
   trackerInstance: TrackingInstance;
   @ViewChild("communityFeed") communityFeed: ElementRef;
+  pendingRequests: number;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
     private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
@@ -110,6 +111,9 @@ export class CommunityComponent implements OnInit {
       }
       this.ownerDTO = this.communityDTO.ownerUserDTO;
       this.owner = this.communityDTO.communityMeta.relationShipType;
+      if (this.owner === 'owned') {
+        this.getCommunityJoinRequests(this.communityDTO.communityId);
+      }
       this.userFeeds = [];
       this.loading = true;
       this.fetchCommunityFeeds(this.communityDTO.communityId);
@@ -218,7 +222,7 @@ export class CommunityComponent implements OnInit {
   }
 
   navigate(slug) {
-    window.open([GlobalConstants.userPath, slug].join("/"), '_blank');
+    window.open([GlobalConstants.userPath, slug].join('/'), '_blank');
   }
 
   // onFileChange(event) {
@@ -238,7 +242,7 @@ export class CommunityComponent implements OnInit {
   // }
 
   copyLinkOfCommunity($event) {
-    this.snackBar.open("Link copied to clipboard", 'close', { duration: 5000 });
+    this.snackBar.open('Link copied to clipboard', 'close', { duration: 5000 });
     // let snackBarRef = this.snackbar.open('Copying Link..');
     // this.commonService.copyToClipboard(this.commonService.getCommunitySharableLink(this.communitySlug));
     // snackBarRef.dismiss();
@@ -258,6 +262,13 @@ export class CommunityComponent implements OnInit {
     // console.log("Event", $event);
     this.communityUsersComponentRef.ngOnInit();
   }
+
+  getCommunityJoinRequests(communityId) {
+    this.auth.getCommunityJoinRequests(communityId, 0).subscribe((res: any) => {
+      this.pendingRequests = res.numberOfElements;
+    });
+  }
+
   openUserGroupDialog(type): void {
     let config = null;
     if (this.mobileView) {
@@ -283,7 +294,7 @@ export class CommunityComponent implements OnInit {
       config = {
         // width: '500px',
         // data: userList,
-        maxHeight: "60vh",
+        maxHeight: '60vh',
         maxWidth: "80vw",
         overflow: "hidden",
         data: {

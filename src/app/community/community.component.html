@@ -47,12 +47,20 @@
             [userListType]="'ribbon'" *ngIf="mobileView" #communityUsersComponentRef>
           </app-community-users>
           <div *ngIf="mobileView" class="action-mobile-view">
+            <div
+              style="display: flex; justify-content: center; align-items: center; background: #fff; padding: 6px 7px; border-radius: 50%; margin: 0 5px; cursor: pointer"
+              *ngIf="owner==='owned' ">
+              <mat-icon [matBadge]="pendingRequests" *ngIf="pendingRequests!==0" matBadgeColor="warn"
+                (click)="openUserGroupDialog('requests')">group</mat-icon>
+              <mat-icon *ngIf="pendingRequests===0" (click)="openUserGroupDialog('requests')">group</mat-icon>
+            </div>
             <app-community-relation-action-button *ngIf="owner !== 'owned'" [relation]="owner" [mobileView]="mobileView"
               [communityName]="communityDTO.communityName" [communityId]="communityDTO.communityId"
               (actionEvent)="actionEvent($event)">
             </app-community-relation-action-button>
             <div>
-              <button mat-stroked-button [matMenuTriggerFor]="menu">
+              <button mat-stroked-button [matMenuTriggerFor]="menu"
+                style="border-radius: 30px; border:none; background: #ffffff">
                 More
               </button>
             </div>
@@ -60,14 +68,14 @@
           <div class="com-dets">
             <div class="btn-container" *ngIf="!mobileView">
               <!--            <button mat-stroked-button> Owner</button>-->
-              <button mat-stroked-button [matMenuTriggerFor]="menu">
+              <button mat-stroked-button [matMenuTriggerFor]="menu" style="border-radius: 30px; border:none;">
                 More
               </button>
             </div>
             <div class="btn-container float-right" *ngIf="!mobileView && owner !== 'owned'">
               <app-community-relation-action-button [mobileView]="mobileView"
                 [communityName]="communityDTO.communityName" [relation]="owner" [communityId]="communityDTO.communityId"
-                (actionEvent)="actionEvent($event)">
+                (actionEvent)="actionEvent($event)" [communityType]="communityDTO.communityPrivacy">
               </app-community-relation-action-button>
             </div>
           </div>

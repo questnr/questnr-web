@@ -53,4 +53,17 @@ export class CommunityService {
     if (!communityId) return of();
     return this.http.get(this.baseUrl + `user/community/${communityId}/link`, {});
   }
+  getCommunityJoinRequests(communityId, page) {
+    if (!communityId) return of();
+    return this.http.get(this.baseUrl + 'user/community/'+ communityId + '/users/request', {params: {page}});
+  }
+  joinRequestResponse(communityId, userId, response) {
+    if (!communityId || !userId) return of();
+    if (response === 'Accepted') {
+      return  this.http.post(this.baseUrl + `user/community/${communityId}/users/${userId}/request`, {});
+    }
+    if (response === 'Rejected') {
+      return  this.http.delete(this.baseUrl + `user/community/${communityId}/users/${userId}/request`);
+    }
+  }
 }
