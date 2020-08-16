@@ -1,4 +1,5 @@
 @import "../../variables";
+@import "../../app.component.scss";
 
 .toolbar {
   height: inherit;
@@ -160,6 +161,7 @@
 }
 
 .mobile_logo {
+  @extend .remove-border;
   width: 32px;
   height: 32px;
   margin: 0 12px;
@@ -206,6 +208,7 @@
 }
 
 .logo {
+  @extend .remove-border;
   img {
     width: 9rem;
   }

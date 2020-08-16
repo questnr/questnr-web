@@ -36,3 +36,12 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+.remove-border {
+    &:active {
+        outline:0 !important;
+    }
+    &:focus {
+        outline:0 !important;
+    }
+}
