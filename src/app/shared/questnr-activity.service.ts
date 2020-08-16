@@ -21,7 +21,8 @@ export class QuestnrActivityService {
       trackFunc({
         entityId: entityId,
         trackingId: trackingId,
-        updateRequest: true
+        updateRequest: true,
+        referrer: document.referrer
       }).subscribe();
     } catch (e) {
 
@@ -46,7 +47,8 @@ export class QuestnrActivityService {
       trackFunc({
         entityId: entityId,
         trackingId: null,
-        updateRequest: false
+        updateRequest: false,
+        referrer: document.referrer
       }).subscribe((userActivity: UserActivity) => {
         activityInterval = setInterval(() => {
           if (userActivity?.trackingId) {

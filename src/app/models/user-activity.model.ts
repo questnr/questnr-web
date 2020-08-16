@@ -2,6 +2,7 @@ export class UserActivity {
     entityId: number;
     trackingId: number;
     updateRequest: boolean;
+    referrer: string;
 }
 
 export class TrackingInstance {
