@@ -169,9 +169,9 @@ export class UserListComponent implements OnInit {
       if (res.content.length) {
         this.hasTotalPage = res.totalPages;
         this.page++;
+        this.loading = false;
         res.content.forEach(user => {
           this.userList.push(user);
-          this.loading = false;
         });
       } else {
         this.loading = false;
@@ -193,9 +193,9 @@ export class UserListComponent implements OnInit {
       if (res.content.length) {
         this.hasTotalPage = res.totalPages;
         this.page++;
+        this.loading = false;
         res.content.forEach(user => {
           this.userList.push(user);
-          this.loading = false;
         });
       } else {
         this.loading = false;
@@ -217,9 +217,9 @@ export class UserListComponent implements OnInit {
       if (res.content.length) {
         this.hasTotalPage = res.totalPages;
         this.page++;
+        this.loading = false;
         res.content.forEach(userLikedData => {
           this.userList.push(userLikedData.user);
-          this.loading = false;
         });
       } else {
         this.loading = false;
@@ -241,9 +241,9 @@ export class UserListComponent implements OnInit {
       if (data.content.length) {
         this.hasTotalPage = data.totalPages;
         this.page++;
+        this.loading = false;
         data.content.forEach(user => {
           this.userList.push(user);
-          this.loading = false;
         });
       } else {
         this.loading = false;
@@ -262,9 +262,9 @@ export class UserListComponent implements OnInit {
     this.inviteUserService.getInviteUserList(communityId, this.page).subscribe((res: any) => {
       // console.log('getUserFollowers', res);
       if (res.content.length) {
+        this.loading = false;
         res.content.forEach(user => {
           this.userList.push(user);
-          this.loading = false;
         });
       } else {
         this.loading = false;

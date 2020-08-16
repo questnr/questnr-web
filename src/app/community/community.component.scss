@@ -1,7 +1,7 @@
 @import "../variables";
+@import "../app.component.scss";
 
 /* single community css*/
-
 .owner-img{
   width: 90px;
   height: 90px;
@@ -23,6 +23,7 @@
   background: #ffffff;
 }
 .site-body {
+  // overflow: hidden;
   margin-top: 70px;
 }
 
@@ -112,7 +113,7 @@
 
 /*community feeds css*/
 
-.community-feeds-container_mobile {
+.community-feeds-container.mobile {
   margin: 0;
 }
 
@@ -279,7 +280,7 @@
   //margin: 0 10px;
 }
 
-.site-body-mobile{
+.site-body.mobile{
   margin-top: 70px;
   .container{
     padding: 0 !important;

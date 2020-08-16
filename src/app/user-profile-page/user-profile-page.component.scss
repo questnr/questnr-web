@@ -1,5 +1,5 @@
 @import "../variables";
-
+@import '../app.component.scss';
 
 .profile-banner{
   width: 100%;
@@ -15,10 +15,12 @@
   //}
 }
 
-.profile-page-container{
-  max-width: 1290px;
-  width: 100%;
-  margin: 0 auto;
+.profile-page-container {
+
+}
+
+.site-body{
+  // overflow: hidden;
 }
 .site-body.desktop{
   margin-top: 60px;
@@ -162,7 +164,14 @@
     }
   }
 }
-.profile-page-container-mobile {
+
+.profile-feed-container {
+  max-width: 1290px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.profile-feed-container.mobile {
   .flex{
     display: block;
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,11 +24,18 @@ import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model
   styleUrls: ['./user-profile-page.component.scss'],
 })
 export class UserProfilePageComponent implements OnInit {
-  constructor(public userProfilePageService: UserProfilePageService, public route: ActivatedRoute, public userFollowersService: UserProfileCardServiceComponent,
-    public loginService: LoginService, public api: ApiService, private meta: Meta, private uiService: UIService, private router: Router,
+  constructor(public userProfilePageService: UserProfilePageService,
+    public route: ActivatedRoute,
+    public userFollowersService: UserProfileCardServiceComponent,
+    public loginService: LoginService,
+    public api: ApiService,
+    private meta: Meta,
+    private uiService: UIService,
+    private router: Router,
     private userActivityService: UserActivityService,
     public dialog: MatDialog,
-    private _activityService: QuestnrActivityService) {
+    private _activityService: QuestnrActivityService,
+    private renderer: Renderer2) {
     this.userObserver.subscribe((user: User) => {
       if (user.firstName || user.lastName) {
         this.uiService.setTitle((user.firstName + " " + user.lastName).trim() + " | Questnr");
@@ -63,9 +70,9 @@ export class UserProfilePageComponent implements OnInit {
   userInfo: UserInfo;
   defaultUserSrc: string = StaticMediaSrc.userFile;
   trackerInstance: TrackingInstance;
+  @ViewChild("feedProfile") feedProfile: ElementRef;
 
   ngOnInit(): void {
-    window.addEventListener('scroll', this.scroll, true);
     this.url = this.route.snapshot.paramMap.get('userSlug');
     this.getUserProfileDetails();
     this.getUserInfo();
@@ -79,16 +86,21 @@ export class UserProfilePageComponent implements OnInit {
       this.mobileView = false;
     }
   }
-  scroll = (event): void => {
+  ngAfterViewInit() {
+    this.feedProfile.nativeElement.addEventListener('scroll', this.onScroll, true);
+    this.renderer.setStyle(document.getElementsByTagName("body")[0], "overflow", "hidden");
+  }
+  onScroll = (event): void => {
     if (!this.scrollCached) {
       setTimeout(() => {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
           // console.log('no im  here');
           if (this.userFeeds.length >= 0 && !this.endOfPosts) {
             // console.log('check network call', this.endOfPosts);
-            this.loading = true;
-            ++this.page;
-            this.getUserFeeds(this.userId);
+            if (!this.loading) {
+              this.loading = true;
+              this.getUserFeeds(this.userId);
+            }
           }
         }
         this.scrollCached = null;
@@ -97,7 +109,8 @@ export class UserProfilePageComponent implements OnInit {
     this.scrollCached = event;
   }
   ngOnDestroy() {
-    window.removeEventListener('scroll', this.scroll, true);
+    this.feedProfile.nativeElement.removeEventListener('scroll', this.onScroll, true);
+    this.renderer.removeStyle(document.getElementsByTagName("body")[0], "overflow");
     this.userObserver.complete();
     this.uiService.resetTitle();
     this.trackerInstance.destroy();
@@ -106,6 +119,7 @@ export class UserProfilePageComponent implements OnInit {
     if (event.postActionId) {
       this.userFeeds = [event, ...this.userFeeds];
     } else {
+      this.loading = true;
       this.getUserFeeds(this.userId);
     }
   }
@@ -113,6 +127,8 @@ export class UserProfilePageComponent implements OnInit {
     if (!userId) return;
     this.userProfilePageService.getUserFeeds(userId, this.page).subscribe((res: any) => {
       if (res.content.length) {
+        this.page++;
+        this.loading = false;
         res.content.forEach(post => {
           this.userFeeds.push(post);
         });
@@ -134,6 +150,7 @@ export class UserProfilePageComponent implements OnInit {
       this.userAvatarImage = res.avatarDTO.avatarLink;
       this.relation = res.userMeta.relationShipType;
       this.userId = res.userId;
+      this.loading = true;
       this.getUserFeeds(res.userId);
       this.isBannerLoding = false;
       this._activityService.start(this.user.userId, TrackingEntityType.user)

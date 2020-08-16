@@ -1,8 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
-// @ts-ignore
-import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GlobalConstants } from './shared/constants';
 // import { TranslateService } from '@ngx-translate/core';
@@ -18,7 +16,9 @@ export class AppComponent implements OnInit {
   routerSubscription: Subscription;
   GTAG_ID = GlobalConstants.gtagId;
 
-  constructor(@Inject(PLATFORM_ID) platformId: Object, private router: Router) {
+  constructor(@Inject(PLATFORM_ID) platformId: Object,
+    private router: Router
+  ) {
     this.isBrowser = isPlatformBrowser(platformId);
     // this.translate.addLangs(['en', 'hn']);
     // this.translate.setDefaultLang('hr');
@@ -38,6 +38,8 @@ export class AppComponent implements OnInit {
           }
         }
       });
+  }
+  ngAfterViewInit() {
   }
   ngOnDestroy() {
     this.routerSubscription.unsubscribe();

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Renderer2 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -62,11 +62,13 @@ export class CommunityComponent implements OnInit {
   // To show user post header instead of community post header
   showUserHeader: boolean = true;
   trackerInstance: TrackingInstance;
+  @ViewChild("communityFeed") communityFeed: ElementRef;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
     private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
     public commonService: CommonService,
-    private _activityService: QuestnrActivityService) {
+    private _activityService: QuestnrActivityService,
+    private renderer: Renderer2) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
   }
 
@@ -109,6 +111,7 @@ export class CommunityComponent implements OnInit {
       this.ownerDTO = this.communityDTO.ownerUserDTO;
       this.owner = this.communityDTO.communityMeta.relationShipType;
       this.userFeeds = [];
+      this.loading = true;
       this.fetchCommunityFeeds(this.communityDTO.communityId);
       this._activityService.start(this.communityDTO.communityId, TrackingEntityType.community)
         .then((trackerInstance: TrackingInstance) => {
@@ -121,7 +124,8 @@ export class CommunityComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    window.addEventListener('scroll', this.scroll, true);
+    this.communityFeed.nativeElement.addEventListener('scroll', this.onScroll, true);
+    this.renderer.setStyle(document.getElementsByTagName("body")[0], "overflow", "hidden");
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;
@@ -134,21 +138,23 @@ export class CommunityComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    window.removeEventListener('scroll', this.scroll, true);
+    this.communityFeed.nativeElement.removeEventListener('scroll', this.onScroll, true);
+    this.renderer.removeStyle(document.getElementsByTagName("body")[0], "overflow");
     this.uiService.resetTitle();
     this.trackerInstance.destroy();
   }
 
-  scroll = (event): void => {
+  onScroll = (event): void => {
     if (!this.scrollCached) {
       setTimeout(() => {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
           // console.log('no im  here');
           if (this.userFeeds.length >= 0 && !this.endOfPosts) {
             // console.log('check network call', this.endOfPosts);
-            this.loading = true;
-            ++this.page;
-            this.fetchCommunityFeeds(this.communityId);
+            if (!this.loading) {
+              this.loading = true;
+              this.fetchCommunityFeeds(this.communityId);
+            }
           }
         }
         this.scrollCached = null;
@@ -161,6 +167,7 @@ export class CommunityComponent implements OnInit {
     if (event.postActionId) {
       this.userFeeds = [event, ...this.userFeeds];
     } else {
+      this.loading = true;
       this.fetchCommunityFeeds(this.communityId);
     }
   }
@@ -169,6 +176,8 @@ export class CommunityComponent implements OnInit {
     this.communityId = communityId;
     this.auth.getCommunityFeeds(communityId, this.page).subscribe((res: Page<Post>) => {
       if (res.content.length) {
+        this.loading = false;
+        this.page++;
         res.content.forEach(post => {
           this.userFeeds.push(post);
         });

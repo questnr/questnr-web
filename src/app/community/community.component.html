@@ -1,137 +1,141 @@
 <app-user-header [mobileView]="mobileView"></app-user-header>
 
-<div class="site-body" [ngClass]="{'site-body-mobile': mobileView}">
-  <div class="container">
-    <div class="flex-frame">
-      <div class="flex-7" [ngClass]="{'flex-7-mobile' : mobileView}">
-        <div class="community-feeds-container">
-          <div class="com-ban-img-container" [ngClass]="!communityImage ? 'com-avatar-height' : ''">
-            <!--            <div *ngIf="mobileView" class="community_owner">-->
-            <!--              <div class="owner-img" (click)="navigate(communityDTO?.ownerUserDTO?.slug)">-->
-            <!--                <img [src]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink ? communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink: '/assets/default.jpg' "-->
-            <!--                     [alt]="communityDTO?.ownerUserDTO?.username">-->
-            <!--              </div>-->
-            <!--            </div>-->
-            <div class="change-comm-img">
-              <mat-icon (click)="previewImage()" *ngIf="owner == 'owned'">camera</mat-icon>
-              <app-img-cropper-wrapper [isCommunityAvatar]="true" (imageDataEvent)="imageDataReceiver($event)"
-                [aspectRatio]="12 / 4" #imageCropperRef>
-              </app-img-cropper-wrapper>
-              <!-- <input type="file" style="display: none" id="communityImageSrc" (change)="onFileChange($event)"> -->
+<div class="page-scroll hide-scrollbar" #communityFeed>
+  <div class="site-body" [ngClass]="{'mobile': mobileView}">
+    <div class="container">
+      <div class="flex-frame">
+        <div class="flex-7" [ngClass]="{'mobile' : mobileView}">
+          <div class="community-feeds-container">
+            <div class="com-ban-img-container" [ngClass]="!communityImage ? 'com-avatar-height' : ''">
+              <!--            <div *ngIf="mobileView" class="community_owner">-->
+              <!--              <div class="owner-img" (click)="navigate(communityDTO?.ownerUserDTO?.slug)">-->
+              <!--                <img [src]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink ? communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink: '/assets/default.jpg' "-->
+              <!--                     [alt]="communityDTO?.ownerUserDTO?.username">-->
+              <!--              </div>-->
+              <!--            </div>-->
+              <div class="change-comm-img">
+                <mat-icon (click)="previewImage()" *ngIf="owner == 'owned'">camera</mat-icon>
+                <app-img-cropper-wrapper [isCommunityAvatar]="true" (imageDataEvent)="imageDataReceiver($event)"
+                  [aspectRatio]="12 / 4" #imageCropperRef>
+                </app-img-cropper-wrapper>
+                <!-- <input type="file" style="display: none" id="communityImageSrc" (change)="onFileChange($event)"> -->
+              </div>
+              <img [src]="communityImage" alt="banner" class="comm-ban-img" [ngClass]="{'d-none': !communityImage}">
+              <!--            <img [src]="comUpdatedAvatar" alt="editedImage" *ngif="!isImageEdited">-->
+              <div class="com-ban-overlay"></div>
+              <div class="com-head-container">
+                <h1>{{communityDTO?.communityName}}</h1>
+                <h3 (click)="openCommunityDesc()">{{description}}
+                </h3>
+              </div>
             </div>
-            <img [src]="communityImage" alt="banner" class="comm-ban-img" [ngClass]="{'d-none': !communityImage}">
-            <!--            <img [src]="comUpdatedAvatar" alt="editedImage" *ngif="!isImageEdited">-->
-            <div class="com-ban-overlay"></div>
-            <div class="com-head-container">
-              <h1>{{communityDTO?.communityName}}</h1>
-              <h3 (click)="openCommunityDesc()">{{description}}
-              </h3>
-            </div>
           </div>
-        </div>
-        <!--        <div class="row">-->
-        <!--          <div class="col-md-3">-->
-        <!--            <div *ngIf="mobileView" class="community_owner">-->
-        <!--              <div class="owner-img" (click)="navigate(communityDTO?.ownerUserDTO?.slug)">-->
-        <!--                <img [src]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink ? communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink: '/assets/default.jpg' "-->
-        <!--                     [alt]="communityDTO?.ownerUserDTO?.username">-->
-        <!--              </div>-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--          <div class="col-md-9">-->
-        <!--          </div>-->
-        <!--        </div>-->
-        <app-community-users [communityId]="communityDTO?.communityId"
-          [relationshipType]="communityDTO.communityMeta.relationShipType" [communitySlug]="communityDTO?.slug"
-          [userListType]="'ribbon'" *ngIf="mobileView" #communityUsersComponentRef>
-        </app-community-users>
-        <div *ngIf="mobileView" class="action-mobile-view">
-          <app-community-relation-action-button *ngIf="owner !== 'owned'" [relation]="owner" [mobileView]="mobileView"
-            [communityName]="communityDTO.communityName" [communityId]="communityDTO.communityId"
-            (actionEvent)="actionEvent($event)">
-          </app-community-relation-action-button>
-          <div>
-            <button mat-stroked-button [matMenuTriggerFor]="menu">
-              More
-            </button>
-          </div>
-        </div>
-        <div class="com-dets">
-          <div class="btn-container" *ngIf="!mobileView">
-            <!--            <button mat-stroked-button> Owner</button>-->
-            <button mat-stroked-button [matMenuTriggerFor]="menu">
-              More
-            </button>
-          </div>
-          <div class="btn-container float-right" *ngIf="!mobileView && owner !== 'owned'">
-            <app-community-relation-action-button [mobileView]="mobileView" [communityName]="communityDTO.communityName"
-              [relation]="owner" [communityId]="communityDTO.communityId" (actionEvent)="actionEvent($event)">
+          <!--        <div class="row">-->
+          <!--          <div class="col-md-3">-->
+          <!--            <div *ngIf="mobileView" class="community_owner">-->
+          <!--              <div class="owner-img" (click)="navigate(communityDTO?.ownerUserDTO?.slug)">-->
+          <!--                <img [src]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink ? communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink: '/assets/default.jpg' "-->
+          <!--                     [alt]="communityDTO?.ownerUserDTO?.username">-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <!--          <div class="col-md-9">-->
+          <!--          </div>-->
+          <!--        </div>-->
+          <app-community-users [communityId]="communityDTO?.communityId"
+            [relationshipType]="communityDTO.communityMeta.relationShipType" [communitySlug]="communityDTO?.slug"
+            [userListType]="'ribbon'" *ngIf="mobileView" #communityUsersComponentRef>
+          </app-community-users>
+          <div *ngIf="mobileView" class="action-mobile-view">
+            <app-community-relation-action-button *ngIf="owner !== 'owned'" [relation]="owner" [mobileView]="mobileView"
+              [communityName]="communityDTO.communityName" [communityId]="communityDTO.communityId"
+              (actionEvent)="actionEvent($event)">
             </app-community-relation-action-button>
+            <div>
+              <button mat-stroked-button [matMenuTriggerFor]="menu">
+                More
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="flex-view">
-          <div class="flex-3" *ngIf="!mobileView">
-            <app-user-profile-card [avatar]="communityDTO?.ownerUserDTO?.avatarDTO"
-              [userBannerImage]="communityDTO.ownerUserDTO?.banner?.avatarLink"
-              [relationship]="communityDTO?.ownerUserDTO?.userMeta?.relationShipType"
-              [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username"
-              [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
-            <app-floating-footer></app-floating-footer>
+          <div class="com-dets">
+            <div class="btn-container" *ngIf="!mobileView">
+              <!--            <button mat-stroked-button> Owner</button>-->
+              <button mat-stroked-button [matMenuTriggerFor]="menu">
+                More
+              </button>
+            </div>
+            <div class="btn-container float-right" *ngIf="!mobileView && owner !== 'owned'">
+              <app-community-relation-action-button [mobileView]="mobileView"
+                [communityName]="communityDTO.communityName" [relation]="owner" [communityId]="communityDTO.communityId"
+                (actionEvent)="actionEvent($event)">
+              </app-community-relation-action-button>
+            </div>
           </div>
-          <div class="flex-7">
-            <div class="community-feeds" [ngClass]="mobileView ? 'mobile': 'desktop'">
-              <!--              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true-->
-              <!--                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'">-->
-              <!--              </app-post-feed>-->
-              <app-post-feeds [mobileView]="mobileView" (postData)="postFeed($event)" [isCommunityPost]="true"
-                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"
-                [type]="'Create'"></app-post-feeds>
-              <!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
-              <ng-container *ngIf="userFeeds?.length; else noFeeds">
-                <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index; trackBy: trackItem">
-                  <div *ngIf="mobileView && userFeeds.length > 4 && idx === 2">
-                    <app-joined-community></app-joined-community>
+          <div class="flex-view">
+            <div class="flex-3" *ngIf="!mobileView">
+              <app-user-profile-card [avatar]="communityDTO?.ownerUserDTO?.avatarDTO"
+                [userBannerImage]="communityDTO.ownerUserDTO?.banner?.avatarLink"
+                [relationship]="communityDTO?.ownerUserDTO?.userMeta?.relationShipType"
+                [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username"
+                [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
+              <app-floating-footer></app-floating-footer>
+            </div>
+            <div class="flex-7">
+              <div class="community-feeds" [ngClass]="mobileView ? 'mobile': 'desktop'">
+                <!--              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true-->
+                <!--                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'">-->
+                <!--              </app-post-feed>-->
+                <app-post-feeds [mobileView]="mobileView" (postData)="postFeed($event)" [isCommunityPost]="true"
+                  [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"
+                  [type]="'Create'"></app-post-feeds>
+                <!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
+                <ng-container *ngIf="userFeeds?.length; else noFeeds">
+                  <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index; trackBy: trackItem">
+                    <div *ngIf="mobileView && userFeeds.length > 4 && idx === 2">
+                      <app-joined-community></app-joined-community>
+                    </div>
+                    <div *ngIf="mobileView && userFeeds.length > 5 && idx === 7">
+                      <app-sponsored></app-sponsored>
+                    </div>
+                    <div *ngIf="mobileView && userFeeds.length > 5 && idx === 10">
+                      <app-suggestion></app-suggestion>
+                    </div>
+                    <div *ngIf="feed.postType !== 'question'">
+                      <app-recommended-feeds [showUserHeader]="showUserHeader"
+                        (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+                      </app-recommended-feeds>
+                    </div>
+                    <div *ngIf="feed.postType === 'question'">
+                      <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"></app-question-ui>
+                    </div>
                   </div>
-                  <div *ngIf="mobileView && userFeeds.length > 5 && idx === 7">
-                    <app-sponsored></app-sponsored>
-                  </div>
-                  <div *ngIf="mobileView && userFeeds.length > 5 && idx === 10">
-                    <app-suggestion></app-suggestion>
-                  </div>
-                  <div *ngIf="feed.postType !== 'question'">
-                    <app-recommended-feeds [showUserHeader]="showUserHeader"
-                      (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
-                    </app-recommended-feeds>
-                  </div>
-                  <div *ngIf="feed.postType === 'question'">
-                    <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"></app-question-ui>
-                  </div>
-                </div>
-                <p class="text-center" *ngIf="userFeeds?.length===1 && userFeeds[0] === null">No Feeds Found...!</p>
-              </ng-container>
-              <app-feeds-loader *ngIf="loading"></app-feeds-loader>
-              <ng-template #noFeeds>
-                <p class="text-center" style="margin-top :30px" *ngIf="userFeeds?.length <= 0 && userFeeds[0] === null">
-                  No Feeds Found...!
-                </p>
-              </ng-template>
+                  <p class="text-center" *ngIf="userFeeds?.length===1 && userFeeds[0] === null">No Feeds Found...!</p>
+                </ng-container>
+                <app-feeds-loader *ngIf="loading"></app-feeds-loader>
+                <ng-template #noFeeds>
+                  <p class="text-center" style="margin-top :30px"
+                    *ngIf="userFeeds?.length <= 0 && userFeeds[0] === null">
+                    No Feeds Found...!
+                  </p>
+                </ng-template>
 
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
 
-      <div class="flex-3" *ngIf="!mobileView">
-        <!--        <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
-        <app-community-users [communityId]="communityDTO?.communityId"
-          [relationshipType]="communityDTO.communityMeta.relationShipType" [communitySlug]="communityDTO?.slug"
-          [userListType]="'list'" #communityUsersComponentRef>
-        </app-community-users>
-        <!-- <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity> -->
-        <app-suggestion></app-suggestion>
-        <app-trending [mobileView]="mobileView"></app-trending>
-        <app-sponsored></app-sponsored>
+        <div class="flex-3" *ngIf="!mobileView">
+          <!--        <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
+          <app-community-users [communityId]="communityDTO?.communityId"
+            [relationshipType]="communityDTO.communityMeta.relationShipType" [communitySlug]="communityDTO?.slug"
+            [userListType]="'list'" #communityUsersComponentRef>
+          </app-community-users>
+          <!-- <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity> -->
+          <app-suggestion></app-suggestion>
+          <app-trending [mobileView]="mobileView"></app-trending>
+          <app-sponsored></app-sponsored>
+        </div>
       </div>
     </div>
   </div>
