@@ -32,6 +32,8 @@
     <app-post-menu-options [isCommunityPost]="!showUserHeader" (postData)="updatePostEvent($event)"
       [feed]="editableFeed" (removePostEvent)="removePost($event)"></app-post-menu-options>
   </div>
+  <div #feedViewContainer></div>
+  <!-- <div [ngClass]="viewPortPassed ? 'txt-underline' : ''"></div> -->
   <div class="mb-2" *ngIf="feed.postData.postEditorType!='blog'">
     <div *ngIf="viewMediaList?.length" class="media-container">
       <owl-carousel-o [options]="customOptions">

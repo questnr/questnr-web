@@ -75,4 +75,9 @@ export class FeedsService {
     if (!postId || !commentId) return of();
     return this.http.delete(this.baseUrl + `user/posts/${postId}/comment/${commentId}`, httpOptions);
   }
+
+  visitPost(posts) {
+    if (!posts) return of();
+    return this.http.post(this.baseUrl + `user/posts/visit`, { posts: posts });
+  }
 }

@@ -21,7 +21,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./feeds-frame.component.scss', './sidenav/sidenav.component.scss']
 })
 export class FeedsFrameComponent implements OnInit, OnDestroy {
-  @ViewChildren(RecommendedFeedsComponent) recommendedFeedsComponent!: QueryList<RecommendedFeedsComponent>;
+  @ViewChildren(RecommendedFeedsComponent) recommendedFeedsComponentList!: QueryList<RecommendedFeedsComponent>;
   userFeeds = [];
   pathLink = GlobalConstants.feedPath;
   page = 0;
@@ -137,6 +137,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   onScroll = (event): void => {
     if (!this.scrollCached) {
       setTimeout(() => {
+        this.feedComponentHelper();
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
           if (this.userFeeds.length > 1 && !this.endOfPosts) {
             if (!this.loading) {
@@ -160,6 +161,13 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
           res.content.forEach(post => {
             this.userFeeds.push(post);
           });
+
+          // If the page was 0, then feedComponentHelper would have been called
+          if (this.page - 1 == 0) {
+            setTimeout(() => {
+              this.feedComponentHelper();
+            }, 1000);
+          }
         } else {
           this.endOfPosts = true;
         }
@@ -224,7 +232,16 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   removePostNotify($event) {
     this.userFeeds = this.userFeeds.filter((post: Post) => {
       return post.postActionId !== $event;
-    }
-    );
+    });
+  }
+
+  feedComponentHelper = () => {
+    this.recommendedFeedsComponentList.forEach((recommendedFeedsComponent: RecommendedFeedsComponent) => {
+      try {
+        recommendedFeedsComponent.elementInViewport();
+      } catch (e) {
+
+      }
+    });
   }
 }

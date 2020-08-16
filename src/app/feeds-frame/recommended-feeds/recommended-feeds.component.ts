@@ -25,6 +25,7 @@ import { Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AttachedFileComponent } from 'attached-file/attached-file.component';
 import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
+declare var $: any;
 
 @Component({
   selector: 'app-recommended-feeds',
@@ -114,6 +115,8 @@ export class RecommendedFeedsComponent implements OnInit {
   attachedFileList = [];
   viewMediaList: PostMedia[] = [];
   applicationMediaList: PostMedia[] = [];
+  @ViewChild("feedViewContainer") feedViewContainer: ElementRef;
+  viewPortPassed: boolean = false;
 
   constructor(private api: FeedsService,
     public login: LoginService,
@@ -403,5 +406,21 @@ export class RecommendedFeedsComponent implements OnInit {
   clearAttachedFileList() {
     this.attachedFileList = [];
     this.attachedFileListComponent.clearAttachedFileList();
+  }
+
+  feedCameInView() {
+    this.viewPortPassed = true;
+    this.api.visitPost(this.feed.postActionId).subscribe();
+  }
+
+  elementInViewport() {
+    if (!this.viewPortPassed) {
+      var bounding = this.feedViewContainer.nativeElement.getBoundingClientRect();
+      if (bounding.top >= 0 && bounding.left >= 0
+        && bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
+        && bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
+        this.feedCameInView();
+      }
+    }
   }
 }

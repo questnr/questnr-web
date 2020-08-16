@@ -14,6 +14,20 @@
   display: flex;
   align-items: center;
   padding: 0.6rem;
+  // border-bottom: 1px solid $primary;
+}
+.txt-underline {
+  /* to grow from center: */
+  background: $heading;
+  height: 2px;
+  animation-name: underline; /* "calling" the animation */
+  animation-duration: 10s; /* adjust to your needs */
+  animation-timing-function: ease; /* also experiment with other values */
+  animation-fill-mode: forwards; /* retains 100% width when it gets there */
+}
+@keyframes underline { /* lets call it the "underline" */
+  0%   {width:0} /* start width */
+  100% {width:100%} /* end width */
 }
 .media-container {
   max-height: 400px;
