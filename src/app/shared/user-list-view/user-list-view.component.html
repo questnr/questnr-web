@@ -41,7 +41,7 @@
       <button class="request-btn accept" (click)="joinRequestResponse(user.userId,'Accepted')" *ngIf="!isResponded" >
         Accept
       </button>
-      <button class="request-btn " *ngIf="isResponded">
+      <button class="request-btn " *ngIf="isResponded" disabled>
         <mat-icon *ngIf="response ==='Rejected'">close</mat-icon>
         <mat-icon *ngIf="response ==='Accepted'">check</mat-icon>
         {{response}}

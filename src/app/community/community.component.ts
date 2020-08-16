@@ -59,6 +59,7 @@ export class CommunityComponent implements OnInit {
   none: string = RelationType.NONE;
   // To show user post header instead of community post header
   showUserHeader: boolean = true;
+  pendingRequests: number;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
               private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
@@ -104,9 +105,9 @@ export class CommunityComponent implements OnInit {
       }
       this.ownerDTO = this.communityDTO.ownerUserDTO;
       this.owner = this.communityDTO.communityMeta.relationShipType;
-      // if (this.owner === 'owned'){
-      //   this.getCommunityJoinRequests(this.communityDTO.communityId);
-      // }
+      if (this.owner === 'owned'){
+        this.getCommunityJoinRequests(this.communityDTO.communityId);
+      }
       this.userFeeds = [];
       this.fetchCommunityFeeds(this.communityDTO.communityId);
     });
@@ -289,6 +290,11 @@ export class CommunityComponent implements OnInit {
     this.dialog.open(SharePostComponent, {
       width: '500px',
       data: {url: clickAction}
+    });
+  }
+  getCommunityJoinRequests(communityId) {
+    this.auth.getCommunityJoinRequests(communityId, 0).subscribe((res: any) => {
+      this.pendingRequests = res.numberOfElements;
     });
   }
 }

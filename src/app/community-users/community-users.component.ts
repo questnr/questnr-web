@@ -137,50 +137,9 @@ export class CommunityUsersComponent implements OnInit {
     const dialogRef = this.dialog.open(UserListComponent, config);
 
     dialogRef.afterClosed().subscribe(result => {
-
+      this.getCommunityMembers(this.communitySlug);
     });
   }
-
-  // openUserGroupDialogToInvite(): void {
-  //   let config = null;
-  //   let type = 'inviteUserList';
-  //   if (this.mobileView) {
-  //     config = {
-  //       position: {
-  //         top: '0',
-  //         right: '0'
-  //       },
-  //       height: '100%',
-  //       borderRadius: '0px',
-  //       width: '100%',
-  //       maxWidth: '100vw',
-  //       marginTop: '0px',
-  //       marginRight: '0px !important',
-  //       panelClass: 'full-screen-modal',
-  //       data: {
-  //         userId: this.loggedInUserId,
-  //         communityId: this.communityId,
-  //         type
-  //       }
-  //     };
-  //   } else {
-  //     config = {
-  //       width: '500px',
-  //       // data: userList,
-  //       maxHeight: "60vh",
-  //       data: {
-  //         userId: this.loggedInUserId,
-  //         communityId: this.communityId,
-  //         type
-  //       }
-  //     };
-  //   }
-  //   const dialogRef = this.dialog.open(UserListComponent, config);
-
-  //   dialogRef.afterClosed().subscribe(result => {
-
-  //   });
-  // }
   checkImage(src) {
     if (src) {
       return src;
@@ -197,11 +156,6 @@ export class CommunityUsersComponent implements OnInit {
     this.auth.getCommunityJoinRequests(communityId, 0).subscribe((res: any) => {
       this.pendingJoinRequest = res;
       this.pendingRequests = res.numberOfElements;
-      console.log(this.pendingJoinRequest);
     });
-  }
-
-  joinRequestResponse(communityId, userId, response) {
-    this.auth.joinRequestResponse(communityId, userId, response).subscribe();
   }
 }

@@ -15,7 +15,7 @@
             <div class="change-comm-img">
               <mat-icon (click)="previewImage()" *ngIf="owner == 'owned'">camera</mat-icon>
               <app-img-cropper-wrapper [isCommunityAvatar]="true" (imageDataEvent)="imageDataReceiver($event)"
-                [aspectRatio]="12 / 4" #imageCropperRef>
+                                       [aspectRatio]="12 / 4" #imageCropperRef>
               </app-img-cropper-wrapper>
               <!-- <input type="file" style="display: none" id="communityImageSrc" (change)="onFileChange($event)"> -->
             </div>
@@ -42,16 +42,24 @@
         <!--          </div>-->
         <!--        </div>-->
         <app-community-users [communityId]="communityDTO?.communityId"
-          [relationshipType]="communityDTO.communityMeta.relationShipType" [communitySlug]="communityDTO?.slug"
-          [userListType]="'ribbon'" *ngIf="mobileView" #communityUsersComponentRef>
+                             [relationshipType]="communityDTO.communityMeta.relationShipType"
+                             [communitySlug]="communityDTO?.slug"
+                             [userListType]="'ribbon'" *ngIf="mobileView" #communityUsersComponentRef>
         </app-community-users>
         <div *ngIf="mobileView" class="action-mobile-view">
+          <div style="display: flex; justify-content: center; align-items: center; background: #fff; padding: 6px 7px; border-radius: 50%; margin: 0 5px; cursor: pointer"
+               *ngIf="owner==='owned' ">
+            <mat-icon [matBadge]="pendingRequests" *ngIf="pendingRequests!==0" matBadgeColor="warn" (click)="openUserGroupDialog('requests')">group</mat-icon>
+            <mat-icon  *ngIf="pendingRequests===0" (click)="openUserGroupDialog('requests')">group</mat-icon>
+          </div>
           <app-community-relation-action-button *ngIf="owner !== 'owned'" [relation]="owner" [mobileView]="mobileView"
-            [communityName]="communityDTO.communityName" [communityId]="communityDTO.communityId"
-            (actionEvent)="actionEvent($event)">
+                                                [communityName]="communityDTO.communityName"
+                                                [communityId]="communityDTO.communityId"
+                                                (actionEvent)="actionEvent($event)">
           </app-community-relation-action-button>
           <div>
-            <button mat-stroked-button [matMenuTriggerFor]="menu" style="border-radius: 30px; border:none; background: #ffffff">
+            <button mat-stroked-button [matMenuTriggerFor]="menu"
+                    style="border-radius: 30px; border:none; background: #ffffff">
               More
             </button>
           </div>
@@ -65,17 +73,20 @@
           </div>
           <div class="btn-container float-right" *ngIf="!mobileView && owner !== 'owned'">
             <app-community-relation-action-button [mobileView]="mobileView" [communityName]="communityDTO.communityName"
-              [relation]="owner" [communityId]="communityDTO.communityId" (actionEvent)="actionEvent($event)" [communityType]="communityDTO.communityPrivacy">
+                                                  [relation]="owner" [communityId]="communityDTO.communityId"
+                                                  (actionEvent)="actionEvent($event)"
+                                                  [communityType]="communityDTO.communityPrivacy">
             </app-community-relation-action-button>
           </div>
         </div>
         <div class="flex-view">
           <div class="flex-3" *ngIf="!mobileView">
             <app-user-profile-card [avatar]="communityDTO?.ownerUserDTO?.avatarDTO"
-              [userBannerImage]="communityDTO.ownerUserDTO?.banner?.avatarLink"
-              [relationship]="communityDTO?.ownerUserDTO?.userMeta?.relationShipType"
-              [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username"
-              [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
+                                   [userBannerImage]="communityDTO.ownerUserDTO?.banner?.avatarLink"
+                                   [relationship]="communityDTO?.ownerUserDTO?.userMeta?.relationShipType"
+                                   [userId]="communityDTO?.ownerUserDTO?.userId"
+                                   [username]="communityDTO?.ownerUserDTO?.username"
+                                   [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
             <app-floating-footer></app-floating-footer>
           </div>
           <div class="flex-7">
@@ -84,8 +95,8 @@
               <!--                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'">-->
               <!--              </app-post-feed>-->
               <app-post-feeds [mobileView]="mobileView" (postData)="postFeed($event)" [isCommunityPost]="true"
-                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"
-                [type]="'Create'"></app-post-feeds>
+                              [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"
+                              [type]="'Create'"></app-post-feeds>
               <!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
               <ng-container *ngIf="userFeeds?.length; else noFeeds">
                 <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index; trackBy: trackItem">
@@ -100,7 +111,7 @@
                   </div>
                   <div *ngIf="feed.postType !== 'question'">
                     <app-recommended-feeds [showUserHeader]="showUserHeader"
-                      (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+                                           (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
                     </app-recommended-feeds>
                   </div>
                   <div *ngIf="feed.postType === 'question'">
@@ -125,8 +136,9 @@
       <div class="flex-3" *ngIf="!mobileView">
         <!--        <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
         <app-community-users [communityId]="communityDTO?.communityId"
-          [relationshipType]="communityDTO.communityMeta.relationShipType" [communitySlug]="communityDTO?.slug"
-          [userListType]="'list'" #communityUsersComponentRef>
+                             [relationshipType]="communityDTO.communityMeta.relationShipType"
+                             [communitySlug]="communityDTO?.slug"
+                             [userListType]="'list'" #communityUsersComponentRef>
         </app-community-users>
         <!-- <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity> -->
         <app-suggestion></app-suggestion>
@@ -145,7 +157,7 @@
       Share on other platforms
     </button>
     <button mat-menu-item [cdkCopyToClipboard]="commonService.getCommunitySharableLink(communityDTO.slug)"
-      (cdkCopyToClipboardCopied)="copyLinkOfCommunity($event)">
+            (cdkCopyToClipboardCopied)="copyLinkOfCommunity($event)">
       Copy Link
     </button>
   </div>
