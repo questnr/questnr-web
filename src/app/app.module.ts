@@ -146,6 +146,7 @@ import { RichTextComponent } from 'rich-text/rich-text.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
 import { InfoTooltipComponent } from 'info-tooltip/info-tooltip.component';
+import { CustomTooltipComponent } from 'custom-tooltip/custom-tooltip.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -291,7 +292,8 @@ export function metaFactory(): MetaLoader {
     UsernameComponent,
     RichTextComponent,
     CommunitySuggestionGuideComponent,
-    InfoTooltipComponent
+    InfoTooltipComponent,
+    CustomTooltipComponent
   ],
   imports: [
     MatVideoModule,

@@ -1,0 +1,35 @@
+@import '../variables';
+
+// ::ng-deep.tooltip-inner {
+//     color: $black;
+//     background-color: $white;
+//     border: 1px solid $heading;
+//     padding: 1rem;
+//     width: 400px;
+//     height: 100%;
+//     max-width: 50vw;
+// }
+
+// ::ng-deep.tooltip-top .arrow::before{
+//     border-top-color: $primary !important;
+// }
+
+::ng-deep.tippy-box{
+    color: $black;
+    background-color: $white;
+    border: 1px solid $heading;
+    padding: 1rem;
+}
+.tooltip {
+    // margin: 0.8rem;
+    // width: 100%;
+}
+
+.btn-primary {
+    // height: 32px ;
+    // line-height: 32px;
+    // width: auto;
+    // min-width: 112px;
+    // background: $primary !important;
+    // color: #ffffff !important;
+}
