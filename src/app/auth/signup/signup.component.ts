@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -24,6 +24,7 @@ export class SignupComponent implements OnInit {
   policyPath = GlobalConstants.policyPath;
   hasEmailVerified: boolean = false;
   otp: string;
+  @Output() closeModal = new EventEmitter();
   // firstName = new FormControl('',
   //   [
   //     Validators.required,
@@ -161,6 +162,10 @@ export class SignupComponent implements OnInit {
   }
 
   signUpSuccess(res: LoginResponse) {
+    // If component has been opened in a modal
+    if (this.closeModal) {
+      this.closeModal.emit();
+    }
     localStorage.setItem('token', res.accessToken);
     // show community suggestion box if communitySuggestion is true
     this.router.navigate(['/', GlobalConstants.feedPath], { state: { communitySuggestion: res.communitySuggestion ? true : false } });

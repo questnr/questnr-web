@@ -1,0 +1,11 @@
+<div class="wrapper">
+    <div class="head" *ngIf="title">{{title}}</div>
+    <mat-tab-group>
+        <mat-tab label="Login">
+            <app-login (closeModal)="closeModalListener()"></app-login>
+        </mat-tab>
+        <mat-tab label="Sign Up">
+            <app-signup (closeModal)="closeModalListener()"></app-signup>
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -3,6 +3,7 @@ import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { GlobalConstants } from './shared/constants';
+import { GlobalService } from 'global.service';
 // import { TranslateService } from '@ngx-translate/core';
 declare var gtag;
 @Component({
@@ -15,9 +16,12 @@ export class AppComponent implements OnInit {
   isBrowser: boolean;
   routerSubscription: Subscription;
   GTAG_ID = GlobalConstants.gtagId;
+  mobileView = false;
+  screenWidth = window.innerWidth;
 
   constructor(@Inject(PLATFORM_ID) platformId: Object,
-    private router: Router
+    private router: Router,
+    private _globalService: GlobalService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
     // this.translate.addLangs(['en', 'hn']);
@@ -40,6 +44,17 @@ export class AppComponent implements OnInit {
       });
   }
   ngAfterViewInit() {
+    if (this.isBrowser) {
+      const width = this.screenWidth;
+      if (width <= 800) {
+        this.mobileView = true;
+      } else if (width >= 1368) {
+        this.mobileView = false;
+      } else if (width >= 800 && width <= 1368) {
+        this.mobileView = false;
+      }
+      this._globalService.setMobileView(this.mobileView);
+    }
   }
   ngOnDestroy() {
     this.routerSubscription.unsubscribe();

@@ -12,7 +12,7 @@
     <input type="password" matInput [formControl]="password" placeholder="Enter your Password">
     <mat-error *ngIf="password.hasError('required')">Password is required.</mat-error>
   </mat-form-field>
-  <a [routerLink]="['/',forgotPassword]" class="forgot">Forgot your Password?</a>
+  <a [routerLink]="['/',forgotPassword]" (click)="handleForgetPassword($event)" class="forgot">Forgot your Password?</a>
   <button mat-flat-button color="accent" (click)="login()" [disabled]="isLoading">
     <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
       <span class="sr-only">Loading...</span>

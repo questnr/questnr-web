@@ -26,6 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
@@ -44,25 +45,34 @@ import { AuthGuard } from 'auth/auth.guard';
 import { LoginService } from 'auth/login.service';
 import { BlogTitleComponent } from 'blog-title/blog-title.component';
 import { CommunityRelationActionButtonComponent } from 'community-relation-action-button/community-relation-action-button.component';
+import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
 import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
+import { CustomTooltipComponent } from 'custom-tooltip/custom-tooltip.component';
 import { DragDropDirective } from 'drag-drop.directive';
 import { EditUserComponent } from 'edit-user/edit-user.component';
 import { FeedTextComponent } from 'feed-text/feed-text.component';
 import { PostMenuOptionsComponent } from 'feeds-frame/post-menu-options/post-menu-options.component';
 import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
 import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
+import { GlobalService } from 'global.service';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
 import { ImgCropperComponent } from 'img-cropper/img-cropper.component';
+import { InfoTooltipComponent } from 'info-tooltip/info-tooltip.component';
 import { LandingPageResolve } from 'landing-page/landing-page.resolve';
 import { LoginRegisterBtnComponent } from 'login-register-btn/login-register-btn.component';
+import { LoginSignupModalComponent } from 'login-signup-modal/login-signup-modal.component';
+import { LoginSignupTabComponent } from 'login-signup-modal/login-signup-tab/login-signup-tab.component';
 import { MatVideoModule } from 'mat-video';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { QuillModule } from 'ngx-quill';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { OtpVerificationComponent } from 'otp-verification/otp-verification.component';
 import { RelationActionButtonComponent } from 'relation-action-button/relation-action-button.component';
+import { RichTextComponent } from 'rich-text/rich-text.component';
 import { SearchOverlayComponent } from 'search/search-overlay/search-overlay.component';
+import { SearchedEntityListComponent } from 'searched-entity-list/searched-entity-list.component';
 import { AdsenseComponent } from 'shared/adsense/adsense.component';
 import { CommunityBannerComponent } from 'shared/community-banner/community-banner.component';
 import { CompanyFooterSpanComponent } from 'shared/company-footer-span/company-footer-span.component';
@@ -70,10 +80,12 @@ import { WelcomeSlidesComponent } from 'shared/components/dialogs/welcome-slides
 import { GlobalConstants } from 'shared/constants';
 import { LoaderTextComponent } from 'shared/loader-text/loader-text.component';
 import { LoaderComponent } from 'shared/loader/loader.component';
+import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
 import { SharedModule } from 'shared/shared.module';
 import { UserDescriptionCardComponent } from 'shared/user-description-card/user-description-card.component';
 import { SinglePostResolve } from 'single-post/single-post.resolve';
 import { TrendingPostPollQuestionComponent } from 'trend-post-question/trend-post-question.component';
+import { UsernameComponent } from 'username/username.component';
 import { AsyncPipe } from '../../node_modules/@angular/common';
 import { environment } from '../environments/environment';
 import { AppRoutingModule, routingComponent } from './app-routing.module';
@@ -138,15 +150,6 @@ import { UserFollowersComponent } from './user-followers/user-followers.componen
 import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UsercommunityComponent } from './usercommunity/usercommunity.component';
-import { SearchedEntityListComponent } from 'searched-entity-list/searched-entity-list.component';
-import { UsernameComponent } from 'username/username.component';
-import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
-import { QuillModule } from 'ngx-quill';
-import { RichTextComponent } from 'rich-text/rich-text.component';
-import { MatStepperModule } from '@angular/material/stepper';
-import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
-import { InfoTooltipComponent } from 'info-tooltip/info-tooltip.component';
-import { CustomTooltipComponent } from 'custom-tooltip/custom-tooltip.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -293,7 +296,9 @@ export function metaFactory(): MetaLoader {
     RichTextComponent,
     CommunitySuggestionGuideComponent,
     InfoTooltipComponent,
-    CustomTooltipComponent
+    CustomTooltipComponent,
+    LoginSignupTabComponent,
+    LoginSignupModalComponent
   ],
   imports: [
     MatVideoModule,
@@ -397,7 +402,8 @@ export function metaFactory(): MetaLoader {
     {
       provide: MAT_DIALOG_DATA,
       useValue: []
-    }
+    },
+    GlobalService
   ],
   exports: [
     JoinedCommunityComponent,

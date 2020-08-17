@@ -1,0 +1,14 @@
+@import '../../variables';
+
+.wrapper {
+    margin: 10px;
+    .head {
+        display: flex;
+        justify-content: center;
+        font-size: 1.1rem;
+        color: $accent;    
+    }
+}
+::ng-deep.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: $heading !important;
+}

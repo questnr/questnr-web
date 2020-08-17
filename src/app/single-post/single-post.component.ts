@@ -1,27 +1,28 @@
-import { Component, HostListener, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
 import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
+import { GlobalService } from 'global.service';
+import { LoginSignupModalComponent } from 'login-signup-modal/login-signup-modal.component';
+import { PostActionForMedia, PostEditorType, PostMedia, ResourceType } from 'models/post-action.model';
 import { SinglePost } from 'models/single-post.model';
+import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { UIService } from 'ui/ui.service';
-import { SinglePostService } from './single-post.service';
-import { SharePostComponent } from '../shared/components/dialogs/share-post/share-post.component';
-import { MatDialog } from '@angular/material/dialog';
-import { GlobalConstants } from '../shared/constants';
-import { IFramelyData } from '../models/iframely.model';
-import { CommonService } from '../common/common.service';
-import { IFramelyService } from '../meta-card/iframely.service';
-import { HashTag } from '../models/hashtag.model';
-import { CommentAction } from '../models/comment-action.model';
-import { PostEditorType, Post, PostActionForMedia, PostMedia, ResourceType } from 'models/post-action.model';
-import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
-import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { QuestnrActivityService } from 'shared/questnr-activity.service';
-import { Observable } from 'rxjs';
-import { UserActivity, TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
+import { UIService } from 'ui/ui.service';
+import { CommonService } from '../common/common.service';
+import { IFramelyService } from '../meta-card/iframely.service';
+import { CommentAction } from '../models/comment-action.model';
+import { HashTag } from '../models/hashtag.model';
+import { IFramelyData } from '../models/iframely.model';
+import { SharePostComponent } from '../shared/components/dialogs/share-post/share-post.component';
+import { GlobalConstants } from '../shared/constants';
+import { SinglePostService } from './single-post.service';
 
 enum postType {
   media, text, metacard, blog
@@ -78,7 +79,6 @@ export class SinglePostComponent implements OnInit {
     nav: true,
     autoplay: false
   };
-  screenWidth = window.innerWidth;
   hashTagsData: any = {};
   // Thie will turn off "read more" functionality
   readMore: boolean = false;
@@ -105,6 +105,7 @@ export class SinglePostComponent implements OnInit {
   showUserHeader: boolean = false;
   defaultUserSrc: string = StaticMediaSrc.userFile;
   trackerInstance: TrackingInstance;
+  @ViewChild("loginSignupModal") loginSignupModal: LoginSignupModalComponent;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
     public loginService: LoginService,
@@ -114,7 +115,8 @@ export class SinglePostComponent implements OnInit {
     private commonService: CommonService,
     private iFramelyService: IFramelyService,
     private _sanitizer: DomSanitizer,
-    private _activityService: QuestnrActivityService) {
+    private _activityService: QuestnrActivityService,
+    private _globalService: GlobalService) {
     this.postSlug = this.route.snapshot.paramMap.get('postSlug');
   }
 
@@ -123,14 +125,7 @@ export class SinglePostComponent implements OnInit {
       this.actionAllowed = true;
     }
     // console.log(this.loginService.getUserProfileImg());
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
+    this.mobileView = this._globalService.isMobileView();
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
@@ -148,7 +143,18 @@ export class SinglePostComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-
+    let loginSignupModalTitle;
+    if (this.showUserHeader) {
+      loginSignupModalTitle = `Follow ${this.singlePost.userDTO.username}`
+    } else {
+      loginSignupModalTitle = `Join ${this.singlePost.communityDTO.communityName} Community`;
+    }
+    setTimeout(() => {
+      // If user is not logged in, show LoginSignModal
+      if (!this.actionAllowed) {
+        this.loginSignupModal.open(loginSignupModalTitle);
+      }
+    }, (7 * 1000))
   }
 
   startThread() {
