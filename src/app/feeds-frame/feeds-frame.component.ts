@@ -90,6 +90,8 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
           this.dialog.open(CommunitySuggestionGuideComponent, {
             disableClose: true,
             width: this.mobileView ? "90vw" : "60vw",
+            maxWidth: "90vw",
+            maxHeight: "90vh",
             data: {
               mobileView: this.mobileView
             }
