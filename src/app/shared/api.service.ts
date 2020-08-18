@@ -20,7 +20,8 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getTopHashtags() {
-    return this.http.get(this.baseUrl + 'hash-tag-with-highest-rank');
+    // return this.http.get(this.baseUrl + 'hash-tag-with-highest-rank');
+    return this.http.get(this.baseUrl + 'trending-hash-tag-list');
   }
   getTopUsers() {
     return this.http.get(this.baseUrl + 'users-with-highest-rank');
