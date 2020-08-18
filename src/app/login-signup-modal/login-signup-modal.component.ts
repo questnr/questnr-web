@@ -9,6 +9,7 @@ import { GlobalService } from 'global.service';
   styleUrls: ['./login-signup-modal.component.scss']
 })
 export class LoginSignupModalComponent implements OnInit {
+  @Input() publicEntityId: number;
   dialogRef: MatDialogRef<LoginSignupTabComponent>;
 
   constructor(private dialog: MatDialog, private _globalService: GlobalService) { }
@@ -21,7 +22,8 @@ export class LoginSignupModalComponent implements OnInit {
       width: this._globalService.isMobileView() ? "90vw" : "50vw",
       maxWidth: "450px",
       data: {
-        title: title
+        title: title,
+        publicEntityId: this.publicEntityId
       }
     });
   }

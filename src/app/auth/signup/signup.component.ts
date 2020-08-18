@@ -1,14 +1,14 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { LoginService } from 'auth/login.service';
 import { CommonService } from 'common/common.service';
+import { LoginResponse, LoginSignUpComponentType } from 'models/login.model';
 import { GlobalConstants, REGEX } from 'shared/constants';
 import { UIService } from 'ui/ui.service';
 import { AsyncValidator } from '../../custom-validations';
-import { LoginResponse } from 'models/login.model';
 
 @Component({
   selector: 'app-signup',
@@ -16,6 +16,7 @@ import { LoginResponse } from 'models/login.model';
   styleUrls: ['../login/login.component.scss']
 })
 export class SignupComponent implements OnInit {
+  @Input() publicEntityId: number;
   errMsg: string = '';
   isLoading = false;
   group: FormGroup;
@@ -25,6 +26,7 @@ export class SignupComponent implements OnInit {
   hasEmailVerified: boolean = false;
   otp: string;
   @Output() closeModal = new EventEmitter();
+  @Input() componentType: LoginSignUpComponentType = LoginSignUpComponentType.page;
   // firstName = new FormControl('',
   //   [
   //     Validators.required,
@@ -97,7 +99,10 @@ export class SignupComponent implements OnInit {
       if (this.hasEmailVerified) {
         this.isLoading = true;
         // const obj = { ...this.group.value, dob: this.commonService.getDateFromNumber(this.group.get("dob").value), otp: this.otp };
-        const obj = { ...this.group.value, otp: this.otp };
+        let obj = { ...this.group.value, otp: this.otp };
+        if (typeof this.publicEntityId != 'undefined' && this.publicEntityId) {
+          obj["publicEntityId"] = this.publicEntityId;
+        }
         this.auth.signUp(obj).subscribe(
           (res: LoginResponse) => {
             if (res.loginSuccess) {
@@ -162,14 +167,16 @@ export class SignupComponent implements OnInit {
   }
 
   signUpSuccess(res: LoginResponse) {
-    // If component has been opened in a modal
-    if (this.closeModal) {
-      this.closeModal.emit();
-    }
     localStorage.setItem('token', res.accessToken);
-    // show community suggestion box if communitySuggestion is true
-    this.router.navigate(['/', GlobalConstants.feedPath], { state: { communitySuggestion: res.communitySuggestion ? true : false } });
-    // this.openWelcomeDialog();
+    // If component has been opened in a modal
+    if (typeof this.publicEntityId != 'undefined' && this.publicEntityId
+      && this.componentType == LoginSignUpComponentType.modal) {
+      this.closeModal.emit();
+    } else {
+      // show community suggestion box if communitySuggestion is true
+      this.router.navigate(['/', GlobalConstants.feedPath], { state: { communitySuggestion: res.communitySuggestion ? true : false } });
+      // this.openWelcomeDialog();
+    }
   }
 
   emailHasBeenVerified(event) {

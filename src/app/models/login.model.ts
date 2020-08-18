@@ -6,3 +6,7 @@ export class LoginResponse {
     isFirstAttempt: boolean;
     communitySuggestion: boolean;
 }
+
+export enum LoginSignUpComponentType {
+    modal = "modal", page = "page"
+}

@@ -1,13 +1,13 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import { LoginResponse, LoginSignUpComponentType } from 'models/login.model';
 import { GlobalConstants } from 'shared/constants';
 import { UIService } from 'ui/ui.service';
 import { ApiService } from '../../shared/api.service';
 import { LoginService } from '../login.service';
-import { LoginResponse } from 'models/login.model';
 
 
 @Component({
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   forgotPassword = GlobalConstants.forgotPassword;
   redirectURL: any;
   @Output() closeModal = new EventEmitter();
+  @Input() componentType: LoginSignUpComponentType = LoginSignUpComponentType.page;
 
   constructor(
     private uiService: UIService,
@@ -112,17 +113,18 @@ export class LoginComponent implements OnInit {
 
   loginThread(res: LoginResponse) {
     // If component has been opened in a modal
-    if (this.closeModal) {
+    if (this.closeModal && this.componentType == LoginSignUpComponentType.modal) {
       this.closeModal.emit();
+    } else {
+      // show community suggestion box if communitySuggestion is true
+      this.router.navigate(["/", GlobalConstants.feedPath],
+        { state: { communitySuggestion: res.communitySuggestion ? true : false } });
     }
-    // show community suggestion box if communitySuggestion is true
-    this.router.navigate(["/", GlobalConstants.feedPath],
-      { state: { communitySuggestion: res.communitySuggestion ? true : false } });
   }
 
   handleForgetPassword($event) {
     $event.preventDefault();
-    if (this.closeModal) {
+    if (this.closeModal && this.componentType == LoginSignUpComponentType.modal) {
       this.closeModal.emit();
     }
   }
