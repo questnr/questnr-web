@@ -133,15 +133,6 @@ export class CommunityComponent implements OnInit {
     this.communityFeed.nativeElement.addEventListener('scroll', this.onScroll, true);
     this.renderer.setStyle(document.getElementsByTagName("body")[0], "overflow", "hidden");
     this.mobileView = this._globalService.isMobileView();
-    // const width = this.screenWidth;
-    // if (width <= 800) {
-    //   this.mobileView = true;
-    //   const el = document.querySelector('.flex-7');
-    // } else if (width >= 1368) {
-    //   this.mobileView = false;
-    // } else if (width >= 800 && width <= 1368) {
-    //   this.mobileView = false;
-    // }
   }
 
   ngOnDestroy() {
