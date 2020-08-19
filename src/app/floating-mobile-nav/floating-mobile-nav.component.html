@@ -32,7 +32,7 @@
         <ul>
           <li *ngFor="let i of ownedCommunity">
             <div>
-              <app-profile-icon [avatar]="i.avatarDTO" [height]="32" [sizeRef]="'small'" [slug]="i?.slug"
+              <app-profile-icon [isCommunityAvatar]="true" [avatar]="i.avatarDTO" [height]="32" [sizeRef]="'small'" [slug]="i?.slug"
                 [matTooltip]="i.communityName">
               </app-profile-icon>
             </div>

@@ -21,6 +21,7 @@ import { GlobalConstants } from 'shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { QuestnrActivityService } from 'shared/questnr-activity.service';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
+import {GlobalService} from '../global.service';
 
 @Component({
   selector: 'app-community',
@@ -69,7 +70,7 @@ export class CommunityComponent implements OnInit {
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
     private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
     public commonService: CommonService,
-    private _activityService: QuestnrActivityService,
+    private _activityService: QuestnrActivityService, private _globalService: GlobalService,
     private renderer: Renderer2) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
   }
@@ -131,15 +132,16 @@ export class CommunityComponent implements OnInit {
   ngAfterViewInit() {
     this.communityFeed.nativeElement.addEventListener('scroll', this.onScroll, true);
     this.renderer.setStyle(document.getElementsByTagName("body")[0], "overflow", "hidden");
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-      const el = document.querySelector('.flex-7');
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
+    this.mobileView = this._globalService.isMobileView();
+    // const width = this.screenWidth;
+    // if (width <= 800) {
+    //   this.mobileView = true;
+    //   const el = document.querySelector('.flex-7');
+    // } else if (width >= 1368) {
+    //   this.mobileView = false;
+    // } else if (width >= 800 && width <= 1368) {
+    //   this.mobileView = false;
+    // }
   }
 
   ngOnDestroy() {

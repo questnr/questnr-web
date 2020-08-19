@@ -2,26 +2,30 @@
 @import "../app.component.scss";
 
 /* single community css*/
-.owner-img{
+.owner-img {
   width: 90px;
   height: 90px;
   margin: 0px auto;
 }
-.owner-name{
+
+.owner-name {
   width: -moz-fit-content;
   width: fit-content;
   margin: 8px auto;
   padding-top: 8px;
 }
-.owner-name h5{
+
+.owner-name h5 {
   font-weight: 400;
 }
-.owner-img img{
+
+.owner-img img {
   width: 100%;
   border-radius: 50%;
   padding: 2px;
   background: #ffffff;
 }
+
 .site-body {
   // overflow: hidden;
   margin-top: 70px;
@@ -37,6 +41,7 @@
   width: 30%;
   margin: 0 10px;
 }
+
 .flex-5 {
   width: 50%;
   margin: 0 10px;
@@ -50,7 +55,7 @@
 .community-info {
   background: $white;
   border-radius: 8px;
-  padding: 0  0 10px;
+  padding: 0 0 10px;
 }
 
 .community-details ul {
@@ -117,11 +122,11 @@
   margin: 0;
 }
 
-.community-feeds.mobile{
-  padding-bottom: 50px;
+.community-feeds.mobile {
+  padding-bottom: 100px;
 }
 
-.com-avatar-height{
+.com-avatar-height {
   min-height: 130px;
 }
 
@@ -149,6 +154,14 @@
     bottom: -30px;
     padding: 10px 20px;
     transition: all 500ms ease-in-out;
+
+    h1 {
+      mat-icon {
+        position: relative;
+        top: 3px;
+        transition: all 500ms;
+      }
+    }
   }
 
   h1 {
@@ -181,7 +194,8 @@
     -webkit-box-orient: vertical;
     cursor: pointer;
   }
-  .change-comm-img{
+
+  .change-comm-img {
     color: $heading;
     opacity: 0.4;
     width: auto;
@@ -190,7 +204,8 @@
     right: 0%;
     transition: all 500ms ease-in-out;
     cursor: pointer;
-    mat-icon{
+
+    mat-icon {
       margin: 14px;
     }
   }
@@ -200,13 +215,16 @@
   opacity: 1;
   transform: rotate(-90deg);
 }
-.change-comm-img:hover .change-comm-img mat-icon{
+
+.change-comm-img:hover .change-comm-img mat-icon {
   transform: rotate(-90deg);
 }
-.com-ban-img-container:hover .com-head-container{
+
+.com-ban-img-container:hover .com-head-container {
   -webkit-transform: translateY(-30%);
   transform: translateY(-30%);
 }
+
 .com-ban-img-container:hover h3 {
   opacity: 1;
   display: block;
@@ -221,13 +239,15 @@
   background: linear-gradient(rgba(0, 0, 0, 0), $black);
 }
 
-.user-follower  {
+.user-follower {
   padding: 0 20px;
   display: flex;
-  :hover{
+
+  :hover {
     color: $heading;
     transform: translateX(5px);
   }
+
   span {
     margin-left: 10px;
     line-height: 27px;
@@ -236,11 +256,13 @@
   }
 
 }
-.com-owner-det{
+
+.com-owner-det {
   padding-bottom: 10px;
   margin-top: -50px;
 }
-.profile-background{
+
+.profile-background {
   width: 100%;
   height: 100px;
   background-image: url("/assets/boat-on-the-water.jpg");
@@ -251,17 +273,20 @@
 }
 
 
-.com-dets{
+.com-dets {
   margin: 10px 0;
-  button{
+
+  button {
     background: $white;
     //margin: 0 8px;
   }
-  .btn-container{
+
+  .btn-container {
     display: inline-block;
     width: calc(50%);
   }
-  .float-right{
+
+  .float-right {
     text-align: right;
     position: relative;
   }
@@ -271,25 +296,31 @@
 .feed-wrap {
   margin: .5rem 0;
 }
-.flex-view{
+
+.flex-view {
   display: flex;
   grid-template-columns: 30% 70%;
 }
-.flex-7{
+
+.flex-7 {
   width: 70%;
   //margin: 0 10px;
 }
 
-.site-body.mobile{
+.site-body.mobile {
   margin-top: 70px;
-  .container{
+
+  .container {
     padding: 0 !important;
+
     .flex-7 {
       width: calc(100% - 10px);
       margin: 0 auto;
+
       .community-feeds-container {
         margin: 0 !important;
       }
+
       .flex-7 {
         margin: 0 !important;
         width: 100% !important;
@@ -297,15 +328,18 @@
     }
   }
 }
-.community_owner{
+
+.community_owner {
   position: absolute;
   top: 8%;
   left: 4%;
-  .owner-img{
+
+  .owner-img {
     //height: 80px;
     //width: 80px;
     border-radius: 50%;
-    img{
+
+    img {
       width: 60px;
       height: 60px;
       border-radius: 50%;
@@ -314,15 +348,18 @@
     }
   }
 }
-.community_owner{
+
+.community_owner {
   position: absolute;
   top: 8%;
   left: 4%;
-  .owner-img{
+
+  .owner-img {
     //height: 80px;
     //width: 80px;
     border-radius: 50%;
-    img{
+
+    img {
       width: 60px;
       height: 60px;
       border-radius: 50%;
@@ -331,28 +368,30 @@
     }
   }
 }
+
 .action-mobile-view {
   padding: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  app-community-relation-action-button{
+
+  app-community-relation-action-button {
     width: 100%;
   }
 }
 
-.mat-menu-item{
+.mat-menu-item {
   font-size: 13px;
   padding: 0 12px !important;
-  line-height:10px;
-  height:38px;
+  line-height: 10px;
+  height: 38px;
 }
 
-::ng-deep.mat-menu-panel{
+::ng-deep.mat-menu-panel {
   min-height: auto !important;
 }
 
-.settings{
+.settings {
   padding: 8px;
   color: $primary;
   cursor: pointer;
@@ -360,7 +399,8 @@
   border-radius: 50%;
   //border: 1px solid $primary;
   background: $white;
-  mat-icon{
+
+  mat-icon {
     display: flex;
     justify-content: center;
     align-content: center;
@@ -369,9 +409,23 @@
     height: 18px;
   }
 }
-.mat-menu-item{
-  mat-icon{
-    margin-right: 0 !important;
+
+.mat-menu-item {
+  mat-icon {
+    margin-right: 3px !important;
     font-size: 18px;
+    position: relative;
+    top: 2px;
   }
+}
+
+.requests {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  padding: 6px 7px;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
 }

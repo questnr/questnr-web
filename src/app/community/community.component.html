@@ -24,7 +24,8 @@
               <!--            <img [src]="comUpdatedAvatar" alt="editedImage" *ngif="!isImageEdited">-->
               <div class="com-ban-overlay"></div>
               <div class="com-head-container">
-                <h1>{{communityDTO?.communityName}}</h1>
+                <h1><mat-icon *ngIf="isCommunityPrivate">lock</mat-icon>
+                  {{communityDTO?.communityName}}</h1>
                 <h3 (click)="openCommunityDesc()">{{description}}
                 </h3>
               </div>
@@ -47,8 +48,7 @@
             [userListType]="'ribbon'" *ngIf="mobileView" #communityUsersComponentRef>
           </app-community-users>
           <div *ngIf="mobileView" class="action-mobile-view">
-            <div
-              style="display: flex; justify-content: center; align-items: center; background: #fff; padding: 6px 7px; border-radius: 50%; margin: 0 5px; cursor: pointer"
+            <div class="requests"
               *ngIf="owner==='owned' ">
               <mat-icon [matBadge]="pendingRequests" *ngIf="pendingRequests!==0" matBadgeColor="warn"
                 (click)="openUserGroupDialog('requests')">group</mat-icon>
@@ -169,14 +169,18 @@
 </div>
 <app-floating-mobile-nav [url]="communitySlug" *ngIf="mobileView"></app-floating-mobile-nav>
 
-<mat-menu #menu="matMenu" xPosition="before">
+<mat-menu #menu="matMenu" xPosition="after">
   <div>
-    <button mat-menu-item *ngIf="(owner===owned)" (click)="openUserGroupDialog('inviteUserList')">Invite</button>
+    <button mat-menu-item *ngIf="(owner===owned)" (click)="openUserGroupDialog('inviteUserList')">
+      <mat-icon>group_add</mat-icon>Invite</button>
     <button mat-menu-item (click)="openShareDialog()">
-      Share on other platforms
+      <mat-icon>screen_share</mat-icon>
+      Share
+<!--      on other platforms-->
     </button>
     <button mat-menu-item [cdkCopyToClipboard]="commonService.getCommunitySharableLink(communityDTO.slug)"
       (cdkCopyToClipboardCopied)="copyLinkOfCommunity($event)">
+      <mat-icon>content_copy</mat-icon>
       Copy Link
     </button>
   </div>
