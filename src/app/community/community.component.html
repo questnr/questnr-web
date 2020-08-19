@@ -63,6 +63,9 @@
                 style="border-radius: 30px; border:none; background: #ffffff">
                 More
               </button>
+              <div class="float-right settings" *ngIf="owner==='owned' && mobileView" [matMenuTriggerFor]="settings">
+                <mat-icon>settings</mat-icon>
+              </div>
             </div>
           </div>
           <div class="com-dets">
@@ -78,6 +81,22 @@
                 (actionEvent)="actionEvent($event)" [communityType]="communityDTO.communityPrivacy">
               </app-community-relation-action-button>
             </div>
+            <div class="float-right settings" *ngIf="owner==='owned' && !mobileView" [matMenuTriggerFor]="settings">
+              <mat-icon>settings</mat-icon>
+            </div>
+            <mat-menu #settings="matMenu" xPosition="after">
+              <div>
+                <button mat-menu-item (click)="openCommunityDesc()">
+                  <mat-icon>edit</mat-icon>
+                  Edit Community</button>
+                <button mat-menu-item *ngIf="isCommunityPrivate" (click)="toggleCommunityPrivacy('pub')">
+                  <mat-icon>lock_open</mat-icon>
+                  Make public</button>
+                <button mat-menu-item *ngIf="!isCommunityPrivate" (click)="toggleCommunityPrivacy('pri')">
+                  <mat-icon>lock</mat-icon>
+                  Make private</button>
+              </div>
+            </mat-menu>
           </div>
           <div class="flex-view">
             <div class="flex-3" *ngIf="!mobileView">

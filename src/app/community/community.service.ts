@@ -66,4 +66,9 @@ export class CommunityService {
       return  this.http.delete(this.baseUrl + `user/community/${communityId}/users/${userId}/request`);
     }
   }
+  toggleCommunityPrivacy(communityId, communityPrivacy) {
+    if(!communityPrivacy || !communityId) return of();
+    return this.http.put(this.baseUrl + `user/community/${communityId}/privacy`,{communityPrivacy});
+
+  }
 }

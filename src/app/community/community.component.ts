@@ -64,6 +64,7 @@ export class CommunityComponent implements OnInit {
   trackerInstance: TrackingInstance;
   @ViewChild("communityFeed") communityFeed: ElementRef;
   pendingRequests: number;
+  isCommunityPrivate = false;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
     private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
@@ -316,6 +317,17 @@ export class CommunityComponent implements OnInit {
     this.dialog.open(SharePostComponent, {
       width: '500px',
       data: { url: clickAction }
+    });
+  }
+
+  toggleCommunityPrivacy(updatedPrivacy) {
+    this.auth.toggleCommunityPrivacy(this.communityId, updatedPrivacy).subscribe((res: Community) => {
+      if (res.communityPrivacy === 'pri') {
+        this.isCommunityPrivate = true;
+      }
+      if (res.communityPrivacy === 'pub') {
+        this.isCommunityPrivate = false;
+      }
     });
   }
 }

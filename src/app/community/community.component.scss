@@ -351,3 +351,27 @@
 ::ng-deep.mat-menu-panel{
   min-height: auto !important;
 }
+
+.settings{
+  padding: 8px;
+  color: $primary;
+  cursor: pointer;
+  margin: 0 4px;
+  border-radius: 50%;
+  //border: 1px solid $primary;
+  background: $white;
+  mat-icon{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+.mat-menu-item{
+  mat-icon{
+    margin-right: 0 !important;
+    font-size: 18px;
+  }
+}
