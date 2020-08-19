@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, Renderer2 } from '@angular/core';
-import { PostMedia, PostActionForMedia, ResourceType } from 'models/post-action.model';
+import { Component, Input, OnInit } from '@angular/core';
 import { FeedsService } from 'feeds-frame/feeds.service';
+import { PostActionForMedia, PostMedia, ResourceType } from 'models/post-action.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { FullScreenMediaService } from './full-screen-media.service';
 
 @Component({
   selector: 'media-container',
@@ -37,10 +38,9 @@ export class MediaContainerComponent implements OnInit {
     nav: true,
     autoplay: true
   };
-  @ViewChild("fullScreenMediaContainer") fullScreenMediaContainer: ElementRef;
 
   constructor(private api: FeedsService,
-    private renderer2: Renderer2) { }
+    private _fullScreenMediaService: FullScreenMediaService) { }
 
   ngOnInit(): void {
   }
@@ -66,5 +66,9 @@ export class MediaContainerComponent implements OnInit {
       }
       this.errorOnImageIndexList = [];
     });
+  }
+
+  showFullScreenMedia(index) {
+    this._fullScreenMediaService.open(this.viewMediaList[index].postMediaLink);
   }
 }

@@ -151,6 +151,8 @@ import { UserFollowersComponent } from './user-followers/user-followers.componen
 import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UsercommunityComponent } from './usercommunity/usercommunity.component';
+import { FullScreenMediaComponent } from 'media-container/full-screen-media/full-screen-media.component';
+import { FullScreenMediaService } from 'media-container/full-screen-media.service';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -300,7 +302,8 @@ export function metaFactory(): MetaLoader {
     CustomTooltipComponent,
     LoginSignupTabComponent,
     LoginSignupModalComponent,
-    MediaContainerComponent
+    MediaContainerComponent,
+    FullScreenMediaComponent
   ],
   imports: [
     MatVideoModule,
@@ -405,7 +408,8 @@ export function metaFactory(): MetaLoader {
       provide: MAT_DIALOG_DATA,
       useValue: []
     },
-    GlobalService
+    GlobalService,
+    FullScreenMediaService
   ],
   exports: [
     JoinedCommunityComponent,

@@ -1,0 +1,39 @@
+@import '../../variables';
+
+.wrapper {
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: $white;
+    opacity: 0.7;
+    z-index: 1000;
+    overflow: hidden;
+    .close {
+        color: $primary;
+        cursor: pointer;
+        margin-top: 60px;
+    }
+}
+.media-container {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    z-index: 1005;
+    background-color: #ffffff;
+    opacity: 1;
+    box-shadow: 6px 6px 8px $grey;
+    overflow: hidden;
+    max-width: 65vw;
+    max-height: 80vh;
+    img {
+        max-width: 65vw;
+        max-height: 80vh;
+        width: auto;
+        height: auto;
+        overflow: hidden;
+    }
+}
