@@ -1,30 +1,27 @@
 
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
 import { LoginService } from 'auth/login.service';
 import { CommonService } from 'common/common.service';
+import { FeedTextComponent } from 'feed-text/feed-text.component';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { IFramelyService } from 'meta-card/iframely.service';
 import { HashTag } from 'models/hashtag.model';
 import { IFramelyData } from 'models/iframely.model';
+import { Page } from 'models/page.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
+import { GlobalConstants } from 'shared/constants';
 import { CommentAction } from '../../models/comment-action.model';
 import { Post, PostActionForMedia, PostEditorType, PostMedia, ResourceType } from '../../models/post-action.model';
 import { UserListComponent } from '../../shared/components/dialogs/user-list/user-list.component';
 import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
-import { GlobalConstants } from 'shared/constants';
-import { User } from 'models/user.model';
-import { Page } from 'models/page.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { PostFeedComponent } from '../post-feed/post-feed.component';
-import { FeedTextComponent } from 'feed-text/feed-text.component';
-import { Router } from '@angular/router';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AttachedFileComponent } from 'attached-file/attached-file.component';
-import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
 declare var $: any;
 
 @Component({
@@ -76,34 +73,8 @@ export class RecommendedFeedsComponent implements OnInit {
   endOfComments = false;
   screenWidth = window.innerWidth;
   mobileView = false;
-  customOptions: OwlOptions = {
-    loop: false,
-    mouseDrag: true,
-    touchDrag: true,
-    pullDrag: true,
-    dots: false,
-    navSpeed: 700,
-    navText: ['<', '>'],
-    responsive: {
-      0: {
-        items: 1
-      },
-      400: {
-        items: 1
-      },
-      740: {
-        items: 1
-      },
-      940: {
-        items: 1
-      }
-    },
-    nav: true,
-    autoplay: true
-  };
   loggedInUserId: any;
   hashTagsData: any = {};
-  errorOnImageIndexList: number[] = [];
   userPath: string = GlobalConstants.userPath;
   communityPath: string = GlobalConstants.communityPath;
   editableFeed: Post;
@@ -187,20 +158,6 @@ export class RecommendedFeedsComponent implements OnInit {
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
     }
-  }
-  onError(index: number) {
-    this.errorOnImageIndexList.push(index);
-  }
-  onLoad(index: number) {
-    if (this.errorOnImageIndexList.includes(index)) {
-      this.errorOnImageIndexList.splice(index, this.errorOnImageIndexList.length);
-    }
-  }
-  onRefreshImageAtIndex(index: number) {
-    this.api.getPostMediaList(this.feed.postActionId).subscribe((res: PostActionForMedia) => {
-      this.feed.postMediaList = res.postMediaList;
-      this.errorOnImageIndexList = [];
-    });
   }
   toggleComments() {
     this.isSharing = false;
@@ -423,4 +380,12 @@ export class RecommendedFeedsComponent implements OnInit {
       }
     }
   }
+  // openFullScreenMediaContainer(index: number) {
+  //   // Only Images are allowed for full screen view, as videos has the option for full screen
+  //   let mediaList: PostMedia[] = this.feed.postMediaList.filter((postMedia: PostMedia) => {
+  //     return postMedia.resourceType === ResourceType.image;
+  //   });
+  //   console.log("mediaList", mediaList);
+  //   this.fullScreenMedia.open(this.feed.postActionId, mediaList);
+  // }
 }

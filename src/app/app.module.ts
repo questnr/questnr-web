@@ -63,6 +63,7 @@ import { LoginRegisterBtnComponent } from 'login-register-btn/login-register-btn
 import { LoginSignupModalComponent } from 'login-signup-modal/login-signup-modal.component';
 import { LoginSignupTabComponent } from 'login-signup-modal/login-signup-tab/login-signup-tab.component';
 import { MatVideoModule } from 'mat-video';
+import { MediaContainerComponent } from 'media-container/media-container.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { CarouselModule } from 'ngx-owl-carousel-o';
@@ -298,7 +299,8 @@ export function metaFactory(): MetaLoader {
     InfoTooltipComponent,
     CustomTooltipComponent,
     LoginSignupTabComponent,
-    LoginSignupModalComponent
+    LoginSignupModalComponent,
+    MediaContainerComponent
   ],
   imports: [
     MatVideoModule,
