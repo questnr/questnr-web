@@ -2,7 +2,9 @@
   <app-profile-icon [avatar]="notification.userActor?.avatarDTO" [height]="50" [sizeRef]="'small'"
     [slug]="notification?.userActor?.slug">
   </app-profile-icon>
-  <div class="type" *ngIf="notification.notificationType !== 'post' && notification.notificationType !== 'invitation'">
+  <div class="type" *ngIf="notification.notificationType !== 'post' && notification.notificationType !== 'invitation'
+  && notification.notificationType !== 'requestedCommunity'
+  && notification.notificationType !== 'communityAccepted'">
     <img *ngIf="notification.notificationType === 'like'" src="assets/like.svg">
     <img *ngIf="notification.notificationType === 'comment'" src="assets/comment.svg">
     <img *ngIf="notification.notificationType === 'followedUser'
