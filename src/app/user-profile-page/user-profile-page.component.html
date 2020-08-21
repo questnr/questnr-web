@@ -82,8 +82,8 @@
                 </div>
               </div>
               <div class="flex-section-center">
-                <app-post-feeds [mobileView]="mobileView" (postData)="postFeed($event)" [isCommunityPost]=false
-                  *ngIf="relation === 'owned'" [type]="'Create'">
+                <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]=false *ngIf="relation === 'owned'"
+                  [type]="'Create'">
                 </app-post-feeds>
                 <div id="user-feed"></div>
                 <ng-container *ngIf="userFeeds?.length; else noFeeds">

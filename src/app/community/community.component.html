@@ -93,7 +93,7 @@
                 <!--              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true-->
                 <!--                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'">-->
                 <!--              </app-post-feed>-->
-                <app-post-feeds [mobileView]="mobileView" (postData)="postFeed($event)" [isCommunityPost]="true"
+                <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="true"
                   [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"
                   [type]="'Create'"></app-post-feeds>
                 <!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->

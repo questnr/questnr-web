@@ -1,4 +1,4 @@
-<div class="box" style="max-height: 60vh; overflow-y: auto">
+<div class="box hide-scrollbar" style="max-height: 60vh; overflow-y: auto">
   <div class="loader" [ngClass]="{'active': isLoading}">
     <mat-progress-bar *ngIf="!uploading && isLoading" mode="indeterminate"></mat-progress-bar>
     <mat-progress-bar *ngIf="uploading" mode="determinate" [value]="uploadProgress"></mat-progress-bar>

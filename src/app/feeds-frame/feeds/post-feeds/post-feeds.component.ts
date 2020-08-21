@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PostFeedComponent } from '../../post-feed/post-feed.component';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from '../../../auth/login.service';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-post-feeds',
@@ -13,17 +14,23 @@ export class PostFeedsComponent implements OnInit {
   @Input() isCommunityPost = false;
   @Input() communityId;
   @Input() type: any;
-  @Input() mobileView: boolean = true;
-  constructor(public dialog: MatDialog, public login: LoginService) { }
+  mobileView: boolean = true;
+  constructor(public dialog: MatDialog,
+    public login: LoginService,
+    private _globalService: GlobalService) { }
 
   ngOnInit() {
   }
+  ngAfterViewInit() {
+    this.mobileView = this._globalService.isMobileView();
+  }
   createPost(communityId, isCommunityPost, type, addMediaAction): void {
     const dialogRef = this.dialog.open(PostFeedComponent, {
-      width: '550px',
+      maxWidth: this.mobileView ? "90vw" : "60vW",
+      width: this.mobileView ? "90vw" : "550px",
       // height: '600px',
       // backdropClass: 'custom-dialog-backdrop-class',
-      // panelClass: 'custom-dialog-panel-class',
+      panelClass: 'opened-modal',
       // disableClose:true
       data: { communityId, isCommunityPost, type, addMediaAction }
     });
