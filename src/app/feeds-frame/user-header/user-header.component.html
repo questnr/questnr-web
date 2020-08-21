@@ -85,7 +85,7 @@
     <!-- notifications_active, notifications_none -->
     <mat-menu #notificationsMenu="matMenu" [overlapTrigger]="false" xPosition="before">
       <ng-template matMenuContent>
-        <div class="notification-wrap" *ngIf="!isNotificationLoading">
+        <div class="notification-wrap hide-scrollbar" *ngIf="!isNotificationLoading">
           <div *ngIf="notifications?.length > 0">
             <app-notification-item *ngFor="let item of notifications" [notification]="item"
               (remove)="removeNotification($event)"></app-notification-item>
