@@ -1,10 +1,10 @@
-@import './variables';
+@import "./variables";
 
-.header-div{
+.header-div {
     padding-bottom: 0.6rem;
 }
 
-.hr{
+.hr {
     border-bottom: 1px solid $grey;
     margin-bottom: 0.6rem;
 }
@@ -13,7 +13,7 @@
     display: flex;
     justify-content: center;
 }
-  
+
 .space-between {
     justify-content: space-between;
 }
@@ -25,23 +25,13 @@
 .page-scroll {
     overflow: scroll;
     max-height: calc(100vh + 1px);
-}  
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-.hide-scrollbar::-webkit-scrollbar {
-    display: none;
-}
-/* Hide scrollbar for IE, Edge and Firefox */
-.hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
 }
 
 .remove-border {
     &:active {
-        outline:0 !important;
+        outline: 0 !important;
     }
     &:focus {
-        outline:0 !important;
+        outline: 0 !important;
     }
 }

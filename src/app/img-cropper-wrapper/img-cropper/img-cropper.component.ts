@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core'
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-img-cropper',
@@ -11,10 +12,11 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
 export class ImgCropperComponent implements OnInit {
   @ViewChild("chooseFileForAvatarRef") chooseFileForAvatarRef: ElementRef;
   mobileView = false;
-  screenWidth = window.innerWidth;
   defaultSrc: string = StaticMediaSrc.userFile;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<ImgCropperComponent>) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<ImgCropperComponent>,
+    public _globalService: GlobalService) {
     if (this.data.aspectRatio)
       this.aspectRatio = this.data.aspectRatio;
     if (this.data.isCommunityAvatar) {
@@ -25,21 +27,17 @@ export class ImgCropperComponent implements OnInit {
   ngOnInit(): void {
   }
   ngAfterViewInit() {
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
+    this.mobileView = this._globalService.isMobileView();
   }
+
   imageChangedEvent: any = '';
   croppedImage: any = '';
   filename: string;
   aspectRatio: number = 4 / 3;
+  hasError: boolean = false;
 
   uploadImage() {
+    this.hasError = false;
     this.chooseFileForAvatarRef.nativeElement.click();
   }
 
@@ -75,7 +73,22 @@ export class ImgCropperComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+  actionCancel() {
+    this.dialogRef.close();
+  }
   actionDone() {
-    this.dialogRef.close(this.dataURLtoFile(this.croppedImage));
+    if (this.imageChangedEvent)
+      this.dialogRef.close(this.dataURLtoFile(this.croppedImage));
+    else
+      this.hasError = true;
+  }
+
+  filesDropped(droppedFiles) {
+    this.hasError = false;
+    const files = Object.values(droppedFiles);
+    let file: any = files[0];
+    if (file.type.includes('image')) {
+      this.fileChangeEvent({ target: { files: droppedFiles } })
+    }
   }
 }

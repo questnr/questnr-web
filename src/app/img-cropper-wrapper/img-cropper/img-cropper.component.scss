@@ -1,55 +1,63 @@
-@import '../variables';
+@import "../../variables";
+@import "../../app.component.scss";
 
-.wrapper{
+.img-cropper-wrapper {
     margin: 10px;
     scrollbar-width: none; /* Firefox 64 */
     -ms-overflow-style: none; /* Internet Explorer 11 */
-    &::-webkit-scrollbar { /** WebKit */
+    &::-webkit-scrollbar {
+        /** WebKit */
         display: none;
     }
 }
-.button-row{
+.button-row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    .btn-primary{
-        color: white;
-        background-color: $primary;
-    }
-    .btn-primary:active{
-        background-color: $heading;
-    }
-    .btn-secondary{
+    .btn-primary {
         color: white;
         background-color: $accent;
     }
-    .btn-secondary:active{
+    .btn-primary:active {
+        background-color: $heading;
+    }
+    .btn-secondary {
+        color: white;
+        background-color: $primary;
+    }
+    .btn-secondary:active {
         background-color: $heading;
     }
 }
-.cropped-image-container{
+.cropped-image-container {
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
     border: 1px solid $heading;
     margin: 10px;
     padding: 10px;
-    .cropped-image{
+    .cropped-image {
         max-height: 150px;
         max-width: 300px;
         border-radius: 8px;
     }
 }
-.upload-container{
+.upload-container {
     display: flex;
 }
 
-.cropper-tool{
+.cropper-tool {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.cropper{
+.cropper {
     // --cropper-outline-color: red;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
 }

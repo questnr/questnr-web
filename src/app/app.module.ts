@@ -56,7 +56,7 @@ import { PostReportComponent } from 'feeds-frame/post-report/post-report.compone
 import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
 import { GlobalService } from 'global.service';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
-import { ImgCropperComponent } from 'img-cropper/img-cropper.component';
+import { ImgCropperComponent } from 'img-cropper-wrapper/img-cropper/img-cropper.component';
 import { InfoTooltipComponent } from 'info-tooltip/info-tooltip.component';
 import { LandingPageResolve } from 'landing-page/landing-page.resolve';
 import { LoginRegisterBtnComponent } from 'login-register-btn/login-register-btn.component';
