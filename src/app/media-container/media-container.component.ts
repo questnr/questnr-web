@@ -48,6 +48,10 @@ export class MediaContainerComponent implements OnInit {
   ngAfterViewInit() {
   }
 
+  ngOnDestroy(): void {
+    this._fullScreenMediaService.close();
+  }
+
   onError(index: number) {
     this.errorOnImageIndexList.push(index);
   }
