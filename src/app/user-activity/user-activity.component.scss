@@ -1,28 +1,32 @@
 @import "../variables";
 
-.user_activity{
+.user-activity {
   width: calc(100% - 10px);
   margin: 0 auto;
   position: relative;
   top: -50px;
   padding: 8px;
-  ul{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  li{
-    display: inline-block;
-    width: calc(33% - 10px);
-    text-align: center;
-    font-family: sans-serif;
-    transition: all 200ms;
-    cursor: pointer;
-    h3{
-      color: $heading;
-    }
-    p{
-      margin: 0;
+  .activity-items {
+    display: flex;
+    justify-content: center;
+    .activity-item {
+      width: calc(33% - 10px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: sans-serif;
+      transition: all 200ms;
+      cursor: pointer;
+      span {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: $primary;
+      }
+      p {
+        display: inline-block;
+        margin: 0;
+      }
     }
   }
 }
@@ -33,13 +37,14 @@
 
 /* mobile responsive css */
 
-.user_activity-mobile {
+.user_activity.mobile {
   top: -25px;
-  ul {
-    text-align: center;
-    li{
+  .activity-items {
+    .activity-item {
       width: calc(35% - 10px);
-      font-size: 14px;
+      span {
+        font-size: 1.2rem;
+      }
     }
   }
 }

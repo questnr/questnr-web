@@ -7,61 +7,69 @@
       <div class="profile-page-container hide-scrollbar">
         <div class="user-profile-banner">
           <div class="com-ban-img-container"
-            [ngClass]="[mobileView ? 'mobile': 'desktop', mobileView ? 'profile-banner-mobile' : '']">
-            <img [src]="userBannerImage" alt="banner" class="comm-ban-img"
-              [ngClass]="[mobileView ? 'mobile': 'desktop', userBannerImage ? '' : 'd-none']">
-            <div *ngIf="isBannerLoding" class="banner-loading">
-              <app-loader [size]="'md'" [color]="'dark'"></app-loader>
+            [ngClass]="[mobileView ? 'mobile': 'desktop', showBanner ? 'show-banner' : 'show-avatar']"
+            (mouseover)="handleMouseOverBanner($event)" (mouseout)="handleMouseOutBanner($event)">
+            <div class="banner-container">
+              <img [src]="userBannerImage" alt="banner" class="comm-ban-img" draggable="false"
+                [ngClass]="[mobileView ? 'mobile': 'desktop', userBannerImage ? '' : 'd-none']" #userBannerImgRef>
+              <div *ngIf="isBannerLoding" class="banner-loading">
+                <app-loader [size]="'md'" [color]="'dark'"></app-loader>
+              </div>
+              <div class="change-comm-img">
+                <mat-icon (click)="previewImage()" *ngIf="relation == 'owned'">camera</mat-icon>
+                <app-img-cropper-wrapper (imageDataEvent)="imageDataReceiverOfBanner($event)" [aspectRatio]="12 / 4"
+                  #userBannerImageCropperRef>
+                </app-img-cropper-wrapper>
+              </div>
             </div>
-            <div class="change-comm-img">
-              <mat-icon (click)="previewImage()" *ngIf="relation == 'owned'">camera</mat-icon>
-              <app-img-cropper-wrapper (imageDataEvent)="imageDataReceiverOfBanner($event)" [aspectRatio]="12 / 4"
-                #userBannerImageCropperRef>
-              </app-img-cropper-wrapper>
+            <div class="profile-img-container" (mouseover)="handleMouseOverAvatar($event)"
+              (mouseout)="handleMouseOutAvatar($event)">
+              <div class="profile-img">
+                <img [src]="userAvatarImage ? userAvatarImage : defaultUserSrc" alt="" draggable="false"
+                  #userAvatarImgRef>
+                <app-img-cropper-wrapper (imageDataEvent)="imageDataReceiver($event)" [aspectRatio]="4 / 4"
+                  #imageCropperRef>
+                </app-img-cropper-wrapper>
+                <!-- <input id="fileInput" type="file" style="display: none" (change)="updateUserAvatar($event)"> -->
+                <div class="avatar" *ngIf="relation==='owned'">
+                  <mat-icon (click)="triggerFalseClick()">camera</mat-icon>
+                </div>
+              </div>
+              <div class="profile-section" [ngClass]="{'mobile' : mobileView}">
+                <div class="username" (click)="openEditDialog()">
+                  <span>{{user?.username}}&nbsp;<mat-icon>edit</mat-icon></span>
+                </div>
+              </div>
             </div>
+          </div>
+          <div class="actions" *ngIf="!mobileView">
+            <!-- <button mat-stroked-button *ngIf="relation ==='owned'&& !mobileView " (click)="openEditDialog()">
+              Edit Profile
+            </button>
+            <button mat-stroked-button *ngIf="relation ==='owned'&& mobileView " (click)="openEditDialog()">
+              <mat-icon>edit</mat-icon>
+            </button> -->
+            <app-relation-action-button [username]="user?.username" [relation]="relation" [userId]="userId"
+              [mobileView]="mobileView">
+            </app-relation-action-button>
           </div>
         </div>
-        <div class="profile-section" [ngClass]="{'profile-section-mobile' : mobileView}">
-          <div class="profile-img">
-            <img [src]="userAvatarImage ? userAvatarImage : defaultUserSrc" alt="">
-            <app-img-cropper-wrapper (imageDataEvent)="imageDataReceiver($event)" [aspectRatio]="4 / 4"
-              #imageCropperRef>
-            </app-img-cropper-wrapper>
-            <!-- <input id="fileInput" type="file" style="display: none" (change)="updateUserAvatar($event)"> -->
-            <div class="avatar" *ngIf="relation==='owned'">
-              <mat-icon (click)="triggerFalseClick()">camera</mat-icon>
-            </div>
-          </div>
-          <div class="profile-actions">
-            <!--      <p>{{user?.username}}</p>-->
-            <!--      <div _ngcontent-serverapp-c271="" style="-->
-            <!--    position: absolute;-->
-            <!--    bottom: 2%;-->
-            <!--    font-size: 10px;-->
-            <!--">Average joe with average dreams.-->
-            <!--      </div>-->
-            <p>
-              {{user?.username}}
-              <!--              <span> ○ </span><span style="font-size: 14px">{{user?.firstName}}&nbsp;{{user?.lastName}}</span>-->
-            </p>
-            <div class="actions">
-              <button mat-stroked-button *ngIf="relation ==='owned'&& !mobileView " (click)="openEditDialog()">
-                <mat-icon>edit</mat-icon>
-                Edit Profile
-              </button>
-              <button mat-stroked-button *ngIf="relation ==='owned'&& mobileView " (click)="openEditDialog()">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <app-relation-action-button [username]="user?.username" [relation]="relation" [userId]="userId"
-                [mobileView]="mobileView">
-              </app-relation-action-button>
-            </div>
+        <div class="user-actions" *ngIf="mobileView">
+          <div class="actions">
+            <!-- <button mat-stroked-button *ngIf="relation ==='owned' " (click)="openEditDialog()">
+              Edit Profile
+            </button> -->
+            <!-- <button mat-stroked-button *ngIf="relation ==='owned'&& mobileView " (click)="openEditDialog()">
+              <mat-icon>edit</mat-icon>
+            </button> -->
+            <app-relation-action-button [username]="user?.username" [relation]="relation" [userId]="userId"
+              [mobileView]="mobileView">
+            </app-relation-action-button>
           </div>
         </div>
         <div class="user-meta-info-div row" [ngClass]="mobileView ? 'mobile': 'desktop'">
           <div class="col-md-6">
-            <app-user-description-card [bio]="user?.bio" [relation]="relation" [mobileView]="mobileView"
-              [username]="user?.username">
+            <app-user-description-card [bio]="user?.bio" [relation]="relation" [username]="user?.username">
             </app-user-description-card>
           </div>
           <div class="col-md-6">

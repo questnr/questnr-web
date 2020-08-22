@@ -1,9 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GlobalService } from 'global.service';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
+import { RelationType } from 'models/relation-type';
+import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 import { Subject } from 'rxjs';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { QuestnrActivityService } from 'shared/questnr-activity.service';
 import { UIService } from 'ui/ui.service';
 import { UserActivityService } from 'user-activity/user-activity.service';
 import { LoginService } from '../auth/login.service';
@@ -13,10 +18,6 @@ import { User, UserInfo } from '../models/user.model';
 import { ApiService } from '../shared/api.service';
 import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
 import { UserProfilePageService } from './user-profile-page.service';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { RelationType } from 'models/relation-type';
-import { QuestnrActivityService } from 'shared/questnr-activity.service';
-import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 
 @Component({
   selector: 'app-user-profile-page',
@@ -35,7 +36,8 @@ export class UserProfilePageComponent implements OnInit {
     private userActivityService: UserActivityService,
     public dialog: MatDialog,
     private _activityService: QuestnrActivityService,
-    private renderer: Renderer2) {
+    private renderer: Renderer2,
+    private _globalService: GlobalService) {
     this.userObserver.subscribe((user: User) => {
       if (user.firstName || user.lastName) {
         this.uiService.setTitle((user.firstName + " " + user.lastName).trim() + " | Questnr");
@@ -63,30 +65,29 @@ export class UserProfilePageComponent implements OnInit {
   endOfPosts = false;
   userFeeds = [];
   userId: any;
-  mobileView = false;
-  screenWidth = window.innerWidth;
+  mobileView: boolean = false;
   scrollCached: boolean = null;
   @ViewChild("userBannerImageCropperRef") userBannerImageCropperRef: ImgCropperWrapperComponent;
   userInfo: UserInfo;
   defaultUserSrc: string = StaticMediaSrc.userFile;
   trackerInstance: TrackingInstance;
   @ViewChild("feedProfile") feedProfile: ElementRef;
+  showBanner: boolean = false;
+  showAvatar: boolean = false;
+  @ViewChild("userBannerImgRef") userBannerImgRef: ElementRef;
+  @ViewChild("userAvatarImgRef") userAvatarImgRef: ElementRef;
 
   ngOnInit(): void {
     this.url = this.route.snapshot.paramMap.get('userSlug');
     this.getUserProfileDetails();
     this.getUserInfo();
     this.getCommunityFollowedByUser();
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
+    this.mobileView = this._globalService.isMobileView();
   }
   ngAfterViewInit() {
+    this.renderer.setStyle(this.userBannerImgRef.nativeElement, "min-height", this.mobileView ? "140px" : "270px");
+    this.renderer.setStyle(this.userAvatarImgRef.nativeElement, "min-height", this.mobileView ? "110px" : "200px");
+    this.renderer.setStyle(this.userAvatarImgRef.nativeElement, "min-width", this.mobileView ? "110px" : "200px");
     this.feedProfile.nativeElement.addEventListener('scroll', this.onScroll, true);
     this.renderer.setStyle(document.getElementsByTagName("body")[0], "overflow", "hidden");
   }
@@ -145,9 +146,12 @@ export class UserProfilePageComponent implements OnInit {
       this.userObserver.next(res);
       this.user = res;
       if (res?.banner?.avatarLink) {
+        this.renderer.removeStyle(this.userBannerImgRef.nativeElement, "min-height");
         this.userBannerImage = res.banner.avatarLink;
       }
       this.userAvatarImage = res.avatarDTO.avatarLink;
+      this.renderer.removeStyle(this.userAvatarImgRef.nativeElement, "min-width");
+      this.renderer.removeStyle(this.userAvatarImgRef.nativeElement, "min-height");
       this.relation = res.userMeta.relationShipType;
       this.userId = res.userId;
       this.loading = true;
@@ -280,4 +284,27 @@ export class UserProfilePageComponent implements OnInit {
     }
   }
 
+  handleMouseOverBanner($event) {
+    if (!this.showAvatar) {
+      setTimeout(() => {
+        this.showBanner = true;
+        setTimeout(() => {
+          this.handleMouseOutBanner({});
+        }, 1500);
+      }, 1000);
+    }
+  }
+
+  handleMouseOutBanner($event) {
+    this.showBanner = false;
+  }
+
+  handleMouseOverAvatar($event) {
+    this.showAvatar = true;
+    this.showBanner = false;
+  }
+
+  handleMouseOutAvatar($event) {
+    this.showAvatar = false;
+  }
 }
