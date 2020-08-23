@@ -3,12 +3,31 @@
 .user-activity {
   width: calc(100% - 10px);
   margin: 0 auto;
-  position: relative;
-  top: -50px;
   padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  .arrow-div {
+    flex: 5%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: $heading;
+    &:hover {
+      color: $primary;
+    }
+  }
+  .arrow-div.right {
+    padding-left: 3px;
+    border-left: 1px solid $grey;
+  }
+  .arrow-div.left {
+    padding-right: 3px;
+    border-right: 1px solid $grey;
+  }
   .activity-items {
     display: flex;
     justify-content: center;
+    flex: 95%;
     .activity-item {
       width: calc(33% - 10px);
       display: flex;
@@ -18,14 +37,17 @@
       font-family: sans-serif;
       transition: all 200ms;
       cursor: pointer;
-      span {
+      > span {
         font-size: 1.4rem;
         font-weight: bold;
         color: $primary;
       }
-      p {
-        display: inline-block;
-        margin: 0;
+      div {
+        text-align: center;
+        p {
+          display: inline-block;
+          margin: 0;
+        }
       }
     }
   }
@@ -38,7 +60,6 @@
 /* mobile responsive css */
 
 .user_activity.mobile {
-  top: -25px;
   .activity-items {
     .activity-item {
       width: calc(35% - 10px);

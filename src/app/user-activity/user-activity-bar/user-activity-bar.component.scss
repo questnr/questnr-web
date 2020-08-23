@@ -1,0 +1,21 @@
+@import "../../variables";
+
+:host {
+    display: block;
+    overflow: hidden;
+}
+
+.user-activity-bar-wrapper {
+    margin: 5px auto;
+}
+
+.panes {
+    height: 100%;
+    width: 200%;
+
+    display: flex;
+
+    div {
+        flex: 1;
+    }
+}

@@ -5,6 +5,7 @@ import { UserListComponent } from '../shared/components/dialogs/user-list/user-l
 import { MatDialog } from '@angular/material/dialog';
 import { UserFollowersService } from '../user-followers/user-followers.service';
 import { UserInfo } from 'models/user.model';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-user-activity',
@@ -17,22 +18,19 @@ export class UserActivityComponent implements OnInit {
   mobileView = false;
   @Input() userId: any;
   shouldFetch: boolean = false;
-  screenWidth = window.innerWidth;
+  isLeftVisible: boolean = true;
 
-  constructor(public route: ActivatedRoute, public userActivityService: UserActivityService, public dialog: MatDialog, public followersService: UserFollowersService) {
+  constructor(public route: ActivatedRoute,
+    public userActivityService: UserActivityService,
+    public dialog: MatDialog,
+    public followersService: UserFollowersService,
+    private _globalService: GlobalService) {
   }
 
   ngOnInit(): void {
     this.url = this.route.snapshot.paramMap.get('userSlug');
     this.getUserInfo();
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
+    this.mobileView = this._globalService.isMobileView();
   }
 
   getUserInfo() {
