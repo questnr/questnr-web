@@ -93,7 +93,7 @@
                 <!--              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true-->
                 <!--                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'">-->
                 <!--              </app-post-feed>-->
-                <horizontal-owner-profile *ngIf="mobileView" [user]="communityDTO?.ownerUserDTO">
+                <horizontal-owner-profile *ngIf="mobileView && owner !== 'owned'" [user]="communityDTO?.ownerUserDTO">
                 </horizontal-owner-profile>
                 <app-community-activity></app-community-activity>
                 <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="true"
