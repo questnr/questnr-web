@@ -17,7 +17,6 @@ export class UserActivityComponent implements OnInit {
   @Input() userInfo: UserInfo;
   mobileView = false;
   @Input() userId: any;
-  shouldFetch: boolean = false;
   isLeftVisible: boolean = true;
 
   constructor(public route: ActivatedRoute,
@@ -25,16 +24,16 @@ export class UserActivityComponent implements OnInit {
     public dialog: MatDialog,
     public followersService: UserFollowersService,
     private _globalService: GlobalService) {
+    this.mobileView = this._globalService.isMobileView();
   }
 
   ngOnInit(): void {
     this.url = this.route.snapshot.paramMap.get('userSlug');
-    this.getUserInfo();
-    this.mobileView = this._globalService.isMobileView();
+    if (!this.userInfo)
+      this.getUserInfo();
   }
 
   getUserInfo() {
-    if (!this.shouldFetch) return;
     // console.log('entered');
     this.userActivityService.getUserInfo(this.url).subscribe((res: UserInfo) => {
       this.userInfo = res;
