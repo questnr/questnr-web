@@ -93,10 +93,14 @@
                 <!--              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true-->
                 <!--                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'">-->
                 <!--              </app-post-feed>-->
+                <horizontal-owner-profile *ngIf="mobileView" [user]="communityDTO?.ownerUserDTO">
+                </horizontal-owner-profile>
+                <app-community-activity></app-community-activity>
                 <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="true"
                   [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"
                   [type]="'Create'"></app-post-feeds>
                 <!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
+                <div id="community-feed"></div>
                 <ng-container *ngIf="userFeeds?.length; else noFeeds">
                   <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index; trackBy: trackItem">
                     <div *ngIf="mobileView && userFeeds.length > 4 && idx === 2">

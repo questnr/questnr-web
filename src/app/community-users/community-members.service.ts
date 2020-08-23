@@ -20,9 +20,4 @@ export class CommunityMembersService {
     if (!communitySlug) return of();
     return this.http.get<CommunityProfileMeta>(this.baseUrl + `/community/meta/${communitySlug}/info/params`, { params: { params } });
   }
-
-  getCommunityMetaInfo(communitySlug): Observable<CommunityProfileMeta> {
-    if (!communitySlug) return of();
-    return this.http.get<CommunityProfileMeta>(this.baseUrl + `/community/meta/${communitySlug}/info`);
-  }
 }

@@ -44,8 +44,10 @@ import { AttachedFileComponent } from 'attached-file/attached-file.component';
 import { AuthGuard } from 'auth/auth.guard';
 import { LoginService } from 'auth/login.service';
 import { BlogTitleComponent } from 'blog-title/blog-title.component';
+import { CommunityActivityComponent } from 'community-activity/community-activity.component';
 import { CommunityRelationActionButtonComponent } from 'community-relation-action-button/community-relation-action-button.component';
 import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
+import { HorizontalOwnerProfileComponent } from 'community/horizontal-owner-profile/horizontal-owner-profile.component';
 import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
 import { CustomTooltipComponent } from 'custom-tooltip/custom-tooltip.component';
 import { DragDropDirective } from 'drag-drop.directive';
@@ -63,6 +65,8 @@ import { LoginRegisterBtnComponent } from 'login-register-btn/login-register-btn
 import { LoginSignupModalComponent } from 'login-signup-modal/login-signup-modal.component';
 import { LoginSignupTabComponent } from 'login-signup-modal/login-signup-tab/login-signup-tab.component';
 import { MatVideoModule } from 'mat-video';
+import { FullScreenMediaService } from 'media-container/full-screen-media.service';
+import { FullScreenMediaComponent } from 'media-container/full-screen-media/full-screen-media.component';
 import { MediaContainerComponent } from 'media-container/media-container.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { ImageCropperModule } from 'ngx-image-cropper';
@@ -86,6 +90,7 @@ import { SharedModule } from 'shared/shared.module';
 import { UserDescriptionCardComponent } from 'shared/user-description-card/user-description-card.component';
 import { SinglePostResolve } from 'single-post/single-post.resolve';
 import { TrendingPostPollQuestionComponent } from 'trend-post-question/trend-post-question.component';
+import { UserActivityBarComponent } from 'user-activity/user-activity-bar/user-activity-bar.component';
 import { UsernameComponent } from 'username/username.component';
 import { AsyncPipe } from '../../node_modules/@angular/common';
 import { environment } from '../environments/environment';
@@ -151,9 +156,6 @@ import { UserFollowersComponent } from './user-followers/user-followers.componen
 import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UsercommunityComponent } from './usercommunity/usercommunity.component';
-import { FullScreenMediaComponent } from 'media-container/full-screen-media/full-screen-media.component';
-import { FullScreenMediaService } from 'media-container/full-screen-media.service';
-import { UserActivityBarComponent } from 'user-activity/user-activity-bar/user-activity-bar.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -305,7 +307,9 @@ export function metaFactory(): MetaLoader {
     LoginSignupModalComponent,
     MediaContainerComponent,
     FullScreenMediaComponent,
-    UserActivityBarComponent
+    UserActivityBarComponent,
+    CommunityActivityComponent,
+    HorizontalOwnerProfileComponent
   ],
   imports: [
     MatVideoModule,

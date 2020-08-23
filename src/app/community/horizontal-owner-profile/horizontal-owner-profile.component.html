@@ -1,0 +1,16 @@
+<mat-card class="owner-profile-wrapper" (click)="openUserProfile()" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+    <div class="header">
+        <span>
+            View Community Owner's Profile&nbsp;>>
+        </span>
+    </div>
+    <div class="content">
+        <div class="profile-icon">
+            <app-profile-icon [avatar]="user?.avatarDTO" [height]="70" [sizeRef]="'small'" [slug]="user?.slug">
+            </app-profile-icon>
+        </div>
+        <div class="username">
+            {{user?.username}}
+        </div>
+    </div>
+</mat-card>
