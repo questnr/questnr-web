@@ -7,7 +7,7 @@
         <p>In Trending</p>
       </div>
     </div>
-    <div class="vhr"></div>
+    <div class="vhr" *ngIf="communityInfo?.inTrend == true"></div>
     <div class="activity-item">
       <span (click)="openCommunityMembersDialog()">{{communityInfo?.followers}}</span>
       <div>
