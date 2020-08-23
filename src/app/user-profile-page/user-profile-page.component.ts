@@ -284,27 +284,31 @@ export class UserProfilePageComponent implements OnInit {
     }
   }
 
-  handleMouseOverBanner($event) {
-    if (!this.showAvatar) {
-      setTimeout(() => {
-        this.showBanner = true;
-        setTimeout(() => {
-          this.handleMouseOutBanner({});
-        }, 1500);
-      }, 1000);
-    }
+  toggleUserBanner($event) {
+    this.showBanner = !this.showBanner;
   }
 
-  handleMouseOutBanner($event) {
-    this.showBanner = false;
-  }
+  // handleMouseOverBanner($event) {
+  //   if (!this.showAvatar) {
+  //     setTimeout(() => {
+  //       this.showBanner = true;
+  //       setTimeout(() => {
+  //         this.handleMouseOutBanner({});
+  //       }, 1500);
+  //     }, 1000);
+  //   }
+  // }
 
-  handleMouseOverAvatar($event) {
-    this.showAvatar = true;
-    this.showBanner = false;
-  }
+  // handleMouseOutBanner($event) {
+  //   this.showBanner = false;
+  // }
 
-  handleMouseOutAvatar($event) {
-    this.showAvatar = false;
-  }
+  // handleMouseOverAvatar($event) {
+  //   this.showAvatar = true;
+  //   this.showBanner = false;
+  // }
+
+  // handleMouseOutAvatar($event) {
+  //   this.showAvatar = false;
+  // }
 }

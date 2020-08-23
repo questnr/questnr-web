@@ -8,7 +8,7 @@
         <div class="user-profile-banner">
           <div class="com-ban-img-container"
             [ngClass]="[mobileView ? 'mobile': 'desktop', showBanner ? 'show-banner' : 'show-avatar']"
-            (mouseover)="handleMouseOverBanner($event)" (mouseout)="handleMouseOutBanner($event)">
+            (click)="toggleUserBanner($event)">
             <div class="banner-container">
               <img [src]="userBannerImage" alt="banner" class="comm-ban-img" draggable="false"
                 [ngClass]="[mobileView ? 'mobile': 'desktop', userBannerImage ? '' : 'd-none']" #userBannerImgRef>
@@ -22,8 +22,7 @@
                 </app-img-cropper-wrapper>
               </div>
             </div>
-            <div class="profile-img-container" (mouseover)="handleMouseOverAvatar($event)"
-              (mouseout)="handleMouseOutAvatar($event)">
+            <div class="profile-img-container">
               <div class="profile-img">
                 <img [src]="userAvatarImage ? userAvatarImage : defaultUserSrc" alt="" draggable="false"
                   #userAvatarImgRef>
