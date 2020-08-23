@@ -3,13 +3,13 @@
     <mat-card class="user-activity" [ngClass]="{'mobile' : mobileView}">
       <div class="activity-items">
         <div class="activity-item">
-          <span (click)="openUserGroupDialog(userId, 'followers')">{{userInfo?.ownsCommunities}}</span>
+          <span (click)="openCommunityDialog(communityListType.owned)">{{userInfo?.ownsCommunities}}</span>
           <div>
             <p>Owns Communities</p>
           </div>
         </div>
         <div class="activity-item">
-          <span (click)="openUserGroupDialog(userId, 'followers')">{{userInfo?.followsCommunities}}</span>
+          <span (click)="openCommunityDialog(communityListType.joined)">{{userInfo?.followsCommunities}}</span>
           <div>
             <p>Joined Communities</p>
           </div>
@@ -27,13 +27,13 @@
       </div>
       <div class="activity-items">
         <div class="activity-item">
-          <span (click)="openUserGroupDialog(userId, 'followers')">{{userInfo?.followers}}</span>
+          <span (click)="openUserGroupDialog('followers')">{{userInfo?.followers}}</span>
           <div>
             <p>Followers</p>
           </div>
         </div>
         <div class="activity-item">
-          <span (click)="openUserGroupDialog(userId, 'following')">{{userInfo?.followingTo}}</span>
+          <span (click)="openUserGroupDialog('following')">{{userInfo?.followingTo}}</span>
           <div>
             <p>Following</p>
           </div>

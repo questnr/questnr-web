@@ -181,7 +181,8 @@ export class UserProfilePageComponent implements OnInit {
   //   }
   // }
 
-  triggerFalseClick() {
+  triggerFalseClick($event) {
+    $event.stopPropagation();
     // const src = document.getElementById('fileInput').click();
     this.imageCropperRef.openImageCropper();
   }
@@ -210,7 +211,8 @@ export class UserProfilePageComponent implements OnInit {
       return StaticMediaSrc.userFile;
     }
   }
-  openEditDialog(): void {
+  openEditDialog($event): void {
+    $event.stopPropagation();
     let config = null;
     if (this.mobileView) {
       config = {
@@ -286,6 +288,11 @@ export class UserProfilePageComponent implements OnInit {
 
   toggleUserBanner($event) {
     this.showBanner = !this.showBanner;
+    // $event.stopPropagation();
+    // this.showBanner = true;
+    // setTimeout(() => {
+    //   this.showBanner = false;
+    // }, 1500);
   }
 
   // handleMouseOverBanner($event) {

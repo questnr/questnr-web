@@ -16,7 +16,7 @@ export class CommunityListComponent implements OnInit {
   mobileView: boolean = false;
   loader = false;
   page = 0;
-  endOfResult = false;
+  endOfResult: boolean = false;
   communityList: Community[] = [];
   userId: number;
   error: boolean = true;
@@ -34,16 +34,18 @@ export class CommunityListComponent implements OnInit {
     public api: ApiService,
     public loginService: LoginService,
     private _globalService: GlobalService) {
-    if (this.data.page > 0 || this.data.isEnd != true) {
-      this.page = this.data.page;
-      data.communityList.forEach(item => {
-        this.communityList.push(item);
-      });
-    }
     if (this.data.userId) {
       this.userId = this.data.userId;
     } else {
       this.error = true;
+    }
+    if (this.data.page > 0 && this.data.isEnd != true && this.data.communityList.length > 0) {
+      this.page = this.data.page;
+      data.communityList.forEach(item => {
+        this.communityList.push(item);
+      });
+    } else {
+      this.loadMoreCommunity();
     }
   }
 
@@ -52,7 +54,7 @@ export class CommunityListComponent implements OnInit {
   }
 
   loadMoreCommunity() {
-    if (this.communityList.length >= 0 && !this.endOfResult) {
+    if (!this.endOfResult && !this.loader) {
       this.loader = true;
       if (this.data.type === CommunityListType.owned) {
         this.getUserOwnedCommunity();
