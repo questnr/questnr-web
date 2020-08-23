@@ -71,6 +71,9 @@ export class JoinedCommunityComponent implements OnInit {
         }
       );
     }, 2000);
+    if (!this.userId) {
+      this.userId = this.loginService.getUserId();
+    }
     if (this.loginService.getUserId() === this.userId) {
       this.isOwner = true;
     }
