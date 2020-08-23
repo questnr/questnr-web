@@ -16,8 +16,13 @@ export class CommunityMembersService {
     return this.http.get<Page<CommunityUsers>>(this.baseUrl + 'user/community/' + url + '/users', { params: { page, size } });
   }
 
-  getCommunityMetaInfo(url): Observable<CommunityProfileMeta> {
-    if (!url) return of();
-    return this.http.get<CommunityProfileMeta>(this.baseUrl + `/community/meta/${url}/info`);
+  getCommunityMetaInfoWithParams(communitySlug, params): Observable<CommunityProfileMeta> {
+    if (!communitySlug) return of();
+    return this.http.get<CommunityProfileMeta>(this.baseUrl + `/community/meta/${communitySlug}/info/params`, { params: { params } });
+  }
+
+  getCommunityMetaInfo(communitySlug): Observable<CommunityProfileMeta> {
+    if (!communitySlug) return of();
+    return this.http.get<CommunityProfileMeta>(this.baseUrl + `/community/meta/${communitySlug}/info`);
   }
 }

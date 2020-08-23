@@ -5,9 +5,10 @@ import { CreateCommunityComponent } from '../shared/components/dialogs/create-co
 import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from '../auth/login.service';
 import { UsercommunityService } from '../usercommunity/usercommunity.service';
-import { Community } from '../models/community.model';
+import { Community, CommunityListType } from '../models/community.model';
 import { ApiService } from '../shared/api.service';
 import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
+import { Page } from 'models/page.model';
 
 @Component({
   selector: 'app-floating-mobile-nav',
@@ -28,7 +29,13 @@ export class FloatingMobileNavComponent implements OnInit {
   screenWidth = window.innerWidth;
   @Input() url: string;
   isLeftVisible = false;
-  constructor(public route: ActivatedRoute, public dialog: MatDialog, public loginService: LoginService, public usercommunityService: UsercommunityService, public api: ApiService) {
+  communityListType = CommunityListType;
+
+  constructor(public route: ActivatedRoute,
+    public dialog: MatDialog,
+    public loginService: LoginService,
+    public usercommunityService: UsercommunityService,
+    public api: ApiService) {
   }
 
   ngOnInit(): void {
@@ -68,15 +75,18 @@ export class FloatingMobileNavComponent implements OnInit {
   }
   getUserOwnedCommunity() {
     if (!this.loginService.getUserProfile().id) return;
-    this.usercommunityService.getUserOwnedCommunity(this.loginService.getUserProfile().id, 0).subscribe((res: any) => {
-      this.ownedCommunity = res.content;
-    }, error => {
-      // console.log(error);
-    });
+    this.usercommunityService.getUserOwnedCommunity(this.loginService.getUserProfile().id, 0)
+      .subscribe((res: Page<Community>) => {
+        if (res.content.length) {
+          this.ownedCommunity = res.content;
+        }
+      }, error => {
+        // console.log(error);
+      });
   }
   getJoinedCommunity() {
     this.api.getJoinedCommunities(this.loginService.getUserProfile().id, 0).subscribe(
-      (res: any) => {
+      (res: Page<Community>) => {
         if (res.content.length) {
           this.joinedCommunity = res.content;
         }
@@ -85,7 +95,7 @@ export class FloatingMobileNavComponent implements OnInit {
     );
   }
 
-  openCommunityDialog(community, type): void {
+  openCommunityDialog(communityList, type: CommunityListType): void {
     let config = null;
     config = {
       position: {
@@ -99,7 +109,7 @@ export class FloatingMobileNavComponent implements OnInit {
       marginTop: '0px',
       marginRight: '0px !important',
       panelClass: 'full-screen-modal',
-      data: { userId: null, community, type }
+      data: { userId: this.loginService.getUserId(), communityList, type, page: 1 }
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);
 

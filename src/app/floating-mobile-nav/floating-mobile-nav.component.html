@@ -19,7 +19,7 @@
         </ul>
       </div>
       <div class="view-more" *ngIf="joinedCommunity.length ===5"
-        (click)="openCommunityDialog(joinedCommunity, 'joinedCommunity')">
+        (click)="openCommunityDialog(joinedCommunity, communityListType.joined)">
         <button mat-icon-button>
           <mat-icon>chevron_right</mat-icon>
         </button>
@@ -40,7 +40,7 @@
         </ul>
       </div>
       <div class="view-more" *ngIf="ownedCommunity.length === 5"
-        (click)="openCommunityDialog(ownedCommunity, 'ownedCommunity')">
+        (click)="openCommunityDialog(ownedCommunity, communityListType.owned)">
         <button mat-icon-button>
           <mat-icon>chevron_right</mat-icon>
         </button>
