@@ -2,12 +2,19 @@
 @import "../app.component.scss";
 
 .main-wrap {
-  display: grid;
-  grid-template-columns: 300px auto 300px;
+  display: flex;
   aside {
     height: 100vh;
     top: 0;
     position: sticky;
+  }
+  .left-part {
+    flex: 30%;
+    max-width: 300px;
+  }
+  .right-part {
+    flex: 30%;
+    max-width: 300px;
   }
 }
 .item {
@@ -18,10 +25,12 @@
   height: auto;
 }
 .feeds {
-  width: 100%;
+  flex: 60%;
+  width: inherit;
   max-width: 800px;
   height: calc(100vh + 1px);
   margin: 0 auto;
+  overflow-x: hidden;
   overflow-y: scroll;
   padding: 20px;
   h5 {
