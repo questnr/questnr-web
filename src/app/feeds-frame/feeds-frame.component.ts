@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from 'express';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-feeds-frame',
@@ -27,7 +28,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   page = 0;
   sideConfig = 'side';
   isSidenavopen = false;
-  mobileView = false;
+  mobileView: boolean = false;
   loading = true;
   endOfPosts = false;
   communities = [];
@@ -81,7 +82,9 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     private api: ApiService,
     private messagingService: MessagingService,
     public dialog: MatDialog,
-    public activatedRoute: ActivatedRoute) {
+    public activatedRoute: ActivatedRoute,
+    private _glboalService: GlobalService) {
+    this.mobileView = this._glboalService.isMobileView();
     this.state_ = this.activatedRoute.paramMap
       .pipe(map(() => window.history.state));
     this.state_.subscribe((res: any) => {
@@ -111,14 +114,6 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.onresize();
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
     this.getUserFeeds();
     this.getSuggestedCommunities();
     this.getTrendingCommunities();
@@ -141,9 +136,8 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         this.feedComponentHelper();
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
-          if (this.userFeeds.length > 1 && !this.endOfPosts) {
+          if (this.userFeeds.length > 0 && !this.endOfPosts) {
             if (!this.loading) {
-              this.loading = true;
               this.getUserFeeds();
             }
           }

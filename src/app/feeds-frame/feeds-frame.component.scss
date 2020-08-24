@@ -1,5 +1,5 @@
-@import '../variables';
-@import '../app.component.scss';
+@import "../variables";
+@import "../app.component.scss";
 
 .main-wrap {
   display: grid;
@@ -24,7 +24,7 @@
   margin: 0 auto;
   overflow-y: scroll;
   padding: 20px;
-  h5{
+  h5 {
     margin: 20px 0 0;
   }
 }
@@ -44,16 +44,16 @@
   }
 }
 
-.container_mobile {
+.container.mobile {
   padding: 8px;
   .feeds {
     padding: 20px 0px;
   }
 }
 
-.no-feed div{
+.no-feed div {
   margin: 10px 0;
-  .primary-link{
+  .primary-link {
     text-decoration: underline;
   }
   .primary-link:hover {
