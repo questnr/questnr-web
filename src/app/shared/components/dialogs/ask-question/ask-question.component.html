@@ -1,4 +1,4 @@
-<div>
+<div class="ask-question-wrapper">
   <div class="container">
     <div class="stepper">
       <mat-horizontal-stepper [linear]=isLinear [disableRipple]="true">
@@ -11,7 +11,7 @@
             <mat-form-field>
               <mat-label>Question</mat-label>
               <textarea matInput placeholder="What's your Question." formControlName="text" required
-                        rows="5"></textarea>
+                rows="5"></textarea>
             </mat-form-field>
             <div class="actions">
               <button mat-button matStepperNext>Next</button>
@@ -51,13 +51,13 @@
           <div class="actions">
             <div class="success" *ngIf="loader">
               <div>
-                <img  class="loader" src="/assets/logo.png" alt="">
+                <img class="loader" src="/assets/logo.png" alt="">
               </div>
               <p style="text-align: center"> Please wait.....</p>
             </div>
             <div class="success" *ngIf="!loader">
               <div>
-                <img  src="/assets/logo.png" alt="">
+                <img src="/assets/logo.png" alt="">
               </div>
               <p style="text-align: center">
                 Question Posted successfully.</p>

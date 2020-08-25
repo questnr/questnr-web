@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CreateCommunityService } from './create-community.servive';
 import { HttpHeaders } from '@angular/common/http';
@@ -22,7 +22,8 @@ import { CommunitySuggestionGuideService } from 'community-suggestion-guide/comm
   styleUrls: ['./create-community.component.scss'],
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
-  }]
+  }],
+  encapsulation: ViewEncapsulation.None
 })
 export class CreateCommunityComponent implements OnInit {
   @Input() communityImage;

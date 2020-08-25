@@ -1,5 +1,7 @@
 <div class="wrapper">
     <div class="title">{{title}}</div>
+  <div class="extra-info" [innerHTML]="innerHtml">
+  </div>
     <div class="row action-btn-list">
         <div class="col-md-6 action-btn">
             <button class="active" (click)="action(true)" (mousedown)="mousedown(true)"

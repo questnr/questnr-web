@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -13,7 +13,8 @@ import { AsyncValidator } from '../../custom-validations';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['../login/login.component.scss']
+  styleUrls: ['../login/login.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SignupComponent implements OnInit {
   @Input() publicEntityId: number;

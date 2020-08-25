@@ -1,18 +1,19 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { CommunitySuggestionGuideService } from './community-suggestion-guide.service';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Tag } from 'models/common.model';
+import { Component, Inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
+import { Tag } from 'models/common.model';
+import { Community } from 'models/community.model';
+import { Page } from 'models/page.model';
 import { UserInterest } from 'models/user.model';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Page } from 'models/page.model';
-import { Community } from 'models/community.model';
+import { CommunitySuggestionGuideService } from './community-suggestion-guide.service';
 
 @Component({
   selector: 'app-community-suggestion-guide',
   templateUrl: './community-suggestion-guide.component.html',
-  styleUrls: ['./community-suggestion-guide.component.scss']
+  styleUrls: ['./community-suggestion-guide.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CommunitySuggestionGuideComponent implements OnInit {
   isLinear: boolean = true;

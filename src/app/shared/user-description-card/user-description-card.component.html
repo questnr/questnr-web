@@ -1,4 +1,4 @@
-<div [ngClass]="{'user-description-mobile' : mobileView}">
+<div class="description-card-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
     <mat-card class="user-description-flex">
         <h3>Description</h3>
         <div *ngIf="!isLoading">

@@ -1,11 +1,12 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ImgCropperComponent } from 'img-cropper/img-cropper.component';
+import { ImgCropperComponent } from './img-cropper/img-cropper.component';
 
 @Component({
   selector: 'app-img-cropper-wrapper',
   templateUrl: './img-cropper-wrapper.component.html',
-  styleUrls: ['./img-cropper-wrapper.component.scss']
+  styleUrls: ['./img-cropper-wrapper.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ImgCropperWrapperComponent implements OnInit {
 
@@ -45,7 +46,7 @@ export class ImgCropperWrapperComponent implements OnInit {
         maxWidth: '100vw',
         marginTop: '0px',
         marginRight: '0px !important',
-        panelClass: 'full-screen-modal',
+        panelClass: 'opened-modal',
         data: {
           aspectRatio: this.aspectRatio,
           isCommunityAvatar: this.isCommunityAvatar
@@ -55,6 +56,7 @@ export class ImgCropperWrapperComponent implements OnInit {
       config = {
         width: '600px',
         maxHeight: "90vh",
+        panelClass: 'opened-modal',
         data: {
           aspectRatio: this.aspectRatio,
           isCommunityAvatar: this.isCommunityAvatar

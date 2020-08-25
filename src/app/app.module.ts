@@ -56,13 +56,14 @@ import { PostReportComponent } from 'feeds-frame/post-report/post-report.compone
 import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
 import { GlobalService } from 'global.service';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
-import { ImgCropperComponent } from 'img-cropper/img-cropper.component';
+import { ImgCropperComponent } from 'img-cropper-wrapper/img-cropper/img-cropper.component';
 import { InfoTooltipComponent } from 'info-tooltip/info-tooltip.component';
 import { LandingPageResolve } from 'landing-page/landing-page.resolve';
 import { LoginRegisterBtnComponent } from 'login-register-btn/login-register-btn.component';
 import { LoginSignupModalComponent } from 'login-signup-modal/login-signup-modal.component';
 import { LoginSignupTabComponent } from 'login-signup-modal/login-signup-tab/login-signup-tab.component';
 import { MatVideoModule } from 'mat-video';
+import { MediaContainerComponent } from 'media-container/media-container.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { CarouselModule } from 'ngx-owl-carousel-o';
@@ -150,6 +151,9 @@ import { UserFollowersComponent } from './user-followers/user-followers.componen
 import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UsercommunityComponent } from './usercommunity/usercommunity.component';
+import { FullScreenMediaComponent } from 'media-container/full-screen-media/full-screen-media.component';
+import { FullScreenMediaService } from 'media-container/full-screen-media.service';
+import { UserActivityBarComponent } from 'user-activity/user-activity-bar/user-activity-bar.component';
 
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
@@ -298,7 +302,10 @@ export function metaFactory(): MetaLoader {
     InfoTooltipComponent,
     CustomTooltipComponent,
     LoginSignupTabComponent,
-    LoginSignupModalComponent
+    LoginSignupModalComponent,
+    MediaContainerComponent,
+    FullScreenMediaComponent,
+    UserActivityBarComponent
   ],
   imports: [
     MatVideoModule,
@@ -403,7 +410,8 @@ export function metaFactory(): MetaLoader {
       provide: MAT_DIALOG_DATA,
       useValue: []
     },
-    GlobalService
+    GlobalService,
+    FullScreenMediaService
   ],
   exports: [
     JoinedCommunityComponent,

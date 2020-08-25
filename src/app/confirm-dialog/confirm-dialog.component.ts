@@ -11,6 +11,7 @@ export class ConfirmDialogComponent implements OnInit {
   agreeText: string = "Yes";
   disagreeText: string = "No";
   mobileView: boolean = false;
+  innerHtml: string;
   @ViewChild("agreeTextBtn") agreeTextBtn: ElementRef;
   @ViewChild("disagreeTextBtn") disagreeTextBtn: ElementRef;
 
@@ -20,7 +21,8 @@ export class ConfirmDialogComponent implements OnInit {
       title: string,
       agreeText: string,
       disagreeText: string,
-      mobileView: boolean
+      mobileView: boolean,
+      innerHTML: string
     },
   ) { }
 
@@ -36,6 +38,9 @@ export class ConfirmDialogComponent implements OnInit {
     }
     if (this.data?.mobileView) {
       this.mobileView = this.data.mobileView;
+    }
+    if (this.data?.innerHTML) {
+      this.innerHtml = this.data.innerHTML;
     }
   }
 

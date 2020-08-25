@@ -1,0 +1,8 @@
+<div class="wrapper" (scroll)="stopScroll($event)" #fullScreenMediaOverlay>
+    <div class="close" (click)="close()">
+        <mat-icon>close</mat-icon>
+    </div>
+</div>
+<div class="media-container" (scroll)="stopScroll($event)" #fullScreenMedia>
+    <img [src]="mediaSrc" />
+</div>

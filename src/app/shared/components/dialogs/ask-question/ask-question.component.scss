@@ -1,5 +1,48 @@
 @import "./src/app/variables";
 
+.ask-question-wrapper {
+  .mat-horizontal-stepper-header-container {
+    display: flex !important;
+  }
+  .mat-form-field.mat-focused .mat-form-field-ripple {
+    background-color: $heading;
+  }
+
+  .mat-input-element {
+    caret-color: $heading;
+  }
+
+  .mat-step-header {
+    .mat-step-icon-selected {
+      background-color: $accent;
+    }
+
+    .mat-step-icon-state-done {
+      background-color: $primary;
+    }
+
+    .mat-step-icon-state-check {
+      background-color: $grey;
+    }
+  }
+
+  .mat-form-field-label {
+    color: $heading;
+  }
+
+  .mat-progress-bar-fill::after {
+    background-color: $heading;
+  }
+
+  .mat-progress-bar-buffer {
+    background: $grey;
+  }
+
+  .mat-progress-bar {
+    border-radius: 2px;
+  }
+}
+
 #questionText {
   mat-form-field {
     width: 100% !important;
@@ -10,22 +53,6 @@
   display: flex;
   justify-content: center;
   align-content: center;
-}
-
-::ng-deep .mat-step-header {
-  background-color: #ffffff !important;
-
-  .mat-step-icon-selected {
-    background-color: $accent;
-  }
-
-  .mat-step-icon-state-done {
-    background-color: $primary;
-  }
-
-  .mat-step-icon-state-check , .mat-step-icon-state-question_answer{
-    background-color: $grey;
-  }
 }
 
 .actions {
@@ -50,8 +77,6 @@
     margin-top: 10px;
   }
 }
-
-
 
 @-webkit-keyframes blink {
   0% {
@@ -94,4 +119,3 @@
   -o-animation: blink 1s;
   -o-animation-iteration-count: infinite;
 }
-

@@ -45,6 +45,50 @@
 //}
 //
 
+.create-community-wrapper{
+  .mat-horizontal-stepper-header-container {
+      display: flex !important;
+  }
+  .mat-form-field.mat-focused .mat-form-field-ripple{
+    background-color: $heading;
+  }
+  
+  .mat-input-element{
+    caret-color: $heading;
+  }
+
+  .mat-step-header {
+
+    .mat-step-icon-selected {
+      background-color: $accent;
+    }
+  
+    .mat-step-icon-state-done {
+      background-color: $primary;
+    }
+  
+    .mat-step-icon-state-check {
+      background-color: $grey;
+    }
+  }
+  
+  .mat-form-field-label {
+    color: $heading;
+  }
+
+  .mat-progress-bar-fill::after {
+    background-color: $heading;
+  }
+  
+  .mat-progress-bar-buffer {
+    background: $grey;
+  }
+  
+  .mat-progress-bar {
+    border-radius: 2px;
+  }
+}
+
 mat-dialog-container{
   padding: 0 !important;
 }
@@ -179,40 +223,6 @@ mat-form-field{
   cursor: pointer;
 }
 
-// ::ng-deep .mat-focused .mat-form-field-label {
-//   /*change color of label*/
-//   color: $white !important;
-// }
-
-::ng-deep.mat-form-field-underline {
-  /*change color of underline*/
-  background-color: $text-white !important;
-}
-
-::ng-deep.mat-form-field-ripple {
-  /*change color of underline when focused*/
-  background-color: $text-white !important;;
-}
-
-::ng-deep .mat-step-header {
-
-  .mat-step-icon-selected {
-    background-color: $accent;
-  }
-
-  .mat-step-icon-state-done {
-    background-color: $primary;
-  }
-
-  .mat-step-icon-state-check {
-    background-color: $grey;
-  }
-}
-
-::ng-deep.mat-form-field-label {
-  color: $heading;
-}
-
 .loader{
   position: absolute;
   width: 100%;
@@ -220,18 +230,6 @@ mat-form-field{
   background: #00000052;
   z-index: 2;
   display: block;
-}
-
-::ng-deep .mat-progress-bar-fill::after {
-  background-color: $heading;
-}
-
-::ng-deep .mat-progress-bar-buffer {
-  background: $grey;
-}
-
-::ng-deep .mat-progress-bar {
-  border-radius: 2px;
 }
 
 .com-input-container-mobile {

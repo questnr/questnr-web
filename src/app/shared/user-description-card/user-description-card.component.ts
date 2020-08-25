@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-user-description-card',
@@ -9,11 +10,12 @@ export class UserDescriptionCardComponent implements OnInit {
   @Input() bio: string;
   @Input() username: string;
   @Input() relation: string;
-  @Input() mobileView: string;
+  mobileView: boolean = false;
   isLoading: boolean = true;
-  constructor() { }
+  constructor(private _globalService: GlobalService) { }
 
   ngOnInit(): void {
+    this.mobileView = this._globalService.isMobileView();
   }
   ngAfterViewInit() {
     this.isLoading = false;

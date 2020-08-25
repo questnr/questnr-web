@@ -46,7 +46,7 @@ export class CommunityRelationActionButtonComponent implements OnInit {
           title,
           mobileView: this.mobileView
         }
-      }
+      };
     } else {
       dialogConfig = {
         width: '550px',
@@ -55,7 +55,7 @@ export class CommunityRelationActionButtonComponent implements OnInit {
           title,
           mobileView: this.mobileView
         }
-      }
+      };
     }
     const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
 

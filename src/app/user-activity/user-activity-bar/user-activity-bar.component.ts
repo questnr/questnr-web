@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, HostBinding, AfterViewInit, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input } from '@angular/core';
 type PaneType = 'left' | 'right';
+
 @Component({
-  selector: 'app-floating-communities-bar',
-  templateUrl: './floating-communities-bar.component.html',
-  styleUrls: ['./floating-communities-bar.component.scss'],
+  selector: 'user-activity-bar',
+  templateUrl: './user-activity-bar.component.html',
+  styleUrls: ['./user-activity-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('slide', [
@@ -14,11 +15,12 @@ type PaneType = 'left' | 'right';
     ]),
   ],
 })
-export class FloatingCommunitiesBarComponent implements AfterViewInit {
+export class UserActivityBarComponent implements AfterViewInit {
   @Input() activePane: PaneType = 'left';
   isVisible = true;
-  constructor() {
+  constructor() { }
+
+  ngAfterViewInit(): void {
   }
-  ngAfterViewInit() {
-  }
+
 }

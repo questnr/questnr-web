@@ -1,0 +1,34 @@
+<div class="img-cropper-wrapper hide-scrollbar">
+    <div class="mobile-nav-btn" *ngIf="mobileView">
+        <button mat-icon-button (click)="onNoClick()">
+            <mat-icon> arrow_back</mat-icon>
+        </button>
+    </div>
+    <div class="cropper-tool">
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="aspectRatio"
+            format="jpeg" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()" style="max-width:50vw;"
+            class="cropper"></image-cropper>
+    </div>
+
+    <!-- <button mat-button>Rotate</button> -->
+
+    <div class="cropped-image-container" appDragDrop (fileDropped)="filesDropped($event)" (click)="uploadImage()">
+        <img [src]="croppedImage ? croppedImage : defaultSrc" class="cropped-image" />
+        <div class="text-center">
+            <div><span *ngIf="!mobileView">Drop Image/</span>Click Here to Upload</div>
+        </div>
+    </div>
+    <mat-error class="error" *ngIf="hasError">Please select an image to be uploaded</mat-error>
+    <div class="upload-container">
+        <input type="file" style="display: none" (change)="fileChangeEvent($event)" #chooseFileForAvatarRef />
+    </div>
+    <div class="button-row">
+        <div>
+            <button mat-button class="btn-secondary" (click)="actionCancel()">Cancel</button>
+        </div>
+        <div>
+            <button mat-button class="btn-primary" (click)="actionDone()">Select & Upload</button>
+        </div>
+    </div>
+</div>

@@ -1,9 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {AskQuestionService} from './ask-question.service';
-import {Post} from '../../../../models/post-action.model';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Post } from '../../../../models/post-action.model';
+import { AskQuestionService } from './ask-question.service';
 import set = Reflect.set;
 
 @Component({
@@ -11,8 +11,9 @@ import set = Reflect.set;
   templateUrl: './ask-question.component.html',
   styleUrls: ['./ask-question.component.scss'],
   providers: [{
-    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
-  }]
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
+  }],
+  encapsulation: ViewEncapsulation.None
 })
 export class AskQuestionComponent implements OnInit {
   question: Post;
@@ -41,7 +42,7 @@ export class AskQuestionComponent implements OnInit {
   mobileView = false;
 
   constructor(private fb: FormBuilder, public askQuestionService: AskQuestionService,
-              public dialogRef: MatDialogRef<AskQuestionComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+    public dialogRef: MatDialogRef<AskQuestionComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit() {
@@ -97,6 +98,6 @@ export class AskQuestionComponent implements OnInit {
   }
 
   closeDialog(data): void {
-    this.dialogRef.close({ data});
+    this.dialogRef.close({ data });
   }
 }
