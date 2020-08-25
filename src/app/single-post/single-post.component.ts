@@ -436,4 +436,8 @@ export class SinglePostComponent implements OnInit {
     this.attachedFileList = [];
     this.attachedFileListComponent.clearAttachedFileList();
   }
+
+  downloadErrorListener($event) {
+    this.loginSignupModal.open("Please Login/Sign Up");
+  }
 }

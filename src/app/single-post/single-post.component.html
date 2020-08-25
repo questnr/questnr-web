@@ -91,7 +91,8 @@
             <app-rich-text [content]="displayText">
             </app-rich-text>
           </div>
-          <app-attached-file-list [attachedFileLinkList]="applicationMediaList"></app-attached-file-list>
+          <app-attached-file-list (downloadError)="downloadErrorListener($event)"
+            [attachedFileLinkList]="applicationMediaList"></app-attached-file-list>
           <app-meta-card *ngIf="iFramelyData?.url && !mobileView" [iFramelyData]="iFramelyData"></app-meta-card>
           <div *ngIf="isYouTubeVideoLink" class="y-video-container">
             <iframe [src]="safeYoutubeLink" width="100%" height="100%" frameborder="0" webkitallowfullscreen
