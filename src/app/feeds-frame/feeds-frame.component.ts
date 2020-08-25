@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener, ViewChildren, QueryList, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChildren, QueryList, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { FeedsService } from './feeds.service';
 import { ApiService } from 'shared/api.service';
@@ -83,7 +83,8 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     private messagingService: MessagingService,
     public dialog: MatDialog,
     public activatedRoute: ActivatedRoute,
-    private _glboalService: GlobalService) {
+    private _glboalService: GlobalService,
+    private renderer: Renderer2) {
     this.mobileView = this._glboalService.isMobileView();
     this.state_ = this.activatedRoute.paramMap
       .pipe(map(() => window.history.state));
@@ -125,10 +126,12 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   ngAfterViewInit(): void {
     // this.feedFrame.nativeElement.onscroll = this.onScroll;
     this.feedFrame.nativeElement.addEventListener('scroll', this.onScroll, true);
+    this.renderer.setStyle(document.getElementsByTagName("body")[0], "overflow", "hidden");
   }
 
   ngOnDestroy() {
     this.feedFrame.nativeElement.removeEventListener('scroll', this.onScroll, true);
+    this.renderer.removeStyle(document.getElementsByTagName("body")[0], "overflow");
   }
 
   onScroll = (event): void => {

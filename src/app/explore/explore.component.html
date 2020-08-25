@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="explore-section">
-        <div style="margin-top:10px">
+        <div class="explore-feeds hide-scrollbar" #exploreFeeds>
           <div *ngIf="!queryString">
             <app-trending [mobileView]="mobileView" [type]="'slider'"></app-trending>
           </div>
@@ -59,41 +59,44 @@
           <!--                        </div>-->
           <!--                      </div>-->
           <!--                    </div>-->
-          <ng-container *ngIf="explore?.length; else noFeeds">
-            <h5 style="margin: 20px 0" *ngIf="!queryString">Trending Posts </h5>
-            <div class="feed-wrap" *ngFor="let feed of explore let idx =index">
-              <div *ngIf="explore?.length && idx === 3 && mobileView">
-                <app-suggestion></app-suggestion>
-              </div>
-              <div *ngIf="explore?.length && idx === 2">
-                <div class="hashtags-container">
-                  <h5>Trending Tags</h5>
-                  <div class="hashtags">
-                    <mat-chip-list aria-label="hashtags">
-                      <mat-chip *ngFor="let h of hasTags" [ngClass]="{'active_tag': queryString === h?.hashTagValue}"
-                        [routerLink]="'/' + hashTagUrl + '/' +h?.hashTagValue">
-                        <span>#{{h?.hashTagValue}}</span>
-                      </mat-chip>
-                    </mat-chip-list>
-                  </div>
+          <div class="last-feed">
+            <ng-container *ngIf="explore?.length; else noFeeds">
+              <h5 style="margin: 20px 0" *ngIf="!queryString">Trending Posts</h5>
+              <div class="feed-wrap" *ngFor="let feed of explore let idx =index">
+                <div *ngIf="feed.postType !== 'question'">
+                  <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+                  </app-recommended-feeds>
                 </div>
-                <app-create-community-btn [type]="'card'"></app-create-community-btn>
+                <div *ngIf="feed.postType === 'question'">
+                  <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"></app-question-ui>
+                </div>
+                <div *ngIf="((explore?.length && idx === 3) || (explore?.length < 2 && idx === 0))&& mobileView">
+                  <app-suggestion></app-suggestion>
+                </div>
+                <div *ngIf="(explore?.length && idx === 2) || (explore?.length < 2 && idx == 0)">
+                  <div class="hashtags-container">
+                    <h5>Popular HashTags</h5>
+                    <div class="hashtags">
+                      <mat-chip-list aria-label="hashtags">
+                        <mat-chip *ngFor="let h of hasTags" [ngClass]="{'active_tag': queryString === h?.hashTagValue}"
+                          [routerLink]="'/' + hashTagUrl + '/' +h?.hashTagValue">
+                          <span>#{{h?.hashTagValue}}</span>
+                        </mat-chip>
+                      </mat-chip-list>
+                    </div>
+                  </div>
+                  <app-create-community-btn [type]="'card'"></app-create-community-btn>
+                </div>
               </div>
-              <div *ngIf="feed.postType !== 'question'">
-                <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
-                </app-recommended-feeds>
-              </div>
-              <div *ngIf="feed.postType === 'question'">
-                <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"></app-question-ui>
-              </div>
-            </div>
-            <p class="text-center" *ngIf="explore?.length===1 && explore[0] === null">No Feeds Found...!</p>
-          </ng-container>
-          <app-feeds-loader *ngIf="loading"></app-feeds-loader>
-          <ng-template #noFeeds>
-            <p class="text-center" style="margin-top :30px" *ngIf="explore?.length===1 && explore[0] === null">No Feeds
-              Found...!</p>
-          </ng-template>
+              <p class="text-center" *ngIf="explore?.length===1 && explore[0] === null">No Feeds Found...!</p>
+            </ng-container>
+            <app-feeds-loader *ngIf="loading"></app-feeds-loader>
+            <ng-template #noFeeds>
+              <p class="text-center" style="margin-top :30px" *ngIf="explore?.length===1 && explore[0] === null">No
+                Feeds
+                Found...!</p>
+            </ng-template>
+          </div>
         </div>
       </div>
       <div class="right-section" *ngIf="!mobileView">

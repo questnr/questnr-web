@@ -40,36 +40,39 @@
               </div>
             </div>
           </div>
-          <ng-container *ngIf="userFeeds.length; else noFeeds">
-            <div class="feed-wrap" *ngFor="let feed of userFeeds;let idx = index">
-              <div *ngIf="userFeeds?.length && idx % 4 == 0 && mobileView">
-                <app-trend-post-question></app-trend-post-question>
+          <div class="last-feed">
+            <ng-container *ngIf="userFeeds.length; else noFeeds">
+              <div class="feed-wrap" *ngFor="let feed of userFeeds;let idx = index">
+                <div *ngIf="userFeeds?.length && idx % 4 == 0 && mobileView">
+                  <app-trend-post-question></app-trend-post-question>
+                </div>
+                <div *ngIf="feed.postType !== 'question'">
+                  <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+                  </app-recommended-feeds>
+                </div>
+                <div *ngIf="feed.postType === 'question'">
+                  <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"></app-question-ui>
+                </div>
               </div>
-              <div *ngIf="feed.postType !== 'question'">
-                <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
-                </app-recommended-feeds>
-              </div>
-              <div *ngIf="feed.postType === 'question'">
-                <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"></app-question-ui>
-              </div>
-            </div>
-            <p class="text-center" style="margin-top :30px" *ngIf="userFeeds.length===1 && userFeeds[0] === null">
-              <mat-chip>We couldn't find more post for you!</mat-chip>
-            </p>
-          </ng-container>
-          <app-feeds-loader *ngIf="loading"></app-feeds-loader>
-          <!-- <div class="loader">
+              <p class="text-center" style="margin-top :30px" *ngIf="userFeeds.length===1 && userFeeds[0] === null">
+                <mat-chip>We couldn't find more post for you!</mat-chip>
+              </p>
+            </ng-container>
+            <app-feeds-loader *ngIf="loading"></app-feeds-loader>
+
+            <!-- <div class="loader">
             <mat-spinner *ngIf="loading" color="accent"></mat-spinner>
           </div> -->
-          <ng-template #noFeeds>
-            <div class="text-center no-feed" *ngIf="!loading">
-              <div>It seems you don’t have any post yet.</div>
-              <div>
-                <a class="primary-link" (click)="createCommunity()">
-                  Create your community</a> and make everyone amazed by the things you love
+            <ng-template #noFeeds>
+              <div class="text-center no-feed" *ngIf="!loading">
+                <div>It seems you don’t have any post yet.</div>
+                <div>
+                  <a class="primary-link" (click)="createCommunity()">
+                    Create your community</a> and make everyone amazed by the things you love
+                </div>
               </div>
-            </div>
-          </ng-template>
+            </ng-template>
+          </div>
         </div>
         <aside class="right-part" *ngIf="!mobileView">
           <div class="stick">

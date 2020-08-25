@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Renderer2 } from '@angular/core';
 import { ExploreService } from './explore.service';
 import { Post } from '../models/post-action.model';
 import { ApiService } from '../shared/api.service';
@@ -12,9 +12,13 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
   templateUrl: './explore.component.html',
   styleUrls: ['./explore.component.scss']
 })
-export class ExploreComponent implements OnInit {
+export class ExploreComponent implements OnInit, AfterViewInit {
 
-  constructor(public exploreService: ExploreService, public api: ApiService, public route: ActivatedRoute, private router: Router) {
+  constructor(public exploreService: ExploreService,
+    public api: ApiService,
+    public route: ActivatedRoute,
+    private router: Router,
+    private renderer: Renderer2) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     }
@@ -32,13 +36,13 @@ export class ExploreComponent implements OnInit {
   page = 0;
   hashTagUrl = GlobalConstants.hashTagPath;
   queryString: string;
+  @ViewChild("exploreFeeds") exploreFeeds: ElementRef;
 
   ngOnInit(): void {
     this.queryString = this.route.snapshot.paramMap.get('hashTag');
     // console.log(this.queryString);
     this.getSuggestedCommunity();
     this.getTopHashTags();
-    window.addEventListener('scroll', this.scroll, true);
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;
@@ -51,6 +55,11 @@ export class ExploreComponent implements OnInit {
     this.fetchData();
   }
 
+  ngAfterViewInit() {
+    this.exploreFeeds.nativeElement.addEventListener('scroll', this.onScroll, true);
+    this.renderer.setStyle(document.getElementsByTagName("body")[0], "overflow", "hidden");
+  }
+
   fetchData() {
     if (this.queryString) {
       this.getHashtagRelatedPost();
@@ -59,16 +68,15 @@ export class ExploreComponent implements OnInit {
     }
   }
 
-  scroll = (event): void => {
+  onScroll = (event): void => {
     if (!this.scrollCached) {
       setTimeout(() => {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
           // console.log('no im  here');
           if (this.explore.length >= 0 && !this.endOfPosts) {
             // console.log('check network call', this.endOfPosts);
-            this.loading = true;
-            ++this.page;
-            this.fetchData();
+            if (!this.loading)
+              this.fetchData();
           }
         }
         this.scrollCached = null;
@@ -78,16 +86,19 @@ export class ExploreComponent implements OnInit {
   };
 
   ngOnDestroy() {
-    window.removeEventListener('scroll', this.scroll, true);
+    this.exploreFeeds.nativeElement.removeEventListener('scroll', this.onScroll, true);
+    this.renderer.removeStyle(document.getElementsByTagName("body")[0], "overflow");
   }
 
   fetchExplore() {
+    this.loading = true;
     this.exploreService.explore(this.page).subscribe((res: any) => {
       // console.log(res);
       if (res.content.length) {
         res.content.forEach(i => {
           this.explore.push(i);
         });
+        this.page++;
         this.loading = false;
       } else {
         this.endOfPosts = true;
@@ -127,18 +138,18 @@ export class ExploreComponent implements OnInit {
   getTopHashTags() {
     this.api.getTopHashtags().subscribe(
       (res: any) => {
-        this.loading = false;
         if (res.content) {
           this.hasTags = res.content;
         }
       }, err => {
-        this.loading = false;
       });
   }
 
   getHashtagRelatedPost() {
+    this.loading = true;
     this.exploreService.getHashtagPost(this.queryString, this.page).subscribe((res: any) => {
       if (res.content.length) {
+        this.page++;
         res.content.forEach(i => {
           this.explore.push(i);
         });
