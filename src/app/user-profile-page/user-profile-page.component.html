@@ -8,22 +8,21 @@
         <div class="user-profile-banner">
           <div class="com-ban-img-container"
             [ngClass]="[mobileView ? 'mobile': 'desktop', showBanner ? 'show-banner' : 'show-avatar']"
-            (mouseover)="handleMouseOverBanner($event)" (mouseout)="handleMouseOutBanner($event)">
+            (click)="toggleUserBanner($event)">
             <div class="banner-container">
               <img [src]="userBannerImage" alt="banner" class="comm-ban-img" draggable="false"
                 [ngClass]="[mobileView ? 'mobile': 'desktop', userBannerImage ? '' : 'd-none']" #userBannerImgRef>
               <div *ngIf="isBannerLoding" class="banner-loading">
                 <app-loader [size]="'md'" [color]="'dark'"></app-loader>
               </div>
-              <div class="change-comm-img">
+              <div class="change-comm-img" matTooltip="Change background banner">
                 <mat-icon (click)="previewImage()" *ngIf="relation == 'owned'">camera</mat-icon>
                 <app-img-cropper-wrapper (imageDataEvent)="imageDataReceiverOfBanner($event)" [aspectRatio]="12 / 4"
                   #userBannerImageCropperRef>
                 </app-img-cropper-wrapper>
               </div>
             </div>
-            <div class="profile-img-container" (mouseover)="handleMouseOverAvatar($event)"
-              (mouseout)="handleMouseOutAvatar($event)">
+            <div class="profile-img-container">
               <div class="profile-img">
                 <img [src]="userAvatarImage ? userAvatarImage : defaultUserSrc" alt="" draggable="false"
                   #userAvatarImgRef>
@@ -31,13 +30,17 @@
                   #imageCropperRef>
                 </app-img-cropper-wrapper>
                 <!-- <input id="fileInput" type="file" style="display: none" (change)="updateUserAvatar($event)"> -->
-                <div class="avatar" *ngIf="relation==='owned'">
-                  <mat-icon (click)="triggerFalseClick()">camera</mat-icon>
+                <div class="avatar" *ngIf="relation==='owned'" matTooltip="Change avatar">
+                  <mat-icon (click)="triggerFalseClick($event)">camera</mat-icon>
                 </div>
               </div>
               <div class="profile-section" [ngClass]="{'mobile' : mobileView}">
-                <div class="username" (click)="openEditDialog()">
+                <div class="username" *ngIf="relation ==='owned'" (click)="openEditDialog($event)"
+                  matTooltip="Click to edit profile">
                   <span>{{user?.username}}&nbsp;<mat-icon>edit</mat-icon></span>
+                </div>
+                <div class="username" *ngIf="relation !=='owned'">
+                  <span>{{user?.username}}</span>
                 </div>
               </div>
             </div>
@@ -77,7 +80,7 @@
           </div>
         </div>
         <div>
-          <div class="profile-feed-container" [ngClass]="mobileView ? 'mobile': 'desktop'">
+          <div class="profile-feed-container last-feed" [ngClass]="mobileView ? 'mobile': 'desktop'">
             <div class="flex">
               <div class="flex-section-left">
                 <app-usercommunity [userId]="user?.userId" [relation]="relation"

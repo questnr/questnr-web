@@ -12,6 +12,7 @@ export class AttachedFileComponent implements OnInit {
   @Input() useLink: boolean = false;
   @Input() attachedFile: File;
   @Input() attachedFileLink: PostMedia;
+  @Output() downloadError = new EventEmitter();
   @Output() removeAttachedFileListener = new EventEmitter();
   hoveredIndex: number = -1;
   noneFileExtension: string = "unrecognised file";
@@ -57,11 +58,16 @@ export class AttachedFileComponent implements OnInit {
   }
 
   downloadAttachedFile(mediaLink: string) {
-    let a = document.createElement('a')
-    a.href = mediaLink;
-    a.download = mediaLink.split('/').pop()
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
+    if (mediaLink) {
+      let a = document.createElement('a')
+      a.href = mediaLink;
+      a.download = mediaLink.split('/').pop()
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+    }
+    else {
+      this.downloadError.emit();
+    }
   }
 }

@@ -1,20 +1,20 @@
-import {Component, Input, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
-import {UserProfileCardServiceComponent} from '../user-profile-card/user-profile-card-service.component';
-import {LoginService} from '../auth/login.service';
-import {ActivatedRoute} from '@angular/router';
-import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
-import {MatDialog} from '@angular/material/dialog';
-import {CommunityMembersService} from './community-members.service';
-import {Community, CommunityProfileMeta} from '../models/community.model';
-import {User} from '../models/user.model';
-import {Router} from '@angular/router';
-import {of} from 'rxjs';
-import {RelationType} from 'models/relation-type';
-import {StaticMediaSrc} from 'shared/constants/static-media-src';
-import {GlobalConstants} from 'shared/constants';
-import {CommunityService} from '../community/community.service';
+import { Component, Input, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
+import { LoginService } from '../auth/login.service';
+import { ActivatedRoute } from '@angular/router';
+import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
+import { MatDialog } from '@angular/material/dialog';
+import { CommunityMembersService } from './community-members.service';
+import { Community, CommunityProfileMeta } from '../models/community.model';
+import { User } from '../models/user.model';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
+import { RelationType } from 'models/relation-type';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { GlobalConstants } from 'shared/constants';
+import { CommunityService } from '../community/community.service';
 
 @Component({
   selector: 'app-community-users',
@@ -42,7 +42,7 @@ export class CommunityUsersComponent implements OnInit {
   pendingRequests = 0;
 
   constructor(public http: HttpClient, public userService: UserProfileCardServiceComponent, public loginService: LoginService, public route: ActivatedRoute,
-              public dialog: MatDialog, public communityMembersService: CommunityMembersService, private loginAuth: LoginService, public auth: CommunityService) {
+    public dialog: MatDialog, public communityMembersService: CommunityMembersService, private loginAuth: LoginService, public auth: CommunityService) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
   }
 
@@ -84,7 +84,7 @@ export class CommunityUsersComponent implements OnInit {
   }
 
   getCommunityMetaInfo(communitySlug: string) {
-    this.communityMembersService.getCommunityMetaInfo(communitySlug).subscribe((data: CommunityProfileMeta) => {
+    this.communityMembersService.getCommunityMetaInfoWithParams(communitySlug, "followers").subscribe((data: CommunityProfileMeta) => {
       this.numberOfMembers = data.followers;
     });
   }
@@ -124,7 +124,7 @@ export class CommunityUsersComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: {communitySlug: this.communitySlug, type, communityPendingRequests : this.pendingJoinRequest, communityId: this.communityId}
+        data: { communitySlug: this.communitySlug, type, communityPendingRequests: this.pendingJoinRequest, communityId: this.communityId }
       };
     } else {
       config = {
@@ -133,7 +133,7 @@ export class CommunityUsersComponent implements OnInit {
         maxHeight: '60vh',
         overflow: "hidden",
         // data: userList
-        data: {communitySlug: this.communitySlug, type, communityPendingRequests : this.pendingJoinRequest, communityId: this.communityId}
+        data: { communitySlug: this.communitySlug, type, communityPendingRequests: this.pendingJoinRequest, communityId: this.communityId }
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);

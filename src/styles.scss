@@ -729,3 +729,7 @@ input:focus {
 .opened-modal .mat-dialog-container {
   @extend .hide-scrollbar;
 }
+
+.last-feed {
+  padding-bottom: 140px;
+}

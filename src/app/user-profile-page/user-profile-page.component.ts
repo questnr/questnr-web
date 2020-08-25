@@ -181,7 +181,8 @@ export class UserProfilePageComponent implements OnInit {
   //   }
   // }
 
-  triggerFalseClick() {
+  triggerFalseClick($event) {
+    $event.stopPropagation();
     // const src = document.getElementById('fileInput').click();
     this.imageCropperRef.openImageCropper();
   }
@@ -210,7 +211,8 @@ export class UserProfilePageComponent implements OnInit {
       return StaticMediaSrc.userFile;
     }
   }
-  openEditDialog(): void {
+  openEditDialog($event): void {
+    $event.stopPropagation();
     let config = null;
     if (this.mobileView) {
       config = {
@@ -284,27 +286,36 @@ export class UserProfilePageComponent implements OnInit {
     }
   }
 
-  handleMouseOverBanner($event) {
-    if (!this.showAvatar) {
-      setTimeout(() => {
-        this.showBanner = true;
-        setTimeout(() => {
-          this.handleMouseOutBanner({});
-        }, 1500);
-      }, 1000);
-    }
+  toggleUserBanner($event) {
+    this.showBanner = !this.showBanner;
+    // $event.stopPropagation();
+    // this.showBanner = true;
+    // setTimeout(() => {
+    //   this.showBanner = false;
+    // }, 1500);
   }
 
-  handleMouseOutBanner($event) {
-    this.showBanner = false;
-  }
+  // handleMouseOverBanner($event) {
+  //   if (!this.showAvatar) {
+  //     setTimeout(() => {
+  //       this.showBanner = true;
+  //       setTimeout(() => {
+  //         this.handleMouseOutBanner({});
+  //       }, 1500);
+  //     }, 1000);
+  //   }
+  // }
 
-  handleMouseOverAvatar($event) {
-    this.showAvatar = true;
-    this.showBanner = false;
-  }
+  // handleMouseOutBanner($event) {
+  //   this.showBanner = false;
+  // }
 
-  handleMouseOutAvatar($event) {
-    this.showAvatar = false;
-  }
+  // handleMouseOverAvatar($event) {
+  //   this.showAvatar = true;
+  //   this.showBanner = false;
+  // }
+
+  // handleMouseOutAvatar($event) {
+  //   this.showAvatar = false;
+  // }
 }

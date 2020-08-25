@@ -11,6 +11,7 @@ export class AttachedFileListComponent implements OnInit {
 
   @Input() attachedFileLinkList: PostMedia[];
   attachedFileList: any[];
+  @Output() downloadError = new EventEmitter();
   @Output() finalizedAttachedFileListListener = new EventEmitter();
   useLink: boolean = false;
 
@@ -40,5 +41,9 @@ export class AttachedFileListComponent implements OnInit {
 
   finalizedAttachedList() {
     this.finalizedAttachedFileListListener.emit(this.attachedFileList);
+  }
+
+  downloadErrorListener($event) {
+    this.downloadError.emit();
   }
 }

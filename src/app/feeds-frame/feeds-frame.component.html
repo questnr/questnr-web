@@ -1,15 +1,16 @@
-<app-user-header [mobileView]="mobileView" (menuToggle)="toggle(drawer)"></app-user-header>
+<!-- <app-user-header [mobileView]="mobileView" (menuToggle)="toggle(drawer)"></app-user-header> -->
+<app-user-header [mobileView]="mobileView"></app-user-header>
 
 <mat-sidenav-container class="sidenav-container" autosize>
-  <mat-sidenav #drawer class="side" [mode]="sideConfig" [opened]="isSidenavopen">
+  <!-- <mat-sidenav #drawer class="side" [mode]="sideConfig" [opened]="isSidenavopen">
     <app-sidenav></app-sidenav>
-  </mat-sidenav>
+  </mat-sidenav> -->
 
   <mat-sidenav-content>
-    <div class="container" [ngClass]="{'container_mobile': mobileView}">
+    <div class="container" [ngClass]="{'mobile': mobileView}">
       <div class="main-wrap">
-        <aside *ngIf="!mobileView" style="width: 300px">
-          <div class="stick fixed-frame">
+        <aside *ngIf="!mobileView" class="left-part">
+          <div class="stick">
             <!--            <app-quick-nav></app-quick-nav>-->
             <app-sidenav></app-sidenav>
           </div>
@@ -39,39 +40,42 @@
               </div>
             </div>
           </div>
-          <ng-container *ngIf="userFeeds.length; else noFeeds">
-            <div class="feed-wrap" *ngFor="let feed of userFeeds;let idx = index">
-              <div *ngIf="userFeeds?.length && idx % 4 == 0 && mobileView">
-                <app-trend-post-question></app-trend-post-question>
+          <div class="last-feed">
+            <ng-container *ngIf="userFeeds.length; else noFeeds">
+              <div class="feed-wrap" *ngFor="let feed of userFeeds;let idx = index">
+                <div *ngIf="userFeeds?.length && idx % 4 == 0 && mobileView">
+                  <app-trend-post-question></app-trend-post-question>
+                </div>
+                <div *ngIf="feed.postType !== 'question'">
+                  <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+                  </app-recommended-feeds>
+                </div>
+                <div *ngIf="feed.postType === 'question'">
+                  <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"></app-question-ui>
+                </div>
               </div>
-              <div *ngIf="feed.postType !== 'question'">
-                <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
-                </app-recommended-feeds>
-              </div>
-              <div *ngIf="feed.postType === 'question'">
-                <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"></app-question-ui>
-              </div>
-            </div>
-            <p class="text-center" style="margin-top :30px" *ngIf="userFeeds.length===1 && userFeeds[0] === null">
-              <mat-chip>We couldn't find more post for you!</mat-chip>
-            </p>
-          </ng-container>
-          <app-feeds-loader *ngIf="loading"></app-feeds-loader>
-          <!-- <div class="loader">
+              <p class="text-center" style="margin-top :30px" *ngIf="userFeeds.length===1 && userFeeds[0] === null">
+                <mat-chip>We couldn't find more post for you!</mat-chip>
+              </p>
+            </ng-container>
+            <app-feeds-loader *ngIf="loading"></app-feeds-loader>
+
+            <!-- <div class="loader">
             <mat-spinner *ngIf="loading" color="accent"></mat-spinner>
           </div> -->
-          <ng-template #noFeeds>
-            <div class="text-center no-feed" *ngIf="!loading">
-              <div>It seems you don’t have any post yet.</div>
-              <div>
-                <a class="primary-link" (click)="createCommunity()">
-                  Create your community</a> and make everyone amazed by the things you love
+            <ng-template #noFeeds>
+              <div class="text-center no-feed" *ngIf="!loading">
+                <div>It seems you don’t have any post yet.</div>
+                <div>
+                  <a class="primary-link" (click)="createCommunity()">
+                    Create your community</a> and make everyone amazed by the things you love
+                </div>
               </div>
-            </div>
-          </ng-template>
+            </ng-template>
+          </div>
         </div>
-        <aside class="right" *ngIf="!mobileView" style="width: 300px">
-          <div class="stick fixed-frame">
+        <aside class="right-part" *ngIf="!mobileView">
+          <div class="stick">
             <div class="" style="padding: 20px 0px">
               <!--              <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
               <app-trend-post-question></app-trend-post-question>

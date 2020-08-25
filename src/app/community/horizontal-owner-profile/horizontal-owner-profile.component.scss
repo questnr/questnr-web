@@ -1,0 +1,46 @@
+@import "../../variables";
+
+.owner-profile-wrapper {
+    width: calc(95% - 10px);
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    .header {
+        padding: 4px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        color: $white;
+        background: $heading;
+        border-radius: inherit;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+    .content {
+        padding: 8px;
+        display: flex;
+        justify-content: center;
+        .profile-icon {
+        }
+        .username {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: $black;
+            font-weight: bold;
+            &:hover {
+                color: $primary;
+            }
+        }
+    }
+}
+
+.owner-profile-wrapper.desktop {
+    margin: 20px auto;
+}
+
+/* mobile responsive css */
+.owner-profile-wrapper.mobile {
+    margin: 15px auto;
+}

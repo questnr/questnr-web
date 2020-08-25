@@ -4,11 +4,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { GlobalConstants } from 'shared/constants';
 import { environment } from '../../environments/environment';
-import { Community } from '../models/community.model';
+import { Community, CommunityListType } from '../models/community.model';
 import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
 import { CreateCommunityComponent } from '../shared/components/dialogs/create-community/create-community.component';
 import { UsercommunityService } from './usercommunity.service';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-usercommunity',
@@ -16,9 +17,6 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
   styleUrls: ['./usercommunity.component.scss']
 })
 export class UsercommunityComponent implements OnInit {
-
-  constructor(public dialog: MatDialog, public http: HttpClient, public usercommunityService: UsercommunityService) {
-  }
   @Input() profileUserId: number;
   @Input() userId: number;
   @Input() hasCommunity = true;
@@ -29,7 +27,6 @@ export class UsercommunityComponent implements OnInit {
   baseUrl = environment.baseUrl;
   ownedCommunity: Community[];
   loader = true;
-  screenWidth = window.innerWidth;
   mobileView = false;
   endOfResult = false;
   page = 0;
@@ -59,18 +56,17 @@ export class UsercommunityComponent implements OnInit {
     autoplay: true
   };
 
+  constructor(public dialog: MatDialog,
+    public http: HttpClient,
+    public usercommunityService: UsercommunityService,
+    private _globalService: GlobalService) {
+  }
+
   ngOnInit() {
     setTimeout(() => {
       this.getUserOwnedCommunity();
     }, 2000);
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
+    this.mobileView = this._globalService.isMobileView();
   }
 
   checkImageUrl(src) {
@@ -94,7 +90,7 @@ export class UsercommunityComponent implements OnInit {
       }
     });
   }
-  openCommunityDialog(community): void {
+  openCommunityDialog(communityList): void {
     let config = null;
     if (this.mobileView) {
       config = {
@@ -109,13 +105,13 @@ export class UsercommunityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: { userId: this.userId, community, type: 'ownedCommunity' }
+        data: { userId: this.userId, communityList, type: CommunityListType.owned, page: 1 }
       };
     } else {
       config = {
         width: '700px',
         maxHeight: "70vh",
-        data: { userId: this.userId, community, type: 'ownedCommunity' }
+        data: { userId: this.userId, communityList, type: CommunityListType.owned, page: 1 }
       };
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);

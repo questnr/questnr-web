@@ -55,8 +55,7 @@ export class CommunityComponent implements OnInit {
   userFeeds: Post[] = [];
   loading = true;
   communityId: any;
-  mobileView = false;
-  screenWidth = window.innerWidth;
+  mobileView: boolean = false;
   scrollCached: boolean = null;
   owned: string = RelationType.OWNED;
   followed: string = RelationType.FOLLOWED;
@@ -74,6 +73,7 @@ export class CommunityComponent implements OnInit {
               private _activityService: QuestnrActivityService, private _globalService: GlobalService,
               private renderer: Renderer2) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
+    this.mobileView = this._globalService.isMobileView();
   }
 
   public trackItem(index: number, feed: Post) {

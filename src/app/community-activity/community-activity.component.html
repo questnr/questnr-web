@@ -1,0 +1,28 @@
+<mat-card class="community-activity-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+  <div class="activity-items" *ngIf="!loading">
+    <div class="activity-item trend-item" *ngIf="communityInfo?.inTrend == true"
+      [ngClass]="mobileView ? 'mobile' : 'desktop'">
+      <span>{{'#'+communityInfo?.trendRank}}</span>
+      <div>
+        <p>In Trending</p>
+      </div>
+    </div>
+    <div class="vhr" *ngIf="communityInfo?.inTrend == true"></div>
+    <div class="activity-item">
+      <span (click)="openCommunityMembersDialog()">{{communityInfo?.followers}}</span>
+      <div>
+        <p>Members</p>
+      </div>
+    </div>
+    <div class="vhr"></div>
+    <div class="activity-item">
+      <span (click)="scrollTo()">{{communityInfo?.posts}}</span>
+      <div>
+        <p>Total Posts</p>
+      </div>
+    </div>
+  </div>
+  <div class="loader" *ngIf="loading">
+    <app-loader [size]="'md'"></app-loader>
+  </div>
+</mat-card>

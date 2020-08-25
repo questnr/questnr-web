@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Community } from '../models/community.model';
+import { Community, CommunityListType } from '../models/community.model';
 import { LoginService } from '../auth/login.service';
 import { ApiService } from '../shared/api.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { GlobalConstants } from 'shared/constants';
 import { CommunityListComponent } from 'shared/components/dialogs/community-list/community-list.component';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { GlobalService } from 'global.service';
+import { Page } from 'models/page.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -47,26 +49,21 @@ export class SuggestionComponent implements OnInit {
     nav: false,
     autoplay: true
   };
-  constructor(public api: ApiService, public loginService: LoginService, public dialog: MatDialog, private router: Router) { }
+  constructor(public api: ApiService,
+    public loginService: LoginService,
+    public dialog: MatDialog,
+    private _globalService: GlobalService) { }
 
   ngOnInit(): void {
     this.api.getSuggestedCommunities().subscribe(
-      (res: any) => {
+      (res: Page<Community>) => {
         this.loadingCommunities = false;
         if (res.content.length) {
           this.suggestedCommunityList = res.content;
         }
       }, err => { this.loadingCommunities = false; }
     );
-
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
+    this.mobileView = this._globalService.isMobileView();
   }
   checkImageUrl(src) {
     if (src) {
@@ -90,13 +87,13 @@ export class SuggestionComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: { userId: null, community, type: 'suggestedCommunity' }
+        data: { userId: this.loginService.getUserId(), community, type: CommunityListType.suggested, page: 1, isEnd: true }
       };
     } else {
       config = {
         width: '700px',
         maxHeight: "70vh",
-        data: { userId: null, community, type: 'suggestedCommunity' }
+        data: { userId: this.loginService.getUserId(), community, type: CommunityListType.suggested, page: 1, isEnd: true }
       };
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);
