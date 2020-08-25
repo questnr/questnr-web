@@ -6,6 +6,7 @@ import { Community } from '../models/community.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from '../shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-explore',
@@ -13,45 +14,36 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
   styleUrls: ['./explore.component.scss']
 })
 export class ExploreComponent implements OnInit, AfterViewInit {
+  explore: Post[] = [];
+  pathLink = GlobalConstants.explorePath;
+  suggestedCommunities: Community[] = [];
+  hasTags = [];
+  mobileView: boolean = false;
+  endOfPosts = false;
+  loading: boolean = true;
+  scrollCached: boolean = null;
+  page: number = 0;
+  hashTagUrl = GlobalConstants.hashTagPath;
+  queryString: string;
+  @ViewChild("exploreFeeds") exploreFeeds: ElementRef;
 
   constructor(public exploreService: ExploreService,
     public api: ApiService,
     public route: ActivatedRoute,
     private router: Router,
-    private renderer: Renderer2) {
+    private renderer: Renderer2,
+    private _globalService: GlobalService) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     }
+    this.mobileView = this._globalService.isMobileView();
   }
-
-  explore: Post[] = [];
-  pathLink = GlobalConstants.explorePath;
-  suggestedCommunities: Community[] = [];
-  hasTags = [];
-  mobileView = false;
-  screenWidth = window.innerWidth;
-  endOfPosts = false;
-  loading = true;
-  scrollCached: boolean = null;
-  page = 0;
-  hashTagUrl = GlobalConstants.hashTagPath;
-  queryString: string;
-  @ViewChild("exploreFeeds") exploreFeeds: ElementRef;
 
   ngOnInit(): void {
     this.queryString = this.route.snapshot.paramMap.get('hashTag');
     // console.log(this.queryString);
     this.getSuggestedCommunity();
     this.getTopHashTags();
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-      const el = document.querySelector('.flex-7');
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
     this.fetchData();
   }
 
