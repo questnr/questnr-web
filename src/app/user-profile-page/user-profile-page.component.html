@@ -70,54 +70,52 @@
             </app-relation-action-button>
           </div>
         </div>
-        <div class="user-meta-info-div row" [ngClass]="mobileView ? 'mobile': 'desktop'">
-          <div class="col-md-6">
-            <app-user-description-card [bio]="user?.bio" [relation]="relation" [username]="user?.username">
-            </app-user-description-card>
+        <div class="profile-feed-container" [ngClass]="mobileView ? 'mobile': 'desktop'">
+          <div class="user-meta-info-div row" [ngClass]="mobileView ? 'mobile': 'desktop'">
+            <div class="col-md-6">
+              <app-user-description-card [bio]="user?.bio" [relation]="relation" [username]="user?.username">
+              </app-user-description-card>
+            </div>
+            <div class="col-md-6">
+              <app-user-activity [userId]="user?.userId" [userInfo]="userInfo"></app-user-activity>
+            </div>
           </div>
-          <div class="col-md-6">
-            <app-user-activity [userId]="user?.userId" [userInfo]="userInfo"></app-user-activity>
-          </div>
-        </div>
-        <div>
-          <div class="profile-feed-container last-feed" [ngClass]="mobileView ? 'mobile': 'desktop'">
-            <div class="flex">
-              <div class="flex-section-left">
-                <app-usercommunity [userId]="user?.userId" [relation]="relation"
-                  [ownsCommunities]="userInfo?.ownsCommunities">
-                </app-usercommunity>
-                <app-joined-community [userId]="user?.userId" [followsCommunities]="userInfo?.followsCommunities">
-                </app-joined-community>
-                <div *ngIf="!mobileView">
-                  <app-floating-footer></app-floating-footer>
-                </div>
+          <div class="flex last-feed">
+            <div class="flex-section-left">
+              <app-usercommunity [userId]="user?.userId" [relation]="relation"
+                [ownsCommunities]="userInfo?.ownsCommunities">
+              </app-usercommunity>
+              <app-joined-community [userId]="user?.userId" [followsCommunities]="userInfo?.followsCommunities">
+              </app-joined-community>
+              <div *ngIf="!mobileView">
+                <app-floating-footer></app-floating-footer>
               </div>
-              <div class="flex-section-center">
-                <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]=false *ngIf="relation === 'owned'"
-                  [type]="'Create'">
-                </app-post-feeds>
-                <div id="user-feed"></div>
-                <ng-container *ngIf="userFeeds?.length; else noFeeds">
-                  <div class="feed-wrap" *ngFor="let feed of userFeeds">
-                    <div *ngIf="feed.postType !== 'question'">
-                      <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
-                      </app-recommended-feeds>
-                    </div>
-                    <div *ngIf="feed.postType === 'question'">
-                      <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"></app-question-ui>
-                    </div>
-                    <!--              <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">-->
-                    <!--              </app-recommended-feeds>-->
+            </div>
+            <div class="flex-section-center">
+              <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]=false *ngIf="relation === 'owned'"
+                [type]="'Create'">
+              </app-post-feeds>
+              <div id="user-feed"></div>
+              <ng-container *ngIf="userFeeds?.length; else noFeeds">
+                <div class="feed-wrap" *ngFor="let feed of userFeeds">
+                  <div *ngIf="feed.postType !== 'question'">
+                    <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+                    </app-recommended-feeds>
                   </div>
-                  <p class="text-center" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
-                </ng-container>
-                <app-feeds-loader *ngIf="loading"></app-feeds-loader>
-                <ng-template #noFeeds>
-                  <p class="text-center" style="margin-top :30px" *ngIf="feeds?.length===1 && feeds[0] === null">No
-                    Feeds
-                    Found...!</p>
-                </ng-template>
-              </div>
+                  <div *ngIf="feed.postType === 'question'">
+                    <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"></app-question-ui>
+                  </div>
+                  <!--              <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">-->
+                  <!--              </app-recommended-feeds>-->
+                </div>
+                <p class="text-center" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
+              </ng-container>
+              <app-feeds-loader *ngIf="loading"></app-feeds-loader>
+              <ng-template #noFeeds>
+                <p class="text-center" style="margin-top :30px" *ngIf="feeds?.length===1 && feeds[0] === null">No
+                  Feeds
+                  Found...!</p>
+              </ng-template>
             </div>
           </div>
         </div>
