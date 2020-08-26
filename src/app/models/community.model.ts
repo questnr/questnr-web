@@ -15,7 +15,7 @@ export class Community {
   tags: string;
   // metaData: MetaData;
   communityMeta: CommunityMeta;
-  communityPrivacy: string;
+  communityPrivacy: CommunityPrivacy;
 }
 
 export class CommunityPublic extends Community {
@@ -58,4 +58,9 @@ export enum CommunityListType {
   owned = 'owned',
   joined = 'joined',
   suggested = 'suggested'
+}
+
+export enum CommunityPrivacy {
+  pub = 'pub',
+  pri = 'pri'
 }

@@ -1,28 +1,29 @@
-import {Component, ElementRef, OnInit, ViewChild, Renderer2} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Page} from 'models/page.model';
-import {UIService} from 'ui/ui.service';
-import {LoginService} from '../auth/login.service';
-import {Community} from '../models/community.model';
-import {Post} from '../models/post-action.model';
-import {User} from '../models/user.model';
-import {DescriptionComponent} from '../shared/components/dialogs/description/description.component';
-import {CommunityService} from './community.service';
-import {CommunityUsersComponent} from 'community-users/community-users.component';
-import {ImgCropperWrapperComponent} from 'img-cropper-wrapper/img-cropper-wrapper.component';
-import {CommonService} from 'common/common.service';
-import {UserListComponent} from 'shared/components/dialogs/user-list/user-list.component';
-import {RelationType} from 'models/relation-type';
-import {SharePostComponent} from 'shared/components/dialogs/share-post/share-post.component';
-import {GlobalConstants} from 'shared/constants';
-import {StaticMediaSrc} from 'shared/constants/static-media-src';
-import {QuestnrActivityService} from 'shared/questnr-activity.service';
-import {TrackingEntityType, TrackingInstance} from 'models/user-activity.model';
-import {GlobalService} from '../global.service';
-import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import { Component, ElementRef, OnInit, ViewChild, Renderer2 } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Page } from 'models/page.model';
+import { UIService } from 'ui/ui.service';
+import { LoginService } from '../auth/login.service';
+import { Community, CommunityPrivacy } from '../models/community.model';
+import { Post } from '../models/post-action.model';
+import { User } from '../models/user.model';
+import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
+import { CommunityService } from './community.service';
+import { CommunityUsersComponent } from 'community-users/community-users.component';
+import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
+import { CommonService } from 'common/common.service';
+import { UserListComponent } from 'shared/components/dialogs/user-list/user-list.component';
+import { RelationType } from 'models/relation-type';
+import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
+import { GlobalConstants } from 'shared/constants';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { QuestnrActivityService } from 'shared/questnr-activity.service';
+import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
+import { GlobalService } from '../global.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogContentType } from 'models/confirm-dialog.model';
 
 @Component({
   selector: 'app-community',
@@ -68,10 +69,10 @@ export class CommunityComponent implements OnInit {
   isCommunityPrivate = false;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
-              private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
-              public commonService: CommonService,
-              private _activityService: QuestnrActivityService, private _globalService: GlobalService,
-              private renderer: Renderer2) {
+    private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
+    public commonService: CommonService,
+    private _activityService: QuestnrActivityService, private _globalService: GlobalService,
+    private renderer: Renderer2) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
     this.mobileView = this._globalService.isMobileView();
   }
@@ -125,7 +126,7 @@ export class CommunityComponent implements OnInit {
           this.trackerInstance = trackerInstance;
         });
     });
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
   }
@@ -237,7 +238,7 @@ export class CommunityComponent implements OnInit {
   // }
 
   copyLinkOfCommunity($event) {
-    this.snackBar.open('Link copied to clipboard', 'close', {duration: 5000});
+    this.snackBar.open('Link copied to clipboard', 'close', { duration: 5000 });
     // let snackBarRef = this.snackbar.open('Copying Link..');
     // this.commonService.copyToClipboard(this.commonService.getCommunitySharableLink(this.communitySlug));
     // snackBarRef.dismiss();
@@ -310,38 +311,30 @@ export class CommunityComponent implements OnInit {
     let clickAction = this.commonService.getCommunitySharableLink(this.communitySlug);
     this.dialog.open(SharePostComponent, {
       width: '500px',
-      data: {url: clickAction}
+      data: { url: clickAction }
     });
   }
 
-  toggleCommunityPrivacy(updatedPrivacy) {
+  toggleCommunityPrivacy(updatedPrivacy: CommunityPrivacy) {
     this.auth.toggleCommunityPrivacy(this.communityId, updatedPrivacy).subscribe((res: Community) => {
-      if (res.communityPrivacy === 'pri') {
+      if (res.communityPrivacy === CommunityPrivacy.pri) {
         this.isCommunityPrivate = true;
       }
-      if (res.communityPrivacy === 'pub') {
+      if (res.communityPrivacy === CommunityPrivacy.pub) {
         this.isCommunityPrivate = false;
       }
-      this.snackBar.open('Community privacy updated', 'close', {duration: 3000});
+      this.snackBar.open('Community privacy updated', 'close', { duration: 3000 });
     }, error => {
-      this.snackBar.open(error.error.errorMessage, 'close', {duration: 3000});
+      this.snackBar.open(error.error.errorMessage, 'close', { duration: 3000 });
     });
   }
 
   communityPrivacyDialog() {
     const title = (this.isCommunityPrivate) ? 'Make "' + this.communityDTO.communityName + '" Public?' : 'Make "' + this.communityDTO.communityName + '" Private?';
-    const innerHTML = (this.isCommunityPrivate) ? '<ul>\n' +
-      '      <li>All the pending community join requests will be approved automatically.</li>\n' +
-      '      <li>All the community members and community posts will be visible to public.</li>\n' +
-      '      <li>Any Questnr member will be able to join the community without admin\'s approval.</li>\n' +
-      '    </ul>' : '<ul>\n' +
-      '      <li>All the requests has to be approved  by the admin manually.</li>\n' +
-      '      <li>Community members and Community posts will be visible only to the joined community members.</li>\n' +
-      '      <li>Community will not be displayed in the trending or suggested communities section.  </li>\n' +
-      '    </ul>';
-    const agreeText = 'Yes! I understand';
+    const agreeText = 'Yes, I understand!';
     const disagreeText = 'Cancel';
-
+    const confirmDialogContentType = this.isCommunityPrivate ? ConfirmDialogContentType.makePublicCommunity :
+      ConfirmDialogContentType.makePrivateCommunity;
     let dialogConfig;
     if (this.mobileView) {
       dialogConfig = {
@@ -350,7 +343,7 @@ export class CommunityComponent implements OnInit {
         data: {
           title,
           mobileView: this.mobileView,
-          innerHTML,
+          confirmDialogContentType,
           agreeText,
           disagreeText
         }
@@ -362,7 +355,7 @@ export class CommunityComponent implements OnInit {
         data: {
           title,
           mobileView: this.mobileView,
-          innerHTML,
+          confirmDialogContentType,
           agreeText,
           disagreeText
         }
@@ -372,8 +365,7 @@ export class CommunityComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result?.data) {
-        const userId = this.loginAuth.getUserProfile().id;
-        const privacy = (this.isCommunityPrivate) ? 'pub' : 'pri';
+        const privacy: CommunityPrivacy = (this.isCommunityPrivate) ? CommunityPrivacy.pub : CommunityPrivacy.pri;
         this.toggleCommunityPrivacy(privacy);
       }
     });

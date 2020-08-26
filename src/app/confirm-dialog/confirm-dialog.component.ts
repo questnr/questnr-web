@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmDialogContentType } from 'models/confirm-dialog.model';
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -11,7 +12,8 @@ export class ConfirmDialogComponent implements OnInit {
   agreeText: string = "Yes";
   disagreeText: string = "No";
   mobileView: boolean = false;
-  innerHtml: string;
+  ConfirmDialogContentType = ConfirmDialogContentType;
+  confirmDialogContentType: ConfirmDialogContentType;
   @ViewChild("agreeTextBtn") agreeTextBtn: ElementRef;
   @ViewChild("disagreeTextBtn") disagreeTextBtn: ElementRef;
 
@@ -22,7 +24,7 @@ export class ConfirmDialogComponent implements OnInit {
       agreeText: string,
       disagreeText: string,
       mobileView: boolean,
-      innerHTML: string
+      confirmDialogContentType: ConfirmDialogContentType
     },
   ) { }
 
@@ -39,8 +41,8 @@ export class ConfirmDialogComponent implements OnInit {
     if (this.data?.mobileView) {
       this.mobileView = this.data.mobileView;
     }
-    if (this.data?.innerHTML) {
-      this.innerHtml = this.data.innerHTML;
+    if (this.data?.confirmDialogContentType) {
+      this.confirmDialogContentType = this.data.confirmDialogContentType;
     }
   }
 
