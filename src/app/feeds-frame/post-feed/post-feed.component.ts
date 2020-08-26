@@ -15,6 +15,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PostEditorType, Post, NormalPostData } from 'models/post-action.model';
 import Quill from 'quill';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-post-feed',
@@ -284,10 +285,8 @@ export class PostFeedComponent implements OnInit {
 
     if (!!e.keyCode) {
       this.isHashOn = this.hashTagService.typeCheckForHashTag(e, this.isHashOn);
+      this.hashTagService.handleHashTag(this.isHashOn);
     }
-    // if (this.isHashOn) {
-    //   this.hashTagService.hideHashTagSuggesionList();
-    // }
     // console.log("this.isHashOn", this.isHashOn);
 
     //8 = backspace
