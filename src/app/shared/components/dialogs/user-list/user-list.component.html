@@ -2,23 +2,27 @@
   <button mat-icon-button (click)="onNoClick()">
     <mat-icon> arrow_back</mat-icon>
   </button>
+  <h6 *ngIf="title" class="title">{{title}}</h6>
 </div>
 <div class="user_list_container hide-scrollbar" [ngClass]="{'user_list_container-mobile': mobileView}">
   <!--  <div>-->
   <!--    <input #inputBox type="text" placeholder="Search..." (keypress)="searchUserList(inputBox.value)">-->
   <!--  </div>-->
+  <div>
+    <h6 class="title" *ngIf="title && !mobileView">{{title}}</h6>
+  </div>
   <div class="user_list hide-scrollbar" #listContainer>
     <div class="center">
-      <div id="myUL">
+      <div id="myUL" class="myUL">
 
         <div *ngFor="let i of userList;">
-          <div [id]="i?.userId" *ngIf="!searchResult">
+          <div [id]="i?.userId" *ngIf="!searchResult && !loading">
             <app-user-list-view [isInviteList]="isInviteList" [otherUserId]="i?.userId" [communityId]="communityId"
               [isCommunityRequest]="isCommunityRequest" [user]="i"></app-user-list-view>
           </div>
         </div>
         <div *ngIf="isCommunityRequest && !loading && userList.length == 0">
-          <p style="text-align: center; margin: 0">No Requests Pending</p>
+          <p class="no-result-found">No Request Pending</p>
         </div>
 
         <!--        <div *ngFor="let i of searchResultList">-->

@@ -3,8 +3,18 @@
 .mobile-nav-btn button{
   margin: 10px;
 }
+.title {
+  color: $heading;
+  text-transform: capitalize;
+  //border-left: 3px solid $heading;
+  //padding: 8px;
+  //background: linear-gradient(45deg, #e8e8e8, transparent);
+  //border-radius: 4px;
+  //margin: 0;
+}
 .user_list_container {
   margin: 0px 20px;
+  padding: 10px;
 
 input {
   background-image: url('/assets/search.png');
@@ -75,7 +85,31 @@ dialog {
   position: fixed;
   background: #eeeeee;
   z-index: 1;
+  display: flex;
+  align-items: center;
 }
 .user_list_container-mobile{
   padding: 80px 20px 10px;
+}
+
+  .no-result-found{
+    text-align: center;
+    color: $heading;
+    min-width: 344px;
+  }
+
+  .myUL {
+    min-width: 344px;
+  }
+
+  @media screen  and (max-width: 400px){
+    .title {
+      margin-left: 100px;
+      margin-bottom: 0;
+    }
+  }
+@media screen  and (min-width: 400px) and (max-width: 800px){
+  .title {
+    margin: 0 auto;
+  }
 }

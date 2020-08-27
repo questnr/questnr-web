@@ -16,9 +16,9 @@
     </div>
   </div>
   <div *ngIf="communityMemberList?.length ; else noMembers" class="members-list">
-    <div class="" *ngFor="let i of communityMemberList, let ind = index" [id]="i.userId">
-      <app-user-list-view *ngIf="ind < 4" [user]="i"></app-user-list-view>
-    </div>
+      <div class="" *ngFor="let i of communityMemberList, let ind = index" [id]="i.userId">
+        <app-user-list-view *ngIf="ind < 4" [user]="i"></app-user-list-view>
+      </div>
   </div>
   <app-view-more-button (click)="openUserGroupDialog('members')" *ngIf="communityMemberList?.length >= 4">
   </app-view-more-button>

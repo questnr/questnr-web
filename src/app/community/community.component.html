@@ -148,6 +148,9 @@
                     *ngIf="userFeeds?.length <= 0 && userFeeds[0] === null">
                     No Feeds Found...!
                   </p>
+                  <p *ngIf="isCommunityPrivate && communityDTO.communityMeta.relationShipType !== relationType.FOLLOWED" class="error-private">
+                    <mat-icon>report</mat-icon>
+                    To view community posts, please join the community or &nbsp;<a [routerLink]="['/',explorePath]">explore</a>&nbsp;trending</p>
                 </ng-template>
 
               </div>

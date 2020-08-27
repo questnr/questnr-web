@@ -66,7 +66,8 @@ export class CommunityComponent implements OnInit {
   @ViewChild('communityFeed') communityFeed: ElementRef;
   pendingRequests: number;
   isCommunityPrivate = false;
-
+  explorePath = GlobalConstants.explorePath;
+  relationType = RelationType;
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
               private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
               public commonService: CommonService,
@@ -109,6 +110,9 @@ export class CommunityComponent implements OnInit {
     this.route.data.subscribe((data: { community: Community }) => {
       this.communityDTO = data.community;
       this.description = data.community.description;
+      if (data.community.communityPrivacy === 'pri') {
+        this.isCommunityPrivate = true;
+      }
       if (this.communityDTO?.avatarDTO?.avatarLink) {
         this.communityImage = this.communityDTO.avatarDTO.avatarLink;
       }
@@ -186,6 +190,7 @@ export class CommunityComponent implements OnInit {
       }
     }, error => {
       // console.log(error.error.errorMessage);
+      this.loading = false;
     });
   }
 
@@ -282,7 +287,8 @@ export class CommunityComponent implements OnInit {
         data: {
           userId: this.loggedInUserId,
           communityId: this.communityId,
-          type
+          type,
+          title: type
         }
       };
     } else {
@@ -295,7 +301,8 @@ export class CommunityComponent implements OnInit {
         data: {
           userId: this.loggedInUserId,
           communityId: this.communityId,
-          type
+          type,
+          title: type
         }
       };
     }

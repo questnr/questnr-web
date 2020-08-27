@@ -46,10 +46,13 @@ export class UserListComponent implements OnInit {
   hasTotalPage: number;
   screenWidth = window.innerWidth;
   scrollCached: boolean = null;
+  title: string;
   @ViewChild("listContainer") listContainer: ElementRef;
 
   ngOnInit(): void {
-
+    if (this.data?.title) {
+      this.title = this.data.title;
+    }
   }
 
   ngAfterViewInit() {

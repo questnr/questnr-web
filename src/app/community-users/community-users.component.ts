@@ -124,7 +124,7 @@ export class CommunityUsersComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: { communitySlug: this.communitySlug, type, communityPendingRequests: this.pendingJoinRequest, communityId: this.communityId }
+        data: { communitySlug: this.communitySlug, type, communityPendingRequests: this.pendingJoinRequest, communityId: this.communityId, title: type }
       };
     } else {
       config = {
@@ -133,7 +133,7 @@ export class CommunityUsersComponent implements OnInit {
         maxHeight: '60vh',
         overflow: "hidden",
         // data: userList
-        data: { communitySlug: this.communitySlug, type, communityPendingRequests: this.pendingJoinRequest, communityId: this.communityId }
+        data: { communitySlug: this.communitySlug, type, communityPendingRequests: this.pendingJoinRequest, communityId: this.communityId, title:  type}
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);
