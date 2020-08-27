@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { PostEditorType, Post, NormalPostData } from 'models/post-action.model';
 import Quill from 'quill';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-post-feed',
@@ -73,6 +74,7 @@ export class PostFeedComponent implements OnInit {
   quillLength: number;
   @Input() editing: any;
   postEditorName: string = "Post";
+  mobileView: boolean = false;
 
   constructor(public login: LoginService,
     private service: FeedsService,
@@ -88,7 +90,8 @@ export class PostFeedComponent implements OnInit {
       editing: any
     },
     public snackBar: MatSnackBar,
-    public renderer: Renderer2
+    public renderer: Renderer2,
+    private _globalService: GlobalService
   ) {
   }
 
@@ -97,6 +100,7 @@ export class PostFeedComponent implements OnInit {
   }
 
   ngAfterViewInit(key: string): void {
+    this.mobileView = this._globalService.isMobileView();
     this.hashTagService.registerInputElement(this.userInputRef.nativeElement);
     if (this.data.feed) {
       if (this.data?.feed?.postData.postEditorType == PostEditorType.blog) {
@@ -321,10 +325,15 @@ export class PostFeedComponent implements OnInit {
 
   switchEditor(isBlogEditor) {
     this.isBlogEditor = isBlogEditor;
-    if (this.isBlogEditor)
+    if (this.isBlogEditor) {
       this.postEditorName = "Blog";
-    else
+    }
+    else {
       this.postEditorName = "Post";
+      setTimeout(() => {
+        this.userInputRef.nativeElement.focus();
+      }, 10);
+    }
   }
 
   // typeCheckOnUserInputEvent($event) {

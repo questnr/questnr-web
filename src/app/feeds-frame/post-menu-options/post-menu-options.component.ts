@@ -108,7 +108,11 @@ export class PostMenuOptionsComponent implements OnInit {
 
   editPost(communityId, isCommunityPost, editing, feed): void {
     const dialogRef = this.dialog.open(PostFeedComponent, {
-      width: '550px',
+      // width: '550px',
+      // maxWidth: "90vw",
+      maxWidth: "100vw",
+      maxHeight: "100vh",
+      // width: "90vw",
       // height: '600px',
       // backdropClass: 'custom-dialog-backdrop-class',
       // panelClass: 'custom-dialog-panel-class',

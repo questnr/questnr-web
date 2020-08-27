@@ -1,4 +1,5 @@
-<div class="box hide-scrollbar" style="max-height: 60vh; overflow-y: auto">
+<div class="box hide-scrollbar"
+  [ngClass]="[isBlogEditor ? 'blog-editor-view': 'normal-editor-view', mobileView ? 'mobile' : 'desktop']">
   <div class="loader" [ngClass]="{'active': isLoading}">
     <mat-progress-bar *ngIf="!uploading && isLoading" mode="indeterminate"></mat-progress-bar>
     <mat-progress-bar *ngIf="uploading" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
@@ -18,7 +19,7 @@
     <div class="textbox-wrap md-form" style="position:relative;">
       <div *ngIf="!isBlogEditor">
         <textarea rows="4" placeholder="Describe Here...." [formControl]="text" (input)="typeCheckOnUserInput($event)"
-          (keyup)="typeCheckOnUserInput($event)" class="md-textarea md-textarea-auto" mdbInput #userInputRef>
+          (keyup)="typeCheckOnUserInput($event)" class="md-textarea md-textarea-auto" autofocus mdbInput #userInputRef>
       </textarea>
       </div>
       <div *ngIf="isBlogEditor">
