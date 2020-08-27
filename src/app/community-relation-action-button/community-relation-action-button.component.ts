@@ -4,6 +4,7 @@ import { CommunityService } from 'community/community.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
+import { CommunityPrivacy } from 'models/community.model';
 @Component({
   selector: 'app-community-relation-action-button',
   templateUrl: './community-relation-action-button.component.html',
@@ -16,6 +17,8 @@ export class CommunityRelationActionButtonComponent implements OnInit {
   @Input() mobileView: boolean = false;
   @Input() communityType: string;
   @Output() actionEvent = new EventEmitter();
+  CommunityPrivacy = CommunityPrivacy;
+
   constructor(private auth: CommunityService,
     private loginAuth: LoginService,
     private dialog: MatDialog,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Community, CommunityPublic } from '../models/community.model';
+import { Community, CommunityPublic, CommunityPrivacy } from '../models/community.model';
 import { Observable, of } from 'rxjs';
 import { MetaTagCard } from 'models/common.model';
 
@@ -55,20 +55,20 @@ export class CommunityService {
   }
   getCommunityJoinRequests(communityId, page) {
     if (!communityId) return of();
-    return this.http.get(this.baseUrl + 'user/community/'+ communityId + '/users/request', {params: {page}});
+    return this.http.get(this.baseUrl + 'user/community/' + communityId + '/users/request', { params: { page } });
   }
   joinRequestResponse(communityId, userId, response) {
     if (!communityId || !userId) return of();
     if (response === 'Accepted') {
-      return  this.http.post(this.baseUrl + `user/community/${communityId}/users/${userId}/request`, {});
+      return this.http.post(this.baseUrl + `user/community/${communityId}/users/${userId}/request`, {});
     }
     if (response === 'Rejected') {
-      return  this.http.delete(this.baseUrl + `user/community/${communityId}/users/${userId}/request`);
+      return this.http.delete(this.baseUrl + `user/community/${communityId}/users/${userId}/request`);
     }
   }
-  toggleCommunityPrivacy(communityId, communityPrivacy) {
-    if(!communityPrivacy || !communityId) return of();
-    return this.http.put(this.baseUrl + `user/community/${communityId}/privacy`,{communityPrivacy});
+  toggleCommunityPrivacy(communityId, communityPrivacy: CommunityPrivacy) {
+    if (!communityPrivacy || !communityId) return of();
+    return this.http.put(this.baseUrl + `user/community/${communityId}/privacy`, { communityPrivacy });
 
   }
 }
