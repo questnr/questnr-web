@@ -42,6 +42,7 @@
     "angular-bootstrap-md": "^9.3.1",
     "angular-emoji": "^0.1.45",
     "angularx-social-login": "^2.2.1",
+    "classlist": "^2.0.0",
     "classlist.js": "^1.1.20150312",
     "cors": "^2.8.5",
     "domino": "^2.1.5",
