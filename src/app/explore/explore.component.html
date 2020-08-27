@@ -7,9 +7,12 @@
       <div class="hashtags-container">
         <div class="hashtags">
           <mat-chip-list aria-label="hashtags">
-            <mat-chip *ngFor="let h of hasTags" [ngClass]="{'active_tag': queryString === h?.hashTagValue}"
-              [routerLink]="['/', hashTagUrl, h?.hashTagValue]">
+            <mat-chip class="hash-tag-chip" *ngFor="let h of hasTags"
+              [ngClass]="{'active_tag': queryString === h?.hashTagValue}" (click)="toggleHashTagToSearchingBucket(h)">
               <span>#{{h?.hashTagValue}}</span>
+              <button class="searched-hash-tag" *ngIf="isInListofSeachingBucket(h)">
+                <!-- <mat-icon>close</mat-icon> -->
+              </button>
             </mat-chip>
           </mat-chip-list>
         </div>
@@ -21,9 +24,17 @@
       <div *ngIf="!queryString">
         <app-trending [mobileView]="mobileView" [type]="'slider'"></app-trending>
       </div>
-      <div *ngIf="queryString">
+      <!-- <div *ngIf="queryString">
         <h4><span class="queryString">#{{queryString}}</span></h4>
-      </div>
+      </div> -->
+      <mat-chip-list class="searched-hash-tag-list" aria-label="hashtags">
+        <mat-chip *ngFor="let h of seachHashTagBucket" class="active_tag"
+          [routerLink]="['/', hashTagUrl, h?.hashTagValue]">
+          <span>#{{h?.hashTagValue}}</span>
+          <mat-icon *ngIf="h.hashTagValue != queryString" (click)="removeHashTagToSearchingBucketEvent($event, h)">close
+          </mat-icon>
+        </mat-chip>
+      </mat-chip-list>
       <!--                    <div class="suggestion-container" *ngIf="!queryString">-->
       <!--                      <div class="container-header">-->
       <!--                        <div class="row">-->
@@ -70,12 +81,14 @@
               <div class="hashtags-container">
                 <h5>Popular HashTags</h5>
                 <div class="hashtags">
-                  <mat-chip-list aria-label="hashtags">
-                    <mat-chip *ngFor="let h of hasTags" [ngClass]="{'active_tag': queryString === h?.hashTagValue}"
-                      [routerLink]="'/' + hashTagUrl + '/' +h?.hashTagValue">
-                      <span>#{{h?.hashTagValue}}</span>
-                    </mat-chip>
-                  </mat-chip-list>
+                  <mat-chip class="hash-tag-chip" *ngFor="let h of hasTags"
+                    [ngClass]="{'active_tag': queryString === h?.hashTagValue}"
+                    (click)="toggleHashTagToSearchingBucket(h)">
+                    <span>#{{h?.hashTagValue}}</span>
+                    <button class="searched-hash-tag" *ngIf="isInListofSeachingBucket(h)">
+                      <!-- <mat-icon>close</mat-icon> -->
+                    </button>
+                  </mat-chip>
                 </div>
               </div>
               <app-create-community-btn [type]="'card'"></app-create-community-btn>

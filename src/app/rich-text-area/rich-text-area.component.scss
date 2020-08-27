@@ -1,10 +1,14 @@
-@import '../variables';
+@import "../variables";
 
 .quill-screen {
     background-color: white !important;
 }
 
-::ng-deep.ql-toolbar.ql-snow{
+::ng-deep.ql-editor {
+    min-height: 200px;
+}
+
+::ng-deep.ql-toolbar.ql-snow {
     border: 1px solid $heading !important;
 }
 
@@ -17,6 +21,6 @@
     background-color: $accent;
 }
 
-::ng-deep.ql-editor.ql-blank::before{
+::ng-deep.ql-editor.ql-blank::before {
     content: "Good Luck with Your Blog ;)";
 }

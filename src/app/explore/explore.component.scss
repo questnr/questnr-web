@@ -1,5 +1,9 @@
 @import "../variables";
 
+:host {
+  scroll-behavior: smooth;
+}
+
 .main-wrap {
   display: flex;
   margin-top: 50px;
@@ -112,7 +116,7 @@
   border-radius: 10px;
   padding: 10px;
 
-  .headings {
+  .hashtags {
     font-size: 16px;
     font-weight: 500;
     color: $primary;
@@ -153,4 +157,33 @@ mat-chip:hover {
 .active_tag {
   background: $primary !important;
   color: $white !important;
+}
+
+.searched-hash-tag-list {
+  mat-icon {
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    padding-left: 3px;
+  }
+}
+
+.searched-hash-tag {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: $primary;
+  color: white;
+  font-size: 16px;
+  // padding: 12px 24px;
+  width: 110%;
+  height: 130%;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  z-index: 100;
+  opacity: 0.2;
 }

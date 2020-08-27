@@ -7,6 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from '../shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { GlobalService } from 'global.service';
+import { HashTag } from 'models/hashtag.model';
+import { Hash } from 'crypto';
 
 @Component({
   selector: 'app-explore',
@@ -26,6 +28,7 @@ export class ExploreComponent implements OnInit, AfterViewInit {
   hashTagUrl = GlobalConstants.hashTagPath;
   queryString: string;
   @ViewChild("exploreFeeds") exploreFeeds: ElementRef;
+  seachHashTagBucket: HashTag[] = [];
 
   constructor(public exploreService: ExploreService,
     public api: ApiService,
@@ -41,6 +44,7 @@ export class ExploreComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.queryString = this.route.snapshot.paramMap.get('hashTag');
+    this.seachHashTagBucket.push(new HashTag(this.queryString));
     // console.log(this.queryString);
     this.getSuggestedCommunity();
     this.getTopHashTags();
@@ -54,7 +58,7 @@ export class ExploreComponent implements OnInit, AfterViewInit {
 
   fetchData() {
     if (this.queryString) {
-      this.getHashtagRelatedPost();
+      this.getHashtagRelatedPost(false);
     } else {
       this.fetchExplore();
     }
@@ -137,9 +141,22 @@ export class ExploreComponent implements OnInit, AfterViewInit {
       });
   }
 
-  getHashtagRelatedPost() {
+  getHashtagRelatedPost(searchedListChanged: boolean = false) {
+    if (searchedListChanged == true) {
+      this.explore = [];
+      this.page = 0;
+      this.exploreFeeds.nativeElement.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     this.loading = true;
-    this.exploreService.getHashtagPost(this.queryString, this.page).subscribe((res: any) => {
+    let queryString = '';
+    this.seachHashTagBucket.forEach((searchedHashTag: HashTag, index: number) => {
+      if (index == 0) {
+        queryString = searchedHashTag.hashTagValue;
+      } else {
+        queryString += "," + searchedHashTag.hashTagValue;
+      }
+    });
+    this.exploreService.getHashtagPost(queryString, this.page).subscribe((res: any) => {
       if (res.content.length) {
         this.page++;
         res.content.forEach(i => {
@@ -159,5 +176,41 @@ export class ExploreComponent implements OnInit, AfterViewInit {
   removePostNotify($event) {
     this.explore = this.explore.filter((post: Post) =>
       post.postActionId !== $event);
+  }
+
+  addHashTagToSearchingBucket(hashTag: HashTag) {
+    this.seachHashTagBucket.push(hashTag);
+    setTimeout(() => {
+      this.getHashtagRelatedPost(true);
+    }, 400);
+  }
+
+  removeHashTagToSearchingBucket(hashTag: HashTag) {
+    this.seachHashTagBucket = this.seachHashTagBucket.filter((searchedHashTag: HashTag) => {
+      return searchedHashTag.hashTagValue != hashTag.hashTagValue;
+    });
+  }
+
+  removeHashTagToSearchingBucketEvent($event, hashTag: HashTag) {
+    $event.preventDefault();
+    this.seachHashTagBucket = this.seachHashTagBucket.filter((searchedHashTag: HashTag) => {
+      return searchedHashTag.hashTagValue != hashTag.hashTagValue;
+    });
+  }
+
+  toggleHashTagToSearchingBucket(hashTag: HashTag) {
+    if (this.isInListofSeachingBucket(hashTag)) {
+      this.removeHashTagToSearchingBucket(hashTag);
+    } else {
+      this.addHashTagToSearchingBucket(hashTag);
+    }
+  }
+
+  isInListofSeachingBucket(hashTag: HashTag) {
+    let hasFound: boolean = false;
+    this.seachHashTagBucket.forEach((searchedHashTag: HashTag) => {
+      if (searchedHashTag.hashTagValue == hashTag.hashTagValue) hasFound = true;
+    });
+    return hasFound;
   }
 }

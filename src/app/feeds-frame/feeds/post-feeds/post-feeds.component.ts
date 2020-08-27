@@ -26,8 +26,11 @@ export class PostFeedsComponent implements OnInit {
   }
   createPost(communityId, isCommunityPost, type, addMediaAction): void {
     const dialogRef = this.dialog.open(PostFeedComponent, {
-      maxWidth: this.mobileView ? "90vw" : "60vW",
-      width: this.mobileView ? "90vw" : "550px",
+      // maxWidth: this.mobileView ? "90vw" : "60vW",
+      // width: this.mobileView ? "90vw" : "550px",
+      maxWidth: "100vw",
+      maxHeight: "100vh",
+      // width: "90vw",
       // height: '600px',
       // backdropClass: 'custom-dialog-backdrop-class',
       panelClass: 'opened-modal',
