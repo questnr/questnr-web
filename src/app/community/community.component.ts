@@ -24,6 +24,7 @@ import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model
 import { GlobalService } from '../global.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { ConfirmDialogContentType } from 'models/confirm-dialog.model';
+import { Subscriber, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-community',
@@ -45,17 +46,17 @@ export class CommunityComponent implements OnInit {
   communitySlug: string;
   communityDTO: Community;
   description: string;
-  owner: any;
+  owner: RelationType;
   comUserList: any[];
   ownerDTO: User;
   comUpdatedAvatar: any;
   communityImage: string = StaticMediaSrc.communityFile;
   loggedInUserId: any;
-  page = 0;
+  page: number = 0;
   endOfPosts = false;
   userFeeds: Post[] = [];
-  loading = true;
-  communityId: any;
+  loading: boolean = false;
+  communityId: number;
   mobileView: boolean = false;
   scrollCached: boolean = null;
   owned: string = RelationType.OWNED;
@@ -69,6 +70,9 @@ export class CommunityComponent implements OnInit {
   isCommunityPrivate = false;
   explorePath = GlobalConstants.explorePath;
   relationType = RelationType;
+  isAllowedIntoCommunity: boolean;
+  fetchCommunityFeedsSubscriber: Subscription;
+
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
     private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
     public commonService: CommonService,
@@ -110,21 +114,20 @@ export class CommunityComponent implements OnInit {
     this.communitySlug = this.route.snapshot.paramMap.get('communitySlug');
     this.route.data.subscribe((data: { community: Community }) => {
       this.communityDTO = data.community;
+      this.communityId = this.communityDTO.communityId;
+      this.owner = this.communityDTO.communityMeta.relationShipType;
+      this.restartCommunityFeeds();
       this.description = data.community.description;
-      if (data.community.communityPrivacy === 'pri') {
+      if (data.community.communityPrivacy === CommunityPrivacy.pri) {
         this.isCommunityPrivate = true;
       }
       if (this.communityDTO?.avatarDTO?.avatarLink) {
         this.communityImage = this.communityDTO.avatarDTO.avatarLink;
       }
       this.ownerDTO = this.communityDTO.ownerUserDTO;
-      this.owner = this.communityDTO.communityMeta.relationShipType;
-      if (this.owner === 'owned') {
-        this.getCommunityJoinRequests(this.communityDTO.communityId);
+      if (this.owner === RelationType.OWNED) {
+        this.getCommunityJoinRequests();
       }
-      this.userFeeds = [];
-      this.loading = true;
-      this.fetchCommunityFeeds(this.communityDTO.communityId);
       this._activityService.start(this.communityDTO.communityId, TrackingEntityType.community)
         .then((trackerInstance: TrackingInstance) => {
           this.trackerInstance = trackerInstance;
@@ -135,6 +138,16 @@ export class CommunityComponent implements OnInit {
     };
   }
 
+  restartCommunityFeeds() {
+    this.userFeeds = [];
+    this.page = 0;
+    this.isAllowedIntoCommunity = this.auth.isAllowedIntoCommunity(this.communityDTO);
+    // If already feed is being fetched, stop the thread
+    if (this.fetchCommunityFeedsSubscriber)
+      this.fetchCommunityFeedsSubscriber.unsubscribe();
+    this.fetchCommunityFeeds();
+  }
+
   ngAfterViewInit() {
     this.communityFeed.nativeElement.addEventListener('scroll', this.onScroll, true);
     this.renderer.setStyle(document.getElementsByTagName('body')[0], 'overflow', 'hidden');
@@ -142,6 +155,8 @@ export class CommunityComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    if (this.fetchCommunityFeedsSubscriber)
+      this.fetchCommunityFeedsSubscriber.unsubscribe();
     this.communityFeed.nativeElement.removeEventListener('scroll', this.onScroll, true);
     this.renderer.removeStyle(document.getElementsByTagName('body')[0], 'overflow');
     this.uiService.resetTitle();
@@ -153,11 +168,10 @@ export class CommunityComponent implements OnInit {
       setTimeout(() => {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
           // console.log('no im  here');
-          if (this.userFeeds.length >= 0 && !this.endOfPosts) {
+          if (this.userFeeds.length >= 1 && !this.endOfPosts) {
             // console.log('check network call', this.endOfPosts);
             if (!this.loading) {
-              this.loading = true;
-              this.fetchCommunityFeeds(this.communityId);
+              this.fetchCommunityFeeds();
             }
           }
         }
@@ -171,28 +185,31 @@ export class CommunityComponent implements OnInit {
     if (event.postActionId) {
       this.userFeeds = [event, ...this.userFeeds];
     } else {
-      this.loading = true;
-      this.fetchCommunityFeeds(this.communityId);
+      this.fetchCommunityFeeds();
     }
   }
 
-  fetchCommunityFeeds(communityId) {
-    this.communityId = communityId;
-    this.auth.getCommunityFeeds(communityId, this.page).subscribe((res: Page<Post>) => {
-      if (res.content.length) {
+  fetchCommunityFeeds() {
+    if (this.isAllowedIntoCommunity) {
+      // console.log("fetchCommunityFeeds");
+      this.loading = true;
+      this.fetchCommunityFeedsSubscriber = this.auth.getCommunityFeeds(this.communityId, this.page).subscribe((res: Page<Post>) => {
+        // console.log("Posts", res);
+        if (res.content.length) {
+          this.loading = false;
+          this.page++;
+          res.content.forEach(post => {
+            this.userFeeds.push(post);
+          });
+        } else {
+          this.endOfPosts = true;
+          this.loading = false;
+        }
+      }, error => {
+        // console.log(error.error.errorMessage);
         this.loading = false;
-        this.page++;
-        res.content.forEach(post => {
-          this.userFeeds.push(post);
-        });
-      } else {
-        this.endOfPosts = true;
-        this.loading = false;
-      }
-    }, error => {
-      // console.log(error.error.errorMessage);
-      this.loading = false;
-    });
+      });
+    }
   }
 
   changeCommunityAvatar() {
@@ -258,14 +275,15 @@ export class CommunityComponent implements OnInit {
       userFeed.postActionId !== $event);
   }
 
-  actionEvent($event) {
+  actionEvent($event: RelationType) {
     this.owner = $event;
-    // console.log("Event", $event);
+    // console.log("actionEvent", $event);
     this.communityUsersComponentRef.ngOnInit();
+    this.restartCommunityFeeds();
   }
 
-  getCommunityJoinRequests(communityId) {
-    this.auth.getCommunityJoinRequests(communityId, 0).subscribe((res: any) => {
+  getCommunityJoinRequests() {
+    this.auth.getCommunityJoinRequests(this.communityId, 0).subscribe((res: any) => {
       this.pendingRequests = res.numberOfElements;
     });
   }

@@ -48,9 +48,9 @@ export class CommunityMeta {
   relationShipType: RelationType;
 }
 export class CommunityProfileMeta {
-  followers: string;
-  posts: string;
-  trendRank: string;
+  followers: number;
+  posts: number;
+  trendRank: number;
   inTrend: boolean;
 }
 

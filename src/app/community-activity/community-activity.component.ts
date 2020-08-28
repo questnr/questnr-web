@@ -39,6 +39,7 @@ export class CommunityActivityComponent implements OnInit {
     this._communityActivityService.getCommunityMetaInfo(this.communitySlug).subscribe((res: CommunityProfileMeta) => {
       this.loading = false;
       this.communityInfo = res;
+      // console.log("communityInfo", res);
     }, error => {
       // console.log(error.error.errorMessage);
     });

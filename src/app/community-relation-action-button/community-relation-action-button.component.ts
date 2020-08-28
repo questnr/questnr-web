@@ -5,13 +5,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
 import { CommunityPrivacy } from 'models/community.model';
+import { RelationType } from 'models/relation-type';
 @Component({
   selector: 'app-community-relation-action-button',
   templateUrl: './community-relation-action-button.component.html',
   styleUrls: ['./community-relation-action-button.component.scss']
 })
 export class CommunityRelationActionButtonComponent implements OnInit {
-  @Input() relation: string;
+  @Input() relation: RelationType;
   @Input() communityId: number;
   @Input() communityName: string;
   @Input() mobileView: boolean = false;
@@ -67,7 +68,7 @@ export class CommunityRelationActionButtonComponent implements OnInit {
         const snackBarRef = this.snackBar.open('Unfollowing...');
         const userId = this.loginAuth.getUserProfile().id;
         this.auth.unfollowCommunityService(this.communityId, userId).subscribe((res: any) => {
-          this.relation = 'none';
+          this.relation = RelationType.NONE;
           this.sendAction(this.relation);
           this.snackBar.open("Unfollowed " + this.communityName, 'close', { duration: 3000 });
         }, error => {
@@ -78,7 +79,7 @@ export class CommunityRelationActionButtonComponent implements OnInit {
     });
   }
 
-  sendAction(hasFollowed) {
-    this.actionEvent.emit(hasFollowed);
+  sendAction(relation: RelationType) {
+    this.actionEvent.emit(relation);
   }
 }

@@ -243,7 +243,7 @@ export class UserListComponent implements OnInit {
     if (!communitySlug) {
       return;
     }
-    this.communityMembersService.getCommunityMembers(communitySlug, this.page).subscribe((data: Page<CommunityUsers>) => {
+    this.communityMembersService.getCommunityMembers(communitySlug, this.page).subscribe((data: Page<User>) => {
       if (data.content.length) {
         this.afterDataFetched(data.totalPages);
         data.content.forEach(user => {

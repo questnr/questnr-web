@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { Community, CommunityPublic, CommunityPrivacy } from '../models/community.model';
 import { Observable, of } from 'rxjs';
 import { MetaTagCard } from 'models/common.model';
+import { RelationType } from 'models/relation-type';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,19 @@ export class CommunityService {
 
 
   constructor(private http: HttpClient) { }
+
+  isAllowedIntoCommunity(community: Community): boolean {
+    return this.isAllowedIntoCommunityWithRelationType(community.communityMeta.relationShipType);
+  }
+
+  isAllowedIntoCommunityWithRelationType(relationShipType: RelationType): boolean {
+    if (relationShipType === RelationType.OWNED ||
+      relationShipType === RelationType.FOLLOWED) {
+      return true;
+    }
+    return false;
+  }
+
   getCommunityDetails(slug): Observable<CommunityPublic> {
     if (!slug) return of();
     return this.http.get<CommunityPublic>(this.baseUrl + 'community/' + slug);
@@ -69,6 +83,5 @@ export class CommunityService {
   toggleCommunityPrivacy(communityId, communityPrivacy: CommunityPrivacy) {
     if (!communityPrivacy || !communityId) return of();
     return this.http.put(this.baseUrl + `user/community/${communityId}/privacy`, { communityPrivacy });
-
   }
 }

@@ -24,8 +24,10 @@
               <!--            <img [src]="comUpdatedAvatar" alt="editedImage" *ngif="!isImageEdited">-->
               <div class="com-ban-overlay"></div>
               <div class="com-head-container">
-                <h1><mat-icon *ngIf="isCommunityPrivate">lock</mat-icon>
-                  {{communityDTO?.communityName}}</h1>
+                <h1>
+                  <mat-icon *ngIf="isCommunityPrivate">lock</mat-icon>
+                  {{communityDTO?.communityName}}
+                </h1>
                 <h3 (click)="openCommunityDesc()">{{description}}
                 </h3>
               </div>
@@ -43,13 +45,12 @@
           <!--          <div class="col-md-9">-->
           <!--          </div>-->
           <!--        </div>-->
-          <app-community-users [communityId]="communityDTO?.communityId"
-            [relationshipType]="communityDTO.communityMeta.relationShipType" [communitySlug]="communityDTO?.slug"
-            [userListType]="'ribbon'" *ngIf="mobileView" #communityUsersComponentRef>
+          <app-community-users [communityId]="communityDTO?.communityId" [relationshipType]="owner"
+            [communitySlug]="communityDTO?.slug" [userListType]="'ribbon'" *ngIf="mobileView"
+            #communityUsersComponentRef>
           </app-community-users>
           <div *ngIf="mobileView" class="action-mobile-view">
-            <div class="requests"
-              *ngIf="owner==='owned' ">
+            <div class="requests" *ngIf="owner==='owned'">
               <mat-icon [matBadge]="pendingRequests" *ngIf="pendingRequests!==0" matBadgeColor="warn"
                 (click)="openUserGroupDialog('requests')">group</mat-icon>
               <mat-icon *ngIf="pendingRequests===0" (click)="openUserGroupDialog('requests')">group</mat-icon>
@@ -88,21 +89,25 @@
               <div>
                 <button mat-menu-item (click)="openCommunityDesc()">
                   <mat-icon>edit</mat-icon>
-                  Edit Community</button>
-                <button mat-menu-item *ngIf="isCommunityPrivate" (click)="communityPrivacyDialog()">
-                  <mat-icon>lock_open</mat-icon>
-                  Make public</button>
-                <button mat-menu-item *ngIf="!isCommunityPrivate" (click)="communityPrivacyDialog()">
-                  <mat-icon>lock</mat-icon>
-                  Make private</button>
+                  Edit Community
+                </button>
+                <button mat-menu-item (click)="communityPrivacyDialog()">
+                  <span *ngIf="isCommunityPrivate">
+                    <mat-icon>lock_open</mat-icon>
+                    Make public
+                  </span>
+                  <span *ngIf="!isCommunityPrivate">
+                    <mat-icon>lock</mat-icon>
+                    Make private
+                  </span>
+                </button>
               </div>
             </mat-menu>
           </div>
           <div class="flex-view">
             <div class="flex-3" *ngIf="!mobileView">
               <app-user-profile-card [avatar]="communityDTO?.ownerUserDTO?.avatarDTO"
-                [userBannerImage]="communityDTO.ownerUserDTO?.banner?.avatarLink"
-                [relationship]="communityDTO?.ownerUserDTO?.userMeta?.relationShipType"
+                [userBannerImage]="communityDTO.ownerUserDTO?.banner?.avatarLink" [relationship]="owner"
                 [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username"
                 [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
               <app-floating-footer></app-floating-footer>
@@ -115,44 +120,51 @@
                 <horizontal-owner-profile *ngIf="mobileView && owner !== 'owned'" [user]="communityDTO?.ownerUserDTO">
                 </horizontal-owner-profile>
                 <app-community-activity></app-community-activity>
-                <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="true"
-                  [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"
-                  [type]="'Create'"></app-post-feeds>
-                <!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
-                <div id="community-feed"></div>
-                <ng-container *ngIf="userFeeds?.length; else noFeeds">
-                  <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index; trackBy: trackItem">
-                    <div *ngIf="mobileView && userFeeds.length > 4 && idx === 2">
-                      <app-joined-community></app-joined-community>
-                    </div>
-                    <div *ngIf="mobileView && userFeeds.length > 5 && idx === 7">
-                      <app-sponsored></app-sponsored>
-                    </div>
-                    <div *ngIf="mobileView && userFeeds.length > 5 && idx === 10">
-                      <app-suggestion></app-suggestion>
-                    </div>
-                    <div *ngIf="feed.postType !== 'question'">
-                      <app-recommended-feeds [showUserHeader]="showUserHeader"
-                        (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
-                      </app-recommended-feeds>
-                    </div>
-                    <div *ngIf="feed.postType === 'question'">
-                      <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"></app-question-ui>
-                    </div>
-                  </div>
-                  <p class="text-center" *ngIf="userFeeds?.length===1 && userFeeds[0] === null">No Feeds Found...!</p>
-                </ng-container>
-                <app-feeds-loader *ngIf="loading"></app-feeds-loader>
-                <ng-template #noFeeds>
-                  <p class="text-center" style="margin-top :30px"
-                    *ngIf="userFeeds?.length <= 0 && userFeeds[0] === null">
-                    No Feeds Found...!
-                  </p>
-                  <p *ngIf="isCommunityPrivate && communityDTO.communityMeta.relationShipType !== relationType.FOLLOWED" class="error-private">
-                    <mat-icon>report</mat-icon>
-                    To view community posts, please join the community or &nbsp;<a [routerLink]="['/',explorePath]">explore</a>&nbsp;trending</p>
-                </ng-template>
+                <div *ngIf="isAllowedIntoCommunity">
+                  <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="true"
+                    [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"
+                    [type]="'Create'"></app-post-feeds>
+                  <!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
 
+                  <div id="community-feed"></div>
+                  <ng-container *ngIf="userFeeds?.length; else noFeeds">
+                    <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index; trackBy: trackItem">
+                      <div *ngIf="mobileView && userFeeds.length > 4 && idx === 2">
+                        <app-joined-community></app-joined-community>
+                      </div>
+                      <div *ngIf="mobileView && userFeeds.length > 5 && idx === 7">
+                        <app-sponsored></app-sponsored>
+                      </div>
+                      <div *ngIf="mobileView && userFeeds.length > 5 && idx === 10">
+                        <app-suggestion></app-suggestion>
+                      </div>
+                      <div *ngIf="feed.postType !== 'question'">
+                        <app-recommended-feeds [showUserHeader]="showUserHeader"
+                          (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+                        </app-recommended-feeds>
+                      </div>
+                      <div *ngIf="feed.postType === 'question'">
+                        <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)">
+                        </app-question-ui>
+                      </div>
+                    </div>
+                    <p class="text-center" *ngIf="userFeeds?.length===1 && userFeeds[0] === null">No Feeds Found...!</p>
+                  </ng-container>
+                  <app-feeds-loader *ngIf="loading"></app-feeds-loader>
+                  <ng-template #noFeeds>
+                    <p class="text-center" style="margin-top :30px"
+                      *ngIf="userFeeds?.length <= 0 && userFeeds[0] === null">
+                      No Feeds Found...!
+                    </p>
+                  </ng-template>
+                </div>
+                <div *ngIf="!isAllowedIntoCommunity" class="error-private">
+                  <mat-icon>report</mat-icon>
+                  <span>
+                    To view community posts, please join the community or&nbsp;
+                    <a [routerLink]="['/',explorePath]">explore</a>&nbsp;trending
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -161,9 +173,8 @@
 
         <div class="flex-3" *ngIf="!mobileView">
           <!--        <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
-          <app-community-users [communityId]="communityDTO?.communityId"
-            [relationshipType]="communityDTO.communityMeta.relationShipType" [communitySlug]="communityDTO?.slug"
-            [userListType]="'list'" #communityUsersComponentRef>
+          <app-community-users [communityId]="communityDTO?.communityId" [relationshipType]="owner"
+            [communitySlug]="communityDTO?.slug" [userListType]="'list'" #communityUsersComponentRef>
           </app-community-users>
           <!-- <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity> -->
           <app-suggestion></app-suggestion>
@@ -179,11 +190,12 @@
 <mat-menu #menu="matMenu" xPosition="after">
   <div>
     <button mat-menu-item *ngIf="(owner===owned)" (click)="openUserGroupDialog('inviteUserList')">
-      <mat-icon>group_add</mat-icon>Invite</button>
+      <mat-icon>group_add</mat-icon>Invite
+    </button>
     <button mat-menu-item (click)="openShareDialog()">
       <mat-icon>screen_share</mat-icon>
       Share
-<!--      on other platforms-->
+      <!--      on other platforms-->
     </button>
     <button mat-menu-item [cdkCopyToClipboard]="commonService.getCommunitySharableLink(communityDTO.slug)"
       (cdkCopyToClipboardCopied)="copyLinkOfCommunity($event)">

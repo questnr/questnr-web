@@ -15,6 +15,8 @@ import { RelationType } from 'models/relation-type';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { GlobalConstants } from 'shared/constants';
 import { CommunityService } from '../community/community.service';
+import { GlobalService } from 'global.service';
+import { Page } from 'models/page.model';
 
 @Component({
   selector: 'app-community-users',
@@ -29,11 +31,11 @@ export class CommunityUsersComponent implements OnInit {
   @Input() communityId;
   @Input() relationshipType: RelationType;
   @Input() requests = 1;
+  isAllowedIntoCommunity: boolean;
   communityMemberList: User[] = [];
-  loader = false;
-  mobileView = false;
-  screenWidth = window.innerWidth;
-  numberOfMembers: string;
+  loader: boolean = false;
+  mobileView: boolean = false;
+  numberOfMembers: number;
   loggedInUserId;
   owned: string = RelationType.OWNED;
   followed: string = RelationType.FOLLOWED;
@@ -41,42 +43,58 @@ export class CommunityUsersComponent implements OnInit {
   pendingJoinRequest: any;
   pendingRequests = 0;
 
-  constructor(public http: HttpClient, public userService: UserProfileCardServiceComponent, public loginService: LoginService, public route: ActivatedRoute,
-    public dialog: MatDialog, public communityMembersService: CommunityMembersService, private loginAuth: LoginService, public auth: CommunityService) {
-    this.loggedInUserId = loginAuth.getUserProfile().id;
+  constructor(public http: HttpClient,
+    public userService: UserProfileCardServiceComponent,
+    public loginService: LoginService,
+    public route: ActivatedRoute,
+    public dialog: MatDialog,
+    public communityMembersService: CommunityMembersService,
+    private loginAuth: LoginService,
+    private _globalService: GlobalService,
+    public communityService: CommunityService) {
+    this.loggedInUserId = this.loginAuth.getUserProfile().id;
   }
 
   ngOnInit(): void {
-    this.getCommunityMembers(this.communitySlug);
-    this.getCommunityMetaInfo(this.communitySlug);
-  }
-
-  ngAfterViewInit() {
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
+    this.mobileView = this._globalService.isMobileView();
+    this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunityWithRelationType(this.relationshipType);
+    if (this.isAllowedIntoCommunity) {
+      this.getCommunityMembers(this.communitySlug);
+      // this.getCommunityMetaInfo(this.communitySlug);
+    } else {
+      this.getCommunityMetaInfo(this.communitySlug);
     }
-    if (this.relationshipType === 'owned') {
+    if (this.relationshipType === RelationType.OWNED) {
       this.getCommunityJoinRequests(this.communityId);
     }
   }
 
+  ngAfterViewInit() {
+
+  }
+
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.communitySlug) {
-      this.getCommunityMembers(changes.communitySlug.currentValue);
+    // console.log("changes", changes);
+    if ((changes.communitySlug || changes.relationshipType)) {
+      if (changes?.communitySlug?.currentValue) {
+        this.communitySlug = changes.communitySlug.currentValue;
+      }
+      if (changes?.relationshipType?.currentValue) {
+        this.relationshipType = changes.relationshipType.currentValue;
+      }
+      this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunityWithRelationType(this.relationshipType);
+      if (this.isAllowedIntoCommunity)
+        this.getCommunityMembers(this.communitySlug);
     }
   }
 
   getCommunityMembers(communitySlug: string) {
     this.loader = true;
-    this.communityMembersService.getCommunityMembers(communitySlug, 0).subscribe((data: any) => {
+    this.communityMembersService.getCommunityMembers(communitySlug, 0).subscribe((data: Page<User>) => {
       this.loader = false;
       this.communityMemberList = data.content;
-      // console.log(this.communityMemberList);
+      this.numberOfMembers = data.totalElements;
+      // console.log("getCommunityMembers", data);
     }, error => {
       // console.log('something went wrong while fetching community Members.');
       this.loader = false;
@@ -84,9 +102,10 @@ export class CommunityUsersComponent implements OnInit {
   }
 
   getCommunityMetaInfo(communitySlug: string) {
-    this.communityMembersService.getCommunityMetaInfoWithParams(communitySlug, "followers").subscribe((data: CommunityProfileMeta) => {
-      this.numberOfMembers = data.followers;
-    });
+    this.communityMembersService.getCommunityMetaInfoWithParams(communitySlug, "followers")
+      .subscribe((data: CommunityProfileMeta) => {
+        this.numberOfMembers = data.followers;
+      });
   }
 
   sendFollowInvite(i) {
@@ -133,7 +152,7 @@ export class CommunityUsersComponent implements OnInit {
         maxHeight: '60vh',
         overflow: "hidden",
         // data: userList
-        data: { communitySlug: this.communitySlug, type, communityPendingRequests: this.pendingJoinRequest, communityId: this.communityId, title:  type}
+        data: { communitySlug: this.communitySlug, type, communityPendingRequests: this.pendingJoinRequest, communityId: this.communityId, title: type }
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);
@@ -155,7 +174,7 @@ export class CommunityUsersComponent implements OnInit {
   }
 
   getCommunityJoinRequests(communityId) {
-    this.auth.getCommunityJoinRequests(communityId, 0).subscribe((res: any) => {
+    this.communityService.getCommunityJoinRequests(communityId, 0).subscribe((res: any) => {
       this.pendingJoinRequest = res;
       this.pendingRequests = res.numberOfElements;
     });
