@@ -32,3 +32,20 @@ export class UserInfo {
 export class UserInterest {
     interest: string;
 }
+
+export class UserListViewVariables {
+    public static get small() {
+        return {
+            profileIconSize: 50
+        }
+    }
+    public static get large() {
+        return {
+            profileIconSize: 60
+        }
+    }
+}
+
+export enum UserListViewSizeType {
+    small = 'small', large = 'large'
+}

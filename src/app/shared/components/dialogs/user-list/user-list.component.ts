@@ -1,16 +1,17 @@
-import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CommunityService } from 'community/community.service';
+import { GlobalService } from 'global.service';
+import { CommunityUsers } from 'models/community.model';
+import { LikeAction } from 'models/like-action.model';
+import { Page } from 'models/page.model';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
 import { CommunityMembersService } from '../../../../community-users/community-members.service';
 import { User } from '../../../../models/user.model';
 import { UserFollowersService } from '../../../../user-followers/user-followers.service';
 import { UserProfileCardServiceComponent } from '../../../../user-profile-card/user-profile-card-service.component';
 import { UserListService } from './user-list.service';
-import { Page } from 'models/page.model';
-import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { CommunityUsers } from 'models/community.model';
-import { LikeAction } from 'models/like-action.model';
-import { CommunityService } from 'community/community.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -24,6 +25,16 @@ export class UserListComponent implements OnInit {
   isInviteList: boolean = false;
   communityId: number;
   isCommunityRequest: boolean = false;
+  userList: any[] = [];
+  searchResultList: User;
+  searchResult = false;
+  noResultFound = false;
+  mobileView = false;
+  endOfResult = false;
+  page: number = 0;
+  hasTotalPage: number;
+  scrollCached: boolean = null;
+  @ViewChild("listContainer") listContainer: ElementRef;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     public userProfileCardServiceComponent: UserProfileCardServiceComponent,
@@ -33,20 +44,9 @@ export class UserListComponent implements OnInit {
     public followersService: UserFollowersService,
     public communityMembersService: CommunityMembersService,
     public auth: CommunityService,
-    private inviteUserService: InviteUsetService) {
+    private inviteUserService: InviteUsetService,
+    private _globalService: GlobalService) {
   }
-
-  userList: any[] = [];
-  searchResultList: User;
-  searchResult = false;
-  noResultFound = false;
-  mobileView = false;
-  endOfResult = false;
-  page: number = 0;
-  hasTotalPage: number;
-  screenWidth = window.innerWidth;
-  scrollCached: boolean = null;
-  @ViewChild("listContainer") listContainer: ElementRef;
 
   ngOnInit(): void {
 
@@ -56,14 +56,7 @@ export class UserListComponent implements OnInit {
     this.loading = true;
     this.fetchData();
     this.listContainer.nativeElement.addEventListener('scroll', this.onScroll, true);
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
+    this.mobileView = this._globalService.isMobileView();
     let timer = setInterval(() => {
       if (!this.loading) {
         clearInterval(timer);

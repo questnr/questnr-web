@@ -1,8 +1,8 @@
 @import "../variables";
 
 .link-card {
-  background: #fff;
-  padding: 20px;
+  background: $white;
+  padding: 15px;
   margin: 20px 0;
   border-radius: 10px;
   .header {
@@ -66,20 +66,20 @@ img {
   max-width: 100%;
 }
 
-.mobile-view-joined-community{
+.mobile-view-joined-community {
   margin: 20px 0;
   position: relative;
-  .mobile-create-btn{
+  .mobile-create-btn {
     position: absolute;
     right: 1%;
     top: 0;
     display: flex;
     align-items: center;
-    mat-icon{
+    mat-icon {
       margin: 0 4px;
     }
   }
-  .mobile_action_btn{
+  .mobile_action_btn {
     text-align: center;
     button {
       background: white;
@@ -88,6 +88,6 @@ img {
   }
 }
 
-.community-counts{
+.community-counts {
   font-size: 0.8rem;
 }

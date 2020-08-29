@@ -8,13 +8,14 @@ import { UserListComponent } from '../shared/components/dialogs/user-list/user-l
 import { MatDialog } from '@angular/material/dialog';
 import { CommunityMembersService } from './community-members.service';
 import { Community, CommunityProfileMeta } from '../models/community.model';
-import { User } from '../models/user.model';
+import { User, UserListViewSizeType } from '../models/user.model';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { RelationType } from 'models/relation-type';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { GlobalConstants } from 'shared/constants';
 import { CommunityService } from '../community/community.service';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-community-users',
@@ -40,10 +41,18 @@ export class CommunityUsersComponent implements OnInit {
   none: string = RelationType.NONE;
   pendingJoinRequest: any;
   pendingRequests = 0;
+  smallUserListViewSize: UserListViewSizeType = UserListViewSizeType.small;
 
-  constructor(public http: HttpClient, public userService: UserProfileCardServiceComponent, public loginService: LoginService, public route: ActivatedRoute,
-    public dialog: MatDialog, public communityMembersService: CommunityMembersService, private loginAuth: LoginService, public auth: CommunityService) {
-    this.loggedInUserId = loginAuth.getUserProfile().id;
+  constructor(public http: HttpClient,
+    public userService: UserProfileCardServiceComponent,
+    public loginService: LoginService,
+    public route: ActivatedRoute,
+    public dialog: MatDialog,
+    public communityMembersService: CommunityMembersService,
+    private loginAuth: LoginService,
+    public auth: CommunityService,
+    private _globalService: GlobalService) {
+    this.loggedInUserId = this.loginAuth.getUserProfile().id;
   }
 
   ngOnInit(): void {
@@ -52,15 +61,8 @@ export class CommunityUsersComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
-    if (this.relationshipType === 'owned') {
+    this.mobileView = this._globalService.isMobileView();
+    if (this.relationshipType === RelationType.OWNED) {
       this.getCommunityJoinRequests(this.communityId);
     }
   }

@@ -7,7 +7,7 @@
       </div>
       <div>
         <mat-icon [matBadge]="pendingRequests" *ngIf="pendingRequests!==0" matBadgeColor="warn"
-                  (click)="openUserGroupDialog('requests')" style="cursor: pointer">
+          (click)="openUserGroupDialog('requests')" style="cursor: pointer">
           group
         </mat-icon>
         <mat-icon *ngIf="pendingRequests===0">group</mat-icon>
@@ -17,7 +17,7 @@
   </div>
   <div *ngIf="communityMemberList?.length ; else noMembers" class="members-list">
     <div class="" *ngFor="let i of communityMemberList, let ind = index" [id]="i.userId">
-      <app-user-list-view *ngIf="ind < 4" [user]="i"></app-user-list-view>
+      <app-user-list-view [size]="smallUserListViewSize" *ngIf="ind < 4" [user]="i"></app-user-list-view>
     </div>
   </div>
   <app-view-more-button (click)="openUserGroupDialog('members')" *ngIf="communityMemberList?.length >= 4">
@@ -42,11 +42,11 @@
     </div> -->
     <div class="col-sm-10">
       <ul class="ribbon">
-<!--        <li class="ribbon_list">-->
-<!--          <div class="ribbon_img" style="padding: 0;display: flex; justify-content: center; align-items: center;">-->
-<!--            <mat-icon matBadge="15" matBadgeColor="warn" >group</mat-icon>-->
-<!--          </div>-->
-<!--        </li>-->
+        <!--        <li class="ribbon_list">-->
+        <!--          <div class="ribbon_img" style="padding: 0;display: flex; justify-content: center; align-items: center;">-->
+        <!--            <mat-icon matBadge="15" matBadgeColor="warn" >group</mat-icon>-->
+        <!--          </div>-->
+        <!--        </li>-->
         <li class="ribbon_list" *ngFor="let i of communityMemberList let idx = index">
           <div>
             <div class="ribbon_img" (click)="navigate(i?.slug)">
