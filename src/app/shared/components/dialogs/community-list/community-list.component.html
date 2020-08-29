@@ -3,8 +3,8 @@
     <mat-icon> arrow_back</mat-icon>
   </button>
 </div>
-<div class="container-header" [ngClass]="{'container-header-mobile': mobileView}">
-  <div class="row">
+<div class="container-header" [ngClass]="{'mobile': mobileView}">
+  <div class="row community-list hide-scrollbar">
     <div [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngFor="let community of communityList">
       <app-community-card-mobile-view [mobileView]="mobileView" [community]="community">
       </app-community-card-mobile-view>
