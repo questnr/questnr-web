@@ -27,8 +27,6 @@ export class SearchOverlayComponent implements OnInit {
   set searchEntityListComponent(searchEntityListComponentRef: SearchedEntityListComponent) {
     this.searchEntityListComponentRef = searchEntityListComponentRef;
   }
-  filterSearchOptionList: string[] = ['users', 'communities', 'hashtags'];
-  selectedSearchOption: number = 0;
 
   constructor(private renderer2: Renderer2, public dialog: MatDialog) { }
 
@@ -52,18 +50,11 @@ export class SearchOverlayComponent implements OnInit {
     this.closeSearchOverlay.emit();
   }
 
-  selectSearchOption(indexOfelement: number) {
-    if (this.selectedSearchOption != indexOfelement) {
-      this.selectedSearchOption = indexOfelement;
-      this.handleOpitonChanged(this.searchInputValue);
-    }
-  }
-
   handleOpitonChanged(searchInputValue: string) {
     this.searchInputValue = searchInputValue;
     if (this.searchInputValue?.length > 0) {
       this.renderer2.setStyle(this.searchModelRef.nativeElement, "visibility", "visible");
-      this.searchEntityListComponentRef.searchEntity(this.searchInputValue, this.selectedSearchOption);
+      this.searchEntityListComponentRef.searchEntity(this.searchInputValue);
     } else {
       this.renderer2.setStyle(this.searchModelRef.nativeElement, "visibility", "hidden");
     }
