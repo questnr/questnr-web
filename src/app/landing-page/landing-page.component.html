@@ -23,12 +23,13 @@
             <div class="suggestions">
               <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="height: 2px">
               </mat-progress-bar>
-              <button class="w-100" mat-button *ngFor="let item of hashtagResults"
-                [routerLink]="hashTagBasePath + '/' + item.hashTagValue">{{item.hashTagValue}}</button>
+              <button class="w-100" mat-button *ngFor="let item of hashtagResults" [routerLink]="['/', hashTagPath]"
+                [queryParams]="{ q: item?.hashTagValue}">{{item.hashTagValue}}</button>
             </div>
           </div>
           <div class="hashtags-wrapper">
-            <div class="tag" *ngFor="let hash of topHashtags" [routerLink]="hashTagBasePath + '/' + hash.hashTagValue">
+            <div class="tag" *ngFor="let hash of topHashtags" [routerLink]="['/', hashTagPath]"
+              [queryParams]="{ q: hash?.hashTagValue}">
               <span>#</span>{{hash.hashTagValue}}
             </div>
           </div>

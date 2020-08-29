@@ -16,9 +16,9 @@ export class ExploreService {
     return this.http.get(this.baseUrl + '/user/explore', { params: { page } });
   }
 
-  getHashtagPost(hashtag, page) {
-    if (!hashtag) return of();
-    return this.http.get(this.baseUrl + '/user/hash-tag/' + hashtag + '/posts', { params: { page } });
+  getHashtagPost(hashTags, page) {
+    if (!hashTags) return of();
+    return this.http.get(this.baseUrl + '/user/hash-tag/posts', { params: { page, hashTags: hashTags } });
   }
 
 }

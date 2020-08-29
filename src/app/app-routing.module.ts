@@ -59,7 +59,7 @@ const routes: Routes = [
   { path: GlobalConstants.userPath + '/:userSlug', component: UserProfilePageComponent, canActivate: [AuthGuard] },
   { path: GlobalConstants.explorePath, component: ExploreComponent, canActivate: [AuthGuard] },
   { path: GlobalConstants.trendingPath, component: ExploreComponent, canActivate: [AuthGuard] },
-  { path: GlobalConstants.hashTagPath + '/:hashTag', component: ExploreComponent, canActivate: [AuthGuard] },
+  { path: GlobalConstants.hashTagPath, component: ExploreComponent, canActivate: [AuthGuard] },
   { path: GlobalConstants.forgotPassword, component: ForgotPasswordComponent },
   { path: GlobalConstants.signUp, component: SignUpPageComponent },
   { path: GlobalConstants.login, component: LoginPageComponent },

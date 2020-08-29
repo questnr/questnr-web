@@ -1,19 +1,22 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Renderer2 } from '@angular/core';
-import { ExploreService } from './explore.service';
-import { Post } from '../models/post-action.model';
-import { ApiService } from '../shared/api.service';
-import { Community } from '../models/community.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GlobalConstants } from '../shared/constants';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { GlobalService } from 'global.service';
 import { HashTag } from 'models/hashtag.model';
-import { Hash } from 'crypto';
+import { Page } from 'models/page.model';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { Community } from '../models/community.model';
+import { Post } from '../models/post-action.model';
+import { ApiService } from '../shared/api.service';
+import { GlobalConstants } from '../shared/constants';
+import { ExploreService } from './explore.service';
 
 @Component({
   selector: 'app-explore',
   templateUrl: './explore.component.html',
-  styleUrls: ['./explore.component.scss']
+  styleUrls: ['./explore.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ExploreComponent implements OnInit, AfterViewInit {
   explore: Post[] = [];
@@ -29,26 +32,67 @@ export class ExploreComponent implements OnInit, AfterViewInit {
   queryString: string;
   @ViewChild("exploreFeeds") exploreFeeds: ElementRef;
   seachHashTagBucket: HashTag[] = [];
+  queryParams: string;
+  hashTagsForm: FormGroup;
+  hashTagControl: FormControl = new FormControl('', Validators.pattern(/^[A-z0-9 ]*$/));
+  tagsCount = new FormControl(0, {
+    validators: [
+      Validators.min(1),
+      Validators.max(10)
+    ]
+  });
+  nullError: boolean = false;
+  bucketFullError: boolean = false;
+  bucketEmptyError: boolean = false;
+  tagMaxLengthError: boolean = false;
+  tagExistsError: boolean = false;
+  searchResults: HashTag[];
 
   constructor(public exploreService: ExploreService,
     public api: ApiService,
     public route: ActivatedRoute,
     private router: Router,
     private renderer: Renderer2,
-    private _globalService: GlobalService) {
+    private _globalService: GlobalService,
+    private fb: FormBuilder) {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     }
     this.mobileView = this._globalService.isMobileView();
+    this.hashTagsForm = this.fb.group({
+      hashTagControl: this.hashTagControl,
+      tagsCount: this.tagsCount
+    });
   }
 
   ngOnInit(): void {
-    this.queryString = this.route.snapshot.paramMap.get('hashTag');
-    this.seachHashTagBucket.push(new HashTag(this.queryString));
+    this.route.queryParams.subscribe(params => {
+      this.queryString = params['q'];
+      let hashtags: string[] = this.queryString.split(",");
+      hashtags.forEach((hasTag: string) => {
+        this.seachHashTagBucket.push(new HashTag(hasTag));
+      })
+    });
+    // this.queryString = this.route.snapshot.paramMap.get('hashTag');
+
     // console.log(this.queryString);
     this.getSuggestedCommunity();
     this.getTopHashTags();
     this.fetchData();
+    this.hashTagControl.valueChanges
+      .pipe(debounceTime(200))
+      .pipe(distinctUntilChanged())
+      .subscribe((queryField) => {
+        this.resetTagErrors();
+        if (!queryField || queryField.length < 1) {
+          this.searchResults = [];
+        } else {
+          this.api.searchHashtags(0, queryField).subscribe(
+            (res: Page<HashTag>) => {
+              this.searchResults = res.content;
+            });
+        }
+      });
   }
 
   ngAfterViewInit() {
@@ -148,15 +192,7 @@ export class ExploreComponent implements OnInit, AfterViewInit {
       this.exploreFeeds.nativeElement.scrollTo({ top: 0, behavior: 'smooth' });
     }
     this.loading = true;
-    let queryString = '';
-    this.seachHashTagBucket.forEach((searchedHashTag: HashTag, index: number) => {
-      if (index == 0) {
-        queryString = searchedHashTag.hashTagValue;
-      } else {
-        queryString += "," + searchedHashTag.hashTagValue;
-      }
-    });
-    this.exploreService.getHashtagPost(queryString, this.page).subscribe((res: any) => {
+    this.exploreService.getHashtagPost(this.queryParams, this.page).subscribe((res: any) => {
       if (res.content.length) {
         this.page++;
         res.content.forEach(i => {
@@ -178,13 +214,6 @@ export class ExploreComponent implements OnInit, AfterViewInit {
       post.postActionId !== $event);
   }
 
-  addHashTagToSearchingBucket(hashTag: HashTag) {
-    this.seachHashTagBucket.push(hashTag);
-    setTimeout(() => {
-      this.getHashtagRelatedPost(true);
-    }, 400);
-  }
-
   removeHashTagToSearchingBucket(hashTag: HashTag) {
     this.seachHashTagBucket = this.seachHashTagBucket.filter((searchedHashTag: HashTag) => {
       return searchedHashTag.hashTagValue != hashTag.hashTagValue;
@@ -196,14 +225,18 @@ export class ExploreComponent implements OnInit, AfterViewInit {
     this.seachHashTagBucket = this.seachHashTagBucket.filter((searchedHashTag: HashTag) => {
       return searchedHashTag.hashTagValue != hashTag.hashTagValue;
     });
+    this.updateQuery();
   }
 
   toggleHashTagToSearchingBucket(hashTag: HashTag) {
     if (this.isInListofSeachingBucket(hashTag)) {
-      this.removeHashTagToSearchingBucket(hashTag);
+      if (this.seachHashTagBucket.length > 1) {
+        this.removeHashTagToSearchingBucket(hashTag);
+      }
     } else {
       this.addHashTagToSearchingBucket(hashTag);
     }
+    this.updateQuery();
   }
 
   isInListofSeachingBucket(hashTag: HashTag) {
@@ -212,5 +245,74 @@ export class ExploreComponent implements OnInit, AfterViewInit {
       if (searchedHashTag.hashTagValue == hashTag.hashTagValue) hasFound = true;
     });
     return hasFound;
+  }
+
+  updateQuery() {
+    this.queryParams = '';
+    this.seachHashTagBucket.forEach((searchedHashTag: HashTag, index: number) => {
+      if (index == 0) {
+        this.queryParams = searchedHashTag.hashTagValue;
+      } else {
+        this.queryParams += "," + searchedHashTag.hashTagValue;
+      }
+    });
+    const queryParams: Params = { q: this.queryParams };
+
+    this.router.navigate(
+      [],
+      {
+        queryParams: queryParams,
+        queryParamsHandling: 'merge', // remove to replace all query params by provided
+      });
+  }
+
+  resetTagErrors() {
+    this.nullError = false;
+    this.tagExistsError = false;
+    this.bucketFullError = false;
+    this.bucketEmptyError = false;
+    this.tagMaxLengthError = false;
+  }
+
+  isInListofSeachingBucketUsingInput(value: string) {
+    let doesNotHave = false;
+    this.seachHashTagBucket.forEach((searchedHashTag: HashTag) => {
+      if (searchedHashTag.hashTagValue.toLowerCase().trim() === value.toLocaleLowerCase().trim()) {
+        doesNotHave = true;
+      }
+    });
+    return doesNotHave;
+  }
+
+  addHashTagToSearchingBucket(hashTag: HashTag) {
+    this.resetTagErrors();
+    this.seachHashTagBucket.push(hashTag);
+    this.hashTagControl.setValue("");
+    this.searchResults = [];
+    setTimeout(() => {
+      this.getHashtagRelatedPost(true);
+    }, 400);
+  }
+
+  addHashTagToSearchingBucketUsingInput(value: string) {
+    this.resetTagErrors();
+    if (!(value && value.length > 0)) return;
+    if (this.isInListofSeachingBucketUsingInput(value)) {
+      this.tagExistsError = true;
+      return;
+    }
+    if (this.seachHashTagBucket.length >= 10) {
+      this.bucketFullError = true;
+    }
+    else {
+      if (value.length > 30) {
+        this.tagMaxLengthError = true;
+      } else if (this.hashTagControl.valid) {
+        this.tagsCount.setValue(Number(this.tagsCount.value) + 1);
+        this.hashTagControl.setValue("");
+        this.searchResults = [];
+        this.seachHashTagBucket.push(new HashTag(value.toLowerCase()));
+      }
+    }
   }
 }

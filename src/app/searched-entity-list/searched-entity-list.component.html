@@ -25,7 +25,7 @@
             </div>
             <div *ngIf="selectedSearchOption==2">
                 <a class="hash-tag w-100 no-a" mat-button *ngFor="let hashTag of hashtags"
-                    [routerLink]="['/', currentPath, hashTag.hashTagValue]"><span
+                    [routerLink]="['/', currentPath]" [queryParams]="{q: hashTag.hashTagValue}"><span
                         class="hash-tag-symbol">#</span>{{hashTag.hashTagValue}}</a>
             </div>
         </div>

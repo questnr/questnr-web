@@ -14,7 +14,7 @@ export class SidenavComponent implements OnInit {
   userCommunities = [];
 
   userHashtags = [];
-  hashTagBaseUrl = '/' + GlobalConstants.hashTagPath + '/';
+  hashTagPath = GlobalConstants.hashTagPath;
   listItems = Array(5);
   loadingCommunities = true;
   loadingHashtags = true;
