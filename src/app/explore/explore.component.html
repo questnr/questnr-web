@@ -1,14 +1,13 @@
 <app-user-header [mobileView]="mobileView"></app-user-header>
 
 <div class="container" [ngClass]="{'mobile': mobileView}">
-  <div class="main-wrap">
+  <div class="explore-wrap">
     <aside class="left-part" *ngIf="!mobileView">
       <!--        <app-joined-community></app-joined-community>-->
       <div class="hashtags-container">
         <div class="hashtags">
           <mat-chip-list aria-label="hashtags">
-            <mat-chip class="hash-tag-chip" *ngFor="let h of hasTags"
-              [ngClass]="{'active_tag': queryString === h?.hashTagValue}" (click)="toggleHashTagToSearchingBucket(h)">
+            <mat-chip class="hash-tag-chip" *ngFor="let h of hasTags" (click)="toggleHashTagToSearchingBucket(h)">
               <span>#{{h?.hashTagValue}}</span>
               <button class="searched-hash-tag" *ngIf="isInListofSeachingBucket(h)">
                 <!-- <mat-icon>close</mat-icon> -->
@@ -27,14 +26,45 @@
       <!-- <div *ngIf="queryString">
         <h4><span class="queryString">#{{queryString}}</span></h4>
       </div> -->
-      <mat-chip-list class="searched-hash-tag-list" aria-label="hashtags">
-        <mat-chip *ngFor="let h of seachHashTagBucket" class="active_tag"
-          [routerLink]="['/', hashTagUrl, h?.hashTagValue]">
-          <span>#{{h?.hashTagValue}}</span>
-          <mat-icon *ngIf="h.hashTagValue != queryString" (click)="removeHashTagToSearchingBucketEvent($event, h)">close
-          </mat-icon>
-        </mat-chip>
-      </mat-chip-list>
+      <div *ngIf="queryString">
+        <div class="filter-wrapper">
+          <div class="keyword-wrapper">
+            <mat-card>
+              <mat-form-field class="input-control">
+                <input type="text" matInput [formControl]="hashTagControl" autocomplete="off"
+                  (keyup.enter)="addHashTagToSearchingBucketUsingInput(hashTagControl.value)"
+                  placeholder="Enter Hash Tag Here" autofocus />
+              </mat-form-field>
+              <div>
+                <mat-error *ngIf="hashTagControl.hasError('pattern')">
+                  Use characters and number only
+                </mat-error>
+                <mat-error *ngIf="tagExistsError">Hash Tag already has been added</mat-error>
+                <mat-error *ngIf="tagsCount.hasError('max')">Limit reached</mat-error>
+                <mat-error *ngIf="tagMaxLengthError">Text is too long</mat-error>
+              </div>
+            </mat-card>
+            <div class="filter-select-wrapper">
+              <div class="filter-select" [ngClass]="mobileView ? 'mobile' : 'desktop'"
+                *ngIf="searchResults?.length > 0">
+                <div class="filter-select-list" *ngFor="let hashTag of searchResults"
+                  (click)="addHashTagToSearchingBucket(hashTag)">
+                  <span class="user-interest">{{hashTag.hashTagValue}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <mat-chip-list class="searched-hash-tag-list" aria-label="hashtags">
+          <mat-chip *ngFor="let h of seachHashTagBucket" class="active_tag" [routerLink]="['/', hashTagUrl]"
+            [queryParams]="{ q: h?.hashTagValue }">
+            <span>#{{h?.hashTagValue}}</span>
+            <mat-icon *ngIf="h.hashTagValue != queryString" (click)="removeHashTagToSearchingBucketEvent($event, h)">
+              close
+            </mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </div>
       <!--                    <div class="suggestion-container" *ngIf="!queryString">-->
       <!--                      <div class="container-header">-->
       <!--                        <div class="row">-->

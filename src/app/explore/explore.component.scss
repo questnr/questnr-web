@@ -4,7 +4,7 @@
   scroll-behavior: smooth;
 }
 
-.main-wrap {
+.explore-wrap {
   display: flex;
   margin-top: 50px;
   aside {
@@ -30,7 +30,7 @@
     overflow-x: hidden;
     overflow-y: scroll;
     max-height: calc(100vh + 1px);
-    padding: 20px;
+    padding: 5px 20px;
     .suggestion-container {
       width: inherit;
     }
@@ -103,6 +103,47 @@
         }
       }
     }
+    mat-card {
+      padding: 8px;
+      margin: 0.2rem;
+      mat-form-field {
+        width: 100%;
+        padding: 0rem 0.2rem;
+        margin-bottom: -20px;
+        .mat-form-field-underline {
+          display: none;
+        }
+        .mat-form-field-subscript-wrapper {
+          display: none;
+        }
+      }
+    }
+  }
+  .mat-horizontal-stepper-header-container {
+    display: none !important;
+  }
+  .mat-form-field.mat-focused .mat-form-field-ripple {
+    background-color: $heading;
+  }
+  .mat-input-element {
+    caret-color: $heading;
+  }
+  .mat-chip.mat-standard-chip {
+    background: $hash-tag-background;
+  }
+  .mat-chip-list-wrapper .mat-standard-chip {
+    margin: 6px;
+  }
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    padding: 0rem 0.1rem;
+    background-color: $white;
+  }
+  // .mat-form-field-label {
+  //   color: $primary;
+  // }
+
+  .mat-focused .mat-form-field-label {
+    color: $heading;
   }
 }
 
@@ -131,7 +172,6 @@
     //border: 1px solid aliceblue;
     padding: 4px 16px;
     border-radius: 20px;
-    background: $hash-tag-background;
   }
 }
 mat-chip:hover {
@@ -186,4 +226,66 @@ mat-chip:hover {
   border-radius: 20px;
   z-index: 100;
   opacity: 0.2;
+}
+
+.filter-wrapper,
+.keyword-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.filter-wrapper {
+  margin-top: 10px;
+  // height: 30vh;
+  position: relative;
+}
+.keyword-wrapper {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.filter-select {
+  width: 100%;
+  //   list-style: none;
+  font-size: 1.1em;
+  color: $gray-font;
+  border: 1px solid $heading;
+  border-top: none;
+  /*so things don't jump around*/
+  position: absolute;
+  //   left: 25%;
+  //   top: calc(50% + 25px);
+  top: 0;
+  overflow-y: auto;
+  background: $white;
+  opacity: 0.9;
+  z-index: 100;
+}
+
+.filter-select-wrapper {
+  position: relative;
+}
+
+.filter-select.desktop {
+  // height: 60%;
+  // max-height: 300px;
+}
+
+.filter-select.mobile {
+  // height: 60%;
+  // max-height: 230px;
+}
+
+.filter-select-list {
+  cursor: pointer;
+  padding: 8px 15px;
+}
+.user-interest {
+  font-size: 1.1rem;
+  display: inline-block;
+  //   position: absolute;
+}
+.filter-select-list:hover {
+  background: $primary;
+  color: $white;
 }

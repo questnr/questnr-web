@@ -1,18 +1,18 @@
 @import "./src/app/variables";
 
-.flex{
+.flex {
   display: flex;
   align-items: center;
   background: $white;
-  height: 80px;
+  // height: 80px;
   margin: 5px 0;
   border-radius: 6px;
   border: 1px solid #eeeeee;
-  .flex-50{
+  .flex-50 {
     width: 50%;
     //margin: 8px;
     padding: 8px;
-    img{
+    img {
       width: 100%;
       max-width: 79px;
       max-height: 79px;
@@ -20,30 +20,30 @@
       height: 100%;
       border-radius: 10px;
     }
-    div{
+    div {
       //display: table-cell;
       //vertical-align: middle;
       //height: 80px;
-      p{
+      p {
         margin: 0 !important;
         a {
           text-decoration: none;
         }
-        a:hover{
+        a:hover {
           color: $primary;
         }
       }
     }
   }
 }
-.flex-mobile {
+.flex.mobile {
   height: auto;
   .flex-50 {
     margin: auto;
     //img{
     //  min-height: 79px;
     //}
-    div{
+    div {
       height: auto;
     }
     p {
@@ -57,14 +57,14 @@
     }
   }
 }
-.relation-btn{
+.relation-btn {
   padding: 0px;
   min-width: 120px;
   width: fit-content;
   width: -moz-fit-content;
   float: right;
   display: inline-flex;
-  button{
+  button {
     font-size: 0.8rem;
     border-radius: 0.5rem;
     border: 1px solid $grey;
@@ -72,29 +72,29 @@
     padding: 2px;
     width: 100%;
   }
-  button:hover{
+  button:hover {
     border: 1px solid $primary;
     font-size: 0.85rem;
     padding: 3px;
   }
 }
-.align-right{
+.align-right {
   text-align: right;
 }
-.invite-btn{
+.invite-btn {
   font-weight: bold;
 }
-.decline{
+.decline {
   margin-right: 4px;
   //background: red;
   //color: #ffffff;
 }
-.request-btn mat-icon  {
+.request-btn mat-icon {
   width: 10px !important;
   height: 10px !important;
   font-size: 10px;
 }
-.relation-btn .request-btn:hover{
+.relation-btn .request-btn:hover {
   border: 1px solid #dddddd !important;
   font-size: 0.8rem !important;
 }

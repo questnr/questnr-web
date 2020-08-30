@@ -1,4 +1,4 @@
-@import '../../variables';
+@import "../../variables";
 
 .search-page {
   position: absolute;
@@ -30,46 +30,6 @@
 
 .model-content.mobile {
   bottom: 0;
-  width: 100vW;
+  width: 100vw;
   height: calc(100vh - 50px);
-}
-
-.search-menu {
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.2rem 0.5rem 0 0.5rem;
-  margin: 0.5rem;
-  border-bottom: 0.09rem solid #e3e3e3;
-  overflow: hidden;
-
-  .search-option-list {
-    .search-option {
-      border: 0.09rem solid $primary;
-      border-radius: 0.3rem;
-      padding: 0.1rem 0.2rem;
-      margin: 0.3rem;
-
-      span {
-        font-size: 0.7rem;
-        padding: 0rem 0.3rem;
-      }
-    }
-
-    .search-option:hover {
-      background-color: $primary;
-      color: $white;
-      cursor: pointer;
-    }
-
-    .selected {
-      background-color: $primary;
-      color: $white;
-    }
-  }
-}
-  
-
-.close-icon {
-  color: $primary;
-  cursor: pointer;
 }

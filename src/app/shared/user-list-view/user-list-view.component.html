@@ -1,7 +1,8 @@
-<div class="flex" [ngClass]="{'flex-mobile' : mobileView}">
+<div class="flex" [ngClass]="{'mobile' : mobileView}">
   <div class="flex-50" style="margin: auto; width: fit-content">
     <!--    <img [src]="user?.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';" alt="">-->
-    <app-profile-icon [avatar]="user?.avatarDTO" [height]="60" [sizeRef]="'medium'" [slug]="user?.slug">
+    <app-profile-icon [avatar]="user?.avatarDTO" [height]="userListViewVariables.profileIconSize" [sizeRef]="'medium'"
+      [slug]="user?.slug">
     </app-profile-icon>
     <!--    <div class="link"><a [routerLink]="['/', userPath, user.slug]">{{user.username}}</a></div>-->
   </div>
@@ -35,10 +36,10 @@
       </button>
     </div>
     <div class="relation-btn" *ngIf="isCommunityRequest">
-      <button class="request-btn decline" (click)="joinRequestResponse(user.userId,'Rejected')" *ngIf="!isResponded"  >
+      <button class="request-btn decline" (click)="joinRequestResponse(user.userId,'Rejected')" *ngIf="!isResponded">
         Decline
       </button>
-      <button class="request-btn accept" (click)="joinRequestResponse(user.userId,'Accepted')" *ngIf="!isResponded" >
+      <button class="request-btn accept" (click)="joinRequestResponse(user.userId,'Accepted')" *ngIf="!isResponded">
         Accept
       </button>
       <button class="request-btn " *ngIf="isResponded" disabled>

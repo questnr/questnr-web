@@ -27,13 +27,13 @@
       </div>
       <div class="activity-items">
         <div class="activity-item">
-          <span (click)="openUserGroupDialog('followers')">{{userInfo?.followers}}</span>
+          <span (click)="openUserGroupDialog(userListTypeClass.followers)">{{userInfo?.followers}}</span>
           <div>
             <p>Followers</p>
           </div>
         </div>
         <div class="activity-item">
-          <span (click)="openUserGroupDialog('following')">{{userInfo?.followingTo}}</span>
+          <span (click)="openUserGroupDialog(userListTypeClass.following)">{{userInfo?.followingTo}}</span>
           <div>
             <p>Following</p>
           </div>

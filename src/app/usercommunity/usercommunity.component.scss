@@ -5,7 +5,7 @@
   border-radius: 8px;
   padding: 10px 0;
   margin-bottom: 20px;
-  span{
+  span {
     text-align: center;
     display: block;
     width: 100%;
@@ -21,7 +21,7 @@
 
 .link-card {
   background: #fff;
-  padding: 20px;
+  padding: 15px;
   margin: 0 0 20px 0;
   border-radius: 10px;
   .header {
@@ -63,7 +63,7 @@
   height: 1em;
   position: relative;
   overflow: hidden;
-  background-color: #DDDBDD;
+  background-color: #dddbdd;
   border-radius: 10px;
 
   &::after {
@@ -73,15 +73,9 @@
     bottom: 0;
     left: 0;
     transform: translateX(-100%);
-    background-image: linear-gradient(
-        90deg,
-        rgba(#fff, 0) 0,
-        rgba(#fff, 0.2) 20%,
-        rgba(#fff, 0.5) 60%,
-        rgba(#fff, 0)
-    );
+    background-image: linear-gradient(90deg, rgba(#fff, 0) 0, rgba(#fff, 0.2) 20%, rgba(#fff, 0.5) 60%, rgba(#fff, 0));
     animation: shimmer 2s infinite;
-    content: '';
+    content: "";
   }
 
   @keyframes shimmer {
@@ -123,20 +117,20 @@
   height: 35px;
 }
 
-.user-owned-community{
+.user-owned-community {
   margin: 20px 0;
   position: relative;
-  .mobile-create-btn{
+  .mobile-create-btn {
     position: absolute;
     right: 1%;
     top: 0;
     display: flex;
     align-items: center;
-    mat-icon{
+    mat-icon {
       margin: 0 4px;
     }
   }
-  .mobile_action_btn{
+  .mobile_action_btn {
     text-align: center;
     button {
       background: $white;
@@ -144,20 +138,20 @@
       padding: 0 4px;
     }
   }
-  .mobile_action_btn{
+  .mobile_action_btn {
     text-align: center;
     button {
       background: $white;
       color: $black;
     }
   }
-  .card-loader{
-    .col{
+  .card-loader {
+    .col {
       padding: 4px;
     }
   }
 }
 
-.community-counts{
+.community-counts {
   font-size: 0.8rem;
 }

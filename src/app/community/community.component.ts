@@ -21,10 +21,11 @@ import { GlobalConstants } from 'shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { QuestnrActivityService } from 'shared/questnr-activity.service';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
-import { GlobalService } from '../global.service';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { GlobalService } from 'global.service';
+import { UserListData, UserListType } from 'models/user-list.model';
+import { Subscription } from 'rxjs';
 import { ConfirmDialogContentType } from 'models/confirm-dialog.model';
-import { Subscriber, Subscription } from 'rxjs';
+import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-community',
@@ -72,9 +73,16 @@ export class CommunityComponent implements OnInit {
   relationType = RelationType;
   isAllowedIntoCommunity: boolean;
   fetchCommunityFeedsSubscriber: Subscription;
+  userListTypeClass = UserListType;
 
-  constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
-    private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
+  constructor(public auth: CommunityService,
+    public fb: FormBuilder,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar,
+    private route: ActivatedRoute,
+    public loginAuth: LoginService,
+    private uiService: UIService,
+    private router: Router,
     public commonService: CommonService,
     private _activityService: QuestnrActivityService, private _globalService: GlobalService,
     private renderer: Renderer2) {
@@ -288,8 +296,11 @@ export class CommunityComponent implements OnInit {
     });
   }
 
-  openUserGroupDialog(type): void {
+  openUserGroupDialog(type: UserListType): void {
     let config = null;
+    let userListData: UserListData = new UserListData();
+    userListData.community = this.communityDTO;
+    userListData.type = type;
     if (this.mobileView) {
       config = {
         position: {
@@ -303,26 +314,16 @@ export class CommunityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: {
-          userId: this.loggedInUserId,
-          communityId: this.communityId,
-          type,
-          title: type
-        }
+        data: userListData
       };
     } else {
       config = {
         // width: '500px',
         // data: userList,
-        maxHeight: '60vh',
-        maxWidth: '80vw',
-        overflow: 'hidden',
-        data: {
-          userId: this.loggedInUserId,
-          communityId: this.communityId,
-          type,
-          title: type
-        }
+        maxHeight: '70vh',
+        maxWidth: "80vw",
+        overflow: "hidden",
+        data: userListData
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);
