@@ -331,7 +331,7 @@ export class CommunityComponent implements OnInit {
     const dialogRef = this.dialog.open(UserListComponent, config);
 
     dialogRef.afterClosed().subscribe(result => {
-
+      this.getCommunityJoinRequests();
     });
   }
 
@@ -397,5 +397,8 @@ export class CommunityComponent implements OnInit {
         this.toggleCommunityPrivacy(privacy);
       }
     });
+  }
+  updatePendingRequestCount(pendingRequestCount) {
+    this.pendingRequests = pendingRequestCount;
   }
 }

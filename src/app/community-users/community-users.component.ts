@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http';
-import {Component, Input, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {ActivatedRoute} from '@angular/router';
 import {GlobalService} from 'global.service';
@@ -31,6 +31,7 @@ export class CommunityUsersComponent implements OnInit {
   @Input() ownerUser: User;
   @Input() relationshipType: RelationType;
   @Input() requests = 1;
+  @Output() pendingRequestCount = new EventEmitter();
   isAllowedIntoCommunity: boolean;
   communityMemberList: User[] = [];
   loader = false;
@@ -67,7 +68,7 @@ export class CommunityUsersComponent implements OnInit {
       this.getCommunityMetaInfo();
     }
     if (this.relationshipType === RelationType.OWNED) {
-      this.getCommunityJoinRequests(this.community.communityId);
+      this.getCommunityJoinRequests();
     }
   }
 
@@ -166,6 +167,8 @@ export class CommunityUsersComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (type === UserListType.requests) {
         this.getCommunityMembers();
+        this.getCommunityJoinRequests();
+        this.pendingRequestCount.emit(this.pendingRequests);
       }
     });
   }
@@ -182,8 +185,8 @@ export class CommunityUsersComponent implements OnInit {
     window.open([GlobalConstants.userPath, slug].join('/'), '_blank');
   }
 
-  getCommunityJoinRequests(communityId) {
-    this.communityService.getCommunityJoinRequests(communityId, 0).subscribe((res: any) => {
+  getCommunityJoinRequests() {
+    this.communityService.getCommunityJoinRequests(this.community.communityId, 0).subscribe((res: any) => {
       this.pendingJoinRequest = res;
       this.pendingRequests = res.numberOfElements;
     });

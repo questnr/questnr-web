@@ -175,7 +175,7 @@
 
         <div class="flex-3" *ngIf="!mobileView">
           <!--        <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
-          <app-community-users [community]="communityDTO"
+          <app-community-users [community]="communityDTO" (pendingRequestCount)="updatePendingRequestCount($event)"
             [relationshipType]="communityDTO.communityMeta.relationShipType" [userListType]="'list'"
             #communityUsersComponentRef>
           </app-community-users>
