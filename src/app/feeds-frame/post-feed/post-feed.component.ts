@@ -1,22 +1,19 @@
-import { Component, Output, EventEmitter, Input, ViewChild, ElementRef, OnInit, Inject, Renderer2 } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { FormControl, Validators } from '@angular/forms';
-import { LoginService } from 'auth/login.service';
-import { FeedsService } from 'feeds-frame/feeds.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
-import { HashTagService } from 'feeds-frame/hash-tag-service';
-import { MetaCardComponent } from 'meta-card/meta-card.component';
-import { CommonService } from 'common/common.service';
-import { IFramelyData } from 'models/iframely.model';
-import { IFramelyService } from 'meta-card/iframely.service';
-import { emojis } from '@ctrl/ngx-emoji-mart/ngx-emoji';
-import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, ElementRef, Inject, Input, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { PostEditorType, Post, NormalPostData } from 'models/post-action.model';
-import Quill from 'quill';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { LoginService } from 'auth/login.service';
+import { CommonService } from 'common/common.service';
+import { FeedsService } from 'feeds-frame/feeds.service';
+import { HashTagService } from 'feeds-frame/hash-tag-service';
+import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
 import { GlobalService } from 'global.service';
+import { IFramelyService } from 'meta-card/iframely.service';
+import { IFramelyData } from 'models/iframely.model';
+import { NormalPostData, Post, PostEditorType } from 'models/post-action.model';
+import Quill from 'quill';
 
 @Component({
   selector: 'app-post-feed',
@@ -29,6 +26,7 @@ import { GlobalService } from 'global.service';
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
+  encapsulation: ViewEncapsulation.None
 })
 export class PostFeedComponent implements OnInit {
   @ViewChild('userInputRef') userInputRef: ElementRef;

@@ -1,4 +1,4 @@
-<div class="box hide-scrollbar"
+<div class="post-feed-wrapper box hide-scrollbar"
   [ngClass]="[isBlogEditor ? 'blog-editor-view': 'normal-editor-view', mobileView ? 'mobile' : 'desktop']">
   <div class="loader" [ngClass]="{'active': isLoading}">
     <mat-progress-bar *ngIf="!uploading && isLoading" mode="indeterminate"></mat-progress-bar>
@@ -14,7 +14,6 @@
   </div>
   <hr style="margin-top: 0">
   <div class="post-wrap">
-
     <div class="icon"><img [src]="login.profileImg"></div>
     <div class="textbox-wrap md-form" style="position:relative;">
       <div *ngIf="!isBlogEditor">
@@ -26,7 +25,8 @@
         <app-loader-text *ngIf="isFetchingPostData" [size]="'sm'" [text]="'Fetching Your Blog'"></app-loader-text>
         <div *ngIf="!isFetchingPostData">
           <mat-form-field class="col-md-12" appearance="fill" floatLabel="always">
-            <input [formControl]="blogTitle" type="text" placeholder="Blog Title" matInput />
+            <input class="blog-title-input" [formControl]="blogTitle" type="text" placeholder="Blog Title"
+              autocomplete="off" matInput />
             <mat-error *ngIf="blogTitle.hasError('required')">Title is required</mat-error>
             <mat-error *ngIf="blogTitle.hasError('maxLength')">Title has more than 200 words</mat-error>
           </mat-form-field>

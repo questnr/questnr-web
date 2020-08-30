@@ -1,10 +1,22 @@
 @import "../../variables";
 
-.box {
-  background: #fff;
+.post-feed-wrapper {
+  background: $white;
   border-radius: 10px;
   position: relative;
   overflow-y: auto;
+  .mat-horizontal-stepper-header-container {
+    display: none !important;
+  }
+  .mat-form-field.mat-focused .mat-form-field-ripple {
+    background-color: $heading;
+  }
+  .mat-input-element {
+    caret-color: $heading;
+  }
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: $input-field-background-color;
+  }
 }
 .normal-editor-view {
   width: 90vw;
@@ -16,7 +28,7 @@
   width: 100vw;
 }
 .blog-editor-view.desktop {
-  height: 90vh;
+  max-height: 90vh;
   width: 70vw;
 }
 .loader {
@@ -120,6 +132,10 @@
       &:focus {
         background: rgba(0, 0, 0, 0.05);
       }
+    }
+    input.blog-title-input {
+      font-size: 1.1rem;
+      font-family: Verdana;
     }
   }
 }
