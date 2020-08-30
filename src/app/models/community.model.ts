@@ -53,9 +53,3 @@ export class CommunityProfileMeta {
   trendRank: string;
   inTrend: boolean;
 }
-
-export enum CommunityListType {
-  owned = 'owned',
-  joined = 'joined',
-  suggested = 'suggested'
-}

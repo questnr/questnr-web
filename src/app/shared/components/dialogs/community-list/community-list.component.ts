@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { GlobalService } from 'global.service';
+import { CommunityListType } from 'models/community-list.model';
+import { Page } from 'models/page.model';
 import { LoginService } from '../../../../auth/login.service';
-import { Community, CommunityListType } from '../../../../models/community.model';
+import { Community } from '../../../../models/community.model';
 import { UsercommunityService } from '../../../../usercommunity/usercommunity.service';
 import { ApiService } from '../../../api.service';
-import { GlobalService } from 'global.service';
-import { Page } from 'models/page.model';
 
 @Component({
   selector: 'app-community-list',

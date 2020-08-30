@@ -1,14 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GlobalConstants } from '../shared/constants';
-import { ActivatedRoute } from '@angular/router';
-import { CreateCommunityComponent } from '../shared/components/dialogs/create-community/create-community.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { Page } from 'models/page.model';
 import { LoginService } from '../auth/login.service';
-import { UsercommunityService } from '../usercommunity/usercommunity.service';
-import { Community, CommunityListType } from '../models/community.model';
+import { Community } from '../models/community.model';
 import { ApiService } from '../shared/api.service';
 import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
-import { Page } from 'models/page.model';
+import { CreateCommunityComponent } from '../shared/components/dialogs/create-community/create-community.component';
+import { GlobalConstants } from '../shared/constants';
+import { UsercommunityService } from '../usercommunity/usercommunity.service';
+import { CommunityListType, CommunityListData } from 'models/community-list.model';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-floating-mobile-nav',
@@ -16,18 +18,17 @@ import { Page } from 'models/page.model';
   styleUrls: ['./floating-mobile-nav.component.scss']
 })
 export class FloatingMobileNavComponent implements OnInit {
+  @Input() url: string;
   links = GlobalConstants;
   home = false;
   explore = false;
   profile = false;
   profileLink: string;
   music = false;
-  mobileView = false;
+  mobileView: boolean = false;
   ownedCommunity: Community[] = [];
   joinedCommunity: Community[] = [];
   communityPath = GlobalConstants.communityPath;
-  screenWidth = window.innerWidth;
-  @Input() url: string;
   isLeftVisible = false;
   communityListType = CommunityListType;
 
@@ -35,20 +36,13 @@ export class FloatingMobileNavComponent implements OnInit {
     public dialog: MatDialog,
     public loginService: LoginService,
     public usercommunityService: UsercommunityService,
-    public api: ApiService) {
+    public api: ApiService,
+    private _globalService: GlobalService) {
   }
 
   ngOnInit(): void {
     this.profileLink = this.loginService.getUserProfile().slug;
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-      const el = document.querySelector('.flex-7');
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
+    this.mobileView = this._globalService.isMobileView();
     if (this.url === this.links.feedPath) {
       this.home = true;
     } else if (this.url === this.links.explorePath) {
@@ -95,8 +89,14 @@ export class FloatingMobileNavComponent implements OnInit {
     );
   }
 
-  openCommunityDialog(communityList, type: CommunityListType): void {
+  openCommunityDialog(communityList: Community[], type: CommunityListType): void {
     let config = null;
+    let communityListData: CommunityListData = new CommunityListData();
+    communityListData.communityList = communityList;
+    communityListData.type = type;
+    communityListData.page = 1;
+    communityListData.userId = this.loginService.getUserId();
+    communityListData.isOwner = true;
     config = {
       position: {
         top: '0',
@@ -110,7 +110,7 @@ export class FloatingMobileNavComponent implements OnInit {
       marginRight: '0px !important',
       panelClass: 'community-list-modal',
       overflow: "hidden",
-      data: { userId: this.loginService.getUserId(), communityList, type, page: 1 }
+      data: communityListData
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);
 

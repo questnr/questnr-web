@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Community, CommunityListType } from '../models/community.model';
-import { LoginService } from '../auth/login.service';
-import { ApiService } from '../shared/api.service';
-import { OwlOptions } from 'ngx-owl-carousel-o';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { GlobalConstants } from 'shared/constants';
-import { CommunityListComponent } from 'shared/components/dialogs/community-list/community-list.component';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { GlobalService } from 'global.service';
+import { CommunityListType, CommunityListData } from 'models/community-list.model';
 import { Page } from 'models/page.model';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { CommunityListComponent } from 'shared/components/dialogs/community-list/community-list.component';
+import { GlobalConstants } from 'shared/constants';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { LoginService } from '../auth/login.service';
+import { Community } from '../models/community.model';
+import { ApiService } from '../shared/api.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -72,8 +72,15 @@ export class SuggestionComponent implements OnInit {
       return StaticMediaSrc.communityFile;
     }
   }
-  openCommunityDialog(community): void {
+  openCommunityDialog(communityList): void {
     let config = null;
+    let communityListData: CommunityListData = new CommunityListData();
+    communityListData.communityList = communityList;
+    communityListData.type = CommunityListType.suggested;
+    communityListData.isOwner = true;
+    communityListData.userId = this.loginService.getUserId();
+    communityListData.isEnd = true;
+    communityListData.page = 1;
     if (this.mobileView) {
       config = {
         position: {
@@ -88,7 +95,7 @@ export class SuggestionComponent implements OnInit {
         marginRight: '0px !important',
         panelClass: 'community-list-modal',
         overflow: "hidden",
-        data: { userId: this.loginService.getUserId(), community, type: CommunityListType.suggested, page: 1, isEnd: true }
+        data: communityListData
       };
     } else {
       config = {
@@ -96,7 +103,7 @@ export class SuggestionComponent implements OnInit {
         maxHeight: "70vh",
         panelClass: 'community-list-modal',
         overflow: "hidden",
-        data: { userId: this.loginService.getUserId(), community, type: CommunityListType.suggested, page: 1, isEnd: true }
+        data: communityListData
       };
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);
