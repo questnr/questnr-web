@@ -1,6 +1,8 @@
-<div class="mobile-nav-btn">
+<div class="mobile-nav-container" #navBarHTML>
     <button class="back-button" mat-icon-button (click)="onBack()">
         <mat-icon>arrow_back</mat-icon>
     </button>
     <div class="header" *ngIf="title">{{title}}</div>
+</div>
+<div class="mobile-nav-space">
 </div>

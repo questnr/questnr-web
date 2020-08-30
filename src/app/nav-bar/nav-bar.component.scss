@@ -1,6 +1,6 @@
 @import "../variables";
 
-.mobile-nav-btn {
+.mobile-nav-container {
     display: flex;
     width: 100%;
     position: fixed;
@@ -20,4 +20,9 @@
         top: 0px;
         left: 10px;
     }
+}
+
+// To add margin below nav space to avoid overlapping of the div elements
+.mobile-nav-space {
+    margin-bottom: 3rem;
 }

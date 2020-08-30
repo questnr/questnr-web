@@ -1,12 +1,14 @@
 @import "../../../../variables";
 
 .container-header {
-  padding: 30px;
   text-align: center;
   overflow: hidden;
 }
+.container-header.desktop {
+  padding: 30px;
+}
 .container-header.mobile {
-  padding-top: 60px;
+  // padding-top: 60px;
   .col-6 {
     padding: 0;
   }

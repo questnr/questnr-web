@@ -1,9 +1,5 @@
+<nav-bar (backAction)="onNoClick()" *ngIf="mobileView"></nav-bar>
 <div class="img-cropper-wrapper hide-scrollbar">
-    <div class="mobile-nav-btn" *ngIf="mobileView">
-        <button mat-icon-button (click)="onNoClick()">
-            <mat-icon> arrow_back</mat-icon>
-        </button>
-    </div>
     <div class="cropper-tool">
         <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="aspectRatio"
             format="jpeg" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
