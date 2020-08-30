@@ -91,6 +91,7 @@ export class CommunityUsersComponent implements OnInit {
 
   getCommunityMembers(communitySlug: string) {
     this.loader = true;
+    // @ts-ignore
     this.communityMembersService.getCommunityMembers(communitySlug, 0).subscribe((data: Page<User>) => {
       this.loader = false;
       this.communityMemberList = data.content;
