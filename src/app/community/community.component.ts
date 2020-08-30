@@ -22,6 +22,7 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { QuestnrActivityService } from 'shared/questnr-activity.service';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 import { GlobalService } from 'global.service';
+import { UserListData, UserListType } from 'models/user-list.model';
 
 @Component({
   selector: 'app-community',
@@ -64,9 +65,16 @@ export class CommunityComponent implements OnInit {
   trackerInstance: TrackingInstance;
   @ViewChild("communityFeed") communityFeed: ElementRef;
   pendingRequests: number;
+  userListTypeClass = UserListType;
 
-  constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
-    private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
+  constructor(public auth: CommunityService,
+    public fb: FormBuilder,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar,
+    private route: ActivatedRoute,
+    public loginAuth: LoginService,
+    private uiService: UIService,
+    private router: Router,
     public commonService: CommonService,
     private _activityService: QuestnrActivityService,
     private renderer: Renderer2,
@@ -113,7 +121,7 @@ export class CommunityComponent implements OnInit {
       }
       this.ownerDTO = this.communityDTO.ownerUserDTO;
       this.owner = this.communityDTO.communityMeta.relationShipType;
-      if (this.owner === 'owned') {
+      if (this.owner === RelationType.OWNED) {
         this.getCommunityJoinRequests(this.communityDTO.communityId);
       }
       this.userFeeds = [];
@@ -262,8 +270,11 @@ export class CommunityComponent implements OnInit {
     });
   }
 
-  openUserGroupDialog(type): void {
+  openUserGroupDialog(type: UserListType): void {
     let config = null;
+    let userListData: UserListData = new UserListData();
+    userListData.community = this.communityDTO;
+    userListData.type = type;
     if (this.mobileView) {
       config = {
         position: {
@@ -277,24 +288,16 @@ export class CommunityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: {
-          userId: this.loggedInUserId,
-          communityId: this.communityId,
-          type
-        }
+        data: userListData
       };
     } else {
       config = {
         // width: '500px',
         // data: userList,
-        maxHeight: '60vh',
+        maxHeight: '70vh',
         maxWidth: "80vw",
         overflow: "hidden",
-        data: {
-          userId: this.loggedInUserId,
-          communityId: this.communityId,
-          type
-        }
+        data: userListData
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);

@@ -68,6 +68,7 @@ import { MatVideoModule } from 'mat-video';
 import { FullScreenMediaService } from 'media-container/full-screen-media.service';
 import { FullScreenMediaComponent } from 'media-container/full-screen-media/full-screen-media.component';
 import { MediaContainerComponent } from 'media-container/media-container.component';
+import { NavBarComponent } from 'nav-bar/nav-bar.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { CarouselModule } from 'ngx-owl-carousel-o';
@@ -152,7 +153,6 @@ import { SuggestionComponent } from './suggestion/suggestion.component';
 import { TimeStringComponent } from './time-string/time-string.component';
 import { TrendingComponent } from './trending/trending.component';
 import { UserActivityComponent } from './user-activity/user-activity.component';
-import { UserFollowersComponent } from './user-followers/user-followers.component';
 import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UsercommunityComponent } from './usercommunity/usercommunity.component';
@@ -237,7 +237,6 @@ export function metaFactory(): MetaLoader {
     CommentBoxComponent,
     DragDropDirective,
     UserProfilePageComponent,
-    UserFollowersComponent,
     SinglePostComponent,
     UserActivityComponent,
     SharePostComponent,
@@ -309,7 +308,8 @@ export function metaFactory(): MetaLoader {
     FullScreenMediaComponent,
     UserActivityBarComponent,
     CommunityActivityComponent,
-    HorizontalOwnerProfileComponent
+    HorizontalOwnerProfileComponent,
+    NavBarComponent
   ],
   imports: [
     MatVideoModule,

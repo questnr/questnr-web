@@ -42,17 +42,18 @@
           <!--          <div class="col-md-9">-->
           <!--          </div>-->
           <!--        </div>-->
-          <app-community-users [communityId]="communityDTO?.communityId"
-            [relationshipType]="communityDTO.communityMeta.relationShipType" [communitySlug]="communityDTO?.slug"
-            [userListType]="'ribbon'" *ngIf="mobileView" #communityUsersComponentRef>
+          <app-community-users [community]="communityDTO"
+            [relationshipType]="communityDTO.communityMeta.relationShipType" [userListType]="'ribbon'"
+            *ngIf="mobileView" #communityUsersComponentRef>
           </app-community-users>
           <div *ngIf="mobileView" class="action-mobile-view">
             <div
               style="display: flex; justify-content: center; align-items: center; background: #fff; padding: 6px 7px; border-radius: 50%; margin: 0 5px; cursor: pointer"
               *ngIf="owner==='owned' ">
               <mat-icon [matBadge]="pendingRequests" *ngIf="pendingRequests!==0" matBadgeColor="warn"
-                (click)="openUserGroupDialog('requests')">group</mat-icon>
-              <mat-icon *ngIf="pendingRequests===0" (click)="openUserGroupDialog('requests')">group</mat-icon>
+                (click)="openUserGroupDialog(userListTypeClass.requests)">group</mat-icon>
+              <mat-icon *ngIf="pendingRequests===0" (click)="openUserGroupDialog(userListTypeClass.requests)">group
+              </mat-icon>
             </div>
             <app-community-relation-action-button *ngIf="owner !== 'owned'" [relation]="owner" [mobileView]="mobileView"
               [communityName]="communityDTO.communityName" [communityId]="communityDTO.communityId"
@@ -95,7 +96,7 @@
                 <!--              </app-post-feed>-->
                 <horizontal-owner-profile *ngIf="mobileView && owner !== 'owned'" [user]="communityDTO?.ownerUserDTO">
                 </horizontal-owner-profile>
-                <app-community-activity></app-community-activity>
+                <app-community-activity [community]="communityDTO"></app-community-activity>
                 <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="true"
                   [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"
                   [type]="'Create'"></app-post-feeds>
@@ -139,9 +140,9 @@
 
         <div class="flex-3" *ngIf="!mobileView">
           <!--        <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
-          <app-community-users [communityId]="communityDTO?.communityId"
-            [relationshipType]="communityDTO.communityMeta.relationShipType" [communitySlug]="communityDTO?.slug"
-            [userListType]="'list'" #communityUsersComponentRef>
+          <app-community-users [community]="communityDTO"
+            [relationshipType]="communityDTO.communityMeta.relationShipType" [userListType]="'list'"
+            #communityUsersComponentRef>
           </app-community-users>
           <!-- <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity> -->
           <app-suggestion></app-suggestion>
@@ -156,7 +157,8 @@
 
 <mat-menu #menu="matMenu" xPosition="before">
   <div>
-    <button mat-menu-item *ngIf="(owner===owned)" (click)="openUserGroupDialog('inviteUserList')">Invite</button>
+    <button mat-menu-item *ngIf="(owner===owned)"
+      (click)="openUserGroupDialog(userListTypeClass.inviteUserList)">Invite</button>
     <button mat-menu-item (click)="openShareDialog()">
       Share on other platforms
     </button>

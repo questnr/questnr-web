@@ -7,9 +7,10 @@ import { RelationType } from 'models/relation-type';
 import { GlobalConstants } from 'shared/constants';
 import { LoginService } from '../../auth/login.service';
 import { CommunityService } from '../../community/community.service';
-import { User, UserListViewSizeType, UserListViewVariables } from '../../models/user.model';
+import { User } from '../../models/user.model';
 import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
 import { InviteUsetService } from './invite-user.service';
+import { UserListViewSizeType, UserListViewVariables } from 'models/user-list.model';
 
 @Component({
   selector: 'app-user-list-view',

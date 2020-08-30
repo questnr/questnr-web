@@ -12,6 +12,7 @@ import { User } from '../../../../models/user.model';
 import { UserFollowersService } from '../../../../user-followers/user-followers.service';
 import { UserProfileCardServiceComponent } from '../../../../user-profile-card/user-profile-card-service.component';
 import { UserListService } from './user-list.service';
+import { UserListData, UserListType } from 'models/user-list.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -21,6 +22,7 @@ import { UserListService } from './user-list.service';
 })
 export class UserListComponent implements OnInit {
   @ViewChild('elementOnHTML') elementOnHTML: ElementRef;
+  listTitle: string;
   loading: boolean = false;
   isInviteList: boolean = false;
   communityId: number;
@@ -36,7 +38,7 @@ export class UserListComponent implements OnInit {
   scrollCached: boolean = null;
   @ViewChild("listContainer") listContainer: ElementRef;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: UserListData,
     public userProfileCardServiceComponent: UserProfileCardServiceComponent,
     // tslint:disable-next-line:max-line-length
     public userListService: UserListService,
@@ -93,22 +95,28 @@ export class UserListComponent implements OnInit {
   }
 
   fetchData() {
-    if (this.data.type === 'following') {
-      this.getFollowingUser(this.data.userId);
-    } else if (this.data.type === 'followers') {
-      this.getUserFollowers(this.data.userId);
-    } else if (this.data.type === 'like') {
+    if (this.data.type === UserListType.following) {
+      this.listTitle = "Following To";
+      this.getFollowingUser(this.data.user.userId);
+    } else if (this.data.type === UserListType.followers) {
+      this.listTitle = "Followers";
+      this.getUserFollowers(this.data.user.userId);
+    } else if (this.data.type === UserListType.like) {
+      this.listTitle = "User Likes";
       this.getUserLikedList(this.data.postId);
-    } else if (this.data.type === 'members') {
-      this.getCommunityMembers(this.data.communitySlug);
-    } else if (this.data.type === 'requests') {
+    } else if (this.data.type === UserListType.members) {
+      this.listTitle = "Members";
+      this.getCommunityMembers(this.data.community.slug);
+    } else if (this.data.type === UserListType.requests) {
+      this.listTitle = "Requests";
       this.isCommunityRequest = true;
-      this.getCommunityJoinRequests(this.data.communityId);
-    } else if (this.data.type === 'inviteUserList') {
+      this.getCommunityJoinRequests(this.data.community.communityId);
+    } else if (this.data.type === UserListType.inviteUserList) {
+      this.listTitle = "Users";
       // To show invite button
       this.isInviteList = true;
       // console.log('this', this.data);
-      this.communityId = this.data.communityId;
+      this.communityId = this.data.community.communityId;
       this.getInviteUserList(this.communityId);
     }
   }
@@ -158,7 +166,7 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  onNoClick(): void {
+  backActionListener() {
     this.dialogRef.close();
   }
 
@@ -250,8 +258,8 @@ export class UserListComponent implements OnInit {
   }
 
   getCommunityJoinRequests(communityId) {
+    if (!communityId) return;
     this.auth.getCommunityJoinRequests(communityId, this.page).subscribe((res: any) => {
-      this.communityId = this.data.communityId;
       if (res.content.length) {
         this.afterDataFetched(res.totalPages);
         res.content.forEach(user => {

@@ -1,42 +1,36 @@
-<div class="mobile-nav-btn" *ngIf="mobileView">
-  <button mat-icon-button (click)="onNoClick()">
-    <mat-icon> arrow_back</mat-icon>
-  </button>
-</div>
+<nav-bar [title]="listTitle" (backAction)="backActionListener()" *ngIf="mobileView"></nav-bar>
+<div class="header" *ngIf="!mobileView && listTitle">{{listTitle}}</div>
 <div class="user-list-container hide-scrollbar" [ngClass]="{'mobile': mobileView}">
   <!--  <div>-->
   <!--    <input #inputBox type="text" placeholder="Search..." (keypress)="searchUserList(inputBox.value)">-->
   <!--  </div>-->
-  <div class="user_list hide-scrollbar" #listContainer>
-    <div class="center">
-      <div id="myUL">
+  <div class="user-list hide-scrollbar" [ngClass]="[mobileView ? 'mobile' : 'desktop']" #listContainer>
+    <div class="user-list-template">
 
-        <div *ngFor="let i of userList;">
-          <div [id]="i?.userId" *ngIf="!searchResult">
-            <app-user-list-view [isInviteList]="isInviteList" [otherUserId]="i?.userId" [communityId]="communityId"
-              [isCommunityRequest]="isCommunityRequest" [user]="i"></app-user-list-view>
-          </div>
+      <div *ngFor="let i of userList;">
+        <div [id]="i?.userId" *ngIf="!searchResult">
+          <app-user-list-view [isInviteList]="isInviteList" [otherUserId]="i?.userId" [communityId]="communityId"
+            [isCommunityRequest]="isCommunityRequest" [user]="i"></app-user-list-view>
         </div>
-        <div *ngIf="isCommunityRequest && !loading && userList.length == 0">
-          <p style="text-align: center; margin: 0">No Requests Pending</p>
-        </div>
-
-        <!--        <div *ngFor="let i of searchResultList">-->
-        <!--          <div [id]="i?.userId" *ngIf="searchResult && !noResultFound">-->
-        <!--            <app-user-list-view [user]="i"></app-user-list-view>-->
-        <!--          </div>-->
-        <!--        </div>-->
-        <div class="user-flex no-result-found" style="margin: auto" *ngIf="noResultFound">
-          <p style="text-align: center">No Result Found!</p>
-        </div>
-
-        <ng-container *ngIf="loading">
-          <div *ngFor="let i of ' '.repeat(1).split('')">
-            <app-user-list-loader></app-user-list-loader>
-          </div>
-        </ng-container>
       </div>
-    </div>
+      <div *ngIf="isCommunityRequest && !loading && userList.length == 0">
+        <p style="text-align: center; margin: 0">No Requests Pending</p>
+      </div>
 
+      <!--        <div *ngFor="let i of searchResultList">-->
+      <!--          <div [id]="i?.userId" *ngIf="searchResult && !noResultFound">-->
+      <!--            <app-user-list-view [user]="i"></app-user-list-view>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <div class="user-flex no-result-found" style="margin: auto" *ngIf="noResultFound">
+        <p style="text-align: center">No Result Found!</p>
+      </div>
+
+      <ng-container *ngIf="loading">
+        <div *ngFor="let i of ' '.repeat(1).split('')">
+          <app-user-list-loader></app-user-list-loader>
+        </div>
+      </ng-container>
+    </div>
   </div>
 </div>

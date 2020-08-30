@@ -49,7 +49,7 @@
     [blogTitle]="feed.postData.blogTitle" (click)="openBlog()">
   </app-blog-title>
   <div class="count-box">
-    <div (click)="openUserGroupDialog('like')">
+    <div (click)="openUserGroupDialog(userListTypeClass.like)">
       <span>{{feed.postActionMeta.totalLikes? feed.postActionMeta.totalLikes: 0}}
       </span>
       {{feed.postActionMeta.totalLikes>1? 'Likes': 'Like'}}</div>

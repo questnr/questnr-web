@@ -4,10 +4,11 @@ import { UserActivityService } from './user-activity.service';
 import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserFollowersService } from '../user-followers/user-followers.service';
-import { UserInfo } from 'models/user.model';
+import { UserInfo, User } from 'models/user.model';
 import { GlobalService } from 'global.service';
 import { CommunityListType } from 'models/community.model';
 import { CommunityListComponent } from 'shared/components/dialogs/community-list/community-list.component';
+import { UserListData, UserListType } from 'models/user-list.model';
 
 @Component({
   selector: 'app-user-activity',
@@ -18,9 +19,10 @@ export class UserActivityComponent implements OnInit {
   url: string;
   @Input() userInfo: UserInfo;
   mobileView = false;
-  @Input() userId: number;
+  @Input() user: User;
   isLeftVisible: boolean = true;
   communityListType = CommunityListType;
+  userListTypeClass = UserListType;
 
   constructor(public route: ActivatedRoute,
     public userActivityService: UserActivityService,
@@ -46,8 +48,11 @@ export class UserActivityComponent implements OnInit {
     });
   }
 
-  openUserGroupDialog(type): void {
+  openUserGroupDialog(type: UserListType): void {
     let config = null;
+    let userListData: UserListData = new UserListData();
+    userListData.user = this.user;
+    userListData.type = type;
     if (this.mobileView) {
       config = {
         position: {
@@ -61,16 +66,16 @@ export class UserActivityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: { userId: this.userId, type }
+        data: userListData
       };
     } else {
       config = {
         // width: '500px',
         maxWidth: "80vw",
         // data: userList,
-        maxHeight: "60vh",
+        maxHeight: '70vh',
         overflow: "hidden",
-        data: { userId: this.userId, type }
+        data: userListData
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);
@@ -94,13 +99,13 @@ export class UserActivityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: { userId: this.userId, type: communityListType }
+        data: { userId: this.user.userId, type: communityListType }
       };
     } else {
       config = {
         width: '700px',
         maxHeight: "70vh",
-        data: { userId: this.userId, type: communityListType }
+        data: { userId: this.user.userId, type: communityListType }
       };
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);

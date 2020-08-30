@@ -7,7 +7,7 @@
       </div>
       <div>
         <mat-icon [matBadge]="pendingRequests" *ngIf="pendingRequests!==0" matBadgeColor="warn"
-          (click)="openUserGroupDialog('requests')" style="cursor: pointer">
+          (click)="openUserGroupDialog(userListTypeClass.requests)" style="cursor: pointer">
           group
         </mat-icon>
         <mat-icon *ngIf="pendingRequests===0">group</mat-icon>
@@ -20,8 +20,6 @@
       <app-user-list-view [size]="smallUserListViewSize" *ngIf="ind < 4" [user]="i"></app-user-list-view>
     </div>
   </div>
-  <app-view-more-button (click)="openUserGroupDialog('members')" *ngIf="communityMemberList?.length >= 4">
-  </app-view-more-button>
 
   <ng-template #noMembers>
     <span *ngIf="!loader">(0) Members</span>
@@ -32,6 +30,9 @@
       <app-user-list-loader></app-user-list-loader>
     </div>
   </div>
+  <app-view-more-button (click)="openUserGroupDialog(userListTypeClass.members)"
+    *ngIf="communityMemberList?.length >= 4">
+  </app-view-more-button>
 </div>
 
 
@@ -55,7 +56,7 @@
           </div>
         </li>
         <li class="ribbon_list">
-          <div class="ribbon_img" style="padding: 0" (click)="openUserGroupDialog('members')">
+          <div class="ribbon_img" style="padding: 0" (click)="openUserGroupDialog(userListTypeClass.members)">
             <img src="/assets/next.png" alt="default">
           </div>
         </li>
