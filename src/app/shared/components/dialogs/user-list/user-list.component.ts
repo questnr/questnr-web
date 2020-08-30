@@ -245,6 +245,7 @@ export class UserListComponent implements OnInit {
     if (!communitySlug) {
       return;
     }
+    // @ts-ignore
     this.communityMembersService.getCommunityMembers(communitySlug, this.page).subscribe((data: Page<User>) => {
       if (data.content.length) {
         this.afterDataFetched(data.totalPages);
