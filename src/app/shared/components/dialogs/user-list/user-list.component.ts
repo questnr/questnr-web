@@ -1,18 +1,18 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CommunityService } from 'community/community.service';
-import { GlobalService } from 'global.service';
-import { CommunityUsers } from 'models/community.model';
-import { LikeAction } from 'models/like-action.model';
-import { Page } from 'models/page.model';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
-import { CommunityMembersService } from '../../../../community-users/community-members.service';
-import { User } from '../../../../models/user.model';
-import { UserFollowersService } from '../../../../user-followers/user-followers.service';
-import { UserProfileCardServiceComponent } from '../../../../user-profile-card/user-profile-card-service.component';
-import { UserListService } from './user-list.service';
-import { UserListData, UserListType } from 'models/user-list.model';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {CommunityService} from 'community/community.service';
+import {GlobalService} from 'global.service';
+import {CommunityUsers} from 'models/community.model';
+import {LikeAction} from 'models/like-action.model';
+import {Page} from 'models/page.model';
+import {StaticMediaSrc} from 'shared/constants/static-media-src';
+import {InviteUsetService} from 'shared/user-list-view/invite-user.service';
+import {CommunityMembersService} from '../../../../community-users/community-members.service';
+import {User} from '../../../../models/user.model';
+import {UserFollowersService} from '../../../../user-followers/user-followers.service';
+import {UserProfileCardServiceComponent} from '../../../../user-profile-card/user-profile-card-service.component';
+import {UserListService} from './user-list.service';
+import {UserListData, UserListType} from 'models/user-list.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -37,18 +37,18 @@ export class UserListComponent implements OnInit {
   hasTotalPage: number;
   scrollCached: boolean = null;
   title: string;
-  @ViewChild("listContainer") listContainer: ElementRef;
+  @ViewChild('listContainer') listContainer: ElementRef;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: UserListData,
-    public userProfileCardServiceComponent: UserProfileCardServiceComponent,
-    // tslint:disable-next-line:max-line-length
-    public userListService: UserListService,
-    public dialogRef: MatDialogRef<UserListComponent>,
-    public followersService: UserFollowersService,
-    public communityMembersService: CommunityMembersService,
-    public auth: CommunityService,
-    private inviteUserService: InviteUsetService,
-    private _globalService: GlobalService) {
+              public userProfileCardServiceComponent: UserProfileCardServiceComponent,
+              // tslint:disable-next-line:max-line-length
+              public userListService: UserListService,
+              public dialogRef: MatDialogRef<UserListComponent>,
+              public followersService: UserFollowersService,
+              public communityMembersService: CommunityMembersService,
+              public auth: CommunityService,
+              private inviteUserService: InviteUsetService,
+              private _globalService: GlobalService) {
   }
 
   ngOnInit(): void {
@@ -99,23 +99,24 @@ export class UserListComponent implements OnInit {
 
   fetchData() {
     if (this.data.type === UserListType.following) {
-      this.listTitle = "Following To";
+      this.listTitle = 'Following To';
       this.getFollowingUser(this.data.user.userId);
     } else if (this.data.type === UserListType.followers) {
-      this.listTitle = "Followers";
+      this.listTitle = 'Followers';
       this.getUserFollowers(this.data.user.userId);
     } else if (this.data.type === UserListType.like) {
-      this.listTitle = "User Likes";
+      this.listTitle = 'User Likes';
       this.getUserLikedList(this.data.postId);
     } else if (this.data.type === UserListType.members) {
-      this.listTitle = "Members";
+      this.listTitle = 'Members';
       this.getCommunityMembers(this.data.community.slug);
     } else if (this.data.type === UserListType.requests) {
-      this.listTitle = "Requests";
+      this.listTitle = 'Requests';
       this.isCommunityRequest = true;
+      this.communityId = this.data.community.communityId;
       this.getCommunityJoinRequests(this.data.community.communityId);
     } else if (this.data.type === UserListType.inviteUserList) {
-      this.listTitle = "Users";
+      this.listTitle = 'Users';
       // To show invite button
       this.isInviteList = true;
       // console.log('this', this.data);
@@ -261,7 +262,9 @@ export class UserListComponent implements OnInit {
   }
 
   getCommunityJoinRequests(communityId) {
-    if (!communityId) return;
+    if (!communityId) {
+      return;
+    }
     this.auth.getCommunityJoinRequests(communityId, this.page).subscribe((res: any) => {
       if (res.content.length) {
         this.afterDataFetched(res.totalPages);
