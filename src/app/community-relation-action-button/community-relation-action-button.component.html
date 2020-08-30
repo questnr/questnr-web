@@ -6,7 +6,7 @@
   </span>
 </button>
 <ng-template #notOwned>
-  <button mat-stroked-button class="none" *ngIf="relation==='requested' ; else notFollowed" [disableRipple]="true">
+  <button mat-stroked-button class="none" *ngIf="relation==='requested' ; else notFollowed" [disableRipple]="true" (click)="deleteUsersOwnPendingCommunityJoinRequests()">
     <span class="button-content">
       <mat-icon>alarm_on</mat-icon>Requested
     </span>

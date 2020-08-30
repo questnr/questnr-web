@@ -25,7 +25,7 @@
 
   <ng-template #noMembers>
     <span *ngIf="isAllowedIntoCommunity && !loader">(0) Members</span>
-    <span *ngIf="!isAllowedIntoCommunity">This information is only accessible to community members</span>
+    <p *ngIf="!isAllowedIntoCommunity">This information is only accessible to community members</p>
   </ng-template>
 
   <div *ngIf="loader">

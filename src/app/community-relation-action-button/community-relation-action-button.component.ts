@@ -82,4 +82,12 @@ export class CommunityRelationActionButtonComponent implements OnInit {
   sendAction(relation: RelationType) {
     this.actionEvent.emit(relation);
   }
+  deleteUsersOwnPendingCommunityJoinRequests() {
+    this.auth.deleteUsersOwnPendingCommunityJoinRequests(this.communityId).subscribe( (res: any) => {
+      this.relation = RelationType.NONE;
+      this.snackBar.open('Request cancelled', 'close', { duration: 3000 });
+    }, error => {
+      this.snackBar.open(error.error.errorMessage, 'close', { duration: 3000 });
+    });
+  }
 }

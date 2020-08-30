@@ -1,30 +1,30 @@
-import { Component, ElementRef, OnInit, ViewChild, Renderer2 } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Page } from 'models/page.model';
-import { UIService } from 'ui/ui.service';
-import { LoginService } from '../auth/login.service';
-import { Community, CommunityPrivacy } from '../models/community.model';
-import { Post } from '../models/post-action.model';
-import { User } from '../models/user.model';
-import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
-import { CommunityService } from './community.service';
-import { CommunityUsersComponent } from 'community-users/community-users.component';
-import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
-import { CommonService } from 'common/common.service';
-import { UserListComponent } from 'shared/components/dialogs/user-list/user-list.component';
-import { RelationType } from 'models/relation-type';
-import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
-import { GlobalConstants } from 'shared/constants';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { QuestnrActivityService } from 'shared/questnr-activity.service';
-import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
-import { GlobalService } from '../global.service';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { ConfirmDialogContentType } from 'models/confirm-dialog.model';
-import { Subscriber, Subscription } from 'rxjs';
+import {Component, ElementRef, OnInit, ViewChild, Renderer2} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Page} from 'models/page.model';
+import {UIService} from 'ui/ui.service';
+import {LoginService} from '../auth/login.service';
+import {Community, CommunityPrivacy} from '../models/community.model';
+import {Post} from '../models/post-action.model';
+import {User} from '../models/user.model';
+import {DescriptionComponent} from '../shared/components/dialogs/description/description.component';
+import {CommunityService} from './community.service';
+import {CommunityUsersComponent} from 'community-users/community-users.component';
+import {ImgCropperWrapperComponent} from 'img-cropper-wrapper/img-cropper-wrapper.component';
+import {CommonService} from 'common/common.service';
+import {UserListComponent} from 'shared/components/dialogs/user-list/user-list.component';
+import {RelationType} from 'models/relation-type';
+import {SharePostComponent} from 'shared/components/dialogs/share-post/share-post.component';
+import {GlobalConstants} from 'shared/constants';
+import {StaticMediaSrc} from 'shared/constants/static-media-src';
+import {QuestnrActivityService} from 'shared/questnr-activity.service';
+import {TrackingEntityType, TrackingInstance} from 'models/user-activity.model';
+import {GlobalService} from '../global.service';
+import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
+import {ConfirmDialogContentType} from 'models/confirm-dialog.model';
+import {Subscriber, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-community',
@@ -74,10 +74,10 @@ export class CommunityComponent implements OnInit {
   fetchCommunityFeedsSubscriber: Subscription;
 
   constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
-    private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
-    public commonService: CommonService,
-    private _activityService: QuestnrActivityService, private _globalService: GlobalService,
-    private renderer: Renderer2) {
+              private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
+              public commonService: CommonService,
+              private _activityService: QuestnrActivityService, private _globalService: GlobalService,
+              private renderer: Renderer2) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
     this.mobileView = this._globalService.isMobileView();
   }
@@ -108,7 +108,7 @@ export class CommunityComponent implements OnInit {
 
   descriptionEmit = (desc: string) => {
     this.description = desc;
-  };
+  }
 
   ngOnInit() {
     this.communitySlug = this.route.snapshot.paramMap.get('communitySlug');
@@ -133,7 +133,7 @@ export class CommunityComponent implements OnInit {
           this.trackerInstance = trackerInstance;
         });
     });
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
       return false;
     };
   }
@@ -141,10 +141,11 @@ export class CommunityComponent implements OnInit {
   restartCommunityFeeds() {
     this.userFeeds = [];
     this.page = 0;
-    this.isAllowedIntoCommunity = this.auth.isAllowedIntoCommunity(this.communityDTO);
     // If already feed is being fetched, stop the thread
-    if (this.fetchCommunityFeedsSubscriber)
+    if (this.fetchCommunityFeedsSubscriber) {
       this.fetchCommunityFeedsSubscriber.unsubscribe();
+    }
+    this.isAllowedIntoCommunity = this.auth.isAllowedIntoCommunity(this.communityDTO);
     this.fetchCommunityFeeds();
   }
 
@@ -155,8 +156,9 @@ export class CommunityComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if (this.fetchCommunityFeedsSubscriber)
+    if (this.fetchCommunityFeedsSubscriber) {
       this.fetchCommunityFeedsSubscriber.unsubscribe();
+    }
     this.communityFeed.nativeElement.removeEventListener('scroll', this.onScroll, true);
     this.renderer.removeStyle(document.getElementsByTagName('body')[0], 'overflow');
     this.uiService.resetTitle();
@@ -179,7 +181,7 @@ export class CommunityComponent implements OnInit {
       }, 100);
     }
     this.scrollCached = event;
-  };
+  }
 
   postFeed(event) {
     if (event.postActionId) {
@@ -260,7 +262,7 @@ export class CommunityComponent implements OnInit {
   // }
 
   copyLinkOfCommunity($event) {
-    this.snackBar.open('Link copied to clipboard', 'close', { duration: 5000 });
+    this.snackBar.open('Link copied to clipboard', 'close', {duration: 5000});
     // let snackBarRef = this.snackbar.open('Copying Link..');
     // this.commonService.copyToClipboard(this.commonService.getCommunitySharableLink(this.communitySlug));
     // snackBarRef.dismiss();
@@ -333,10 +335,10 @@ export class CommunityComponent implements OnInit {
   }
 
   openShareDialog() {
-    let clickAction = this.commonService.getCommunitySharableLink(this.communitySlug);
+    const clickAction = this.commonService.getCommunitySharableLink(this.communitySlug);
     this.dialog.open(SharePostComponent, {
       width: '500px',
-      data: { url: clickAction }
+      data: {url: clickAction}
     });
   }
 
@@ -348,9 +350,9 @@ export class CommunityComponent implements OnInit {
       if (res.communityPrivacy === CommunityPrivacy.pub) {
         this.isCommunityPrivate = false;
       }
-      this.snackBar.open('Community privacy updated', 'close', { duration: 3000 });
+      this.snackBar.open('Community privacy updated', 'close', {duration: 3000});
     }, error => {
-      this.snackBar.open(error.error.errorMessage, 'close', { duration: 3000 });
+      this.snackBar.open(error.error.errorMessage, 'close', {duration: 3000});
     });
   }
 

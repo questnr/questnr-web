@@ -1,22 +1,22 @@
-import { Component, Input, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
-import { LoginService } from '../auth/login.service';
-import { ActivatedRoute } from '@angular/router';
-import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
-import { MatDialog } from '@angular/material/dialog';
-import { CommunityMembersService } from './community-members.service';
-import { Community, CommunityProfileMeta } from '../models/community.model';
-import { User } from '../models/user.model';
-import { Router } from '@angular/router';
-import { of } from 'rxjs';
-import { RelationType } from 'models/relation-type';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { GlobalConstants } from 'shared/constants';
-import { CommunityService } from '../community/community.service';
-import { GlobalService } from 'global.service';
-import { Page } from 'models/page.model';
+import {Component, Input, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {UserProfileCardServiceComponent} from '../user-profile-card/user-profile-card-service.component';
+import {LoginService} from '../auth/login.service';
+import {ActivatedRoute} from '@angular/router';
+import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
+import {MatDialog} from '@angular/material/dialog';
+import {CommunityMembersService} from './community-members.service';
+import {Community, CommunityProfileMeta} from '../models/community.model';
+import {User} from '../models/user.model';
+import {Router} from '@angular/router';
+import {of} from 'rxjs';
+import {RelationType} from 'models/relation-type';
+import {StaticMediaSrc} from 'shared/constants/static-media-src';
+import {GlobalConstants} from 'shared/constants';
+import {CommunityService} from '../community/community.service';
+import {GlobalService} from 'global.service';
+import {Page} from 'models/page.model';
 
 @Component({
   selector: 'app-community-users',
@@ -44,14 +44,14 @@ export class CommunityUsersComponent implements OnInit {
   pendingRequests = 0;
 
   constructor(public http: HttpClient,
-    public userService: UserProfileCardServiceComponent,
-    public loginService: LoginService,
-    public route: ActivatedRoute,
-    public dialog: MatDialog,
-    public communityMembersService: CommunityMembersService,
-    private loginAuth: LoginService,
-    private _globalService: GlobalService,
-    public communityService: CommunityService) {
+              public userService: UserProfileCardServiceComponent,
+              public loginService: LoginService,
+              public route: ActivatedRoute,
+              public dialog: MatDialog,
+              public communityMembersService: CommunityMembersService,
+              private loginAuth: LoginService,
+              private _globalService: GlobalService,
+              public communityService: CommunityService) {
     this.loggedInUserId = this.loginAuth.getUserProfile().id;
   }
 
@@ -83,8 +83,9 @@ export class CommunityUsersComponent implements OnInit {
         this.relationshipType = changes.relationshipType.currentValue;
       }
       this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunityWithRelationType(this.relationshipType);
-      if (this.isAllowedIntoCommunity)
+      if (this.isAllowedIntoCommunity) {
         this.getCommunityMembers(this.communitySlug);
+      }
     }
   }
 
@@ -102,7 +103,7 @@ export class CommunityUsersComponent implements OnInit {
   }
 
   getCommunityMetaInfo(communitySlug: string) {
-    this.communityMembersService.getCommunityMetaInfoWithParams(communitySlug, "followers")
+    this.communityMembersService.getCommunityMetaInfoWithParams(communitySlug, 'followers')
       .subscribe((data: CommunityProfileMeta) => {
         this.numberOfMembers = data.followers;
       });
@@ -143,16 +144,28 @@ export class CommunityUsersComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: { communitySlug: this.communitySlug, type, communityPendingRequests: this.pendingJoinRequest, communityId: this.communityId, title: type }
+        data: {
+          communitySlug: this.communitySlug,
+          type,
+          communityPendingRequests: this.pendingJoinRequest,
+          communityId: this.communityId,
+          title: type
+        }
       };
     } else {
       config = {
         // width: '500px',
-        maxWidth: "80vw",
+        maxWidth: '80vw',
         maxHeight: '60vh',
-        overflow: "hidden",
+        overflow: 'hidden',
         // data: userList
-        data: { communitySlug: this.communitySlug, type, communityPendingRequests: this.pendingJoinRequest, communityId: this.communityId, title: type }
+        data: {
+          communitySlug: this.communitySlug,
+          type,
+          communityPendingRequests: this.pendingJoinRequest,
+          communityId: this.communityId,
+          title: type
+        }
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);
@@ -161,6 +174,7 @@ export class CommunityUsersComponent implements OnInit {
       this.getCommunityMembers(this.communitySlug);
     });
   }
+
   checkImage(src) {
     if (src) {
       return src;
