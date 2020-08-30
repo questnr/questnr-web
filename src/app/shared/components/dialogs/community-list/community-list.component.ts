@@ -21,6 +21,7 @@ export class CommunityListComponent implements OnInit {
   userId: number;
   error: boolean = true;
   hasTotalPages: number;
+  listTitle: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {
     page: number,
@@ -34,6 +35,7 @@ export class CommunityListComponent implements OnInit {
     public api: ApiService,
     public loginService: LoginService,
     private _globalService: GlobalService) {
+    this.parseCommunityListData();
     if (this.data.userId) {
       this.userId = this.data.userId;
     } else {
@@ -51,6 +53,16 @@ export class CommunityListComponent implements OnInit {
 
   ngOnInit(): void {
     this.mobileView = this._globalService.isMobileView();
+  }
+
+  parseCommunityListData() {
+    if (this.data.type === CommunityListType.owned) {
+      this.listTitle = "Owned Communities";
+    } else if (this.data.type === CommunityListType.joined) {
+      this.listTitle = "Joined Communities";
+    } else if (this.data.type === CommunityListType.suggested) {
+      this.listTitle = "Communities You Might Like";
+    }
   }
 
   loadMoreCommunity() {

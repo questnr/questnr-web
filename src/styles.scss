@@ -731,3 +731,26 @@ input:focus {
 .last-feed {
   padding-bottom: 140px;
 }
+
+.custom-list-modal {
+  overflow: hidden;
+  @extend .hide-scrollbar;
+}
+
+.user-list-modal {
+  @extend .custom-list-modal;
+}
+
+.user-list-modal .mat-dialog-container {
+  overflow: hidden;
+  @extend .hide-scrollbar;
+}
+
+.community-list-modal {
+  @extend .custom-list-modal;
+}
+
+.community-list-modal .mat-dialog-container {
+  overflow: hidden;
+  @extend .hide-scrollbar;
+}

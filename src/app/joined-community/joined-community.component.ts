@@ -100,13 +100,16 @@ export class JoinedCommunityComponent implements OnInit {
         maxWidth: '100vw',
         marginTop: '0px',
         marginRight: '0px !important',
-        panelClass: 'full-screen-modal',
+        panelClass: 'community-list-modal',
+        overflow: "hidden",
         data: { userId: this.userId, communityList, type: CommunityListType.joined, page: 1 }
       };
     } else {
       config = {
         width: '700px',
         maxHeight: "70vh",
+        panelClass: 'community-list-modal',
+        overflow: "hidden",
         data: { userId: this.userId, communityList, type: CommunityListType.joined, page: 1 }
       };
     }

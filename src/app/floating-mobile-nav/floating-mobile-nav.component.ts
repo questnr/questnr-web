@@ -108,7 +108,8 @@ export class FloatingMobileNavComponent implements OnInit {
       maxWidth: '100vw',
       marginTop: '0px',
       marginRight: '0px !important',
-      panelClass: 'full-screen-modal',
+      panelClass: 'community-list-modal',
+      overflow: "hidden",
       data: { userId: this.loginService.getUserId(), communityList, type, page: 1 }
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);

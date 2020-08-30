@@ -65,7 +65,8 @@ export class UserActivityComponent implements OnInit {
         maxWidth: '100vw',
         marginTop: '0px',
         marginRight: '0px !important',
-        panelClass: 'full-screen-modal',
+        panelClass: 'user-list-modal',
+        overflow: "hidden",
         data: userListData
       };
     } else {
@@ -74,6 +75,7 @@ export class UserActivityComponent implements OnInit {
         maxWidth: "80vw",
         // data: userList,
         maxHeight: '70vh',
+        panelClass: 'user-list-modal',
         overflow: "hidden",
         data: userListData
       };
@@ -98,13 +100,16 @@ export class UserActivityComponent implements OnInit {
         maxWidth: '100vw',
         marginTop: '0px',
         marginRight: '0px !important',
-        panelClass: 'full-screen-modal',
+        panelClass: 'community-list-modal',
+        overflow: "hidden",
         data: { userId: this.user.userId, type: communityListType }
       };
     } else {
       config = {
         width: '700px',
         maxHeight: "70vh",
+        panelClass: 'community-list-modal',
+        overflow: "hidden",
         data: { userId: this.user.userId, type: communityListType }
       };
     }

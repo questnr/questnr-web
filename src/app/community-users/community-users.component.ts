@@ -129,7 +129,8 @@ export class CommunityUsersComponent implements OnInit {
         maxWidth: '100vw',
         marginTop: '0px',
         marginRight: '0px !important',
-        panelClass: 'full-screen-modal',
+        panelClass: 'user-list-modal',
+        overflow: "hidden",
         data: userListData
       };
     } else {
@@ -137,6 +138,7 @@ export class CommunityUsersComponent implements OnInit {
         // width: '500px',
         maxWidth: "80vw",
         maxHeight: '70vh',
+        panelClass: 'user-list-modal',
         overflow: "hidden",
         // data: userList
         data: userListData

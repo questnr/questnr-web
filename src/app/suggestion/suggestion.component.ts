@@ -86,13 +86,16 @@ export class SuggestionComponent implements OnInit {
         maxWidth: '100vw',
         marginTop: '0px',
         marginRight: '0px !important',
-        panelClass: 'full-screen-modal',
+        panelClass: 'community-list-modal',
+        overflow: "hidden",
         data: { userId: this.loginService.getUserId(), community, type: CommunityListType.suggested, page: 1, isEnd: true }
       };
     } else {
       config = {
         width: '700px',
         maxHeight: "70vh",
+        panelClass: 'community-list-modal',
+        overflow: "hidden",
         data: { userId: this.loginService.getUserId(), community, type: CommunityListType.suggested, page: 1, isEnd: true }
       };
     }
