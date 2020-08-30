@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 .wrapper {
     padding: 10px;
@@ -12,10 +12,10 @@
         display: flex;
         justify-content: space-between;
     }
-    .hr{
+    .hr {
         border-bottom: 1px solid $grey;
         margin-bottom: 0.6rem;
-    }    
+    }
     .loader {
         display: flex;
         justify-content: center;
@@ -34,30 +34,37 @@
         display: flex;
         justify-content: center;
     }
-    .searched-list {
-        overflow-y: scroll;
-        /* padding-bottom: 40px; */
-        .no-a {
-            text-decoration: none;
-            &:hover {
-                color: $black;
+    .tab-component {
+        overflow: hidden;
+        .searched-list {
+            overflow-y: scroll;
+            /* padding-bottom: 40px; */
+            .no-a {
+                text-decoration: none;
+                &:hover {
+                    color: $black;
+                }
             }
         }
-    }
-    .searched-list.desktop {
-        height: 45vh;
-    }
-    .searched-list.mobile {
-        height: calc(73vh - 50px);
+        .searched-list.desktop {
+            height: 45vh;
+        }
+        .searched-list.mobile {
+            height: calc(90vh - 50px);
+        }
     }
 
     .close-icon {
         color: $primary;
         cursor: pointer;
     }
+    mat-tab-group.mat-primary .mat-ink-bar,
+    .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+        background-color: $heading !important;
+    }
 }
 
-.hash-tag{
+.hash-tag {
     display: flex;
     justify-content: flex-start;
     color: $link-primary;
@@ -71,6 +78,45 @@
         border: 1px solid $black;
         color: $black;
     }
+}
+
+.search-menu {
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem 0.5rem 0 0.5rem;
+    margin: 0.5rem;
+    border-bottom: 0.09rem solid #e3e3e3;
+    overflow: hidden;
+
+    .search-option-list {
+        .search-option {
+            border: 0.09rem solid $primary;
+            border-radius: 0.3rem;
+            padding: 0.1rem 0.2rem;
+            margin: 0.3rem;
+
+            span {
+                font-size: 0.7rem;
+                padding: 0rem 0.3rem;
+            }
+        }
+
+        .search-option:hover {
+            background-color: $primary;
+            color: $white;
+            cursor: pointer;
+        }
+
+        .selected {
+            background-color: $primary;
+            color: $white;
+        }
+    }
+}
+
+.close-icon {
+    color: $primary;
+    cursor: pointer;
 }
 
 .no-data {

@@ -1,16 +1,18 @@
-import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CommunityService } from 'community/community.service';
+import { GlobalService } from 'global.service';
+import { CommunityUsers } from 'models/community.model';
+import { LikeAction } from 'models/like-action.model';
+import { Page } from 'models/page.model';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
 import { CommunityMembersService } from '../../../../community-users/community-members.service';
 import { User } from '../../../../models/user.model';
 import { UserFollowersService } from '../../../../user-followers/user-followers.service';
 import { UserProfileCardServiceComponent } from '../../../../user-profile-card/user-profile-card-service.component';
 import { UserListService } from './user-list.service';
-import { Page } from 'models/page.model';
-import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { CommunityUsers } from 'models/community.model';
-import { LikeAction } from 'models/like-action.model';
-import { CommunityService } from 'community/community.service';
+import { UserListData, UserListType } from 'models/user-list.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -20,22 +22,11 @@ import { CommunityService } from 'community/community.service';
 })
 export class UserListComponent implements OnInit {
   @ViewChild('elementOnHTML') elementOnHTML: ElementRef;
+  listTitle: string;
   loading: boolean = false;
   isInviteList: boolean = false;
   communityId: number;
   isCommunityRequest: boolean = false;
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-    public userProfileCardServiceComponent: UserProfileCardServiceComponent,
-    // tslint:disable-next-line:max-line-length
-    public userListService: UserListService,
-    public dialogRef: MatDialogRef<UserListComponent>,
-    public followersService: UserFollowersService,
-    public communityMembersService: CommunityMembersService,
-    public auth: CommunityService,
-    private inviteUserService: InviteUsetService) {
-  }
-
   userList: any[] = [];
   searchResultList: User;
   searchResult = false;
@@ -44,10 +35,21 @@ export class UserListComponent implements OnInit {
   endOfResult = false;
   page: number = 0;
   hasTotalPage: number;
-  screenWidth = window.innerWidth;
   scrollCached: boolean = null;
   title: string;
   @ViewChild("listContainer") listContainer: ElementRef;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: UserListData,
+    public userProfileCardServiceComponent: UserProfileCardServiceComponent,
+    // tslint:disable-next-line:max-line-length
+    public userListService: UserListService,
+    public dialogRef: MatDialogRef<UserListComponent>,
+    public followersService: UserFollowersService,
+    public communityMembersService: CommunityMembersService,
+    public auth: CommunityService,
+    private inviteUserService: InviteUsetService,
+    private _globalService: GlobalService) {
+  }
 
   ngOnInit(): void {
     if (this.data?.title) {
@@ -59,14 +61,7 @@ export class UserListComponent implements OnInit {
     this.loading = true;
     this.fetchData();
     this.listContainer.nativeElement.addEventListener('scroll', this.onScroll, true);
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
+    this.mobileView = this._globalService.isMobileView();
     let timer = setInterval(() => {
       if (!this.loading) {
         clearInterval(timer);
@@ -103,22 +98,28 @@ export class UserListComponent implements OnInit {
   }
 
   fetchData() {
-    if (this.data.type === 'following') {
-      this.getFollowingUser(this.data.userId);
-    } else if (this.data.type === 'followers') {
-      this.getUserFollowers(this.data.userId);
-    } else if (this.data.type === 'like') {
+    if (this.data.type === UserListType.following) {
+      this.listTitle = "Following To";
+      this.getFollowingUser(this.data.user.userId);
+    } else if (this.data.type === UserListType.followers) {
+      this.listTitle = "Followers";
+      this.getUserFollowers(this.data.user.userId);
+    } else if (this.data.type === UserListType.like) {
+      this.listTitle = "User Likes";
       this.getUserLikedList(this.data.postId);
-    } else if (this.data.type === 'members') {
-      this.getCommunityMembers(this.data.communitySlug);
-    } else if (this.data.type === 'requests') {
+    } else if (this.data.type === UserListType.members) {
+      this.listTitle = "Members";
+      this.getCommunityMembers(this.data.community.slug);
+    } else if (this.data.type === UserListType.requests) {
+      this.listTitle = "Requests";
       this.isCommunityRequest = true;
-      this.getCommunityJoinRequests(this.data.communityId);
-    } else if (this.data.type === 'inviteUserList') {
+      this.getCommunityJoinRequests(this.data.community.communityId);
+    } else if (this.data.type === UserListType.inviteUserList) {
+      this.listTitle = "Users";
       // To show invite button
       this.isInviteList = true;
       // console.log('this', this.data);
-      this.communityId = this.data.communityId;
+      this.communityId = this.data.community.communityId;
       this.getInviteUserList(this.communityId);
     }
   }
@@ -168,7 +169,7 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  onNoClick(): void {
+  backActionListener() {
     this.dialogRef.close();
   }
 
@@ -260,8 +261,8 @@ export class UserListComponent implements OnInit {
   }
 
   getCommunityJoinRequests(communityId) {
+    if (!communityId) return;
     this.auth.getCommunityJoinRequests(communityId, this.page).subscribe((res: any) => {
-      this.communityId = this.data.communityId;
       if (res.content.length) {
         this.afterDataFetched(res.totalPages);
         res.content.forEach(user => {

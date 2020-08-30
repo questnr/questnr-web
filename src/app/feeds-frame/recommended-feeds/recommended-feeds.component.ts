@@ -22,6 +22,7 @@ import { CommentAction } from '../../models/comment-action.model';
 import { Post, PostActionForMedia, PostEditorType, PostMedia, ResourceType } from '../../models/post-action.model';
 import { UserListComponent } from '../../shared/components/dialogs/user-list/user-list.component';
 import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
+import { UserListData, UserListType } from 'models/user-list.model';
 declare var $: any;
 
 @Component({
@@ -88,6 +89,7 @@ export class RecommendedFeedsComponent implements OnInit {
   applicationMediaList: PostMedia[] = [];
   @ViewChild("feedViewContainer") feedViewContainer: ElementRef;
   viewPortPassed: boolean = false;
+  userListTypeClass = UserListType;
 
   constructor(private api: FeedsService,
     public login: LoginService,
@@ -265,6 +267,9 @@ export class RecommendedFeedsComponent implements OnInit {
   }
   openUserGroupDialog(type): void {
     let config = null;
+    let userListData: UserListData = new UserListData();
+    userListData.postId = this.feed.postActionId;
+    userListData.type = type;
     if (this.mobileView) {
       config = {
         position: {
@@ -278,7 +283,7 @@ export class RecommendedFeedsComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: { postId: this.feed.postActionId, type }
+        data: userListData
       };
     } else {
       config = {
@@ -287,7 +292,7 @@ export class RecommendedFeedsComponent implements OnInit {
         maxHeight: '70vh',
         overflow: "hidden",
         // data: userList
-        data: { postId: this.feed.postActionId, type }
+        data: userListData
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);

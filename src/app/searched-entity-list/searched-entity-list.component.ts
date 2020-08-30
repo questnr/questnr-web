@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Community } from 'models/community.model';
 import { HashTag } from 'models/hashtag.model';
@@ -7,12 +7,16 @@ import { User } from 'models/user.model';
 import { ApiService } from 'shared/api.service';
 import { GlobalConstants } from 'shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { SearchEntityType } from 'models/search-entity.model';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 declare var $: any;
 
 @Component({
   selector: 'app-searched-entity-list',
   templateUrl: './searched-entity-list.component.html',
-  styleUrls: ['./searched-entity-list.component.scss']
+  styleUrls: ['./searched-entity-list.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SearchedEntityListComponent implements OnInit {
   @Input() mobileView: boolean = false;
@@ -34,13 +38,20 @@ export class SearchedEntityListComponent implements OnInit {
   listItems = Array(5);
   noDataFound: boolean = false;
   currentPath: string;
+  filterSearchOptionList: string[] = ['users', 'communities', 'hashtags'];
+  selectedIndex = new FormControl(0);
 
   constructor(private api: ApiService, private router: Router) {
-
   }
 
   ngOnInit(): void {
     this.currentPath = GlobalConstants.userPath;
+    this.selectedIndex.valueChanges
+      .pipe(debounceTime(100))
+      .pipe(distinctUntilChanged())
+      .subscribe((queryField) => {
+        this.selectSearchOption(queryField);
+      });
   }
 
   ngAfterViewInit(): void {
@@ -88,24 +99,31 @@ export class SearchedEntityListComponent implements OnInit {
     selector.ontouchmove = e => { MouseWheelHandler(e, selector) };
   }
 
-  searchEntity(searchInputValue: string, selectedSearchOption: number) {
+  selectSearchOption(selectedIndex: number) {
+    // console.log("selectedIndex", selectedIndex);
+    if (selectedIndex == 0) {
+      this.currentPath = GlobalConstants.userPath;
+    } else if (selectedIndex == 1) {
+      this.currentPath = GlobalConstants.communityPath;
+    } else if (selectedIndex == 2) {
+      this.currentPath = GlobalConstants.hashTagPath;
+    }
+    this.searchEntity(this.searchInputValue);
+  }
+
+  searchEntity(searchInputValue: string) {
+    // console.log("searchInputValue", searchInputValue);
     if (!searchInputValue || searchInputValue == '') {
       return;
     }
-    if (this.searchInputValue != searchInputValue || this.selectedSearchOption != selectedSearchOption) {
-      this.searchInputValue = searchInputValue;
-      this.selectedSearchOption = selectedSearchOption;
-      this.clearData();
-      this.fetchEntityList();
+    // if (this.searchInputValue != searchInputValue || this.selectedSearchOption != this.selectedIndex.value) {
 
-      // decide path
-      this.currentPath = GlobalConstants.userPath;
-      if (this.selectedSearchOption == 1) {
-        this.currentPath = GlobalConstants.communityPath;
-      } else if (this.selectedSearchOption == 2) {
-        this.currentPath = GlobalConstants.hashTagPath;
-      }
-    }
+    // }
+    this.searchInputValue = searchInputValue;
+    this.selectedSearchOption = this.selectedIndex.value;
+    this.clearData();
+
+    this.fetchEntityList();
   }
 
   clearData() {
@@ -118,6 +136,7 @@ export class SearchedEntityListComponent implements OnInit {
   }
 
   fetchEntityList() {
+    // console.log("fetchEntityList", this.selectedIndex.value);
     if (this.selectedSearchOption === 0) {
       this.showLoader(this.users.length);
       this.title = "Found Users!";

@@ -2,10 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from 'global.service';
-import { CommunityProfileMeta } from 'models/community.model';
+import { CommunityProfileMeta, Community } from 'models/community.model';
 import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
 import { UserFollowersService } from '../user-followers/user-followers.service';
 import { CommunityActivityService } from './community-activity.service';
+import { UserListData, UserListType } from 'models/user-list.model';
 
 @Component({
   selector: 'app-community-activity',
@@ -13,8 +14,9 @@ import { CommunityActivityService } from './community-activity.service';
   styleUrls: ['./community-activity.component.scss']
 })
 export class CommunityActivityComponent implements OnInit {
-  communitySlug: string;
+  @Input() community: Community;
   @Input() communityInfo: CommunityProfileMeta;
+  communitySlug: string;
   mobileView = false;
   isLeftVisible: boolean = true;
   loading: boolean = false;
@@ -28,7 +30,7 @@ export class CommunityActivityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.communitySlug = this.route.snapshot.paramMap.get('communitySlug');
+    this.communitySlug = this.community.slug;
     if (!this.communityInfo)
       this.getCommunityInfo();
   }
@@ -47,6 +49,9 @@ export class CommunityActivityComponent implements OnInit {
 
   openCommunityMembersDialog(): void {
     let config = null;
+    let userListData: UserListData = new UserListData();
+    userListData.community = this.community;
+    userListData.type = UserListType.members;
     if (this.mobileView) {
       config = {
         position: {
@@ -60,16 +65,16 @@ export class CommunityActivityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: { communitySlug: this.communitySlug, type: "members" }
+        data: userListData
       };
     } else {
       config = {
         // width: '500px',
         maxWidth: "80vw",
         // data: userList,
-        maxHeight: "60vh",
+        maxHeight: '70vh',
         overflow: "hidden",
-        data: { communitySlug: this.communitySlug, type: "members" }
+        data: userListData
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);

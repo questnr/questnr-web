@@ -1,30 +1,31 @@
-import {Component, ElementRef, OnInit, ViewChild, Renderer2} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Page} from 'models/page.model';
-import {UIService} from 'ui/ui.service';
-import {LoginService} from '../auth/login.service';
-import {Community, CommunityPrivacy} from '../models/community.model';
-import {Post} from '../models/post-action.model';
-import {User} from '../models/user.model';
-import {DescriptionComponent} from '../shared/components/dialogs/description/description.component';
-import {CommunityService} from './community.service';
-import {CommunityUsersComponent} from 'community-users/community-users.component';
-import {ImgCropperWrapperComponent} from 'img-cropper-wrapper/img-cropper-wrapper.component';
-import {CommonService} from 'common/common.service';
-import {UserListComponent} from 'shared/components/dialogs/user-list/user-list.component';
-import {RelationType} from 'models/relation-type';
-import {SharePostComponent} from 'shared/components/dialogs/share-post/share-post.component';
-import {GlobalConstants} from 'shared/constants';
-import {StaticMediaSrc} from 'shared/constants/static-media-src';
-import {QuestnrActivityService} from 'shared/questnr-activity.service';
-import {TrackingEntityType, TrackingInstance} from 'models/user-activity.model';
-import {GlobalService} from '../global.service';
-import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
-import {ConfirmDialogContentType} from 'models/confirm-dialog.model';
-import {Subscriber, Subscription} from 'rxjs';
+import { Component, ElementRef, OnInit, ViewChild, Renderer2 } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Page } from 'models/page.model';
+import { UIService } from 'ui/ui.service';
+import { LoginService } from '../auth/login.service';
+import { Community, CommunityPrivacy } from '../models/community.model';
+import { Post } from '../models/post-action.model';
+import { User } from '../models/user.model';
+import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
+import { CommunityService } from './community.service';
+import { CommunityUsersComponent } from 'community-users/community-users.component';
+import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
+import { CommonService } from 'common/common.service';
+import { UserListComponent } from 'shared/components/dialogs/user-list/user-list.component';
+import { RelationType } from 'models/relation-type';
+import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
+import { GlobalConstants } from 'shared/constants';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { QuestnrActivityService } from 'shared/questnr-activity.service';
+import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
+import { GlobalService } from 'global.service';
+import { UserListData, UserListType } from 'models/user-list.model';
+import { Subscription } from 'rxjs';
+import { ConfirmDialogContentType } from 'models/confirm-dialog.model';
+import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-community',
@@ -72,12 +73,19 @@ export class CommunityComponent implements OnInit {
   relationType = RelationType;
   isAllowedIntoCommunity: boolean;
   fetchCommunityFeedsSubscriber: Subscription;
+  userListTypeClass = UserListType;
 
-  constructor(public auth: CommunityService, public fb: FormBuilder, public dialog: MatDialog, public snackBar: MatSnackBar,
-              private route: ActivatedRoute, public loginAuth: LoginService, private uiService: UIService, private router: Router,
-              public commonService: CommonService,
-              private _activityService: QuestnrActivityService, private _globalService: GlobalService,
-              private renderer: Renderer2) {
+  constructor(public auth: CommunityService,
+    public fb: FormBuilder,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar,
+    private route: ActivatedRoute,
+    public loginAuth: LoginService,
+    private uiService: UIService,
+    private router: Router,
+    public commonService: CommonService,
+    private _activityService: QuestnrActivityService, private _globalService: GlobalService,
+    private renderer: Renderer2) {
     this.loggedInUserId = loginAuth.getUserProfile().id;
     this.mobileView = this._globalService.isMobileView();
   }
@@ -290,8 +298,11 @@ export class CommunityComponent implements OnInit {
     });
   }
 
-  openUserGroupDialog(type): void {
+  openUserGroupDialog(type: UserListType): void {
     let config = null;
+    let userListData: UserListData = new UserListData();
+    userListData.community = this.communityDTO;
+    userListData.type = type;
     if (this.mobileView) {
       config = {
         position: {
@@ -305,26 +316,16 @@ export class CommunityComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'full-screen-modal',
-        data: {
-          userId: this.loggedInUserId,
-          communityId: this.communityId,
-          type,
-          title: type
-        }
+        data: userListData
       };
     } else {
       config = {
         // width: '500px',
         // data: userList,
-        maxHeight: '60vh',
-        maxWidth: '80vw',
-        overflow: 'hidden',
-        data: {
-          userId: this.loggedInUserId,
-          communityId: this.communityId,
-          type,
-          title: type
-        }
+        maxHeight: '70vh',
+        maxWidth: "80vw",
+        overflow: "hidden",
+        data: userListData
       };
     }
     const dialogRef = this.dialog.open(UserListComponent, config);

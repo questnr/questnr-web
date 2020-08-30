@@ -1,114 +1,115 @@
-@import '../../../../app.component.scss';
+@import "../../../../app.component.scss";
 
-.mobile-nav-btn button{
-  margin: 10px;
+.header {
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: center;
+  background: $heading;
+  color: $white;
+  font-size: 1.2rem;
+  padding: 2px 0px;
+  border-bottom: 2px solid $primary;
 }
-.title {
-  color: $heading;
-  text-transform: capitalize;
-  //border-left: 3px solid $heading;
-  //padding: 8px;
-  //background: linear-gradient(45deg, #e8e8e8, transparent);
-  //border-radius: 4px;
-  //margin: 0;
-}
-.user_list_container {
+
+.user-list-container {
   margin: 0px 20px;
-  padding: 10px;
-
-input {
-  background-image: url('/assets/search.png');
-  background-position: 10px 12px;
-  background-repeat: no-repeat;
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.user_list {
-  overflow-y: scroll;
-  max-height: 60vh;
-
-  .user-flex {
-    display: flex;
-    padding: 8px;
-    border: 1px solid #eeeeee;
+  overflow: hidden;
+  padding-bottom: 10px;
+  input {
+    background-image: url("/assets/search.png");
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
     border-radius: 10px;
-    margin: 4px 0px;
-
-    .user_image {
-      width: 79px;
-      height: 79px;
-      overflow: hidden;
-
-      img {
-        width: 100%;
-        border-radius: 10px;
-        height: 100%;
-      }
-    }
-
-    .user_details {
-      width: 58%;
-      margin: auto;
-
-      p {
-        margin: 0;
-        text-align: left;
-        padding-left: 20px;
-        font-size: 16px;
-      }
-    }
-
-    .action-btn {
-      margin: auto;
-    }
+    text-align: center;
   }
-  .no-result-found {
-    p {
-      text-align: center;
+
+  .user-list {
+    overflow-y: scroll;
+    display: flex;
+    justify-content: center;
+    min-width: 300px;
+    .user-list-template {
       width: 100%;
-      margin: 0;
+      .user-flex {
+        display: flex;
+        padding: 8px;
+        border: 1px solid $mobile-nav-color;
+        border-radius: 10px;
+        margin: 4px 0px;
+
+        .user_image {
+          width: 79px;
+          height: 79px;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            border-radius: 10px;
+            height: 100%;
+          }
+        }
+
+        .user_details {
+          width: 58%;
+          margin: auto;
+
+          p {
+            margin: 0;
+            text-align: left;
+            padding-left: 20px;
+            font-size: 16px;
+          }
+        }
+
+        .action-btn {
+          margin: auto;
+        }
+      }
+      .no-result-found {
+        p {
+          text-align: center;
+          width: 100%;
+          margin: 0;
+        }
+      }
     }
   }
+  .user-list.desktop {
+    max-height: 60vh;
+  }
+  .user-list.mobile {
+    max-height: 90vh;
   }
 }
 dialog {
   border: none !important;
 }
-.mobile-nav-btn {
-  width: 100%;
-  position: fixed;
-  background: #eeeeee;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-}
-.user_list_container-mobile{
-  padding: 80px 20px 10px;
+.user-list-container.mobile {
+  padding: 50px 0px;
 }
 
-  .no-result-found{
-    text-align: center;
-    color: $heading;
-    min-width: 344px;
-  }
+.no-result-found {
+  text-align: center;
+  color: $heading;
+  min-width: 344px;
+}
 
-  .myUL {
-    min-width: 344px;
-  }
+.myUL {
+  min-width: 344px;
+}
 
-  @media screen  and (max-width: 400px){
-    .title {
-      margin-left: 100px;
-      margin-bottom: 0;
-    }
+@media screen and (max-width: 400px) {
+  .title {
+    margin-left: 100px;
+    margin-bottom: 0;
   }
-@media screen  and (min-width: 400px) and (max-width: 800px){
+}
+@media screen and (min-width: 400px) and (max-width: 800px) {
   .title {
     margin: 0 auto;
   }

@@ -10,6 +10,8 @@ import { UIService } from 'ui/ui.service';
 import { GlobalConstants } from '../shared/constants';
 import { LoginService } from 'auth/login.service';
 import { Title } from '@angular/platform-browser';
+import { Page } from 'models/page.model';
+import { HashTag } from 'models/hashtag.model';
 
 @Component({
   selector: 'app-landing-page',
@@ -23,7 +25,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   isLoading = false;
   hashtagInput = new FormControl();
   hashtagResults = [];
-  hashTagBasePath = '/' + GlobalConstants.hashTagPath + '/';
+  hashTagPath = GlobalConstants.hashTagPath;
   communities = [
     { title: 'Music', src: 'assets/community/music.png', detail: 200 },
     { title: 'Business', src: 'assets/community/business.png', detail: 1200 },
@@ -117,9 +119,9 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   searchHashtag() {
     this.api.searchHashtags(0, this.hashtagInput.value).subscribe(
-      (res: any) => {
+      (res: Page<HashTag>) => {
         this.isLoading = false;
-        this.hashtagResults = res;
+        this.hashtagResults = res.content;
       }
     );
   }

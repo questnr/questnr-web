@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
+import { GlobalService } from 'global.service';
 import { RelationType } from 'models/relation-type';
 import { GlobalConstants } from 'shared/constants';
 import { LoginService } from '../../auth/login.service';
@@ -9,6 +10,7 @@ import { CommunityService } from '../../community/community.service';
 import { User } from '../../models/user.model';
 import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
 import { InviteUsetService } from './invite-user.service';
+import { UserListViewSizeType, UserListViewVariables } from 'models/user-list.model';
 
 @Component({
   selector: 'app-user-list-view',
@@ -22,6 +24,7 @@ export class UserListViewComponent implements OnInit {
   @Input() isCommunityRequest = false;
   @Input() otherUserId;
   @Input() communityId;
+  @Input() size: UserListViewSizeType = UserListViewSizeType.large;
   userPath: string = GlobalConstants.userPath;
   relation: RelationType;
   screenWidth = window.innerWidth;
@@ -29,24 +32,26 @@ export class UserListViewComponent implements OnInit {
   isInvited: boolean = false;
   isResponded = false;
   response: any;
+  userListViewVariables: any;
 
-  constructor(public userProfileCardServiceComponent: UserProfileCardServiceComponent, public loginService: LoginService,
+  constructor(public userProfileCardServiceComponent: UserProfileCardServiceComponent,
+    public loginService: LoginService,
     private dialog: MatDialog,
     private inviteUserService: InviteUsetService,
     public auth: CommunityService,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private _globalService: GlobalService,
+    private renderer2: Renderer2) {
+    // this.renderer2.
   }
 
   ngOnInit(): void {
     this.relation = this.user?.userMeta?.relationShipType;
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-      const el = document.querySelector('.flex-7');
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
+    this.mobileView = this._globalService.isMobileView();
+    if (this.size === UserListViewSizeType.small) {
+      this.userListViewVariables = UserListViewVariables.small;
+    } else {
+      this.userListViewVariables = UserListViewVariables.large;
     }
   }
 

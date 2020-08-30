@@ -1,22 +1,30 @@
-.container-header{
+@import "../../../../variables";
+
+.container-header {
   padding: 30px;
   text-align: center;
+  overflow: hidden;
 }
-.container-header-mobile{
+.container-header.mobile {
   padding-top: 60px;
-  .col-6{
+  .col-6 {
     padding: 0;
   }
 }
+
+.community-list {
+  overflow-y: scroll;
+}
+
 .mobile-nav-btn {
   width: 100%;
   position: fixed;
-  background: #eeeeee;
+  background: $mobile-nav-color;
   z-index: 1;
-  button{
+  button {
     margin: 10px;
   }
 }
-.load-more-button{
+.load-more-button {
   cursor: pointer;
 }
