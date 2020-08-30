@@ -36,16 +36,16 @@
       </button>
     </div>
     <div class="relation-btn" *ngIf="isCommunityRequest">
-      <button class="request-btn decline" (click)="joinRequestResponse(user.userId,'Rejected')" *ngIf="!isResponded">
+      <button class="request-btn decline" (click)="joinRequestResponse('Rejected')" *ngIf="!isResponded">
         Decline
       </button>
-      <button class="request-btn accept" (click)="joinRequestResponse(user.userId,'Accepted')" *ngIf="!isResponded">
+      <button class="request-btn accept" (click)="joinRequestResponse('Accepted')" *ngIf="!isResponded">
         Accept
       </button>
       <button class="request-btn " *ngIf="isResponded" disabled>
-        <mat-icon *ngIf="response ==='Rejected'">close</mat-icon>
-        <mat-icon *ngIf="response ==='Accepted'">check</mat-icon>
-        {{response}}
+        <mat-icon *ngIf="requestType ==='Rejected'">close</mat-icon>
+        <mat-icon *ngIf="requestType ==='Accepted'">check</mat-icon>
+        {{requestType}}
       </button>
     </div>
   </div>

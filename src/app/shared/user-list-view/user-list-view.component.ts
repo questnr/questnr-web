@@ -21,7 +21,7 @@ export class UserListViewComponent implements OnInit {
   @Input() user: User;
   @Input() userListRibbon;
   @Input() isInviteList: boolean = false;
-  @Input() isCommunityRequest = false;
+  @Input() isCommunityRequest: boolean = false;
   @Input() otherUserId;
   @Input() communityId;
   @Input() size: UserListViewSizeType = UserListViewSizeType.large;
@@ -31,7 +31,7 @@ export class UserListViewComponent implements OnInit {
   mobileView = false;
   isInvited: boolean = false;
   isResponded = false;
-  response: any;
+  requestType: string;
   userListViewVariables: any;
 
   constructor(public userProfileCardServiceComponent: UserProfileCardServiceComponent,
@@ -111,10 +111,10 @@ export class UserListViewComponent implements OnInit {
     }
   }
 
-  joinRequestResponse(userId, response) {
-    this.auth.joinRequestResponse(this.communityId, userId, response).subscribe((res: any) => {
+  joinRequestResponse(requestType) {
+    this.auth.joinRequestResponse(this.communityId, this.user.userId, requestType).subscribe((res: any) => {
       this.isResponded = true;
-      this.response = response;
+      this.requestType = requestType;
     });
   }
 }

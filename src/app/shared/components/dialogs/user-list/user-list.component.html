@@ -10,7 +10,8 @@
       <div *ngFor="let i of userList;">
         <div [id]="i?.userId" *ngIf="!searchResult">
           <app-user-list-view [isInviteList]="isInviteList" [otherUserId]="i?.userId" [communityId]="communityId"
-            [isCommunityRequest]="isCommunityRequest" [user]="i"></app-user-list-view>
+            [isCommunityRequest]="isCommunityRequest" [user]="i">
+          </app-user-list-view>
         </div>
       </div>
       <div *ngIf="isCommunityRequest && !loading && userList.length == 0">

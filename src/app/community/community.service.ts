@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {environment} from '../../environments/environment';
-import {Community, CommunityPublic, CommunityPrivacy} from '../models/community.model';
-import {Observable, of} from 'rxjs';
-import {MetaTagCard} from 'models/common.model';
-import {RelationType} from 'models/relation-type';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { Community, CommunityPublic, CommunityPrivacy } from '../models/community.model';
+import { Observable, of } from 'rxjs';
+import { MetaTagCard } from 'models/common.model';
+import { RelationType } from 'models/relation-type';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +48,7 @@ export class CommunityService {
     if (!id) {
       return of();
     }
-    return this.http.get(this.baseUrl + 'user/community/' + id + '/posts', {params: {page}});
+    return this.http.get(this.baseUrl + 'user/community/' + id + '/posts', { params: { page } });
   }
 
   updateCommunityAvatar(formData, comId) {
@@ -70,7 +70,7 @@ export class CommunityService {
       of();
     }
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}), body: {userId}
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: { userId }
     };
     if (!communityId) {
       return of();
@@ -96,17 +96,17 @@ export class CommunityService {
     if (!communityId) {
       return of();
     }
-    return this.http.get(this.baseUrl + 'user/community/' + communityId + '/users/request', {params: {page}});
+    return this.http.get(this.baseUrl + 'user/community/' + communityId + '/users/request', { params: { page } });
   }
 
-  joinRequestResponse(communityId, userId, response) {
+  joinRequestResponse(communityId, userId, requestType: string) {
     if (!communityId || !userId) {
       return of();
     }
-    if (response === 'Accepted') {
+    if (requestType === 'Accepted') {
       return this.http.post(this.baseUrl + `user/community/${communityId}/users/${userId}/request`, {});
     }
-    if (response === 'Rejected') {
+    if (requestType === 'Rejected') {
       return this.http.delete(this.baseUrl + `user/community/${communityId}/users/${userId}/request`);
     }
   }
@@ -115,15 +115,15 @@ export class CommunityService {
     if (!communityPrivacy || !communityId) {
       return of();
     }
-    return this.http.put(this.baseUrl + `user/community/${communityId}/privacy`, {communityPrivacy});
+    return this.http.put(this.baseUrl + `user/community/${communityId}/privacy`, { communityPrivacy });
   }
   deleteUsersOwnPendingCommunityJoinRequests(communityId) {
-    if (!communityId ) {
+    if (!communityId) {
       of();
     }
     const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json'}), body: {}
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: {}
     };
-    return this.http.delete(this.baseUrl + `user/community/${communityId}/users/request` , httpOptions);
+    return this.http.delete(this.baseUrl + `user/community/${communityId}/users/request`, httpOptions);
   }
 }

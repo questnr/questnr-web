@@ -113,6 +113,7 @@ export class UserListComponent implements OnInit {
     } else if (this.data.type === UserListType.requests) {
       this.listTitle = "Requests";
       this.isCommunityRequest = true;
+      this.communityId = this.data.community.communityId;
       this.getCommunityJoinRequests(this.data.community.communityId);
     } else if (this.data.type === UserListType.inviteUserList) {
       this.listTitle = "Users";
