@@ -48,7 +48,7 @@
               <div class="filter-select" [ngClass]="mobileView ? 'mobile' : 'desktop'"
                 *ngIf="searchResults?.length > 0">
                 <div class="filter-select-list" *ngFor="let hashTag of searchResults"
-                  (click)="addHashTagToSearchingBucket(hashTag)">
+                  (click)="addHashTagToSearchingBucket(hashTag, true)">
                   <span class="user-interest">{{hashTag.hashTagValue}}</span>
                 </div>
               </div>
@@ -59,7 +59,7 @@
           <mat-chip *ngFor="let h of seachHashTagBucket" class="active_tag" [routerLink]="['/', hashTagUrl]"
             [queryParams]="{ q: h?.hashTagValue }">
             <span>#{{h?.hashTagValue}}</span>
-            <mat-icon *ngIf="h.hashTagValue != queryString" (click)="removeHashTagToSearchingBucketEvent($event, h)">
+            <mat-icon (click)="removeHashTagToSearchingBucketEvent($event, h)">
               close
             </mat-icon>
           </mat-chip>
@@ -111,9 +111,7 @@
               <div class="hashtags-container">
                 <h5>Popular HashTags</h5>
                 <div class="hashtags">
-                  <mat-chip class="hash-tag-chip" *ngFor="let h of hasTags"
-                    [ngClass]="{'active_tag': queryString === h?.hashTagValue}"
-                    (click)="toggleHashTagToSearchingBucket(h)">
+                  <mat-chip class="hash-tag-chip" *ngFor="let h of hasTags" (click)="toggleHashTagToSearchingBucket(h)">
                     <span>#{{h?.hashTagValue}}</span>
                     <button class="searched-hash-tag" *ngIf="isInListofSeachingBucket(h)">
                       <!-- <mat-icon>close</mat-icon> -->
@@ -124,7 +122,6 @@
               <app-create-community-btn [type]="'card'"></app-create-community-btn>
             </div>
           </div>
-          <p class="text-center" *ngIf="explore?.length===1 && explore[0] === null">No Feeds Found...!</p>
         </ng-container>
         <app-feeds-loader *ngIf="loading"></app-feeds-loader>
         <ng-template #noFeeds>

@@ -53,6 +53,7 @@ export class EditUserComponent implements OnInit {
   dob = new FormControl('', Validators.required);
   bio = new FormControl('');
   maxAllowedDOB = new Date(new Date().setFullYear(new Date().getFullYear() - GlobalConstants.signUpAgeRestriction));
+  title: string = "Edit Profile";
 
   constructor(public fb: FormBuilder, private auth: LoginService, public profilePageService: UserProfilePageService, @Inject(MAT_DIALOG_DATA) private data: any,
     public dialogRef: MatDialogRef<EditUserComponent>, public router: Router, private commonService: CommonService) {

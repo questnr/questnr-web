@@ -1,21 +1,20 @@
 @import "../../../../variables";
 
-.container-header {
-  padding: 30px;
+.community-list-container {
   text-align: center;
-  overflow: hidden;
+  overflow-y: scroll;
+  padding: 0px 20px 20px;
 }
-.container-header.mobile {
-  padding-top: 60px;
+.community-list-container.desktop {
+  max-height: 60vh;
+}
+.community-list-container.mobile {
+  // padding-top: 60px;
+  max-height: 90vh;
   .col-6 {
     padding: 0;
   }
 }
-
-.community-list {
-  overflow-y: scroll;
-}
-
 .mobile-nav-btn {
   width: 100%;
   position: fixed;
@@ -27,4 +26,19 @@
 }
 .load-more-button {
   cursor: pointer;
+}
+
+.community-card-loader {
+  margin: 20px 0px 0px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  background: $heading;
+  color: $white;
+  font-size: 1.2rem;
+  z-index: 1;
+  padding: 6px;
+  border-bottom: 2px solid $primary;
 }

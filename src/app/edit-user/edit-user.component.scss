@@ -1,7 +1,9 @@
 @import "./src/app/variables";
 
-.heading {
-  padding: 20px 0 0 20px;
+.header {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
 }
 //input {
 //  border: 1px solid grey;
@@ -13,11 +15,16 @@
 //  color: $grey;
 //  width: 100%;
 //}
-.btn-color{
+// .form-container.mobile {
+//   padding-top: 60px;
+// }
+.btn-color {
   background: $primary;
   color: $white;
 }
-.container-header{padding: 0 0 40px 0}
+.container-header {
+  padding: 0 0 40px 0;
+}
 
 .mobile-nav-btn {
   width: 100%;
@@ -26,31 +33,28 @@
   z-index: 1;
   padding: 8px;
 }
-.form-container_mobile{
-  padding-top: 54px;
-}
 .alert-success {
   color: #29ab45;
   background-color: #d7f8de;
   border-color: #40ff1e;
 }
-.loader{
+.loader {
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 10px;
 }
 
-.response-div{
+.response-div {
   padding-top: 5px;
 }
 
-.response-content{
+.response-content {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.emoticon-container{
+.emoticon-container {
   width: 25px;
   text-align: right;
   position: absolute !important;

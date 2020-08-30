@@ -30,13 +30,13 @@
           <div>
             <div class="row card-loader" *ngIf="trendingCommunitiesLoader">
               <div class="col">
-                <app-community-card-loader></app-community-card-loader>
+                <app-community-card-loader [showActionBtn]="false"></app-community-card-loader>
               </div>
               <div class="col">
-                <app-community-card-loader></app-community-card-loader>
+                <app-community-card-loader [showActionBtn]="false"></app-community-card-loader>
               </div>
               <div class="col" *ngIf="!mobileView">
-                <app-community-card-loader></app-community-card-loader>
+                <app-community-card-loader [showActionBtn]="false"></app-community-card-loader>
               </div>
             </div>
           </div>

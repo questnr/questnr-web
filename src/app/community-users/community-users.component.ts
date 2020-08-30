@@ -150,14 +150,16 @@ export class CommunityUsersComponent implements OnInit {
         maxWidth: '100vw',
         marginTop: '0px',
         marginRight: '0px !important',
-        panelClass: 'full-screen-modal',
+        panelClass: 'user-list-modal',
+        overflow: "hidden",
         data: userListData
       };
     } else {
       config = {
         maxWidth: '80vw',
         maxHeight: '70vh',
-        overflow: 'hidden',
+        panelClass: 'user-list-modal',
+        overflow: "hidden",
         // data: userList
         data: userListData
       };

@@ -62,38 +62,42 @@
     </div>
   </div>
   <div *ngIf="loader">
-    <div class="o-vertical-spacing o-vertical-spacing--l">
-      <div class="grid blog-post o-media">
-        <div class="community_image o-media__figure">
-          <span class="skeleton-box media-box"></span>
-        </div>
-        <div class="o-media__body">
-          <div class="o-vertical-spacing">
-            <span class="skeleton-box desc" style="width:90%;"></span>
-          </div>
-        </div>
-      </div>
-      <div class="grid blog-post o-media">
-        <div class="community_image o-media__figure">
-          <span class="skeleton-box media-box"></span>
-        </div>
-        <div class="o-media__body">
-          <div class="o-vertical-spacing">
-            <span class="skeleton-box desc" style="width:90%;"></span>
-          </div>
-        </div>
-      </div>
-      <div class="grid blog-post o-media">
-        <div class="community_image o-media__figure">
-          <span class="skeleton-box media-box"></span>
-        </div>
-        <div class="o-media__body">
-          <div class="o-vertical-spacing">
-            <span class="skeleton-box desc" style="width:90%;"></span>
-          </div>
-        </div>
-      </div>
+    <div class="list-item" *ngFor="let i of listItems">
+      <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
+      <ngx-skeleton-loader class="w-100" count="1" appearance="line"></ngx-skeleton-loader>
     </div>
+    <!-- <div class="o-vertical-spacing o-vertical-spacing--l">
+      <div class="grid blog-post o-media">
+        <div class="community_image o-media__figure">
+          <span class="skeleton-box media-box"></span>
+        </div>
+        <div class="o-media__body">
+          <div class="o-vertical-spacing">
+            <span class="skeleton-box desc" style="width:90%;"></span>
+          </div>
+        </div>
+      </div>
+      <div class="grid blog-post o-media">
+        <div class="community_image o-media__figure">
+          <span class="skeleton-box media-box"></span>
+        </div>
+        <div class="o-media__body">
+          <div class="o-vertical-spacing">
+            <span class="skeleton-box desc" style="width:90%;"></span>
+          </div>
+        </div>
+      </div>
+      <div class="grid blog-post o-media">
+        <div class="community_image o-media__figure">
+          <span class="skeleton-box media-box"></span>
+        </div>
+        <div class="o-media__body">
+          <div class="o-vertical-spacing">
+            <span class="skeleton-box desc" style="width:90%;"></span>
+          </div>
+        </div>
+      </div>
+    </div> -->
   </div>
 
   <ng-template #noCommunity>

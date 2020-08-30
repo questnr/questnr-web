@@ -1,10 +1,10 @@
-<div class="community-slider-card" style="text-align: center">
+<div class="community-slider-card" style="text-align: center" #communityCardLoader>
   <div class="">
-    <div class="details skeleton-box" style="width: 100%;height: 100px">
+    <div class="details skeleton-box" style="width: 100%;" #bannerRef>
     </div>
-    <div style="width: 70%" class="skeleton-box"></div>
+    <div style="width: 70%" class="community-name skeleton-box"></div>
     <p style="width: 80%; margin: 0" class="skeleton-box"></p>
   </div>
-  <div class="action-btn skeleton-box media-box">
+  <div *ngIf="showActionBtn" class="action-btn skeleton-box media-box">
   </div>
 </div>

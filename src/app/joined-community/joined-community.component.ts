@@ -1,24 +1,27 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalService } from 'global.service';
+import { CommunityListType, CommunityListData } from 'models/community-list.model';
+import { Page } from 'models/page.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { GlobalConstants } from 'shared/constants';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { LoginService } from '../auth/login.service';
-import { Community, CommunityListType } from '../models/community.model';
+import { Community } from '../models/community.model';
 import { ApiService } from '../shared/api.service';
 import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { GlobalService } from 'global.service';
-import { Page } from 'models/page.model';
+import { User } from 'models/user.model';
 
 @Component({
   selector: 'app-joined-community',
   templateUrl: './joined-community.component.html',
   styleUrls: ['./joined-community.component.scss']
 })
-export class JoinedCommunityComponent implements OnInit {
-  @Input() joinedCommunity: Community[];
-  @Input() userId: any;
+export class JoinedCommunityComponent implements OnInit, AfterViewInit {
   @Input() followsCommunities: number;
+  @Input() joinedCommunity: Community[];
+  @Input() user: User;
+  @Input() userId: number;
   loadingCommunities = true;
   listItems = Array(5);
   mobileView = false;
@@ -59,6 +62,17 @@ export class JoinedCommunityComponent implements OnInit {
   ngOnInit(): void {
     this.loadingCommunities = true;
     this.mobileView = this._globalService.isMobileView();
+    if (!this.user) {
+      this.userId = this.loginService.getUserId();
+      this.isOwner = true;
+    } else {
+      this.userId = this.user.userId;
+      if (this.loginService.getUserId() === this.user.userId) {
+        this.isOwner = true;
+      }
+    }
+  }
+  ngAfterViewInit() {
     setTimeout(() => {
       this.api.getJoinedCommunities(this.userId, 0).subscribe(
         (res: Page<Community>) => {
@@ -71,12 +85,6 @@ export class JoinedCommunityComponent implements OnInit {
         }
       );
     }, 2000);
-    if (!this.userId) {
-      this.userId = this.loginService.getUserId();
-    }
-    if (this.loginService.getUserId() === this.userId) {
-      this.isOwner = true;
-    }
   }
   checkImageUrl(src) {
     if (src) {
@@ -88,6 +96,16 @@ export class JoinedCommunityComponent implements OnInit {
 
   openCommunityDialog(communityList): void {
     let config = null;
+    let communityListData: CommunityListData = new CommunityListData();
+    communityListData.communityList = communityList;
+    communityListData.type = CommunityListType.joined;
+    if (this.isOwner) {
+      communityListData.isOwner = this.isOwner;
+    } else {
+      communityListData.user = this.user;
+    }
+    communityListData.userId = this.userId;
+    communityListData.page = 1;
     if (this.mobileView) {
       config = {
         position: {
@@ -100,14 +118,17 @@ export class JoinedCommunityComponent implements OnInit {
         maxWidth: '100vw',
         marginTop: '0px',
         marginRight: '0px !important',
-        panelClass: 'full-screen-modal',
-        data: { userId: this.userId, communityList, type: CommunityListType.joined, page: 1 }
+        panelClass: 'community-list-modal',
+        overflow: "hidden",
+        data: communityListData
       };
     } else {
       config = {
         width: '700px',
         maxHeight: "70vh",
-        data: { userId: this.userId, communityList, type: CommunityListType.joined, page: 1 }
+        panelClass: 'community-list-modal',
+        overflow: "hidden",
+        data: communityListData
       };
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);

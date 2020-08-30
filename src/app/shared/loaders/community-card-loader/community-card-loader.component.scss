@@ -1,6 +1,8 @@
+@import "../../../variables";
+
 .community-slider-card {
   border-radius: 10px;
-  border: 1px solid #eeeeee;
+  border: 1px solid $white;
   margin: 3px;
   overflow: hidden;
   color: #000000 !important;
@@ -12,5 +14,11 @@
     p {
       margin: 0;
     }
+  }
+  .community-name {
+    margin-top: 10px;
+  }
+  .action-btn {
+    margin-top: 10px;
   }
 }

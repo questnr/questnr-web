@@ -1,23 +1,25 @@
-<div class="mobile-nav-btn" *ngIf="mobileView">
-  <button mat-icon-button (click)="onNoClick()">
-    <mat-icon> arrow_back</mat-icon>
-  </button>
-</div>
-<div class="container-header" [ngClass]="{'mobile': mobileView}">
-  <div class="row community-list hide-scrollbar">
-    <div [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngFor="let community of communityList">
-      <app-community-card-mobile-view [mobileView]="mobileView" [community]="community">
-      </app-community-card-mobile-view>
-    </div>
-    <div [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngIf="!endOfResult" style="margin: auto 0">
-      <div class="load-more-button">
-        <!--        <mat-icon (click)="loadMoreCommunity()">arrow_forward</mat-icon>-->
-        <img src="assets/next.png" alt="load more" (click)="loadMoreCommunity()" width="100px">
+<nav-bar [title]="listTitle" (backAction)="onNoClick()" *ngIf="mobileView"></nav-bar>
+<div class="header" *ngIf="!mobileView && listTitle">{{listTitle}}</div>
+<div class="community-list-container hide-scrollbar" [ngClass]="[mobileView ? 'mobile' : 'desktop']">
+  <div class="community-list">
+    <div class="row">
+      <div [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngFor="let community of communityList">
+        <app-community-card-mobile-view [mobileView]="mobileView" [community]="community">
+        </app-community-card-mobile-view>
+      </div>
+      <div class="community-card-loader" [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngIf="loader">
+        <app-community-card-loader></app-community-card-loader>
+      </div>
+      <div [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngIf="!endOfResult" style="margin: auto 0">
+        <div class="load-more-button">
+          <!--        <mat-icon (click)="loadMoreCommunity()">arrow_forward</mat-icon>-->
+          <img src="assets/next.png" alt="load more" (click)="loadMoreCommunity()" width="100px">
+        </div>
       </div>
     </div>
   </div>
-  <div class="" *ngIf="loader">
-    <!--      <app-community-card-loader></app-community-card-loader>-->
+  <!-- <div *ngIf="loader">
+    <app-community-card-loader></app-community-card-loader>
     <div class="skeleton-box" style="width: 100%; margin: 10px"></div>
-  </div>
+  </div> -->
 </div>
