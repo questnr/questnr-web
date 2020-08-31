@@ -1,23 +1,20 @@
-import { Component, EventEmitter, Output, ElementRef, ViewChild, Renderer2, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginService } from 'auth/login.service';
-import { ApiService } from 'shared/api.service';
-import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, tap, map } from 'rxjs/operators';
-import { MessagingService } from '../../service/messaging.service';
+import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/messaging';
-import { HashTag } from 'models/hashtag.model';
-import { User } from 'models/user.model';
-import { Community } from 'models/community.model';
-import { Page } from 'models/page.model';
-import { NotificationDTO } from 'models/notification.model';
-import { GlobalConstants } from 'shared/constants';
-import { AuthService } from 'angularx-social-login';
-import { CreateCommunityComponent } from '../../shared/components/dialogs/create-community/create-community.component';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { UsercommunityService } from '../../usercommunity/usercommunity.service';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { Router } from '@angular/router';
+import { AuthService } from 'angularx-social-login';
+import { LoginService } from 'auth/login.service';
+import { NotificationDTO } from 'models/notification.model';
+import { User } from 'models/user.model';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SearchOverlayComponent } from 'search/search-overlay/search-overlay.component';
+import { ApiService } from 'shared/api.service';
+import { GlobalConstants } from 'shared/constants';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { MessagingService } from '../../service/messaging.service';
+import { CreateCommunityComponent } from '../../shared/components/dialogs/create-community/create-community.component';
+import { UsercommunityService } from '../../usercommunity/usercommunity.service';
 
 @Component({
     selector: 'app-user-header',
@@ -70,6 +67,8 @@ export class UserHeaderComponent {
         this.receiveMessage();
         this.getUserDetail();
         this.searchInput.valueChanges
+            .pipe(debounceTime(200))
+            .pipe(distinctUntilChanged())
             .subscribe((val) => {
                 this.searchEntity(val);
             });
@@ -106,7 +105,7 @@ export class UserHeaderComponent {
     }
 
     handleFocus($event) {
-        this.searchOverlayComponentRef.show();
+        this.searchOverlayComponentRef.show(this.searchInput.value);
     }
 
     handleBlur($event) {
@@ -165,7 +164,7 @@ export class UserHeaderComponent {
     }
 
     loadMoreNotifications() {
-        console.log('openedNotificationType', this.openedNotificationType);
+        // console.log('openedNotificationType', this.openedNotificationType);
         if (this.openedNotificationType === 'normal') {
             this.getNotification();
         } else if (this.openedNotificationType === 'question') {

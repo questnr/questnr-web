@@ -1,16 +1,25 @@
-import { Component, Input, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Community } from 'models/community.model';
 import { HashTag } from 'models/hashtag.model';
 import { Page } from 'models/page.model';
 import { User } from 'models/user.model';
+import { Subscription } from 'rxjs';
 import { ApiService } from 'shared/api.service';
 import { GlobalConstants } from 'shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { SearchEntityType } from 'models/search-entity.model';
-import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 declare var $: any;
+
+class FilterOption {
+  label: string;
+  page: number;
+  isDataLoading: boolean;
+  noDataFound: boolean;
+  endOfResults: boolean;
+  totalElements: number;
+}
 
 @Component({
   selector: 'app-searched-entity-list',
@@ -18,12 +27,11 @@ declare var $: any;
   styleUrls: ['./searched-entity-list.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class SearchedEntityListComponent implements OnInit {
+export class SearchedEntityListComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() mobileView: boolean = false;
   @Output() closeThread = new EventEmitter();
   searchInputValue: string;
   selectedSearchOption: number = 0;
-  isDataLoading: boolean = false;
   hashtags: HashTag[] = [];
   users: User[] = [];
   communities: Community[] = [];
@@ -32,14 +40,45 @@ export class SearchedEntityListComponent implements OnInit {
   fetchingText: string = "Fetching";
   fetchingInterval: any;
   title: string;
-  page: number = 0;
   scrollCached: boolean = null;
-  endOfResults: boolean = false;
   listItems = Array(5);
-  noDataFound: boolean = false;
   currentPath: string;
-  filterSearchOptionList: string[] = ['users', 'communities', 'hashtags'];
-  selectedIndex = new FormControl(0);
+  filterSearchOptionList: FilterOption[] = [{
+    label: 'Users',
+    page: 0,
+    isDataLoading: false,
+    noDataFound: false,
+    endOfResults: false,
+    totalElements: 0
+  },
+  {
+    label: 'Communities',
+    page: 0,
+    isDataLoading: false,
+    noDataFound: false,
+    endOfResults: false,
+    totalElements: 0
+  },
+  {
+    label: 'Hash Tags',
+    page: 0,
+    isDataLoading: false,
+    noDataFound: false,
+    endOfResults: false,
+    totalElements: 0
+  }];
+  userIndex: number = 0;
+  communityIndex: number = 1;
+  hashTagIndex: number = 2;
+  minTabIndex: number = 0;
+  maxTabIndex: number = 2;
+  selectedIndex = new FormControl(0, Validators.max(2));
+  notInListTemplate: string = "Not in the list?";
+  endOfResultsTemplate: string = "Sorry, you have reached the end!";
+  noDataFoundTemplate: string = "Sorry, we don't have any data matching with given input";
+  hashTagAPISubscription: Subscription;
+  userAPISubscription: Subscription;
+  communityAPISubscription: Subscription;
 
   constructor(private api: ApiService, private router: Router) {
   }
@@ -49,54 +88,16 @@ export class SearchedEntityListComponent implements OnInit {
     this.selectedIndex.valueChanges
       .pipe(debounceTime(100))
       .pipe(distinctUntilChanged())
-      .subscribe((queryField) => {
+      .subscribe((queryField: number) => {
         this.selectSearchOption(queryField);
       });
   }
 
   ngAfterViewInit(): void {
-    this.stopParentScroll($("#searched-entity-list_searched-list"))
   }
 
-  stopParentScroll(selector) {
-    let last_touch;
-    let MouseWheelHandler = (e, selector) => {
-      let delta;
-      if (e.deltaY)
-        delta = e.deltaY;
-      else if (e.wheelDelta)
-        delta = e.wheelDelta;
-      else if (e.changedTouches) {
-        if (!last_touch) {
-          last_touch = e.changedTouches[0].clientY;
-        }
-        else {
-          if (e.changedTouches[0].clientY > last_touch) {
-            delta = -1;
-          }
-          else {
-            delta = 1;
-          }
-        }
-      }
-      let prevent = function () {
-        e.stopPropagation();
-        e.preventDefault();
-        e.returnValue = false;
-        return false;
-      };
-
-      if (selector.scrollTop === 0 && delta < 0) {
-        return prevent();
-      }
-      else if (selector.scrollTop === (selector.scrollHeight - selector.clientHeight) && delta > 0) {
-        return prevent();
-      }
-    };
-
-    selector.onwheel = e => { MouseWheelHandler(e, selector) };
-    selector.onmousewheel = e => { MouseWheelHandler(e, selector) };
-    selector.ontouchmove = e => { MouseWheelHandler(e, selector) };
+  ngOnDestroy(): void {
+    this.unsubscribeAPIs();
   }
 
   selectSearchOption(selectedIndex: number) {
@@ -108,7 +109,7 @@ export class SearchedEntityListComponent implements OnInit {
     } else if (selectedIndex == 2) {
       this.currentPath = GlobalConstants.hashTagPath;
     }
-    this.searchEntity(this.searchInputValue);
+    // this.searchEntity(this.searchInputValue);
   }
 
   searchEntity(searchInputValue: string) {
@@ -121,128 +122,194 @@ export class SearchedEntityListComponent implements OnInit {
     // }
     this.searchInputValue = searchInputValue;
     this.selectedSearchOption = this.selectedIndex.value;
-    this.clearData();
+    this.clearData(-1);
 
-    this.fetchEntityList();
+    this.fetchEntityList(-1);
   }
 
-  clearData() {
-    this.page = 0;
-    this.users = [];
-    this.communities = [];
-    this.hashtags = [];
-    this.endOfResults = false;
-    this.noDataFound = false;
+  clearData(index: number) {
+    if (index == -1 || index === this.userIndex)
+      this.users = [];
+    if (index == -1 || index === this.communityIndex)
+      this.communities = [];
+    if (index == -1 || index === this.hashTagIndex)
+      this.hashtags = [];
+    for (let ind = 0; ind < this.filterSearchOptionList.length; ind++) {
+      if (index == -1 || index == ind) {
+        this.filterSearchOptionList[ind].endOfResults = false;
+        this.filterSearchOptionList[ind].noDataFound = false;
+        this.filterSearchOptionList[ind].isDataLoading = false;
+        this.filterSearchOptionList[ind].page = 0;
+        this.filterSearchOptionList[ind].totalElements = 0;
+        if (index != -1) break;
+      }
+    }
+    if (index == -1) {
+      this.unsubscribeAPIs();
+    }
   }
 
-  fetchEntityList() {
-    // console.log("fetchEntityList", this.selectedIndex.value);
-    if (this.selectedSearchOption === 0) {
-      this.showLoader(this.users.length);
+  unsubscribeAPIs(): void {
+    this.hashTagAPISubscription?.unsubscribe();
+    this.userAPISubscription?.unsubscribe();
+    this.communityAPISubscription?.unsubscribe();
+  }
+
+  fetchEntityList(index: number) {
+    // console.log("fetchEntityList", this.filterSearchOptionList);
+    if (index === -1 || index === this.userIndex) {
       this.title = "Found Users!";
       this.searchUsers();
-    } else if (this.selectedSearchOption === 1) {
-      this.showLoader(this.communities.length);
+    }
+    if (index === -1 || index === this.communityIndex) {
       this.title = "Found Communities!";
       this.searchCommunities();
-    } else if (this.selectedSearchOption === 2) {
-      this.showLoader(this.hashtags.length);
+    }
+    if (index === -1 || index === this.hashTagIndex) {
       this.title = "Found HashTags!";
       this.searchHashtags();
     }
   }
 
-  showLoader(length: number) {
-    this.isDataLoading = true;
+  showLoader(index: number) {
+    this.filterSearchOptionList[index].isDataLoading = true;
   }
 
-  hideLoader() {
+  hideLoader(index: number) {
     // clearInterval(this.fetchingInterval);
-    this.isDataLoading = false;
+    this.filterSearchOptionList[index].isDataLoading = false;
   }
-
-  // startFetchingLoop() {
-  //   let fetchingText = "Fetching";
-  //   this.fetchingText = fetchingText;
-  //   let count = 0;
-  //   this.fetchingInterval = setInterval(() => {
-  //     if (count < 5) {
-  //       this.fetchingText += ".";
-  //       count++;
-  //     } else {
-  //       this.fetchingText = fetchingText;
-  //       count = 0;
-  //     }
-  //   }, 100);
-  // }
-
-  // scroll = (event): void => {
-  //   if (!this.scrollCached) {
-  //     setTimeout(() => {
-  //       if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
-  //         if (this.users.length > 1 && !this.endOfResults) {
-  //           ++this.page;
-  //           this.fetchEntityList();
-  //         }
-  //       }
-  //       this.scrollCached = null;
-  //     }, 100);
-  //   }
-  //   this.scrollCached = event;
-  // };
 
   searchHashtags() {
-    this.api.searchHashtags(this.page, this.searchInputValue).subscribe(
+    if (this.isDataLoading(this.hashTagIndex)) {
+      this.hashTagAPISubscription.unsubscribe();
+    }
+    this.showLoader(this.hashTagIndex);
+    this.hashTagAPISubscription = this.api.searchHashtags(this.page(this.hashTagIndex), this.searchInputValue).subscribe(
       (res: Page<HashTag>) => {
-        this.hideLoader();
+        this.hideLoader(this.hashTagIndex);
         res.content.forEach((ele: HashTag) => {
           this.hashtags.push(ele);
         });
+        // set total elements when page == 0
+        if (this.page(this.hashTagIndex) == 0) {
+          this.filterSearchOptionList[this.hashTagIndex].totalElements = res.totalElements;
+        }
         if (res.content.length < 1 && this.hashtags.length == 0) {
-          this.clearData();
-          this.noDataFound = true;
+          this.clearData(this.hashTagIndex);
+          this.filterSearchOptionList[this.hashTagIndex].noDataFound = true;
+          this.toggleToNext(this.hashTagIndex);
         } else if (res.content.length < 1 && this.hashtags.length > 0) {
-          this.endOfResults = true;
+          this.filterSearchOptionList[this.hashTagIndex].endOfResults = true;
         } else
-          this.page++;
+          this.filterSearchOptionList[this.hashTagIndex].page += 1;
       }
     );
   }
 
   searchUsers() {
-    this.api.searchUsers(this.page, this.searchInputValue).subscribe(
+    if (this.isDataLoading(this.userIndex)) {
+      this.userAPISubscription.unsubscribe();
+    }
+    this.showLoader(this.userIndex);
+    this.userAPISubscription = this.api.searchUsers(this.page(this.userIndex), this.searchInputValue).subscribe(
       (res: Page<User>) => {
-        this.hideLoader();
+        this.hideLoader(this.userIndex);
         res.content.forEach((ele: User) => {
           this.users.push(ele);
         });
+        // set total elements when page == 0
+        if (this.page(this.userIndex) == 0) {
+          this.filterSearchOptionList[this.userIndex].totalElements = res.totalElements;
+        }
         if (res.content.length < 1 && this.users.length == 0) {
-          this.clearData();
-          this.noDataFound = true;
+          this.clearData(this.userIndex);
+          this.filterSearchOptionList[this.userIndex].noDataFound = true;
+          this.toggleToNext(this.userIndex);
         } else if (res.content.length < 1 && this.users.length > 0) {
-          this.endOfResults = true;
+          this.filterSearchOptionList[this.userIndex].endOfResults = true;
         } else
-          this.page++;
+          this.filterSearchOptionList[this.userIndex].page += 1;
       }
     );
   }
 
   searchCommunities() {
-    this.api.searchCommunities(this.page, this.searchInputValue).subscribe(
+    if (this.isDataLoading(this.communityIndex)) {
+      this.communityAPISubscription.unsubscribe();
+    }
+    this.showLoader(this.communityIndex);
+    this.communityAPISubscription = this.api.searchCommunities(this.page(this.communityIndex), this.searchInputValue).subscribe(
       (res: Page<Community>) => {
-        this.hideLoader();
+        this.hideLoader(this.communityIndex);
         res.content.forEach((ele: Community) => {
           this.communities.push(ele);
         });
+        // set total elements when page == 0
+        if (this.page(this.communityIndex) == 0) {
+          this.filterSearchOptionList[this.communityIndex].totalElements = res.totalElements;
+        }
         if (res.content.length < 1 && this.communities.length == 0) {
-          this.clearData();
-          this.noDataFound = true;
+          this.clearData(this.communityIndex);
+          this.filterSearchOptionList[this.communityIndex].noDataFound = true;
+          this.toggleToNext(this.communityIndex);
         } else if (res.content.length < 1 && this.communities.length > 0) {
-          this.endOfResults = true;
+          this.filterSearchOptionList[this.communityIndex].endOfResults = true;
         } else
-          this.page++;
+          this.filterSearchOptionList[this.communityIndex].page += 1;
       }
     );
+  }
+
+  toggleToNext(index: number) {
+    setTimeout(() => {
+      if (index < this.maxTabIndex) {
+        let increamentIndex = this.selectedSearchOption + 1;
+        if (this.filterSearchOptionList[increamentIndex].totalElements > 0) {
+          this.selectedSearchOption = increamentIndex;
+        } else {
+          this.toggleToNext(increamentIndex);
+        }
+      }
+      if (index == this.maxTabIndex) {
+        let increamentIndex = this.minTabIndex
+        if (this.filterSearchOptionList[increamentIndex].totalElements > 0) {
+          this.selectedSearchOption = increamentIndex;
+        } else {
+          this.toggleToNext(increamentIndex);
+        }
+      }
+    }, 300);
+  }
+
+  label(index: number): string {
+    return this.filterSearchOptionList[index].label + " <span class='total-elements'> (" + this.totalElements(index) + ")</span>"
+  }
+
+  page(index: number): number {
+    return this.filterSearchOptionList[index].page;
+  }
+
+  noDataFound(index: number): boolean {
+    return this.filterSearchOptionList[index].noDataFound;
+  }
+
+  isDataLoading(index: number): boolean {
+    return this.filterSearchOptionList[index].isDataLoading;
+  }
+
+  endOfResults(index: number): boolean {
+    return this.filterSearchOptionList[index].endOfResults;
+  }
+
+  totalElements(index: number): number {
+    return this.filterSearchOptionList[index].totalElements;
+  }
+
+  notInList(index: number): boolean {
+    return !this.noDataFound(index)
+      && !this.isDataLoading(index) &&
+      !this.endOfResults(index);
   }
 
   closeModal($event) {

@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2, Output, EventEmitter, Input } from '@angular/core';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { SearchedEntityListComponent } from 'searched-entity-list/searched-entity-list.component';
 
 @Component({
@@ -10,7 +10,6 @@ import { SearchedEntityListComponent } from 'searched-entity-list/searched-entit
 export class SearchOverlayComponent implements OnInit {
   @Output() closeSearchOverlay = new EventEmitter();
   elementOnHTMLRef: ElementRef;
-  searchInputValue: string;
   @Input() mobileView: boolean = false;
   @ViewChild("elementOnHTML")
   set elementOnHTML(elementOnHTMLRef: ElementRef) {
@@ -33,9 +32,9 @@ export class SearchOverlayComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  show() {
+  show(searchInputValue: string) {
     this.renderer2.setStyle(this.elementOnHTMLRef.nativeElement, "display", "block");
-    if (this.searchInputValue?.length > 0) {
+    if (searchInputValue?.length > 0) {
       this.renderer2.setStyle(this.searchModelRef.nativeElement, "visibility", "visible");
     } else {
       this.renderer2.setStyle(this.searchModelRef.nativeElement, "visibility", "hidden");
@@ -51,10 +50,9 @@ export class SearchOverlayComponent implements OnInit {
   }
 
   handleOpitonChanged(searchInputValue: string) {
-    this.searchInputValue = searchInputValue;
-    if (this.searchInputValue?.length > 0) {
+    if (searchInputValue?.length > 0) {
       this.renderer2.setStyle(this.searchModelRef.nativeElement, "visibility", "visible");
-      this.searchEntityListComponentRef.searchEntity(this.searchInputValue);
+      this.searchEntityListComponentRef.searchEntity(searchInputValue);
     } else {
       this.renderer2.setStyle(this.searchModelRef.nativeElement, "visibility", "hidden");
     }

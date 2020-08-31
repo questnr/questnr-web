@@ -7,7 +7,10 @@
     </div> -->
     <div class="tab-component" [ngClass]="mobileView ? 'mobile' : 'desktop'">
         <mat-tab-group [(selectedIndex)]="selectedSearchOption" (selectedIndexChange)="selectedIndex.setValue($event)">
-            <mat-tab label="Users">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span [innerHTML]="label(userIndex)"></span>
+                </ng-template>
                 <ng-template matTabContent>
                     <div class="searched-list hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
                         <!-- <div *ngIf="selectedSearchOption==0" id="searched-entity-list_searched-list">
@@ -19,29 +22,31 @@
                             </app-horizontal-profile>
                         </a>
                         <div>
-                            <ng-container *ngIf="isDataLoading">
+                            <ng-container *ngIf="isDataLoading(userIndex)">
                                 <div class="list-item" *ngFor="let i of listItems">
                                     <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
                                     <ngx-skeleton-loader class="w-100" count="1" appearance="line">
                                     </ngx-skeleton-loader>
                                 </div>
                             </ng-container>
-                            <div class="load-more" *ngIf="!noDataFound && !isDataLoading && !endOfResults"
-                                (click)="fetchEntityList()">
-                                <span>Not in the list?</span>
+                            <div class="load-more" *ngIf="notInList(userIndex)" (click)="fetchEntityList(userIndex)">
+                                <span>{{notInListTemplate}}</span>
                             </div>
-                            <div *ngIf="endOfResults" class="no-more">
-                                Sorry, you have reached the end!
+                            <div *ngIf="endOfResults(userIndex)" class="no-more">
+                                {{endOfResultsTemplate}}
                             </div>
-                            <div *ngIf="noDataFound" class="no-data">
-                                Sorry, we don't have any data matching with given input
+                            <div *ngIf="noDataFound(userIndex)" class="no-data">
+                                {{noDataFoundTemplate}}
                                 <span>'{{searchInputValue}}'</span>
                             </div>
                         </div>
                     </div>
                 </ng-template>
             </mat-tab>
-            <mat-tab label="Communities">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span [innerHTML]="label(communityIndex)"></span>
+                </ng-template>
                 <ng-template matTabContent>
                     <div class="searched-list hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
                         <a class="w-100 no-a" mat-button *ngFor="let community of communities"
@@ -51,51 +56,54 @@
                             </app-horizontal-profile>
                         </a>
                         <div>
-                            <ng-container *ngIf="isDataLoading">
+                            <ng-container *ngIf="isDataLoading(communityIndex)">
                                 <div class="list-item" *ngFor="let i of listItems">
                                     <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
                                     <ngx-skeleton-loader class="w-100" count="1" appearance="line">
                                     </ngx-skeleton-loader>
                                 </div>
                             </ng-container>
-                            <div class="load-more" *ngIf="!noDataFound && !isDataLoading && !endOfResults"
-                                (click)="fetchEntityList()">
-                                <span>Not in the list?</span>
+                            <div class="load-more" *ngIf="notInList(communityIndex)"
+                                (click)="fetchEntityList(communityIndex)">
+                                <span>{{notInListTemplate}}</span>
                             </div>
-                            <div *ngIf="endOfResults" class="no-more">
-                                Sorry, you have reached the end!
+                            <div *ngIf="endOfResults(communityIndex)" class="no-more">
+                                {{endOfResultsTemplate}}
                             </div>
-                            <div *ngIf="noDataFound" class="no-data">
-                                Sorry, we don't have any data matching with given input
+                            <div *ngIf="noDataFound(communityIndex)" class="no-data">
+                                {{noDataFoundTemplate}}
                                 <span>'{{searchInputValue}}'</span>
                             </div>
                         </div>
                     </div>
                 </ng-template>
             </mat-tab>
-            <mat-tab label="Hash Tags">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span [innerHTML]="label(hashTagIndex)"></span>
+                </ng-template>
                 <ng-template matTabContent>
                     <div class="searched-list hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
                         <a class="hash-tag w-100 no-a" mat-button *ngFor="let hashTag of hashtags"
                             [routerLink]="['/', currentPath]" [queryParams]="{q: hashTag.hashTagValue}"><span
                                 class="hash-tag-symbol">#</span>{{hashTag.hashTagValue}}</a>
                         <div>
-                            <ng-container *ngIf="isDataLoading">
+                            <ng-container *ngIf="isDataLoading(hashTagIndex)">
                                 <div class="list-item" *ngFor="let i of listItems">
                                     <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
                                     <ngx-skeleton-loader class="w-100" count="1" appearance="line">
                                     </ngx-skeleton-loader>
                                 </div>
                             </ng-container>
-                            <div class="load-more" *ngIf="!noDataFound && !isDataLoading && !endOfResults"
-                                (click)="fetchEntityList()">
-                                <span>Not in the list?</span>
+                            <div class="load-more" *ngIf="notInList(hashTagIndex)"
+                                (click)="fetchEntityList(hashTagIndex)">
+                                <span>{{notInListTemplate}}</span>
                             </div>
-                            <div *ngIf="endOfResults" class="no-more">
-                                Sorry, you have reached the end!
+                            <div *ngIf="endOfResults(hashTagIndex)" class="no-more">
+                                {{endOfResultsTemplate}}
                             </div>
-                            <div *ngIf="noDataFound" class="no-data">
-                                Sorry, we don't have any data matching with given input
+                            <div *ngIf="noDataFound(hashTagIndex)" class="no-data">
+                                {{noDataFoundTemplate}}
                                 <span>'{{searchInputValue}}'</span>
                             </div>
                         </div>
