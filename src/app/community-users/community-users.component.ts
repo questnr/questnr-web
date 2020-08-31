@@ -5,7 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {GlobalService} from 'global.service';
 import {RelationType} from 'models/relation-type';
 import {UserListViewSizeType, UserListData, UserListType} from 'models/user-list.model';
-import {of} from 'rxjs';
+import {of, Subscription} from 'rxjs';
 import {GlobalConstants} from 'shared/constants';
 import {StaticMediaSrc} from 'shared/constants/static-media-src';
 import {environment} from '../../environments/environment';
@@ -32,6 +32,7 @@ export class CommunityUsersComponent implements OnInit {
   @Input() relationshipType: RelationType;
   @Input() requests = 1;
   @Output() pendingRequestCount = new EventEmitter();
+  fetchCommunityMembersSubscriber: Subscription;
   isAllowedIntoCommunity: boolean;
   communityMemberList: User[] = [];
   loader = false;
@@ -60,19 +61,26 @@ export class CommunityUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.mobileView = this._globalService.isMobileView();
-    this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunityWithRelationType(this.relationshipType);
+    this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunityWithRelationType(this.community.communityMeta.relationShipType);
     if (this.isAllowedIntoCommunity) {
       this.getCommunityMembers();
       // this.getCommunityMetaInfo(this.communitySlug);
     } else {
+      this.restartCommunityMembersList();
       this.getCommunityMetaInfo();
     }
-    if (this.relationshipType === RelationType.OWNED) {
+    if (this.community.communityMeta.relationShipType === RelationType.OWNED) {
       this.getCommunityJoinRequests();
     }
   }
-
-  // ngAfterViewInit() {
+  restartCommunityMembersList() {
+    this.communityMemberList = [];
+    if (this.fetchCommunityMembersSubscriber) {
+      this.fetchCommunityMembersSubscriber.unsubscribe();
+      this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunity(this.community);
+    }
+  }
+  // ngAfterViewInit() {`
   //
   // }
 
@@ -85,7 +93,7 @@ export class CommunityUsersComponent implements OnInit {
       if (changes?.relationshipType?.currentValue) {
         this.relationshipType = changes.relationshipType.currentValue;
       }
-      this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunityWithRelationType(this.relationshipType);
+      this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunityWithRelationType(this.community.communityMeta.relationShipType);
       if (this.isAllowedIntoCommunity) {
         this.getCommunityMembers();
       }
@@ -94,8 +102,7 @@ export class CommunityUsersComponent implements OnInit {
 
   getCommunityMembers() {
     this.loader = true;
-    // @ts-ignore
-    this.communityMembersService.getCommunityMembers(this.community.slug, 0).subscribe((data: Page<User>) => {
+    this.fetchCommunityMembersSubscriber = this.communityMembersService.getCommunityMembers(this.community.slug, 0).subscribe((data: Page<User>) => {
       this.loader = false;
       this.communityMemberList = data.content;
       this.numberOfMembers = data.totalElements;
@@ -151,7 +158,7 @@ export class CommunityUsersComponent implements OnInit {
         marginTop: '0px',
         marginRight: '0px !important',
         panelClass: 'user-list-modal',
-        overflow: "hidden",
+        overflow: 'hidden',
         data: userListData
       };
     } else {
@@ -159,7 +166,7 @@ export class CommunityUsersComponent implements OnInit {
         maxWidth: '80vw',
         maxHeight: '70vh',
         panelClass: 'user-list-modal',
-        overflow: "hidden",
+        overflow: 'hidden',
         // data: userList
         data: userListData
       };
@@ -168,7 +175,9 @@ export class CommunityUsersComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (type === UserListType.requests) {
-        this.getCommunityMembers();
+        if (this.isAllowedIntoCommunity) {
+          this.getCommunityMembers();
+        }
         this.getCommunityJoinRequests();
         this.pendingRequestCount.emit(this.pendingRequests);
       }

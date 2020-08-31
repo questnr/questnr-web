@@ -126,4 +126,11 @@ export class CommunityService {
     };
     return this.http.delete(this.baseUrl + `user/community/${communityId}/users/request`, httpOptions);
   }
+  getCommunityDetailsById(communityId) {
+    if (!communityId) {
+      of();
+    }
+    return this.http.get(this.baseUrl + `user/community/${communityId}`);
+  }
 }
+

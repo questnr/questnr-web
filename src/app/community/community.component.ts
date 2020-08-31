@@ -153,8 +153,15 @@ export class CommunityComponent implements OnInit {
     if (this.fetchCommunityFeedsSubscriber) {
       this.fetchCommunityFeedsSubscriber.unsubscribe();
     }
+    // this.ngOnInit();
+    // this.getCommunityDetailsById();
     this.isAllowedIntoCommunity = this.auth.isAllowedIntoCommunity(this.communityDTO);
     this.fetchCommunityFeeds();
+  }
+  getCommunityDetailsById() {
+    this.auth.getCommunityDetailsById(this.communityId).subscribe( (community: Community) => {
+      this.isAllowedIntoCommunity= this.auth.isAllowedIntoCommunity(community);
+    });
   }
 
   ngAfterViewInit() {
@@ -287,6 +294,7 @@ export class CommunityComponent implements OnInit {
 
   actionEvent($event: RelationType) {
     this.owner = $event;
+    this.communityDTO.communityMeta.relationShipType = $event;
     // console.log("actionEvent", $event);
     this.communityUsersComponentRef.ngOnInit();
     this.restartCommunityFeeds();
