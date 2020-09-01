@@ -27,7 +27,7 @@
   </ng-template>
 
   <div *ngIf="loader">
-    <div *ngFor="let i of ' '.repeat(3).split('')">
+    <div *ngFor="let i of loaderItems()">
       <app-user-list-loader></app-user-list-loader>
     </div>
   </div>

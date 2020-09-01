@@ -1,22 +1,22 @@
-import {HttpClient} from '@angular/common/http';
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {ActivatedRoute} from '@angular/router';
-import {GlobalService} from 'global.service';
-import {RelationType} from 'models/relation-type';
-import {UserListViewSizeType, UserListData, UserListType} from 'models/user-list.model';
-import {of, Subscription} from 'rxjs';
-import {GlobalConstants} from 'shared/constants';
-import {StaticMediaSrc} from 'shared/constants/static-media-src';
-import {environment} from '../../environments/environment';
-import {LoginService} from '../auth/login.service';
-import {CommunityService} from '../community/community.service';
-import {CommunityProfileMeta, Community} from '../models/community.model';
-import {User} from '../models/user.model';
-import {UserListComponent} from '../shared/components/dialogs/user-list/user-list.component';
-import {UserProfileCardServiceComponent} from '../user-profile-card/user-profile-card-service.component';
-import {CommunityMembersService} from './community-members.service';
-import {Page} from 'models/page.model';
+import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { GlobalService } from 'global.service';
+import { RelationType } from 'models/relation-type';
+import { UserListViewSizeType, UserListData, UserListType } from 'models/user-list.model';
+import { of, Subscription } from 'rxjs';
+import { GlobalConstants } from 'shared/constants';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { environment } from '../../environments/environment';
+import { LoginService } from '../auth/login.service';
+import { CommunityService } from '../community/community.service';
+import { CommunityProfileMeta, Community } from '../models/community.model';
+import { User } from '../models/user.model';
+import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
+import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
+import { CommunityMembersService } from './community-members.service';
+import { Page } from 'models/page.model';
 
 @Component({
   selector: 'app-community-users',
@@ -48,14 +48,14 @@ export class CommunityUsersComponent implements OnInit {
   userListTypeClass = UserListType;
 
   constructor(public http: HttpClient,
-              public userService: UserProfileCardServiceComponent,
-              public loginService: LoginService,
-              public route: ActivatedRoute,
-              public dialog: MatDialog,
-              public communityMembersService: CommunityMembersService,
-              private loginAuth: LoginService,
-              private _globalService: GlobalService,
-              public communityService: CommunityService) {
+    public userService: UserProfileCardServiceComponent,
+    public loginService: LoginService,
+    public route: ActivatedRoute,
+    public dialog: MatDialog,
+    public communityMembersService: CommunityMembersService,
+    private loginAuth: LoginService,
+    private _globalService: GlobalService,
+    public communityService: CommunityService) {
     this.loggedInUserId = this.loginAuth.getUserProfile().id;
   }
 
@@ -201,5 +201,12 @@ export class CommunityUsersComponent implements OnInit {
       this.pendingJoinRequest = res;
       this.pendingRequests = res.numberOfElements;
     });
+  }
+
+  loaderItems() {
+    if (this.communityMemberList.length > 5) {
+      return Array(0);
+    }
+    return Array(5 - this.communityMemberList.length);
   }
 }
