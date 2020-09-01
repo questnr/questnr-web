@@ -124,7 +124,7 @@ export class CommunityComponent implements OnInit {
       this.communityDTO = data.community;
       this.communityId = this.communityDTO.communityId;
       this.owner = this.communityDTO.communityMeta.relationShipType;
-      this.restartCommunityFeeds();
+      this.restartCommunityFeeds(true);
       this.description = data.community.description;
       if (data.community.communityPrivacy === CommunityPrivacy.pri) {
         this.isCommunityPrivate = true;
@@ -146,16 +146,22 @@ export class CommunityComponent implements OnInit {
     };
   }
 
-  restartCommunityFeeds() {
+  restartCommunityFeeds(callFromConstructor: boolean = false) {
+    // this.ngOnInit();
+    // this.getCommunityDetailsById();
+    this.isAllowedIntoCommunity = this.auth.isAllowedIntoCommunity(this.communityDTO);
+
+    // No need to re-fetch feeds again if the community is not private.
+    if (!callFromConstructor && this.communityDTO.communityPrivacy == CommunityPrivacy.pub) return;
+
     this.userFeeds = [];
     this.page = 0;
+
     // If already feed is being fetched, stop the thread
     if (this.fetchCommunityFeedsSubscriber) {
       this.fetchCommunityFeedsSubscriber.unsubscribe();
     }
-    // this.ngOnInit();
-    // this.getCommunityDetailsById();
-    this.isAllowedIntoCommunity = this.auth.isAllowedIntoCommunity(this.communityDTO);
+
     this.fetchCommunityFeeds();
   }
   getCommunityDetailsById() {
