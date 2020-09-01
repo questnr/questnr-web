@@ -1,13 +1,9 @@
-<div class="mobile-nav-btn" *ngIf="mobileView">
-  <button mat-icon-button (click)="onNoClick()">
-    <mat-icon>arrow_back</mat-icon>
-  </button>
-</div>
-<div class="form-container" [ngClass]="{'form-container_mobile': mobileView}">
-  <div class="heading">
-    <h5>Edit Profile</h5>
+<nav-bar [title]="title" (backAction)="onNoClick()" *ngIf="mobileView"></nav-bar>
+<div class="edit-user-wrapper">
+  <div *ngIf="!mobileView" class="header">
+    <h5>{{title}}</h5>
+    <hr>
   </div>
-  <hr>
   <div class="container-header" *ngIf="!isFetchingDetails">
     <form [formGroup]="group">
       <div class="alert alert-danger" *ngIf="errMsg"> <strong>Error! </strong> {{errMsg }}</div>

@@ -153,8 +153,15 @@ export class CommunityComponent implements OnInit {
     if (this.fetchCommunityFeedsSubscriber) {
       this.fetchCommunityFeedsSubscriber.unsubscribe();
     }
+    // this.ngOnInit();
+    // this.getCommunityDetailsById();
     this.isAllowedIntoCommunity = this.auth.isAllowedIntoCommunity(this.communityDTO);
     this.fetchCommunityFeeds();
+  }
+  getCommunityDetailsById() {
+    this.auth.getCommunityDetailsById(this.communityId).subscribe( (community: Community) => {
+      this.isAllowedIntoCommunity= this.auth.isAllowedIntoCommunity(community);
+    });
   }
 
   ngAfterViewInit() {
@@ -287,6 +294,7 @@ export class CommunityComponent implements OnInit {
 
   actionEvent($event: RelationType) {
     this.owner = $event;
+    this.communityDTO.communityMeta.relationShipType = $event;
     // console.log("actionEvent", $event);
     this.communityUsersComponentRef.ngOnInit();
     this.restartCommunityFeeds();
@@ -315,7 +323,8 @@ export class CommunityComponent implements OnInit {
         maxWidth: '100vw',
         marginTop: '0px',
         marginRight: '0px !important',
-        panelClass: 'full-screen-modal',
+        panelClass: 'user-list-modal',
+        overflow: "hidden",
         data: userListData
       };
     } else {
@@ -324,6 +333,7 @@ export class CommunityComponent implements OnInit {
         // data: userList,
         maxHeight: '70vh',
         maxWidth: "80vw",
+        panelClass: 'user-list-modal',
         overflow: "hidden",
         data: userListData
       };
@@ -331,7 +341,7 @@ export class CommunityComponent implements OnInit {
     const dialogRef = this.dialog.open(UserListComponent, config);
 
     dialogRef.afterClosed().subscribe(result => {
-
+      this.getCommunityJoinRequests();
     });
   }
 
@@ -397,5 +407,8 @@ export class CommunityComponent implements OnInit {
         this.toggleCommunityPrivacy(privacy);
       }
     });
+  }
+  updatePendingRequestCount(pendingRequestCount) {
+    this.pendingRequests = pendingRequestCount;
   }
 }

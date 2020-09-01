@@ -70,8 +70,10 @@ export class ExploreComponent implements OnInit, AfterViewInit {
       this.queryString = params['q'];
       let hashtags: string[] = this.queryString.split(",");
       hashtags.forEach((hasTag: string) => {
-        this.seachHashTagBucket.push(new HashTag(hasTag));
-      })
+        if (hasTag)
+          this.seachHashTagBucket.push(new HashTag(hasTag));
+      });
+      this.queryParams = this.queryString;
     });
     // this.queryString = this.route.snapshot.paramMap.get('hashTag');
 
@@ -192,7 +194,9 @@ export class ExploreComponent implements OnInit, AfterViewInit {
       this.exploreFeeds.nativeElement.scrollTo({ top: 0, behavior: 'smooth' });
     }
     this.loading = true;
-    this.exploreService.getHashtagPost(this.queryParams, this.page).subscribe((res: any) => {
+    // console.log("this.queryParams", this.queryParams);
+    this.exploreService.getHashtagPost(this.queryParams, this.page).subscribe((res: Page<Post>) => {
+      // console.log("getHashtagPost", res);
       if (res.content.length) {
         this.page++;
         res.content.forEach(i => {
@@ -234,7 +238,7 @@ export class ExploreComponent implements OnInit, AfterViewInit {
         this.removeHashTagToSearchingBucket(hashTag);
       }
     } else {
-      this.addHashTagToSearchingBucket(hashTag);
+      this.addHashTagToSearchingBucket(hashTag, false);
     }
     this.updateQuery();
   }
@@ -284,14 +288,25 @@ export class ExploreComponent implements OnInit, AfterViewInit {
     return doesNotHave;
   }
 
-  addHashTagToSearchingBucket(hashTag: HashTag) {
-    this.resetTagErrors();
-    this.seachHashTagBucket.push(hashTag);
-    this.hashTagControl.setValue("");
-    this.searchResults = [];
-    setTimeout(() => {
+  addHashTagToSearchingBucket(hashTag: HashTag, isClick: boolean) {
+    if (isClick) {
+      if (this.isInListofSeachingBucket(hashTag)) {
+        this.searchResults = [];
+        this.tagExistsError = true;
+        return;
+      }
+      this.resetTagErrors();
+      this.hashTagControl.setValue("");
+      this.searchResults = [];
+      this.seachHashTagBucket.push(hashTag);
       this.getHashtagRelatedPost(true);
-    }, 400);
+    }
+    else {
+      this.seachHashTagBucket.push(hashTag);
+      setTimeout(() => {
+        this.getHashtagRelatedPost(true);
+      }, 400);
+    }
   }
 
   addHashTagToSearchingBucketUsingInput(value: string) {

@@ -82,10 +82,9 @@
           </div>
           <div class="flex last-feed">
             <div class="flex-section-left">
-              <app-usercommunity [userId]="user?.userId" [relation]="relation"
-                [ownsCommunities]="userInfo?.ownsCommunities">
+              <app-usercommunity [user]="user" [ownsCommunities]="userInfo?.ownsCommunities">
               </app-usercommunity>
-              <app-joined-community [userId]="user?.userId" [followsCommunities]="userInfo?.followsCommunities">
+              <app-joined-community [user]="user" [followsCommunities]="userInfo?.followsCommunities">
               </app-joined-community>
               <div *ngIf="!mobileView">
                 <app-floating-footer></app-floating-footer>

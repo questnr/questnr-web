@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { GlobalService } from 'global.service';
+import { CommunityListType } from 'models/community-list.model';
+import { Page } from 'models/page.model';
 import { LoginService } from '../../../../auth/login.service';
-import { Community, CommunityListType } from '../../../../models/community.model';
+import { Community } from '../../../../models/community.model';
 import { UsercommunityService } from '../../../../usercommunity/usercommunity.service';
 import { ApiService } from '../../../api.service';
-import { GlobalService } from 'global.service';
-import { Page } from 'models/page.model';
 
 @Component({
   selector: 'app-community-list',
@@ -21,6 +22,7 @@ export class CommunityListComponent implements OnInit {
   userId: number;
   error: boolean = true;
   hasTotalPages: number;
+  listTitle: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {
     page: number,
@@ -34,6 +36,7 @@ export class CommunityListComponent implements OnInit {
     public api: ApiService,
     public loginService: LoginService,
     private _globalService: GlobalService) {
+    this.parseCommunityListData();
     if (this.data.userId) {
       this.userId = this.data.userId;
     } else {
@@ -51,6 +54,16 @@ export class CommunityListComponent implements OnInit {
 
   ngOnInit(): void {
     this.mobileView = this._globalService.isMobileView();
+  }
+
+  parseCommunityListData() {
+    if (this.data.type === CommunityListType.owned) {
+      this.listTitle = "Owned Communities";
+    } else if (this.data.type === CommunityListType.joined) {
+      this.listTitle = "Joined Communities";
+    } else if (this.data.type === CommunityListType.suggested) {
+      this.listTitle = "Communities You Might Like";
+    }
   }
 
   loadMoreCommunity() {

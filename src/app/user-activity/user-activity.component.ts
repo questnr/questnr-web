@@ -1,14 +1,14 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { UserActivityService } from './user-activity.service';
-import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { UserFollowersService } from '../user-followers/user-followers.service';
-import { UserInfo, User } from 'models/user.model';
+import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from 'global.service';
-import { CommunityListType } from 'models/community.model';
-import { CommunityListComponent } from 'shared/components/dialogs/community-list/community-list.component';
+import { CommunityListType, CommunityListData } from 'models/community-list.model';
 import { UserListData, UserListType } from 'models/user-list.model';
+import { User, UserInfo } from 'models/user.model';
+import { CommunityListComponent } from 'shared/components/dialogs/community-list/community-list.component';
+import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
+import { UserFollowersService } from '../user-followers/user-followers.service';
+import { UserActivityService } from './user-activity.service';
 
 @Component({
   selector: 'app-user-activity',
@@ -21,7 +21,7 @@ export class UserActivityComponent implements OnInit {
   mobileView = false;
   @Input() user: User;
   isLeftVisible: boolean = true;
-  communityListType = CommunityListType;
+  communityListTypeClass = CommunityListType;
   userListTypeClass = UserListType;
 
   constructor(public route: ActivatedRoute,
@@ -65,7 +65,8 @@ export class UserActivityComponent implements OnInit {
         maxWidth: '100vw',
         marginTop: '0px',
         marginRight: '0px !important',
-        panelClass: 'full-screen-modal',
+        panelClass: 'user-list-modal',
+        overflow: "hidden",
         data: userListData
       };
     } else {
@@ -74,6 +75,7 @@ export class UserActivityComponent implements OnInit {
         maxWidth: "80vw",
         // data: userList,
         maxHeight: '70vh',
+        panelClass: 'user-list-modal',
         overflow: "hidden",
         data: userListData
       };
@@ -86,6 +88,10 @@ export class UserActivityComponent implements OnInit {
   }
   openCommunityDialog(communityListType: CommunityListType): void {
     let config = null;
+    let communityListData: CommunityListData = new CommunityListData();
+    communityListData.type = communityListType;
+    communityListData.user = this.user;
+    communityListData.userId = this.user.userId;
     if (this.mobileView) {
       config = {
         position: {
@@ -98,14 +104,17 @@ export class UserActivityComponent implements OnInit {
         maxWidth: '100vw',
         marginTop: '0px',
         marginRight: '0px !important',
-        panelClass: 'full-screen-modal',
-        data: { userId: this.user.userId, type: communityListType }
+        panelClass: 'community-list-modal',
+        overflow: "hidden",
+        data: communityListData
       };
     } else {
       config = {
         width: '700px',
         maxHeight: "70vh",
-        data: { userId: this.user.userId, type: communityListType }
+        panelClass: 'community-list-modal',
+        overflow: "hidden",
+        data: communityListData
       };
     }
     const dialogRef = this.dialog.open(CommunityListComponent, config);
