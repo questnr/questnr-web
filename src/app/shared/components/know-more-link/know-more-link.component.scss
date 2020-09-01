@@ -1,0 +1,10 @@
+@import "../../../variables";
+
+.link {
+    color: $link-primary;
+    cursor: pointer;
+    font-family: "Trebuchet MS";
+    &:hover {
+        color: $link-third;
+    }
+}

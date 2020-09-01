@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ConfirmDialogContentType } from 'models/confirm-dialog.model';
+import { KnowMoreLinkType } from 'models/know-more-type';
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -16,6 +17,7 @@ export class ConfirmDialogComponent implements OnInit {
   confirmDialogContentType: ConfirmDialogContentType;
   @ViewChild("agreeTextBtn") agreeTextBtn: ElementRef;
   @ViewChild("disagreeTextBtn") disagreeTextBtn: ElementRef;
+  knowMoreTypeClass = KnowMoreLinkType;
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>,

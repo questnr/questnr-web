@@ -1,44 +1,60 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatStepperModule } from '@angular/material/stepper';
-import { CommunityBannerComponent } from './community-banner/community-banner.component';
-import { CompanyRightsFooterComponent } from './company-rights-footer/company-rights-footer.component';
-import { AskQuestionComponent } from './components/dialogs/ask-question/ask-question.component';
-import { ProfileIconComponent } from './profile-icon/profile-icon.component';
-import { SocialMediaLinksComponent } from './social-media-links/social-media-links.component';
+import { AppMaterialModule } from 'app-material/app-material.module';
 import { ViewMoreButtonComponent } from './view-more-button/view-more-button.component';
+import { UserHeaderComponent } from 'feeds-frame/user-header/user-header.component';
+import { SearchOverlayComponent } from 'search/search-overlay/search-overlay.component';
+import { SearchedEntityListComponent } from 'searched-entity-list/searched-entity-list.component';
+import { ProfileIconComponent } from './profile-icon/profile-icon.component';
+import { LoaderTextComponent } from './loader-text/loader-text.component';
+import { LoaderComponent } from './loader/loader.component';
+import { NotificationItemComponent } from 'feeds-frame/notification-item/notification-item.component';
+import { TimeStringComponent } from 'time-string/time-string.component';
+import { UsernameComponent } from 'username/username.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { HorizontalProfileComponent } from 'horizontal-profile/horizontal-profile.component';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     ViewMoreButtonComponent,
-    SocialMediaLinksComponent,
-    CompanyRightsFooterComponent,
-    AskQuestionComponent
+    UserHeaderComponent,
+    SearchOverlayComponent,
+    SearchedEntityListComponent,
+    ProfileIconComponent,
+    LoaderComponent,
+    LoaderTextComponent,
+    NotificationItemComponent,
+    TimeStringComponent,
+    UsernameComponent,
+    HorizontalProfileComponent
   ],
   imports: [
     CommonModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDatepickerModule,
-    MatStepperModule,
-    MatProgressSpinnerModule
+    RouterModule,
+    AppMaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
+
   ],
   exports: [
+    AppMaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     ViewMoreButtonComponent,
-    SocialMediaLinksComponent,
-    CompanyRightsFooterComponent
+    UserHeaderComponent,
+    SearchOverlayComponent,
+    SearchedEntityListComponent,
+    ProfileIconComponent,
+    LoaderComponent,
+    LoaderTextComponent,
+    NotificationItemComponent,
+    TimeStringComponent,
+    UsernameComponent,
+    HorizontalProfileComponent
   ]
 })
 export class SharedModule { }

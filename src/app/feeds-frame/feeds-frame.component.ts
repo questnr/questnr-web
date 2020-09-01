@@ -1,20 +1,18 @@
-import { Component, OnInit, OnDestroy, HostListener, ViewChildren, QueryList, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { FeedsService } from './feeds.service';
-import { ApiService } from 'shared/api.service';
-import { MessagingService } from '../service/messaging.service';
-import { RecommendedFeedsComponent } from './recommended-feeds/recommended-feeds.component';
-import { CreateCommunityComponent } from 'shared/components/dialogs/create-community/create-community.component';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { GlobalConstants } from '../shared/constants';
-import { Post } from 'models/post-action.model';
-import { AskQuestionComponent } from '../shared/components/dialogs/ask-question/ask-question.component';
-import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from 'express';
+import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
+import { GlobalService } from 'global.service';
+import { Post } from 'models/post-action.model';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { GlobalService } from 'global.service';
+import { ApiService } from 'shared/api.service';
+import { CreateCommunityComponent } from 'shared/components/dialogs/create-community/create-community.component';
+import { MessagingService } from '../service/messaging.service';
+import { GlobalConstants } from '../shared/constants';
+import { FeedsService } from './feeds.service';
+import { RecommendedFeedsComponent } from './recommended-feeds/recommended-feeds.component';
 
 @Component({
   selector: 'app-feeds-frame',

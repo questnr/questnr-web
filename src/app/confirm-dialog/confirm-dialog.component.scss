@@ -1,46 +1,50 @@
-@import '../variables';
+@import "../variables";
 
 .wrapper {
-    margin: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    .title {
-        padding-bottom: 15px;
-        color: $red;
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .title {
+    padding-bottom: 15px;
+    color: $red;
+  }
+  .action-btn-list {
+    margin: 0 40px;
+    justify-content: space-between;
+    .action-btn {
+      padding: 0 10px;
+      min-width: 140px;
+      width: fit-content;
+      width: -moz-fit-content;
+      //float: right;
+      button {
+        font-size: 0.8rem;
+        border-radius: 0.5rem;
+        border: 1px solid $grey;
+        background-color: $white;
+        padding: 2px;
+        width: 100%;
+      }
+      .active {
+        background-color: $primary;
+        color: $white;
+      }
     }
-    .action-btn-list{
-        margin: 0 40px;
-        justify-content: space-between;
-        .action-btn {
-            padding: 0 10px;
-            min-width: 140px;
-            width: fit-content;
-            width: -moz-fit-content;
-            //float: right;
-            button {
-                font-size: 0.8rem;
-                border-radius: 0.5rem;
-                border: 1px solid $grey;
-                background-color: $white;
-                padding: 2px;
-                width: 100%;
-            }
-            .active {
-                background-color: $primary;
-                color: $white;
-            }
-        }
-    }
-  .extra-info{
+  }
+  .extra-info {
     color: $gray-font;
     font-weight: 600;
   }
+  know-more-link {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 0.4rem;
+  }
 }
 
-@media screen and(max-width: 400px){
+@media screen and(max-width: 400px) {
   .wrapper .action-btn-list {
     display: block;
   }
-
 }

@@ -64,6 +64,13 @@
       padding: 0 15px;
     }
   }
+  .link {
+    color: $link-primary;
+  }
+
+  .link:hover {
+    color: $link-primary;
+  }
 }
 
 .forgot {
@@ -112,14 +119,6 @@ mat-form-field {
       color: $primary;
     }
   }
-}
-
-.link {
-  color: $link-primary;
-}
-
-.link:hover {
-  color: $link-primary;
 }
 
 .otp-container {

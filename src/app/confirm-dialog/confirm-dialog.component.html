@@ -5,8 +5,9 @@
             <ul>
                 <li>All the pending community join requests will be approved automatically.</li>
                 <li>All the community members and community posts will be visible to the public.</li>
-                <li>Any Questnr user will be able to join the community without admin\'s approval.</li>
+                <li>Any Questnr user will be able to join the community without admin's approval.</li>
             </ul>
+            <!-- <know-more-link (knowMoreType)="knowMoreTypeClass.communityPrivacy"></know-more-link> -->
         </div>
         <div *ngIf="confirmDialogContentType == ConfirmDialogContentType.makePrivateCommunity">
             <ul>
@@ -14,6 +15,7 @@
                 <li>Community members and community posts will be visible only to the joined community members.</li>
                 <li>The community will not be displayed in the trending community section.</li>
             </ul>
+            <!-- <know-more-link (knowMoreType)="knowMoreTypeClass.communityPrivacy"></know-more-link> -->
         </div>
     </div>
     <div class="row action-btn-list">

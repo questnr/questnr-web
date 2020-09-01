@@ -15,6 +15,7 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { MessagingService } from '../../service/messaging.service';
 import { CreateCommunityComponent } from '../../shared/components/dialogs/create-community/create-community.component';
 import { UsercommunityService } from '../../usercommunity/usercommunity.service';
+import { GlobalService } from 'global.service';
 
 @Component({
     selector: 'app-user-header',
@@ -24,7 +25,7 @@ import { UsercommunityService } from '../../usercommunity/usercommunity.service'
 export class UserHeaderComponent {
     @ViewChild('searchInputRef') searchInputRef: ElementRef;
     @ViewChild('suggestionBoxRef') suggestionBoxRef: ElementRef;
-    @Input() mobileView: boolean = false;
+    mobileView: boolean = false;
     @Output() menuToggle = new EventEmitter();
     user: string;
     userDetail: User;
@@ -57,10 +58,11 @@ export class UserHeaderComponent {
         private angularFireMessaging: AngularFireMessaging,
         private renderer: Renderer2,
         private dialog: MatDialog,
-        private usercommunityService: UsercommunityService) {
+        private _globalService: GlobalService) {
     }
 
     ngOnInit() {
+        this.mobileView = this._globalService.isMobileView();
         this.profile = this.auth.getUserProfile();
         this.auth.getUserProfileImg();
         // Receive notification messages

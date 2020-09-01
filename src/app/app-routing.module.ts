@@ -4,12 +4,6 @@ import { MetaGuard } from '@ngx-meta/core';
 import { AuthGuard } from 'auth/auth.guard';
 import { CookiePolicyComponent } from 'cookie-policy/cookie-policy.component';
 import { FeedsFrameComponent } from 'feeds-frame/feeds-frame.component';
-import { NotificationItemComponent } from 'feeds-frame/notification-item/notification-item.component';
-import { PostFeedComponent } from 'feeds-frame/post-feed/post-feed.component';
-import { FeedsLoaderComponent } from 'feeds-frame/recommended-feeds/feeds-loader/feeds-loader.component';
-import { SidenavComponent } from 'feeds-frame/sidenav/sidenav.component';
-import { UserHeaderComponent } from 'feeds-frame/user-header/user-header.component';
-import { FooterComponent } from 'footer/footer.component';
 import { LandingPageResolve } from 'landing-page/landing-page.resolve';
 import { PolicyComponent } from 'policy/policy.component';
 import { GlobalConstants } from 'shared/constants';
@@ -20,13 +14,6 @@ import { CommunityComponent } from './community/community.component';
 import { CommunityResolve } from './community/community.resolve';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { ExploreComponent } from './explore/explore.component';
-import { FeedsComponent } from './feeds-frame/feeds/feeds.component';
-import { PostFeedsComponent } from './feeds-frame/feeds/post-feeds/post-feeds.component';
-import { TrendingFeedsComponent } from './feeds-frame/feeds/trending-feeds/trending-feeds.component';
-import { FloatingAdsComponent } from './feeds-frame/floating-ads/floating-ads.component';
-import { FloatingFooterComponent } from './feeds-frame/floating-footer/floating-footer.component';
-import { ProfileRibbonComponent } from './feeds-frame/profile-ribbon/profile-ribbon.component';
-import { RecommendedFeedsComponent } from './feeds-frame/recommended-feeds/recommended-feeds.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { HeaderComponent } from './header/header.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -64,6 +51,10 @@ const routes: Routes = [
   { path: GlobalConstants.signUp, component: SignUpPageComponent },
   { path: GlobalConstants.login, component: LoginPageComponent },
   { path: GlobalConstants.resetPassword, component: ResetPasswordComponent },
+  {
+    path: GlobalConstants.helpPath,
+    loadChildren: () => import('./faq/faq.module').then(m => m.FAQModule)
+  },
   { path: GlobalConstants.error, component: ErrorPageComponent },
   { path: '**', redirectTo: GlobalConstants.error }
 ];
@@ -84,27 +75,3 @@ export interface Tile {
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
-export const routingComponent = [
-  LandingPageComponent,
-  HeaderComponent,
-  FeedsComponent,
-  ProfileRibbonComponent,
-  FloatingFooterComponent,
-  FooterComponent,
-  RecommendedFeedsComponent,
-  FloatingAdsComponent,
-  TrendingFeedsComponent,
-  PostFeedsComponent,
-  FeedsFrameComponent,
-  LandingPageComponent,
-  TermsComponent,
-  PolicyComponent,
-  CookiePolicyComponent,
-  UserHeaderComponent,
-  SidenavComponent,
-  PostFeedComponent,
-  FeedsLoaderComponent,
-  NotificationItemComponent
-];
-
