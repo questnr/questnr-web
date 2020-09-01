@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from 'models/page.model';
 import { UIService } from 'ui/ui.service';
 import { LoginService } from '../auth/login.service';
-import { Community, CommunityPrivacy } from '../models/community.model';
+import { Community, CommunityPrivacy, CommunityProfileMeta } from '../models/community.model';
 import { Post } from '../models/post-action.model';
 import { User } from '../models/user.model';
 import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
@@ -75,7 +75,7 @@ export class CommunityComponent implements OnInit {
   fetchCommunityFeedsSubscriber: Subscription;
   userListTypeClass = UserListType;
 
-  constructor(public auth: CommunityService,
+  constructor(public communityService: CommunityService,
     public fb: FormBuilder,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
@@ -149,7 +149,7 @@ export class CommunityComponent implements OnInit {
   restartCommunityFeeds(callFromConstructor: boolean = false) {
     // this.ngOnInit();
     // this.getCommunityDetailsById();
-    this.isAllowedIntoCommunity = this.auth.isAllowedIntoCommunity(this.communityDTO);
+    this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunity(this.communityDTO);
 
     // No need to re-fetch feeds again if the community is not private.
     if (!callFromConstructor && this.communityDTO.communityPrivacy == CommunityPrivacy.pub) return;
@@ -165,8 +165,8 @@ export class CommunityComponent implements OnInit {
     this.fetchCommunityFeeds();
   }
   getCommunityDetailsById() {
-    this.auth.getCommunityDetailsById(this.communityId).subscribe((community: Community) => {
-      this.isAllowedIntoCommunity = this.auth.isAllowedIntoCommunity(community);
+    this.communityService.getCommunityDetailsById(this.communityId).subscribe((community: Community) => {
+      this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunity(community);
     });
   }
 
@@ -216,7 +216,7 @@ export class CommunityComponent implements OnInit {
     if (this.isAllowedIntoCommunity) {
       // console.log("fetchCommunityFeeds");
       this.loading = true;
-      this.fetchCommunityFeedsSubscriber = this.auth.getCommunityFeeds(this.communityId, this.page).subscribe((res: Page<Post>) => {
+      this.fetchCommunityFeedsSubscriber = this.communityService.getCommunityFeeds(this.communityId, this.page).subscribe((res: Page<Post>) => {
         // console.log("Posts", res);
         if (res.content.length) {
           this.loading = false;
@@ -239,7 +239,7 @@ export class CommunityComponent implements OnInit {
     if (this.comUpdatedAvatar) {
       const formData = new FormData();
       formData.set('file', this.comUpdatedAvatar, this.comUpdatedAvatar.name);
-      this.auth.updateCommunityAvatar(formData, this.communityDTO.communityId).subscribe((res: any) => {
+      this.communityService.updateCommunityAvatar(formData, this.communityDTO.communityId).subscribe((res: any) => {
       }, error => {
       });
     }
@@ -287,7 +287,7 @@ export class CommunityComponent implements OnInit {
     // let snackBarRef = this.snackbar.open('Copying Link..');
     // this.commonService.copyToClipboard(this.commonService.getCommunitySharableLink(this.communitySlug));
     // snackBarRef.dismiss();
-    // this.auth.getSharableLink(this.communityId).subscribe((res: any) => {
+    // this.communityService.getSharableLink(this.communityId).subscribe((res: any) => {
     //   this.commonService.copyToClipboard(res.clickAction);
     //   snackBarRef.dismiss();
     // });
@@ -307,9 +307,11 @@ export class CommunityComponent implements OnInit {
   }
 
   getCommunityJoinRequests() {
-    this.auth.getCommunityJoinRequests(this.communityId, 0).subscribe((res: any) => {
-      this.pendingRequests = res.numberOfElements;
-    });
+    if (this.communityDTO.communityPrivacy == CommunityPrivacy.pri)
+      this.communityService.getCommunityMetaInfoWithParams(this.communityDTO.slug, 'totalRequests')
+        .subscribe((data: CommunityProfileMeta) => {
+          this.pendingRequests = data.totalRequests;
+        });
   }
 
   openUserGroupDialog(type: UserListType): void {
@@ -360,7 +362,7 @@ export class CommunityComponent implements OnInit {
   }
 
   toggleCommunityPrivacy(updatedPrivacy: CommunityPrivacy) {
-    this.auth.toggleCommunityPrivacy(this.communityId, updatedPrivacy).subscribe((res: Community) => {
+    this.communityService.toggleCommunityPrivacy(this.communityId, updatedPrivacy).subscribe((res: Community) => {
       if (res.communityPrivacy === CommunityPrivacy.pri) {
         this.isCommunityPrivate = true;
       }

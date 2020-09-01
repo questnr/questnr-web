@@ -16,9 +16,4 @@ export class CommunityMembersService {
     if (!url) return of();
     return this.http.get<Page<User>>(this.baseUrl + 'user/community/' + url + '/users', { params: { page, size } });
   }
-
-  getCommunityMetaInfoWithParams(communitySlug, params): Observable<CommunityProfileMeta> {
-    if (!communitySlug) return of();
-    return this.http.get<CommunityProfileMeta>(this.baseUrl + `/community/meta/${communitySlug}/info/params`, { params: { params } });
-  }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Community, CommunityPublic, CommunityPrivacy, CommunityRequestActionType } from '../models/community.model';
+import { Community, CommunityPublic, CommunityPrivacy, CommunityRequestActionType, CommunityProfileMeta } from '../models/community.model';
 import { Observable, of } from 'rxjs';
 import { MetaTagCard } from 'models/common.model';
 import { RelationType } from 'models/relation-type';
@@ -135,6 +135,11 @@ export class CommunityService {
       of();
     }
     return this.http.get(this.baseUrl + `user/community/${communityId}`);
+  }
+
+  getCommunityMetaInfoWithParams(communitySlug, params): Observable<CommunityProfileMeta> {
+    if (!communitySlug) return of();
+    return this.http.get<CommunityProfileMeta>(this.baseUrl + `/community/meta/${communitySlug}/info/params`, { params: { params } });
   }
 }
 

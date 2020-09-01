@@ -50,6 +50,8 @@ export class CommunityMeta {
 export class CommunityProfileMeta {
   followers: number;
   posts: number;
+  totalQuestions: number;
+  totalRequests: number;
   trendRank: number;
   inTrend: boolean;
 }
