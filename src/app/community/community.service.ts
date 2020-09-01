@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Community, CommunityPublic, CommunityPrivacy } from '../models/community.model';
+import { Community, CommunityPublic, CommunityPrivacy, CommunityRequestActionType } from '../models/community.model';
 import { Observable, of } from 'rxjs';
 import { MetaTagCard } from 'models/common.model';
 import { RelationType } from 'models/relation-type';
@@ -103,14 +103,14 @@ export class CommunityService {
     return this.http.get(this.baseUrl + 'user/community/' + communityId + '/users/request', { params: { page } });
   }
 
-  joinRequestResponse(communityId, userId, requestType: string) {
+  joinRequestResponse(communityId, userId, requestType: CommunityRequestActionType) {
     if (!communityId || !userId) {
       return of();
     }
-    if (requestType === 'Accepted') {
+    if (requestType === CommunityRequestActionType.accept) {
       return this.http.post(this.baseUrl + `user/community/${communityId}/users/${userId}/request`, {});
     }
-    if (requestType === 'Rejected') {
+    if (requestType === CommunityRequestActionType.reject) {
       return this.http.delete(this.baseUrl + `user/community/${communityId}/users/${userId}/request`);
     }
   }

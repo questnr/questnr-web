@@ -64,3 +64,7 @@ export enum CommunityPrivacy {
   pub = 'pub',
   pri = 'pri'
 }
+
+export enum CommunityRequestActionType {
+  reject = "reject", accept = "accept"
+}

@@ -11,6 +11,7 @@ import { User } from '../../models/user.model';
 import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
 import { InviteUsetService } from './invite-user.service';
 import { UserListViewSizeType, UserListViewVariables } from 'models/user-list.model';
+import { CommunityRequestActionType } from 'models/community.model';
 
 @Component({
   selector: 'app-user-list-view',
@@ -31,8 +32,9 @@ export class UserListViewComponent implements OnInit {
   mobileView = false;
   isInvited: boolean = false;
   isResponded = false;
-  requestType: string;
+  requestType: CommunityRequestActionType;
   userListViewVariables: any;
+  communityRequestActionTypeClass = CommunityRequestActionType;
 
   constructor(public userProfileCardServiceComponent: UserProfileCardServiceComponent,
     public loginService: LoginService,
@@ -111,7 +113,7 @@ export class UserListViewComponent implements OnInit {
     }
   }
 
-  joinRequestResponse(requestType) {
+  joinRequestResponse(requestType: CommunityRequestActionType) {
     this.auth.joinRequestResponse(this.communityId, this.user.userId, requestType).subscribe((res: any) => {
       this.isResponded = true;
       this.requestType = requestType;
