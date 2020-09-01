@@ -19,12 +19,16 @@ export class CommunityService {
   }
 
   isAllowedIntoCommunity(community: Community): boolean {
-    return this.isAllowedIntoCommunityWithRelationType(community.communityMeta.relationShipType);
+    return this.isAllowedIntoCommunityWithRelationType(community.communityPrivacy, community.communityMeta.relationShipType);
   }
 
-  isAllowedIntoCommunityWithRelationType(relationShipType: RelationType): boolean {
-    if (relationShipType === RelationType.OWNED ||
-      relationShipType === RelationType.FOLLOWED) {
+  isAllowedIntoCommunityWithRelationType(communityPrivacy: CommunityPrivacy, relationShipType: RelationType): boolean {
+    if (communityPrivacy === CommunityPrivacy.pri &&
+      (relationShipType === RelationType.OWNED ||
+        relationShipType === RelationType.FOLLOWED)) {
+      return true;
+    }
+    if (communityPrivacy == CommunityPrivacy.pub) {
       return true;
     }
     return false;

@@ -141,7 +141,7 @@ export class CommunityComponent implements OnInit {
           this.trackerInstance = trackerInstance;
         });
     });
-    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
   }
@@ -159,8 +159,8 @@ export class CommunityComponent implements OnInit {
     this.fetchCommunityFeeds();
   }
   getCommunityDetailsById() {
-    this.auth.getCommunityDetailsById(this.communityId).subscribe( (community: Community) => {
-      this.isAllowedIntoCommunity= this.auth.isAllowedIntoCommunity(community);
+    this.auth.getCommunityDetailsById(this.communityId).subscribe((community: Community) => {
+      this.isAllowedIntoCommunity = this.auth.isAllowedIntoCommunity(community);
     });
   }
 
@@ -277,7 +277,7 @@ export class CommunityComponent implements OnInit {
   // }
 
   copyLinkOfCommunity($event) {
-    this.snackBar.open('Link copied to clipboard', 'close', {duration: 5000});
+    this.snackBar.open('Link copied to clipboard', 'close', { duration: 5000 });
     // let snackBarRef = this.snackbar.open('Copying Link..');
     // this.commonService.copyToClipboard(this.commonService.getCommunitySharableLink(this.communitySlug));
     // snackBarRef.dismiss();
@@ -349,7 +349,7 @@ export class CommunityComponent implements OnInit {
     const clickAction = this.commonService.getCommunitySharableLink(this.communitySlug);
     this.dialog.open(SharePostComponent, {
       width: '500px',
-      data: {url: clickAction}
+      data: { url: clickAction }
     });
   }
 
@@ -360,10 +360,11 @@ export class CommunityComponent implements OnInit {
       }
       if (res.communityPrivacy === CommunityPrivacy.pub) {
         this.isCommunityPrivate = false;
+        this.communityUsersComponentRef.ngOnInit();
       }
-      this.snackBar.open('Community privacy updated', 'close', {duration: 3000});
+      this.snackBar.open('Community privacy updated', 'close', { duration: 3000 });
     }, error => {
-      this.snackBar.open(error.error.errorMessage, 'close', {duration: 3000});
+      this.snackBar.open(error.error.errorMessage, 'close', { duration: 3000 });
     });
   }
 

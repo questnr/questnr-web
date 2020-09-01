@@ -61,7 +61,8 @@ export class CommunityUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.mobileView = this._globalService.isMobileView();
-    this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunityWithRelationType(this.community.communityMeta.relationShipType);
+    this.isAllowedIntoCommunity =
+      this.communityService.isAllowedIntoCommunityWithRelationType(this.community.communityPrivacy, this.community.communityMeta.relationShipType);
     if (this.isAllowedIntoCommunity) {
       this.getCommunityMembers();
       // this.getCommunityMetaInfo(this.communitySlug);
@@ -93,7 +94,8 @@ export class CommunityUsersComponent implements OnInit {
       if (changes?.relationshipType?.currentValue) {
         this.relationshipType = changes.relationshipType.currentValue;
       }
-      this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunityWithRelationType(this.community.communityMeta.relationShipType);
+      this.isAllowedIntoCommunity =
+        this.communityService.isAllowedIntoCommunityWithRelationType(this.community.communityPrivacy, this.community.communityMeta.relationShipType);
       if (this.isAllowedIntoCommunity) {
         this.getCommunityMembers();
       }
@@ -118,17 +120,6 @@ export class CommunityUsersComponent implements OnInit {
       .subscribe((data: CommunityProfileMeta) => {
         this.numberOfMembers = data.followers;
       });
-  }
-
-  sendFollowInvite(i) {
-    if (!i) {
-      return of();
-    }
-    this.http.post(this.baseUrl + 'user/follow/user/' + i, '').subscribe((res: any) => {
-      // console.log(res);
-    }, error => {
-      // console.log(error.error.errorMessage);
-    });
   }
 
   unfollowUser(userId) {
