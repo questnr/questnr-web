@@ -52,11 +52,11 @@ const routes: Routes = [
   { path: GlobalConstants.login, component: LoginPageComponent },
   { path: GlobalConstants.resetPassword, component: ResetPasswordComponent },
   {
-    path: GlobalConstants.helpPath,
+    path: GlobalConstants.helpPath + "/:faqType",
     loadChildren: () => import('./faq/faq.module').then(m => m.FAQModule)
   },
   { path: GlobalConstants.error, component: ErrorPageComponent },
-  { path: '**', redirectTo: GlobalConstants.error }
+  { path: '**', redirectTo: GlobalConstants.error },
 ];
 
 export interface Tile {

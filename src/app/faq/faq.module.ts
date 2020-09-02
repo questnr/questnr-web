@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from 'shared/shared.module';
 import { FAQRoutingModule } from './faq-routing.module';
 import { FAQComponent } from './faq.component';
-import { RouterModule } from '@angular/router';
+import { CommunityPrivacyComponent } from './templates/community-privacy/community-privacy.component';
 
 @NgModule({
   declarations: [
-    FAQComponent
+    FAQComponent,
+    CommunityPrivacyComponent
   ],
   imports: [
     CommonModule,
