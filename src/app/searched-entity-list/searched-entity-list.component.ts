@@ -6,10 +6,10 @@ import { HashTag } from 'models/hashtag.model';
 import { Page } from 'models/page.model';
 import { User } from 'models/user.model';
 import { Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ApiService } from 'shared/api.service';
 import { GlobalConstants } from 'shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 declare var $: any;
 
 class FilterOption {
@@ -261,23 +261,22 @@ export class SearchedEntityListComponent implements OnInit, AfterViewInit, OnDes
     );
   }
 
+  findNextAvailableIndex(currentIndex: number): number {
+    let foundIndex = 0;
+    for (let index = 0; index < this.maxTabIndex; index++) {
+      if (currentIndex !== index && this.filterSearchOptionList[index].totalElements > 0) {
+        foundIndex = index;
+        break;
+      }
+    }
+    return foundIndex;
+  }
+
   toggleToNext(index: number) {
     setTimeout(() => {
-      if (index < this.maxTabIndex) {
-        let increamentIndex = this.selectedSearchOption + 1;
-        if (this.filterSearchOptionList[increamentIndex].totalElements > 0) {
-          this.selectedSearchOption = increamentIndex;
-        } else {
-          this.toggleToNext(increamentIndex);
-        }
-      }
-      if (index == this.maxTabIndex) {
-        let increamentIndex = this.minTabIndex
-        if (this.filterSearchOptionList[increamentIndex].totalElements > 0) {
-          this.selectedSearchOption = increamentIndex;
-        } else {
-          this.toggleToNext(increamentIndex);
-        }
+      let availableIndex = this.findNextAvailableIndex(index);
+      if (availableIndex !== index) {
+        this.selectedSearchOption = availableIndex;
       }
     }, 300);
   }
