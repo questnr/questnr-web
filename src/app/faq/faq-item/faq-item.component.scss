@@ -1,0 +1,12 @@
+@import "../../variables";
+
+.faq-item {
+    .mat-expansion-panel {
+        box-shadow: unset;
+    }
+    .faq-title {
+        font-weight: bold;
+    }
+    .faq-description {
+    }
+}

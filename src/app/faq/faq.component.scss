@@ -1,0 +1,47 @@
+@import "../variables";
+
+.faq-wrapper {
+    margin: 0.5rem 0rem;
+    .faq-container {
+        background: $white;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 60px;
+        height: 100vh;
+        width: 70%;
+    }
+}
+
+.template-container {
+    .header-wrapper {
+        .header {
+            color: $heading;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-bottom: 2px solid $grey;
+            padding-bottom: 10px;
+        }
+    }
+    .template-desciption {
+        color: $secondary-font-color;
+        padding: 10px 0px;
+        font-weight: 400;
+    }
+}
+
+.template-content {
+    .title-separator {
+        font-family: Optima;
+        font-size: 1.4rem;
+        padding: 15px 10px 0px;
+        font-weight: bold !important;
+    }
+}
+
+.template-container.desktop {
+    margin: 10px 100px;
+}
+
+.template-container.mobile {
+    margin: 10px 100px;
+}

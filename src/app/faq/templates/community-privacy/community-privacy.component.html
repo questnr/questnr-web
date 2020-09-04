@@ -1,0 +1,32 @@
+<div class="template-container" [ngClass]="mobileView ? 'mobile': 'desktop'">
+    <div class="header-wrapper">
+        <div class="header">Questnr FAQ - Community Privacy</div>
+    </div>
+    <div class="template-desciption">Community Privacy features help you to add restrictions on community content.</div>
+    <div class="template-content">
+        <div>
+            <div class="title-separator">Public Community</div>
+            <faq-item [title]="'How will requests be handled?'">
+                All the pending community join requests will be approved automatically.
+            </faq-item>
+            <faq-item [title]="'Who can view the content of the community?'">
+                All the community members and community posts will be visible to the public.
+            </faq-item>
+            <faq-item [title]="'Which can users join the community and does it need the approval?'">
+                Every Questnr user can join the community without admin's approval.
+            </faq-item>
+        </div>
+        <div>
+            <div class="title-separator">Private Community</div>
+            <faq-item [title]="'How can requests be approved?'">
+                All the requests has to be approved by the admin manually.
+            </faq-item>
+            <faq-item [title]="'Who can view the content of the community?'">
+                Community members and community posts will be visible only to the joined community members.
+            </faq-item>
+            <faq-item [title]="'Eligible for the list of trending community?'">
+                The community will not be displayed in the trending community section.
+            </faq-item>
+        </div>
+    </div>
+</div>

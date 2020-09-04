@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { KnowMoreLinkType } from 'models/know-more-type';
 import { GlobalConstants } from 'shared/constants';
 
 @Component({
@@ -8,12 +9,23 @@ import { GlobalConstants } from 'shared/constants';
   styleUrls: ['./faq.component.scss']
 })
 export class FAQComponent implements OnInit {
-  faqType: string;
+  KnowMoreLinkTypeClass = KnowMoreLinkType;
+  faqType: KnowMoreLinkType;
 
   constructor(private route: ActivatedRoute,
     private router: Router) {
-    this.faqType = this.route.snapshot.paramMap.get('faqType');
-    // console.log("this.faqType", this.faqType);
+    // let faqType = this.route.snapshot.paramMap.get('faqType') as KnowMoreLinkType;
+    // let faqTypeList = Object.keys(KnowMoreLinkType);
+    // console.log("faqTypeList", faqTypeList, faqType);
+    // for (let index = 0; index < faqTypeList.length; index++) {
+    //   console.log("KnowMoreLinkType[faqTypeList[index]]", KnowMoreLinkType[faqTypeList[index]]);
+    //   if (faqType == KnowMoreLinkType[faqTypeList[index]]) {
+    //     console.log("faqTypeList[index]", index, faqTypeList[index])
+    //     this.faqType = faqTypeList[index] as KnowMoreLinkType;
+    //   }
+    // }
+    this.faqType = this.route.snapshot.paramMap.get('faqType') as KnowMoreLinkType;
+    // console.log("this.faqType", this.faqType, this.faqType == this.KnowMoreLinkTypeClass.communityPrivacy);
     if (!this.faqType) {
       this.router.navigate(['/', GlobalConstants.error]);
     }

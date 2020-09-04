@@ -1,3 +1,3 @@
 export enum KnowMoreLinkType {
-    communityPrivacy = "communityPrivacy"
+    communityPrivacy = "community-privacy"
 }
