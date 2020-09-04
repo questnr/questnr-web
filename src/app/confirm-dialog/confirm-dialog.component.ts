@@ -28,7 +28,8 @@ export class ConfirmDialogComponent implements OnInit {
       mobileView: boolean,
       confirmDialogContentType: ConfirmDialogContentType
     },
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     if (this.data?.title) {
@@ -68,5 +69,9 @@ export class ConfirmDialogComponent implements OnInit {
       affectedElement.className += " " + classNameToAdd;
     }
     restElement.classList.remove(classNameToAdd);
+  }
+
+  clickEventListener() {
+    this.dialogRef.close();
   }
 }

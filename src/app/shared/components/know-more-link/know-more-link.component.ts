@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { KnowMoreLinkType } from 'models/know-more-type';
+import { GlobalConstants } from 'shared/constants';
 
 @Component({
   selector: 'know-more-link',
@@ -9,10 +10,18 @@ import { KnowMoreLinkType } from 'models/know-more-type';
 export class KnowMoreLinkComponent implements OnInit {
   @Input() knowMoreType: KnowMoreLinkType;
   @Input() knowMoreText?: string = "know more";
+  @Output() clickEvent = new EventEmitter();
+  helpPath: string = GlobalConstants.helpPath;
+  questnrPath: string = GlobalConstants.questnrPath;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  handleClick($event) {
+    $event.preventDefault();
+    this.clickEvent.emit();
+  }
 }

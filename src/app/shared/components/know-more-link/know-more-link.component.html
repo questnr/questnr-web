@@ -1,1 +1,3 @@
-<a class="link">{{knowMoreText}}</a>
+<a [routerLink]="['/', helpPath, questnrPath, knowMoreType]" class="link" (click)="handleClick($event)">
+    {{knowMoreText}}
+</a>
