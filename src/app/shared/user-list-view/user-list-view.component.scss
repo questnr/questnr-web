@@ -20,19 +20,19 @@
       height: 100%;
       border-radius: 10px;
     }
+    .username {
+      margin: 0 !important;
+      a {
+        text-decoration: none;
+      }
+      a:hover {
+        color: $primary;
+      }
+    }
     div {
       //display: table-cell;
       //vertical-align: middle;
       //height: 80px;
-      p {
-        margin: 0 !important;
-        a {
-          text-decoration: none;
-        }
-        a:hover {
-          color: $primary;
-        }
-      }
     }
   }
 }
@@ -45,14 +45,14 @@
     //}
     div {
       height: auto;
-    }
-    p {
-      width: 80px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      a {
-        text-decoration: none;
-        color: $primary;
+      .username {
+        width: 80px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        a {
+          text-decoration: none;
+          color: $primary;
+        }
       }
     }
   }
