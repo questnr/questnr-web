@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'faq-item',
@@ -8,9 +9,11 @@ import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 })
 export class FaqItemComponent implements OnInit {
   @Input() title: string = "TITLE";
-  constructor() { }
+  mobileView: boolean = false;
+  constructor(private _globalService: GlobalService) { }
 
   ngOnInit(): void {
+    this.mobileView = this._globalService.isMobileView();
   }
 
 }

@@ -1,7 +1,7 @@
 <app-user-header></app-user-header>
 
 <div class="faq-wrapper hide-scrollbar">
-    <div class="container faq-container hide-scrollbar">
+    <div class="container faq-container hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
         <div *ngIf="faqType === KnowMoreLinkTypeClass.communityPrivacy">
             <community-privacy-template></community-privacy-template>
         </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KnowMoreLinkType } from 'models/know-more-type';
 import { GlobalConstants } from 'shared/constants';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-faq',
@@ -11,9 +12,11 @@ import { GlobalConstants } from 'shared/constants';
 export class FAQComponent implements OnInit {
   KnowMoreLinkTypeClass = KnowMoreLinkType;
   faqType: KnowMoreLinkType;
+  mobileView: boolean = false;
 
   constructor(private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private _globalService: GlobalService) {
     let faqType = this.route.snapshot.paramMap.get('faqType') as KnowMoreLinkType;
     let faqTypeList = Object.keys(KnowMoreLinkType);
     // console.log("faqTypeList", faqTypeList, faqType);
@@ -33,6 +36,7 @@ export class FAQComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.mobileView = this._globalService.isMobileView();
   }
 
 }

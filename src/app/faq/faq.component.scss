@@ -8,7 +8,12 @@
         padding: 10px;
         margin-top: 60px;
         height: 100vh;
+    }
+    .faq-container.desktop {
         width: 70%;
+    }
+    .faq-container.mobile {
+        width: 100%;
     }
 }
 
@@ -16,10 +21,17 @@
     .header-wrapper {
         .header {
             color: $heading;
-            font-size: 1.2rem;
             font-weight: bold;
             border-bottom: 2px solid $grey;
             padding-bottom: 10px;
+        }
+        .header.desktop {
+            font-size: 1.6rem;
+            display: inline-flex;
+        }
+        .header.mobile {
+            font-size: 1.4rem;
+            display: block;
         }
     }
     .template-desciption {
@@ -30,12 +42,6 @@
 }
 
 .template-content {
-    .title-separator {
-        font-family: Optima;
-        font-size: 1.4rem;
-        padding: 15px 10px 0px;
-        font-weight: bold !important;
-    }
 }
 
 .template-container.desktop {
@@ -43,5 +49,5 @@
 }
 
 .template-container.mobile {
-    margin: 10px 100px;
+    margin: 10px 10px;
 }

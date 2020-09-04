@@ -4,9 +4,28 @@
     .mat-expansion-panel {
         box-shadow: unset;
     }
+    mat-expansion-panel.faq-expansion-panel {
+        padding: 0px 0px 3px !important;
+    }
+    .faq-expansion-panel mat-expansion-panel-header {
+        height: unset !important;
+        min-height: 45px !important;
+    }
     .faq-title {
         font-weight: bold;
     }
     .faq-description {
+    }
+}
+
+.faq-item.desktop {
+    .faq-title {
+        font-size: 1rem;
+    }
+}
+
+.faq-item.mobile {
+    .faq-title {
+        font-size: 1rem;
     }
 }

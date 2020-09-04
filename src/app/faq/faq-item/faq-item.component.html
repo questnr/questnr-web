@@ -1,5 +1,5 @@
-<div class="faq-item">
-    <mat-expansion-panel>
+<div class="faq-item" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+    <mat-expansion-panel class="faq-expansion-panel">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 <span class="faq-title">{{title}}</span>

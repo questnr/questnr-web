@@ -1,11 +1,14 @@
 <div class="template-container" [ngClass]="mobileView ? 'mobile': 'desktop'">
     <div class="header-wrapper">
-        <div class="header">Questnr FAQ - Community Privacy</div>
+        <div class="header" [ngClass]="mobileView ? 'mobile': 'desktop'">
+            <div>Questnr FAQ -&nbsp;</div>
+            <div>Community Privacy</div>
+        </div>
     </div>
     <div class="template-desciption">Community Privacy features help you to add restrictions on community content.</div>
     <div class="template-content">
         <div>
-            <div class="title-separator">Public Community</div>
+            <title-separator>Public Community</title-separator>
             <faq-item [title]="'How will requests be handled?'">
                 All the pending community join requests will be approved automatically.
             </faq-item>
@@ -17,7 +20,8 @@
             </faq-item>
         </div>
         <div>
-            <div class="title-separator">Private Community</div>
+            <title-separator>Private Community</title-separator>
+            <div class="title-separator" [ngClass]="mobileView ? 'mobile': 'desktop'"></div>
             <faq-item [title]="'How can requests be approved?'">
                 All the requests has to be approved by the admin manually.
             </faq-item>
