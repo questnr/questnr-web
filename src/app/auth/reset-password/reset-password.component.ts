@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomValidations } from '../custom-validations';
-import { GlobalConstants } from '../shared/constants';
-import { ResetPasswordService } from './reset-password.service';
 import { ActivatedRoute } from '@angular/router';
+import { CustomValidations } from '../../custom-validations';
+import { GlobalConstants } from '../../shared/constants';
+import { ResetPasswordService } from './reset-password.service';
 
 @Component({
   selector: 'app-reset-password',

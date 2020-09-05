@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { GlobalConstants } from '../shared/constants';
+import { GlobalConstants } from '../../shared/constants';
 import { ForgotPasswordService } from './forgot-password.service';
 
 @Component({

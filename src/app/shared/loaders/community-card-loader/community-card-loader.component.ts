@@ -18,6 +18,5 @@ export class CommunityCardLoaderComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     let width = this.communityCardLoader.nativeElement?.getBoundingClientRect()?.width;
     this.renderer2.setStyle(this.bannerRef.nativeElement, "height", width / 4 + "px");
-    console.log("this.communityCardLoader.nativeElement.width", this.communityCardLoader.nativeElement.getBoundingClientRect(), width);
   }
 }

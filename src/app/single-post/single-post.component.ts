@@ -4,10 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
+import { LoginSignupModalComponent } from 'auth/login-signup-modal/login-signup-modal.component';
 import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { GlobalService } from 'global.service';
-import { LoginSignupModalComponent } from 'login-signup-modal/login-signup-modal.component';
+import { ServerError } from 'models/common.model';
 import { PostActionForMedia, PostEditorType, PostMedia, ResourceType } from 'models/post-action.model';
 import { SinglePost } from 'models/single-post.model';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
@@ -105,6 +106,7 @@ export class SinglePostComponent implements OnInit {
   showUserHeader: boolean = false;
   defaultUserSrc: string = StaticMediaSrc.userFile;
   trackerInstance: TrackingInstance;
+  error: ServerError;
   @ViewChild("loginSignupModal") loginSignupModal: LoginSignupModalComponent;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
@@ -130,12 +132,19 @@ export class SinglePostComponent implements OnInit {
       return false;
     };
     this.route.data.subscribe((data: { singlePost: SinglePost }) => {
+      console.log("ERROR ", data);
+      if (data.singlePost.error) {
+        this.error = data.singlePost.error;
+        return;
+      }
       this.singlePost = data.singlePost;
       // console.log("this.singlePost", this.singlePost);
       this.startThread();
       this.isLoading = false;
       this._activityService.start(this.singlePost.postActionId, TrackingEntityType.post).then((trackerInstance: TrackingInstance) => {
         this.trackerInstance = trackerInstance;
+      }, (error) => {
+        // console.log("ERROR", error);
       });
     });
     // this.fetchPost(this.postSlug);
@@ -143,18 +152,20 @@ export class SinglePostComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    let loginSignupModalTitle;
-    if (this.showUserHeader) {
-      loginSignupModalTitle = `Follow ${this.singlePost.userDTO.username}`
-    } else {
-      loginSignupModalTitle = `Join ${this.singlePost.communityDTO.communityName} Community`;
-    }
-    setTimeout(() => {
-      // If user is not logged in, show LoginSignModal
-      if (!this.actionAllowed) {
-        this.loginSignupModal.open(loginSignupModalTitle);
+    if (!this.error) {
+      let loginSignupModalTitle;
+      if (this.showUserHeader) {
+        loginSignupModalTitle = `Follow ${this.singlePost.userDTO.username}`
+      } else {
+        loginSignupModalTitle = `Join ${this.singlePost.communityDTO.communityName} Community`;
       }
-    }, (7 * 1000))
+      setTimeout(() => {
+        // If user is not logged in, show LoginSignModal
+        if (!this.actionAllowed) {
+          this.loginSignupModal.open(loginSignupModalTitle);
+        }
+      }, (7 * 1000));
+    }
   }
 
   startThread() {
@@ -439,5 +450,18 @@ export class SinglePostComponent implements OnInit {
 
   downloadErrorListener($event) {
     this.loginSignupModal.open("Please Login/Sign Up");
+  }
+
+  shouldShowHeader(): boolean {
+    if (this.error && !this.loginService.loggedIn()) return true;
+    return (!(this.viewType === 0 && !this.mobileView)) && !this.loginService.loggedIn();
+  }
+
+  shouldShowUserHeader(): boolean {
+    if (this.error && this.loginService.loggedIn())
+      return true;
+    return ((this.viewType === 0 && this.mobileView) ||
+      (this.viewType === 1) || (this.viewType === 3) || ((this.singlePost?.postType === 'question'))) &&
+      this.loginService.loggedIn();
   }
 }

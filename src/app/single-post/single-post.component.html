@@ -1,211 +1,216 @@
-<app-header *ngIf="(!(viewType===0 && !mobileView)) && !loginService.loggedIn()"></app-header>
-<app-user-header
-  *ngIf="((viewType===0 && mobileView) || (viewType===1) || (viewType===3) || ((singlePost.postType==='question'))) && loginService.loggedIn()">
+<app-header *ngIf="shouldShowHeader()"></app-header>
+<app-user-header *ngIf="shouldShowUserHeader()">
 </app-user-header>
 
-<div *ngIf="singlePost.postType==='simple'">
-  <div class="container-header" [ngClass]="{'text-post': (viewType===1 || viewType===3)}">
-    <div class="row single-post-container"
-      [ngClass]="[viewType === 3 ? 'blog-container' : '', mobileView ? 'mobile' : 'desktop']">
-      <div class="col-lg-8 " style="padding: 0" *ngIf="viewType===0 || viewType === 2">
-        <div class="post-img-ctn">
-          <div *ngIf="viewMediaList?.length" class="post-media-window" id="post-media-window">
-            <owl-carousel-o [options]="customOptions">
-              <ng-container *ngFor="let media of singlePost.postMediaList;let i=index">
-                <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'image'">
-                  <!-- <img class="w-100" [src]="media.postMediaLink" alt="" (error)="onError(i)" (load)="onLoad(i)"> -->
+<div *ngIf="error; else singlePostContainer">
+</div>
 
-                  <div class="media">
-                    <div *ngIf="viewMediaList.length > 1" class="media-count">
-                      {{'('+(i+1)+'/'+(viewMediaList.length)+')'}}
+<ng-template #singlePostContainer>
+  <div *ngIf="singlePost?.postType==='simple'">
+    <div class="container-header" [ngClass]="{'text-post': (viewType===1 || viewType===3)}">
+      <div class="row single-post-container"
+        [ngClass]="[viewType === 3 ? 'blog-container' : '', mobileView ? 'mobile' : 'desktop']">
+        <div class="col-lg-8 " style="padding: 0" *ngIf="viewType===0 || viewType === 2">
+          <div class="post-img-ctn">
+            <div *ngIf="viewMediaList?.length" class="post-media-window" id="post-media-window">
+              <owl-carousel-o [options]="customOptions">
+                <ng-container *ngFor="let media of singlePost.postMediaList;let i=index">
+                  <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'image'">
+                    <!-- <img class="w-100" [src]="media.postMediaLink" alt="" (error)="onError(i)" (load)="onLoad(i)"> -->
+
+                    <div class="media">
+                      <div *ngIf="viewMediaList.length > 1" class="media-count">
+                        {{'('+(i+1)+'/'+(viewMediaList.length)+')'}}
+                      </div>
+                      <img class="post-media w-100" [src]="media.postMediaLink" alt="" (error)="onError(i)"
+                        (load)="onLoad(i)">
+                      <button class="reload-btn" *ngIf="errorOnImageIndexList.indexOf(i) > -1"
+                        (click)="onRefreshImageAtIndex(i)">
+                        <mat-icon>refresh</mat-icon>
+                      </button>
                     </div>
-                    <img class="post-media w-100" [src]="media.postMediaLink" alt="" (error)="onError(i)"
-                      (load)="onLoad(i)">
-                    <button class="reload-btn" *ngIf="errorOnImageIndexList.indexOf(i) > -1"
-                      (click)="onRefreshImageAtIndex(i)">
-                      <mat-icon>refresh</mat-icon>
-                    </button>
-                  </div>
-                </ng-template>
-                <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'video'">
-                  <mat-video color="accent" [src]="media.postMediaLink"></mat-video>
-                </ng-template>
-              </ng-container>
-            </owl-carousel-o>
-          </div>
-          <div class="logo" [routerLink]="['/', feedUrl]" *ngIf="!mobileView">
-            <img src="/assets/logo.png" alt="">
-          </div>
-          <div class="fullscreen" *ngIf="!mobileView">
-            <mat-icon *ngIf="!fullscreen" (click)="fullScreen()">fullscreen</mat-icon>
-            <mat-icon *ngIf="fullscreen" (click)="exitFullscreen()">fullscreen_exit</mat-icon>
+                  </ng-template>
+                  <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'video'">
+                    <mat-video color="accent" [src]="media.postMediaLink"></mat-video>
+                  </ng-template>
+                </ng-container>
+              </owl-carousel-o>
+            </div>
+            <div class="logo" [routerLink]="['/', feedUrl]" *ngIf="!mobileView">
+              <img src="/assets/logo.png" alt="">
+            </div>
+            <div class="fullscreen" *ngIf="!mobileView">
+              <mat-icon *ngIf="!fullscreen" (click)="fullScreen()">fullscreen</mat-icon>
+              <mat-icon *ngIf="fullscreen" (click)="exitFullscreen()">fullscreen_exit</mat-icon>
+            </div>
           </div>
         </div>
-      </div>
-      <div
-        [ngClass]="[((viewType===1) && !mobileView) ? 'none-media-post' : '', viewType!=3 ? 'col-lg-4 content-ctn': 'blog-data']">
-        <div class="post-head" id="post-head">
-          <div class="head-wrap" *ngIf="!showUserHeader">
-            <div class="profile-icon">
-              <app-profile-icon [isCommunityAvatar]="true" [avatar]="singlePost.communityDTO.avatarDTO" [height]="50"
-                [sizeRef]="'small'" [slug]="singlePost?.communityDTO?.slug">
-              </app-profile-icon>
-            </div>
-            <div class="profile-detail" *ngIf="singlePost.communityDTO">
-              <div class="head"><a class="username-link"
-                  [routerLink]="['/', userPath, singlePost.userDTO.slug]">{{singlePost?.userDTO?.username}}</a>
+        <div
+          [ngClass]="[((viewType===1) && !mobileView) ? 'none-media-post' : '', viewType!=3 ? 'col-lg-4 content-ctn': 'blog-data']">
+          <div class="post-head" id="post-head">
+            <div class="head-wrap" *ngIf="!showUserHeader">
+              <div class="profile-icon">
+                <app-profile-icon [isCommunityAvatar]="true" [avatar]="singlePost.communityDTO.avatarDTO" [height]="50"
+                  [sizeRef]="'small'" [slug]="singlePost?.communityDTO?.slug">
+                </app-profile-icon>
               </div>
-              <div class="subhead"> Posted in <a
-                  [routerLink]="['/', communityPath, singlePost?.communityDTO.slug]">{{singlePost?.communityDTO?.communityName}}</a>
-              </div>
-              <app-time-string [metaData]="singlePost.metaData"></app-time-string>
-            </div>
-          </div>
-          <div class="head-wrap" *ngIf="showUserHeader">
-            <app-profile-icon [avatar]="singlePost.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
-              [slug]="singlePost?.userDTO?.slug">
-            </app-profile-icon>
-            <div class="profile-detail">
-              <div class="head" *ngIf="singlePost?.userDTO?.username">
-                <a class="username-link"
-                  [routerLink]="['/', userPath, singlePost.userDTO.slug]">{{singlePost?.userDTO?.username}}</a>
-              </div>
-              <app-time-string [metaData]="singlePost.metaData"></app-time-string>
-            </div>
-            <div class="spacer"></div>
-          </div>
-          <!--          <div class="text" *ngIf="singlePost?.text && singlePost.text !== 'null'"-->
-          <!--               [innerHtml]="singlePost?.text">-->
-          <!--          </div>-->
-          <app-blog-title [blogTitle]="singlePost.postData.blogTitle" [onFeed]="false"></app-blog-title>
-          <div *ngIf="viewType === 3 && singlePost?.postMediaList?.length">
-            <media-container [postActionId]="singlePost?.postActionId" [viewMediaList]="viewMediaList"
-              *ngIf="viewMediaList?.length">
-            </media-container>
-          </div>
-          <div *ngIf="viewType != 3" class="text-container">
-            <app-feed-text [text]="displayText" [hashTagsData]="hashTagsData" [readMore]="readMore">
-            </app-feed-text>
-          </div>
-          <div *ngIf="viewType == 3" class="blog-text">
-            <app-rich-text [content]="displayText">
-            </app-rich-text>
-          </div>
-          <app-attached-file-list (downloadError)="downloadErrorListener($event)"
-            [attachedFileLinkList]="applicationMediaList"></app-attached-file-list>
-          <app-meta-card *ngIf="iFramelyData?.url && !mobileView" [iFramelyData]="iFramelyData"></app-meta-card>
-          <div *ngIf="isYouTubeVideoLink" class="y-video-container">
-            <iframe [src]="safeYoutubeLink" width="100%" height="100%" frameborder="0" webkitallowfullscreen
-              mozallowfullscreen allowfullscreen></iframe>
-          </div>
-          <div class="count-box">
-            <div><span>{{singlePost.postActionMeta.totalLikes ? singlePost.postActionMeta.totalLikes : 0}} </span>
-              {{singlePost.postActionMeta.totalLikes > 1 ? 'Likes' : 'Like'}}</div>
-            <div class="dot"></div>
-            <div><span> {{singlePost.postActionMeta.totalComments ? singlePost.postActionMeta.totalComments : 0}}
-              </span>
-              {{singlePost.postActionMeta.totalComments > 1 ? 'Comments' : 'Comment'}} </div>
-          </div>
-          <div class="footer-wrap row" [ngClass]="mobileView ? 'mobile' : 'desktop'">
-            <div class="row">
-              <button mat-button [disabled]="isLoading" (click)="likePost(singlePost.postActionId)"
-                [ngClass]="[singlePost?.postActionMeta?.liked? 'liked':'', actionAllowed ? '' : 'disabled-button']"
-                [disabled]="!actionAllowed">
-                <mat-icon [innerHtml]="singlePost?.postActionMeta?.liked?'favorite' :'favorite_border'"></mat-icon>
-                &nbsp;
-                <span [innerHtml]="singlePost?.postActionMeta?.liked?'Liked' :'Like'"> Like </span>
-              </button>
-              <button [ngClass]="actionAllowed ? '' : 'disabled-button'" mat-button (click)="toggleComments()"
-                [disabled]="!actionAllowed">
-                <mat-icon>insert_comment</mat-icon> &nbsp;
-                <span> Comment </span>
-              </button>
-              <button mat-button (click)="openShareDialog()">
-                <mat-icon>share</mat-icon> &nbsp;
-                <span> Share </span>
-              </button>
-            </div>
-            <div class="row">
-              <app-login-register-btn *ngIf="!actionAllowed" class="login-register-btn"
-                [ngClass]="mobileView ? 'mobile' : 'desktop'" [openNewTab]="true">
-              </app-login-register-btn>
-            </div>
-          </div>
-          <hr style="margin: 0">
-          <div class="comments" *ngIf="loginService.loggedIn()">
-            <div class="wrap">
-              <div class="wrap-items">
-                <button mat-button (click)="getComments()">Load more
-                  comments</button>
-                <div class="loader" *ngIf="isCommentLoading" style="justify-content: flex-start;">
-                  <ngx-skeleton-loader count="1" appearance="circle"
-                    [theme]="{height: '45px', width: '45px','background-color': '#eee'}"> </ngx-skeleton-loader>
-                  <ngx-skeleton-loader class="w-50" count="1" appearance="line" [theme]="{'border-radius': '10px',
-                    height: '60px','background-color': '#eee'}"></ngx-skeleton-loader>
+              <div class="profile-detail" *ngIf="singlePost.communityDTO">
+                <div class="head"><a class="username-link"
+                    [routerLink]="['/', userPath, singlePost.userDTO.slug]">{{singlePost?.userDTO?.username}}</a>
                 </div>
-                <div *ngIf="singlePost.commentActionList?.length">
-                  <div class="comment-box" *ngFor="let comment of singlePost.commentActionList">
-                    <app-comment-box class="comment-item" [comment]="comment" (reply)="replyTo($event)"
-                      [post]="singlePost" (deleteEvent)="deleteComment($event)">
-                    </app-comment-box>
-                    <div class="subComments" *ngIf="comment.childCommentDTOSet?.length">
-                      <div class="child-comment" *ngFor="let item of comment.childCommentDTOSet">
-                        <app-comment-box class="comment-item" [comment]="item" [parentComment]="comment"
-                          (reply)="replyTo($event)" [post]="singlePost" (deleteEvent)="deleteComment($event)">
-                        </app-comment-box>
+                <div class="subhead"> Posted in <a
+                    [routerLink]="['/', communityPath, singlePost?.communityDTO.slug]">{{singlePost?.communityDTO?.communityName}}</a>
+                </div>
+                <app-time-string [metaData]="singlePost.metaData"></app-time-string>
+              </div>
+            </div>
+            <div class="head-wrap" *ngIf="showUserHeader">
+              <app-profile-icon [avatar]="singlePost.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'"
+                [slug]="singlePost?.userDTO?.slug">
+              </app-profile-icon>
+              <div class="profile-detail">
+                <div class="head" *ngIf="singlePost?.userDTO?.username">
+                  <a class="username-link"
+                    [routerLink]="['/', userPath, singlePost.userDTO.slug]">{{singlePost?.userDTO?.username}}</a>
+                </div>
+                <app-time-string [metaData]="singlePost.metaData"></app-time-string>
+              </div>
+              <div class="spacer"></div>
+            </div>
+            <!--          <div class="text" *ngIf="singlePost?.text && singlePost.text !== 'null'"-->
+            <!--               [innerHtml]="singlePost?.text">-->
+            <!--          </div>-->
+            <app-blog-title [blogTitle]="singlePost.postData.blogTitle" [onFeed]="false"></app-blog-title>
+            <div *ngIf="viewType === 3 && singlePost?.postMediaList?.length">
+              <media-container [postActionId]="singlePost?.postActionId" [viewMediaList]="viewMediaList"
+                *ngIf="viewMediaList?.length">
+              </media-container>
+            </div>
+            <div *ngIf="viewType != 3" class="text-container">
+              <app-feed-text [text]="displayText" [hashTagsData]="hashTagsData" [readMore]="readMore">
+              </app-feed-text>
+            </div>
+            <div *ngIf="viewType == 3" class="blog-text">
+              <app-rich-text [content]="displayText">
+              </app-rich-text>
+            </div>
+            <app-attached-file-list (downloadError)="downloadErrorListener($event)"
+              [attachedFileLinkList]="applicationMediaList"></app-attached-file-list>
+            <app-meta-card *ngIf="iFramelyData?.url && !mobileView" [iFramelyData]="iFramelyData"></app-meta-card>
+            <div *ngIf="isYouTubeVideoLink" class="y-video-container">
+              <iframe [src]="safeYoutubeLink" width="100%" height="100%" frameborder="0" webkitallowfullscreen
+                mozallowfullscreen allowfullscreen></iframe>
+            </div>
+            <div class="count-box">
+              <div><span>{{singlePost.postActionMeta.totalLikes ? singlePost.postActionMeta.totalLikes : 0}} </span>
+                {{singlePost.postActionMeta.totalLikes > 1 ? 'Likes' : 'Like'}}</div>
+              <div class="dot"></div>
+              <div><span> {{singlePost.postActionMeta.totalComments ? singlePost.postActionMeta.totalComments : 0}}
+                </span>
+                {{singlePost.postActionMeta.totalComments > 1 ? 'Comments' : 'Comment'}} </div>
+            </div>
+            <div class="footer-wrap row" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+              <div class="row">
+                <button mat-button [disabled]="isLoading" (click)="likePost(singlePost.postActionId)"
+                  [ngClass]="[singlePost?.postActionMeta?.liked? 'liked':'', actionAllowed ? '' : 'disabled-button']"
+                  [disabled]="!actionAllowed">
+                  <mat-icon [innerHtml]="singlePost?.postActionMeta?.liked?'favorite' :'favorite_border'"></mat-icon>
+                  &nbsp;
+                  <span [innerHtml]="singlePost?.postActionMeta?.liked?'Liked' :'Like'"> Like </span>
+                </button>
+                <button [ngClass]="actionAllowed ? '' : 'disabled-button'" mat-button (click)="toggleComments()"
+                  [disabled]="!actionAllowed">
+                  <mat-icon>insert_comment</mat-icon> &nbsp;
+                  <span> Comment </span>
+                </button>
+                <button mat-button (click)="openShareDialog()">
+                  <mat-icon>share</mat-icon> &nbsp;
+                  <span> Share </span>
+                </button>
+              </div>
+              <div class="row">
+                <app-login-register-btn *ngIf="!actionAllowed" class="login-register-btn"
+                  [ngClass]="mobileView ? 'mobile' : 'desktop'" [openNewTab]="true">
+                </app-login-register-btn>
+              </div>
+            </div>
+            <hr style="margin: 0">
+            <div class="comments" *ngIf="loginService.loggedIn()">
+              <div class="wrap">
+                <div class="wrap-items">
+                  <button mat-button (click)="getComments()">Load more
+                    comments</button>
+                  <div class="loader" *ngIf="isCommentLoading" style="justify-content: flex-start;">
+                    <ngx-skeleton-loader count="1" appearance="circle"
+                      [theme]="{height: '45px', width: '45px','background-color': '#eee'}"> </ngx-skeleton-loader>
+                    <ngx-skeleton-loader class="w-50" count="1" appearance="line" [theme]="{'border-radius': '10px',
+                    height: '60px','background-color': '#eee'}"></ngx-skeleton-loader>
+                  </div>
+                  <div *ngIf="singlePost.commentActionList?.length">
+                    <div class="comment-box" *ngFor="let comment of singlePost.commentActionList">
+                      <app-comment-box class="comment-item" [comment]="comment" (reply)="replyTo($event)"
+                        [post]="singlePost" (deleteEvent)="deleteComment($event)">
+                      </app-comment-box>
+                      <div class="subComments" *ngIf="comment.childCommentDTOSet?.length">
+                        <div class="child-comment" *ngFor="let item of comment.childCommentDTOSet">
+                          <app-comment-box class="comment-item" [comment]="item" [parentComment]="comment"
+                            (reply)="replyTo($event)" [post]="singlePost" (deleteEvent)="deleteComment($event)">
+                          </app-comment-box>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="comment-wrapper-container" *ngIf="loginService.loggedIn()">
-                <div class="comment-user-interaction">
-                  <div class="profile-icon">
-                    <img [src]="loginService.profileImg ? loginService.profileImg : defaultUserSrc ">
-                  </div>
-                  <div class="comment-wrapper">
-                    <span *ngIf="replyingTo">{{replyingTo.username}}</span>
-                    <input type="text" [formControl]="comment" #commentInput
-                      [placeholder]="replyingTo? 'Reply to ' + replyingTo.username : 'Write a Comment..'"
-                      (keyup.enter)="postComment(singlePost.postActionId)">
-                    <app-emoticons [userInputRef]="commentInputRef"></app-emoticons>
-                    <button mat-icon-button color="accent" (click)="postComment(singlePost.postActionId)"
-                      [disabled]="!comment.valid">
-                      <mat-icon>send</mat-icon>
-                    </button>
-                  </div>
-                  <div class="comment-features">
-                    <div class="comment-feature">
-                      <input type="file" (change)="selectFiles($event)" multiple accept="image/*,application/*"
-                        #commentAttachFileInput />
-                      <mat-icon class="attach-file" (click)="openFileSelector()">attachment</mat-icon>
+                <div class="comment-wrapper-container" *ngIf="loginService.loggedIn()">
+                  <div class="comment-user-interaction">
+                    <div class="profile-icon">
+                      <img [src]="loginService.profileImg ? loginService.profileImg : defaultUserSrc ">
+                    </div>
+                    <div class="comment-wrapper">
+                      <span *ngIf="replyingTo">{{replyingTo.username}}</span>
+                      <input type="text" [formControl]="comment" #commentInput
+                        [placeholder]="replyingTo? 'Reply to ' + replyingTo.username : 'Write a Comment..'"
+                        (keyup.enter)="postComment(singlePost.postActionId)">
+                      <app-emoticons [userInputRef]="commentInputRef"></app-emoticons>
+                      <button mat-icon-button color="accent" (click)="postComment(singlePost.postActionId)"
+                        [disabled]="!comment.valid">
+                        <mat-icon>send</mat-icon>
+                      </button>
+                    </div>
+                    <div class="comment-features">
+                      <div class="comment-feature">
+                        <input type="file" (change)="selectFiles($event)" multiple accept="image/*,application/*"
+                          #commentAttachFileInput />
+                        <mat-icon class="attach-file" (click)="openFileSelector()">attachment</mat-icon>
+                      </div>
                     </div>
                   </div>
+                  <app-attached-file-list
+                    (finalizedAttachedFileListListener)="finalizedAttachedFileListListener($event)"
+                    #attachedFileListComponent></app-attached-file-list>
                 </div>
-                <app-attached-file-list (finalizedAttachedFileListListener)="finalizedAttachedFileListListener($event)"
-                  #attachedFileListComponent></app-attached-file-list>
-              </div>
-              <!-- <div class="comment-box-wrap">
+                <!-- <div class="comment-box-wrap">
             <button mat-stroked-button [routerLink]="['/', loginURL]" style="width: 100%" *ngIf="!actionAllowed">Login
               To Comment</button>
           </div> -->
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div *ngIf="singlePost.postType==='question'" style="position: relative; height: 100%">
-  <div class="container question-ctn">
-    <div class="row">
-      <div class="col-md-12">
-        <app-question-ui [question]="singlePost"></app-question-ui>
+  <div *ngIf="singlePost?.postType==='question'" style="position: relative; height: 100%">
+    <div class="container question-ctn">
+      <div class="row">
+        <div class="col-md-12">
+          <app-question-ui [question]="singlePost"></app-question-ui>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
-<login-signup-modal [publicEntityId]="singlePost?.postActionId" #loginSignupModal></login-signup-modal>
+  <login-signup-modal [publicEntityId]="singlePost?.postActionId" #loginSignupModal></login-signup-modal>
+</ng-template>

@@ -2,24 +2,23 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MetaGuard } from '@ngx-meta/core';
 import { AuthGuard } from 'auth/auth.guard';
+import { ForgotPasswordComponent } from 'auth/forgot-password/forgot-password.component';
+import { LoginPageComponent } from 'auth/login-page/login-page.component';
+import { ResetPasswordComponent } from 'auth/reset-password/reset-password.component';
+import { SignUpPageComponent } from 'auth/sign-up-page/sign-up-page.component';
 import { CookiePolicyComponent } from 'cookie-policy/cookie-policy.component';
 import { FeedsFrameComponent } from 'feeds-frame/feeds-frame.component';
 import { LandingPageResolve } from 'landing-page/landing-page.resolve';
 import { PolicyComponent } from 'policy/policy.component';
 import { GlobalConstants } from 'shared/constants';
-import { SinglePostComponent } from 'single-post/single-post.component';
 import { SinglePostResolve } from 'single-post/single-post.resolve';
 import { TermsComponent } from 'terms/terms.component';
 import { CommunityComponent } from './community/community.component';
 import { CommunityResolve } from './community/community.resolve';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { ExploreComponent } from './explore/explore.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { HeaderComponent } from './header/header.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 
 const routes: Routes = [
@@ -40,7 +39,8 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: GlobalConstants.postPath + '/:postSlug', component: SinglePostComponent,
+    path: GlobalConstants.postPath + '/:postSlug',
+    loadChildren: () => import('./single-post/single-post.module').then(m => m.SinglePostModule),
     resolve: { singlePost: SinglePostResolve }
   },
   { path: GlobalConstants.userPath + '/:userSlug', component: UserProfilePageComponent, canActivate: [AuthGuard] },

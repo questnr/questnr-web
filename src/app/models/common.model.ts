@@ -40,3 +40,8 @@ export class Tag {
     }
     value: string;
 }
+
+export class ServerError {
+    errorMessage: string;
+    requestedURI: string;
+}
