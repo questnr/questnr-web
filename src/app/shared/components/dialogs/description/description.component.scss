@@ -1,16 +1,16 @@
 @import "./src/app/variables";
 
-.Heading{
+.Heading {
   padding: 10px 20px 0;
 }
-.description{
+.description {
   padding: 10px 20px;
   position: relative;
-  .description-text{
+  .description-text {
     padding: 10px 13px;
   }
-  .edit-description{
-    border: 1px solid $grey;
+  .edit-description {
+    border: 1px solid $gray;
     font-size: 14px;
     padding: 11px 12px;
     line-height: 16px;
@@ -18,32 +18,32 @@
     color: #282c3f;
     width: 100%;
   }
-  div{
+  div {
     position: absolute;
     bottom: 4%;
     right: 2%;
     margin: -4px;
     cursor: pointer;
-    mat-icon{
+    mat-icon {
       font-size: 18px;
     }
-    .spinner-border{
+    .spinner-border {
       position: relative;
       top: -3px;
       left: -4px;
     }
   }
-  .edit-action{
+  .edit-action {
     padding: 2px;
     //border: 1px solid $primary;
     margin-right: 4px;
   }
 }
-hr{
+hr {
   margin: 8px 0;
 }
 
-.desc_container{
+.desc_container {
   //background-position: center !important;
   //background-size: cover !important;
   //background-repeat: no-repeat !important;

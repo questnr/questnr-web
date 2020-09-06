@@ -15,7 +15,7 @@ export class Post {
   userDTO: User;
   communityDTO: Community;
   metaData: MetaData;
-  postType: string;
+  postType: PostType;
   postActionMeta: PostActionMeta;
   likeActionList: LikeAction[];
   commentActionList: CommentAction[];
@@ -70,4 +70,9 @@ export class PollQuestion {
 export class PollQuestionMeta {
   pollAnswer: string;
   totalAnswered: number;
+}
+
+export enum PostType {
+  simple = "simple",
+  question = "question"
 }

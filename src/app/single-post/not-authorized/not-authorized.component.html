@@ -1,0 +1,10 @@
+<div class="wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+    <div class="header">
+        You don't have permission to view this content.
+    </div>
+    <div class="sub-header" *ngIf="community">
+        <div>This content belongs to&nbsp;<a
+                [routerLink]="['/', communityPath, community.slug]">{{community.communityName}}</a></div>
+        <span>(To view the content follow this community)</span>
+    </div>
+</div>

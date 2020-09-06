@@ -9,7 +9,7 @@ import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { GlobalService } from 'global.service';
 import { ServerError } from 'models/common.model';
-import { PostActionForMedia, PostEditorType, PostMedia, ResourceType } from 'models/post-action.model';
+import { PostActionForMedia, PostEditorType, PostMedia, ResourceType, PostType } from 'models/post-action.model';
 import { SinglePost } from 'models/single-post.model';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -106,8 +106,9 @@ export class SinglePostComponent implements OnInit {
   showUserHeader: boolean = false;
   defaultUserSrc: string = StaticMediaSrc.userFile;
   trackerInstance: TrackingInstance;
-  error: ServerError;
+  error: boolean = false;
   @ViewChild("loginSignupModal") loginSignupModal: LoginSignupModalComponent;
+  PostTypeClass = PostType;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
     public loginService: LoginService,
@@ -132,9 +133,10 @@ export class SinglePostComponent implements OnInit {
       return false;
     };
     this.route.data.subscribe((data: { singlePost: SinglePost }) => {
-      console.log("ERROR ", data);
-      if (data.singlePost.error) {
-        this.error = data.singlePost.error;
+      // console.log("ERROR ", data);
+      if (data.singlePost.errorMessage) {
+        this.error = true;
+        this.singlePost = data.singlePost;
         return;
       }
       this.singlePost = data.singlePost;
@@ -232,7 +234,8 @@ export class SinglePostComponent implements OnInit {
 
   ngOnDestroy() {
     this.uiService.resetTitle();
-    this.trackerInstance.destroy();
+    if (this.trackerInstance)
+      this.trackerInstance.destroy();
   }
 
   // fetchPost(postSlug: string) {
@@ -461,7 +464,7 @@ export class SinglePostComponent implements OnInit {
     if (this.error && this.loginService.loggedIn())
       return true;
     return ((this.viewType === 0 && this.mobileView) ||
-      (this.viewType === 1) || (this.viewType === 3) || ((this.singlePost?.postType === 'question'))) &&
+      (this.viewType === 1) || (this.viewType === 3) || ((this.singlePost?.postType === PostType.question))) &&
       this.loginService.loggedIn();
   }
 }

@@ -2,11 +2,14 @@
 <app-user-header *ngIf="shouldShowUserHeader()">
 </app-user-header>
 
-<div *ngIf="error; else singlePostContainer">
+<div class="container error-wrapper hide-scrollbar" *ngIf="error; else singlePostContainer">
+  <div class="not-authorized" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+    <app-not-authorized [community]="singlePost?.communityDTO"></app-not-authorized>
+  </div>
 </div>
 
 <ng-template #singlePostContainer>
-  <div *ngIf="singlePost?.postType==='simple'">
+  <div *ngIf="singlePost?.postType===PostTypeClass.simple">
     <div class="container-header" [ngClass]="{'text-post': (viewType===1 || viewType===3)}">
       <div class="row single-post-container"
         [ngClass]="[viewType === 3 ? 'blog-container' : '', mobileView ? 'mobile' : 'desktop']">

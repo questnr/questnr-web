@@ -569,7 +569,7 @@ input:focus {
     align-items: center;
     justify-content: center;
     color: $accent;
-    border-left: 1px solid $grey;
+    border-left: 1px solid $gray;
     line-height: 7px;
     flex-direction: column-reverse;
     div {
@@ -621,7 +621,7 @@ input:focus {
     align-items: center;
     justify-content: center;
     color: $accent;
-    border-right: 1px solid $grey;
+    border-right: 1px solid $gray;
     line-height: 7px;
     flex-direction: column-reverse;
     div {
@@ -685,7 +685,7 @@ input:focus {
   z-index: 1005;
   background-color: #ffffff;
   opacity: 1;
-  box-shadow: 0 20px 50px $grey;
+  box-shadow: 0 20px 50px $gray;
   border-radius: 10px;
   overflow: hidden;
   display: flex;

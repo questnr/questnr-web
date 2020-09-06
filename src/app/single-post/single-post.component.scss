@@ -1,7 +1,22 @@
 @import "../variables";
 
+.error-wrapper {
+  background: $white;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .not-authorized {
+  }
+  .not-authorized.desktop {
+    margin-top: 60px;
+  }
+  .not-authorized.mobile {
+    margin-top: 60px;
+  }
+}
+
 .single-post-container {
-  background: #ffffff;
+  background: $white;
 }
 
 .single-entity {
@@ -17,20 +32,20 @@
 .post-media-window {
   flex: 65%;
   width: inherit;
-  .media{
+  .media {
     margin: auto;
     background-color: #000;
     display: flex;
     position: relative;
     min-height: 100px;
-    .post-media{
+    .post-media {
       margin: auto;
       max-width: 100%;
       width: auto;
       height: auto;
       z-index: 1;
     }
-    .media-count{
+    .media-count {
       position: absolute;
       top: 10px;
       right: 10px;
@@ -120,12 +135,12 @@
   }
 }
 
-.footer-wrap.mobile{
+.footer-wrap.mobile {
   justify-content: center;
   padding: 1rem;
 }
 
-.footer-wrap.desktop{
+.footer-wrap.desktop {
   justify-content: space-between;
   margin: 1rem;
 }
@@ -135,7 +150,7 @@
   align-items: center;
 }
 
-.show{
+.show {
   display: none !important;
 }
 button.liked {
@@ -157,7 +172,6 @@ button.liked {
 .subComments {
   margin-left: 40px;
 }
-
 
 .post-img-ctn {
   margin: auto;
@@ -181,7 +195,6 @@ button.liked {
     filter: blur(5px);
     opacity: 0.5;
   }
-
 }
 
 .content-ctn {
@@ -189,8 +202,7 @@ button.liked {
   padding: 0;
 }
 
-
-.comment-wrapper-container{
+.comment-wrapper-container {
   display: flex;
   flex-direction: column;
   // width: calc(100% - 10px);
@@ -204,18 +216,18 @@ button.liked {
     margin: auto 10px;
     height: 40px;
   }
-  .comment-user-interaction{
+  .comment-user-interaction {
     display: flex;
     align-items: center;
-    .comment-features{
+    .comment-features {
       display: flex;
       align-items: center;
       margin: 0.6rem;
-      .comment-feature{
-        input[type="file"]{
+      .comment-feature {
+        input[type="file"] {
           display: none;
         }
-        .attach-file{
+        .attach-file {
           cursor: pointer;
           width: 20px;
           height: auto;
@@ -223,8 +235,7 @@ button.liked {
       }
     }
   }
-  app-attached-file{
-      
+  app-attached-file {
   }
   .comment-wrapper {
     background: #eee;
@@ -318,7 +329,7 @@ button.liked {
 //   }
 // }
 
-.logo{
+.logo {
   width: 50px;
   height: 50px;
   position: absolute;
@@ -326,11 +337,11 @@ button.liked {
   left: 0;
   margin: 10px;
   z-index: 1;
-  img{
+  img {
     width: 100%;
   }
 }
-.fullscreen{
+.fullscreen {
   width: 50px;
   height: 50px;
   position: absolute;
@@ -338,32 +349,32 @@ button.liked {
   right: 0;
   margin: 10px;
   z-index: 1;
-  mat-icon{
+  mat-icon {
     color: $white;
     font-size: 50px;
   }
 }
 
-@media screen and (max-width: 786px)  {
-  .post-img-ctn{
+@media screen and (max-width: 786px) {
+  .post-img-ctn {
     margin-top: 54px;
     height: auto !important;
     min-height: auto !important;
   }
-  .show{
+  .show {
     display: block;
   }
-  .head-wrap{
+  .head-wrap {
     padding: 0 8px !important;
   }
-  .profile-icon{
+  .profile-icon {
     width: 44px !important;
     height: 44px !important;
   }
-  .comment-box-wrap{
+  .comment-box-wrap {
     position: relative;
   }
-  .profile-detail{
+  .profile-detail {
     padding: 8px !important;
   }
 }
@@ -402,46 +413,46 @@ button.liked {
   }
 }
 
-.none-media-post{
+.none-media-post {
   margin: auto;
   min-width: 1000px;
   border-radius: 10px;
   overflow: hidden;
 }
 
-.text-post{
+.text-post {
   margin-top: 54px;
 }
 
-.text-container{
+.text-container {
   max-height: 300px;
   overflow: scroll;
 }
 
-.blog-data{
+.blog-data {
   width: 100%;
 }
 
-.blog-text{
+.blog-text {
   font-size: 1.2rem;
   color: #212121;
 }
 
-.blog-container.desktop{
+.blog-container.desktop {
   margin: 0 calc(20vw);
   padding: 0 50px;
 }
 
-.blog-container.mobile{
+.blog-container.mobile {
   margin: 0;
   padding: 0 10px;
 }
 
-.subComments{
+.subComments {
   margin-left: 40px;
 }
 
-.question-ctn{
+.question-ctn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -455,22 +466,22 @@ button.liked {
   max-width: none;
 }
 
-@media screen  and (max-width: $tablet) {
-  .question-ctn{
+@media screen and (max-width: $tablet) {
+  .question-ctn {
     margin-top: 54px;
     display: block;
   }
 }
 
-.disabled-button{
+.disabled-button {
   cursor: not-allowed !important;
 }
 
-.login-register-btn{
+.login-register-btn {
   display: flex;
   align-items: center;
 }
 
-.login-register-btn.mobile{
+.login-register-btn.mobile {
   padding: 7px;
 }

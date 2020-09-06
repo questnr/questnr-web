@@ -4,5 +4,6 @@ import { Post } from './post-action.model';
 export class SinglePost extends Post {
     metaTagCard: MetaTagCard;
     title: string;
-    error: ServerError
+    hasError: boolean;
+    errorMessage: string;
 }

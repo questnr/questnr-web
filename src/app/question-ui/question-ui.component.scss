@@ -10,7 +10,7 @@
   .question-ctn {
     padding: 20px;
     border-radius: 10px;
-    background: $white url('/assets/logo.png');
+    background: $white url("/assets/logo.png");
     background-position: top -130px right 0px !important;
     background-size: contain;
     background-repeat: no-repeat;
@@ -64,7 +64,7 @@
     .answer-box {
       padding: 10px;
       border-radius: 30px;
-      border: 1px solid $grey;
+      border: 1px solid $gray;
       background: $white;
       display: flex;
       justify-content: flex-start;
@@ -78,14 +78,14 @@
       .answer-text {
         width: 88%;
       }
-      .ans-ratio{
+      .ans-ratio {
         display: block;
       }
 
       .icon {
         color: $black;
         border-radius: 50%;
-        border: 1px solid $grey;
+        border: 1px solid $gray;
         height: 30px;
         width: 30px;
         justify-content: center;
@@ -115,7 +115,7 @@
     }
 
     .answer-box:hover {
-      background: $grey;
+      background: $gray;
     }
 
     .answer-box:hover .icon {
@@ -129,7 +129,8 @@
   position: relative;
 }
 
-.effect5:before, .effect5:after {
+.effect5:before,
+.effect5:after {
   z-index: -1;
   position: absolute;
   content: "";
@@ -159,21 +160,20 @@
   left: auto;
 }
 
-
 @media screen and (max-width: $tablet) {
-  .question-card{
+  .question-card {
     padding: 0 !important;
     margin: 24px 0 !important;
   }
 }
 
-.show{
+.show {
   display: block !important;
 }
-.hide{
-  display: none !important;;
+.hide {
+  display: none !important;
 }
-.response{
+.response {
   display: none;
 }
 //.agree{

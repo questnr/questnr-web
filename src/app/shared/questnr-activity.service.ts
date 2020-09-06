@@ -61,7 +61,8 @@ export class QuestnrActivityService {
         let trackingInstance = new TrackingInstance();
         trackingInstance.activityInterval = activityInterval;
         trackingInstance.destroy = function () {
-          clearInterval(this.activityInterval);
+          if (this.activityInterval)
+            clearInterval(this.activityInterval);
         }
         resolve(trackingInstance);
       });

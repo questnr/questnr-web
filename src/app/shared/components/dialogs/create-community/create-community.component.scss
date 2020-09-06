@@ -1,17 +1,17 @@
-@import '../../../../variables';
-@import '../../../../app.component.scss';
+@import "../../../../variables";
+@import "../../../../app.component.scss";
 //
 //.createCommuCommunity input{
 //  width: 100%;
 //  //padding: 20px;
 //  font-size: 14px;
 //  //background: #ffffff;
-//  //border: 1px solid $grey;
+//  //border: 1px solid $gray;
 //}
 //
 //.createCommuCommunity button{
 //  width: 100%;
-//  background: $grey !important;
+//  background: $gray !important;
 //  text-transform: capitalize !important;
 //  letter-spacing: 1px;
 //  font-family: Serif;
@@ -45,33 +45,32 @@
 //}
 //
 
-.create-community-wrapper{
+.create-community-wrapper {
   .mat-horizontal-stepper-header-container {
-      display: flex !important;
+    display: flex !important;
   }
-  .mat-form-field.mat-focused .mat-form-field-ripple{
+  .mat-form-field.mat-focused .mat-form-field-ripple {
     background-color: $heading;
   }
-  
-  .mat-input-element{
+
+  .mat-input-element {
     caret-color: $heading;
   }
 
   .mat-step-header {
-
     .mat-step-icon-selected {
       background-color: $accent;
     }
-  
+
     .mat-step-icon-state-done {
       background-color: $primary;
     }
-  
+
     .mat-step-icon-state-check {
-      background-color: $grey;
+      background-color: $gray;
     }
   }
-  
+
   .mat-form-field-label {
     color: $heading;
   }
@@ -79,32 +78,32 @@
   .mat-progress-bar-fill::after {
     background-color: $heading;
   }
-  
+
   .mat-progress-bar-buffer {
-    background: $grey;
+    background: $gray;
   }
-  
+
   .mat-progress-bar {
     border-radius: 2px;
   }
 }
 
-mat-dialog-container{
+mat-dialog-container {
   padding: 0 !important;
 }
-.mat-dialog-container{
- border-radius: 10px;
+.mat-dialog-container {
+  border-radius: 10px;
   padding: 0px !important;
 }
 
-.cret-com-container{
+.cret-com-container {
   padding: 10px;
   position: relative;
   background: $black;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  .back-drop{
+  .back-drop {
     position: absolute;
     width: 100%;
     height: 50%;
@@ -118,13 +117,13 @@ mat-dialog-container{
 //     width: 100vw !important;
 //   }
 // }
-.cret-com-container-desktop{
-  max-width: 80vW;
+.cret-com-container-desktop {
+  max-width: 80vw;
 }
-.cret-com-container-mobile{
-  max-width: 100vW;
+.cret-com-container-mobile {
+  max-width: 100vw;
 }
-.com-img-container{
+.com-img-container {
   position: relative;
   width: 100%;
   max-height: 350px;
@@ -132,7 +131,7 @@ mat-dialog-container{
   overflow: hidden;
   display: flex;
   justify-content: center;
-  img{
+  img {
     object-fit: cover;
     object-position: top;
     border-top-left-radius: 10px;
@@ -142,7 +141,7 @@ mat-dialog-container{
     border-radius: 10px;
     cursor: pointer;
   }
-  .com-head-container{
+  .com-head-container {
     position: absolute;
     width: 100%;
     //border-left: 4px solid $heading;
@@ -153,11 +152,11 @@ mat-dialog-container{
     z-index: 1;
     display: grid;
     grid-template-columns: 80% 20%;
-    .com-input-container{
+    .com-input-container {
       padding-left: 15px;
       //border-left: 4px solid $heading;
       margin-left: 10px;
-      input{
+      input {
         width: 100%;
         background: transparent;
         color: $text-white;
@@ -166,11 +165,11 @@ mat-dialog-container{
         padding-left: 20px;
         font-size: 30px;
       }
-      input::placeholder{
-        color: $grey;
+      input::placeholder {
+        color: $gray;
       }
     }
-    textarea{
+    textarea {
       resize: none;
       white-space: nowrap;
       overflow-x: scroll;
@@ -181,49 +180,50 @@ mat-dialog-container{
       padding-left: 10px;
     }
   }
-  button{
+  button {
     //background: $heading !important;
     color: $white;
     border: 1px solid $heading;
     opacity: 0.6;
   }
 }
-.com-img-container button:hover{
+.com-img-container button:hover {
   opacity: 1;
   background: $heading;
   color: $text-white;
 }
 textarea::-webkit-input-placeholder {
-  color: $grey;
+  color: $gray;
 }
 
-textarea::-moz-placeholder {  /* Firefox 19+ */
-  color: $grey;
+textarea::-moz-placeholder {
+  /* Firefox 19+ */
+  color: $gray;
 }
 textarea:-ms-input-placeholder {
-  color: $grey;
+  color: $gray;
 }
 
 textarea::placeholder {
-  color: $grey;
+  color: $gray;
 }
 //.com-img-container:hover .com-head-container{
 //  opacity: 1;
 //  z-index: 10;
 //}
-mat-form-field{
+mat-form-field {
   width: 100%;
 }
 
-#imageSrc{
+#imageSrc {
   display: none;
 }
-.submit-btn{
+.submit-btn {
   margin: auto auto;
   cursor: pointer;
 }
 
-.loader{
+.loader {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -234,23 +234,23 @@ mat-form-field{
 
 .com-input-container-mobile {
   padding-left: 5px !important;
-  input{
-    padding-left: 6px !important;;
-    font-size: 18px !important;;
+  input {
+    padding-left: 6px !important;
+    font-size: 18px !important;
   }
-  textarea{
-    font-size: 13px !important;;
+  textarea {
+    font-size: 13px !important;
   }
 }
 .submit-btn-mobile {
-    padding: 0px 20px !important;;
-    button {
-      padding: 0 !important;;
-      font-size: 10px !important;;
-      height: 30px !important;;
-      line-height: 20px !important;
-      margin-bottom: 10px !important;
-    }
+  padding: 0px 20px !important;
+  button {
+    padding: 0 !important;
+    font-size: 10px !important;
+    height: 30px !important;
+    line-height: 20px !important;
+    margin-bottom: 10px !important;
+  }
 }
 
 .step-title {
@@ -264,7 +264,7 @@ mat-form-field{
   .input-control {
     width: 100%;
   }
-  .tag-list-wrapper{
+  .tag-list-wrapper {
     // position: relative;
     display: flex;
     margin: 0.2rem;
@@ -297,16 +297,15 @@ mat-form-field{
 
 .actions {
   display: flex;
-  .btn-primary{
+  .btn-primary {
     color: white;
     background-color: $heading;
   }
-  .btn-secondary{
+  .btn-secondary {
     color: white;
     background-color: $primary;
   }
 }
-
 
 .filter-wrapper,
 .keyword-wrapper {
@@ -314,9 +313,9 @@ mat-form-field{
   justify-content: center;
 }
 .filter-wrapper {
-    margin-top: 10px;
-    height: 30vh;
-    position: relative;
+  margin-top: 10px;
+  height: 30vh;
+  position: relative;
 }
 .keyword-wrapper {
   width: 100%;
@@ -324,15 +323,15 @@ mat-form-field{
 }
 .filter-select {
   width: 100%;
-//   list-style: none;
+  //   list-style: none;
   font-size: 1.1em;
   color: $gray-font;
   border: 1px solid $link-primary;
   border-top: none;
   /*so things don't jump around*/
   position: absolute;
-//   left: 25%;
-//   top: calc(50% + 25px);
+  //   left: 25%;
+  //   top: calc(50% + 25px);
   top: calc(45% - 50px);
   overflow-y: auto;
   background: $white;
@@ -344,7 +343,7 @@ mat-form-field{
 }
 
 .filter-select.mobile {
-    // height: 60%;
+  // height: 60%;
   max-height: 230px;
 }
 
@@ -354,10 +353,10 @@ mat-form-field{
 }
 .user-interest {
   display: inline-block;
-//   position: absolute;
+  //   position: absolute;
 }
 .filter-select-list:hover {
-  background:  $primary;
+  background: $primary;
   color: $white;
 }
 // @media only screen and (max-width: 768px) {

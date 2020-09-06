@@ -1,4 +1,4 @@
-@import '../variables';
+@import "../variables";
 
 button {
     background: transparent;
@@ -7,36 +7,36 @@ button {
     //right: -10px;
     cursor: pointer;
 }
-.small{
+.small {
     mat-icon {
         font-size: 9px;
     }
     font-size: 9px;
 }
-.medium{
+.medium {
     mat-icon {
         font-size: 12px;
     }
     font-size: 12px;
 }
-.large{
+.large {
     mat-icon {
         font-size: 21px;
     }
 }
-.button-content{
+.button-content {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-.none{
+.none {
     background-color: $white;
     color: $primary;
 }
-.following{
+.following {
     background-color: $primary;
     color: $white;
 }
-.none:hover{
-    border: 1px solid $grey;
+.none:hover {
+    border: 1px solid $gray;
 }

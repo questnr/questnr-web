@@ -23,7 +23,7 @@
     z-index: 2;
     height: 48px;
     background: #ffffff;
-    color: hsla(0, 0%, 6.7%, .6);
+    color: hsla(0, 0%, 6.7%, 0.6);
     font-size: 1.1rem;
 
     .nav-btn {
@@ -42,7 +42,7 @@
       -webkit-justify-content: center;
       justify-content: center;
       overflow: hidden;
-      border-top: 1px solid $grey;
+      border-top: 1px solid $gray;
 
       .btn-ctn {
         width: 20px;
@@ -52,14 +52,13 @@
           width: 100%;
         }
       }
-      .title{
+      .title {
         font-size: 10px;
       }
     }
   }
-
 }
-.active{
+.active {
   background: $primary;
   color: $white;
   border-top: $primary !important;
