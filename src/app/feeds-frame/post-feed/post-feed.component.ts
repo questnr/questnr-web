@@ -203,7 +203,7 @@ export class PostFeedComponent implements OnInit {
       (this.richText && this.isBlogEditor) || this.addedMediaSrc.length) {
       if (this.data.editing) {
         // Since blogs can not be edited
-        if (this.isPostInvalid() && !this.isBlogEditor) {
+        if (!this.isPostInvalid() && !this.isBlogEditor) {
           // if ((this.isPostInvalid()) || (this.validateBlogTitle())) {
           this.isLoading = true;
           this.service.editPost(this.isBlogEditor ? this.richText : this.text.value, this.blogTitle.value, this.data.feed.postActionId).subscribe((res: any) => {
@@ -228,7 +228,7 @@ export class PostFeedComponent implements OnInit {
           });
         }
         // Check if the blog title is valid
-        if ((this.isPostInvalid()) || (this.validateBlogTitle())) {
+        if ((!this.isPostInvalid()) && (this.validateBlogTitle())) {
           this.isLoading = true;
           if (this.data.isCommunityPost && this.data.communityId != null) {
             this.apiUrl = 'user/community/' + this.data.communityId + '/posts';
