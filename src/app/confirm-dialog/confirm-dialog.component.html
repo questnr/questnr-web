@@ -7,6 +7,8 @@
                 <li>All the community members and community posts will be visible to the public.</li>
                 <li>Any Questnr user will be able to join the community without admin's approval.</li>
             </ul>
+            <know-more-link [knowMoreType]="knowMoreTypeClass.communityPrivacy" (clickEvent)="clickEventListener()">
+            </know-more-link>
         </div>
         <div *ngIf="confirmDialogContentType == ConfirmDialogContentType.makePrivateCommunity">
             <ul>
@@ -14,9 +16,9 @@
                 <li>Community members and community posts will be visible only to the joined community members.</li>
                 <li>The community will not be displayed in the trending community section.</li>
             </ul>
+            <know-more-link [knowMoreType]="knowMoreTypeClass.communityPrivacy" (clickEvent)="clickEventListener()">
+            </know-more-link>
         </div>
-        <know-more-link [knowMoreType]="knowMoreTypeClass.communityPrivacy" (clickEvent)="clickEventListener()">
-        </know-more-link>
     </div>
     <div class="row action-btn-list">
         <div class="col-md-6 action-btn">
