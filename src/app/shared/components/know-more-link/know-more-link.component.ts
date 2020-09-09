@@ -9,7 +9,7 @@ import { GlobalConstants } from 'shared/constants';
 })
 export class KnowMoreLinkComponent implements OnInit {
   @Input() knowMoreId: KnowMoreLinkType;
-  @Input() knowMoreText?: string = "know more";
+  @Input() knowMoreText?: string = "Learn more";
   @Output() clickEvent = new EventEmitter();
   helpPath: string = GlobalConstants.helpPath;
   questnrPath: string = GlobalConstants.questnrPath;
