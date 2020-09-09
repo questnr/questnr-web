@@ -15,6 +15,27 @@
     .faq-container.mobile {
         width: 100%;
     }
+    .faq-loader {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        .loader-text {
+            color: $heading;
+            font-family: Optima;
+        }
+    }
+    .faq-loader.mobile {
+        .loader-text {
+            font-size: 1.8rem;
+        }
+    }
+    .faq-loader.desktop {
+        .loader-text {
+            font-size: 2rem;
+        }
+    }
 }
 
 .template-container {
@@ -42,6 +63,14 @@
 }
 
 .template-content {
+}
+
+.template-content.mobile {
+    margin-top: 20px;
+}
+
+.template-content.desktop {
+    margin-top: 30px;
 }
 
 .template-container.desktop {

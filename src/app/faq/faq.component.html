@@ -2,8 +2,25 @@
 
 <div class="faq-wrapper hide-scrollbar">
     <div class="container faq-container hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
-        <div *ngIf="faqType === KnowMoreLinkTypeClass.communityPrivacy">
-            <community-privacy-template></community-privacy-template>
+        <div class="template-container" [ngClass]="mobileView ? 'mobile': 'desktop'" *ngIf="!loading">
+            <div class="header-wrapper">
+                <div class="header" [ngClass]="mobileView ? 'mobile': 'desktop'">
+                    <div>Questnr FAQs -&nbsp;</div>
+                    <div>{{category}}</div>
+                </div>
+            </div>
+            <div class="template-desciption">{{description}}</div>
+            <div class="template-content" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+                <div *ngFor="let faqItem of faqItemList;">
+                    <faq-item [title]="faqItem.question">
+                        <div [innerHTML]="faqItem.answer"></div>
+                    </faq-item>
+                </div>
+            </div>
+        </div>
+        <div class="faq-loader" [ngClass]="mobileView ? 'mobile' : 'desktop'" *ngIf="loading">
+            <div class="loader-text">Questnr FAQs</div>
+            <app-loader [size]="'md'"></app-loader>
         </div>
     </div>
 </div>

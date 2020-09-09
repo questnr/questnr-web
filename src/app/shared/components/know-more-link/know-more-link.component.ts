@@ -8,7 +8,7 @@ import { GlobalConstants } from 'shared/constants';
   styleUrls: ['./know-more-link.component.scss']
 })
 export class KnowMoreLinkComponent implements OnInit {
-  @Input() knowMoreType: KnowMoreLinkType;
+  @Input() knowMoreId: KnowMoreLinkType;
   @Input() knowMoreText?: string = "know more";
   @Output() clickEvent = new EventEmitter();
   helpPath: string = GlobalConstants.helpPath;
