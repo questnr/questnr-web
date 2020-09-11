@@ -1,0 +1,37 @@
+<app-user-header></app-user-header>
+
+<div class="faq-wrapper container hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+    <div class="faq-container hide-scrollbar">
+        <div class="template-container" [ngClass]="mobileView ? 'mobile': 'desktop'">
+            <div class="header-wrapper">
+                <div class="header-part">
+                    <div class="header" [ngClass]="mobileView ? 'mobile': 'desktop'">
+                        Questnr FAQs
+                    </div>
+                </div>
+                <div class="search-control" *ngIf="!mobileView">
+                    <input type="text" matInput [formControl]="searchFAQControl"
+                        (keyup.enter)="handleSearchFAQ(searchFAQControl.value)"
+                        placeholder="Search Your Question Here" />
+                </div>
+            </div>
+            <div class="template-content" [ngClass]="mobileView ? 'mobile' : 'desktop'" *ngIf="!loading">
+                <div *ngFor="let searchedFAQ of FAQItemSearchedList;">
+                    <searched-faq [faqItemSearchPage]="searchedFAQ"></searched-faq>
+                </div>
+                <div class="no-data" *ngIf="noData">
+                    Sorry, we don't have any questions or topics, matching with&nbsp;<span>'{{queryString}}'</span>
+                </div>
+            </div>
+            <div class="template-footer">
+                <faq-loader [showText]="false" *ngIf="loading">
+                </faq-loader>
+                <mat-paginator *ngIf="!noData && !loading" [length]="paginationData.totalElements"
+                    [pageSize]="paginationData.size" [hidePageSize]="true" (page)="onPageChange($event)" #paginator>
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

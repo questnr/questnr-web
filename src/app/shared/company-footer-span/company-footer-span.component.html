@@ -1,5 +1,9 @@
-<span>
-    <a class="link" [routerLink]="['/',termsPath]">Terms of Use</a> |
-    <a class="link" [routerLink]="['/',policyPath]">Privacy Policy</a> |
-    <app-company-rights-footer></app-company-rights-footer>
-</span>
+<div class="footer-span-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+    <div>
+        <a class="link" [routerLink]="['/',termsPath]">Terms of Use</a>&nbsp;|&nbsp;
+        <a class="link" [routerLink]="['/',policyPath]">Privacy Policy</a>&nbsp;|&nbsp;
+    </div>
+    <div>
+        <app-company-rights-footer></app-company-rights-footer>
+    </div>
+</div>

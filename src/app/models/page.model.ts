@@ -1,5 +1,4 @@
-export class Page<T>{
-    content: T[];
+export class PaginationData {
     empty: boolean;
     first: boolean;
     last: boolean;
@@ -10,6 +9,10 @@ export class Page<T>{
     sort: Sort;
     totalElements: number;
     totalPages: number;
+}
+
+export class Page<T> extends PaginationData {
+    content: T[];
 }
 
 export class Pageable {

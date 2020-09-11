@@ -1,0 +1,27 @@
+@import "../../variables";
+
+.faq-loader {
+    top: 50%;
+    position: sticky;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    margin: 100px;
+    .loader-text {
+        color: $heading;
+        font-family: Optima;
+    }
+}
+.faq-loader.mobile {
+    .loader-text {
+        font-size: 1.8rem;
+    }
+}
+.faq-loader.desktop {
+    .loader-text {
+        font-size: 2rem;
+    }
+}

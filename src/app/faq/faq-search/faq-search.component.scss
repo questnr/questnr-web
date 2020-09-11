@@ -1,4 +1,4 @@
-@import "../variables";
+@import "../../variables";
 
 .faq-wrapper {
     // margin: 0.5rem 0rem;
@@ -33,9 +33,11 @@
             }
             .header.desktop {
                 font-size: 1.6rem;
+                display: inline-flex;
             }
             .header.mobile {
                 font-size: 1.4rem;
+                display: block;
             }
         }
         .search-control {
@@ -70,18 +72,39 @@
         padding: 10px 0px;
         font-weight: 400;
     }
+    .mat-paginator {
+        background-color: $input-field-background-color;
+    }
+    .mat-paginator-range-label {
+        display: none;
+    }
+    .no-data {
+        text-align: center;
+        padding: 10px;
+        font-size: 1.1rem;
+        span {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: $heading;
+        }
+    }
 }
 
 .template-content {
 }
 
 .template-content.mobile {
+    width: 100%;
     margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .template-content.desktop {
-    width: 60%;
+    width: 50%;
     margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .template-container.desktop {
@@ -90,4 +113,9 @@
 
 .template-container.mobile {
     margin: 10px 10px;
+}
+
+.template-footer {
+    display: flex;
+    flex-direction: column;
 }

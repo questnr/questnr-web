@@ -1,0 +1,12 @@
+<div class="searched-faq-wrapper">
+    <div class="classification-header">
+        <a [routerLink]="['/', helpPath, questnrPath, faqItemSearchPage.faqClassification.publicId]">
+            {{faqItemSearchPage.faqClassification.category}}
+        </a>
+    </div>
+    <div class="faq-item-container">
+        <faq-item [faqItemType]="faqItemTypeClass.searched" [title]="faqItemSearchPage.question">
+            <div [innerHTML]="faqItemSearchPage.answer"></div>
+        </faq-item>
+    </div>
+</div>

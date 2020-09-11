@@ -1,6 +1,29 @@
 @import "../variables";
 
-.sub-footer{
+.sub-footer {
   padding: 10px;
   background: $main-bg;
+}
+
+.logo-company-rights {
+  display: flex;
+  align-items: center;
+  img {
+    margin: 0;
+    height: auto;
+    cursor: pointer;
+    margin-right: 7px;
+  }
+}
+
+.logo-company-rights.desktop {
+  img {
+    width: 2.2rem;
+  }
+}
+
+.logo-company-rights.mobile {
+  img {
+    width: 2rem;
+  }
 }

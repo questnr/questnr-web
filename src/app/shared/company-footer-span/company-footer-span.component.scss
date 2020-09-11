@@ -1,13 +1,24 @@
 @import "../../variables";
-.company-terms-policy{
+
+.footer-span-wrapper.desktop {
+    display: flex;
+    justify-content: baseline;
+}
+
+.footer-span-wrapper.mobile {
+    display: flex;
+    flex-direction: column;
+}
+
+.company-terms-policy {
     margin: auto;
     font-size: 0.7rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
-  
-.link:hover{
+
+.link:hover {
     cursor: pointer;
     color: $link-primary;
     text-decoration: none;

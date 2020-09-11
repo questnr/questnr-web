@@ -1,0 +1,24 @@
+@import "../../../variables";
+
+.searched-faq-wrapper {
+    .classification-header {
+        a {
+            color: $link-third;
+            font-size: 1.1rem;
+            font-weight: bold;
+            &:hover {
+                text-decoration: underline;
+                color: $link-primary;
+            }
+        }
+    }
+    .faq-item-container {
+        padding: 10px;
+        .faq-question {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        .faq-answer {
+        }
+    }
+}

@@ -52,7 +52,7 @@ const routes: Routes = [
   { path: GlobalConstants.login, component: LoginPageComponent },
   { path: GlobalConstants.resetPassword, component: ResetPasswordComponent },
   {
-    path: GlobalConstants.helpPath + "/" + GlobalConstants.questnrPath + "/:faqType",
+    path: GlobalConstants.helpPath,
     loadChildren: () => import('./faq/faq.module').then(m => m.FAQModule)
   },
   { path: GlobalConstants.error, component: ErrorPageComponent },
