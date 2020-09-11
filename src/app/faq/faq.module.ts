@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'shared/shared.module';
+import { FAQHeaderComponent } from './faq-header/faq-header.component';
+import { FaqItemComponent } from './faq-item/faq-item.component';
+import { FaqLoaderComponent } from './faq-loader/faq-loader.component';
 import { FAQRoutingModule } from './faq-routing.module';
+import { FAQSearchComponent } from './faq-search/faq-search.component';
+import { SearchedFaqComponent } from './faq-search/searched-faq/searched-faq.component';
 import { FAQComponent } from './faq.component';
 import { CommunityPrivacyComponent } from './templates/community-privacy/community-privacy.component';
-import { FaqItemComponent } from './faq-item/faq-item.component';
 import { TitleSeparatorComponent } from './title-separator/title-separator.component';
-import { FAQSearchComponent } from './faq-search/faq-search.component';
-import { FaqLoaderComponent } from './faq-loader/faq-loader.component';
-import { SearchedFaqComponent } from './faq-search/searched-faq/searched-faq.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SearchedFaqComponent } from './faq-search/searched-faq/searched-faq.com
     TitleSeparatorComponent,
     FAQSearchComponent,
     FaqLoaderComponent,
-    SearchedFaqComponent
+    SearchedFaqComponent,
+    FAQHeaderComponent
   ],
   imports: [
     CommonModule,

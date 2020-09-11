@@ -3,18 +3,7 @@
 <div class="faq-wrapper container hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
     <div class="faq-container hide-scrollbar">
         <div class="template-container" [ngClass]="mobileView ? 'mobile': 'desktop'">
-            <div class="header-wrapper">
-                <div class="header-part">
-                    <div class="header" [ngClass]="mobileView ? 'mobile': 'desktop'">
-                        Questnr FAQs
-                    </div>
-                </div>
-                <div class="search-control" *ngIf="!mobileView">
-                    <input type="text" matInput [formControl]="searchFAQControl"
-                        (keyup.enter)="handleSearchFAQ(searchFAQControl.value)"
-                        placeholder="Search Your Question Here" />
-                </div>
-            </div>
+            <app-faq-header [queryString]="queryString"></app-faq-header>
             <div class="template-content" [ngClass]="mobileView ? 'mobile' : 'desktop'" *ngIf="!loading">
                 <div *ngFor="let searchedFAQ of FAQItemSearchedList;">
                     <searched-faq [faqItemSearchPage]="searchedFAQ"></searched-faq>

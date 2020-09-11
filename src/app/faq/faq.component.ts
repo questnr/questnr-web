@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalService } from 'global.service';
-import { FAQItem, FAQItemPage, FAQItemSearchPage } from 'models/faq.model';
+import { FAQItem, FAQItemPage } from 'models/faq.model';
 import { KnowMoreLinkType } from 'models/know-more-type';
-import { Page } from 'models/page.model';
 import { GlobalConstants } from 'shared/constants';
+import { FAQHeaderComponent } from './faq-header/faq-header.component';
 import { FAQService } from './faq.service';
 
 @Component({
@@ -23,6 +23,11 @@ export class FAQComponent implements OnInit, OnDestroy {
   description: string;
   faqItemList: FAQItem[];
   searchFAQControl: FormControl = new FormControl("");
+  faqHeaderRef: FAQHeaderComponent;
+  @ViewChild("faqHeader")
+  set faqHeader(faqHeaderRef: FAQHeaderComponent) {
+    this.faqHeaderRef = faqHeaderRef;
+  }
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -57,17 +62,5 @@ export class FAQComponent implements OnInit, OnDestroy {
 
   redirectToErrorPage(): void {
     this.router.navigate(['/', GlobalConstants.error]);
-  }
-
-  searchFAQ(inputVal: string) {
-    if (inputVal && inputVal.length > 0) {
-      const queryParams: Params = { q: inputVal };
-      this.router.navigate(
-        ['/', GlobalConstants.helpPath, GlobalConstants.questnrPath],
-        {
-          queryParams: queryParams,
-          queryParamsHandling: 'merge', // remove to replace all query params by provided
-        });
-    }
   }
 }

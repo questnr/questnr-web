@@ -3,28 +3,7 @@
 <div class="faq-wrapper container hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
     <div class="faq-container hide-scrollbar">
         <div class="template-container" [ngClass]="mobileView ? 'mobile': 'desktop'" *ngIf="!loading">
-            <div class="header-wrapper">
-                <div class="header-part">
-                    <div class="header" [ngClass]="mobileView ? 'mobile': 'desktop'" *ngIf="category; else noCategory">
-                        <div *ngIf="!mobileView; else headerMobile">
-                            Questnr FAQs&nbsp;-&nbsp;{{category}}
-                        </div>
-                        <ng-template #headerMobile>
-                            <div>Questnr FAQs -&nbsp;</div>
-                            <div>{{category}}</div>
-                        </ng-template>
-                    </div>
-                    <ng-template #noCategory>
-                        <div class="header" [ngClass]="mobileView ? 'mobile': 'desktop'">
-                            Questnr FAQs
-                        </div>
-                    </ng-template>
-                </div>
-                <div class="search-control" *ngIf="!mobileView">
-                    <input type="text" matInput [formControl]="searchFAQControl"
-                        (keyup.enter)="searchFAQ(searchFAQControl.value)" placeholder="Search Your Question Here" />
-                </div>
-            </div>
+            <app-faq-header [category]="category" #faqHeader></app-faq-header>
             <div class="template-desciption">{{description}}</div>
             <div class="template-content" [ngClass]="mobileView ? 'mobile' : 'desktop'">
                 <div *ngFor="let faqItem of faqItemList;">

@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { GlobalService } from 'global.service';
-import { GlobalConstants } from 'shared/constants';
+import { MatPaginator } from '@angular/material/paginator';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FAQService } from 'faq/faq.service';
+import { GlobalService } from 'global.service';
 import { FAQItemSearchPage } from 'models/faq.model';
 import { Page, PaginationData } from 'models/page.model';
-import { MatPaginator } from '@angular/material/paginator';
+import { GlobalConstants } from 'shared/constants';
 
 @Component({
   selector: 'app-faq-search',
@@ -18,7 +17,6 @@ export class FAQSearchComponent implements OnInit, OnDestroy {
   mobileView: boolean = false;
   loading: boolean = false;
   queryString: string;
-  searchFAQControl: FormControl = new FormControl("");
   FAQItemSearchedList: FAQItemSearchPage[] = [];
   noData: boolean = false;
   paginationData: PaginationData;
@@ -38,7 +36,6 @@ export class FAQSearchComponent implements OnInit, OnDestroy {
         this.redirectToErrorPage();
       } else {
         this.clearError();
-        this.searchFAQControl.setValue(this.queryString);
         this.searchFAQ();
       }
     });
@@ -55,18 +52,6 @@ export class FAQSearchComponent implements OnInit, OnDestroy {
 
   redirectToErrorPage(): void {
     this.router.navigate(['/', GlobalConstants.error]);
-  }
-
-  handleSearchFAQ(inputVal: string) {
-    if (inputVal && inputVal.length > 0) {
-      const queryParams: Params = { q: inputVal };
-      this.router.navigate(
-        ['/', GlobalConstants.helpPath, GlobalConstants.questnrPath],
-        {
-          queryParams: queryParams,
-          queryParamsHandling: 'merge', // remove to replace all query params by provided
-        });
-    }
   }
 
   clearError(): void {
