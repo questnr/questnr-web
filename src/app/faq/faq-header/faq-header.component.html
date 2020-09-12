@@ -15,8 +15,11 @@
             </div>
         </ng-template>
     </div>
-    <div class="search-control" *ngIf="!mobileView">
-        <input type="text" matInput [formControl]="searchFAQControl"
-            (keyup.enter)="handleSearchFAQ(searchFAQControl.value)" placeholder="Search Your Question Here" />
+    <div class="search-control">
+        <app-faq-search-input *ngIf="!mobileView; else showSearchIcon" [queryString]="queryString">
+        </app-faq-search-input>
+        <ng-template #showSearchIcon>
+            <app-faq-search-button [queryString]="queryString"></app-faq-search-button>
+        </ng-template>
     </div>
 </div>

@@ -1,0 +1,10 @@
+@import "../../variables";
+
+.faq-search-button-wrapper {
+    .icon {
+        color: $primary;
+        mat-icon {
+            font-size: 32px;
+        }
+    }
+}

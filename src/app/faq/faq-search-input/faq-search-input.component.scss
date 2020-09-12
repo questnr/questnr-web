@@ -1,0 +1,60 @@
+@import "../../variables";
+
+.search-input-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    .input-container {
+        width: 100%;
+        input[type="text"] {
+            width: 100%;
+            background-color: $input-field-background-color;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -ms-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            outline: none;
+            padding: 10px 20px;
+            border: 1px solid $gray;
+        }
+
+        input[type="text"]:focus {
+            box-shadow: 0 0 5px $heading;
+            padding: 10px 20px;
+            border: 1px solid $heading;
+        }
+    }
+
+    .close-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $primary;
+        margin: 7px;
+        mat-icon {
+            font-size: 25px;
+        }
+    }
+}
+
+.search-input-wrapper.desktop {
+    .input-container {
+        input[type="text"] {
+            width: 100%;
+            max-width: 250px;
+            text-align: end;
+        }
+    }
+}
+
+.search-input-wrapper.mobile {
+    .input-container {
+        padding: 20px 10px 20px 20px;
+        input[type="text"] {
+            width: 100%;
+        }
+    }
+    .close-icon {
+        padding: 20px 10px 20px 0px;
+    }
+}

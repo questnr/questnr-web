@@ -1,0 +1,9 @@
+<div class="search-input-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+    <div class="input-container">
+        <input type="text" matInput [formControl]="searchFAQControl"
+            (keyup.enter)="handleSearchFAQ(searchFAQControl.value)" placeholder="{{placeholder}}" />
+    </div>
+    <div class="close-icon" *ngIf="mobileView">
+        <mat-icon (click)="handleClose()">close</mat-icon>
+    </div>
+</div>
