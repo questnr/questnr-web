@@ -1,73 +1,74 @@
-<div>
-  <div class=" question-card ">
-    <div class="container">
-      <div class="question-ctn  effect5 box ">
-        <div class="heading">
-          <div class="user-icon">
-            <app-profile-icon [avatar]="question.userDTO.avatarDTO" [height]="40" [sizeRef]="'small'"
-              [slug]="question?.userDTO?.slug">
-            </app-profile-icon>
-            <div class="questmark">
-              <img src="/assets/question-mark.png" alt="">
-            </div>
-          </div>
-          <div style="margin-top: 16px" class="user-text">
-            <h5>{{question.userDTO.username}} wants to know.......</h5>
-          </div>
-          <div class="spacer"></div>
-          <app-post-menu-options [isCommunityPost]="!showUserHeader" [feed]="question"
-            (removePostEvent)="removePost($event)"></app-post-menu-options>
-        </div>
-        <hr>
-        <p>{{question.questionText}}</p>
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="answer-box agree" (click)="respondToQuestion(question?.postActionId, 'agree')">
-              <div class="icon">
-                <div>1</div>
-              </div>
-              <div class="answer-text">{{question?.pollQuestion?.agreeText}}</div>
-              <div class="ans-ratio">{{agreePercentage}}</div>
-              <div class="progress " #agree></div>
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="answer-box disagree" (click)="respondToQuestion(question?.postActionId, 'disagree')">
-              <div class="icon">
-                <div>2</div>
-              </div>
-              <div class="answer-text">{{question?.pollQuestion?.disagreeText}}</div>
-              <div class="ans-ratio">{{disagreePercentage}}</div>
-              <div class="progress " #disagree></div>
-            </div>
+<div class="question-card">
+  <div class="container">
+    <div class="question-ctn  effect5 box ">
+      <div class="heading">
+        <div class="user-icon">
+          <app-profile-icon [avatar]="question.userDTO.avatarDTO" [height]="40" [sizeRef]="'small'"
+            [slug]="question?.userDTO?.slug">
+          </app-profile-icon>
+          <div class="questmark">
+            <img src="/assets/question-mark.png" alt="">
           </div>
         </div>
-        <div>
-          {{totalAnswered + " Answered"}}
+        <div style="margin-top: 16px" class="user-text">
+          <h5>{{question.userDTO.username}} wants to know.......</h5>
         </div>
-        <!--        <div class="row response"  [ngClass]="{'show': isResponded}" >-->
-        <!--          <div class="col-lg-12">-->
-        <!--            <div class="answer-box agree" >-->
-        <!--              <div class="icon">-->
-        <!--                <div>1</div>-->
-        <!--              </div>-->
-        <!--              <div class="answer-text">{{question?.pollQuestion?.agreeText}}</div>-->
-        <!--              <div class="ans-ratio">{{agreePercentage}}</div>-->
-        <!--              <div class="progress " #respondedAgree></div>-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--          <div class="col-lg-12">-->
-        <!--            <div class="answer-box disagree">-->
-        <!--              <div class="icon">-->
-        <!--                <div>2</div>-->
-        <!--              </div>-->
-        <!--              <div class="answer-text">{{question?.pollQuestion?.disagreeText}}</div>-->
-        <!--              <div class="ans-ratio">{{disagreePercentage}}</div>-->
-        <!--              <div class="progress " #respondedDisagree></div>-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--        </div>-->
+        <div class="spacer"></div>
+        <app-post-menu-options [isCommunityPost]="!showUserHeader" [feed]="question"
+          (removePostEvent)="removePost($event)"></app-post-menu-options>
       </div>
+      <hr>
+      <p>{{question.questionText}}</p>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="answer-box agree" (click)="respondToQuestion(question?.postActionId, 'agree')">
+            <div class="icon">
+              <div>1</div>
+            </div>
+            <div class="answer-text">{{question?.pollQuestion?.agreeText}}</div>
+            <div class="ans-ratio">{{agreePercentage}}</div>
+            <div class="progress " #agree></div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="answer-box disagree" (click)="respondToQuestion(question?.postActionId, 'disagree')">
+            <div class="icon">
+              <div>2</div>
+            </div>
+            <div class="answer-text">{{question?.pollQuestion?.disagreeText}}</div>
+            <div class="ans-ratio">{{disagreePercentage}}</div>
+            <div class="progress " #disagree></div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!loading && !isOwner && !isResponded" class="question-unanswered">
+        You have not answered this question!
+      </div>
+      <div>
+        {{totalAnswered + " Answered"}}
+      </div>
+      <!--        <div class="row response"  [ngClass]="{'show': isResponded}" >-->
+      <!--          <div class="col-lg-12">-->
+      <!--            <div class="answer-box agree" >-->
+      <!--              <div class="icon">-->
+      <!--                <div>1</div>-->
+      <!--              </div>-->
+      <!--              <div class="answer-text">{{question?.pollQuestion?.agreeText}}</div>-->
+      <!--              <div class="ans-ratio">{{agreePercentage}}</div>-->
+      <!--              <div class="progress " #respondedAgree></div>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--          <div class="col-lg-12">-->
+      <!--            <div class="answer-box disagree">-->
+      <!--              <div class="icon">-->
+      <!--                <div>2</div>-->
+      <!--              </div>-->
+      <!--              <div class="answer-text">{{question?.pollQuestion?.disagreeText}}</div>-->
+      <!--              <div class="ans-ratio">{{disagreePercentage}}</div>-->
+      <!--              <div class="progress " #respondedDisagree></div>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--        </div>-->
     </div>
   </div>
 </div>

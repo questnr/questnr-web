@@ -123,6 +123,11 @@
       background: $white;
     }
   }
+  .question-unanswered {
+    color: $primary;
+    font-size: 0.9rem;
+    font-style: italic;
+  }
 }
 
 .effect5 {

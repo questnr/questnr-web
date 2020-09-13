@@ -8,6 +8,8 @@ import { AppMaterialModule } from 'app-material/app-material.module';
 import { AttachedFileModule } from 'attached-file-list/attached-file.module';
 import { AuthModule } from 'auth/auth.module';
 import { BlogTitleComponent } from 'blog-title/blog-title.component';
+import { CommonService } from 'common/common.service';
+import { SnackBarService } from 'common/snackbar.service';
 import { DynamicHTMLModule } from 'dynamic-html';
 import { EmoticonsComponent } from 'emoticons/emoticons.component';
 import { FeedTextComponent } from 'feed-text/feed-text.component';
@@ -106,6 +108,10 @@ import { ViewMoreButtonComponent } from './view-more-button/view-more-button.com
     MetaCardComponent,
     RichTextComponent,
     EmoticonsComponent,
+  ],
+  providers: [
+    CommonService,
+    SnackBarService
   ]
 })
 export class SharedModule { }

@@ -1,5 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { LoginService } from 'auth/login.service';
+import { SnackBarService } from 'common/snackbar.service';
+import { KnowMoreLinkType } from 'models/know-more-type';
+import { ActionType } from 'models/snackbar.model';
+import { Message } from 'shared/constants/messages';
 import { PollQuestionMeta, Post } from '../models/post-action.model';
 import { AskQuestionService } from '../shared/components/dialogs/ask-question/ask-question.service';
 import { GlobalConstants } from '../shared/constants';
@@ -22,10 +29,14 @@ export class QuestionUIComponent implements OnInit {
   isResponded = false;
   totalAnswered: number = 0;
   showUserHeader: boolean = true;
+  isOwner: boolean = false;
+  loading: boolean = true;
 
   constructor(public askQuestionService: AskQuestionService,
     private renderer: Renderer2,
-    private loginService: LoginService) {
+    private loginService: LoginService,
+    private snackBarService: SnackBarService,
+    private router: Router,) {
   }
 
   ngOnInit(): void {
@@ -43,17 +54,29 @@ export class QuestionUIComponent implements OnInit {
     if (this.question.pollQuestionMeta.pollAnswer) {
       this.isResponded = true;
       this.progressIndicator(this.question.pollQuestionMeta);
-    } else if (this.loginService.isThisLoggedInUser(this.question.userDTO.userId)) {
-      this.progressIndicator(this.question.pollQuestionMeta);
+    }
+    if (this.loginService.isThisLoggedInUser(this.question.userDTO.userId)) {
+      if (!this.isResponded)
+        this.progressIndicator(this.question.pollQuestionMeta);
+      this.isOwner = true;
     }
     // console.log("question", this.question)
   }
 
   respondToQuestion(postId, pollAnswer) {
+    if (this.isOwner) {
+      return this.openSnackBar(Message.PPA101);
+    }
     if (postId != null && !this.question.pollQuestionMeta.pollAnswer) {
+      this.loading = true;
       this.askQuestionService.respondToQuestion(postId, pollAnswer).subscribe((pollQuestionMeta: PollQuestionMeta) => {
         this.totalAnswered = pollQuestionMeta.totalAnswered;
         this.progressIndicator(pollQuestionMeta);
+      }, (error: HttpErrorResponse) => {
+        console.log("error", error);
+        if (error?.error?.errorMessage) {
+          this.openSnackBar(error?.error?.errorMessage);
+        }
       });
     }
   }
@@ -63,6 +86,7 @@ export class QuestionUIComponent implements OnInit {
   }
 
   progressIndicator(pollQuestionMeta: PollQuestionMeta) {
+    this.loading = false;
     this.agreePercentage = Math.round(pollQuestionMeta.agreePercentage) + '%';
     this.disagreePercentage = Math.round(pollQuestionMeta.disagreePercentage) + '%';
     this.renderer.setStyle(this.agree.nativeElement, 'width', pollQuestionMeta.agreePercentage + '%');
@@ -83,6 +107,22 @@ export class QuestionUIComponent implements OnInit {
       this.renderer.setStyle(this.agree.nativeElement, 'background', 'linear-gradient(to right, green, #82b77685)');
       this.renderer.setStyle(this.disagree.nativeElement, 'background', 'linear-gradient(to right, green, #82b77685)');
     }
+  }
+
+  openSnackBar(errorMessage: string) {
+    const onAction = () => {
+      this.router.navigate(['/',
+        GlobalConstants.helpPath,
+        GlobalConstants.questnrPath,
+        KnowMoreLinkType.postPollAnswer
+      ]);
+    }
+    this.snackBarService.showSnackBar({
+      message: errorMessage,
+      duration: 5000,
+      actionType: ActionType.learnMore,
+      onAction: onAction
+    });
   }
 
 }
