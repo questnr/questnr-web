@@ -62,14 +62,14 @@ export class PostActionForMedia {
 }
 
 export class PollQuestion {
-  agreePercentage: number;
-  disagreePercentage: number;
   agreeText: string;
   disagreeText: string;
 }
 export class PollQuestionMeta {
   pollAnswer: string;
   totalAnswered: number;
+  agreePercentage: number;
+  disagreePercentage: number;
 }
 
 export enum PostType {

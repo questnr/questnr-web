@@ -385,10 +385,6 @@ export class SinglePostComponent implements OnInit {
     --this.singlePost.postActionMeta.totalLikes;
   }
 
-  getUserId() {
-    return this.loginService.getUserId();
-  }
-
   openShareDialog() {
     let clickAction = this.commonService.getPostSharableLink(this.singlePost.slug);
     this.dialog.open(SharePostComponent, {

@@ -7,7 +7,7 @@ export class UserActivity {
 
 export class TrackingInstance {
     activityInterval: any;
-    destroy: Function;
+    destroy: Function = () => { };
 }
 
 export enum TrackingEntityType {

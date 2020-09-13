@@ -123,4 +123,15 @@ export class LoginService {
       this.logOut();
     }
   }
+
+  isThisLoggedInUser(userId: number): boolean {
+    if (this.user?.userId) {
+      return this.user.userId === userId;
+    }
+    try {
+      this.getLocalUserProfile().id === userId;
+    } catch (e) {
+      return false;
+    }
+  }
 }
