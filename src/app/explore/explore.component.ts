@@ -7,7 +7,7 @@ import { Page } from 'models/page.model';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { Community } from '../models/community.model';
-import { Post } from '../models/post-action.model';
+import { Post, QuestionParentType } from '../models/post-action.model';
 import { ApiService } from '../shared/api.service';
 import { GlobalConstants } from '../shared/constants';
 import { ExploreService } from './explore.service';
@@ -47,6 +47,7 @@ export class ExploreComponent implements OnInit, AfterViewInit {
   tagMaxLengthError: boolean = false;
   tagExistsError: boolean = false;
   searchResults: HashTag[];
+  questionParentTypeClass = QuestionParentType;
 
   constructor(public exploreService: ExploreService,
     public api: ApiService,

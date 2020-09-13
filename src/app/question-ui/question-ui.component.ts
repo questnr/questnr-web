@@ -1,13 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
-import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { LoginService } from 'auth/login.service';
 import { SnackBarService } from 'common/snackbar.service';
 import { KnowMoreLinkType } from 'models/know-more-type';
 import { ActionType } from 'models/snackbar.model';
 import { Message } from 'shared/constants/messages';
-import { PollQuestionMeta, Post } from '../models/post-action.model';
+import { PollQuestionMeta, Post, QuestionParentType } from '../models/post-action.model';
 import { AskQuestionService } from '../shared/components/dialogs/ask-question/ask-question.service';
 import { GlobalConstants } from '../shared/constants';
 
@@ -23,26 +22,33 @@ export class QuestionUIComponent implements OnInit {
   @ViewChild('disagree') disagree: ElementRef;
   @ViewChild('respondedDisagree') respondedDisagree: ElementRef;
   @ViewChild('respondedAgree') respondedAgree: ElementRef;
+  @Input() questionParentType: QuestionParentType;
   userPath = GlobalConstants.userPath;
   agreePercentage: string;
   disagreePercentage: string;
-  isResponded = false;
+  isResponded: boolean = false;
   totalAnswered: number = 0;
   showUserHeader: boolean = true;
   isOwner: boolean = false;
-  loading: boolean = true;
+  loading: boolean = false;
+  message: string;
+  shouldHideMessage: boolean = true;
+  knowMoreTypeClass = KnowMoreLinkType;
 
   constructor(public askQuestionService: AskQuestionService,
     private renderer: Renderer2,
     private loginService: LoginService,
     private snackBarService: SnackBarService,
-    private router: Router,) {
+    private router: Router) {
   }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(): void {
+    if (this.questionParentType === QuestionParentType.feedPage) {
+      this.shouldHideMessage = false;
+    }
     if (!this.showUserHeader) {
       if (this.question?.communityDTO) {
         this.showUserHeader = false;
@@ -73,9 +79,10 @@ export class QuestionUIComponent implements OnInit {
         this.totalAnswered = pollQuestionMeta.totalAnswered;
         this.progressIndicator(pollQuestionMeta);
       }, (error: HttpErrorResponse) => {
-        console.log("error", error);
         if (error?.error?.errorMessage) {
           this.openSnackBar(error?.error?.errorMessage);
+        } else if (typeof error.error === "string") {
+          this.openSnackBar(error?.error);
         }
       });
     }
@@ -114,7 +121,7 @@ export class QuestionUIComponent implements OnInit {
       this.router.navigate(['/',
         GlobalConstants.helpPath,
         GlobalConstants.questnrPath,
-        KnowMoreLinkType.postPollAnswer
+        KnowMoreLinkType.postPollQuestion
       ]);
     }
     this.snackBarService.showSnackBar({
@@ -125,4 +132,26 @@ export class QuestionUIComponent implements OnInit {
     });
   }
 
+  getMessage() {
+    if (this.loading) return;
+    if (!this.isOwner
+      && !this.isResponded) {
+      return "Post owner can not see your answer!";
+    }
+    if (this.isOwner) {
+      return "You can not answer your question!";
+    }
+  }
+
+  shouldShowMessage(): boolean {
+    return !this.shouldHideMessage
+      && !this.loading
+      && !this.isOwner
+      && !this.isResponded;
+  }
+
+  handleHideNotResponded($event) {
+    $event.preventDefault();
+    this.shouldHideMessage = true;
+  }
 }

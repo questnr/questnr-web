@@ -76,3 +76,11 @@ export enum PostType {
   simple = "simple",
   question = "question"
 }
+
+export enum QuestionParentType {
+  singlePost,
+  communityPage,
+  userPage,
+  feedPage,
+  explorePage
+}

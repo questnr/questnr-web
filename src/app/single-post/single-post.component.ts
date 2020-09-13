@@ -9,7 +9,7 @@ import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { GlobalService } from 'global.service';
 import { AvatarDTO, ServerError } from 'models/common.model';
-import { PostActionForMedia, PostEditorType, PostMedia, ResourceType, PostType } from 'models/post-action.model';
+import { PostActionForMedia, PostEditorType, PostMedia, ResourceType, PostType, QuestionParentType } from 'models/post-action.model';
 import { SinglePost } from 'models/single-post.model';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -115,6 +115,7 @@ export class SinglePostComponent implements OnInit {
   set profileIcon(profileIconRef: ProfileIconComponent) {
     this.profileIconRef = profileIconRef;
   }
+  questionParentTypeClass = QuestionParentType;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
     public loginService: LoginService,

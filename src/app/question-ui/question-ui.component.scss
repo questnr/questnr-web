@@ -123,10 +123,32 @@
       background: $white;
     }
   }
+  .know-more-part,
   .question-unanswered {
-    color: $primary;
-    font-size: 0.9rem;
-    font-style: italic;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .question-unanswered {
+    .text {
+      color: $primary;
+      font-style: italic;
+      font-size: 0.75rem;
+    }
+    .hide-link {
+      padding-left: 10px;
+      font-size: 0.7rem;
+    }
+  }
+  .know-more-part {
+    .text {
+      color: $gray-font-secondary;
+      font-size: 0.75rem;
+    }
+    .know-more-link {
+      padding-left: 10px;
+      font-size: 0.7rem;
+    }
   }
 }
 

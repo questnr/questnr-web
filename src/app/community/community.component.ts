@@ -7,7 +7,7 @@ import { Page } from 'models/page.model';
 import { UIService } from 'ui/ui.service';
 import { LoginService } from '../auth/login.service';
 import { Community, CommunityPrivacy, CommunityProfileMeta } from '../models/community.model';
-import { Post } from '../models/post-action.model';
+import { Post, QuestionParentType } from '../models/post-action.model';
 import { User } from '../models/user.model';
 import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
 import { CommunityService } from './community.service';
@@ -74,6 +74,7 @@ export class CommunityComponent implements OnInit {
   isAllowedIntoCommunity: boolean;
   fetchCommunityFeedsSubscriber: Subscription;
   userListTypeClass = UserListType;
+  questionParentTypeClass = QuestionParentType;
 
   constructor(public communityService: CommunityService,
     public fb: FormBuilder,

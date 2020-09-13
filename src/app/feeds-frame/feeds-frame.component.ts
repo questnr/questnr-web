@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
 import { GlobalService } from 'global.service';
-import { Post } from 'models/post-action.model';
+import { Post, QuestionParentType } from 'models/post-action.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -62,6 +62,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   state_: Observable<object>;
   screenWidth = window.innerWidth;
   @ViewChild("feedFrame") feedFrame: ElementRef;
+  questionParentTypeClass = QuestionParentType;
 
   @HostListener('window:resize', ['$event'])
   onresize(event: any = this.screenWidth) {

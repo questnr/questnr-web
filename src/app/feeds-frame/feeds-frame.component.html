@@ -51,7 +51,8 @@
                   </app-recommended-feeds>
                 </div>
                 <div *ngIf="feed.postType === 'question'">
-                  <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"></app-question-ui>
+                  <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"
+                    [questionParentType]="questionParentTypeClass.feedPage"></app-question-ui>
                 </div>
               </div>
               <p class="text-center" style="margin-top :30px" *ngIf="userFeeds.length===1 && userFeeds[0] === null">

@@ -144,7 +144,8 @@
                         </app-recommended-feeds>
                       </div>
                       <div *ngIf="feed.postType === 'question'">
-                        <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)">
+                        <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"
+                          [questionParentType]="questionParentTypeClass.communityPage">
                         </app-question-ui>
                       </div>
                     </div>

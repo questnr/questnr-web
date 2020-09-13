@@ -29,6 +29,7 @@ import { SearchOverlayComponent } from 'search/search-overlay/search-overlay.com
 import { SearchedEntityListComponent } from 'searched-entity-list/searched-entity-list.component';
 import { TimeStringComponent } from 'time-string/time-string.component';
 import { UsernameComponent } from 'username/username.component';
+import { KnowMoreLinkComponent } from './components/know-more-link/know-more-link.component';
 import { LoaderModule } from './loader-text/loader.module';
 import { ProfileIconComponent } from './profile-icon/profile-icon.component';
 import { ViewMoreButtonComponent } from './view-more-button/view-more-button.component';
@@ -52,7 +53,8 @@ import { ViewMoreButtonComponent } from './view-more-button/view-more-button.com
     PostMenuOptionsComponent,
     MetaCardComponent,
     RichTextComponent,
-    EmoticonsComponent
+    EmoticonsComponent,
+    KnowMoreLinkComponent
   ],
   imports: [
     CommonModule,
@@ -108,6 +110,7 @@ import { ViewMoreButtonComponent } from './view-more-button/view-more-button.com
     MetaCardComponent,
     RichTextComponent,
     EmoticonsComponent,
+    KnowMoreLinkComponent
   ],
   providers: [
     CommonService,

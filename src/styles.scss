@@ -756,3 +756,12 @@ input:focus {
   overflow: hidden;
   @extend .hide-scrollbar;
 }
+
+a.blue-link {
+  cursor: pointer;
+  color: $link-primary;
+  &:hover {
+    text-decoration: underline;
+    color: $link-third;
+  }
+}

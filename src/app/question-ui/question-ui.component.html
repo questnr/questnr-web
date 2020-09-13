@@ -41,8 +41,16 @@
           </div>
         </div>
       </div>
-      <div *ngIf="!loading && !isOwner && !isResponded" class="question-unanswered">
-        You have not answered this question!
+      <div *ngIf="shouldShowMessage()" class="question-unanswered">
+        <span class="text">You have not answered this question!</span>
+        <span><a class="hide-link blue-link" (click)="handleHideNotResponded($event)">hide this message</a></span>
+      </div>
+      <div class="know-more-part">
+        <span class="text">{{getMessage()}}</span>
+        <div class="know-more-link">
+          <know-more-link [knowMoreId]="knowMoreTypeClass.postPollQuestion">
+          </know-more-link>
+        </div>
       </div>
       <div>
         {{totalAnswered + " Answered"}}

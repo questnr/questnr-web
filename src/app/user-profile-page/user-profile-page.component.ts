@@ -13,7 +13,7 @@ import { UIService } from 'ui/ui.service';
 import { UserActivityService } from 'user-activity/user-activity.service';
 import { LoginService } from '../auth/login.service';
 import { EditUserComponent } from '../edit-user/edit-user.component';
-import { Post } from '../models/post-action.model';
+import { Post, QuestionParentType } from '../models/post-action.model';
 import { User, UserInfo } from '../models/user.model';
 import { ApiService } from '../shared/api.service';
 import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
@@ -76,6 +76,7 @@ export class UserProfilePageComponent implements OnInit {
   showAvatar: boolean = false;
   @ViewChild("userBannerImgRef") userBannerImgRef: ElementRef;
   @ViewChild("userAvatarImgRef") userAvatarImgRef: ElementRef;
+  questionParentTypeClass = QuestionParentType;
 
   ngOnInit(): void {
     this.url = this.route.snapshot.paramMap.get('userSlug');

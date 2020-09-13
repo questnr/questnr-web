@@ -48,7 +48,6 @@ import { AdsenseComponent } from 'shared/adsense/adsense.component';
 import { CommunityBannerComponent } from 'shared/community-banner/community-banner.component';
 import { AskQuestionComponent } from 'shared/components/dialogs/ask-question/ask-question.component';
 import { WelcomeSlidesComponent } from 'shared/components/dialogs/welcome-slides/welcome-slides.component';
-import { KnowMoreLinkComponent } from 'shared/components/know-more-link/know-more-link.component';
 import { GlobalConstants } from 'shared/constants';
 import { SharedModule } from 'shared/shared.module';
 import { UserDescriptionCardComponent } from 'shared/user-description-card/user-description-card.component';
@@ -248,8 +247,7 @@ export function metaFactory(): MetaLoader {
     HorizontalOwnerProfileComponent,
     NavBarComponent,
     AskQuestionComponent,
-    AskQuestionBtnComponent,
-    KnowMoreLinkComponent
+    AskQuestionBtnComponent
   ],
   imports: [
     AppRoutingModule,
