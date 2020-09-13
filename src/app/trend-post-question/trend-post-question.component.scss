@@ -1,8 +1,8 @@
 @import "../variables";
 
 .link-card {
-  background: #fff;
-  padding: 20px;
+  background: $white;
+  padding: 15px;
   margin: 0 0 20px 0;
   border-radius: 10px;
   h3 {
@@ -67,18 +67,18 @@ img {
   max-width: 100%;
 }
 
-.mobile-view-joined-community{
+.mobile-view-joined-community {
   margin: 20px 0;
   position: relative;
-  .mobile-create-btn{
+  .mobile-create-btn {
     position: absolute;
     right: 1%;
     top: 0;
-    mat-icon{
+    mat-icon {
       margin: 0 4px;
     }
   }
-  .mobile_action_btn{
+  .mobile_action_btn {
     text-align: center;
     button {
       background: white;
