@@ -30,7 +30,7 @@ export class QuestnrActivityService {
   }
 
   start(entityId: number, entityType: TrackingEntityType): Promise<TrackingInstance> {
-    if (!entityId || !entityType) return Promise.resolve(new TrackingInstance());
+    if (!environment.allowTracking || !entityId || !entityType) return Promise.resolve(new TrackingInstance());
     let trackFunc;
     let trackingId;
     let activityInterval;

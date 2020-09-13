@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   baseUrl: 'https://internal.questnr.com/api/v1/',
+  allowTracking: true,
   googleKey: '836632017511-na1k4gagi79qlvdp644q1shd0rjffoc9.apps.googleusercontent.com',
   fbKey: '1336590906533811',
   firebase: {
