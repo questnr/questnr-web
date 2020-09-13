@@ -8,14 +8,15 @@ import { LoginSignupModalComponent } from 'auth/login-signup-modal/login-signup-
 import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { GlobalService } from 'global.service';
-import { AvatarDTO, ServerError } from 'models/common.model';
-import { PostActionForMedia, PostEditorType, PostMedia, ResourceType, PostType, QuestionParentType } from 'models/post-action.model';
+import { AvatarDTO } from 'models/common.model';
+import { PostActionForMedia, PostEditorType, PostMedia, PostType, QuestionParentType, ResourceType } from 'models/post-action.model';
 import { SinglePost } from 'models/single-post.model';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
 import { QuestnrActivityService } from 'shared/questnr-activity.service';
+import { SignInRequiredModalComponent } from 'shared/sign-in-required-modal/sign-in-required-modal.component';
 import { UIService } from 'ui/ui.service';
 import { CommonService } from '../common/common.service';
 import { IFramelyService } from '../meta-card/iframely.service';
@@ -116,6 +117,12 @@ export class SinglePostComponent implements OnInit {
     this.profileIconRef = profileIconRef;
   }
   questionParentTypeClass = QuestionParentType;
+  signInRequiredModalRef: SignInRequiredModalComponent;
+  @ViewChild("signInRequiredModal")
+  set signInRequiredModal(signInRequiredModalRef: SignInRequiredModalComponent) {
+    this.signInRequiredModalRef = signInRequiredModalRef;
+  }
+  loginSignInModalTimeout;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
     public loginService: LoginService,
@@ -168,9 +175,10 @@ export class SinglePostComponent implements OnInit {
       } else {
         loginSignupModalTitle = `Join ${this.singlePost.communityDTO.communityName} Community`;
       }
-      setTimeout(() => {
+      this.loginSignInModalTimeout = setTimeout(() => {
         // If user is not logged in, show LoginSignModal
-        if (!this.actionAllowed) {
+        // Not open when sign in required modal is opened
+        if (!this.actionAllowed && !this.signInRequiredModalRef?.isOpen) {
           this.loginSignupModal.open(loginSignupModalTitle);
         }
       }, (7 * 1000));
@@ -250,6 +258,15 @@ export class SinglePostComponent implements OnInit {
 
   ngOnDestroy() {
     this.uiService.resetTitle();
+    if (this.loginSignInModalTimeout) {
+      clearTimeout(this.loginSignInModalTimeout);
+    }
+    if (this.signInRequiredModalRef.isOpen) {
+      this.signInRequiredModalRef.close();
+    }
+    if (this.loginSignupModal.isOpen) {
+      this.loginSignupModal.close();
+    }
     if (this.trackerInstance)
       this.trackerInstance.destroy();
   }
@@ -478,5 +495,11 @@ export class SinglePostComponent implements OnInit {
     return ((this.viewType === 0 && this.mobileView) ||
       (this.viewType === 1) || (this.viewType === 3) || ((this.singlePost?.postType === PostType.question))) &&
       this.loginService.loggedIn();
+  }
+
+  respondingActionListener($event) {
+    if ($event?.signInRequiredError) {
+      this.signInRequiredModalRef.open("Log-In Is Required to Answer This Question");
+    }
   }
 }

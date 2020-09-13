@@ -1,0 +1,25 @@
+@import "../../../variables";
+
+.sign-in-required-wrapper {
+    margin: 15px;
+    .content {
+        margin: 10px;
+        font-size: 1rem;
+    }
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid $gray;
+        padding: 7px 5px 0px 5px;
+        div {
+            .primary {
+                background-color: $heading;
+                color: $white;
+                border: 2px solid $primary;
+            }
+            .secondary {
+                color: $heading;
+            }
+        }
+    }
+}

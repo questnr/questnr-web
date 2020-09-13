@@ -11,6 +11,7 @@ import { GlobalService } from 'global.service';
 export class LoginSignupModalComponent implements OnInit {
   @Input() publicEntityId: number;
   dialogRef: MatDialogRef<LoginSignupTabComponent>;
+  isOpen: boolean = false;
 
   constructor(private dialog: MatDialog, private _globalService: GlobalService) { }
 
@@ -18,6 +19,7 @@ export class LoginSignupModalComponent implements OnInit {
   }
 
   open(title = undefined) {
+    this.isOpen = true;
     this.dialogRef = this.dialog.open(LoginSignupTabComponent, {
       width: this._globalService.isMobileView() ? "90vw" : "50vw",
       maxWidth: "450px",
@@ -25,6 +27,9 @@ export class LoginSignupModalComponent implements OnInit {
         title: title,
         publicEntityId: this.publicEntityId
       }
+    });
+    this.dialogRef.afterClosed().subscribe(() => {
+      this.isOpen = false;
     });
   }
 

@@ -32,6 +32,8 @@ import { UsernameComponent } from 'username/username.component';
 import { KnowMoreLinkComponent } from './components/know-more-link/know-more-link.component';
 import { LoaderModule } from './loader-text/loader.module';
 import { ProfileIconComponent } from './profile-icon/profile-icon.component';
+import { SignInRequiredModalComponent } from './sign-in-required-modal/sign-in-required-modal.component';
+import { SignInRequiredComponent } from './sign-in-required-modal/sign-in-required/sign-in-required.component';
 import { ViewMoreButtonComponent } from './view-more-button/view-more-button.component';
 
 @NgModule({
@@ -54,7 +56,9 @@ import { ViewMoreButtonComponent } from './view-more-button/view-more-button.com
     MetaCardComponent,
     RichTextComponent,
     EmoticonsComponent,
-    KnowMoreLinkComponent
+    KnowMoreLinkComponent,
+    SignInRequiredModalComponent,
+    SignInRequiredComponent
   ],
   imports: [
     CommonModule,
@@ -110,7 +114,9 @@ import { ViewMoreButtonComponent } from './view-more-button/view-more-button.com
     MetaCardComponent,
     RichTextComponent,
     EmoticonsComponent,
-    KnowMoreLinkComponent
+    KnowMoreLinkComponent,
+    SignInRequiredModalComponent,
+    SignInRequiredComponent
   ],
   providers: [
     CommonService,

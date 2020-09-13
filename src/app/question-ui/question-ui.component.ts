@@ -23,6 +23,7 @@ export class QuestionUIComponent implements OnInit {
   @ViewChild('respondedDisagree') respondedDisagree: ElementRef;
   @ViewChild('respondedAgree') respondedAgree: ElementRef;
   @Input() questionParentType: QuestionParentType;
+  @Output() respondingActionEvetnt = new EventEmitter();
   userPath = GlobalConstants.userPath;
   agreePercentage: string;
   disagreePercentage: string;
@@ -70,6 +71,9 @@ export class QuestionUIComponent implements OnInit {
   }
 
   respondToQuestion(postId, pollAnswer) {
+    if (!this.loginService.loggedIn()) {
+      return this.respondingActionEvetnt.emit({ signInRequiredError: true });
+    }
     if (this.isOwner) {
       return this.openSnackBar(Message.PPA101);
     }

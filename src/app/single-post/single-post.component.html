@@ -205,7 +205,8 @@
     <div class="container question-ctn">
       <div class="row">
         <div class="col-md-12">
-          <app-question-ui [question]="singlePost" [questionParentType]="questionParentTypeClass.singlePost">
+          <app-question-ui [question]="singlePost" [questionParentType]="questionParentTypeClass.singlePost"
+            (respondingActionEvetnt)="respondingActionListener($event)">
           </app-question-ui>
         </div>
       </div>
@@ -214,4 +215,5 @@
 
 
   <login-signup-modal [publicEntityId]="singlePost?.postActionId" #loginSignupModal></login-signup-modal>
+  <app-sign-in-required-modal #signInRequiredModal></app-sign-in-required-modal>
 </ng-template>
