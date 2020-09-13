@@ -183,7 +183,8 @@ export class CommunityComponent implements OnInit {
     this.communityFeed.nativeElement.removeEventListener('scroll', this.onScroll, true);
     this.renderer.removeStyle(document.getElementsByTagName('body')[0], 'overflow');
     this.uiService.resetTitle();
-    this.trackerInstance.destroy();
+    if (this.trackerInstance)
+      this.trackerInstance.destroy();
   }
 
   onScroll = (event): void => {

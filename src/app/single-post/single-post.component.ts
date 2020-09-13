@@ -127,10 +127,6 @@ export class SinglePostComponent implements OnInit {
     private _activityService: QuestnrActivityService,
     private _globalService: GlobalService) {
     this.postSlug = this.route.snapshot.paramMap.get('postSlug');
-    this.loginService.avatarSubject.subscribe((avatar: AvatarDTO) => {
-      // console.log("SINGLE POST SUBJECT", avatar);
-      this.profileIconRef.setAvatar(avatar);
-    });
   }
 
   ngOnInit(): void {
@@ -178,6 +174,12 @@ export class SinglePostComponent implements OnInit {
         }
       }, (7 * 1000));
     }
+
+    this.loginService.avatarSubject.subscribe((avatar: AvatarDTO) => {
+      // console.log("SINGLE POST SUBJECT", avatar);
+      if (this.profileIconRef)
+        this.profileIconRef.setAvatar(avatar);
+    });
   }
 
   startThread() {
@@ -199,7 +201,10 @@ export class SinglePostComponent implements OnInit {
     this.parseFeed();
   }
   async parseFeed() {
-    if (this.singlePost.postData.text)
+    if (this.singlePost.postType === PostType.question) {
+      return;
+    }
+    if (this.singlePost?.postData.text)
       this.displayText = this.singlePost.postData.text;
     if (this.singlePost.postData.postEditorType !== PostEditorType.blog) {
       this.displayText.replace('\n', '<br>');
@@ -230,7 +235,7 @@ export class SinglePostComponent implements OnInit {
   }
 
   checkPostViewType() {
-    if (this.singlePost.postData.postEditorType === PostEditorType.blog) {
+    if (this.singlePost?.postData?.postEditorType === PostEditorType.blog) {
       return this.viewType = postType.blog;
     }
     if (this.viewMediaList.length) {
