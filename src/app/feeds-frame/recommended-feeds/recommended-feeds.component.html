@@ -100,7 +100,8 @@
 
       <div class="comment-wrapper-container">
         <div class="comment-user-interaction">
-          <div class="profile-icon"> <img [src]="login.profileImg"> </div>
+          <app-profile-icon [avatar]="login.avatar" [height]="40" [sizeRef]="'medium'" #profileIcon>
+          </app-profile-icon>
           <div class="comment-wrapper">
             <span *ngIf="replyingTo">{{replyingTo.username}}</span>
             <input type="text" [formControl]="comment" #commentInput

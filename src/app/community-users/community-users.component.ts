@@ -56,7 +56,7 @@ export class CommunityUsersComponent implements OnInit {
     private loginAuth: LoginService,
     private _globalService: GlobalService,
     public communityService: CommunityService) {
-    this.loggedInUserId = this.loginAuth.getUserProfile().id;
+    this.loggedInUserId = this.loginAuth.getLocalUserProfile().id;
   }
 
   ngOnInit(): void {
@@ -123,7 +123,7 @@ export class CommunityUsersComponent implements OnInit {
   }
 
   unfollowUser(userId) {
-    const ownerId = this.loginService.getUserProfile().id;
+    const ownerId = this.loginService.getLocalUserProfile().id;
     this.userService.unfollowMe(ownerId, userId).subscribe((res: any) => {
 
     }, error => {

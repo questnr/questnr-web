@@ -86,7 +86,7 @@ export class CommunityComponent implements OnInit {
     public commonService: CommonService,
     private _activityService: QuestnrActivityService, private _globalService: GlobalService,
     private renderer: Renderer2) {
-    this.loggedInUserId = loginAuth.getUserProfile().id;
+    this.loggedInUserId = loginAuth.getLocalUserProfile().id;
     this.mobileView = this._globalService.isMobileView();
   }
 

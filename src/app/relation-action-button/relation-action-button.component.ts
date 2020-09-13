@@ -60,7 +60,7 @@ export class RelationActionButtonComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result?.data == true) {
         const snackBarRef = this.snackBar.open('Unfollowing...');
-        const ownerId = this.loginService.getUserProfile().id;
+        const ownerId = this.loginService.getLocalUserProfile().id;
         this.userFollowersService.unfollowMe(ownerId, this.userId).subscribe((res: any) => {
           // console.log(res);
           this.relation = 'none';

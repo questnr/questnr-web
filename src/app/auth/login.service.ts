@@ -1,18 +1,24 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import * as jwtDecode from 'jwt-decode';
 import { Router } from '@angular/router';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import * as jwtDecode from 'jwt-decode';
+import { AvatarDTO } from 'models/common.model';
 import { LoginResponse } from 'models/login.model';
+import { LocalUser, User } from 'models/user.model';
+import { Observable, of, Subject } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-
+  user: User;
+  avatar: AvatarDTO;
+  public avatarSubject: Subject<AvatarDTO> = new Subject();
   baseUrl = environment.baseUrl;
-  profileImg;
+  profileImg: string;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -40,28 +46,47 @@ export class LoginService {
     return this.http.post<LoginResponse>(this.baseUrl + 'sign-up', user);
   }
 
-  getUser() {
-    return this.http.get<any>(this.baseUrl + 'user/avatar');
+  getUserAvatar(): Observable<AvatarDTO> {
+    return this.http.get<AvatarDTO>(this.baseUrl + 'user/avatar');
   }
-  getUserDetails(id) {
-    return this.http.get(this.baseUrl + 'user/' + id);
+
+  getUserDetails(id): Observable<User> {
+    return this.http.get<User>(this.baseUrl + 'user/' + id);
   }
+
+  getLoggedInUserDetails(): Observable<User | void> {
+    return this.getUserDetails(this.getLocalUserProfile().id).pipe(map((user: User) => {
+      this.user = user;
+      if (!this.avatar) {
+        this.avatarSubject.next(this.user.avatarDTO);
+        this.avatar = this.user.avatarDTO;
+      }
+      this.profileImg = this.avatar?.avatarLink ? this.avatar.avatarLink : StaticMediaSrc.userFile;
+      return user;
+    }), catchError((error: HttpErrorResponse) => {
+      this.logOut();
+      return of(null);
+    }));
+  }
+
   getUserProfileImg() {
-    this.getUser().subscribe(
-      (res) => {
-        this.profileImg = res?.avatarLink ? res.avatarLink : StaticMediaSrc.userFile;
+    this.getUserAvatar().subscribe(
+      (avatar: AvatarDTO) => {
+        this.avatar = avatar;
+        this.profileImg = avatar?.avatarLink ? avatar.avatarLink : StaticMediaSrc.userFile;
       }, err => {
         this.profileImg = StaticMediaSrc.userFile;
       }
     );
   }
 
-  getUserProfile() {
+  getLocalUserProfile(): LocalUser {
     const decodedData = jwtDecode(localStorage.getItem('token'));
     var current_time = Date.now() / 1000;
     if (decodedData.exp < current_time) {
       this.logOut();
     }
+    // console.log("decodedData", decodedData);
     return decodedData;
   }
 
@@ -70,15 +95,32 @@ export class LoginService {
     localStorage.clear();
     this.router.navigate(['/']);
   }
+
   loggedIn() {
     return !!localStorage.getItem('token');
   }
-  getUserId() {
+
+  getUserId(): number {
+    if (this.user?.userId) {
+      return this.user.userId;
+    }
     try {
-      const user = this.getUserProfile();
+      const user = this.getLocalUserProfile();
       return user.id;
     } catch (e) {
-      return -99;
+      this.logOut();
+    }
+  }
+
+  getUserSlug(): string {
+    if (this.user?.slug) {
+      return this.user.slug;
+    }
+    try {
+      const user = this.getLocalUserProfile();
+      return user.slug;
+    } catch (e) {
+      this.logOut();
     }
   }
 }

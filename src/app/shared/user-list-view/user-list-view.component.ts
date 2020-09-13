@@ -82,7 +82,7 @@ export class UserListViewComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if (result?.data == true) {
-        const ownerId = this.loginService.getUserProfile().id;
+        const ownerId = this.loginService.getLocalUserProfile().id;
         this.userProfileCardServiceComponent.unfollowMe(ownerId, this.user.userId).subscribe((res: any) => {
           this.relation = RelationType.NONE;
         }, error => {

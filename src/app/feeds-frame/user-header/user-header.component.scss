@@ -9,17 +9,17 @@
   width: calc(100% - 150px);
 }
 
-.icon {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  overflow: hidden;
+// .icon {
+//   height: 40px;
+//   width: 40px;
+//   border-radius: 50%;
+//   overflow: hidden;
 
-  img {
-    height: 100%;
-    width: auto;
-  }
-}
+//   img {
+//     height: 100%;
+//     width: auto;
+//   }
+// }
 
 .toggle {
   display: none;
@@ -28,8 +28,7 @@
 #extended-nav {
   //padding: 0 30px;
   border-top: none;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
-  0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   height: 54px;
   background: #ffffff;
 }
@@ -168,9 +167,9 @@
   display: none;
 }
 
-.mobile_view {
-  display: none;
-}
+// .mobile_view {
+//   display: none;
+// }
 
 @media only screen and (max-width: 600px) {
   //.profile-btn{
@@ -179,16 +178,16 @@
   //    display: none !important;
   //  }
   //}
-  .mobile_view {
-    display: block;
-    margin: 0 4px;
+  // .mobile_view {
+  //   display: block;
+  //   margin: 0 4px;
 
-    img {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-    }
-  }
+  //   img {
+  //     width: 32px;
+  //     height: 32px;
+  //     border-radius: 50%;
+  //   }
+  // }
   .toggle {
     display: block;
   }
@@ -218,27 +217,27 @@
   cursor: pointer;
 }
 
-.no-notification{
+.no-notification {
   color: $secondary-font-color;
   margin: 10px;
   display: flex;
   justify-content: center;
 }
-.notification-loader{
+.notification-loader {
   @extend .no-notification;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
-.mat-menu-item{
+.mat-menu-item {
   font-size: 13px;
   padding: 0 12px !important;
-  line-height:10px;
-  height:38px;
+  line-height: 10px;
+  height: 38px;
 }
 
-.notification-answer-icon{
+.notification-answer-icon {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
@@ -248,14 +247,14 @@
     height: 1.5rem;
   }
 }
-.explore-header{
+.explore-header {
   color: $primary;
   display: flex !important;
   justify-content: center;
   align-items: center;
 }
-@media screen and (max-width: $tablet){
-  .explore-header{
+@media screen and (max-width: $tablet) {
+  .explore-header {
     display: none !important;
   }
 }

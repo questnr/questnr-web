@@ -114,7 +114,8 @@ export class UserProfilePageComponent implements OnInit {
     this.renderer.removeStyle(document.getElementsByTagName("body")[0], "overflow");
     this.userObserver.complete();
     this.uiService.resetTitle();
-    this.trackerInstance.destroy();
+    if (this.trackerInstance)
+      this.trackerInstance.destroy();
   }
   postFeed(event) {
     if (event.postActionId) {

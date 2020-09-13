@@ -53,7 +53,7 @@ export class CommunityCardMobileViewComponent implements OnInit {
   }
 
   unfollowThisCommunity(communityId) {
-    const userId = this.loginService.getUserProfile().id;
+    const userId = this.loginService.getLocalUserProfile().id;
     this.communityService.unfollowCommunityService(communityId, userId).subscribe((res: any) => {
       // console.log('unfollowed', res);
       this.relation = RelationType.NONE;

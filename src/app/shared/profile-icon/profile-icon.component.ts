@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Renderer2, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { AvatarDTO } from 'models/common.model';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { GlobalConstants } from 'shared/constants';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
   selector: 'app-profile-icon',
@@ -25,24 +25,32 @@ export class ProfileIconComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.sizeRef === "icon" && this.avatar.iconLink) {
-      this.avatarLink = this.avatar.iconLink;
-    } else if (this.sizeRef === "small" && this.avatar.smallLink) {
-      this.avatarLink = this.avatar.smallLink;
-    } else if (this.sizeRef === "medium" && this.avatar.mediumLink) {
-      this.avatarLink = this.avatar.mediumLink;
-    } else {
-      this.avatarLink = this.avatar.avatarLink;
-    }
     if (this.isCommunityAvatar) {
       this.defaultPath = GlobalConstants.communityPath;
       this.defaultSrc = StaticMediaSrc.communityFile;
     }
   }
   ngAfterViewInit() {
+    this.setAvatar(this.avatar);
     this.renderer.setStyle(this.elementOnHTML.nativeElement, 'height', this.height + "px");
     this.renderer.setStyle(this.elementOnHTML.nativeElement, 'width', this.height + "px");
   }
+
+  setAvatar(avatar: AvatarDTO) {
+    this.avatar = avatar;
+    if (this.avatar) {
+      if (this.sizeRef === "icon" && this.avatar.iconLink) {
+        this.avatarLink = this.avatar.iconLink;
+      } else if (this.sizeRef === "small" && this.avatar.smallLink) {
+        this.avatarLink = this.avatar.smallLink;
+      } else if (this.sizeRef === "medium" && this.avatar.mediumLink) {
+        this.avatarLink = this.avatar.mediumLink;
+      } else {
+        this.avatarLink = this.avatar.avatarLink;
+      }
+    }
+  }
+
   checkImageSrc(src) {
     if (src) {
       return src;

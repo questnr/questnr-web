@@ -41,7 +41,7 @@ export class FloatingMobileNavComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.profileLink = this.loginService.getUserProfile().slug;
+    this.profileLink = this.loginService.getLocalUserProfile().slug;
     this.mobileView = this._globalService.isMobileView();
     if (this.url === this.links.feedPath) {
       this.home = true;
@@ -68,8 +68,8 @@ export class FloatingMobileNavComponent implements OnInit {
     });
   }
   getUserOwnedCommunity() {
-    if (!this.loginService.getUserProfile().id) return;
-    this.usercommunityService.getUserOwnedCommunity(this.loginService.getUserProfile().id, 0)
+    if (!this.loginService.getLocalUserProfile().id) return;
+    this.usercommunityService.getUserOwnedCommunity(this.loginService.getLocalUserProfile().id, 0)
       .subscribe((res: Page<Community>) => {
         if (res.content.length) {
           this.ownedCommunity = res.content;
@@ -79,7 +79,7 @@ export class FloatingMobileNavComponent implements OnInit {
       });
   }
   getJoinedCommunity() {
-    this.api.getJoinedCommunities(this.loginService.getUserProfile().id, 0).subscribe(
+    this.api.getJoinedCommunities(this.loginService.getLocalUserProfile().id, 0).subscribe(
       (res: Page<Community>) => {
         if (res.content.length) {
           this.joinedCommunity = res.content;

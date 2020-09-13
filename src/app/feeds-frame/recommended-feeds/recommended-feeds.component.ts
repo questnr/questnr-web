@@ -12,17 +12,18 @@ import { CommonService } from 'common/common.service';
 import { FeedTextComponent } from 'feed-text/feed-text.component';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { IFramelyService } from 'meta-card/iframely.service';
+import { AvatarDTO } from 'models/common.model';
 import { HashTag } from 'models/hashtag.model';
 import { IFramelyData } from 'models/iframely.model';
 import { Page } from 'models/page.model';
-import { OwlOptions } from 'ngx-owl-carousel-o';
+import { UserListData, UserListType } from 'models/user-list.model';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { GlobalConstants } from 'shared/constants';
+import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
 import { CommentAction } from '../../models/comment-action.model';
-import { Post, PostActionForMedia, PostEditorType, PostMedia, ResourceType } from '../../models/post-action.model';
+import { Post, PostEditorType, PostMedia, ResourceType } from '../../models/post-action.model';
 import { UserListComponent } from '../../shared/components/dialogs/user-list/user-list.component';
 import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
-import { UserListData, UserListType } from 'models/user-list.model';
 declare var $: any;
 
 @Component({
@@ -90,6 +91,11 @@ export class RecommendedFeedsComponent implements OnInit {
   @ViewChild("feedViewContainer") feedViewContainer: ElementRef;
   viewPortPassed: boolean = false;
   userListTypeClass = UserListType;
+  profileIconRef: ProfileIconComponent;
+  @ViewChild("profileIcon")
+  set profileIcon(profileIconRef: ProfileIconComponent) {
+    this.profileIconRef = profileIconRef;
+  }
 
   constructor(private api: FeedsService,
     public login: LoginService,
@@ -99,7 +105,12 @@ export class RecommendedFeedsComponent implements OnInit {
     private iFramelyService: IFramelyService,
     public snackbar: MatSnackBar,
     private router: Router,
-    private _sanitizer: DomSanitizer) { }
+    private _sanitizer: DomSanitizer) {
+    this.login.avatarSubject.subscribe((avatar: AvatarDTO) => {
+      // console.log("RECOMMENDED FEEDS SUBJECT", avatar);
+      this.profileIconRef.setAvatar(avatar);
+    });
+  }
 
   ngOnInit() {
     if (!this.showUserHeader) {
@@ -117,8 +128,8 @@ export class RecommendedFeedsComponent implements OnInit {
       }
     }
     this.editableFeed = Object.assign({}, this.feed);
-    this.loggedInUsername = this.login.getUserProfile().sub;
-    this.loggedInUserId = this.login.getUserProfile().id;
+    this.loggedInUsername = this.login.getLocalUserProfile().sub;
+    this.loggedInUserId = this.login.getLocalUserProfile().id;
     this.parseFeedText();
   }
   async parseFeedText() {

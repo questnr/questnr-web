@@ -25,24 +25,29 @@
   animation-timing-function: ease; /* also experiment with other values */
   animation-fill-mode: forwards; /* retains 100% width when it gets there */
 }
-@keyframes underline { /* lets call it the "underline" */
-  0%   {width:0} /* start width */
-  100% {width:100%} /* end width */
+@keyframes underline {
+  /* lets call it the "underline" */
+  0% {
+    width: 0;
+  } /* start width */
+  100% {
+    width: 100%;
+  } /* end width */
 }
 
-.profile-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  height: 40px;
-  border-radius: 50%;
-  width: 40px;
-  img {
-    width: auto;
-    height: 100%;
-  }
-}
+// .profile-icon {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   overflow: hidden;
+//   height: 40px;
+//   border-radius: 50%;
+//   width: 40px;
+//   img {
+//     width: auto;
+//     height: 100%;
+//   }
+// }
 .profile-detail {
   padding: 0 0.6rem;
   font-size: 14px;
@@ -98,7 +103,7 @@
   display: flex;
   align-items: center;
 }
-.comment-wrapper-container{
+.comment-wrapper-container {
   display: flex;
   flex-direction: column;
   .profile-icon {
@@ -106,18 +111,18 @@
     margin: auto 10px;
     height: 40px;
   }
-  .comment-user-interaction{
+  .comment-user-interaction {
     display: flex;
     align-items: center;
-    .comment-features{
+    .comment-features {
       display: flex;
       align-items: center;
       margin: 0.6rem;
-      .comment-feature{
-        input[type="file"]{
+      .comment-feature {
+        input[type="file"] {
           display: none;
         }
-        .attach-file{
+        .attach-file {
           cursor: pointer;
           width: 20px;
           height: auto;
@@ -125,8 +130,7 @@
       }
     }
   }
-  app-attached-file{
-      
+  app-attached-file {
   }
   .comment-wrapper {
     background: #eee;
@@ -237,24 +241,24 @@ button.liked {
 //     color: $primary;
 //   }
 // }
-.mat-menu-item{
+.mat-menu-item {
   font-size: 13px;
   padding: 0 12px !important;
-  line-height:10px;
-  height:38px;
+  line-height: 10px;
+  height: 38px;
 }
 
-::ng-deep.mat-menu-panel{
+::ng-deep.mat-menu-panel {
   min-height: auto !important;
 }
 
-.link-hide-border{
-  &:hover{
+.link-hide-border {
+  &:hover {
     border: 0;
   }
 }
 
-.y-video-container{
+.y-video-container {
   height: 400px;
   max-height: 400px;
 }

@@ -27,7 +27,7 @@ export class CommentBoxComponent {
 
   constructor(private api: FeedsService,
     public loginAuth: LoginService) {
-    this.loggedInUserId = loginAuth.getUserProfile().id;
+    this.loggedInUserId = loginAuth.getLocalUserProfile().id;
   }
 
   hover() {

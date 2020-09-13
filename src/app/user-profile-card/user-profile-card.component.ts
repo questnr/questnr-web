@@ -48,7 +48,7 @@ export class UserProfileCardComponent implements OnInit {
     });
   }
   unfollowUser(userId) {
-    const ownerId = this.loginAuth.getUserProfile().id;
+    const ownerId = this.loginAuth.getLocalUserProfile().id;
     // console.log(ownerId, userId);
     this.auth.unfollowMe(ownerId, userId).subscribe((res: any) => {
       // console.log('sucess');

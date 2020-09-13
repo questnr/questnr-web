@@ -6,27 +6,23 @@
 .example-full-width {
   width: 100%;
 }
-.container{
+.container {
   padding: 30px 0px;
 }
 
-.flex-box{
+.flex-box {
   display: flex;
   align-content: center;
   align-items: center;
-  .user-profile{
-    width: 60px;
+  .user-profile {
     border-radius: 50%;
     height: auto;
     overflow: hidden;
     margin-right: 7px;
-    img{
-      width: 100%;
-    }
   }
-  .write-post{
+  .write-post {
     width: 100%;
-    button{
+    button {
       width: 100%;
       display: flex;
       height: 40px;
@@ -42,27 +38,28 @@
   }
 }
 
-.post-cnt{
+.post-cnt {
   padding: 10px;
   background: $white;
   border-radius: 10px;
 }
 
-.more-post-options{
+.more-post-options {
   text-align: center;
   color: grey;
   font-size: 16px;
   letter-spacing: 0.5px;
-  .col-6{
+  .col-6 {
     display: flex;
     justify-content: center;
   }
-  .ask-questionBtn , .add-mediaBtn{
+  .ask-questionBtn,
+  .add-mediaBtn {
     display: flex;
     justify-content: center;
-    mat-icon{
+    mat-icon {
       margin-right: 4px;
-      color: $primary
+      color: $primary;
     }
     span {
       font-size: 0.85rem;
@@ -70,7 +67,7 @@
   }
 }
 @media screen and (max-width: $tablet) {
-  .more-post-options button{
+  .more-post-options button {
     font-size: 12px;
   }
 }

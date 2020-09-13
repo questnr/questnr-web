@@ -1,9 +1,8 @@
 <div class="box post-cnt">
   <div>
     <div class="flex-box">
-      <div class="user-profile">
-        <div class="icon" [routerLink]="['/user/',login.getUserProfile().slug]"><img [src]="login.profileImg"></div>
-      </div>
+      <app-profile-icon [avatar]="login.avatar" [height]="60" [sizeRef]="'medium'" #profileIcon>
+      </app-profile-icon>
       <div class="write-post">
         <button mat-stroked-button (click)="createPost(communityId, isCommunityPost, type, '')" style="width: 100%">Make
           a Questnr...

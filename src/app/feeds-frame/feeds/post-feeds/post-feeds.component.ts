@@ -1,8 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PostFeedComponent } from '../../post-feed/post-feed.component';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginService } from '../../../auth/login.service';
 import { GlobalService } from 'global.service';
+import { AvatarDTO } from 'models/common.model';
+import { GlobalConstants } from 'shared/constants';
+import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
+import { LoginService } from '../../../auth/login.service';
+import { PostFeedComponent } from '../../post-feed/post-feed.component';
 
 @Component({
   selector: 'app-post-feeds',
@@ -15,13 +18,27 @@ export class PostFeedsComponent implements OnInit {
   @Input() communityId;
   @Input() type: any;
   mobileView: boolean = true;
+  userPath: string = GlobalConstants.userPath;
+  profileIconRef: ProfileIconComponent;
+  @ViewChild("profileIcon")
+  set profileIcon(profileIconRef: ProfileIconComponent) {
+    this.profileIconRef = profileIconRef;
+  }
+
   constructor(public dialog: MatDialog,
     public login: LoginService,
-    private _globalService: GlobalService) { }
+    private _globalService: GlobalService) {
+    this.login.avatarSubject.subscribe((avatar: AvatarDTO) => {
+      // console.log("PROFILE FEEDS SUBJECT", avatar);
+      this.profileIconRef.setAvatar(avatar);
+    });
+  }
 
   ngOnInit() {
+
   }
   ngAfterViewInit() {
+
     this.mobileView = this._globalService.isMobileView();
   }
   createPost(communityId, isCommunityPost, type, addMediaAction): void {

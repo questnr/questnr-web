@@ -32,3 +32,15 @@ export class UserInfo {
 export class UserInterest {
     interest: string;
 }
+
+export class LocalUser {
+    created: number;
+    emailId: string;
+    exp: number;
+    iat: number;
+    id: number;
+    name: string;
+    role: string[];
+    slug: string;
+    sub: string;
+}

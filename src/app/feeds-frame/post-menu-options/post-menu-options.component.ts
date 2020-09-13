@@ -41,7 +41,7 @@ export class PostMenuOptionsComponent implements OnInit {
     if (this.feed?.postData?.postEditorType) {
       this.isBlog = this.feed?.postData.postEditorType == PostEditorType.blog;
     }
-    this.loggedInUserId = this.login.getUserProfile().id;
+    this.loggedInUserId = this.login.getLocalUserProfile().id;
     const width = this.screenWidth;
     if (width <= 800) {
       this.mobileView = true;

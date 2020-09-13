@@ -52,11 +52,9 @@
           [ngClass]="[((viewType===1) && !mobileView) ? 'none-media-post' : '', viewType!=3 ? 'col-lg-4 content-ctn': 'blog-data']">
           <div class="post-head" id="post-head">
             <div class="head-wrap" *ngIf="!showUserHeader">
-              <div class="profile-icon">
-                <app-profile-icon [isCommunityAvatar]="true" [avatar]="singlePost.communityDTO.avatarDTO" [height]="50"
-                  [sizeRef]="'small'" [slug]="singlePost?.communityDTO?.slug">
-                </app-profile-icon>
-              </div>
+              <app-profile-icon [isCommunityAvatar]="true" [avatar]="singlePost.communityDTO.avatarDTO" [height]="50"
+                [sizeRef]="'small'" [slug]="singlePost?.communityDTO?.slug">
+              </app-profile-icon>
               <div class="profile-detail" *ngIf="singlePost.communityDTO">
                 <div class="head"><a class="username-link"
                     [routerLink]="['/', userPath, singlePost.userDTO.slug]">{{singlePost?.userDTO?.username}}</a>
@@ -166,9 +164,8 @@
                 </div>
                 <div class="comment-wrapper-container" *ngIf="loginService.loggedIn()">
                   <div class="comment-user-interaction">
-                    <div class="profile-icon">
-                      <img [src]="loginService.profileImg ? loginService.profileImg : defaultUserSrc ">
-                    </div>
+                    <app-profile-icon [avatar]="loginService.avatar" [height]="50" [sizeRef]="'small'" #profileIcon>
+                    </app-profile-icon>
                     <div class="comment-wrapper">
                       <span *ngIf="replyingTo">{{replyingTo.username}}</span>
                       <input type="text" [formControl]="comment" #commentInput

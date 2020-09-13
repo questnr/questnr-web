@@ -8,12 +8,13 @@ import { LoginSignupModalComponent } from 'auth/login-signup-modal/login-signup-
 import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { GlobalService } from 'global.service';
-import { ServerError } from 'models/common.model';
+import { AvatarDTO, ServerError } from 'models/common.model';
 import { PostActionForMedia, PostEditorType, PostMedia, ResourceType, PostType } from 'models/post-action.model';
 import { SinglePost } from 'models/single-post.model';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
 import { QuestnrActivityService } from 'shared/questnr-activity.service';
 import { UIService } from 'ui/ui.service';
 import { CommonService } from '../common/common.service';
@@ -109,6 +110,11 @@ export class SinglePostComponent implements OnInit {
   error: boolean = false;
   @ViewChild("loginSignupModal") loginSignupModal: LoginSignupModalComponent;
   PostTypeClass = PostType;
+  profileIconRef: ProfileIconComponent;
+  @ViewChild("profileIcon")
+  set profileIcon(profileIconRef: ProfileIconComponent) {
+    this.profileIconRef = profileIconRef;
+  }
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
     public loginService: LoginService,
@@ -121,6 +127,10 @@ export class SinglePostComponent implements OnInit {
     private _activityService: QuestnrActivityService,
     private _globalService: GlobalService) {
     this.postSlug = this.route.snapshot.paramMap.get('postSlug');
+    this.loginService.avatarSubject.subscribe((avatar: AvatarDTO) => {
+      // console.log("SINGLE POST SUBJECT", avatar);
+      this.profileIconRef.setAvatar(avatar);
+    });
   }
 
   ngOnInit(): void {

@@ -1,10 +1,12 @@
-import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, Renderer2, ViewChild } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'angularx-social-login';
 import { LoginService } from 'auth/login.service';
+import { GlobalService } from 'global.service';
+import { AvatarDTO } from 'models/common.model';
 import { NotificationDTO } from 'models/notification.model';
 import { User } from 'models/user.model';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -12,10 +14,9 @@ import { SearchOverlayComponent } from 'search/search-overlay/search-overlay.com
 import { ApiService } from 'shared/api.service';
 import { GlobalConstants } from 'shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
 import { MessagingService } from '../../service/messaging.service';
 import { CreateCommunityComponent } from '../../shared/components/dialogs/create-community/create-community.component';
-import { UsercommunityService } from '../../usercommunity/usercommunity.service';
-import { GlobalService } from 'global.service';
 
 @Component({
     selector: 'app-user-header',
@@ -28,7 +29,7 @@ export class UserHeaderComponent {
     mobileView: boolean = false;
     @Output() menuToggle = new EventEmitter();
     user: string;
-    userDetail: User;
+    userDetails: User;
     userPath: string = GlobalConstants.userPath;
     explorePath: string = GlobalConstants.explorePath;
     isLoading = false;
@@ -50,8 +51,14 @@ export class UserHeaderComponent {
     openedNotificationType: string;
     defaultUserSrc: string = StaticMediaSrc.userFile;
     @ViewChild("searchOverlayComponentRef") searchOverlayComponentRef: SearchOverlayComponent;
+    avatar: AvatarDTO;
+    profileIconRef: ProfileIconComponent;
+    @ViewChild("profileIcon")
+    set profileIcon(profileIconRef: ProfileIconComponent) {
+        this.profileIconRef = profileIconRef;
+    }
 
-    constructor(private router: Router, public auth: LoginService,
+    constructor(private router: Router, public login: LoginService,
         private authService: AuthService,
         private api: ApiService,
         private messagingService: MessagingService,
@@ -59,15 +66,19 @@ export class UserHeaderComponent {
         private renderer: Renderer2,
         private dialog: MatDialog,
         private _globalService: GlobalService) {
+        this.login.avatarSubject.subscribe((avatar: AvatarDTO) => {
+            // console.log("USERHEADER FEEDS SUBJECT", avatar);
+            this.avatar = avatar;
+            this.profileIconRef.setAvatar(avatar);
+        });
     }
 
     ngOnInit() {
         this.mobileView = this._globalService.isMobileView();
-        this.profile = this.auth.getUserProfile();
-        this.auth.getUserProfileImg();
+        this.profile = this.login.getLocalUserProfile();
         // Receive notification messages
         this.receiveMessage();
-        this.getUserDetail();
+        this.getLoggedInUserDetails();
         this.searchInput.valueChanges
             .pipe(debounceTime(200))
             .pipe(distinctUntilChanged())
@@ -248,10 +259,9 @@ export class UserHeaderComponent {
         });
     }
 
-    getUserDetail() {
-        this.auth.getUserDetails(this.auth.getUserProfile().id).subscribe((res: any) => {
-            this.userDetail = res;
-            // console.log(this.userDetail);
+    getLoggedInUserDetails() {
+        this.login.getLoggedInUserDetails().subscribe((res: User) => {
+            this.userDetails = res;
         }, error => {
             // console.log(error.error.errorMessage)''
         });

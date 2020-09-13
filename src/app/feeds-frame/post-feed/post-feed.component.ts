@@ -11,9 +11,11 @@ import { HashTagService } from 'feeds-frame/hash-tag-service';
 import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
 import { GlobalService } from 'global.service';
 import { IFramelyService } from 'meta-card/iframely.service';
+import { AvatarDTO } from 'models/common.model';
 import { IFramelyData } from 'models/iframely.model';
 import { NormalPostData, Post, PostEditorType } from 'models/post-action.model';
 import Quill from 'quill';
+import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
 
 @Component({
   selector: 'app-post-feed',
@@ -58,7 +60,6 @@ export class PostFeedComponent implements OnInit {
     });
   richText: string;
   editorText: string;
-  profileImg;
   addedMedias = [];
   addedMediaSrc = [];
   // @Output() postData = new EventEmitter();
@@ -73,6 +74,11 @@ export class PostFeedComponent implements OnInit {
   @Input() editing: any;
   postEditorName: string = "Post";
   mobileView: boolean = false;
+  profileIconRef: ProfileIconComponent;
+  @ViewChild("profileIcon")
+  set profileIcon(profileIconRef: ProfileIconComponent) {
+    this.profileIconRef = profileIconRef;
+  }
 
   constructor(public login: LoginService,
     private service: FeedsService,
@@ -91,6 +97,10 @@ export class PostFeedComponent implements OnInit {
     public renderer: Renderer2,
     private _globalService: GlobalService
   ) {
+    this.login.avatarSubject.subscribe((avatar: AvatarDTO) => {
+      // console.log("POST FEED SUBJECT", avatar);
+      this.profileIconRef.setAvatar(avatar);
+    });
   }
 
   ngOnInit(): void {

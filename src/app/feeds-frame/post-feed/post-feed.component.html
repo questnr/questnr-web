@@ -14,7 +14,8 @@
   </div>
   <hr style="margin-top: 0">
   <div class="post-wrap">
-    <div class="icon"><img [src]="login.profileImg"></div>
+    <app-profile-icon [avatar]="login.avatar" [height]="60" [sizeRef]="'medium'" #profileIcon>
+    </app-profile-icon>
     <div class="textbox-wrap md-form" style="position:relative;">
       <div *ngIf="!isBlogEditor">
         <textarea rows="4" placeholder="Describe Here...." [formControl]="text" (input)="typeCheckOnUserInput($event)"

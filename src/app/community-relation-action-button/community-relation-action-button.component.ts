@@ -66,7 +66,7 @@ export class CommunityRelationActionButtonComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result?.data) {
         const snackBarRef = this.snackBar.open('Unfollowing...');
-        const userId = this.loginAuth.getUserProfile().id;
+        const userId = this.loginAuth.getLocalUserProfile().id;
         this.auth.unfollowCommunityService(this.communityId, userId).subscribe((res: any) => {
           this.relation = RelationType.NONE;
           this.sendAction(this.relation);
@@ -83,7 +83,7 @@ export class CommunityRelationActionButtonComponent implements OnInit {
     this.actionEvent.emit(relation);
   }
   deleteUsersOwnPendingCommunityJoinRequests() {
-    this.auth.deleteUsersOwnPendingCommunityJoinRequests(this.communityId).subscribe( (res: any) => {
+    this.auth.deleteUsersOwnPendingCommunityJoinRequests(this.communityId).subscribe((res: any) => {
       this.relation = RelationType.NONE;
       this.snackBar.open('Request cancelled', 'close', { duration: 3000 });
     }, error => {
