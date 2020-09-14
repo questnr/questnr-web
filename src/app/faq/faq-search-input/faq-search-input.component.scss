@@ -6,6 +6,15 @@
     width: 100%;
     .input-container {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        span {
+            display: flex;
+            justify-content: flex-end;
+            font-size: 0.7rem;
+            color: $gray-font-secondary;
+        }
         input[type="text"] {
             width: 100%;
             background-color: $input-field-background-color;

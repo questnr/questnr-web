@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from 'auth/login.service';
 import { GlobalService } from 'global.service';
 import { FAQItem, FAQItemPage } from 'models/faq.model';
 import { KnowMoreLinkType } from 'models/know-more-type';
@@ -33,7 +34,8 @@ export class FAQComponent implements OnInit, OnDestroy {
     private router: Router,
     private _globalService: GlobalService,
     private faqService: FAQService,
-    private renderer: Renderer2) {
+    private renderer: Renderer2,
+    public loginService: LoginService) {
     let faqType = this.route.snapshot.paramMap.get('faqType');
     if (faqType) {
       this.faqService.getFAQItems(faqType).subscribe((faqItemClassPage: FAQItemPage) => {

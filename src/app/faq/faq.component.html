@@ -1,4 +1,5 @@
-<app-user-header></app-user-header>
+<app-header *ngIf="!loginService.loggedIn()"></app-header>
+<app-user-header *ngIf="loginService.loggedIn()"></app-user-header>
 
 <div class="faq-wrapper container hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
     <div class="faq-container hide-scrollbar">

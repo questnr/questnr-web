@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from 'auth/login.service';
 import { FAQService } from 'faq/faq.service';
 import { GlobalService } from 'global.service';
 import { FAQItemSearchPage } from 'models/faq.model';
@@ -28,8 +29,8 @@ export class FAQSearchComponent implements OnInit, OnDestroy {
     private _globalService: GlobalService,
     private router: Router,
     private faqService: FAQService,
-    private renderer: Renderer2
-  ) {
+    private renderer: Renderer2,
+    public loginService: LoginService) {
     this.route.queryParams.subscribe(params => {
       this.queryString = params['q'];
       if (!this.queryString) {

@@ -138,8 +138,7 @@ export class QuestionUIComponent implements OnInit {
 
   getMessage() {
     if (this.loading) return;
-    if (!this.isOwner
-      && !this.isResponded) {
+    if (!this.isOwner) {
       return "Post owner can not see your answer!";
     }
     if (this.isOwner) {
