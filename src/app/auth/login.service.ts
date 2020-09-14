@@ -57,11 +57,9 @@ export class LoginService {
   getLoggedInUserDetails(): Observable<User | void> {
     return this.getUserDetails(this.getLocalUserProfile().id).pipe(map((user: User) => {
       this.user = user;
-      if (!this.avatar) {
-        this.avatarSubject.next(this.user.avatarDTO);
-        this.avatar = this.user.avatarDTO;
-      }
+      this.avatar = this.user.avatarDTO;
       this.profileImg = this.avatar?.avatarLink ? this.avatar.avatarLink : StaticMediaSrc.userFile;
+      this.avatarSubject.next(this.user.avatarDTO);
       return user;
     }), catchError((error: HttpErrorResponse) => {
       this.logOut();
