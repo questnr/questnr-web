@@ -2,7 +2,7 @@
     <div class="input-container">
         <input type="text" matInput [formControl]="searchFAQControl"
             (keyup.enter)="handleSearchFAQ(searchFAQControl.value)" placeholder="{{placeholder}}" />
-        <span *ngIf="!mobileView && searchFAQControl.value?.length > 1">Search your question here</span>
+        <span *ngIf="!mobileView && searchFAQControl.value?.length > 0">Search your question here</span>
     </div>
     <div class="close-icon" *ngIf="mobileView">
         <mat-icon (click)="handleClose()">close</mat-icon>
