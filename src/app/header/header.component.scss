@@ -7,8 +7,8 @@
   width: calc(100% - 150px);
 }
 
-@media only screen and (max-width : $mobile-large) and (min-width: $mobile-small){
-  .toolbar{
+@media only screen and (max-width: $mobile-large) and (min-width: $mobile-small) {
+  .toolbar {
     width: calc(100% - 20px) !important;
   }
   .btn-white {
@@ -18,9 +18,9 @@
     line-height: 25px !important;
     font-size: 12px !important;
     margin-left: 25px;
-    margin-right:8px !important;
+    margin-right: 8px !important;
   }
-  .btn-color{
+  .btn-color {
     font-size: 12px !important;
     //width: 140px !important;
     min-width: auto !important;
@@ -30,7 +30,7 @@
 #extended-nav {
   //padding: 0 30px;
   border-top: none;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   height: 54px;
   background: #ffffff;
 }
@@ -57,8 +57,6 @@
   float: right;
 }
 
-
-
 .btn-white {
   border: 1px solid #cdcdcd !important;
   width: auto;
@@ -68,9 +66,8 @@
   margin-right: 20px;
 }
 
-
 .btn-color {
-  height: 32px ;
+  height: 32px;
   line-height: 32px;
   width: auto;
   min-width: 112px;
@@ -78,8 +75,15 @@
   color: #ffffff !important;
 }
 
-.logo{
-  img{
+.logo {
+  img {
     width: 9rem;
+  }
+  /* remove blue border ring */
+  &:active {
+    outline: 0 !important;
+  }
+  &:focus {
+    outline: 0 !important;
   }
 }
