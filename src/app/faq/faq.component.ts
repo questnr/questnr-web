@@ -33,24 +33,18 @@ export class FAQComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private _globalService: GlobalService,
-    private faqService: FAQService,
     private renderer: Renderer2,
     public loginService: LoginService) {
-    let faqType = this.route.snapshot.paramMap.get('faqType');
-    if (faqType) {
-      this.faqService.getFAQItems(faqType).subscribe((faqItemClassPage: FAQItemPage) => {
-        if (faqItemClassPage?.category && faqItemClassPage.faqItemPage?.content?.length > 0) {
-          this.category = faqItemClassPage.category;
-          this.description = faqItemClassPage.description;
-          this.faqItemList = faqItemClassPage.faqItemPage.content;
-          this.loading = false;
-        } else {
-          this.redirectToErrorPage();
-        }
-      });
-    } else {
-      this.redirectToErrorPage();
-    }
+    this.loading = true;
+    this.route.data.subscribe((data: { faq: FAQItemPage }) => {
+      this.category = data.faq.category;
+      this.description = data.faq.description;
+      this.faqItemList = data.faq.faqItemPage.content;
+      this.loading = false;
+    });
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
   }
 
   ngOnInit(): void {

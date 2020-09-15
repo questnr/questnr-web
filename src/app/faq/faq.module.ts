@@ -14,6 +14,8 @@ import { CommunityPrivacyComponent } from './templates/community-privacy/communi
 import { TitleSeparatorComponent } from './title-separator/title-separator.component';
 import { FAQSearchInputComponent } from './faq-search-input/faq-search-input.component';
 import { FAQSearchButtonComponent } from './faq-search-button/faq-search-button.component';
+import { FAQResolve } from './faq.resolve';
+import { FAQSearchResolve } from './faq-search/faq-search.resolve';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,10 @@ import { FAQSearchButtonComponent } from './faq-search-button/faq-search-button.
   exports: [
     FAQComponent
   ],
-  bootstrap: [FAQComponent]
+  bootstrap: [FAQComponent],
+  providers: [
+    FAQResolve,
+    FAQSearchResolve
+  ]
 })
 export class FAQModule { }

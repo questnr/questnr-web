@@ -43,10 +43,27 @@ export class GlobalConstants {
   public static helpPath = "help";
   public static questnrPath = "questnr";
   public static error = "error";
-
-
+  public static questnrHelpTitle = GlobalConstants.siteTitle + " Help";
 
   public static getPolicyLink(): string {
     return this.siteLink + "/policy";
+  }
+
+  public static getFAQTitle(category: string): string {
+    return [[
+      category,
+      "FAQ",
+    ].join(" - "),
+    GlobalConstants.questnrHelpTitle
+    ].join(" | ")
+  }
+
+  public static getFAQDescription(category: string): string {
+    return [
+      GlobalConstants.questnrHelpTitle,
+      category,
+      "FAQ",
+      `What are some frequently asked questions about ${category}?`
+    ].join(" - ");
   }
 }
