@@ -8,6 +8,7 @@ import { ResetPasswordComponent } from 'auth/reset-password/reset-password.compo
 import { SignUpPageComponent } from 'auth/sign-up-page/sign-up-page.component';
 import { CookiePolicyComponent } from 'cookie-policy/cookie-policy.component';
 import { FeedsFrameComponent } from 'feeds-frame/feeds-frame.component';
+import { RecommendedFeedsResolve } from 'feeds-frame/recommended-feeds/recommended-feeds.resolve';
 import { LandingPageResolve } from 'landing-page/landing-page.resolve';
 import { PolicyComponent } from 'policy/policy.component';
 import { GlobalConstants } from 'shared/constants';
@@ -29,7 +30,11 @@ const routes: Routes = [
   { path: GlobalConstants.termsPath, component: TermsComponent },
   { path: GlobalConstants.policyPath, component: PolicyComponent },
   { path: GlobalConstants.cookiePath, component: CookiePolicyComponent },
-  { path: GlobalConstants.feedPath, component: FeedsFrameComponent, canActivate: [AuthGuard] },
+  {
+    path: GlobalConstants.feedPath, component: FeedsFrameComponent, canActivate: [AuthGuard], resolve: {
+      feed: RecommendedFeedsResolve
+    }
+  },
   { path: GlobalConstants.headerPath, component: HeaderComponent },
   {
     path: GlobalConstants.communityPath + '/:communitySlug', component: CommunityComponent, resolve: {

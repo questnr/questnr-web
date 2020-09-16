@@ -1,6 +1,5 @@
-
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,6 +19,7 @@ import { UserListData, UserListType } from 'models/user-list.model';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { GlobalConstants } from 'shared/constants';
 import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
+import { UIService } from 'ui/ui.service';
 import { CommentAction } from '../../models/comment-action.model';
 import { Post, PostEditorType, PostMedia, ResourceType } from '../../models/post-action.model';
 import { UserListComponent } from '../../shared/components/dialogs/user-list/user-list.component';
@@ -38,7 +38,7 @@ declare var $: any;
     ]),
   ]
 })
-export class RecommendedFeedsComponent implements OnInit {
+export class RecommendedFeedsComponent implements OnInit, OnDestroy {
   @Input() feed: Post;
   commentInputRef: ElementRef;
   @ViewChild('commentInput')
@@ -105,7 +105,8 @@ export class RecommendedFeedsComponent implements OnInit {
     private iFramelyService: IFramelyService,
     public snackbar: MatSnackBar,
     private router: Router,
-    private _sanitizer: DomSanitizer) {
+    private _sanitizer: DomSanitizer,
+    private uiService: UIService) {
     this.login.avatarSubject.subscribe((avatar: AvatarDTO) => {
       // console.log("RECOMMENDED FEEDS SUBJECT", avatar);
       this.profileIconRef.setAvatar(avatar);
@@ -171,6 +172,9 @@ export class RecommendedFeedsComponent implements OnInit {
     } else if (width >= 800 && width <= 1368) {
       this.mobileView = false;
     }
+  }
+  ngOnDestroy() {
+    this.uiService.resetTitle();
   }
   toggleComments() {
     this.isSharing = false;

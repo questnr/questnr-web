@@ -49,6 +49,8 @@ export class GlobalConstants {
     return this.siteLink + "/policy";
   }
 
+  public static questnrFeedTitle: string = "Questnr Feed";
+
   public static getFAQTitle(category: string): string {
     return [[
       category,

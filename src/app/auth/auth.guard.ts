@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { LoginService } from './login.service';
 import { CommunityService } from 'community/community.service';
-import { Community } from 'models/community.model';
-import { map } from 'rxjs/operators';
-import { UIService } from 'ui/ui.service';
 import { MetaTagCard } from 'models/common.model';
+import { UIService } from 'ui/ui.service';
+import { LoginService } from './login.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

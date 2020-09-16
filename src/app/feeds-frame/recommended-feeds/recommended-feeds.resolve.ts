@@ -4,11 +4,11 @@ import { GlobalConstants } from 'shared/constants';
 import { UIService } from 'ui/ui.service';
 
 @Injectable()
-export class FAQSearchResolve implements Resolve<void> {
+export class RecommendedFeedsResolve implements Resolve<void> {
 
   constructor(private uiService: UIService) { }
 
   resolve(route: ActivatedRouteSnapshot): void {
-    return this.uiService.setDetault(GlobalConstants.questnrHelpTitle);
+    this.uiService.setDetault(GlobalConstants.questnrFeedTitle);
   }
 }

@@ -7,6 +7,7 @@ import { GlobalService } from 'global.service';
 import { FAQItemSearchPage } from 'models/faq.model';
 import { Page, PaginationData } from 'models/page.model';
 import { GlobalConstants } from 'shared/constants';
+import { UIService } from 'ui/ui.service';
 
 @Component({
   selector: 'app-faq-search',
@@ -30,7 +31,8 @@ export class FAQSearchComponent implements OnInit, OnDestroy {
     private router: Router,
     private faqService: FAQService,
     private renderer: Renderer2,
-    public loginService: LoginService) {
+    public loginService: LoginService,
+    private uiService: UIService) {
     this.route.queryParams.subscribe(params => {
       this.queryString = params['q'];
       if (!this.queryString) {
@@ -49,6 +51,7 @@ export class FAQSearchComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.renderer.removeClass(document.getElementsByTagName('body')[0], 'hide-scrollbar');
+    this.uiService.resetTitle();
   }
 
   redirectToErrorPage(): void {

@@ -16,7 +16,7 @@ export class SinglePostResolve implements Resolve<Observable<SinglePost>> {
       if (!singlePost.hasError) {
         this.uiService.setMetaTagsAndTitle(singlePost.metaTagCard.title, singlePost.metaTagCard.metaList);
       } else {
-        this.uiService.setDetault();
+        this.uiService.setDetault("Post | Questnr");
       }
       return singlePost;
     }));

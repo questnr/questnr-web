@@ -30,6 +30,7 @@ import { FAQModule } from 'faq/faq.module';
 import { FeedsFrameComponent } from 'feeds-frame/feeds-frame.component';
 import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
 import { FeedsLoaderComponent } from 'feeds-frame/recommended-feeds/feeds-loader/feeds-loader.component';
+import { RecommendedFeedsResolve } from 'feeds-frame/recommended-feeds/recommended-feeds.resolve';
 import { SidenavComponent } from 'feeds-frame/sidenav/sidenav.component';
 import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
 import { GlobalService } from 'global.service';
@@ -304,6 +305,7 @@ export function metaFactory(): MetaLoader {
     CommunityResolve,
     LandingPageResolve,
     SinglePostResolve,
+    RecommendedFeedsResolve,
     {
       provide: MatDialogRef,
       useValue: []

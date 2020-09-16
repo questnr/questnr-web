@@ -6,6 +6,7 @@ import { GlobalService } from 'global.service';
 import { FAQItem, FAQItemPage } from 'models/faq.model';
 import { KnowMoreLinkType } from 'models/know-more-type';
 import { GlobalConstants } from 'shared/constants';
+import { UIService } from 'ui/ui.service';
 import { FAQHeaderComponent } from './faq-header/faq-header.component';
 import { FAQService } from './faq.service';
 
@@ -34,7 +35,8 @@ export class FAQComponent implements OnInit, OnDestroy {
     private router: Router,
     private _globalService: GlobalService,
     private renderer: Renderer2,
-    public loginService: LoginService) {
+    public loginService: LoginService,
+    private uiService: UIService) {
     this.loading = true;
     this.route.data.subscribe((data: { faq: FAQItemPage }) => {
       this.category = data.faq.category;
@@ -54,6 +56,7 @@ export class FAQComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.renderer.removeClass(document.getElementsByTagName('body')[0], 'hide-scrollbar');
+    this.uiService.resetTitle();
   }
 
   redirectToErrorPage(): void {
