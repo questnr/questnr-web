@@ -7,3 +7,9 @@ export class SinglePost extends Post {
     hasError: boolean;
     errorMessage: string;
 }
+
+export enum SimplifiedPostType {
+    post = "post",
+    blog = "blog",
+    question = "question"
+}

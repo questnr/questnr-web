@@ -329,7 +329,7 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
   }
 
   openShareDialog() {
-    let clickAction = this.commonService.getPostSharableLink(this.feed.slug);
+    let clickAction = this.commonService.getPostSharableLink(this.feed);
     this.dialog.open(SharePostComponent, {
       width: '500px',
       data: { url: clickAction }
@@ -347,7 +347,7 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
   openBlog() {
     if (this.feed.slug) {
       const url = this.router.serializeUrl(
-        this.router.createUrlTree(['/', this.postPath, this.feed.slug])
+        this.router.createUrlTree(['/', GlobalConstants.postBlogPath, this.feed.slug])
       );
 
       window.open(url, '_blank');

@@ -10,7 +10,7 @@
     </ng-container>
     <ng-container *ngIf="trendingPostPollQuestionList?.length">
       <div class="links" *ngFor="let item of trendingPostPollQuestionList">
-        <a class="link" [routerLink]="['/', postPath, item.slug]">{{item.questionText}}</a>
+        <a class="link" [routerLink]="['/', postQuestionPath, item.slug]">{{item.questionText}}</a>
       </div>
     </ng-container>
     <!-- <ng-container *ngIf="!trendingPostPollQuestionList?.length && !trendingPostPollQuestionList">

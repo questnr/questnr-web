@@ -404,7 +404,7 @@ export class SinglePostComponent implements OnInit {
   }
 
   openShareDialog() {
-    let clickAction = this.commonService.getPostSharableLink(this.singlePost.slug);
+    let clickAction = this.commonService.getPostSharableLink(this.singlePost);
     this.dialog.open(SharePostComponent, {
       width: '500px',
       data: { url: clickAction }

@@ -18,7 +18,7 @@ export class TrendingPostPollQuestionComponent implements OnInit {
   listItems = Array(5);
   screenWidth = window.innerWidth;
   mobileView = false;
-  postPath: string = GlobalConstants.postPath;
+  postQuestionPath: string = GlobalConstants.postQuestionPath;
 
   constructor(public api: ApiService, public loginService: LoginService, public dialog: MatDialog, private router: Router) {
     this.api.getTrendingPostPollQuestion().subscribe(

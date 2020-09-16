@@ -23,6 +23,8 @@ export class GlobalConstants {
   public static userPath = 'user';
   public static communityPath = 'community';
   public static postPath = 'post';
+  public static postBlogPath = 'blog';
+  public static postQuestionPath = 'question';
   public static hashTagPath = 'hash-tag';
   public static headerPath = 'header';
   public static explorePath = 'explore';
@@ -50,6 +52,9 @@ export class GlobalConstants {
   }
 
   public static questnrFeedTitle: string = "Questnr Feed";
+  public static postTitle: string = "Post | Questnr";
+  public static postBlogTitle: string = "Blog | Questnr";
+  public static postQuestionTitle: string = "Question | Questnr";
 
   public static getFAQTitle(category: string): string {
     return [[

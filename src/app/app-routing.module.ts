@@ -48,6 +48,16 @@ const routes: Routes = [
     loadChildren: () => import('./single-post/single-post.module').then(m => m.SinglePostModule),
     resolve: { singlePost: SinglePostResolve }
   },
+  {
+    path: GlobalConstants.postBlogPath + '/:postSlug',
+    loadChildren: () => import('./single-post/single-post.module').then(m => m.SinglePostModule),
+    resolve: { singlePost: SinglePostResolve }
+  },
+  {
+    path: GlobalConstants.postQuestionPath + '/:postSlug',
+    loadChildren: () => import('./single-post/single-post.module').then(m => m.SinglePostModule),
+    resolve: { singlePost: SinglePostResolve }
+  },
   { path: GlobalConstants.userPath + '/:userSlug', component: UserProfilePageComponent, canActivate: [AuthGuard] },
   { path: GlobalConstants.explorePath, component: ExploreComponent, canActivate: [AuthGuard] },
   { path: GlobalConstants.trendingPath, component: ExploreComponent, canActivate: [AuthGuard] },

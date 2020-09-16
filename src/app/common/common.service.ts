@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Post, PostEditorType, PostType } from 'models/post-action.model';
 import { GlobalConstants } from 'shared/constants';
 
 @Injectable({
@@ -94,8 +95,14 @@ export class CommonService {
         return [GlobalConstants.siteLink, GlobalConstants.communityPath, communitySlug].join("/");
     }
 
-    getPostSharableLink(postSlug: string) {
+    getPostSharableLink(post: Post) {
         // Get post sharable link locally
-        return [GlobalConstants.siteLink, GlobalConstants.postPath, postSlug].join("/");
+        let path = GlobalConstants.postPath;
+        if (post.postType === PostType.question) {
+            path = GlobalConstants.postQuestionPath;
+        } else if (post?.postData?.postEditorType === PostEditorType.blog) {
+            path = GlobalConstants.postBlogPath;
+        }
+        return [GlobalConstants.siteLink, path, post.slug].join("/");
     }
 }

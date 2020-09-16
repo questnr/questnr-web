@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { SinglePost } from 'models/single-post.model';
+import { SimplifiedPostType, SinglePost } from 'models/single-post.model';
 import { of } from 'rxjs';
 
 @Injectable({
@@ -13,8 +13,8 @@ export class SinglePostService {
 
   constructor(private http: HttpClient) { }
 
-  getSinglePost(slug: string) {
-    return this.http.get<SinglePost>(this.baseUrl + 'post/' + slug);
+  getSinglePost(slug: string, slugType: SimplifiedPostType = SimplifiedPostType.post) {
+    return this.http.get<SinglePost>(this.baseUrl + `${slugType}/` + slug);
   }
   getPublicComments(postSlug: string) {
     if (!postSlug) return of();
