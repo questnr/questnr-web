@@ -45,3 +45,8 @@ export class ServerError {
     errorMessage: string;
     requestedURI: string;
 }
+
+export class CustomError {
+    errorMessage: string;
+    errorCode: number;
+}

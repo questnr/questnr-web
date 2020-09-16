@@ -3,8 +3,9 @@
 </app-user-header>
 
 <div class="container error-wrapper hide-scrollbar" *ngIf="error; else singlePostContainer">
-  <div class="not-authorized" [ngClass]="mobileView ? 'mobile' : 'desktop'">
-    <app-not-authorized [community]="singlePost?.communityDTO"></app-not-authorized>
+  <div class="single-post-error" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+    <app-not-authorized *ngIf="error.errorCode == 400" [community]="singlePost?.communityDTO"></app-not-authorized>
+    <app-post-not-found *ngIf="error.errorCode == 404" [error]="error"></app-post-not-found>
   </div>
 </div>
 

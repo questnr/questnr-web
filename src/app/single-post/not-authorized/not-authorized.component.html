@@ -1,6 +1,6 @@
 <div class="wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
     <div class="header">
-        You don't have permission to view this content.
+        {{message}}
     </div>
     <div class="sub-header" *ngIf="community">
         <div>This content belongs to&nbsp;<a

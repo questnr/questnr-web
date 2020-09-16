@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { CustomError } from 'models/common.model';
 import { SimplifiedPostType, SinglePost } from 'models/single-post.model';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { GlobalConstants } from 'shared/constants';
 import { UIService } from 'ui/ui.service';
@@ -33,9 +35,23 @@ export class SinglePostResolve implements Resolve<Observable<SinglePost>> {
           this.uiService.setDetault(GlobalConstants.postQuestionTitle);
       }
       return singlePost;
-    }), catchError((error: any) => {
-      this.redirectToErrorPage();
-      return of(undefined);
+    }), catchError((error: HttpErrorResponse) => {
+      console.log("ERROR", error);
+      if (error.status == 400) {
+        let customError = new CustomError();
+        customError.errorCode = 400;
+        return of({ error: customError });
+      }
+      if (error.status == 404 && error?.error?.errorMessage) {
+        let customError = new CustomError();
+        customError.errorCode = 404;
+        customError.errorMessage = error?.error?.errorMessage;
+        return of({ error: customError });
+      }
+      else {
+        this.redirectToErrorPage();
+        return of(undefined);
+      }
     }));
   }
 

@@ -8,7 +8,7 @@ import { LoginSignupModalComponent } from 'auth/login-signup-modal/login-signup-
 import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { GlobalService } from 'global.service';
-import { AvatarDTO } from 'models/common.model';
+import { AvatarDTO, CustomError } from 'models/common.model';
 import { PostActionForMedia, PostEditorType, PostMedia, PostType, QuestionParentType, ResourceType } from 'models/post-action.model';
 import { SinglePost } from 'models/single-post.model';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
@@ -108,7 +108,7 @@ export class SinglePostComponent implements OnInit {
   showUserHeader: boolean = false;
   defaultUserSrc: string = StaticMediaSrc.userFile;
   trackerInstance: TrackingInstance;
-  error: boolean = false;
+  error: CustomError;
   @ViewChild("loginSignupModal") loginSignupModal: LoginSignupModalComponent;
   PostTypeClass = PostType;
   profileIconRef: ProfileIconComponent;
@@ -146,10 +146,14 @@ export class SinglePostComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
-    this.route.data.subscribe((data: { singlePost: SinglePost }) => {
-      // console.log("ERROR ", data);
-      if (data.singlePost.errorMessage) {
-        this.error = true;
+    this.route.data.subscribe((data) => {
+      if (data.singlePost.error) {
+        this.error = data.singlePost.error;
+        return;
+      }
+      else if (data.singlePost.hasError) {
+        this.error = new CustomError();
+        this.error.errorCode = 400;
         this.singlePost = data.singlePost;
         return;
       }
@@ -261,10 +265,10 @@ export class SinglePostComponent implements OnInit {
     if (this.loginSignInModalTimeout) {
       clearTimeout(this.loginSignInModalTimeout);
     }
-    if (this.signInRequiredModalRef.isOpen) {
+    if (this.signInRequiredModalRef?.isOpen) {
       this.signInRequiredModalRef.close();
     }
-    if (this.loginSignupModal.isOpen) {
+    if (this.loginSignupModal?.isOpen) {
       this.loginSignupModal.close();
     }
     if (this.trackerInstance)
