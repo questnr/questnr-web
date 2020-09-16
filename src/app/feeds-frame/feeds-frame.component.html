@@ -9,7 +9,7 @@
   <mat-sidenav-content>
     <div class="container" [ngClass]="{'mobile': mobileView}">
       <div class="main-wrap">
-        <aside *ngIf="!mobileView" class="left-part">
+        <aside *ngIf="!mobileView" class="left-part hide-scrollbar">
           <div class="stick">
             <!--            <app-quick-nav></app-quick-nav>-->
             <app-sidenav></app-sidenav>
@@ -75,7 +75,7 @@
             </ng-template>
           </div>
         </div>
-        <aside class="right-part" *ngIf="!mobileView">
+        <aside class="right-part hide-scrollbar" *ngIf="!mobileView">
           <div class="stick">
             <div class="" style="padding: 20px 0px">
               <!--              <app-create-community-btn [type]="'card'"></app-create-community-btn>-->

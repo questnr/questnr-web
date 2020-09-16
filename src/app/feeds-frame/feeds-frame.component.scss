@@ -2,11 +2,13 @@
 @import "../app.component.scss";
 
 .main-wrap {
+  overflow: hidden;
   display: flex;
   aside {
     height: 100vh;
     top: 0;
     position: sticky;
+    overflow-y: scroll;
   }
   .left-part {
     flex: 30%;
@@ -18,7 +20,7 @@
   }
 }
 .item {
-  background: #fff;
+  background: $white;
 }
 .card img {
   max-width: 100%;
