@@ -1,0 +1,4 @@
+<div class="post-notification-button-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'" (click)="onFetchNewPost()">
+    <mat-icon [ngClass]="{'rotate': isFetching }">refresh</mat-icon>&nbsp;
+    <span *ngIf="newPostCount">{{newPostCount}}</span>&nbsp;New Post!
+</div>

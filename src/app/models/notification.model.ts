@@ -14,3 +14,34 @@ export class NotificationDTO {
   opened: boolean;
   metaData: MetaData;
 }
+
+export class PushNotificationDTO {
+  isNotification: string;
+  type: NotificationType;
+  purposeType: NotificationPurposeType;
+
+  communitySlug?: string;
+  postId?: number;
+}
+
+export enum NotificationPurposeType {
+  postCreated = "post_created"
+}
+
+export enum NotificationType {
+  normal = "normal",
+  answer = "answer"
+}
+
+export class NewPostRequest {
+  postId: number;
+
+  constructor(postId: number) {
+    this.postId = postId;
+  }
+}
+
+export enum PostNotificationType {
+  feed = "feed",
+  community = "community"
+}

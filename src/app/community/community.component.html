@@ -1,6 +1,6 @@
-<app-user-header></app-user-header>
+<app-user-header (notificationEmitter)="notificationListener($event)"></app-user-header>
 
-<div class="page-scroll hide-scrollbar" #communityFeed>
+<div class="community-wrapper page-scroll hide-scrollbar" #communityFeed>
   <div class="site-body" [ngClass]="{'mobile': mobileView}">
     <div class="container">
       <div class="flex-frame">
@@ -190,6 +190,10 @@
   </div>
 </div>
 <app-floating-mobile-nav [url]="communitySlug" *ngIf="mobileView"></app-floating-mobile-nav>
+
+<app-post-notification-container *ngIf="communityDTO" [community]="communityDTO"
+  (fetchNewPostsFromNotification)="postFeed($event)" #communityPostNotification>
+</app-post-notification-container>
 
 <mat-menu #menu="matMenu" xPosition="after">
   <div>

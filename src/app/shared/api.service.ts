@@ -1,12 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { HashTag } from 'models/hashtag.model';
-import { User } from 'models/user.model';
 import { Community } from 'models/community.model';
-import { Page } from 'models/page.model';
+import { HashTag } from 'models/hashtag.model';
 import { NotificationDTO } from 'models/notification.model';
+import { Page } from 'models/page.model';
+import { User } from 'models/user.model';
 import { of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -80,5 +80,18 @@ export class ApiService {
     return this.http.post(this.baseUrl + 'user/push-notification/refresh-token',
       { expiredToken: currentToken, token: refreshedToken }
     );
+  }
+  getCommunityPostsUsingPosts(communityId, posts: string) {
+    return this.http.get(this.baseUrl + `user/community/${communityId}/notification/posts`, { params: { posts } });
+  }
+  getUserFeedPostsUsingPosts(posts: string) {
+    return this.http.get(this.baseUrl + `user/feed/notification/posts`, { params: { posts } });
+  }
+
+  getCommunityPostsUsingLastId(communityId, lastPostId) {
+    return this.http.get(this.baseUrl + `user/community/${communityId}/notification/last/posts`, { params: { lastPostId } });
+  }
+  getUserFeedPostsUsingLastId(lastPostId) {
+    return this.http.get(this.baseUrl + `user/feed/notification/last/posts`, { params: { lastPostId } });
   }
 }

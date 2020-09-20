@@ -1,14 +1,16 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
 import { GlobalService } from 'global.service';
+import { NotificationPurposeType, NotificationType, PostNotificationType, PushNotificationDTO } from 'models/notification.model';
 import { Post, QuestionParentType } from 'models/post-action.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from 'shared/api.service';
 import { CreateCommunityComponent } from 'shared/components/dialogs/create-community/create-community.component';
+import { PostNotificationContainerComponent } from 'shared/post-notification-container/post-notification-container.component';
 import { MessagingService } from '../service/messaging.service';
 import { GlobalConstants } from '../shared/constants';
 import { FeedsService } from './feeds.service';
@@ -63,6 +65,12 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   screenWidth = window.innerWidth;
   @ViewChild("feedFrame") feedFrame: ElementRef;
   questionParentTypeClass = QuestionParentType;
+  feedNotificationRef: PostNotificationContainerComponent;
+  @ViewChild("feedNotification")
+  set feedNotification(feedNotificationRef: PostNotificationContainerComponent) {
+    this.feedNotificationRef = feedNotificationRef;
+    this.feedNotificationRef.setPostNotificationType(PostNotificationType.feed);
+  }
 
   @HostListener('window:resize', ['$event'])
   onresize(event: any = this.screenWidth) {
@@ -83,7 +91,8 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public activatedRoute: ActivatedRoute,
     private _glboalService: GlobalService,
-    private renderer: Renderer2) {
+    private renderer: Renderer2,
+    private cd: ChangeDetectorRef) {
     this.mobileView = this._glboalService.isMobileView();
     this.state_ = this.activatedRoute.paramMap
       .pipe(map(() => window.history.state));
@@ -105,9 +114,17 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   }
 
   postFeed(event) {
-    if (event.postActionId) {
+    if (typeof event === 'object' && event?.length > 0) {
+      // console.log("event", event);
+      this.feedNotificationRef.setLastPostId(event[0].postActionId);
+      this.userFeeds = [...event, ...this.userFeeds];
+      this.cd.detectChanges();
+    } else if (event.postActionId) {
+      this.feedNotificationRef.setLastPostId(event.postActionId);
       this.userFeeds = [event, ...this.userFeeds];
     } else {
+      this.userFeeds = [];
+      this.page = 0;
       this.getUserFeeds();
     }
   }
@@ -165,6 +182,7 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
             setTimeout(() => {
               this.feedComponentHelper();
             }, 1000);
+            this.feedNotificationRef.setLastPostId(this.userFeeds[0].postActionId);
           }
         } else {
           this.endOfPosts = true;
@@ -241,5 +259,13 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
 
       }
     });
+  }
+
+  notificationListener(data: PushNotificationDTO) {
+    if (data.type == NotificationType.normal
+      && data.purposeType == NotificationPurposeType.postCreated) {
+      // the feed page
+      this.feedNotificationRef.receivedNewPostNotification(data.postId);
+    }
   }
 }
