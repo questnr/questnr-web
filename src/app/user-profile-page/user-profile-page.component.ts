@@ -4,6 +4,8 @@ import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalService } from 'global.service';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
+import { CommunityListMatCardType } from 'models/community-list.model';
+import { Page } from 'models/page.model';
 import { RelationType } from 'models/relation-type';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 import { Subject } from 'rxjs';
@@ -77,6 +79,7 @@ export class UserProfilePageComponent implements OnInit {
   @ViewChild("userBannerImgRef") userBannerImgRef: ElementRef;
   @ViewChild("userAvatarImgRef") userAvatarImgRef: ElementRef;
   questionParentTypeClass = QuestionParentType;
+  CommunityListMatCardTypeClass = CommunityListMatCardType;
 
   ngOnInit(): void {
     this.url = this.route.snapshot.paramMap.get('userSlug');
@@ -147,6 +150,7 @@ export class UserProfilePageComponent implements OnInit {
     this.userProfilePageService.getUserProfile(this.url).subscribe((res: User) => {
       this.userObserver.next(res);
       this.user = res;
+      this.getUserQuestions();
       if (res?.banner?.avatarLink) {
         this.renderer.removeStyle(this.userBannerImgRef.nativeElement, "min-height");
         this.userBannerImage = res.banner.avatarLink;
@@ -296,28 +300,9 @@ export class UserProfilePageComponent implements OnInit {
     //   this.showBanner = false;
     // }, 1500);
   }
-
-  // handleMouseOverBanner($event) {
-  //   if (!this.showAvatar) {
-  //     setTimeout(() => {
-  //       this.showBanner = true;
-  //       setTimeout(() => {
-  //         this.handleMouseOutBanner({});
-  //       }, 1500);
-  //     }, 1000);
-  //   }
-  // }
-
-  // handleMouseOutBanner($event) {
-  //   this.showBanner = false;
-  // }
-
-  // handleMouseOverAvatar($event) {
-  //   this.showAvatar = true;
-  //   this.showBanner = false;
-  // }
-
-  // handleMouseOutAvatar($event) {
-  //   this.showAvatar = false;
-  // }
+  getUserQuestions() {
+    this.userProfilePageService.getUserQuestions(this.user.userId).subscribe((questionPage: Page<Post>) => {
+      console.log("questionPage", questionPage);
+    });
+  }
 }

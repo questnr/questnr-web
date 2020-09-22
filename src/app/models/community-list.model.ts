@@ -16,3 +16,8 @@ export enum CommunityListType {
     joined = 'joined',
     suggested = 'suggested'
 }
+
+export enum CommunityListMatCardType {
+    simple = "simple",
+    expansion = "expansion"
+}

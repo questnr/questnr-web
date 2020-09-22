@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GlobalService } from 'global.service';
-import { CommunityListType, CommunityListData } from 'models/community-list.model';
+import { CommunityListType, CommunityListData, CommunityListMatCardType } from 'models/community-list.model';
 import { Page } from 'models/page.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { GlobalConstants } from 'shared/constants';
@@ -15,13 +15,17 @@ import { User } from 'models/user.model';
 @Component({
   selector: 'app-joined-community',
   templateUrl: './joined-community.component.html',
-  styleUrls: ['./joined-community.component.scss']
+  styleUrls: ['./joined-community.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class JoinedCommunityComponent implements OnInit, AfterViewInit {
   @Input() followsCommunities: number;
-  @Input() joinedCommunity: Community[];
   @Input() user: User;
-  @Input() userId: number;
+  @Input() templateStyle: CommunityListMatCardType = CommunityListMatCardType.simple;
+  joinedCommunity: Community[];
+  userId: number;
+  CommunityListTypeClass = CommunityListType;
+  CommunityListMatCardTypeClass = CommunityListMatCardType;
   loadingCommunities = true;
   listItems = Array(5);
   mobileView = false;
@@ -70,6 +74,9 @@ export class JoinedCommunityComponent implements OnInit, AfterViewInit {
       if (this.loginService.getUserId() === this.user.userId) {
         this.isOwner = true;
       }
+    }
+    if (!this.templateStyle) {
+      this.templateStyle = CommunityListMatCardType.simple;
     }
   }
   ngAfterViewInit() {

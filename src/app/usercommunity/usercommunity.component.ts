@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GlobalService } from 'global.service';
-import { CommunityListData, CommunityListType } from 'models/community-list.model';
+import { CommunityListData, CommunityListMatCardType, CommunityListType } from 'models/community-list.model';
 import { User } from 'models/user.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { GlobalConstants } from 'shared/constants';
@@ -16,7 +16,8 @@ import { UsercommunityService } from './usercommunity.service';
 @Component({
   selector: 'app-usercommunity',
   templateUrl: './usercommunity.component.html',
-  styleUrls: ['./usercommunity.component.scss']
+  styleUrls: ['./usercommunity.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class UsercommunityComponent implements OnInit, AfterViewInit {
   @Input() profileUserId: number;
@@ -25,10 +26,12 @@ export class UsercommunityComponent implements OnInit, AfterViewInit {
   @Input() defaultImage = StaticMediaSrc.communityFile;
   // @Input() relation;
   @Input() ownsCommunities: number;
+  @Input() templateStyle: CommunityListMatCardType = CommunityListMatCardType.simple;
+  CommunityListMatCardTypeClass = CommunityListMatCardType;
   communityPath: string = GlobalConstants.communityPath;
   baseUrl = environment.baseUrl;
   ownedCommunity: Community[];
-  loader: boolean = true;
+  loadingCommunities: boolean = true;
   mobileView: boolean = false;
   endOfResult = false;
   page: number = 0;
@@ -67,6 +70,9 @@ export class UsercommunityComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.mobileView = this._globalService.isMobileView();
+    if (!this.templateStyle) {
+      this.templateStyle = CommunityListMatCardType.simple;
+    }
   }
 
   ngAfterViewInit() {
@@ -137,14 +143,14 @@ export class UsercommunityComponent implements OnInit, AfterViewInit {
   }
 
   getUserOwnedCommunity() {
-    this.loader = true;
+    this.loadingCommunities = true;
     if (!this.user?.userId) return;
     this.usercommunityService.getUserOwnedCommunity(this.user.userId, this.page).subscribe((res: any) => {
-      this.loader = false;
+      this.loadingCommunities = false;
       this.ownedCommunity = res.content;
       // console.log(res.content);
     }, error => {
-      this.loader = false;
+      this.loadingCommunities = false;
       // console.log(error);
     });
   }

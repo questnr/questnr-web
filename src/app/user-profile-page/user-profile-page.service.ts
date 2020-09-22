@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Page } from 'models/page.model';
+import { Post } from 'models/post-action.model';
+import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -26,5 +28,8 @@ export class UserProfilePageService {
   }
   updateUserBanner(formData) {
     return this.http.post(this.baseUrl + 'user/banner', formData);
+  }
+  getUserQuestions(userId): Observable<Page<Post>> {
+    return this.http.get<Page<Post>>(this.baseUrl + `user/${userId}/posts/poll/question`);
   }
 }
