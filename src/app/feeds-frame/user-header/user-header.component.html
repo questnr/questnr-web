@@ -145,7 +145,7 @@
     <mat-menu #info="matMenu" [overlapTrigger]="false" xPosition="before">
       <button mat-menu-item [routerLink]="['/', termsPath]">Terms & Conditions</button>
       <button mat-menu-item [routerLink]="['/', policyPath]">Privacy Policy</button>
-      <button (click)="logOut()" mat-menu-item>Log Out</button>
+      <button (click)="login.logOut()" mat-menu-item>Log Out</button>
       <!--      <button mat-menu-item>FAQ</button>-->
     </mat-menu>
     <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="before">

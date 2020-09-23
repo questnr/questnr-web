@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { CommunityListMatCardType } from 'models/community-list.model';
+import { User } from 'models/user.model';
 import { ApiService } from 'shared/api.service';
-import { LoginService } from 'auth/login.service';
-import { GlobalConstants } from '../../shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { GlobalConstants } from '../../shared/constants';
 
 @Component({
   selector: 'app-sidenav',
@@ -10,19 +11,18 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
-
-  userCommunities = [];
-
+  user: User;
   userHashtags = [];
   hashTagPath = GlobalConstants.hashTagPath;
   listItems = Array(5);
-  loadingCommunities = true;
   loadingHashtags = true;
+  CommunityListMatCardTypeClass = CommunityListMatCardType;
 
   siteTitle: string = GlobalConstants.siteTitle;
   copyRightRenewedYear = GlobalConstants.copyRightRenewedYear;
 
-  constructor(private api: ApiService, private loginService: LoginService) { }
+  constructor(private api: ApiService) {
+  }
 
   ngOnInit() {
     this.api.getTopHashtags().subscribe(
@@ -33,19 +33,6 @@ export class SidenavComponent implements OnInit {
           this.userHashtags = [...this.userHashtags].splice(0, 5);
         }
       }, err => { this.loadingHashtags = false; });
-
-    this.api.getJoinedCommunities(this.loginService.getUserId(), 0).subscribe(
-      (res: any) => {
-        this.loadingCommunities = false;
-        if (res.content.length) {
-          this.userCommunities = res.content.map(item => {
-            item.title = item.communityName,
-              item.src = item.avatarDTO.avatarLink;
-            return item;
-          });
-        }
-      }, err => { this.loadingCommunities = false; }
-    );
   }
   checkImageUrl(src) {
     if (src) {

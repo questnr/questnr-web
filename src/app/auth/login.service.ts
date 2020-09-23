@@ -16,8 +16,9 @@ import { environment } from '../../environments/environment';
 export class LoginService {
   user: User;
   avatar: AvatarDTO;
+  public userSubject: Subject<User> = new Subject();
   public avatarSubject: Subject<AvatarDTO> = new Subject();
-  baseUrl = environment.baseUrl;
+  private baseUrl = environment.baseUrl;
   profileImg: string;
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -56,15 +57,34 @@ export class LoginService {
 
   getLoggedInUserDetails(): Observable<User | void> {
     return this.getUserDetails(this.getLocalUserProfile().id).pipe(map((user: User) => {
-      this.user = user;
-      this.avatar = this.user.avatarDTO;
-      this.profileImg = this.avatar?.avatarLink ? this.avatar.avatarLink : StaticMediaSrc.userFile;
-      this.avatarSubject.next(this.user.avatarDTO);
-      return user;
+      if (this.getLocalUserProfile().id == user.userId) {
+        this.user = user;
+        this.avatar = this.user.avatarDTO;
+        this.profileImg = this.avatar?.avatarLink ? this.avatar.avatarLink : StaticMediaSrc.userFile;
+        this.avatarSubject.next(this.user.avatarDTO);
+        this.userSubject.next(user);
+        return user;
+      } else {
+        this.logOut();
+        return of(null);
+      }
     }), catchError((error: HttpErrorResponse) => {
       this.logOut();
       return of(null);
     }));
+  }
+
+  getUser(): Promise<User> {
+    return new Promise((resolve) => {
+      if (typeof this.user != 'undefined' && this.user) {
+        return resolve(this.user);
+      } else {
+        let getUserSubscriber = this.userSubject.subscribe((user: User) => {
+          getUserSubscriber.unsubscribe();
+          resolve(user);
+        });
+      }
+    });
   }
 
   getUserProfileImg() {
@@ -90,6 +110,9 @@ export class LoginService {
 
   logOut() {
     this.profileImg = null;
+    this.user = null;
+    this.userSubject.next(null);
+    this.avatarSubject.next(null);
     localStorage.clear();
     this.router.navigate(['/']);
   }

@@ -129,13 +129,13 @@
                   <div id="community-feed"></div>
                   <ng-container *ngIf="userFeeds?.length; else noFeeds">
                     <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index; trackBy: trackItem">
-                      <div *ngIf="mobileView && userFeeds.length > 4 && idx === 2">
+                      <!-- <div *ngIf="mobileView && userFeeds.length > 4 && idx === 2">
                         <app-joined-community></app-joined-community>
-                      </div>
-                      <div *ngIf="mobileView && userFeeds.length > 5 && idx === 7">
+                      </div> -->
+                      <div *ngIf="mobileView && userFeeds.length > 5 && idx === 2">
                         <app-sponsored></app-sponsored>
                       </div>
-                      <div *ngIf="mobileView && userFeeds.length > 5 && idx === 10">
+                      <div *ngIf="mobileView && userFeeds.length > 5 && idx === 7">
                         <app-suggestion></app-suggestion>
                       </div>
                       <div *ngIf="feed.postType !== 'question'">

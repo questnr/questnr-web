@@ -18,6 +18,9 @@ import { AskQuestionBtnComponent } from 'ask-question-btn/ask-question-btn.compo
 import { AuthGuard } from 'auth/auth.guard';
 import { LoginService } from 'auth/login.service';
 import { CommunityActivityComponent } from 'community-activity/community-activity.component';
+import { CommunityBoxComponent } from 'community-box/community-box.component';
+import { CommunityLoaderComponent } from 'community-box/community-loader/community-loader.component';
+import { NoCommunityComponent } from 'community-box/no-community/no-community.component';
 import { CommunityRelationActionButtonComponent } from 'community-relation-action-button/community-relation-action-button.component';
 import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
 import { HorizontalOwnerProfileComponent } from 'community/horizontal-owner-profile/horizontal-owner-profile.component';
@@ -248,7 +251,10 @@ export function metaFactory(): MetaLoader {
     HorizontalOwnerProfileComponent,
     NavBarComponent,
     AskQuestionComponent,
-    AskQuestionBtnComponent
+    AskQuestionBtnComponent,
+    CommunityBoxComponent,
+    NoCommunityComponent,
+    CommunityLoaderComponent
   ],
   imports: [
     AppRoutingModule,

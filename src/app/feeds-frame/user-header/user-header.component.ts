@@ -59,10 +59,8 @@ export class UserHeaderComponent {
         this.profileIconRef = profileIconRef;
     }
 
-    constructor(private router: Router, public login: LoginService,
-        private authService: AuthService,
+    constructor(public login: LoginService,
         private api: ApiService,
-        private messagingService: MessagingService,
         private angularFireMessaging: AngularFireMessaging,
         private renderer: Renderer2,
         private dialog: MatDialog,
@@ -185,13 +183,6 @@ export class UserHeaderComponent {
         } else if (this.openedNotificationType === 'question') {
             this.getNotificationAnswer();
         }
-    }
-
-    logOut() {
-        localStorage.clear();
-        this.authService.signOut();
-        this.messagingService.deleteToken();
-        this.router.navigate(['/']);
     }
 
     /**
