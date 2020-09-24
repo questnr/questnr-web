@@ -1,4 +1,4 @@
-<div class="community-slider-card">
+<div class="community-slider-card" [ngClass]="mobileView ? 'mobile' : 'desktop'">
   <div (click)="routeToCommunity(community?.slug)">
     <app-community-banner [avatar]="community?.avatarDTO" [optimise]="true" [alt]="community?.description">
     </app-community-banner>

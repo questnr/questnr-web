@@ -1,17 +1,16 @@
 @import "../../variables";
 
-.no-community-wrapper {
+.no-user-question-wrapper {
     color: $gray-font-secondary;
 }
 
-.no-community-wrapper.mobile {
-    margin: 10px;
+.no-user-question-wrapper.mobile {
     display: flex;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
-.no-community-wrapper.desktop {
+.no-user-question-wrapper.desktop {
     margin: 20px;
     font-size: 1rem;
 }

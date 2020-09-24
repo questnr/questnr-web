@@ -42,7 +42,8 @@ export class CommunityListComponent implements OnInit {
     } else {
       this.error = true;
     }
-    if (this.data.page > 0 && this.data.isEnd != true && this.data.communityList.length > 0) {
+    this.endOfResult = this.data.isEnd;
+    if (this.data.page > 0 && this.data.communityList.length > 0) {
       this.page = this.data.page;
       data.communityList.forEach(item => {
         this.communityList.push(item);
@@ -84,6 +85,7 @@ export class CommunityListComponent implements OnInit {
   getUserOwnedCommunity() {
     this.usercommunityService.getUserOwnedCommunity(this.userId, this.page)
       .subscribe((res: Page<Community>) => {
+        this.endOfResult = res.last;
         if (res.content.length) {
           this.afterDataFetched(res.totalPages);
           res.content.forEach(community => {
@@ -102,6 +104,7 @@ export class CommunityListComponent implements OnInit {
   getJoinedCommunities() {
     this.api.getJoinedCommunities(this.userId, this.page).subscribe(
       (res: Page<Community>) => {
+        this.endOfResult = res.last;
         if (res.content.length) {
           this.afterDataFetched(res.totalPages);
           res.content.forEach(community => {

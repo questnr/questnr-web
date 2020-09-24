@@ -22,7 +22,7 @@
           <owl-carousel-o [options]="customOptions" *ngIf="!trendingCommunitiesLoader">
             <ng-container *ngFor="let community of trendingCommunities;let i=index">
               <ng-template carouselSlide [id]="i">
-                <app-community-card-mobile-view [allowAction]="false" [mobileView]="mobileView" [community]="community">
+                <app-community-card-mobile-view [allowAction]="false" [community]="community">
                 </app-community-card-mobile-view>
               </ng-template>
             </ng-container>

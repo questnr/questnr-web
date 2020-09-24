@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { GlobalService } from 'global.service';
 import { CommunityListType } from 'models/community.model';
 
 @Component({
@@ -10,10 +11,11 @@ export class NoCommunityComponent implements OnInit {
   @Input() communityListType: CommunityListType;
   communityListTypeClass = CommunityListType;
   @Input() isOwner: boolean = false;
+  mobileView: boolean = false;
 
-  constructor() { }
+  constructor(private _globalService: GlobalService) { }
 
   ngOnInit(): void {
+    this.mobileView = this._globalService.isMobileView();
   }
-
 }

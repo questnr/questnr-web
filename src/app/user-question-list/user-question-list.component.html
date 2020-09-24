@@ -1,0 +1,42 @@
+<div class="user-question-list-wrapper">
+    <div *ngIf="!mobileView">
+        <mat-expansion-panel class="user-question-list-expansion-panel">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <app-card-header [title]="title"></app-card-header>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-container>
+                <div *ngIf="questionList?.length">
+                    <div *ngIf="!loading">
+                        <ng-container *ngIf="questionList?.length">
+                            <div *ngFor="let question of questionList.slice(0, pageSize)">
+                                <app-user-question [question]="question"></app-user-question>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="user-question-loader" *ngIf="loading">
+                    <app-user-question-loader #questionLoader></app-user-question-loader>
+                </div>
+                <div class="row" *ngIf="questionList?.length >= pageSize">
+                    <div class="col-4">
+                    </div>
+                    <div class="col-8">
+                        <app-view-more-button [text]="'View more questions'" (click)="openQuestionListDialog()">
+                        </app-view-more-button>
+                    </div>
+                </div>
+            </ng-container>
+            <div *ngIf="!questionList?.length && !loading">
+                <app-no-user-question [isOwner]="isOwner"></app-no-user-question>
+            </div>
+        </mat-expansion-panel>
+    </div>
+    <div *ngIf="mobileView">
+        <div class="link-card box" (click)="openQuestionListDialog()">
+            <app-card-header [title]="title" [count]="totalQuestions" [type]="cardHeaderTypeClass.question" #cardHeader>
+            </app-card-header>
+        </div>
+    </div>
+</div>

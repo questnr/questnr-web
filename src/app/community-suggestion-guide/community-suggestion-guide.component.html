@@ -61,7 +61,7 @@
                         <ng-container *ngIf="suggestedCommunityList?.length > 0">
                             <div [ngClass]="{'col-md-4': !mobileView, 'col-12': mobileView}"
                                 *ngFor="let community of suggestedCommunityList">
-                                <app-community-card-mobile-view [mobileView]="mobileView" [community]="community">
+                                <app-community-card-mobile-view [community]="community">
                                 </app-community-card-mobile-view>
                             </div>
                         </ng-container>

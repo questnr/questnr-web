@@ -1,0 +1,40 @@
+@import "../../variables";
+
+:host {
+    width: 100%;
+}
+
+.user-question-wrapper {
+    width: 100%;
+    .question-container {
+        display: flex;
+        align-items: center;
+        margin: 15px;
+        .question {
+            width: 90%;
+            font-weight: 350;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: $link-primary;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+        .question.desktop {
+            font-size: 1rem;
+        }
+        .question.mobile {
+            font-size: 1.3rem;
+        }
+        .total-answered {
+        }
+    }
+    .mat-badge-content {
+        background-color: $heading;
+        font-weight: bold;
+    }
+    .mat-badge-medium.mat-badge-above .mat-badge-content {
+        top: unset;
+    }
+}

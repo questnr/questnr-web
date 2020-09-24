@@ -1,0 +1,12 @@
+.user-question-loader-wrapper {
+    .loader {
+        margin: 10px 0px;
+    }
+    .list-item {
+        display: flex;
+        align-items: center;
+    }
+    ngx-skeleton-loader .loader {
+        margin-bottom: unset !important;
+    }
+}

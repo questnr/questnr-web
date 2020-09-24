@@ -1,0 +1,19 @@
+<div class="card-header-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+    <div class="header" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+        <div [innerHTML]="title"></div>
+        <div *ngIf="type === cardHeaderTypeClass.community">
+            <div *ngIf="mobileView" class="create-btn community">
+                <span class="counts" *ngIf="count">{{count}}&nbsp;<i class="fa fa-group"></i></span>
+                <mat-icon (click)="arrowClick()" *ngIf="showArrow">
+                    arrow_forward
+                </mat-icon>
+            </div>
+            <div *ngIf="!mobileView && count">{{count+" "}}<i class="fa fa-group"></i></div>
+        </div>
+        <div *ngIf="type === cardHeaderTypeClass.question">
+            <div class="create-btn question" matBadgeSize="medium" [matBadge]="count" matBadgePosition="after"
+                matBadgeOverlap="true">
+            </div>
+        </div>
+    </div>
+</div>

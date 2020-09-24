@@ -1,0 +1,43 @@
+@import "../variables";
+
+.card-header-wrapper {
+    .header {
+        font-weight: 500;
+        color: $heading;
+    }
+    .header.desktop {
+        font-size: 16px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .header.mobile {
+        font-size: 18px;
+    }
+    .create-btn {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        mat-icon {
+            margin: 0 4px;
+        }
+    }
+    .create-btn.community {
+        top: 0;
+        right: 1%;
+    }
+    .create-btn.question {
+        top: 50%;
+        right: 3%;
+    }
+    .counts {
+        font-size: 0.8rem;
+    }
+    .mat-badge-content {
+        background-color: $heading;
+        font-weight: bold;
+    }
+}
+
+.card-header-wrapper.mobile {
+    position: relative;
+}

@@ -17,6 +17,7 @@ import { AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, LoginOpt
 import { AskQuestionBtnComponent } from 'ask-question-btn/ask-question-btn.component';
 import { AuthGuard } from 'auth/auth.guard';
 import { LoginService } from 'auth/login.service';
+import { CardHeaderComponent } from 'card-header/card-header.component';
 import { CommunityActivityComponent } from 'community-activity/community-activity.component';
 import { CommunityBoxComponent } from 'community-box/community-box.component';
 import { CommunityLoaderComponent } from 'community-box/community-loader/community-loader.component';
@@ -60,6 +61,11 @@ import { SinglePostResolve } from 'single-post/single-post.resolve';
 import { TermsComponent } from 'terms/terms.component';
 import { TrendingPostPollQuestionComponent } from 'trend-post-question/trend-post-question.component';
 import { UserActivityBarComponent } from 'user-activity/user-activity-bar/user-activity-bar.component';
+import { NoUserQuestionComponent } from 'user-question-list/no-user-question/no-user-question.component';
+import { UserQuestionListModalComponent } from 'user-question-list/user-question-list-modal/user-question-list-modal.component';
+import { UserQuestionListComponent } from 'user-question-list/user-question-list.component';
+import { UserQuestionLoaderComponent } from 'user-question-list/user-question-loader/user-question-loader.component';
+import { UserQuestionComponent } from 'user-question-list/user-question/user-question.component';
 import { AsyncPipe } from '../../node_modules/@angular/common';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -254,7 +260,13 @@ export function metaFactory(): MetaLoader {
     AskQuestionBtnComponent,
     CommunityBoxComponent,
     NoCommunityComponent,
-    CommunityLoaderComponent
+    CommunityLoaderComponent,
+    UserQuestionListComponent,
+    UserQuestionComponent,
+    UserQuestionListModalComponent,
+    UserQuestionLoaderComponent,
+    CardHeaderComponent,
+    NoUserQuestionComponent
   ],
   imports: [
     AppRoutingModule,

@@ -14,6 +14,7 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { QuestnrActivityService } from 'shared/questnr-activity.service';
 import { UIService } from 'ui/ui.service';
 import { UserActivityService } from 'user-activity/user-activity.service';
+import { UserQuestionListComponent } from 'user-question-list/user-question-list.component';
 import { UsercommunityComponent } from 'usercommunity/usercommunity.component';
 import { LoginService } from '../auth/login.service';
 import { EditUserComponent } from '../edit-user/edit-user.component';
@@ -96,6 +97,13 @@ export class UserProfilePageComponent implements OnInit {
     this.joinedCommunityBoxRef = joinedCommunityBoxRef;
   }
 
+  // User Question List
+  userQuestionListRef: UserQuestionListComponent;
+  @ViewChild("userQuestionList")
+  set userQuestionList(userQuestionListRef: UserQuestionListComponent) {
+    this.userQuestionListRef = userQuestionListRef;
+  }
+
   ngOnInit(): void {
     this.url = this.route.snapshot.paramMap.get('userSlug');
     this.getUserProfileDetails();
@@ -163,9 +171,9 @@ export class UserProfilePageComponent implements OnInit {
   }
   getUserProfileDetails() {
     this.userProfilePageService.getUserProfile(this.url).subscribe((res: User) => {
-      this.userObserver.next(res);
       this.user = res;
-      this.getUserQuestions();
+      this.userObserver.next(this.user);
+      this.userQuestionListRef.setData(this.user);
       if (res?.banner?.avatarLink) {
         this.renderer.removeStyle(this.userBannerImgRef.nativeElement, "min-height");
         this.userBannerImage = res.banner.avatarLink;
@@ -274,8 +282,9 @@ export class UserProfilePageComponent implements OnInit {
     // console.log('getUserInfo entered');
     this.userActivityService.getUserInfo(this.url).subscribe((res: UserInfo) => {
       this.userInfo = res;
-      this.userCommunityBoxRef.setCommunityCount(this.userInfo.ownsCommunities);
-      this.joinedCommunityBoxRef.setCommunityCount(this.userInfo.followsCommunities);
+      this.userCommunityBoxRef?.setCommunityCount(this.userInfo.ownsCommunities);
+      this.joinedCommunityBoxRef?.setCommunityCount(this.userInfo.followsCommunities);
+      this.userQuestionListRef?.setTotalCounts(this.userInfo.totalQuestions);
       // console.log(res);
     }, error => {
       // console.log(error.error.errorMessage);
@@ -316,10 +325,5 @@ export class UserProfilePageComponent implements OnInit {
     // setTimeout(() => {
     //   this.showBanner = false;
     // }, 1500);
-  }
-  getUserQuestions() {
-    this.userProfilePageService.getUserQuestions(this.user.userId).subscribe((questionPage: Page<Post>) => {
-      // console.log("questionPage", questionPage);
-    });
   }
 }

@@ -16,11 +16,11 @@ export class CommunityLoaderComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.setListItems(this.rows ? this.rows : 5);
+    this.setListItems(this.rows && this.rows < 6 ? this.rows : 5);
   }
 
   setListItems(rows: number) {
-    this.rows = rows;
+    this.rows = rows < 6 ? rows : 5;
     this.listItems = Array(this.rows);
   }
 }

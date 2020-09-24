@@ -4,7 +4,7 @@
   <div class="community-list">
     <div class="row">
       <div [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngFor="let community of communityList">
-        <app-community-card-mobile-view [mobileView]="mobileView" [community]="community">
+        <app-community-card-mobile-view [community]="community">
         </app-community-card-mobile-view>
       </div>
       <div class="community-card-loader" [ngClass]="{'col-md-4': !mobileView, 'col-6': mobileView}" *ngIf="loader">

@@ -1,0 +1,16 @@
+<nav-bar [title]="title" (backAction)="backActionListener()" *ngIf="mobileView"></nav-bar>
+<div class="header" *ngIf="!mobileView && title">{{title}}</div>
+<div class="user-question-list-modal-container hide-scrollbar" [ngClass]="{'mobile': mobileView}">
+    <div class="user-question-list hide-scrollbar" [ngClass]="[mobileView ? 'mobile' : 'desktop']" #listContainer>
+        <div class="user-question-list-template">
+            <div *ngIf="questionList?.length">
+                <div class="links" *ngFor="let question of questionList">
+                    <app-user-question [question]="question"></app-user-question>
+                </div>
+            </div>
+            <app-user-question-loader *ngIf="loading" #questionLoader></app-user-question-loader>
+        </div>
+    </div>
+    <app-no-user-question *ngIf="!loading && !questionList?.length" [isOwner]="isOwner">
+    </app-no-user-question>
+</div>

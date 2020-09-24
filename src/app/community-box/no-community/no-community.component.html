@@ -1,4 +1,4 @@
-<div class="no-community-wrapper">
+<div class="no-community-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
     <ng-container *ngIf="communityListType == communityListTypeClass.joined">
         <div *ngIf="isOwner">
             You have not joined any community yet.

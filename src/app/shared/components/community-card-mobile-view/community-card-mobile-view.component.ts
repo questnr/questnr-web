@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Community } from '../../../models/community.model';
-import { ActivatedRoute } from '@angular/router';
-import { CommunityService } from '../../../community/community.service';
-import { LoginService } from '../../../auth/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { GlobalService } from 'global.service';
 import { RelationType } from 'models/relation-type';
 import { GlobalConstants } from 'shared/constants';
+import { LoginService } from '../../../auth/login.service';
+import { CommunityService } from '../../../community/community.service';
+import { Community } from '../../../models/community.model';
 
 @Component({
   selector: 'app-community-card-mobile-view',
@@ -13,17 +13,23 @@ import { GlobalConstants } from 'shared/constants';
   styleUrls: ['./community-card-mobile-view.component.scss']
 })
 export class CommunityCardMobileViewComponent implements OnInit {
-  constructor(public communityService: CommunityService, public loginService: LoginService, public snackBar: MatSnackBar) { }
   @Input() community: Community;
-  @Input() mobileView: boolean;
   @Input() allowAction: boolean;
   relation: RelationType;
   communityPath: string = GlobalConstants.communityPath;
+  mobileView: boolean = false;
+
+  constructor(public communityService: CommunityService,
+    public loginService: LoginService,
+    public snackBar: MatSnackBar,
+    private _globalService: GlobalService
+  ) { }
 
   ngOnInit(): void {
     // this.relation = this.community.communityMeta.relationShipType;
   }
   ngAfterViewInit() {
+    this.mobileView = this._globalService.isMobileView();
     // console.log("allowAction", this.allowAction);
     if (typeof this.allowAction == 'undefined' || this.allowAction) {
       this.allowAction = true;

@@ -1,0 +1,10 @@
+<div class="user-question-loader-wrapper">
+    <ng-container class="loader">
+        <div class="list-item" *ngFor="let i of listItems">
+            <ngx-skeleton-loader [theme]="lineTheme" class="w-100" count="1" appearance="line">
+            </ngx-skeleton-loader>
+            <ngx-skeleton-loader [theme]="circleTheme" count="1" appearance="circle">
+            </ngx-skeleton-loader>
+        </div>
+    </ng-container>
+</div>

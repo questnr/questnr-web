@@ -82,6 +82,8 @@
           </div>
           <div class="flex last-feed">
             <div class="flex-section-left">
+              <app-user-question-list [totalQuestions]="userInfo?.totalQuestions" #userQuestionList>
+              </app-user-question-list>
               <app-usercommunity [userPageSubject]="userObserver" [ownsCommunities]="userInfo?.ownsCommunities"
                 [templateStyle]="CommunityListMatCardTypeClass.expansion" #userCommunityBox>
               </app-usercommunity>

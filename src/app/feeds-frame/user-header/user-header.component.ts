@@ -2,8 +2,6 @@ import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Output, Rendere
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { AuthService } from 'angularx-social-login';
 import { LoginService } from 'auth/login.service';
 import { GlobalService } from 'global.service';
 import { AvatarDTO } from 'models/common.model';
@@ -15,7 +13,6 @@ import { ApiService } from 'shared/api.service';
 import { GlobalConstants } from 'shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
-import { MessagingService } from '../../service/messaging.service';
 import { CreateCommunityComponent } from '../../shared/components/dialogs/create-community/create-community.component';
 
 @Component({
@@ -69,7 +66,7 @@ export class UserHeaderComponent {
         this.login.avatarSubject.subscribe((avatar: AvatarDTO) => {
             // console.log("USERHEADER FEEDS SUBJECT", avatar);
             this.avatar = avatar;
-            this.profileIconRef.setAvatar(avatar);
+            this.profileIconRef?.setAvatar(avatar);
         });
     }
 
@@ -256,6 +253,7 @@ export class UserHeaderComponent {
     getLoggedInUserDetails() {
         this.login.getLoggedInUserDetails().subscribe((res: User) => {
             this.userDetails = res;
+            this.profileIconRef?.setAvatar(this.userDetails.avatarDTO);
         }, error => {
             // console.log(error.error.errorMessage)''
         });

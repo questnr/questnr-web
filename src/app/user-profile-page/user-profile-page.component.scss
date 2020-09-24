@@ -16,6 +16,8 @@
 }
 
 .profile-page-container {
+  width: calc(100% - 10px);
+  margin: 0 auto;
 }
 
 .site-body {
@@ -25,6 +27,9 @@
   margin-top: 60px;
 }
 .site-body.mobile {
+  .container {
+    padding: 0 !important;
+  }
 }
 
 //.profile-img:hover .profile-img .mat-icon{

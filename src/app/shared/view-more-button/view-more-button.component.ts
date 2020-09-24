@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-view-more-button',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-more-button.component.scss']
 })
 export class ViewMoreButtonComponent implements OnInit {
+  @Input() text: string = "View more";
 
   constructor() { }
 

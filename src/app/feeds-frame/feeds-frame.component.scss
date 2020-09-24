@@ -56,9 +56,13 @@
 }
 
 .container.mobile {
-  padding: 8px;
+  padding: 0px !important;
+  .main-wrap {
+    width: calc(100% - 10px);
+    margin: 0 auto;
+  }
   .feeds {
-    padding: 20px 0px;
+    padding: 10px 0px 20px;
   }
 }
 

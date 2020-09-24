@@ -1,6 +1,6 @@
 @import "../variables";
 
-.joined-community-wrapper {
+.user-question-list-wrapper {
     .link-card {
         background: $white;
         padding: 15px;
@@ -12,28 +12,26 @@
         align-items: center;
         margin: 15px 10px;
     }
+    .header {
+        font-size: 16px;
+        font-weight: 500;
+        color: $heading;
+        display: flex;
+        justify-content: space-between;
+    }
     .list-item {
         display: flex;
         align-items: center;
     }
-    .no-community.mobile {
-        background: $white;
-        padding: 5px;
-        margin-bottom: 20px;
-        border-radius: 10px;
-    }
     .mat-expansion-panel {
         box-shadow: unset;
     }
-    mat-expansion-panel.user-community-expansion-panel {
-        // padding: 0px 0px 15px !important;
-    }
-    .user-community-expansion-panel mat-expansion-panel-header {
+    .user-question-list-expansion-panel mat-expansion-panel-header {
         height: unset !important;
         min-height: 45px !important;
         padding: 15px !important;
     }
-    .user-community-expansion-panel {
+    .user-question-list-expansion-panel {
         background: $white;
         margin: 0 0 20px 0;
         border-radius: 10px;
@@ -42,20 +40,7 @@
         padding: 0px 15px !important;
         margin: -15px 0px 0px !important;
     }
-}
-
-.user-joined-community.mobile {
-    margin: 20px 0px 10px;
-    .action-btn {
-        text-align: center;
-        button {
-            background: $white;
-            color: $black;
-        }
-    }
-    .card-loader {
-        .col {
-            padding: 4px;
-        }
+    .user-question-loader {
+        margin-bottom: 10px;
     }
 }

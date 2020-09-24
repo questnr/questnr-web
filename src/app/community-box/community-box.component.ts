@@ -105,13 +105,11 @@ export class CommunityBoxComponent implements OnInit, AfterViewInit {
     let communityListData: CommunityListData = new CommunityListData();
     communityListData.communityList = this.communityList;
     communityListData.type = this.communityListType;
-    if (this.isOwner) {
-      communityListData.isOwner = this.isOwner;
-    } else {
-      communityListData.user = this.user;
-    }
-    communityListData.userId = this.userId;
+    communityListData.isOwner = this.isOwner;
+    communityListData.user = this.user;
+    communityListData.userId = this.user?.userId;
     communityListData.page = 1;
+    communityListData.isEnd = this.totalCommunityCount <= this.communityList?.length;
     if (this.mobileView) {
       config = {
         position: {

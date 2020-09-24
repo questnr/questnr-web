@@ -1,0 +1,43 @@
+@import "../../variables";
+
+.header {
+    //font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    background: $heading;
+    color: $white;
+    font-size: 1.2rem;
+    padding: 2px 0px;
+    border-bottom: 2px solid $primary;
+}
+
+.user-question-list-modal-container {
+    margin: 0px 20px;
+    overflow: hidden;
+    padding-bottom: 10px;
+    .user-question-list {
+        overflow-y: scroll;
+        display: flex;
+        justify-content: center;
+        min-width: 300px;
+        .user-question-list-template {
+            width: 100%;
+        }
+    }
+    .user-question-list.desktop {
+        // 10vh less than what modal has
+        max-height: 60vh;
+    }
+    .user-question-list.mobile {
+        // 10vh less than what modal has
+        max-height: 90vh;
+    }
+    .no-result-found {
+        text-align: center;
+        color: $heading;
+        min-width: 344px;
+    }
+}
+
+.user-question-list-modal-container.mobile {
+}

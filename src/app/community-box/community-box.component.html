@@ -1,10 +1,6 @@
 <div class="joined-community-wrapper">
     <div class="link-card box" *ngIf="!mobileView && templateStyle == CommunityListMatCardTypeClass.simple">
-        <div class="header">
-            <div [innerHTML]="communityBoxTitle">
-            </div>
-            <div *ngIf="totalCommunityCount">{{totalCommunityCount+" "}}<i class="fa fa-group"></i></div>
-        </div>
+        <app-card-header [title]="communityBoxTitle" [count]="totalCommunityCount"></app-card-header>
         <ng-container *ngIf="!loadingCommunities && communityList?.length; else noCommunities">
             <div class="links" *ngFor="let item of communityList">
                 <app-profile-icon [isCommunityAvatar]="true" [avatar]="item.avatarDTO" [height]="35" [sizeRef]="'small'"
@@ -12,7 +8,7 @@
                 </app-profile-icon>
                 <app-username [isCommunity]="true" [username]="item.communityName" [slug]="item.slug"></app-username>
             </div>
-            <div class="row" *ngIf="communityList?.length >= 4">
+            <div class="row" *ngIf="communityList?.length >= 5">
                 <div class="col-4">
                 </div>
                 <div class="col-8">
@@ -33,7 +29,8 @@
         <mat-expansion-panel class="user-community-expansion-panel">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <span class="header" [innerHTML]="communityBoxTitle"></span>
+                    <app-card-header [title]="communityBoxTitle">
+                    </app-card-header>
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div *ngIf="communityList?.length; else noCommunities">
@@ -47,7 +44,7 @@
                             </app-username>
                         </div>
                     </ng-container>
-                    <div class="row">
+                    <div class="row" *ngIf="communityList?.length >= 5">
                         <div class="col">
                             <app-view-more-button (click)="openCommunityDialog()">
                             </app-view-more-button>
@@ -67,19 +64,12 @@
 
     <div *ngIf="mobileView">
         <div class="user-joined-community" [ngClass]="mobileView ? 'mobile' : 'desktop'">
-            <h5>{{communityBoxTitle}}
-                <div class="create-btn">
-                    <span class="community-counts" *ngIf="totalCommunityCount">{{totalCommunityCount+" "}}<i
-                            class="fa fa-group"></i></span>
-                    <mat-icon (click)="openCommunityDialog()" *ngIf="communityList?.length > 2">
-                        arrow_forward
-                    </mat-icon>
-                </div>
-            </h5>
+            <app-card-header [title]="communityBoxTitle" [count]="totalCommunityCount"
+                [showArrow]="communityList?.length > 2" (arrowClickEmitter)="openCommunityDialog()"></app-card-header>
             <owl-carousel-o [options]="customOptions">
                 <ng-container *ngFor="let list of communityList;let i=index">
                     <ng-template carouselSlide [id]="i">
-                        <app-community-card-mobile-view [mobileView]="mobileView" [community]="list">
+                        <app-community-card-mobile-view [community]="list">
                         </app-community-card-mobile-view>
                     </ng-template>
                 </ng-container>
@@ -98,6 +88,8 @@
             </div>
             <!--loader ends-->
         </div>
-
+        <div class="no-community mobile box" *ngIf="!communityList?.length && !loadingCommunities">
+            <app-no-community [isOwner]="isOwner" [communityListType]="communityListType"></app-no-community>
+        </div>
     </div>
 </div>
