@@ -105,8 +105,8 @@
       </ng-template>
     </mat-menu>
 
-    <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" [style.color]="notificationColor" *ngIf="mobileView"
-      (click)="readNewNotificationAnswer()">
+    <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" [style.color]="notificationAnswerColor"
+      *ngIf="mobileView" (click)="readNewNotificationAnswer()">
 
       <mat-icon *ngIf="!hasNewNotificationAnswers && unReadNotificationAnswerCount <= 0">
         contact_support
@@ -136,16 +136,16 @@
         notifications_active</mat-icon>
     </button>
 
-    <app-profile-icon *ngIf="mobileView" [avatar]="login.avatar" [height]="32" [sizeRef]="'small'"
+    <!-- <app-profile-icon *ngIf="mobileView" [avatar]="login.avatar" [height]="32" [sizeRef]="'small'"
       [slug]="userDetails?.slug" #profileIcon>
-    </app-profile-icon>
+    </app-profile-icon> -->
     <button mat-icon-button [matMenuTriggerFor]="info">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #info="matMenu" [overlapTrigger]="false" xPosition="before">
       <button mat-menu-item [routerLink]="['/', termsPath]">Terms & Conditions</button>
       <button mat-menu-item [routerLink]="['/', policyPath]">Privacy Policy</button>
-      <button (click)="logOut()" mat-menu-item>Log Out</button>
+      <button (click)="login.logOut()" mat-menu-item>Log Out</button>
       <!--      <button mat-menu-item>FAQ</button>-->
     </mat-menu>
     <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="before">

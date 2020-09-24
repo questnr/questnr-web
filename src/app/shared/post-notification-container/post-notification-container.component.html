@@ -1,0 +1,7 @@
+<div class="post-notification-container" [ngClass]="{'slide-down': isVisible()}" *ngIf="isVisible()">
+    <div [ngClass]="mobileView ? 'mobile' : 'desktop'" #container>
+        <app-post-notification-button [newPostCount]="newPostCount" (fetchNewPost)="fetchNewPostListener($event)"
+            #postNotificationButton>
+        </app-post-notification-button>
+    </div>
+</div>

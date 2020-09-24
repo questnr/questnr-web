@@ -1,10 +1,12 @@
 @import "../variables";
 
-.link-card {
-  background: $white;
-  padding: 15px;
-  margin: 20px 0;
-  border-radius: 10px;
+.joined-community-wrapper {
+  .link-card {
+    background: $white;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 10px;
+  }
   .header {
     font-size: 16px;
     font-weight: 500;
@@ -16,60 +18,40 @@
     display: flex;
     align-items: center;
     margin: 15px 10px;
-    .icon {
-      max-width: 25px;
-      margin-right: 10px;
-      border-radius: 50%;
-      overflow: hidden;
-      height: 25px;
-      cursor: pointer;
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
-    // .link {
-    //   font-weight: 500;
-    //   &:hover {
-    //     text-decoration: none;
-    //     color: $primary;
-    //   }
-    // }
   }
-}
-
-footer {
-  .wrap {
+  .list-item {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    a {
-      font-weight: 500;
-      padding: 5px 10px;
-      &:hover {
-        text-decoration: none;
-        color: $primary;
-      }
-    }
+    align-items: center;
   }
-  .copyright {
-    text-align: center;
-    font-size: 12px;
-    opacity: 0.4;
+  .community-counts {
+    font-size: 0.8rem;
   }
-}
-.list-item {
-  display: flex;
-  align-items: center;
-}
-img {
-  max-width: 100%;
+  .mat-expansion-panel {
+    box-shadow: unset;
+  }
+  mat-expansion-panel.user-community-expansion-panel {
+    // padding: 0px 0px 15px !important;
+  }
+  .user-community-expansion-panel mat-expansion-panel-header {
+    height: unset !important;
+    min-height: 45px !important;
+    padding: 15px !important;
+  }
+  .user-community-expansion-panel {
+    background: $white;
+    margin: 0 0 20px 0;
+    border-radius: 10px;
+  }
+  .mat-expansion-panel-content .mat-expansion-panel-body {
+    padding: 0px 15px !important;
+    margin: -15px 0px 0px !important;
+  }
 }
 
-.mobile-view-joined-community {
+.user-joined-community.mobile {
   margin: 20px 0;
   position: relative;
-  .mobile-create-btn {
+  .create-btn {
     position: absolute;
     right: 1%;
     top: 0;
@@ -79,15 +61,16 @@ img {
       margin: 0 4px;
     }
   }
-  .mobile_action_btn {
+  .action-btn {
     text-align: center;
     button {
       background: white;
       color: $black;
     }
   }
-}
-
-.community-counts {
-  font-size: 0.8rem;
+  .card-loader {
+    .col {
+      padding: 4px;
+    }
+  }
 }

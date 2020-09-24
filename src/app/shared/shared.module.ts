@@ -35,6 +35,8 @@ import { ProfileIconComponent } from './profile-icon/profile-icon.component';
 import { SignInRequiredModalComponent } from './sign-in-required-modal/sign-in-required-modal.component';
 import { SignInRequiredComponent } from './sign-in-required-modal/sign-in-required/sign-in-required.component';
 import { ViewMoreButtonComponent } from './view-more-button/view-more-button.component';
+import { PostNotificationButtonComponent } from './post-notification-button/post-notification-button.component';
+import { PostNotificationContainerComponent } from './post-notification-container/post-notification-container.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { ViewMoreButtonComponent } from './view-more-button/view-more-button.com
     EmoticonsComponent,
     KnowMoreLinkComponent,
     SignInRequiredModalComponent,
-    SignInRequiredComponent
+    SignInRequiredComponent,
+    PostNotificationButtonComponent,
+    PostNotificationContainerComponent
   ],
   imports: [
     CommonModule,
@@ -116,11 +120,16 @@ import { ViewMoreButtonComponent } from './view-more-button/view-more-button.com
     EmoticonsComponent,
     KnowMoreLinkComponent,
     SignInRequiredModalComponent,
-    SignInRequiredComponent
+    SignInRequiredComponent,
+    PostNotificationButtonComponent,
+    PostNotificationContainerComponent
   ],
   providers: [
     CommonService,
     SnackBarService
+  ],
+  bootstrap: [
+    UserHeaderComponent
   ]
 })
 export class SharedModule { }

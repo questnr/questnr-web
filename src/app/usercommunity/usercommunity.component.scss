@@ -1,15 +1,86 @@
 @import "../variables";
 
-.suggestion-container {
-  background: $white;
-  border-radius: 8px;
-  padding: 10px 0;
-  margin-bottom: 20px;
-  span {
+.user-community-wrapper {
+  .link-card {
+    background: $white;
+    padding: 15px;
+    margin: 0 0 20px 0;
+    border-radius: 10px;
+
+    // .link {
+    //   font-weight: 500;
+    //   &:hover {
+    //     text-decoration: none;
+    //     color: $primary;
+    //   }
+    // }
+  }
+  .links {
+    display: flex;
+    align-items: center;
+    margin: 15px 10px;
+  }
+  .header {
+    font-size: 16px;
+    font-weight: 500;
+    color: $heading;
+    display: flex;
+    justify-content: space-between;
+  }
+  .list-item {
+    display: flex;
+    align-items: center;
+  }
+  .community-counts {
+    font-size: 0.8rem;
+  }
+  .mat-expansion-panel {
+    box-shadow: unset;
+  }
+  mat-expansion-panel.user-community-expansion-panel {
+    // padding: 0px 0px 15px !important;
+  }
+  .user-community-expansion-panel mat-expansion-panel-header {
+    height: unset !important;
+    min-height: 45px !important;
+    padding: 15px !important;
+  }
+  .user-community-expansion-panel {
+    background: $white;
+    margin: 0 0 20px 0;
+    border-radius: 10px;
+  }
+  .mat-expansion-panel-content .mat-expansion-panel-body {
+    padding: 0px 15px !important;
+    margin: -15px 0px 0px !important;
+  }
+}
+
+.user-owned-community.mobile {
+  margin: 20px 0;
+  position: relative;
+  .create-btn {
+    position: absolute;
+    right: 1%;
+    top: 0;
+    display: flex;
+    align-items: center;
+    mat-icon {
+      margin: 0 4px;
+    }
+  }
+  .action-btn {
     text-align: center;
-    display: block;
-    width: 100%;
-    margin-bottom: 8px;
+    button {
+      background: $white;
+      color: $black;
+      padding: 0 4px;
+    }
+  }
+  .card-loader {
+    .col {
+      padding: 4px;
+    }
   }
 }
 
@@ -19,42 +90,33 @@
   margin: 0 10px;
 }
 
-.link-card {
-  background: #fff;
-  padding: 15px;
-  margin: 0 0 20px 0;
-  border-radius: 10px;
-  .header {
-    font-size: 16px;
-    font-weight: 500;
-    color: $heading;
-    display: flex;
-    justify-content: space-between;
+.blog-post {
+  &__headline {
+    font-size: 1.25em;
+    font-weight: bold;
   }
-  .links {
-    display: flex;
-    align-items: center;
-    margin: 15px 10px;
-    .icon {
-      cursor: pointer;
-      max-width: 25px;
-      margin-right: 10px;
-      border-radius: 50%;
-      overflow: hidden;
-      height: 25px;
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
-    // .link {
-    //   font-weight: 500;
-    //   &:hover {
-    //     text-decoration: none;
-    //     color: $primary;
-    //   }
-    // }
+
+  &__meta {
+    font-size: 0.85em;
+    color: #6b6b6b;
   }
+}
+.o-media {
+  display: flex;
+
+  &__body {
+    flex-grow: 1;
+    margin-top: 5px;
+  }
+}
+
+.desc {
+  width: 90%;
+}
+
+.media-box {
+  width: 35px;
+  height: 35px;
 }
 
 /*shimmer for community*/
@@ -83,80 +145,4 @@
       transform: translateX(100%);
     }
   }
-}
-
-.blog-post {
-  &__headline {
-    font-size: 1.25em;
-    font-weight: bold;
-  }
-
-  &__meta {
-    font-size: 0.85em;
-    color: #6b6b6b;
-  }
-}
-
-// OBJECTS
-
-.o-media {
-  display: flex;
-
-  &__body {
-    flex-grow: 1;
-    margin-top: 5px;
-  }
-}
-
-.desc {
-  width: 90%;
-}
-
-.media-box {
-  width: 35px;
-  height: 35px;
-}
-
-.user-owned-community {
-  margin: 20px 0;
-  position: relative;
-  .mobile-create-btn {
-    position: absolute;
-    right: 1%;
-    top: 0;
-    display: flex;
-    align-items: center;
-    mat-icon {
-      margin: 0 4px;
-    }
-  }
-  .mobile_action_btn {
-    text-align: center;
-    button {
-      background: $white;
-      color: $black;
-      padding: 0 4px;
-    }
-  }
-  .mobile_action_btn {
-    text-align: center;
-    button {
-      background: $white;
-      color: $black;
-    }
-  }
-  .card-loader {
-    .col {
-      padding: 4px;
-    }
-  }
-}
-
-.community-counts {
-  font-size: 0.8rem;
-}
-
-.list-item {
-  display: flex;
-  align-items: center;
 }

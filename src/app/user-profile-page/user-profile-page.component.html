@@ -82,9 +82,11 @@
           </div>
           <div class="flex last-feed">
             <div class="flex-section-left">
-              <app-usercommunity [user]="user" [ownsCommunities]="userInfo?.ownsCommunities">
+              <app-usercommunity [userPageSubject]="userObserver" [ownsCommunities]="userInfo?.ownsCommunities"
+                [templateStyle]="CommunityListMatCardTypeClass.expansion" #userCommunityBox>
               </app-usercommunity>
-              <app-joined-community [user]="user" [followsCommunities]="userInfo?.followsCommunities">
+              <app-joined-community [userPageSubject]="userObserver" [followsCommunities]="userInfo?.followsCommunities"
+                [templateStyle]="CommunityListMatCardTypeClass.expansion" #joinedCommunityBox>
               </app-joined-community>
               <div *ngIf="!mobileView">
                 <app-floating-footer></app-floating-footer>

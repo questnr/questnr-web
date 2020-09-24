@@ -1,9 +1,26 @@
-import { Component, ElementRef, OnInit, ViewChild, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonService } from 'common/common.service';
+import { CommunityUsersComponent } from 'community-users/community-users.component';
+import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
+import { GlobalService } from 'global.service';
+import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
+import { ConfirmDialogContentType } from 'models/confirm-dialog.model';
+import { NotificationPurposeType, NotificationType, PushNotificationDTO } from 'models/notification.model';
 import { Page } from 'models/page.model';
+import { RelationType } from 'models/relation-type';
+import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
+import { UserListData, UserListType } from 'models/user-list.model';
+import { Subject, Subscription } from 'rxjs';
+import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
+import { UserListComponent } from 'shared/components/dialogs/user-list/user-list.component';
+import { GlobalConstants } from 'shared/constants';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { PostNotificationContainerComponent } from 'shared/post-notification-container/post-notification-container.component';
+import { QuestnrActivityService } from 'shared/questnr-activity.service';
 import { UIService } from 'ui/ui.service';
 import { LoginService } from '../auth/login.service';
 import { Community, CommunityPrivacy, CommunityProfileMeta } from '../models/community.model';
@@ -11,21 +28,6 @@ import { Post, QuestionParentType } from '../models/post-action.model';
 import { User } from '../models/user.model';
 import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
 import { CommunityService } from './community.service';
-import { CommunityUsersComponent } from 'community-users/community-users.component';
-import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
-import { CommonService } from 'common/common.service';
-import { UserListComponent } from 'shared/components/dialogs/user-list/user-list.component';
-import { RelationType } from 'models/relation-type';
-import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
-import { GlobalConstants } from 'shared/constants';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { QuestnrActivityService } from 'shared/questnr-activity.service';
-import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
-import { GlobalService } from 'global.service';
-import { UserListData, UserListType } from 'models/user-list.model';
-import { Subscription } from 'rxjs';
-import { ConfirmDialogContentType } from 'models/confirm-dialog.model';
-import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-community',
@@ -75,6 +77,13 @@ export class CommunityComponent implements OnInit {
   fetchCommunityFeedsSubscriber: Subscription;
   userListTypeClass = UserListType;
   questionParentTypeClass = QuestionParentType;
+  communityPostNotificationRef: PostNotificationContainerComponent;
+  @ViewChild("communityPostNotification")
+  set communityPostNotification(communityPostNotificationRef: PostNotificationContainerComponent) {
+    this.communityPostNotificationRef = communityPostNotificationRef;
+    this.communityPostNotificationRef?.setCommunity(this.communityDTO);
+  }
+  communitySubject = new Subject<Community>();
 
   constructor(public communityService: CommunityService,
     public fb: FormBuilder,
@@ -85,43 +94,27 @@ export class CommunityComponent implements OnInit {
     private uiService: UIService,
     private router: Router,
     public commonService: CommonService,
-    private _activityService: QuestnrActivityService, private _globalService: GlobalService,
-    private renderer: Renderer2) {
+    private _activityService: QuestnrActivityService,
+    private _globalService: GlobalService,
+    private renderer: Renderer2,
+    private cd: ChangeDetectorRef) {
     this.loggedInUserId = loginAuth.getLocalUserProfile().id;
     this.mobileView = this._globalService.isMobileView();
+
+    // set community in communityPostNotificationRef when community subject changes
+    this.communitySubject.subscribe((community: Community) => {
+      this.communityPostNotificationRef?.setCommunity(community);
+    });
   }
 
   public trackItem(index: number, feed: Post) {
     return feed.slug;
   }
 
-  openCommunityDesc(): void {
-    // console.log();
-    const dialogRef = this.dialog.open(DescriptionComponent, {
-      width: '500px',
-      // height: '300px',
-      data: {
-        text: this.description,
-        communityAvatar: this.communityImage,
-        owner: this.owner,
-        communityId: this.communityDTO.communityId,
-        descriptionEmit: this.descriptionEmit
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed');
-      // this.animal = result;
-    });
-  }
-
-  descriptionEmit = (desc: string) => {
-    this.description = desc;
-  }
-
   ngOnInit() {
     this.communitySlug = this.route.snapshot.paramMap.get('communitySlug');
     this.route.data.subscribe((data: { community: Community }) => {
+      this.communitySubject.next(data.community);
       this.communityDTO = data.community;
       this.communityId = this.communityDTO.communityId;
       this.owner = this.communityDTO.communityMeta.relationShipType;
@@ -145,30 +138,6 @@ export class CommunityComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
-  }
-
-  restartCommunityFeeds(callFromConstructor: boolean = false) {
-    // this.ngOnInit();
-    // this.getCommunityDetailsById();
-    this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunity(this.communityDTO);
-
-    // No need to re-fetch feeds again if the community is not private.
-    if (!callFromConstructor && this.communityDTO.communityPrivacy == CommunityPrivacy.pub) return;
-
-    this.userFeeds = [];
-    this.page = 0;
-
-    // If already feed is being fetched, stop the thread
-    if (this.fetchCommunityFeedsSubscriber) {
-      this.fetchCommunityFeedsSubscriber.unsubscribe();
-    }
-
-    this.fetchCommunityFeeds();
-  }
-  getCommunityDetailsById() {
-    this.communityService.getCommunityDetailsById(this.communityId).subscribe((community: Community) => {
-      this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunity(community);
-    });
   }
 
   ngAfterViewInit() {
@@ -206,10 +175,69 @@ export class CommunityComponent implements OnInit {
     this.scrollCached = event;
   }
 
+  restartCommunityFeeds(callFromConstructor: boolean = false) {
+    // this.ngOnInit();
+    // this.getCommunityDetailsById();
+    this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunity(this.communityDTO);
+
+    // No need to re-fetch feeds again if the community is not private.
+    if (!callFromConstructor && this.communityDTO.communityPrivacy == CommunityPrivacy.pub) return;
+
+    this.userFeeds = [];
+    this.page = 0;
+
+    this.communityPostNotificationRef?.reset();
+
+    // If already feed is being fetched, stop the thread
+    if (this.fetchCommunityFeedsSubscriber) {
+      this.fetchCommunityFeedsSubscriber.unsubscribe();
+    }
+
+    this.fetchCommunityFeeds();
+  }
+
+  getCommunityDetailsById() {
+    this.communityService.getCommunityDetailsById(this.communityId).subscribe((community: Community) => {
+      this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunity(community);
+    });
+  }
+
+  openCommunityDesc(): void {
+    // console.log();
+    const dialogRef = this.dialog.open(DescriptionComponent, {
+      width: '500px',
+      // height: '300px',
+      data: {
+        text: this.description,
+        communityAvatar: this.communityImage,
+        owner: this.owner,
+        communityId: this.communityDTO.communityId,
+        descriptionEmit: this.descriptionEmit
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // console.log('The dialog was closed');
+      // this.animal = result;
+    });
+  }
+
+  descriptionEmit = (desc: string) => {
+    this.description = desc;
+  }
+
   postFeed(event) {
-    if (event.postActionId) {
+    if (typeof event === 'object' && event?.length > 0) {
+      // console.log("event", event);
+      this.communityPostNotificationRef.setLastPostId(event[0].postActionId);
+      this.userFeeds = [...event, ...this.userFeeds];
+      this.cd.detectChanges();
+    } else if (event.postActionId) {
+      this.communityPostNotificationRef.setLastPostId(event.postActionId);
       this.userFeeds = [event, ...this.userFeeds];
     } else {
+      this.userFeeds = [];
+      this.page = 0;
       this.fetchCommunityFeeds();
     }
   }
@@ -226,6 +254,9 @@ export class CommunityComponent implements OnInit {
           res.content.forEach(post => {
             this.userFeeds.push(post);
           });
+          if (this.page - 1 === 0) {
+            this.communityPostNotificationRef.setLastPostId(this.userFeeds[0].postActionId);
+          }
         } else {
           this.endOfPosts = true;
           this.loading = false;
@@ -421,5 +452,15 @@ export class CommunityComponent implements OnInit {
   }
   updatePendingRequestCount(pendingRequestCount) {
     this.pendingRequests = pendingRequestCount;
+  }
+
+  notificationListener(data: PushNotificationDTO) {
+    if (data.type == NotificationType.normal
+      && data.purposeType == NotificationPurposeType.postCreated) {
+      // the same community
+      if (this.communitySlug === data.communitySlug) {
+        this.communityPostNotificationRef.receivedNewPostNotification(data.postId);
+      }
+    }
   }
 }

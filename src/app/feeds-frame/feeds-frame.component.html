@@ -1,5 +1,5 @@
 <!-- <app-user-header [mobileView]="mobileView" (menuToggle)="toggle(drawer)"></app-user-header> -->
-<app-user-header></app-user-header>
+<app-user-header (notificationEmitter)="notificationListener($event)"></app-user-header>
 
 <mat-sidenav-container class="sidenav-container" autosize>
   <!-- <mat-sidenav #drawer class="side" [mode]="sideConfig" [opened]="isSidenavopen">
@@ -91,3 +91,6 @@
 
 </mat-sidenav-container>
 <app-floating-mobile-nav [url]="pathLink" *ngIf="mobileView"></app-floating-mobile-nav>
+
+<app-post-notification-container (fetchNewPostsFromNotification)="postFeed($event)" #feedNotification>
+</app-post-notification-container>

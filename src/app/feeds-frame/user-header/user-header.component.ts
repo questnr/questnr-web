@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Output, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Output, Renderer2, ViewChild } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,7 +7,7 @@ import { AuthService } from 'angularx-social-login';
 import { LoginService } from 'auth/login.service';
 import { GlobalService } from 'global.service';
 import { AvatarDTO } from 'models/common.model';
-import { NotificationDTO } from 'models/notification.model';
+import { NotificationDTO, NotificationType, PushNotificationDTO } from 'models/notification.model';
 import { User } from 'models/user.model';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SearchOverlayComponent } from 'search/search-overlay/search-overlay.component';
@@ -28,6 +28,7 @@ export class UserHeaderComponent {
     @ViewChild('suggestionBoxRef') suggestionBoxRef: ElementRef;
     mobileView: boolean = false;
     @Output() menuToggle = new EventEmitter();
+    @Output() notificationEmitter = new EventEmitter();
     user: string;
     userDetails: User;
     userPath: string = GlobalConstants.userPath;
@@ -58,14 +59,13 @@ export class UserHeaderComponent {
         this.profileIconRef = profileIconRef;
     }
 
-    constructor(private router: Router, public login: LoginService,
-        private authService: AuthService,
+    constructor(public login: LoginService,
         private api: ApiService,
-        private messagingService: MessagingService,
         private angularFireMessaging: AngularFireMessaging,
         private renderer: Renderer2,
         private dialog: MatDialog,
-        private _globalService: GlobalService) {
+        private _globalService: GlobalService,
+        private cd: ChangeDetectorRef) {
         this.login.avatarSubject.subscribe((avatar: AvatarDTO) => {
             // console.log("USERHEADER FEEDS SUBJECT", avatar);
             this.avatar = avatar;
@@ -185,40 +185,34 @@ export class UserHeaderComponent {
         }
     }
 
-    logOut() {
-        localStorage.clear();
-        this.authService.signOut();
-        this.messagingService.deleteToken();
-        this.router.navigate(['/']);
-    }
-
     /**
      * hook method when new notification received in foreground
      */
     receiveMessage() {
         this.angularFireMessaging.onMessage((message) => {
-            console.log('received a message:', message);
+            // console.log('received a message:', message);
             if (typeof message !== 'undefined' && typeof message.data !== 'undefined') {
-                let data = message.data;
-                if (typeof data.isNotification !== 'undefined' && data.isNotification == 'true') {
-                    if (data.type == 'normal') {
+                let data: PushNotificationDTO = message.data;
+                if (typeof data.isNotification !== 'undefined' && data.isNotification == "true") {
+                    if (data.type == NotificationType.normal) {
                         this.notificationColor = 'red';
                         this.hasNewNotifications = true;
                         this.unReadNotificationCount += 1;
                         setTimeout(() => {
                             this.hasNewNotifications = false;
                         }, 5000);
-                    } else if (data.type == 'answer') {
+                        this.cd.detectChanges();
+                    } else if (data.type == NotificationType.answer) {
                         this.notificationAnswerColor = 'red';
                         this.hasNewNotificationAnswers = true;
                         this.unReadNotificationAnswerCount += 1;
                         setTimeout(() => {
                             this.hasNewNotificationAnswers = false;
                         }, 5000);
+                        this.cd.detectChanges();
                     }
                 }
-                // window.open(message.fcmOptions.link, "_blank");
-                // @Todo: increament notification count and highlight it.
+                this.notificationEmitter.emit(data);
             }
         });
     }
@@ -253,7 +247,7 @@ export class UserHeaderComponent {
         );
     }
 
-    readNotifications(notificationList: NotificationDTO[]) {
+    readNotifications(notificationList: NotificationDTO[] = []) {
         notificationList.forEach((notification: NotificationDTO) => {
             this.api.readNotification(notification.notificationId).subscribe();
         });

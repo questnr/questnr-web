@@ -4,6 +4,9 @@ import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalService } from 'global.service';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
+import { JoinedCommunityComponent } from 'joined-community/joined-community.component';
+import { CommunityListMatCardType } from 'models/community-list.model';
+import { Page } from 'models/page.model';
 import { RelationType } from 'models/relation-type';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 import { Subject } from 'rxjs';
@@ -11,6 +14,7 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { QuestnrActivityService } from 'shared/questnr-activity.service';
 import { UIService } from 'ui/ui.service';
 import { UserActivityService } from 'user-activity/user-activity.service';
+import { UsercommunityComponent } from 'usercommunity/usercommunity.component';
 import { LoginService } from '../auth/login.service';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { Post, QuestionParentType } from '../models/post-action.model';
@@ -77,6 +81,20 @@ export class UserProfilePageComponent implements OnInit {
   @ViewChild("userBannerImgRef") userBannerImgRef: ElementRef;
   @ViewChild("userAvatarImgRef") userAvatarImgRef: ElementRef;
   questionParentTypeClass = QuestionParentType;
+  CommunityListMatCardTypeClass = CommunityListMatCardType;
+  // User Owned Community List Component
+  userCommunityBoxRef: UsercommunityComponent;
+  @ViewChild("userCommunityBox")
+  set userCommunityBox(userCommunityBoxRef: UsercommunityComponent) {
+    this.userCommunityBoxRef = userCommunityBoxRef;
+  }
+
+  // User Joined Community List Component
+  joinedCommunityBoxRef: JoinedCommunityComponent;
+  @ViewChild("joinedCommunityBox")
+  set joinedCommunityBox(joinedCommunityBoxRef: JoinedCommunityComponent) {
+    this.joinedCommunityBoxRef = joinedCommunityBoxRef;
+  }
 
   ngOnInit(): void {
     this.url = this.route.snapshot.paramMap.get('userSlug');
@@ -147,6 +165,7 @@ export class UserProfilePageComponent implements OnInit {
     this.userProfilePageService.getUserProfile(this.url).subscribe((res: User) => {
       this.userObserver.next(res);
       this.user = res;
+      this.getUserQuestions();
       if (res?.banner?.avatarLink) {
         this.renderer.removeStyle(this.userBannerImgRef.nativeElement, "min-height");
         this.userBannerImage = res.banner.avatarLink;
@@ -255,6 +274,8 @@ export class UserProfilePageComponent implements OnInit {
     // console.log('getUserInfo entered');
     this.userActivityService.getUserInfo(this.url).subscribe((res: UserInfo) => {
       this.userInfo = res;
+      this.userCommunityBoxRef.setCommunityCount(this.userInfo.ownsCommunities);
+      this.joinedCommunityBoxRef.setCommunityCount(this.userInfo.followsCommunities);
       // console.log(res);
     }, error => {
       // console.log(error.error.errorMessage);
@@ -296,28 +317,9 @@ export class UserProfilePageComponent implements OnInit {
     //   this.showBanner = false;
     // }, 1500);
   }
-
-  // handleMouseOverBanner($event) {
-  //   if (!this.showAvatar) {
-  //     setTimeout(() => {
-  //       this.showBanner = true;
-  //       setTimeout(() => {
-  //         this.handleMouseOutBanner({});
-  //       }, 1500);
-  //     }, 1000);
-  //   }
-  // }
-
-  // handleMouseOutBanner($event) {
-  //   this.showBanner = false;
-  // }
-
-  // handleMouseOverAvatar($event) {
-  //   this.showAvatar = true;
-  //   this.showBanner = false;
-  // }
-
-  // handleMouseOutAvatar($event) {
-  //   this.showAvatar = false;
-  // }
+  getUserQuestions() {
+    this.userProfilePageService.getUserQuestions(this.user.userId).subscribe((questionPage: Page<Post>) => {
+      // console.log("questionPage", questionPage);
+    });
+  }
 }
