@@ -454,3 +454,9 @@ li:before {
   margin: 0;
 }
 
+@media screen  and (max-width: 630px){
+  .center{
+    margin: 0 !important;
+  }
+}
+
