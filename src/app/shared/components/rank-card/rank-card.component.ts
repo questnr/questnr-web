@@ -21,4 +21,7 @@ export class RankCardComponent implements OnInit {
   getImgUrl(src: string) {
     return src ? `url(${src})` : `url("${StaticMediaSrc.userFile}")`;
   }
+  getImageSrcUrl(src: string) {
+    return src ? src : StaticMediaSrc.userFile;
+  }
 }

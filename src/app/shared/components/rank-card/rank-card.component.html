@@ -1,6 +1,24 @@
+<!--<div class="card">-->
+<!--  &lt;!&ndash; <div class="profile" style.background="src({{getImgUrl(imgSrc)}}) center center/cover no-repeat"> &ndash;&gt;-->
+<!--  <div class="profile" [style.background]="getImgUrl(imgSrc)" style="background-size: cover; background-position: center;"> </div>-->
+<!--  <div class="content">-->
+<!--    &lt;!&ndash; <div class="rank">-->
+<!--      <span>#</span>{{rank}}-->
+<!--    </div> &ndash;&gt;-->
+<!--    <div class="title">{{title}}</div>-->
+<!--    <div class="detail">-->
+<!--      {{followers|number}} Followers <br>-->
+<!--      {{posts | number}} Posts-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
 <div class="card">
   <!-- <div class="profile" style.background="src({{getImgUrl(imgSrc)}}) center center/cover no-repeat"> -->
-  <div class="profile" [style.background]="getImgUrl(imgSrc)" style="background-size: cover; background-position: center;"> </div>
+  <div class="profile"  >
+    <img [src]="getImageSrcUrl(imgSrc)" alt="" style="width: 70px; ">
+  </div>
   <div class="content">
     <!-- <div class="rank">
       <span>#</span>{{rank}}

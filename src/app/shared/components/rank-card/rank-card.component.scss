@@ -1,6 +1,6 @@
 @import "../../../variables";
 .card {
-  margin: 4px;
+  //margin: 4px;
   overflow: hidden;
   //border-radius: 7px;
   cursor: pointer;
@@ -13,6 +13,9 @@
   transition: 0.2s all ease-in-out;
   display: grid;
   grid-template-columns: 100px auto;
+  border-left: none;
+  border-right:  none;
+  border-bottom: none;
   //border: 1px solid $primary;
   .rank {
     position: absolute;
@@ -32,25 +35,33 @@
       font-weight: bold;
     }
     .detail {
-      font-size: 14px;
+      font-size: 12px;
     }
   }
   .profile {
     overflow: hidden;
     background-size: cover !important;
     background-position: center !important;
-  }
-  transition: 0.2s all ease-in-out;
-  &:hover {
-    box-shadow: 0 5px 50px -10px rgba(grey, 0.5);
-    background: $primary;
-    color: #fff;
-    transform: scale(1.05);
-    z-index: 10;
-    //border-left: 4px solid $primary !important;
-    border: none;
-    .rank {
-      color: rgba(#fff, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+      width: 70px;
+      padding: 10px;
+      border: 1px solid $gray;
     }
   }
+  transition: 0.2s all ease-in-out;
+  //&:hover {
+  //  box-shadow: 0 5px 50px -10px rgba(grey, 0.5);
+  //  background: $primary;
+  //  color: #fff;
+  //  transform: scale(1.05);
+  //  z-index: 10;
+  //  //border-left: 4px solid $primary !important;
+  //  border: none;
+  //  .rank {
+  //    color: rgba(#fff, 0.4);
+  //  }
+  //}
 }
