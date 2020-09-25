@@ -40,8 +40,11 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     // { title: 'Agriculture', src: 'assets/community/agriculture.png', detail: 130 },
     { title: 'Startup Community', src: 'assets/community/startup-community.png', detail: 530 }
   ];
-
-  @ViewChild('main', { static: true }) mainContent: ElementRef;
+  mainContentRef: ElementRef;
+  @ViewChild('mainContent')
+  set mainContent(mainContentRef: ElementRef) {
+    this.mainContentRef = mainContentRef;
+  }
 
   users = [
     { username: 'user1', totalFollowers: 2, totalPosts: 2, userRank: 12 },
@@ -128,6 +131,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   goTo(val: string) {
     this.api.activeAuth = val;
-    this.mainContent.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    this.mainContentRef.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'center' });
   }
 }
