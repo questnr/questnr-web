@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GlobalService } from 'global.service';
 import { Post } from 'models/post-action.model';
 import { GlobalConstants } from 'shared/constants';
@@ -10,6 +10,7 @@ import { GlobalConstants } from 'shared/constants';
 })
 export class UserQuestionComponent implements OnInit, AfterViewInit {
   @Input() question: Post;
+  @Output() clickEmitter = new EventEmitter();
   questionPath: string = GlobalConstants.postQuestionPath;
   mobileView: boolean = false;
 
@@ -22,4 +23,7 @@ export class UserQuestionComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
   }
 
+  handleClick($event): void {
+    this.clickEmitter.emit();
+  }
 }
