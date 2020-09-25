@@ -131,9 +131,3 @@
     }
   }
 }
-
-// To make any dialog being opened on this component overflow hidden
-// encapsulation: ViewEncapsulation.None to not affect other component after this component processed
-mat-dialog-container {
-  overflow: hidden !important;
-}
