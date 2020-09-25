@@ -1,5 +1,8 @@
 @import "../variables";
 
+.landing-page-body {
+  background: $white;
+}
 section {
   margin: 2rem 0;
   padding: 1rem 1rem;
@@ -11,7 +14,7 @@ img {
 hr {
   background-color: #cdcdcd;
 }
-.container-footer{
+.container-footer {
   width: calc(100% - 150px);
   padding: 40px;
   margin: 0 auto;
@@ -69,13 +72,7 @@ hr {
   width: 20px !important;
   height: 45px !important;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-  background-image: -webkit-gradient(
-    linear,
-    right top,
-    left top,
-    color-stop(98%, #ff2d55),
-    color-stop(7%, #ff4500)
-  );
+  background-image: -webkit-gradient(linear, right top, left top, color-stop(98%, #ff2d55), color-stop(7%, #ff4500));
   position: relative;
   top: 4px;
   line-height: 43px;
@@ -242,7 +239,7 @@ li:before {
 }
 .info-graphics .btn-color {
   //width: 236px;
-  width:  auto;
+  width: auto;
   height: 48px;
   color: #ffffff;
   font-size: 18px;
@@ -397,12 +394,12 @@ li:before {
   }
 }
 
-.footer-list_container{
+.footer-list_container {
   width: fit-content;
   width: -moz-fit-content;
   margin: 0 auto;
 }
-.upside_centered{
+.upside_centered {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -411,7 +408,8 @@ li:before {
   padding: 20px;
 }
 
-.latest-activity h3, .top-community h1{
+.latest-activity h3,
+.top-community h1 {
   margin-bottom: 20px !important;
   font-weight: 600;
   border-left: 3px solid red;
@@ -419,44 +417,42 @@ li:before {
   font-family: Serif;
 }
 
-
-@media only screen and (max-width : $mobile-large) and (min-width: $mobile-small) {
-  .container{
+@media only screen and (max-width: $mobile-large) and (min-width: $mobile-small) {
+  .container {
     padding: 0;
     margin: 0;
     width: 100%;
     max-width: 100% !important;
   }
-  .hero-container h5{
+  .hero-container h5 {
     font-size: 12px !important;
   }
-  .hero-container .search-wrapper{
+  .hero-container .search-wrapper {
     padding: 8px !important;
   }
-  .login-wrap{
+  .login-wrap {
     margin: 0 !important;
     margin-top: 1em !important;
   }
-  .latest-activity .col-md-7{
+  .latest-activity .col-md-7 {
     padding: 40px;
   }
-  .footer-list_container{
+  .footer-list_container {
     margin: 0 !important;
   }
-  .container-footer{
+  .container-footer {
     margin: 0 !important;
     width: 100% !important;
   }
 }
 
-.linkedin-img{
+.linkedin-img {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   margin: 0;
 }
 
-@media screen  and (max-width: 630px){
-  .center{
+@media screen and (max-width: 630px) {
+  .center {
     margin: 0 !important;
   }
 }
-

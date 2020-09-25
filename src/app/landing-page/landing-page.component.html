@@ -2,209 +2,212 @@
 
 <!--<section id="hero" class="hero-container"-->
 <!--  style="background: url('assets/questnr-back.jpg') center center/cover no-repeat fixed; margin-bottom: 0">-->
-<section id="hero" class="hero-container">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6" style="display: flex; align-items: center;">
-        <div class="container" style="padding: 0">
-          <h1>
-            The New Era of Online Communities
-          </h1>
-          <h5>
-            Let's discuss what you love or any issues you have, know things from others to improve your
-            skills.
-            <br />
-            Create Post or Blog, or Ask a Question, Now!
-          </h5>
+<div class="landing-page-body">
+  <section id="hero" class="hero-container">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6" style="display: flex; align-items: center;">
+          <div class="container" style="padding: 0">
+            <h1>
+              The New Era of Online Communities
+            </h1>
+            <h5>
+              Let's discuss what you love or any issues you have, know things from others to improve your
+              skills.
+              <br />
+              Create Post or Blog, or Ask a Question, Now!
+            </h5>
 
-          <div class="search-wrapper">
-            <mat-icon>search</mat-icon>
-            <input type="text" placeholder="Search #hashtags" [formControl]="hashtagInput">
-            <div class="suggestions">
-              <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="height: 2px">
-              </mat-progress-bar>
-              <button class="w-100" mat-button *ngFor="let item of hashtagResults" [routerLink]="['/', hashTagPath]"
-                [queryParams]="{ q: item?.hashTagValue}">{{item.hashTagValue}}</button>
+            <div class="search-wrapper">
+              <mat-icon>search</mat-icon>
+              <input type="text" placeholder="Search #hashtags" [formControl]="hashtagInput">
+              <div class="suggestions">
+                <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="height: 2px">
+                </mat-progress-bar>
+                <button class="w-100" mat-button *ngFor="let item of hashtagResults" [routerLink]="['/', hashTagPath]"
+                  [queryParams]="{ q: item?.hashTagValue}">{{item.hashTagValue}}</button>
+              </div>
+            </div>
+            <div class="hashtags-wrapper">
+              <div class="tag" *ngFor="let hash of topHashtags" [routerLink]="['/', hashTagPath]"
+                [queryParams]="{ q: hash?.hashTagValue}">
+                <span>#</span>{{hash.hashTagValue}}
+              </div>
             </div>
           </div>
-          <div class="hashtags-wrapper">
-            <div class="tag" *ngFor="let hash of topHashtags" [routerLink]="['/', hashTagPath]"
-              [queryParams]="{ q: hash?.hashTagValue}">
-              <span>#</span>{{hash.hashTagValue}}
-            </div>
+        </div>
+
+        <div class="col-md-6 d-flex" style="justify-content: flex-end;" #mainContent>
+          <div class="login-wrap">
+            <h4 style="text-transform: uppercase; text-align: center;">{{api.activeAuth}}</h4>
+            <hr style="width: 64px; border-bottom: 2px solid #ed3a4f;">
+            <ng-container *ngIf="api.activeAuth === 'login'">
+              <app-login></app-login>
+              <p class="center">Don't have an account?<br>
+                <a (click)="api.activeAuth = 'signup'">SIGN UP</a>
+              </p>
+            </ng-container>
+            <ng-container *ngIf="api.activeAuth === 'signup'">
+              <app-signup></app-signup>
+              <p class="center">Already have and account?<br>
+                <a (click)="api.activeAuth = 'login'">LOG IN</a>
+              </p>
+            </ng-container>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+  <!--<section class="row">-->
+  <!--  <div class="container">-->
+  <!--    <div class="top-community">-->
+  <!--      <h1>Community Groups</h1>-->
+  <!--      <div class="qnr-card-wrapper">-->
+  <!--        <qnr-card *ngFor="let community of communities" [imgSrc]="community.src" [title]="community.title"-->
+  <!--          [detail]="community.detail"></qnr-card>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--</section>-->
 
-      <div class="col-md-6 d-flex" style="justify-content: flex-end;" #mainContent>
-        <div class="login-wrap">
-          <h4 style="text-transform: uppercase; text-align: center;">{{api.activeAuth}}</h4>
-          <hr style="width: 64px; border-bottom: 2px solid #ed3a4f;">
-          <ng-container *ngIf="api.activeAuth === 'login'">
-            <app-login></app-login>
-            <p class="center">Don't have an account?<br>
-              <a (click)="api.activeAuth = 'signup'">SIGN UP</a>
+
+  <!--<section class="latest-activity">-->
+  <!--  <div class="container" style="">-->
+  <!--    <div class="row">-->
+  <!--      <div class="col-md-3" style="border-right: 1px solid #eeeeee">-->
+  <!--        <h3>Members Rank</h3>-->
+  <!--        <div>-->
+  <!--          <div class="qnr-card-wrapper">-->
+  <!--            <qnr-rank-card *ngFor="let user of users; let i=index" [rank]="user.userRank" [title]="user.username"-->
+  <!--              [imgSrc]="getImgSrc(user)" [posts]="user.totalPosts" [followers]="user.totalFollowers">-->
+  <!--            </qnr-rank-card>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--      <div class="col-md-7">-->
+  <!--        <h3>Popular hashtags</h3>-->
+  <!--        <div class="hashtags-wrap">-->
+  <!--          <div class="qnr-card-wrapper" style="justify-content: center;">-->
+  <!--            <div class="chips" *ngFor="let hash of hashtags">-->
+  <!--              <span>#</span>{{hash.hashTagValue}}-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--</section>-->
+
+  <section class="info-graphics">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 join">
+          <h1>Join the Best Community</h1>
+          <p>Find what interests you from our wide range of Communities and connect with peoples from all over the
+            world.
+          </p>
+          <!--        <button mat-button class="btn-color">#Join Now for FUN!</button>-->
+        </div>
+        <div class="col-md-6">
+          <div>
+            <img src="assets/section-shop-youth.png" alt="section-shop-youth.png">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="" style="background: #eeeeee">
+    <div class="container center">
+      <img src="assets/abc.png" alt="" class="linkedin-img">
+    </div>
+  </section>
+
+
+  <section class="info-graphics">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div>
+            <img src="assets/section-4.png" width="90%" alt="section-shop-youth.png">
+          </div>
+        </div>
+        <div class="col-md-6 join">
+          <div>
+            <h1>Share to spread the knowledge</h1>
+            <p>SShare and discuss freely with everyone or just with the people you need to. Your data is safe with us.
             </p>
-          </ng-container>
-          <ng-container *ngIf="api.activeAuth === 'signup'">
-            <app-signup></app-signup>
-            <p class="center">Already have and account?<br>
-              <a (click)="api.activeAuth = 'login'">LOG IN</a>
-            </p>
-          </ng-container>
+            <!--          <p> Your data is secure and will never be offered to third parties Companies. Your profile is secure.</p>-->
+            <!--          <button mat-button class="btn-color">#Join the Community</button>-->
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-<!--<section class="row">-->
-<!--  <div class="container">-->
-<!--    <div class="top-community">-->
-<!--      <h1>Community Groups</h1>-->
-<!--      <div class="qnr-card-wrapper">-->
-<!--        <qnr-card *ngFor="let community of communities" [imgSrc]="community.src" [title]="community.title"-->
-<!--          [detail]="community.detail"></qnr-card>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</section>-->
+  </section>
 
-
-<!--<section class="latest-activity">-->
-<!--  <div class="container" style="">-->
-<!--    <div class="row">-->
-<!--      <div class="col-md-3" style="border-right: 1px solid #eeeeee">-->
-<!--        <h3>Members Rank</h3>-->
-<!--        <div>-->
-<!--          <div class="qnr-card-wrapper">-->
-<!--            <qnr-rank-card *ngFor="let user of users; let i=index" [rank]="user.userRank" [title]="user.username"-->
-<!--              [imgSrc]="getImgSrc(user)" [posts]="user.totalPosts" [followers]="user.totalFollowers">-->
-<!--            </qnr-rank-card>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="col-md-7">-->
-<!--        <h3>Popular hashtags</h3>-->
-<!--        <div class="hashtags-wrap">-->
-<!--          <div class="qnr-card-wrapper" style="justify-content: center;">-->
-<!--            <div class="chips" *ngFor="let hash of hashtags">-->
-<!--              <span>#</span>{{hash.hashTagValue}}-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</section>-->
-
-<section class="info-graphics">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 join">
-        <h1>Join the Best Community</h1>
-        <p>Find what interests you from our wide range of Communities and connect with peoples from all over the world.
-        </p>
-        <!--        <button mat-button class="btn-color">#Join Now for FUN!</button>-->
+  <section class="info-graphics py-0" style="background: #2c2935;height: 500px">
+    <div class="row" style="height: inherit">
+      <div class="col-md-6 p-5">
+        <div class="upside_centered">
+          <h1 class="banner-heading">Annoyed by Other <br> Social Networks?</h1>
+          <p style="color: #ffffff;">
+            We know everyone is just tired of meaningless scrolling down their<br />social network profile just for the
+            sake of it... Isn't it true???
+            <br>
+            Now you can find what interests you, not only the fun things but also the things that can help you grow.
+          </p>
+          <!--        <button mat-button class="btn-color">#Join the Questnr Now!</button>-->
+        </div>
       </div>
-      <div class="col-md-6">
-        <div>
-          <img src="assets/section-shop-youth.png" alt="section-shop-youth.png">
+      <div class="col-md-6 p-0">
+        <div
+          style="background-image: url(/assets/red_man.jpg); background-size: cover; height: 100%; background-repeat: no-repeat; ">
+          <!--            <img src="assets/red_man.jpg"  alt="section-shop-youth.png">-->
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-
-<section class="" style="background: #eeeeee">
-  <div class="container center">
-    <img src="assets/abc.png" alt="" class="linkedin-img">
-  </div>
-</section>
-
-
-<section class="info-graphics">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div>
-          <img src="assets/section-4.png" width="90%" alt="section-shop-youth.png">
+  <section class="our-moto">
+    <div class="container">
+      <h1 class="landing-header">
+        Let's Create a<br />Strong Community
+      </h1>
+      <div class="row py-4">
+        <div class="col-md-4 py-3">
+          <div>
+            <img src="assets/msg_icon.png" alt="msgIcon" width="80px">
+          </div>
+          <h3>Discuss with Real<br />People</h3>
+          <p>
+            Members' profiles are verified every day. Therefore, Questnr only contains motivated members who want to be
+            part of the various communities.
+          </p>
         </div>
-      </div>
-      <div class="col-md-6 join">
-        <div>
-          <h1>Share to spread the knowledge</h1>
-          <p>SShare and discuss freely with everyone or just with the people you need to. Your data is safe with us.</p>
-          <!--          <p> Your data is secure and will never be offered to third parties Companies. Your profile is secure.</p>-->
-          <!--          <button mat-button class="btn-color">#Join the Community</button>-->
+        <div class="col-md-4 py-3">
+          <div>
+            <img src="assets/ui_layout.png" alt="UI" width="80px">
+          </div>
+          <h3>Smooth & Simple<br />Features</h3>
+          <p>
+            Questnr has simple and powerful features to help you find what exactly you want.
+          </p>
         </div>
+        <div class="col-md-4 py-3">
+          <div>
+            <img src="assets/check_icon.png" alt="UI" width="80px">
+          </div>
+          <h3>Your Data are <br>Safe</h3>
+          <p>
+            Your data is secure and will never be offered/passed to third parties. Your profile is safe on<br />
+            Questnr.
+          </p>
+        </div>
+        <button mat-button class="btn-color m-auto" (click)="goTo('signup')">Register Now!!!</button>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="info-graphics py-0" style="background: #2c2935;height: 500px">
-  <div class="row" style="height: inherit">
-    <div class="col-md-6 p-5">
-      <div class="upside_centered">
-        <h1 class="banner-heading">Annoyed by Other <br> Social Networks?</h1>
-        <p style="color: #ffffff;">
-          We know everyone is just tired of meaningless scrolling down their<br />social network profile just for the
-          sake of it... Isn't it true???
-          <br>
-          Now you can find what interests you, not only the fun things but also the things that can help you grow.
-        </p>
-        <!--        <button mat-button class="btn-color">#Join the Questnr Now!</button>-->
-      </div>
-    </div>
-    <div class="col-md-6 p-0">
-      <div
-        style="background-image: url(/assets/red_man.jpg); background-size: cover; height: 100%; background-repeat: no-repeat; ">
-        <!--            <img src="assets/red_man.jpg"  alt="section-shop-youth.png">-->
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="our-moto">
-  <div class="container">
-    <h1 class="landing-header">
-      Let's Create a<br />Strong Community
-    </h1>
-    <div class="row py-4">
-      <div class="col-md-4 py-3">
-        <div>
-          <img src="assets/msg_icon.png" alt="msgIcon" width="80px">
-        </div>
-        <h3>Discuss with Real<br />People</h3>
-        <p>
-          Members' profiles are verified every day. Therefore, Questnr only contains motivated members who want to be
-          part of the various communities.
-        </p>
-      </div>
-      <div class="col-md-4 py-3">
-        <div>
-          <img src="assets/ui_layout.png" alt="UI" width="80px">
-        </div>
-        <h3>Smooth & Simple<br />Features</h3>
-        <p>
-          Questnr has simple and powerful features to help you find what exactly you want.
-        </p>
-      </div>
-      <div class="col-md-4 py-3">
-        <div>
-          <img src="assets/check_icon.png" alt="UI" width="80px">
-        </div>
-        <h3>Your Data are <br>Safe</h3>
-        <p>
-          Your data is secure and will never be offered/passed to third parties. Your profile is safe on<br />
-          Questnr.
-        </p>
-      </div>
-      <button mat-button class="btn-color m-auto" (click)="goTo('signup')">Register Now!!!</button>
-    </div>
-  </div>
-</section>
-
-<app-footer></app-footer>
+  </section>
+  <app-footer></app-footer>
+</div>
