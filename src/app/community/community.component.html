@@ -1,9 +1,9 @@
 <app-user-header (notificationEmitter)="notificationListener($event)"></app-user-header>
 
-<div class="community-wrapper page-scroll hide-scrollbar" #communityFeed>
+<div class="community-wrapper page-scroll hide-scrollbar">
   <div class="site-body" [ngClass]="{'mobile': mobileView}">
     <div class="container">
-      <div class="flex-frame">
+      <div class="flex-frame" #communityFeed>
         <div class="flex-7" [ngClass]="{'mobile' : mobileView}">
           <div class="community-feeds-container">
             <div class="com-ban-img-container" [ngClass]="!communityImage ? 'com-avatar-height' : ''">
@@ -107,10 +107,12 @@
           </div>
           <div class="flex-view">
             <div class="flex-3" *ngIf="!mobileView">
-              <app-user-profile-card [avatar]="communityDTO?.ownerUserDTO?.avatarDTO"
+              <!-- <app-user-profile-card [avatar]="communityDTO?.ownerUserDTO?.avatarDTO"
                 [userBannerImage]="communityDTO.ownerUserDTO?.banner?.avatarLink" [relationship]="owner"
                 [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username"
-                [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
+                [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card> -->
+              <horizontal-owner-profile [user]="communityDTO?.ownerUserDTO">
+              </horizontal-owner-profile>
               <app-floating-footer></app-floating-footer>
             </div>
             <div class="flex-7">
@@ -174,7 +176,7 @@
         </div>
 
 
-        <div class="flex-3" *ngIf="!mobileView">
+        <div class="flex-3 right-part" *ngIf="!mobileView">
           <!--        <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
           <app-community-users [community]="communityDTO" (pendingRequestCount)="updatePendingRequestCount($event)"
             [relationshipType]="communityDTO.communityMeta.relationShipType" [userListType]="'list'"
