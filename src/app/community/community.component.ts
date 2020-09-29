@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'common/common.service';
+import { CommunityActivityComponent } from 'community-activity/community-activity.component';
+import { CommunityActivityService } from 'community-activity/community-activity.service';
 import { CommunityUsersComponent } from 'community-users/community-users.component';
 import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
 import { GlobalService } from 'global.service';
@@ -14,6 +16,7 @@ import { Page } from 'models/page.model';
 import { RelationType } from 'models/relation-type';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 import { UserListData, UserListType } from 'models/user-list.model';
+import { UserQuestionListModalType } from 'models/user-question.model';
 import { Subject, Subscription } from 'rxjs';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { UserListComponent } from 'shared/components/dialogs/user-list/user-list.component';
@@ -22,6 +25,7 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { PostNotificationContainerComponent } from 'shared/post-notification-container/post-notification-container.component';
 import { QuestnrActivityService } from 'shared/questnr-activity.service';
 import { UIService } from 'ui/ui.service';
+import { UserQuestionListComponent } from 'user-question-list/user-question-list.component';
 import { LoginService } from '../auth/login.service';
 import { Community, CommunityPrivacy, CommunityProfileMeta } from '../models/community.model';
 import { Post, QuestionParentType } from '../models/post-action.model';
@@ -84,6 +88,17 @@ export class CommunityComponent implements OnInit {
     this.communityPostNotificationRef?.setCommunity(this.communityDTO);
   }
   communitySubject = new Subject<Community>();
+  communityInfo: CommunityProfileMeta;
+  questionListRef: UserQuestionListComponent;
+  @ViewChild("questionList")
+  set questionList(questionListRef: UserQuestionListComponent) {
+    this.questionListRef = questionListRef;
+  }
+  communityActivityRef: CommunityActivityComponent;
+  @ViewChild("communityActivity")
+  set communityActivity(communityActivityRef: CommunityActivityComponent) {
+    this.communityActivityRef = communityActivityRef;
+  }
 
   constructor(public communityService: CommunityService,
     public fb: FormBuilder,
@@ -97,7 +112,8 @@ export class CommunityComponent implements OnInit {
     private _activityService: QuestnrActivityService,
     private _globalService: GlobalService,
     private renderer: Renderer2,
-    private cd: ChangeDetectorRef) {
+    private cd: ChangeDetectorRef,
+    private communityActivityService: CommunityActivityService) {
     this.loggedInUserId = loginAuth.getLocalUserProfile().id;
     this.mobileView = this._globalService.isMobileView();
 
@@ -112,6 +128,7 @@ export class CommunityComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.mobileView = this._globalService.isMobileView();
     this.communitySlug = this.route.snapshot.paramMap.get('communitySlug');
     this.route.data.subscribe((data: { community: Community }) => {
       this.communitySubject.next(data.community);
@@ -127,9 +144,7 @@ export class CommunityComponent implements OnInit {
         this.communityImage = this.communityDTO.avatarDTO.avatarLink;
       }
       this.ownerDTO = this.communityDTO.ownerUserDTO;
-      if (this.owner === RelationType.OWNED) {
-        this.getCommunityJoinRequests();
-      }
+      this.getCommunityInfo();
       this._activityService.start(this.communityDTO.communityId, TrackingEntityType.community)
         .then((trackerInstance: TrackingInstance) => {
           this.trackerInstance = trackerInstance;
@@ -143,7 +158,7 @@ export class CommunityComponent implements OnInit {
   ngAfterViewInit() {
     this.communityFeed.nativeElement.addEventListener('scroll', this.onScroll, true);
     this.renderer.setStyle(document.getElementsByTagName('body')[0], 'overflow', 'hidden');
-    this.mobileView = this._globalService.isMobileView();
+    this.questionListRef?.setCommunityData(this.communityDTO);
   }
 
   ngOnDestroy() {
@@ -345,6 +360,20 @@ export class CommunityComponent implements OnInit {
         .subscribe((data: CommunityProfileMeta) => {
           this.pendingRequests = data.totalRequests;
         });
+  }
+
+  getCommunityInfo() {
+    this.loading = true;
+    this.communityActivityService.getCommunityMetaInfo(this.communitySlug).subscribe((res: CommunityProfileMeta) => {
+      this.loading = false;
+      this.communityInfo = res;
+      this.communityActivityRef.setCommunityInfo(this.communityInfo);
+      this.questionListRef.setTotalCounts(this.communityInfo.totalQuestions);
+      if (this.owner === RelationType.OWNED) {
+        this.pendingRequests = this.communityInfo.totalRequests;
+      }
+    }, error => {
+    });
   }
 
   openUserGroupDialog(type: UserListType): void {

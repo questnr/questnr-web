@@ -29,7 +29,7 @@
                 </div>
             </ng-container>
             <div *ngIf="!questionList?.length && !loading">
-                <app-no-user-question [isOwner]="isOwner"></app-no-user-question>
+                <app-no-user-question [isOwner]="isOwner" [type]="type"></app-no-user-question>
             </div>
         </mat-expansion-panel>
     </div>

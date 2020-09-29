@@ -173,7 +173,7 @@ export class UserProfilePageComponent implements OnInit {
     this.userProfilePageService.getUserProfile(this.url).subscribe((res: User) => {
       this.user = res;
       this.userObserver.next(this.user);
-      this.userQuestionListRef.setData(this.user);
+      this.userQuestionListRef.setUserData(this.user);
       if (res?.banner?.avatarLink) {
         this.renderer.removeStyle(this.userBannerImgRef.nativeElement, "min-height");
         this.userBannerImage = res.banner.avatarLink;

@@ -150,7 +150,7 @@ export class LoginService {
       return this.user.userId === userId;
     }
     try {
-      this.getLocalUserProfile().id === userId;
+      return this.getLocalUserProfile().id === userId;
     } catch (e) {
       return false;
     }

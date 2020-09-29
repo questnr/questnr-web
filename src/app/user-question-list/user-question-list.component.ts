@@ -4,9 +4,10 @@ import { LoginService } from 'auth/login.service';
 import { CardHeaderComponent } from 'card-header/card-header.component';
 import { GlobalService } from 'global.service';
 import { CardHeaderType } from 'models/card-header.model';
+import { Community } from 'models/community.model';
 import { Page } from 'models/page.model';
 import { Post } from 'models/post-action.model';
-import { UserQuestionListModalData } from 'models/user-question.model';
+import { UserQuestionListModalData, UserQuestionListModalType } from 'models/user-question.model';
 import { User } from 'models/user.model';
 import { Subscription } from 'rxjs';
 import { UserQuestionListModalComponent } from './user-question-list-modal/user-question-list-modal.component';
@@ -21,8 +22,10 @@ import { UserQuestionService } from './user-question.service';
 })
 export class UserQuestionListComponent implements OnInit {
   user: User;
-  title: string = "User's Questions";
+  community: Community;
+  title: string = "Questions";
   @Input() totalQuestions: number;
+  @Input() type: UserQuestionListModalType = UserQuestionListModalType.user;
   loading: boolean = true;
   isOwner: boolean = false;
   mobileView: boolean = false;
@@ -41,6 +44,8 @@ export class UserQuestionListComponent implements OnInit {
   cardHeaderTypeClass = CardHeaderType;
   userQuestionSubscriber: Subscription;
   pageSize: number = 4;
+  fetchingFunc: Function;
+  uniqueId: number;
 
   constructor(private userQuestionService: UserQuestionService,
     private loginService: LoginService,
@@ -57,14 +62,41 @@ export class UserQuestionListComponent implements OnInit {
     }
   }
 
-  setData(user: User): void {
+  setUserData(user: User): void {
     this.user = user;
+    this.type = UserQuestionListModalType.user;
     this.isOwner = this.loginService.isThisLoggedInUser(this.user.userId);
     if (this.isOwner) {
       this.title = "Your Questions";
+    } else {
+      this.title = "User's Questions";
     }
     if (!this.mobileView) {
-      this.getUserQuestions();
+      this.uniqueId = this.user?.userId;
+      this.fetchingFunc = (...args) => {
+        if (args.length === 2)
+          return this.userQuestionService.getUserQuestions(args[0], args[1]);
+      };
+      this.getQuestions();
+    }
+  }
+
+  setCommunityData(community: Community): void {
+    this.community = community;
+    this.type = UserQuestionListModalType.community;
+    this.isOwner = this.loginService.isThisLoggedInUser(this.community?.ownerUserDTO?.userId);
+    if (this.isOwner) {
+      this.title = "Your Community's Questions";
+    } else {
+      this.title = "Community's Questions";
+    }
+    if (!this.mobileView) {
+      this.uniqueId = this.community?.communityId;
+      this.fetchingFunc = (...args) => {
+        if (args.length === 2)
+          return this.userQuestionService.getCommunityQuestions(args[0], args[1]);
+      };
+      this.getQuestions();
     }
   }
 
@@ -77,24 +109,31 @@ export class UserQuestionListComponent implements OnInit {
     }
   }
 
-  private getUserQuestions() {
+  private getQuestions() {
     this.loading = true;
-    this.userQuestionSubscriber = this.userQuestionService.getUserQuestions(this.user.userId, String(this.page)).subscribe((questionPage: Page<Post>) => {
-      this.loading = false;
-      if (questionPage.content.length) {
-        this.userQuestionSubscriber.unsubscribe();
-        this.page++;
-        this.questionList = questionPage.content;
-      }
-    });
+    if (!this.fetchingFunc) return;
+    this.userQuestionSubscriber = this.fetchingFunc(
+      this.uniqueId, String(this.page)).subscribe((questionPage: Page<Post>) => {
+        this.loading = false;
+        if (questionPage.content.length) {
+          this.userQuestionSubscriber.unsubscribe();
+          this.page++;
+          this.questionList = questionPage.content;
+        }
+      });
   }
 
   openQuestionListDialog() {
     let config = null;
     const data = new UserQuestionListModalData();
     data.questionList = this.questionList;
-    data.user = this.user;
+    if (this.type === UserQuestionListModalType.user) {
+      data.user = this.user;
+    } else if (this.type === UserQuestionListModalType.community) {
+      data.community = this.community;
+    }
     data.page = this.page;
+    data.type = this.type;
     data.title = this.title;
     data.totalCounts = this.totalQuestions;
     data.isOwner = this.isOwner;

@@ -1,9 +1,10 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GlobalService } from 'global.service';
+import { Community } from 'models/community.model';
 import { Page } from 'models/page.model';
 import { Post } from 'models/post-action.model';
-import { UserQuestionListModalData } from 'models/user-question.model';
+import { UserQuestionListModalData, UserQuestionListModalType } from 'models/user-question.model';
 import { User } from 'models/user.model';
 import { Subscription } from 'rxjs';
 import { UserQuestionLoaderComponent } from 'user-question-list/user-question-loader/user-question-loader.component';
@@ -16,7 +17,9 @@ import { UserQuestionService } from 'user-question-list/user-question.service';
 })
 export class UserQuestionListModalComponent implements OnInit {
   user: User;
+  community: Community;
   title: string;
+  type: UserQuestionListModalType = UserQuestionListModalType.user;
   loading: boolean = true;
   questionList: Post[] = [];
   totalCounts: number;
@@ -33,6 +36,8 @@ export class UserQuestionListModalComponent implements OnInit {
   set questionLoader(questionLoaderRef: UserQuestionLoaderComponent) {
     this.questionLoaderRef = questionLoaderRef;
   }
+  fetchingFunc: Function;
+  uniqueId: number;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: UserQuestionListModalData,
@@ -40,7 +45,6 @@ export class UserQuestionListModalComponent implements OnInit {
     private userQuestionService: UserQuestionService,
     private _globalService: GlobalService) {
     if (data) {
-      this.isOwner = data.isOwner;
       this.title = data.title;
       this.totalCounts = data.totalCounts;
       if (data.page > 0) {
@@ -48,8 +52,24 @@ export class UserQuestionListModalComponent implements OnInit {
         this.questionList = data.questionList;
       }
       this.endOfResult = data.isEnd;
+      this.isOwner = data.isOwner;
+      this.type = data.type;
+      if (this.type === UserQuestionListModalType.user) {
+        this.user = data.user;
+        this.uniqueId = data.user?.userId;
+        this.fetchingFunc = (...args) => {
+          if (args.length === 2)
+            return this.userQuestionService.getUserQuestions(args[0], args[1]);
+        };
+      } else if (this.type === UserQuestionListModalType.community) {
+        this.community = data.community;
+        this.uniqueId = data.community?.communityId;
+        this.fetchingFunc = (...args) => {
+          if (args.length === 2)
+            return this.userQuestionService.getCommunityQuestions(args[0], args[1]);
+        };
+      }
     }
-    this.user = data.user;
   }
 
   ngOnInit(): void {
@@ -100,22 +120,24 @@ export class UserQuestionListModalComponent implements OnInit {
 
   fetchData() {
     this.loading = true;
-    this.userQuestionSubscriber = this.userQuestionService.getUserQuestions(this.user.userId, String(this.page)).subscribe((questionPage: Page<Post>) => {
-      if (questionPage.content.length) {
-        this.hasTotalPage = questionPage.totalPages;
-        this.page++;
-        this.endOfResult = questionPage.last;
+    if (!this.fetchingFunc) return;
+    this.userQuestionSubscriber = this.fetchingFunc(
+      this.uniqueId, String(this.page)).subscribe((questionPage: Page<Post>) => {
+        if (questionPage.content.length) {
+          this.hasTotalPage = questionPage.totalPages;
+          this.page++;
+          this.endOfResult = questionPage.last;
+          this.loading = false;
+          questionPage.content.forEach(question => {
+            this.questionList.push(question);
+          });
+        } else {
+          this.loading = false;
+          this.endOfResult = true;
+        }
+      }, error => {
         this.loading = false;
-        questionPage.content.forEach(question => {
-          this.questionList.push(question);
-        });
-      } else {
-        this.loading = false;
-        this.endOfResult = true;
-      }
-    }, error => {
-      this.loading = false;
-    });
+      });
   }
 
   backActionListener(): void {

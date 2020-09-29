@@ -16,4 +16,8 @@ export class UserQuestionService {
   getUserQuestions(userId, page = "0"): Observable<Page<Post>> {
     return this.http.get<Page<Post>>(this.baseUrl + `user/${userId}/posts/poll/question`, { params: { page: page } });
   }
+
+  getCommunityQuestions(communityId, page = "0"): Observable<Page<Post>> {
+    return this.http.get<Page<Post>>(this.baseUrl + `user/community/${communityId}/posts/poll/question`, { params: { page: page } });
+  }
 }

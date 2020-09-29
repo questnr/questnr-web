@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { GlobalService } from 'global.service';
+import { UserQuestionListModalType } from 'models/user-question.model';
 
 @Component({
   selector: 'app-no-user-question',
@@ -8,6 +9,8 @@ import { GlobalService } from 'global.service';
 })
 export class NoUserQuestionComponent implements OnInit {
   @Input() isOwner: boolean = false;
+  @Input() type: UserQuestionListModalType = UserQuestionListModalType.user;
+  userQuestionListModalTypeClass = UserQuestionListModalType;
   mobileView: boolean = false;
 
   constructor(private _globalService: GlobalService) { }

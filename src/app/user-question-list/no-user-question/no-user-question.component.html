@@ -1,8 +1,13 @@
 <div class="no-user-question-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
-    <div *ngIf="isOwner">
-        You have not asked any questions.
+    <div *ngIf="type==userQuestionListModalTypeClass.user">
+        <div *ngIf="isOwner">
+            You have not asked any questions.
+        </div>
+        <div *ngIf="!isOwner">
+            The user has not asked any questions.
+        </div>
     </div>
-    <div *ngIf="!isOwner">
-        The user has not asked any questions.
+    <div *ngIf="type==userQuestionListModalTypeClass.community">
+        Community has not asked any questions.
     </div>
 </div>

@@ -16,6 +16,7 @@ import { UserListData, UserListType } from 'models/user-list.model';
 export class CommunityActivityComponent implements OnInit {
   @Input() community: Community;
   @Input() communityInfo: CommunityProfileMeta;
+  @Input() actAlone: boolean = true;
   communitySlug: string;
   mobileView = false;
   isLeftVisible: boolean = true;
@@ -30,15 +31,23 @@ export class CommunityActivityComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.communitySlug = this.community.slug;
-    if (!this.communityInfo)
+    if (!this.communityInfo && this.actAlone)
       this.getCommunityInfo();
+    else
+      this.loading = true;
+  }
+
+  setCommunityInfo(communityInfo: CommunityProfileMeta) {
+    if (!this.actAlone) {
+      this.communityInfo = communityInfo;
+      this.loading = false;
+    }
   }
 
   getCommunityInfo() {
     // console.log('entered');
     this.loading = true;
-    this._communityActivityService.getCommunityMetaInfo(this.communitySlug).subscribe((res: CommunityProfileMeta) => {
+    this._communityActivityService.getCommunityMetaInfo(this.community?.slug).subscribe((res: CommunityProfileMeta) => {
       this.loading = false;
       this.communityInfo = res;
       // console.log("communityInfo", res);

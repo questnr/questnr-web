@@ -11,6 +11,6 @@
             <app-user-question-loader *ngIf="loading" #questionLoader></app-user-question-loader>
         </div>
     </div>
-    <app-no-user-question *ngIf="!loading && !questionList?.length" [isOwner]="isOwner">
+    <app-no-user-question *ngIf="!loading && !questionList?.length" [isOwner]="isOwner" [type]="type">
     </app-no-user-question>
 </div>

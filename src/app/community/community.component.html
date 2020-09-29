@@ -107,12 +107,14 @@
           </div>
           <div class="flex-view">
             <div class="flex-3" *ngIf="!mobileView">
-              <!-- <app-user-profile-card [avatar]="communityDTO?.ownerUserDTO?.avatarDTO"
+              <app-user-profile-card [avatar]="communityDTO?.ownerUserDTO?.avatarDTO"
                 [userBannerImage]="communityDTO.ownerUserDTO?.banner?.avatarLink" [relationship]="owner"
                 [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username"
-                [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card> -->
-              <horizontal-owner-profile [user]="communityDTO?.ownerUserDTO">
+                [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
+              <!-- <horizontal-owner-profile *ngIf="owner !== 'owned'" [user]="communityDTO?.ownerUserDTO">
               </horizontal-owner-profile>
+              <app-user-question-list [totalQuestions]="communityInfo?.totalQuestions" #questionList>
+              </app-user-question-list> -->
               <app-floating-footer></app-floating-footer>
             </div>
             <div class="flex-7">
@@ -122,7 +124,10 @@
                 <!--              </app-post-feed>-->
                 <horizontal-owner-profile *ngIf="mobileView && owner !== 'owned'" [user]="communityDTO?.ownerUserDTO">
                 </horizontal-owner-profile>
-                <app-community-activity [community]="communityDTO"></app-community-activity>
+                <app-community-activity [actAlone]="false" #communityActivity></app-community-activity>
+                <app-user-question-list *ngIf="mobileView" [totalQuestions]="communityInfo?.totalQuestions"
+                  #questionList>
+                </app-user-question-list>
                 <div *ngIf="isAllowedIntoCommunity">
                   <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="true"
                     [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'"
@@ -182,9 +187,11 @@
             [relationshipType]="communityDTO.communityMeta.relationShipType" [userListType]="'list'"
             #communityUsersComponentRef>
           </app-community-users>
+          <app-user-question-list [totalQuestions]="communityInfo?.totalQuestions" #questionList>
+          </app-user-question-list>
           <!-- <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity> -->
           <app-suggestion></app-suggestion>
-          <app-trending [mobileView]="mobileView"></app-trending>
+          <!-- <app-trending [mobileView]="mobileView"></app-trending> -->
           <app-sponsored></app-sponsored>
         </div>
       </div>
