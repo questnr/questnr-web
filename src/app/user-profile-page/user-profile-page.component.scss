@@ -40,22 +40,24 @@
 //  color: $white;
 //}
 
-.flex {
-  display: flex;
-  .flex-section-left,
-  .flex-section-right {
-    padding: 0 8px;
-    width: 30%;
-  }
-  .flex-section-center {
-    width: 70%;
-  }
-}
-
 .profile-feed-container {
   max-width: 1290px;
   width: 100%;
   margin: 0 auto;
+}
+
+.profile-feed-container.desktop {
+  .flex {
+    display: flex;
+    .flex-section-left {
+      padding-right: 8px;
+      flex: 30%;
+      max-width: 30%;
+    }
+    .flex-section-center {
+      flex: 70%;
+    }
+  }
 }
 
 .profile-feed-container.mobile {
