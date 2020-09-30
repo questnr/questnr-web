@@ -37,6 +37,7 @@ import { SignInRequiredComponent } from './sign-in-required-modal/sign-in-requir
 import { ViewMoreButtonComponent } from './view-more-button/view-more-button.component';
 import { PostNotificationButtonComponent } from './post-notification-button/post-notification-button.component';
 import { PostNotificationContainerComponent } from './post-notification-container/post-notification-container.component';
+import { ActionMenuComponent } from './action-menu/action-menu.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { PostNotificationContainerComponent } from './post-notification-containe
     SignInRequiredModalComponent,
     SignInRequiredComponent,
     PostNotificationButtonComponent,
-    PostNotificationContainerComponent
+    PostNotificationContainerComponent,
+    ActionMenuComponent
   ],
   imports: [
     CommonModule,
@@ -122,7 +124,8 @@ import { PostNotificationContainerComponent } from './post-notification-containe
     SignInRequiredModalComponent,
     SignInRequiredComponent,
     PostNotificationButtonComponent,
-    PostNotificationContainerComponent
+    PostNotificationContainerComponent,
+    ActionMenuComponent
   ],
   providers: [
     CommonService,
