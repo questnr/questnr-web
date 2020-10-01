@@ -194,6 +194,9 @@ export class SearchedEntityListComponent implements OnInit, AfterViewInit, OnDes
         // set total elements when page == 0
         if (this.page(this.hashTagIndex) == 0) {
           this.filterSearchOptionList[this.hashTagIndex].totalElements = res.totalElements;
+          if (res.totalElements > 0) {
+            this.attractHere(this.hashTagIndex);
+          }
         }
         if (res.content.length < 1 && this.hashtags.length == 0) {
           this.clearData(this.hashTagIndex);
@@ -221,6 +224,9 @@ export class SearchedEntityListComponent implements OnInit, AfterViewInit, OnDes
         // set total elements when page == 0
         if (this.page(this.userIndex) == 0) {
           this.filterSearchOptionList[this.userIndex].totalElements = res.totalElements;
+          if (res.totalElements > 0) {
+            this.attractHere(this.userIndex);
+          }
         }
         if (res.content.length < 1 && this.users.length == 0) {
           this.clearData(this.userIndex);
@@ -248,6 +254,9 @@ export class SearchedEntityListComponent implements OnInit, AfterViewInit, OnDes
         // set total elements when page == 0
         if (this.page(this.communityIndex) == 0) {
           this.filterSearchOptionList[this.communityIndex].totalElements = res.totalElements;
+          if (res.totalElements > 0) {
+            this.attractHere(this.communityIndex);
+          }
         }
         if (res.content.length < 1 && this.communities.length == 0) {
           this.clearData(this.communityIndex);
@@ -279,6 +288,20 @@ export class SearchedEntityListComponent implements OnInit, AfterViewInit, OnDes
         this.selectedSearchOption = availableIndex;
       }
     }, 300);
+  }
+
+  attractHere(currentIndex: number) {
+    let optionsWithNoResult = 0;
+    for (let index = 0; index < this.maxTabIndex; index++) {
+      if (currentIndex !== index && this.filterSearchOptionList[index].totalElements == 0) {
+        optionsWithNoResult++;
+      }
+    }
+    // If this option only has data, make this as selected option
+    // Due to delay in the reponse, it was not able to make this index focused.
+    if (optionsWithNoResult == this.maxTabIndex - 1) {
+      this.selectedSearchOption = currentIndex;
+    }
   }
 
   label(index: number): string {
