@@ -81,17 +81,26 @@
             </div>
           </div>
           <div class="flex last-feed">
-            <div class="flex-section-left">
-              <app-user-question-list [totalQuestions]="userInfo?.totalQuestions" #userQuestionList>
-              </app-user-question-list>
-              <app-usercommunity [userPageSubject]="userObserver" [ownsCommunities]="userInfo?.ownsCommunities"
-                [templateStyle]="CommunityListMatCardTypeClass.expansion" #userCommunityBox>
-              </app-usercommunity>
-              <app-joined-community [userPageSubject]="userObserver" [followsCommunities]="userInfo?.followsCommunities"
-                [templateStyle]="CommunityListMatCardTypeClass.expansion" #joinedCommunityBox>
-              </app-joined-community>
-              <div *ngIf="!mobileView">
-                <app-floating-footer></app-floating-footer>
+            <div class="flex-section-left" #userProfileLeftPartContainer>
+              <div #userProfileLeftPart>
+                <div class="fixed-body hide-scrollbar" #userProfileLeftPartBody>
+                  <app-user-question-list [totalQuestions]="userInfo?.totalQuestions" #userQuestionList>
+                  </app-user-question-list>
+                  <app-usercommunity [userPageSubject]="userObserver" [ownsCommunities]="userInfo?.ownsCommunities"
+                    [templateStyle]="CommunityListMatCardTypeClass.expansion" #userCommunityBox>
+                  </app-usercommunity>
+                  <app-joined-community [userPageSubject]="userObserver"
+                    [followsCommunities]="userInfo?.followsCommunities"
+                    [templateStyle]="CommunityListMatCardTypeClass.expansion" #joinedCommunityBox>
+                  </app-joined-community>
+                  <div *ngIf="leftPartSection.hasAddedMakeFixedToLeftPart" class="sponsored">
+                    <app-sponsored></app-sponsored>
+                  </div>
+                </div>
+                <div *ngIf="!mobileView" [ngClass]="leftPartSection.hasAddedMakeFixedToLeftPart ? 'fixed-footer' : ''"
+                  #userProfileLeftPartFooter>
+                  <app-floating-footer></app-floating-footer>
+                </div>
               </div>
             </div>
             <div class="flex-section-center">

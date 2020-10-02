@@ -22,6 +22,39 @@
 
 .site-body {
   // overflow: hidden;
+  .make-fixed {
+    position: fixed;
+    // top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    overflow: auto;
+    z-index: 1000;
+    background: $svg-background;
+    padding: 1vh 0 0;
+    margin: 10px 10px;
+    border-radius: 10px;
+    max-width: inherit;
+    border: 2px solid $heading;
+    box-shadow: 1px 1px 10px grey;
+    .fixed-body {
+      overflow-y: scroll;
+      max-height: 90vh;
+      padding: 1rem 1rem 0;
+    }
+    .sponsored {
+      margin: 0px 3vw;
+      display: flex;
+      justify-content: center;
+    }
+    .fixed-footer {
+      position: absolute;
+      bottom: 0;
+      background: $background-transparent;
+      left: 0;
+    }
+  }
 }
 .site-body.desktop {
   margin-top: 60px;

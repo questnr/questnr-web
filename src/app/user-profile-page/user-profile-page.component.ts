@@ -6,7 +6,6 @@ import { GlobalService } from 'global.service';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
 import { JoinedCommunityComponent } from 'joined-community/joined-community.component';
 import { CommunityListMatCardType } from 'models/community-list.model';
-import { Page } from 'models/page.model';
 import { RelationType } from 'models/relation-type';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 import { Subject } from 'rxjs';
@@ -30,30 +29,6 @@ import { UserProfilePageService } from './user-profile-page.service';
   styleUrls: ['./user-profile-page.component.scss'],
 })
 export class UserProfilePageComponent implements OnInit {
-  constructor(public userProfilePageService: UserProfilePageService,
-    public route: ActivatedRoute,
-    public userFollowersService: UserProfileCardServiceComponent,
-    public loginService: LoginService,
-    public api: ApiService,
-    private meta: Meta,
-    private uiService: UIService,
-    private router: Router,
-    private userActivityService: UserActivityService,
-    public dialog: MatDialog,
-    private _activityService: QuestnrActivityService,
-    private renderer: Renderer2,
-    private _globalService: GlobalService) {
-    this.userObserver.subscribe((user: User) => {
-      if (user.firstName || user.lastName) {
-        this.uiService.setTitle((user.firstName + " " + user.lastName).trim() + " | Questnr");
-      } else {
-        this.uiService.setTitle(user.username + " | Questnr");
-      }
-    });
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    }
-  }
   @ViewChild('imageCropperRef') imageCropperRef: ImgCropperWrapperComponent;
   feeds: Post[];
   url: string;
@@ -103,6 +78,60 @@ export class UserProfilePageComponent implements OnInit {
   set userQuestionList(userQuestionListRef: UserQuestionListComponent) {
     this.userQuestionListRef = userQuestionListRef;
   }
+  // Start of User Profile Left part references
+  userProfileLeftPartRef: ElementRef;
+  @ViewChild("userProfileLeftPart")
+  set userProfileLeftPart(userProfileLeftPartRef: ElementRef) {
+    this.userProfileLeftPartRef = userProfileLeftPartRef;
+  }
+  userProfileLeftPartContainerRef: ElementRef;
+  @ViewChild("userProfileLeftPartContainer")
+  set userProfileLeftPartContainer(userProfileLeftPartContainerRef: ElementRef) {
+    this.userProfileLeftPartContainerRef = userProfileLeftPartContainerRef;
+  }
+  userProfileLeftPartBodyRef: ElementRef;
+  @ViewChild("userProfileLeftPartBody")
+  set userProfileLeftPartBody(userProfileLeftPartBodyRef: ElementRef) {
+    this.userProfileLeftPartBodyRef = userProfileLeftPartBodyRef;
+  }
+  @ViewChild("userProfileLeftPartFooter")
+  set userProfileLeftPartFooter(userProfileLeftPartFooterRef: ElementRef) {
+    if (userProfileLeftPartFooterRef) {
+      this.leftPartSection.footerHeight = userProfileLeftPartFooterRef.nativeElement.getBoundingClientRect().height;
+    }
+  }
+  // End of User Profile Left part references
+  leftPartSection: any = {
+    leftPartInitialHeight: 0,
+    hasAddedMakeFixedToLeftPart: false,
+    footerHeight: 0
+  }
+
+
+  constructor(public userProfilePageService: UserProfilePageService,
+    public route: ActivatedRoute,
+    public userFollowersService: UserProfileCardServiceComponent,
+    public loginService: LoginService,
+    public api: ApiService,
+    private meta: Meta,
+    private uiService: UIService,
+    private router: Router,
+    private userActivityService: UserActivityService,
+    public dialog: MatDialog,
+    private _activityService: QuestnrActivityService,
+    private renderer: Renderer2,
+    private _globalService: GlobalService,) {
+    this.userObserver.subscribe((user: User) => {
+      if (user.firstName || user.lastName) {
+        this.uiService.setTitle((user.firstName + " " + user.lastName).trim() + " | Questnr");
+      } else {
+        this.uiService.setTitle(user.username + " | Questnr");
+      }
+    });
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    }
+  }
 
   ngOnInit(): void {
     this.url = this.route.snapshot.paramMap.get('userSlug');
@@ -117,8 +146,13 @@ export class UserProfilePageComponent implements OnInit {
     this.renderer.setStyle(this.userAvatarImgRef.nativeElement, "min-width", this.mobileView ? "110px" : "200px");
     this.feedProfile.nativeElement.addEventListener('scroll', this.onScroll, true);
     this.renderer.setStyle(document.getElementsByTagName("body")[0], "overflow", "hidden");
+    this.leftPartSection.leftPartInitialHeight = this.userProfileLeftPartContainerRef.nativeElement.getBoundingClientRect().top;
   }
   onScroll = (event): void => {
+    if (!this.mobileView) {
+      // Only available for deskop
+      this.leftSectionInView();
+    }
     if (!this.scrollCached) {
       setTimeout(() => {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
@@ -325,5 +359,32 @@ export class UserProfilePageComponent implements OnInit {
     // setTimeout(() => {
     //   this.showBanner = false;
     // }, 1500);
+  }
+
+  leftSectionInView() {
+    // console.log("this.leftPartInitialHeight", this.leftPartSection);
+    var bounding = this.userProfileLeftPartContainerRef.nativeElement.getBoundingClientRect();
+    // console.log("bouding", bounding);
+    // Left section is not in view
+    if (bounding.top <= this.leftPartSection.leftPartInitialHeight * 0.8) {
+      // console.log("Adding make-fixed");
+      if (!this.leftPartSection.hasAddedMakeFixedToLeftPart) {
+        // console.log("Added make-fixed");
+        this.leftPartSection.hasAddedMakeFixedToLeftPart = true;
+        this.renderer.addClass(this.userProfileLeftPartRef.nativeElement, "make-fixed");
+        if (this.leftPartSection.footerHeight) {
+          // console.log("Setting margin-bottom ", this.leftPartSection.footerHeight)
+          this.renderer.setStyle(this.userProfileLeftPartBodyRef.nativeElement, "padding-bottom", this.leftPartSection.footerHeight + "px");
+        }
+      }
+    } else {
+      // console.log("Removing make-fixed");
+      if (this.leftPartSection.hasAddedMakeFixedToLeftPart) {
+        // console.log("Removed make-fixed");
+        this.leftPartSection.hasAddedMakeFixedToLeftPart = false;
+        this.renderer.removeClass(this.userProfileLeftPartRef.nativeElement, "make-fixed");
+        this.renderer.removeStyle(this.userProfileLeftPartBodyRef.nativeElement, "padding-bottom");
+      }
+    }
   }
 }
