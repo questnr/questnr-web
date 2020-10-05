@@ -81,7 +81,7 @@
             </div>
           </div>
           <div class="flex last-feed">
-            <div class="flex-section-left" #userProfileLeftPartContainer>
+            <div class="flex-section-left">
               <div #userProfileLeftPart>
                 <div class="fixed-body hide-scrollbar" #userProfileLeftPartBody>
                   <app-user-question-list [totalQuestions]="userInfo?.totalQuestions" #userQuestionList>
@@ -93,11 +93,11 @@
                     [followsCommunities]="userInfo?.followsCommunities"
                     [templateStyle]="CommunityListMatCardTypeClass.expansion" #joinedCommunityBox>
                   </app-joined-community>
-                  <div *ngIf="leftPartSection.hasAddedMakeFixedToLeftPart" class="sponsored">
+                  <div *ngIf="userSideSections.hasAddedMakeFixedToLeftPart" class="sponsored">
                     <app-sponsored></app-sponsored>
                   </div>
                 </div>
-                <div *ngIf="!mobileView" [ngClass]="leftPartSection.hasAddedMakeFixedToLeftPart ? 'fixed-footer' : ''"
+                <div *ngIf="!mobileView" [ngClass]="userSideSections.hasAddedMakeFixedToLeftPart ? 'fixed-footer' : ''"
                   #userProfileLeftPartFooter>
                   <app-floating-footer></app-floating-footer>
                 </div>
@@ -107,6 +107,7 @@
               <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]=false *ngIf="relation === 'owned'"
                 [type]="'Create'">
               </app-post-feeds>
+              <div #postFeedBottomContainer></div>
               <div id="user-feed"></div>
               <ng-container *ngIf="userFeeds?.length; else noFeeds">
                 <div class="feed-wrap" *ngFor="let feed of userFeeds">

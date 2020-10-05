@@ -135,7 +135,8 @@ export class CommunityComponent implements OnInit {
     initialHeight: 0,
     hasAddedMakeFixedToLeftPart: false,
     footerHeight: 0,
-    renderered: false
+    renderered: false,
+    safeScrollTop: 100
   }
   communityHorizontalCardRef: CommunityHorizontalCardComponent;
   @ViewChild("communityHorizontalCard")
@@ -221,7 +222,7 @@ export class CommunityComponent implements OnInit {
   onScroll = (event): void => {
     if (!this.mobileView) {
       // Only available for deskop
-      this.communitySideSectionsInView();
+      this.communitySideSectionsInView(event);
     }
     if (!this.scrollCached) {
       setTimeout(() => {
@@ -543,12 +544,13 @@ export class CommunityComponent implements OnInit {
     }
   }
 
-  communitySideSectionsInView() {
+  communitySideSectionsInView(event) {
     // console.log("this.communitySideSections", this.communitySideSections);
     var bounding = this.communityImageBottomRef.nativeElement.getBoundingClientRect();
     // console.log("bouding", bounding);
     // Sections / Community image are not in view
-    if (bounding.top <= this.communitySideSections.initialHeight * 0.8) {
+    if (bounding.top <= this.communitySideSections.initialHeight * 0.8 &&
+      event.target.scrollTop > this.communitySideSections.safeScrollTop) {
       // console.log("Adding make-fixed");
       if (!this.communitySideSections.hasAddedMakeFixedToLeftPart) {
         this.communitySideSections.hasAddedMakeFixedToLeftPart = true;
