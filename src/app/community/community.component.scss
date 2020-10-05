@@ -1,10 +1,12 @@
 @import "../variables";
+@import "../z-index";
 @import "../app.component.scss";
+$header-height: 70px;
 
 /* single community css*/
 .site-body {
   overflow: hidden;
-  margin-top: 70px;
+  margin-top: $header-height;
   .flex-frame {
     display: flex;
     overflow-y: scroll;
@@ -29,7 +31,45 @@
     }
     .flex-3.right-part {
       margin-left: 10px;
+      max-width: 30%;
     }
+  }
+  .make-fixed {
+    top: calc(#{$header-height} + #{$community-nav-height});
+    // bottom: 0;
+    position: fixed;
+    overflow: auto;
+    z-index: 1000;
+    background: $svg-background;
+    padding: 1vh 0 0;
+    margin: 10px 10px;
+    border-radius: 10px;
+    max-width: inherit;
+    // border: 2px solid $heading;
+    box-shadow: 1px 1px 10px grey;
+    animation: slide-up-down 0.8s forwards;
+    .fixed-body {
+      overflow-y: scroll;
+      max-height: 90vh;
+      padding: 1rem 1rem 0;
+    }
+    .sponsored {
+      margin: 0px 3vw;
+      display: flex;
+      justify-content: center;
+    }
+    .fixed-footer {
+      position: absolute;
+      bottom: 0;
+      background: $background-transparent;
+      left: 0;
+    }
+  }
+  .make-fixed.left {
+    left: 0;
+  }
+  .make-fixed.right {
+    right: 0;
   }
 }
 
@@ -53,6 +93,57 @@
         width: 100% !important;
       }
     }
+  }
+}
+
+.fixed-community-header {
+  position: fixed;
+  background: $white;
+  border-bottom: 2px solid $primary;
+  width: 100%;
+  padding-top: 2px;
+  border-top: 1px solid $gray;
+}
+.show-community-header {
+  @extend .fixed-community-header;
+  display: block;
+  animation: show-header 1s forwards;
+}
+@keyframes show-header {
+  from {
+    top: 0;
+    z-index: 0;
+  }
+  to {
+    top: $nav-height;
+    z-index: $community-navbar;
+  }
+}
+
+.hide-community-header {
+  @extend .fixed-community-header;
+  animation: hide-header 0.5s forwards;
+}
+
+@keyframes hide-header {
+  from {
+    top: $nav-height;
+    z-index: $community-navbar;
+  }
+  to {
+    top: 0;
+    z-index: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes slide-up-down {
+  10% {
+    transform: translate3d(0, -10px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, 8px, 0);
   }
 }
 
@@ -148,6 +239,14 @@
 
 .community-feeds-container.mobile {
   margin: 0;
+}
+.community-feeds {
+  .community-activity.desktop {
+    margin: auto 20px 20px;
+  }
+  .community-activity.mobile {
+    margin: 15px auto;
+  }
 }
 
 .community-feeds.mobile {

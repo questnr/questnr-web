@@ -1,9 +1,9 @@
 @import "../variables";
 
 .community-activity-wrapper {
-  width: calc(95% - 10px);
-  padding: 8px;
-  display: flex;
+  // width: calc(95% - 10px);
+  padding: 8px !important;
+  display: flex !important;
   justify-content: space-between;
   .arrow-div {
     flex: 5%;
@@ -50,6 +50,9 @@
     }
   }
 }
+.header-template {
+  box-shadow: unset !important;
+}
 
 .vhr {
   border-right: 1px solid $gray;
@@ -89,7 +92,6 @@
 //}
 
 .community-activity-wrapper.desktop {
-  margin: 0px auto 20px;
   .activity-items {
     .activity-item {
       width: calc(33% - 10px);
@@ -102,7 +104,6 @@
 
 /* mobile responsive css */
 .community-activity-wrapper.mobile {
-  margin: 15px auto;
   .activity-items {
     .activity-item {
       width: calc(35% - 10px);

@@ -1,4 +1,5 @@
-<mat-card class="community-activity-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+<mat-card class="community-activity-wrapper"
+  [ngClass]="[mobileView ? 'mobile' : 'desktop', positioning == communityActivityPositionTypeClass.header ? 'header-template' : '']">
   <div class="activity-items" *ngIf="!loading">
     <div class="activity-item trend-item" *ngIf="communityInfo?.inTrend == true"
       [ngClass]="mobileView ? 'mobile' : 'desktop'">
@@ -8,15 +9,15 @@
       </div>
     </div>
     <div class="vhr" *ngIf="communityInfo?.inTrend == true"></div>
-    <div class="activity-item">
-      <span (click)="openCommunityMembersDialog()">{{communityInfo?.followers}}</span>
+    <div class="activity-item" (click)="openCommunityMembersDialog()">
+      <span>{{communityInfo?.followers}}</span>
       <div>
         <p>Members</p>
       </div>
     </div>
     <div class="vhr"></div>
-    <div class="activity-item">
-      <span (click)="scrollTo()">{{communityInfo?.posts}}</span>
+    <div class="activity-item" (click)="scrollTo()">
+      <span>{{communityInfo?.posts}}</span>
       <div>
         <p>Total Posts</p>
       </div>

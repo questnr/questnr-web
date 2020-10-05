@@ -1,4 +1,5 @@
 @import "../../variables";
+@import "../../z-index";
 @import "../../app.component.scss";
 
 .toolbar {
@@ -29,17 +30,17 @@
   //padding: 0 30px;
   border-top: none;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  height: 54px;
-  background: #ffffff;
+  height: $nav-height;
+  background: $white;
 }
 
 .nav-main-container {
   position: fixed;
   top: 10px;
   left: 0;
-  height: 45px;
+  // height: 45px;
   width: 100%;
-  z-index: 500;
+  z-index: $navbar;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }

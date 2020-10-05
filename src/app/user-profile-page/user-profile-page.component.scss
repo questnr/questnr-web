@@ -28,7 +28,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-    text-align: center;
     overflow: auto;
     z-index: 1000;
     background: $svg-background;
@@ -36,8 +35,9 @@
     margin: 10px 10px;
     border-radius: 10px;
     max-width: inherit;
-    border: 2px solid $heading;
+    // border: 2px solid $heading;
     box-shadow: 1px 1px 10px grey;
+    animation: slide-up-down 0.8s forwards;
     .fixed-body {
       overflow-y: scroll;
       max-height: 90vh;
@@ -349,5 +349,15 @@
   z-index: 100;
   mat-icon {
     margin: 14px;
+  }
+}
+
+@keyframes slide-up-down {
+  10% {
+    transform: translate3d(0, -10px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, 8px, 0);
   }
 }

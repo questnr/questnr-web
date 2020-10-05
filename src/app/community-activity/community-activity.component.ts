@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from 'global.service';
-import { CommunityProfileMeta, Community } from 'models/community.model';
+import { CommunityProfileMeta, Community, CommunityActivityPositionType } from 'models/community.model';
 import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
 import { UserFollowersService } from '../user-followers/user-followers.service';
 import { CommunityActivityService } from './community-activity.service';
@@ -11,12 +11,15 @@ import { UserListData, UserListType } from 'models/user-list.model';
 @Component({
   selector: 'app-community-activity',
   templateUrl: './community-activity.component.html',
-  styleUrls: ['./community-activity.component.scss']
+  styleUrls: ['./community-activity.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CommunityActivityComponent implements OnInit {
   @Input() community: Community;
   @Input() communityInfo: CommunityProfileMeta;
   @Input() actAlone: boolean = true;
+  @Input() positioning: CommunityActivityPositionType = CommunityActivityPositionType.communityPage;
+  communityActivityPositionTypeClass = CommunityActivityPositionType;
   communitySlug: string;
   mobileView = false;
   isLeftVisible: boolean = true;

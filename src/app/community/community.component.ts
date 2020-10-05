@@ -16,7 +16,6 @@ import { Page } from 'models/page.model';
 import { RelationType } from 'models/relation-type';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 import { UserListData, UserListType } from 'models/user-list.model';
-import { UserQuestionListModalType } from 'models/user-question.model';
 import { Subject, Subscription } from 'rxjs';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { UserListComponent } from 'shared/components/dialogs/user-list/user-list.component';
@@ -31,6 +30,7 @@ import { Community, CommunityPrivacy, CommunityProfileMeta } from '../models/com
 import { Post, QuestionParentType } from '../models/post-action.model';
 import { User } from '../models/user.model';
 import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
+import { CommunityHorizontalCardComponent } from './community-horizontal-card/community-horizontal-card.component';
 import { CommunityService } from './community.service';
 
 @Component({
@@ -62,7 +62,7 @@ export class CommunityComponent implements OnInit {
   page: number = 0;
   endOfPosts = false;
   userFeeds: Post[] = [];
-  loading: boolean = false;
+  loading: boolean = true;
   communityId: number;
   mobileView: boolean = false;
   scrollCached: boolean = null;
@@ -72,7 +72,11 @@ export class CommunityComponent implements OnInit {
   // To show user post header instead of community post header
   showUserHeader: boolean = true;
   trackerInstance: TrackingInstance;
-  @ViewChild('communityFeed') communityFeed: ElementRef;
+  communityFeedRef: ElementRef;
+  @ViewChild('communityFeed')
+  set communityFeed(communityFeedRef: ElementRef) {
+    this.communityFeedRef = communityFeedRef;
+  }
   pendingRequests: number;
   isCommunityPrivate = false;
   explorePath = GlobalConstants.explorePath;
@@ -98,6 +102,45 @@ export class CommunityComponent implements OnInit {
   @ViewChild("communityActivity")
   set communityActivity(communityActivityRef: CommunityActivityComponent) {
     this.communityActivityRef = communityActivityRef;
+  }
+  // --- Start of Community side sections references ---
+  communityImageBottomRef: ElementRef;
+  @ViewChild("communityImageBottom")
+  set communityImageBottom(communityImageBottomRef: ElementRef) {
+    this.communityImageBottomRef = communityImageBottomRef;
+  }
+  leftSectionRef: ElementRef;
+  @ViewChild("leftSection")
+  set leftSection(leftSectionRef: ElementRef) {
+    this.leftSectionRef = leftSectionRef;
+  }
+  rightSectionRef: ElementRef;
+  @ViewChild("rightSection")
+  set rightSection(rightSectionRef: ElementRef) {
+    this.rightSectionRef = rightSectionRef;
+  }
+  leftSectionBodyRef: ElementRef;
+  @ViewChild("leftSectionBody")
+  set leftSectionBody(leftSectionBodyRef: ElementRef) {
+    this.leftSectionBodyRef = leftSectionBodyRef;
+  }
+  @ViewChild("leftSectionFooter")
+  set leftSectionFooter(leftSectionFooterRef: ElementRef) {
+    if (leftSectionFooterRef) {
+      this.communitySideSections.footerHeight = leftSectionFooterRef.nativeElement.getBoundingClientRect().height;
+    }
+  }
+  // --- End of Community side sections references ---
+  communitySideSections: any = {
+    initialHeight: 0,
+    hasAddedMakeFixedToLeftPart: false,
+    footerHeight: 0,
+    renderered: false
+  }
+  communityHorizontalCardRef: CommunityHorizontalCardComponent;
+  @ViewChild("communityHorizontalCard")
+  set communityHorizontalCard(communityHorizontalCardRef: CommunityHorizontalCardComponent) {
+    this.communityHorizontalCardRef = communityHorizontalCardRef;
   }
 
   constructor(public communityService: CommunityService,
@@ -156,16 +199,19 @@ export class CommunityComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.communityFeed.nativeElement.addEventListener('scroll', this.onScroll, true);
+    this.communityFeedRef.nativeElement.addEventListener('scroll', this.onScroll, true);
     this.renderer.setStyle(document.getElementsByTagName('body')[0], 'overflow', 'hidden');
     this.questionListRef?.setCommunityData(this.communityDTO);
+    this.communitySideSections.leftPartInitialHeight = this.communityImageBottomRef.nativeElement.getBoundingClientRect().top;
+    // console.log("this.communityImageBottomRef", this.communityImageBottomRef.nativeElement.getBoundingClientRect());
+    this.communityHorizontalCardRef?.setCommunity(this.communityDTO);
   }
 
   ngOnDestroy() {
     if (this.fetchCommunityFeedsSubscriber) {
       this.fetchCommunityFeedsSubscriber.unsubscribe();
     }
-    this.communityFeed.nativeElement.removeEventListener('scroll', this.onScroll, true);
+    this.communityFeedRef.nativeElement.removeEventListener('scroll', this.onScroll, true);
     this.renderer.removeStyle(document.getElementsByTagName('body')[0], 'overflow');
     this.uiService.resetTitle();
     if (this.trackerInstance)
@@ -173,6 +219,10 @@ export class CommunityComponent implements OnInit {
   }
 
   onScroll = (event): void => {
+    if (!this.mobileView) {
+      // Only available for deskop
+      this.communitySideSectionsInView();
+    }
     if (!this.scrollCached) {
       setTimeout(() => {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
@@ -365,10 +415,10 @@ export class CommunityComponent implements OnInit {
   getCommunityInfo() {
     this.loading = true;
     this.communityActivityService.getCommunityMetaInfo(this.communitySlug).subscribe((res: CommunityProfileMeta) => {
-      this.loading = false;
       this.communityInfo = res;
       this.communityActivityRef.setCommunityInfo(this.communityInfo);
       this.questionListRef.setTotalCounts(this.communityInfo.totalQuestions);
+      this.communityHorizontalCardRef?.setCommunityInfo(this.communityInfo);
       if (this.owner === RelationType.OWNED) {
         this.pendingRequests = this.communityInfo.totalRequests;
       }
@@ -489,6 +539,46 @@ export class CommunityComponent implements OnInit {
       // the same community
       if (this.communitySlug === data.communitySlug) {
         this.communityPostNotificationRef.receivedNewPostNotification(data.postId);
+      }
+    }
+  }
+
+  communitySideSectionsInView() {
+    // console.log("this.communitySideSections", this.communitySideSections);
+    var bounding = this.communityImageBottomRef.nativeElement.getBoundingClientRect();
+    // console.log("bouding", bounding);
+    // Sections / Community image are not in view
+    if (bounding.top <= this.communitySideSections.initialHeight * 0.8) {
+      // console.log("Adding make-fixed");
+      if (!this.communitySideSections.hasAddedMakeFixedToLeftPart) {
+        this.communitySideSections.hasAddedMakeFixedToLeftPart = true;
+        // console.log("Added make-fixed");
+        this.renderer.setStyle(this.leftSectionRef.nativeElement, "max-width",
+          this.leftSectionBodyRef.nativeElement.getBoundingClientRect().width + "px");
+        if (!this.communitySideSections.renderered) {
+          // One time set up
+          this.communitySideSections.renderered = true;
+        }
+        this.renderer.addClass(this.leftSectionRef.nativeElement, "make-fixed");
+        this.renderer.addClass(this.leftSectionRef.nativeElement, "left");
+        this.renderer.addClass(this.rightSectionRef.nativeElement, "make-fixed");
+        this.renderer.addClass(this.rightSectionRef.nativeElement, "right");
+        if (this.communitySideSections.footerHeight) {
+          // console.log("Setting margin-bottom ", this.communitySideSections.footerHeight)
+          this.renderer.setStyle(this.leftSectionBodyRef.nativeElement, "padding-bottom",
+            this.communitySideSections.footerHeight + "px");
+        }
+      }
+    } else {
+      // console.log("Removing make-fixed");
+      if (this.communitySideSections.hasAddedMakeFixedToLeftPart) {
+        // console.log("Removed make-fixed");
+        this.communitySideSections.hasAddedMakeFixedToLeftPart = false;
+        this.renderer.removeClass(this.leftSectionRef.nativeElement, "make-fixed");
+        this.renderer.removeClass(this.leftSectionRef.nativeElement, "left");
+        this.renderer.removeClass(this.rightSectionRef.nativeElement, "make-fixed");
+        this.renderer.removeClass(this.rightSectionRef.nativeElement, "right");
+        this.renderer.removeStyle(this.leftSectionBodyRef.nativeElement, "padding-bottom");
       }
     }
   }

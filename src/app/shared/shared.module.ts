@@ -29,15 +29,15 @@ import { SearchOverlayComponent } from 'search/search-overlay/search-overlay.com
 import { SearchedEntityListComponent } from 'searched-entity-list/searched-entity-list.component';
 import { TimeStringComponent } from 'time-string/time-string.component';
 import { UsernameComponent } from 'username/username.component';
+import { ActionMenuComponent } from './action-menu/action-menu.component';
 import { KnowMoreLinkComponent } from './components/know-more-link/know-more-link.component';
 import { LoaderModule } from './loader-text/loader.module';
+import { PostNotificationButtonComponent } from './post-notification-button/post-notification-button.component';
+import { PostNotificationContainerComponent } from './post-notification-container/post-notification-container.component';
 import { ProfileIconComponent } from './profile-icon/profile-icon.component';
 import { SignInRequiredModalComponent } from './sign-in-required-modal/sign-in-required-modal.component';
 import { SignInRequiredComponent } from './sign-in-required-modal/sign-in-required/sign-in-required.component';
 import { ViewMoreButtonComponent } from './view-more-button/view-more-button.component';
-import { PostNotificationButtonComponent } from './post-notification-button/post-notification-button.component';
-import { PostNotificationContainerComponent } from './post-notification-container/post-notification-container.component';
-import { ActionMenuComponent } from './action-menu/action-menu.component';
 
 @NgModule({
   declarations: [

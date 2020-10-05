@@ -24,6 +24,7 @@ import { CommunityLoaderComponent } from 'community-box/community-loader/communi
 import { NoCommunityComponent } from 'community-box/no-community/no-community.component';
 import { CommunityRelationActionButtonComponent } from 'community-relation-action-button/community-relation-action-button.component';
 import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
+import { CommunityHorizontalCardComponent } from 'community/community-horizontal-card/community-horizontal-card.component';
 import { HorizontalOwnerProfileComponent } from 'community/horizontal-owner-profile/horizontal-owner-profile.component';
 import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
 import { CookiePolicyComponent } from 'cookie-policy/cookie-policy.component';
@@ -266,7 +267,8 @@ export function metaFactory(): MetaLoader {
     UserQuestionListModalComponent,
     UserQuestionLoaderComponent,
     CardHeaderComponent,
-    NoUserQuestionComponent
+    NoUserQuestionComponent,
+    CommunityHorizontalCardComponent
   ],
   imports: [
     AppRoutingModule,

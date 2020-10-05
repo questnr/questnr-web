@@ -70,3 +70,7 @@ export enum CommunityPrivacy {
 export enum CommunityRequestActionType {
   reject = "reject", accept = "accept"
 }
+
+export enum CommunityActivityPositionType {
+  header = "header", communityPage = "communityPage"
+}

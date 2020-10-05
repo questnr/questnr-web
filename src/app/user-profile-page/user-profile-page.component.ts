@@ -40,8 +40,8 @@ export class UserProfilePageComponent implements OnInit {
   comUpdatedAvatar: any;
   stats: any;
   relation: RelationType;
-  loading = false;
-  page = 0;
+  loading: boolean = true;
+  page: number = 0;
   endOfPosts = false;
   userFeeds = [];
   userId: any;
@@ -78,7 +78,7 @@ export class UserProfilePageComponent implements OnInit {
   set userQuestionList(userQuestionListRef: UserQuestionListComponent) {
     this.userQuestionListRef = userQuestionListRef;
   }
-  // Start of User Profile Left part references
+  // ---- Start of User Profile Left part references ----
   userProfileLeftPartRef: ElementRef;
   @ViewChild("userProfileLeftPart")
   set userProfileLeftPart(userProfileLeftPartRef: ElementRef) {
@@ -100,7 +100,7 @@ export class UserProfilePageComponent implements OnInit {
       this.leftPartSection.footerHeight = userProfileLeftPartFooterRef.nativeElement.getBoundingClientRect().height;
     }
   }
-  // End of User Profile Left part references
+  // ---- End of User Profile Left part references ---
   leftPartSection: any = {
     leftPartInitialHeight: 0,
     hasAddedMakeFixedToLeftPart: false,
@@ -160,8 +160,7 @@ export class UserProfilePageComponent implements OnInit {
           if (this.userFeeds.length >= 0 && !this.endOfPosts) {
             // console.log('check network call', this.endOfPosts);
             if (!this.loading) {
-              this.loading = true;
-              this.getUserFeeds(this.userId);
+              this.getUserFeeds();
             }
           }
         }
@@ -182,13 +181,12 @@ export class UserProfilePageComponent implements OnInit {
     if (event.postActionId) {
       this.userFeeds = [event, ...this.userFeeds];
     } else {
-      this.loading = true;
-      this.getUserFeeds(this.userId);
+      this.getUserFeeds();
     }
   }
-  getUserFeeds(userId) {
-    if (!userId) return;
-    this.userProfilePageService.getUserFeeds(userId, this.page).subscribe((res: any) => {
+  getUserFeeds() {
+    this.loading = true;
+    this.userProfilePageService.getUserFeeds(this.userId, this.page).subscribe((res: any) => {
       if (res.content.length) {
         this.page++;
         this.loading = false;
@@ -217,8 +215,7 @@ export class UserProfilePageComponent implements OnInit {
       this.renderer.removeStyle(this.userAvatarImgRef.nativeElement, "min-height");
       this.relation = res.userMeta.relationShipType;
       this.userId = res.userId;
-      this.loading = true;
-      this.getUserFeeds(res.userId);
+      this.getUserFeeds();
       this.isBannerLoding = false;
       this._activityService.start(this.user.userId, TrackingEntityType.user)
         .then((trackerInstance: TrackingInstance) => {
