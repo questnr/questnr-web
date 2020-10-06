@@ -136,7 +136,7 @@ export class CommunityComponent implements OnInit {
     hasAddedMakeFixedToLeftPart: false,
     footerHeight: 0,
     renderered: false,
-    safeScrollTop: 100
+    safeScrollTop: window.innerHeight * 0.8
   }
   communityHorizontalCardRef: CommunityHorizontalCardComponent;
   @ViewChild("communityHorizontalCard")
@@ -203,8 +203,9 @@ export class CommunityComponent implements OnInit {
     this.communityFeedRef.nativeElement.addEventListener('scroll', this.onScroll, true);
     this.renderer.setStyle(document.getElementsByTagName('body')[0], 'overflow', 'hidden');
     this.questionListRef?.setCommunityData(this.communityDTO);
-    this.communitySideSections.leftPartInitialHeight = this.communityImageBottomRef.nativeElement.getBoundingClientRect().top;
-    // console.log("this.communityImageBottomRef", this.communityImageBottomRef.nativeElement.getBoundingClientRect());
+    this.communitySideSections.leftPartInitialHeight = this.communityImageBottomRef.nativeElement.getBoundingClientRect().top > this.communitySideSections.safeScrollTop ?
+      this.communitySideSections.safeScrollTop : this.communityImageBottomRef.nativeElement.getBoundingClientRect().top;
+    // console.log("this.communitySideSections", this.communitySideSections);
     this.communityHorizontalCardRef?.setCommunity(this.communityDTO);
   }
 
@@ -222,7 +223,7 @@ export class CommunityComponent implements OnInit {
   onScroll = (event): void => {
     if (!this.mobileView) {
       // Only available for deskop
-      this.communitySideSectionsInView(event);
+      this.communitySideSectionsInView();
     }
     if (!this.scrollCached) {
       setTimeout(() => {
@@ -544,44 +545,52 @@ export class CommunityComponent implements OnInit {
     }
   }
 
-  communitySideSectionsInView(event) {
+  communitySideSectionsInView() {
+    if (this.userFeeds.length <= 0) return;
     // console.log("this.communitySideSections", this.communitySideSections);
     var bounding = this.communityImageBottomRef.nativeElement.getBoundingClientRect();
     // console.log("bouding", bounding);
     // Sections / Community image are not in view
-    if (bounding.top <= this.communitySideSections.initialHeight * 0.8 &&
-      event.target.scrollTop > this.communitySideSections.safeScrollTop) {
-      // console.log("Adding make-fixed");
-      if (!this.communitySideSections.hasAddedMakeFixedToLeftPart) {
-        this.communitySideSections.hasAddedMakeFixedToLeftPart = true;
-        // console.log("Added make-fixed");
-        this.renderer.setStyle(this.leftSectionRef.nativeElement, "max-width",
-          this.leftSectionBodyRef.nativeElement.getBoundingClientRect().width + "px");
-        if (!this.communitySideSections.renderered) {
-          // One time set up
-          this.communitySideSections.renderered = true;
-        }
-        this.renderer.addClass(this.leftSectionRef.nativeElement, "make-fixed");
-        this.renderer.addClass(this.leftSectionRef.nativeElement, "left");
-        this.renderer.addClass(this.rightSectionRef.nativeElement, "make-fixed");
-        this.renderer.addClass(this.rightSectionRef.nativeElement, "right");
-        if (this.communitySideSections.footerHeight) {
-          // console.log("Setting margin-bottom ", this.communitySideSections.footerHeight)
-          this.renderer.setStyle(this.leftSectionBodyRef.nativeElement, "padding-bottom",
-            this.communitySideSections.footerHeight + "px");
-        }
-      }
+    if (bounding.top <= this.communitySideSections.initialHeight * 0.8) {
+      this.makeFixedSections();
     } else {
-      // console.log("Removing make-fixed");
-      if (this.communitySideSections.hasAddedMakeFixedToLeftPart) {
-        // console.log("Removed make-fixed");
-        this.communitySideSections.hasAddedMakeFixedToLeftPart = false;
-        this.renderer.removeClass(this.leftSectionRef.nativeElement, "make-fixed");
-        this.renderer.removeClass(this.leftSectionRef.nativeElement, "left");
-        this.renderer.removeClass(this.rightSectionRef.nativeElement, "make-fixed");
-        this.renderer.removeClass(this.rightSectionRef.nativeElement, "right");
-        this.renderer.removeStyle(this.leftSectionBodyRef.nativeElement, "padding-bottom");
+      this.removeFixedSections();
+    }
+  }
+
+  makeFixedSections() {
+    // console.log("Adding make-fixed");
+    if (!this.communitySideSections.hasAddedMakeFixedToLeftPart) {
+      this.communitySideSections.hasAddedMakeFixedToLeftPart = true;
+      // console.log("Added make-fixed");
+      this.renderer.setStyle(this.leftSectionRef.nativeElement, "max-width",
+        this.leftSectionBodyRef.nativeElement.getBoundingClientRect().width + "px");
+      if (!this.communitySideSections.renderered) {
+        // One time set up
+        this.communitySideSections.renderered = true;
       }
+      this.renderer.addClass(this.leftSectionRef.nativeElement, "make-fixed");
+      this.renderer.addClass(this.leftSectionRef.nativeElement, "left");
+      this.renderer.addClass(this.rightSectionRef.nativeElement, "make-fixed");
+      this.renderer.addClass(this.rightSectionRef.nativeElement, "right");
+      if (this.communitySideSections.footerHeight) {
+        // console.log("Setting margin-bottom ", this.communitySideSections.footerHeight)
+        this.renderer.setStyle(this.leftSectionBodyRef.nativeElement, "padding-bottom",
+          this.communitySideSections.footerHeight + "px");
+      }
+    }
+  }
+
+  removeFixedSections() {
+    // console.log("Removing make-fixed");
+    if (this.communitySideSections.hasAddedMakeFixedToLeftPart) {
+      // console.log("Removed make-fixed");
+      this.communitySideSections.hasAddedMakeFixedToLeftPart = false;
+      this.renderer.removeClass(this.leftSectionRef.nativeElement, "make-fixed");
+      this.renderer.removeClass(this.leftSectionRef.nativeElement, "left");
+      this.renderer.removeClass(this.rightSectionRef.nativeElement, "make-fixed");
+      this.renderer.removeClass(this.rightSectionRef.nativeElement, "right");
+      this.renderer.removeStyle(this.leftSectionBodyRef.nativeElement, "padding-bottom");
     }
   }
 }

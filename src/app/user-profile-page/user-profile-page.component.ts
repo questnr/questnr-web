@@ -104,7 +104,7 @@ export class UserProfilePageComponent implements OnInit {
     leftPartInitialHeight: 0,
     hasAddedMakeFixedToLeftPart: false,
     footerHeight: 0,
-    safeScrollTop: 100
+    safeScrollTop: window.innerHeight * 0.8
   }
 
 
@@ -145,12 +145,14 @@ export class UserProfilePageComponent implements OnInit {
     this.renderer.setStyle(this.userAvatarImgRef.nativeElement, "min-width", this.mobileView ? "110px" : "200px");
     this.feedProfile.nativeElement.addEventListener('scroll', this.onScroll, true);
     this.renderer.setStyle(document.getElementsByTagName("body")[0], "overflow", "hidden");
-    this.userSideSections.leftPartInitialHeight = this.postFeedBottomContainerRef.nativeElement.getBoundingClientRect().top;
+    this.userSideSections.leftPartInitialHeight = this.postFeedBottomContainerRef.nativeElement.getBoundingClientRect().top > this.userSideSections.safeScrollTop
+      ? this.userSideSections.safeScrollTop : this.postFeedBottomContainerRef.nativeElement.getBoundingClientRect().top;
+    // console.log("userSideSections", this.userSideSections);
   }
   onScroll = (event): void => {
     if (!this.mobileView) {
       // Only available for deskop
-      this.leftSectionInView(event);
+      this.leftSectionInView();
     }
     if (!this.scrollCached) {
       setTimeout(() => {
@@ -357,32 +359,39 @@ export class UserProfilePageComponent implements OnInit {
     // }, 1500);
   }
 
-  leftSectionInView(event) {
-    console.log("event", event);
+  leftSectionInView() {
+    if (this.userFeeds.length <= 0) return;
     // console.log("this.leftPartInitialHeight", this.userSideSections);
     var bounding = this.postFeedBottomContainerRef.nativeElement.getBoundingClientRect();
     // console.log("bouding", bounding);
     // Left section is not in view
-    if (bounding.top <= this.userSideSections.leftPartInitialHeight * 0.8
-      && event.target.scrollTop > this.userSideSections.safeScrollTop) {
-      // console.log("Adding make-fixed");
-      if (!this.userSideSections.hasAddedMakeFixedToLeftPart) {
-        // console.log("Added make-fixed");
-        this.userSideSections.hasAddedMakeFixedToLeftPart = true;
-        this.renderer.addClass(this.userProfileLeftPartRef.nativeElement, "make-fixed");
-        if (this.userSideSections.footerHeight) {
-          // console.log("Setting margin-bottom ", this.userSideSections.footerHeight)
-          this.renderer.setStyle(this.userProfileLeftPartBodyRef.nativeElement, "padding-bottom", this.userSideSections.footerHeight + "px");
-        }
-      }
+    if (bounding.top <= this.userSideSections.leftPartInitialHeight * 0.8) {
+      this.makeFixedSections();
     } else {
-      // console.log("Removing make-fixed");
-      if (this.userSideSections.hasAddedMakeFixedToLeftPart) {
-        // console.log("Removed make-fixed");
-        this.userSideSections.hasAddedMakeFixedToLeftPart = false;
-        this.renderer.removeClass(this.userProfileLeftPartRef.nativeElement, "make-fixed");
-        this.renderer.removeStyle(this.userProfileLeftPartBodyRef.nativeElement, "padding-bottom");
+      this.removeFixedSections();
+    }
+  }
+
+  makeFixedSections() {
+    // console.log("Adding make-fixed");
+    if (!this.userSideSections.hasAddedMakeFixedToLeftPart) {
+      // console.log("Added make-fixed");
+      this.userSideSections.hasAddedMakeFixedToLeftPart = true;
+      this.renderer.addClass(this.userProfileLeftPartRef.nativeElement, "make-fixed");
+      if (this.userSideSections.footerHeight) {
+        // console.log("Setting margin-bottom ", this.userSideSections.footerHeight)
+        this.renderer.setStyle(this.userProfileLeftPartBodyRef.nativeElement, "padding-bottom", this.userSideSections.footerHeight + "px");
       }
+    }
+  }
+
+  removeFixedSections() {
+    // console.log("Removing make-fixed");
+    if (this.userSideSections.hasAddedMakeFixedToLeftPart) {
+      // console.log("Removed make-fixed");
+      this.userSideSections.hasAddedMakeFixedToLeftPart = false;
+      this.renderer.removeClass(this.userProfileLeftPartRef.nativeElement, "make-fixed");
+      this.renderer.removeStyle(this.userProfileLeftPartBodyRef.nativeElement, "padding-bottom");
     }
   }
 }

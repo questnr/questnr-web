@@ -6,10 +6,10 @@
 </div>
 
 <div class="community-wrapper page-scroll hide-scrollbar" #communityFeed>
-  <div class="site-body" [ngClass]="{'mobile': mobileView}">
+  <div class="site-body" [ngClass]="[mobileView ? 'mobile' : 'desktop']">
     <div class="container">
       <div class="flex-frame">
-        <div class="flex-7" [ngClass]="{'mobile' : mobileView}">
+        <div class="flex-7" [ngClass]="[mobileView ? 'mobile' : 'desktop']">
           <div class="community-feeds-container">
             <div class="com-ban-img-container" [ngClass]="!communityImage ? 'com-avatar-height' : ''">
               <!--            <div *ngIf="mobileView" class="community_owner">-->

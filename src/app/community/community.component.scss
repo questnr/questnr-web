@@ -42,7 +42,7 @@ $header-height: 70px;
     z-index: 1000;
     background: $svg-background;
     padding: 1vh 0 0;
-    margin: 10px 10px;
+    // margin: 10px 10px;
     border-radius: 10px;
     max-width: inherit;
     // border: 2px solid $heading;
@@ -51,7 +51,7 @@ $header-height: 70px;
     .fixed-body {
       overflow-y: scroll;
       max-height: 90vh;
-      padding: 1rem 1rem 0;
+      padding: 0.6rem 0.6rem 10vh;
     }
     .sponsored {
       margin: 0px 3vw;
@@ -66,10 +66,18 @@ $header-height: 70px;
     }
   }
   .make-fixed.left {
-    left: 0;
+    // left: 0;
   }
   .make-fixed.right {
-    right: 0;
+    // right: 0;
+  }
+}
+
+.site-body.desktop {
+  .flex-frame {
+    .flex-7 {
+      max-width: 70%;
+    }
   }
 }
 
