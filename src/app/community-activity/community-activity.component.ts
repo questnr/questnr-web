@@ -40,6 +40,10 @@ export class CommunityActivityComponent implements OnInit {
       this.loading = true;
   }
 
+  setCommunity(community: Community) {
+    this.community = community;
+  }
+
   setCommunityInfo(communityInfo: CommunityProfileMeta) {
     if (!this.actAlone) {
       this.communityInfo = communityInfo;

@@ -29,6 +29,7 @@ export class CommunityHorizontalCardComponent implements OnInit {
 
   setCommunityInfo(communityInfo: CommunityProfileMeta) {
     this.communityInfo = communityInfo;
+    this.communityActivityRef.setCommunity(this.community);
     this.communityActivityRef.setCommunityInfo(this.communityInfo);
   }
 
