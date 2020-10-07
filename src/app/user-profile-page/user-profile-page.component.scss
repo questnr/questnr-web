@@ -30,13 +30,13 @@
     bottom: 0;
     overflow: auto;
     z-index: 1000;
-    background: $svg-background;
+    background: $fixed-sections;
     padding: 1vh 0 0;
     margin: 10px 10px;
     border-radius: 10px;
     max-width: inherit;
     // border: 2px solid $heading;
-    box-shadow: 1px 1px 10px grey;
+    box-shadow: 1px 1px 10px $gray;
     animation: slide-up-down 0.8s forwards;
     .fixed-body {
       overflow-y: scroll;
@@ -49,6 +49,8 @@
       justify-content: center;
     }
     .fixed-footer {
+      border: 1px solid $fixed-sections;
+      border-radius: 0px 0px 10px 10px;
       position: absolute;
       bottom: 0;
       background: $background-transparent;
