@@ -1,8 +1,10 @@
 <div class="post-feed-wrapper box hide-scrollbar"
   [ngClass]="[isBlogEditor ? 'blog-editor-view': 'normal-editor-view', mobileView ? 'mobile' : 'desktop']">
-  <div class="loader" [ngClass]="{'active': isLoading}">
-    <mat-progress-bar *ngIf="!uploading && isLoading" mode="indeterminate"></mat-progress-bar>
-    <mat-progress-bar *ngIf="uploading" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+  <div class="loader active" *ngIf="!uploading && isLoading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div class="loader" *ngIf="uploading" [ngClass]="{'active': isLoading}">
+    <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
   </div>
   <div class="heading">
     <div>{{data.editing ? 'Modify' : 'Make'}} a Questnr</div>
