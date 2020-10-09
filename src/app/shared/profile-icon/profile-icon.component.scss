@@ -1,12 +1,12 @@
-@import '../../variables';
+@import "../../variables";
 
 :host {
   /* remove blue border ring */
   &:active {
-    outline:0 !important;
+    outline: 0 !important;
   }
   &:focus {
-    outline:0 !important;
+    outline: 0 !important;
   }
 }
 .icon {
@@ -31,4 +31,8 @@
     width: auto;
     height: 100%;
   }
+}
+
+.icon.heading-border {
+  border: 1px solid $heading;
 }

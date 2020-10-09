@@ -50,3 +50,8 @@ export class CustomError {
     errorMessage: string;
     errorCode: number;
 }
+
+export enum ProfileIconTemplateType {
+    normal = "normal",
+    heading = "heading"
+}

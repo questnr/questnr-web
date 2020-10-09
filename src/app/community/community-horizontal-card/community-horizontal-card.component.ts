@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { CommunityActivityComponent } from 'community-activity/community-activity.component';
+import { ProfileIconTemplateType } from 'models/common.model';
 import { Community, CommunityActivityPositionType, CommunityProfileMeta } from 'models/community.model';
 
 @Component({
@@ -17,6 +18,7 @@ export class CommunityHorizontalCardComponent implements OnInit {
   }
   communityActivityPositionTypeClass = CommunityActivityPositionType;
   @Output() openCommunityDescriptionEmiiter = new EventEmitter();
+  profileIconTemplateTypeClass = ProfileIconTemplateType;
 
   constructor() { }
 

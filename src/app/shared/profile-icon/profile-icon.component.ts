@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { AvatarDTO } from 'models/common.model';
+import { AvatarDTO, ProfileIconTemplateType } from 'models/common.model';
 import { GlobalConstants } from 'shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
@@ -14,6 +14,7 @@ export class ProfileIconComponent implements OnInit {
   @Input() border: number = 10;
   @Input() sizeRef: string;
   @Input() slug: string;
+  @Input() template: ProfileIconTemplateType = ProfileIconTemplateType.normal;
   avatarLink: string;
   @Input() alt: string = "image";
   defaultSrc: string = StaticMediaSrc.userFile;
@@ -34,6 +35,9 @@ export class ProfileIconComponent implements OnInit {
     this.setAvatar(this.avatar);
     this.renderer.setStyle(this.elementOnHTML.nativeElement, 'height', this.height + "px");
     this.renderer.setStyle(this.elementOnHTML.nativeElement, 'width', this.height + "px");
+    if (this.template === ProfileIconTemplateType.heading) {
+      this.renderer.addClass(this.elementOnHTML.nativeElement, "heading-border");
+    }
   }
 
   setAvatar(avatar: AvatarDTO) {

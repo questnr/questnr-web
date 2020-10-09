@@ -2,7 +2,8 @@
     <div class="community-horizontal-card-container" *ngIf="community">
         <div class="left-part">
             <div class="community-avatar">
-                <app-profile-icon [avatar]="community.avatarDTO" [height]="65" [isCommunityAvatar]="true">
+                <app-profile-icon [avatar]="community.avatarDTO" [height]="65" [isCommunityAvatar]="true"
+                    [template]="profileIconTemplateTypeClass.heading">
                 </app-profile-icon>
             </div>
             <div class="community-details">
