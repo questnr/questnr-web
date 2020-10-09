@@ -98,6 +98,7 @@ export class QuestionUIComponent implements OnInit {
 
   progressIndicator(pollQuestionMeta: PollQuestionMeta) {
     this.loading = false;
+    this.isResponded = true;
     this.agreePercentage = Math.round(pollQuestionMeta.agreePercentage) + '%';
     this.disagreePercentage = Math.round(pollQuestionMeta.disagreePercentage) + '%';
     this.renderer.setStyle(this.agree.nativeElement, 'width', pollQuestionMeta.agreePercentage + '%');
