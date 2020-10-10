@@ -1,9 +1,6 @@
 <nav-bar [title]="title" (backAction)="onNoClick()" *ngIf="mobileView"></nav-bar>
 <div class="edit-user-wrapper">
-  <div *ngIf="!mobileView" class="header">
-    <h5>{{title}}</h5>
-    <hr>
-  </div>
+  <h4 class="header hr" *ngIf="!mobileView" [innerHTML]="title"></h4>
   <div class="container-header" *ngIf="!isFetchingDetails">
     <form [formGroup]="group">
       <div class="alert alert-danger" *ngIf="errMsg"> <strong>Error! </strong> {{errMsg }}</div>
@@ -66,9 +63,9 @@
 
         <mat-form-field class="col-md-12" appearance="fill">
           <mat-label>Describe yourself</mat-label>
-          <textarea matInput [formControl]="bio" rows="5" placeholder="Describe Yourself" #bioInputRef></textarea>
+          <textarea matInput [formControl]="bio" rows="5" placeholder="Describe Yourself" #bioInput></textarea>
           <div class="emoticon-container">
-            <app-emoticons [userInputRef]="bioInputRef"></app-emoticons>
+            <app-emoticons #emotication></app-emoticons>
           </div>
         </mat-form-field>
 

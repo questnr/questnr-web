@@ -12,6 +12,10 @@ export class EmoticonsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  setUserInputRef(userInputRef: ElementRef) {
+    // console.log("setUserInputRef", userInputRef);
+    this.userInputRef = userInputRef;
+  }
 
   addEmoji($event: any) {
     // console.log(event);
