@@ -51,7 +51,6 @@ $header-height: 70px;
     .fixed-body {
       overflow-y: scroll;
       max-height: 90vh;
-      padding: 0.6rem 0.6rem 10vh;
     }
     .sponsored {
       margin: 0px 3vw;
@@ -61,7 +60,7 @@ $header-height: 70px;
     .fixed-footer {
       border: 1px solid $fixed-sections;
       border-radius: 0px 0px 10px 10px;
-      position: absolute;
+      position: relative;
       bottom: 0;
       background: $background-transparent;
       left: 0;
@@ -69,9 +68,15 @@ $header-height: 70px;
   }
   .make-fixed.left {
     // left: 0;
+    .fixed-body {
+      padding: 0.6rem 0.6rem 10vh;
+    }
   }
   .make-fixed.right {
     // right: 0;
+    .fixed-body {
+      padding: 0.6rem 0.6rem 0vh;
+    }
   }
 }
 
