@@ -26,26 +26,6 @@
   .community-counts {
     font-size: 0.8rem;
   }
-  .mat-expansion-panel {
-    box-shadow: unset;
-  }
-  mat-expansion-panel.user-community-expansion-panel {
-    // padding: 0px 0px 15px !important;
-  }
-  .user-community-expansion-panel mat-expansion-panel-header {
-    height: unset !important;
-    min-height: 45px !important;
-    padding: 15px !important;
-  }
-  .user-community-expansion-panel {
-    background: $white;
-    margin: 0 0 20px 0;
-    border-radius: 10px;
-  }
-  .mat-expansion-panel-content .mat-expansion-panel-body {
-    padding: 0px 15px !important;
-    margin: -15px 0px 0px !important;
-  }
 }
 
 .user-joined-community.mobile {
