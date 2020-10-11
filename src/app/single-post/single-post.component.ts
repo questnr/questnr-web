@@ -503,7 +503,7 @@ export class SinglePostComponent implements OnInit {
 
   respondingActionListener($event) {
     if ($event?.signInRequiredError) {
-      this.signInRequiredModalRef.open("Log-In Is Required to Answer This Question");
+      this.signInRequiredModalRef.open("Log-In Is Required to Answer This Question", this.router.url);
     }
   }
 }

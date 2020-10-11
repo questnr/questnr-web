@@ -20,9 +20,10 @@ export class SignInRequiredModalComponent implements OnInit {
     this.mobileView = this._globalService.isMobileView();
   }
 
-  open(content: string): void {
+  open(content: string, redirectURL: string = undefined): void {
     this.isOpen = true;
     let config = null;
+    let data = { content, redirectURL };
 
     if (this.mobileView) {
       config = {
@@ -36,7 +37,7 @@ export class SignInRequiredModalComponent implements OnInit {
         marginRight: '0px !important',
         panelClass: 'sign-in-required-modal',
         overflow: "hidden",
-        data: { content }
+        data
       };
     } else {
       config = {
@@ -46,7 +47,7 @@ export class SignInRequiredModalComponent implements OnInit {
         maxWidth: "80vw",
         panelClass: 'sign-in-required-modal',
         overflow: "hidden",
-        data: { content }
+        data
       };
     }
     this.dialogRef = this.dialog.open(SignInRequiredComponent, config);
