@@ -1,7 +1,7 @@
-import { Component, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from 'confirm-dialog-modal/confirm-dialog/confirm-dialog.component';
 import { GlobalService } from 'global.service';
 import { RelationType } from 'models/relation-type';
 import { GlobalConstants } from 'shared/constants';
@@ -26,6 +26,7 @@ export class UserListViewComponent implements OnInit {
   @Input() otherUserId;
   @Input() communityId;
   @Input() size: UserListViewSizeType = UserListViewSizeType.large;
+  @Output() specialActionEvent = new EventEmitter();
   userPath: string = GlobalConstants.userPath;
   relation: RelationType;
   screenWidth = window.innerWidth;
@@ -35,6 +36,10 @@ export class UserListViewComponent implements OnInit {
   requestType: CommunityRequestActionType;
   userListViewVariables: any;
   communityRequestActionTypeClass = CommunityRequestActionType;
+  isSpecialActionActive: boolean = false;
+  hideSpecialActionTimeOut;
+  @Input() isSpecialActionsAllowed: boolean = false;
+  toolTipText: string;
 
   constructor(public userProfileCardServiceComponent: UserProfileCardServiceComponent,
     public loginService: LoginService,
@@ -42,9 +47,7 @@ export class UserListViewComponent implements OnInit {
     private inviteUserService: InviteUsetService,
     public auth: CommunityService,
     private snackBar: MatSnackBar,
-    private _globalService: GlobalService,
-    private renderer2: Renderer2) {
-    // this.renderer2.
+    private _globalService: GlobalService) {
   }
 
   ngOnInit(): void {
@@ -54,6 +57,9 @@ export class UserListViewComponent implements OnInit {
       this.userListViewVariables = UserListViewVariables.small;
     } else {
       this.userListViewVariables = UserListViewVariables.large;
+    }
+    if (this.isSpecialActionsAllowed) {
+      this.toolTipText = `Remove ${this.user.username}`;
     }
   }
 
@@ -118,5 +124,23 @@ export class UserListViewComponent implements OnInit {
       this.isResponded = true;
       this.requestType = requestType;
     });
+  }
+
+  showSpecialAction() {
+    this.isSpecialActionActive = true;
+    clearTimeout(this.hideSpecialActionTimeOut);
+  }
+
+  hideSpecialAction() {
+    if (this.isSpecialActionActive) {
+      clearTimeout(this.hideSpecialActionTimeOut);
+      this.hideSpecialActionTimeOut = setTimeout(() => {
+        this.isSpecialActionActive = false;
+      }, 2000);
+    }
+  }
+
+  emitSpecialAction($event) {
+    this.specialActionEvent.emit(this.user);
   }
 }

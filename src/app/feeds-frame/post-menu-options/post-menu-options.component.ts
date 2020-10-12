@@ -1,17 +1,15 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Post, PostEditorType } from 'models/post-action.model';
-import { FeedsService } from 'feeds-frame/feeds.service';
-import { CommonService } from 'common/common.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from 'auth/login.service';
-import { PostFeedComponent } from '../post-feed/post-feed.component';
-import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
-import { GlobalConstants } from 'shared/constants';
-import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
-import { UserProfileCardServiceComponent } from 'user-profile-card/user-profile-card-service.component';
+import { CommonService } from 'common/common.service';
 import { CommunityService } from 'community/community.service';
+import { ConfirmDialogComponent } from 'confirm-dialog-modal/confirm-dialog/confirm-dialog.component';
+import { FeedsService } from 'feeds-frame/feeds.service';
+import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
+import { Post, PostEditorType } from 'models/post-action.model';
+import { UserProfileCardServiceComponent } from 'user-profile-card/user-profile-card-service.component';
+import { PostFeedComponent } from '../post-feed/post-feed.component';
 
 @Component({
   selector: 'app-post-menu-options',

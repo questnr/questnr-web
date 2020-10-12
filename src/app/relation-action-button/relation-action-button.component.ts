@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
 import { LoginService } from 'auth/login.service';
-import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from 'confirm-dialog-modal/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

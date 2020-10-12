@@ -4,7 +4,7 @@ export enum ActionType {
 }
 
 export class SnackBarDefaultData {
-    duration?: number;
+    duration?: number = 5000;
     actionType?: ActionType = ActionType.close;
     message: string;
     onAction?: Function = () => { };

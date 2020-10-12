@@ -10,8 +10,8 @@
       <div class="comment-left-part">
         {{comment.commentObject}}
       </div>
-      <div class="comment-trash" *ngIf="allowDelete()" (click)="deleteComment()">
-        <img src="assets/trash-can.svg" (mouseover)="hover()" (mouseout)="unhover()" #commentTrash />
+      <div *ngIf="allowDelete()" (click)="deleteComment()">
+        <app-trash-icon [toolTipText]="'Delete comment'"></app-trash-icon>
       </div>
     </div>
     <app-attached-file-list [attachedFileLinkList]="comment.commentMediaList"></app-attached-file-list>

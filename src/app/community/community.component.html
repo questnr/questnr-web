@@ -52,8 +52,8 @@
           <!--          </div>-->
           <!--        </div>-->
           <app-community-users [community]="communityDTO"
-            [relationshipType]="communityDTO.communityMeta.relationShipType" [userListType]="'ribbon'"
-            *ngIf="mobileView" #communityUsersComponentRef>
+            [relationshipType]="communityDTO.communityMeta.relationShipType"
+            [userListType]="communityUsersListViewTypeClass.ribbon" *ngIf="mobileView" #communityUsersComponentRef>
           </app-community-users>
           <div *ngIf="mobileView" class="action-mobile-view">
             <div class="requests" *ngIf="owner==='owned'">
@@ -201,8 +201,8 @@
             <div class="fixed-body hide-scrollbar">
               <!--        <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
               <app-community-users [community]="communityDTO" (pendingRequestCount)="updatePendingRequestCount($event)"
-                [relationshipType]="communityDTO.communityMeta.relationShipType" [userListType]="'list'"
-                #communityUsersComponentRef>
+                [relationshipType]="communityDTO.communityMeta.relationShipType"
+                [userListType]="communityUsersListViewTypeClass.list" #communityUsersComponentRef>
               </app-community-users>
               <app-user-question-list [totalQuestions]="communityInfo?.totalQuestions" #questionList>
               </app-user-question-list>

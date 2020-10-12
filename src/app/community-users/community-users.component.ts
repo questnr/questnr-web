@@ -1,10 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { SnackBarService } from 'common/snackbar.service';
+import { ConfirmDialogModalComponent } from 'confirm-dialog-modal/confirm-dialog-modal.component';
 import { GlobalService } from 'global.service';
 import { Page } from 'models/page.model';
 import { RelationType } from 'models/relation-type';
+import { ActionType } from 'models/snackbar.model';
 import { UserListData, UserListType, UserListViewSizeType } from 'models/user-list.model';
 import { Subscription } from 'rxjs';
 import { GlobalConstants } from 'shared/constants';
@@ -12,7 +15,7 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { environment } from '../../environments/environment';
 import { LoginService } from '../auth/login.service';
 import { CommunityService } from '../community/community.service';
-import { Community, CommunityProfileMeta } from '../models/community.model';
+import { Community, CommunityProfileMeta, CommunityUsersListViewType } from '../models/community.model';
 import { User } from '../models/user.model';
 import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
 import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
@@ -27,7 +30,7 @@ import { CommunityMembersService } from './community-members.service';
 export class CommunityUsersComponent implements OnInit {
   baseUrl = environment.baseUrl;
   @Input() community: Community;
-  @Input() userListType;
+  @Input() userListType: CommunityUsersListViewType;
   @Input() ownerUser: User;
   @Input() relationshipType: RelationType;
   @Input() requests = 1;
@@ -46,6 +49,10 @@ export class CommunityUsersComponent implements OnInit {
   pendingRequests = 0;
   smallUserListViewSize: UserListViewSizeType = UserListViewSizeType.small;
   userListTypeClass = UserListType;
+  communityUsersListViewTypeClass = CommunityUsersListViewType;
+  isOwner: boolean = false;
+  @ViewChild("confirmDialogModalRef") confirmDialogModalRef: ConfirmDialogModalComponent;
+  awaitConfirmDialogData;
 
   constructor(public http: HttpClient,
     public userService: UserProfileCardServiceComponent,
@@ -55,7 +62,8 @@ export class CommunityUsersComponent implements OnInit {
     public communityMembersService: CommunityMembersService,
     private loginAuth: LoginService,
     private _globalService: GlobalService,
-    public communityService: CommunityService) {
+    public communityService: CommunityService,
+    private snackBarService: SnackBarService) {
     this.loggedInUserId = this.loginAuth.getLocalUserProfile().id;
   }
 
@@ -70,7 +78,8 @@ export class CommunityUsersComponent implements OnInit {
       this.restartCommunityMembersList();
       this.getCommunityMetaInfo();
     }
-    if (this.community.communityMeta.relationShipType === RelationType.OWNED) {
+    this.isOwner = this.community.communityMeta.relationShipType === RelationType.OWNED;
+    if (this.isOwner) {
       this.getCommunityJoinRequests();
     }
   }
@@ -120,15 +129,6 @@ export class CommunityUsersComponent implements OnInit {
       .subscribe((data: CommunityProfileMeta) => {
         this.numberOfMembers = data.followers;
       });
-  }
-
-  unfollowUser(userId) {
-    const ownerId = this.loginService.getLocalUserProfile().id;
-    this.userService.unfollowMe(ownerId, userId).subscribe((res: any) => {
-
-    }, error => {
-
-    });
   }
 
   openUserGroupDialog(type: UserListType): void {
@@ -199,5 +199,36 @@ export class CommunityUsersComponent implements OnInit {
       return Array(0);
     }
     return Array(5 - this.communityMemberList.length);
+  }
+
+  removeUserListener(processingUser: User) {
+    this.awaitConfirmDialogData = processingUser;
+    this.confirmDialogModalRef.open({
+      title: `Do you want to remove ${processingUser.username}`,
+      agreeText: "Remove",
+      disagreeText: "Cancel"
+    });
+  }
+
+  confirmDialogCloseActionListener(result) {
+    if (result?.data) {
+      this.communityMembersService
+        .removeUserFromCommunity(this.community.communityId, this.awaitConfirmDialogData.userId).subscribe(() => {
+          this.communityMemberList = this.communityMemberList.filter((communityMember: User) => {
+            return communityMember.userId !== this.awaitConfirmDialogData.userId
+          });
+          this.snackBarService.showSnackBar({
+            message: `Removed ${this.awaitConfirmDialogData.username}`,
+            actionType: ActionType.close
+          });
+          this.awaitConfirmDialogData = null;
+        }, (error) => {
+          if (error.error.errorMessage)
+            this.snackBarService.showSnackBar({ message: error.error.errorMessage });
+        });
+    }
+    else {
+      this.awaitConfirmDialogData = null;
+    }
   }
 }

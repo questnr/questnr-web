@@ -7,7 +7,7 @@ import { CommonService } from 'common/common.service';
 import { CommunityActivityComponent } from 'community-activity/community-activity.component';
 import { CommunityActivityService } from 'community-activity/community-activity.service';
 import { CommunityUsersComponent } from 'community-users/community-users.component';
-import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from 'confirm-dialog-modal/confirm-dialog/confirm-dialog.component';
 import { GlobalService } from 'global.service';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
 import { ConfirmDialogContentType } from 'models/confirm-dialog.model';
@@ -26,7 +26,7 @@ import { QuestnrActivityService } from 'shared/questnr-activity.service';
 import { UIService } from 'ui/ui.service';
 import { UserQuestionListComponent } from 'user-question-list/user-question-list.component';
 import { LoginService } from '../auth/login.service';
-import { Community, CommunityPrivacy, CommunityProfileMeta } from '../models/community.model';
+import { Community, CommunityPrivacy, CommunityProfileMeta, CommunityUsersListViewType } from '../models/community.model';
 import { Post, QuestionParentType } from '../models/post-action.model';
 import { User } from '../models/user.model';
 import { DescriptionComponent } from '../shared/components/dialogs/description/description.component';
@@ -143,6 +143,7 @@ export class CommunityComponent implements OnInit {
   set communityHorizontalCard(communityHorizontalCardRef: CommunityHorizontalCardComponent) {
     this.communityHorizontalCardRef = communityHorizontalCardRef;
   }
+  communityUsersListViewTypeClass = CommunityUsersListViewType;
 
   constructor(public communityService: CommunityService,
     public fb: FormBuilder,

@@ -26,7 +26,8 @@ import { CommunityRelationActionButtonComponent } from 'community-relation-actio
 import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
 import { CommunityHorizontalCardComponent } from 'community/community-horizontal-card/community-horizontal-card.component';
 import { HorizontalOwnerProfileComponent } from 'community/horizontal-owner-profile/horizontal-owner-profile.component';
-import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogModalComponent } from 'confirm-dialog-modal/confirm-dialog-modal.component';
+import { ConfirmDialogComponent } from 'confirm-dialog-modal/confirm-dialog/confirm-dialog.component';
 import { CookiePolicyComponent } from 'cookie-policy/cookie-policy.component';
 import { CustomTooltipComponent } from 'custom-tooltip/custom-tooltip.component';
 import { DragDropDirective } from 'drag-drop.directive';
@@ -248,7 +249,6 @@ export function metaFactory(): MetaLoader {
     PostFeedComponent,
     PostReportComponent,
     TrendingPostPollQuestionComponent,
-    ConfirmDialogComponent,
     CommunitySuggestionGuideComponent,
     InfoTooltipComponent,
     CustomTooltipComponent,
@@ -268,7 +268,9 @@ export function metaFactory(): MetaLoader {
     UserQuestionLoaderComponent,
     CardHeaderComponent,
     NoUserQuestionComponent,
-    CommunityHorizontalCardComponent
+    CommunityHorizontalCardComponent,
+    ConfirmDialogComponent,
+    ConfirmDialogModalComponent
   ],
   imports: [
     AppRoutingModule,

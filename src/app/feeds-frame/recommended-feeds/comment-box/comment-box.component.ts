@@ -12,7 +12,6 @@ import { GlobalConstants } from 'shared/constants';
   styleUrls: ['../recommended-feeds.component.scss', './comment-box.component.scss'],
 })
 export class CommentBoxComponent {
-  @ViewChild("commentTrash") commentTrash: ElementRef;
   isLoading = false;
   isReplying = false;
   @Input() comment: CommentAction;
@@ -28,14 +27,6 @@ export class CommentBoxComponent {
   constructor(private api: FeedsService,
     public loginAuth: LoginService) {
     this.loggedInUserId = loginAuth.getLocalUserProfile().id;
-  }
-
-  hover() {
-    this.commentTrash.nativeElement.setAttribute('src', '/assets/red-trash-can.svg');
-  }
-
-  unhover() {
-    this.commentTrash.nativeElement.setAttribute('src', '/assets/trash-can.svg');
   }
 
   likeComment(id) {

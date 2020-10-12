@@ -1,52 +1,62 @@
-<div class="flex" [ngClass]="{'mobile' : mobileView}">
-  <div class="flex-50" style="margin: auto; width: fit-content">
-    <!--    <img [src]="user?.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';" alt="">-->
-    <app-profile-icon [avatar]="user?.avatarDTO" [height]="userListViewVariables.profileIconSize" [sizeRef]="'medium'"
-      [slug]="user?.slug">
-    </app-profile-icon>
-    <!--    <div class="link"><a [routerLink]="['/', userPath, user.slug]">{{user.username}}</a></div>-->
-  </div>
-  <div class="flex-50">
-    <div class="username">
-      <a [routerLink]="['/', userPath, user.slug]">{{user.username}}</a>
+<div class="user-list-view-wrapper" [ngClass]="{'mobile' : mobileView}">
+  <div class="user-wrapper" (mouseover)="showSpecialAction()" (mouseout)="hideSpecialAction()">
+    <div class="user-container">
+      <div class="profile-icon-container" style="margin: auto; width: fit-content">
+        <!--    <img [src]="user?.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';" alt="">-->
+        <app-profile-icon [avatar]="user?.avatarDTO" [height]="userListViewVariables.profileIconSize"
+          [sizeRef]="'medium'" [slug]="user?.slug">
+        </app-profile-icon>
+        <!--    <div class="link"><a [routerLink]="['/', userPath, user.slug]">{{user.username}}</a></div>-->
+      </div>
+      <div class="username-container">
+        <div class="username">
+          <a [routerLink]="['/', userPath, user.slug]">{{user.username}}</a>
+        </div>
+      </div>
+      <div class="action-button-container align-right">
+        <div class="relation-btn" *ngIf="!isInviteList && !isCommunityRequest">
+          <button *ngIf="relation === 'owned' else notOwner">
+            It's you
+          </button>
+          <ng-template #notOwner>
+            <button *ngIf="relation === 'followed'" (click)="unfollow()">
+              Following
+            </button>
+            <button *ngIf="relation === 'none'" (click)="follow()">
+              Follow
+            </button>
+          </ng-template>
+        </div>
+        <div class="relation-btn" *ngIf="isInviteList">
+          <button class="invite-btn" (click)="invite()" *ngIf="!isInvited">
+            Invite
+          </button>
+          <button class="invite-btn" (click)="invite()" *ngIf="isInvited" disabled>
+            Invited
+          </button>
+        </div>
+        <div class="relation-btn" *ngIf="isCommunityRequest">
+          <button class="request-btn decline" (click)="joinRequestResponse(communityRequestActionTypeClass.reject)"
+            *ngIf="!isResponded">
+            Decline
+          </button>
+          <button class="request-btn accept" (click)="joinRequestResponse(communityRequestActionTypeClass.accept)"
+            *ngIf="!isResponded">
+            Accept
+          </button>
+          <button class="request-btn " *ngIf="isResponded" disabled>
+            <mat-icon *ngIf="requestType === communityRequestActionTypeClass.reject ">close</mat-icon>
+            <mat-icon *ngIf="requestType === communityRequestActionTypeClass.accept ">check</mat-icon>
+            {{requestType}}
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="flex-50 align-right">
-    <div class="relation-btn" *ngIf="!isInviteList && !isCommunityRequest">
-      <button *ngIf="relation === 'owned' else notOwner">
-        It's you
-      </button>
-      <ng-template #notOwner>
-        <button *ngIf="relation === 'followed'" (click)="unfollow()">
-          Following
-        </button>
-        <button *ngIf="relation === 'none'" (click)="follow()">
-          Follow
-        </button>
-      </ng-template>
-    </div>
-    <div class="relation-btn" *ngIf="isInviteList">
-      <button class="invite-btn" (click)="invite()" *ngIf="!isInvited">
-        Invite
-      </button>
-      <button class="invite-btn" (click)="invite()" *ngIf="isInvited" disabled>
-        Invited
-      </button>
-    </div>
-    <div class="relation-btn" *ngIf="isCommunityRequest">
-      <button class="request-btn decline" (click)="joinRequestResponse(communityRequestActionTypeClass.reject)"
-        *ngIf="!isResponded">
-        Decline
-      </button>
-      <button class="request-btn accept" (click)="joinRequestResponse(communityRequestActionTypeClass.accept)"
-        *ngIf="!isResponded">
-        Accept
-      </button>
-      <button class="request-btn " *ngIf="isResponded" disabled>
-        <mat-icon *ngIf="requestType === communityRequestActionTypeClass.reject ">close</mat-icon>
-        <mat-icon *ngIf="requestType === communityRequestActionTypeClass.accept ">check</mat-icon>
-        {{requestType}}
-      </button>
+    <div *ngIf="isSpecialActionsAllowed">
+      <div class="special-action-container" [ngClass]="isSpecialActionActive ? 'show' : 'hide'"
+        (click)="emitSpecialAction($event)">
+        <app-trash-icon [height]="'1.2rem'" [toolTipText]="toolTipText"></app-trash-icon>
+      </div>
     </div>
   </div>
 </div>

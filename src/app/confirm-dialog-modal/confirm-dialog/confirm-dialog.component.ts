@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ConfirmDialogContentType } from 'models/confirm-dialog.model';
+import { GlobalService } from 'global.service';
+import { ConfirmDialogContentType, ConfirmDialogData } from 'models/confirm-dialog.model';
 import { KnowMoreLinkType } from 'models/know-more-type';
 
 @Component({
@@ -21,13 +22,8 @@ export class ConfirmDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {
-      title: string,
-      agreeText: string,
-      disagreeText: string,
-      mobileView: boolean,
-      confirmDialogContentType: ConfirmDialogContentType
-    },
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData,
+    private _globalService: GlobalService
   ) {
   }
 
@@ -41,12 +37,10 @@ export class ConfirmDialogComponent implements OnInit {
     if (this.data?.disagreeText) {
       this.disagreeText = this.data.disagreeText;
     }
-    if (this.data?.mobileView) {
-      this.mobileView = this.data.mobileView;
-    }
     if (this.data?.confirmDialogContentType) {
       this.confirmDialogContentType = this.data.confirmDialogContentType;
     }
+    this.mobileView = this._globalService.isMobileView();
   }
 
   action(result: boolean) {

@@ -1,0 +1,8 @@
+<div class="trash-icon-wrapper">
+    <div *ngIf="toolTipText?.length > 0; else noToolTipBox" [matTooltip]="toolTipText" matTooltipPosition="below">
+        <img src="assets/trash-can.svg" (mouseover)="hover()" (mouseout)="unhover()" draggable="false" #trashIcon />
+    </div>
+    <ng-template #noToolTipBox>
+        <img src="assets/trash-can.svg" (mouseover)="hover()" (mouseout)="unhover()" draggable="false" #trashIcon />
+    </ng-template>
+</div>

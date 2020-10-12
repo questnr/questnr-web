@@ -8,8 +8,7 @@ import { SnackBarDefaultData } from 'models/snackbar.model';
 export class SnackBarService {
     snackBarRef: MatSnackBarRef<any>;
 
-    constructor(public snackbar: MatSnackBar) {
-
+    constructor(private snackbar: MatSnackBar) {
     }
 
     showSnackBar(data: SnackBarDefaultData) {

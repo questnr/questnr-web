@@ -3,7 +3,7 @@ import { LoginService } from 'auth/login.service';
 import { CommunityService } from 'community/community.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from 'confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from 'confirm-dialog-modal/confirm-dialog/confirm-dialog.component';
 import { CommunityPrivacy } from 'models/community.model';
 import { RelationType } from 'models/relation-type';
 @Component({

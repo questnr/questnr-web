@@ -74,3 +74,8 @@ export enum CommunityRequestActionType {
 export enum CommunityActivityPositionType {
   header = "header", communityPage = "communityPage"
 }
+
+export enum CommunityUsersListViewType {
+  list = 'list',
+  ribbon = 'ribbon'
+}

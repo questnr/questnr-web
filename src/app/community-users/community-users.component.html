@@ -1,4 +1,4 @@
-<div class="com-members-container box" *ngIf="userListType === 'list'">
+<div class="com-members-container box" *ngIf="userListType === communityUsersListViewTypeClass.list">
   <div class="title">
     <div>Members</div>
     <div class="noOfMembers">
@@ -16,8 +16,9 @@
     </div>
   </div>
   <div *ngIf="communityMemberList?.length ; else noMembers" class="members-list">
-    <div class="" *ngFor="let i of communityMemberList, let ind = index" [id]="i.userId">
-      <app-user-list-view [size]="smallUserListViewSize" *ngIf="ind < 4" [user]="i"></app-user-list-view>
+    <div class="" *ngFor="let user of communityMemberList, let ind = index" [id]="user.userId">
+      <app-user-list-view [isSpecialActionsAllowed]="isOwner" (specialActionEvent)="removeUserListener($event)"
+        [size]="smallUserListViewSize" *ngIf="ind < 4" [user]="user"></app-user-list-view>
     </div>
   </div>
 
@@ -37,7 +38,7 @@
 </div>
 
 
-<div class="user_list_ribbon" *ngIf="userListType ==='ribbon'">
+<div class="user_list_ribbon" *ngIf="userListType === communityUsersListViewTypeClass.ribbon">
   <div class="flex">
     <!-- <div class="invite" *ngIf="relationshipType===owned" (click)="openUserGroupDialogToInvite()">
       <img src="/assets/add.png" alt="" style="width: 70px">
@@ -65,3 +66,6 @@
     </div>
   </div>
 </div>
+
+<app-confirm-dialog-modal (closeAction)="confirmDialogCloseActionListener($event)" #confirmDialogModalRef>
+</app-confirm-dialog-modal>
