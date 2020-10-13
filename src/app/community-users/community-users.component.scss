@@ -5,11 +5,6 @@
   margin: 0 0 20px 0;
   border-radius: 10px;
   background: $white;
-  p {
-    color: $gray-font;
-    text-align: center;
-    margin: 18px 0;
-  }
   .title {
     font-size: 16px;
     font-weight: 500;
@@ -23,76 +18,11 @@
       right: 0;
     }
   }
-  span {
-    text-align: center;
-    width: 100%;
-    display: block;
-    margin-bottom: 8px;
-  }
   .members-list {
     max-height: 350px;
     overflow: scroll;
   }
-
-  //.com-member-det {
-  //  display: flex;
-  //  padding: 8px;
-  //  border-radius: 10px;
-  //  border: 1px solid $gray;
-  //  margin-bottom: 8px;
-  //
-  //  .member-avatar {
-  //    //width: 100px;
-  //    //height: auto;
-  //    //max-height: 55px;
-  //    border-radius: 10px;
-  //    overflow: hidden;
-  //    //min-height: 55px;
-  //    height: 79px;
-  //    width: 79px;
-  //    img {
-  //      width: 100%;
-  //      height: 100%;
-  //      border-radius: 10px;
-  //      margin-right: 18px;
-  //    }
-  //  }
-  //
-  //  .member-name {
-  //    font-size: 18px;
-  //    color: $black;
-  //    flex-grow: 1;
-  //    cursor: pointer;
-  //    position: relative;
-  //    margin: auto;
-  //    padding-left: 20px;
-  //    a{
-  //      text-decoration: none;
-  //      :hover{
-  //        color: $heading;
-  //      }
-  //    }
-  //  }
-  //
-  //  .action-btn {
-  //    margin: auto;
-  //
-  //    button {
-  //      border: 1px solid $gray;
-  //      border-radius: 8px;
-  //      height: 33px;
-  //      line-height: 10px;
-  //    }
-  //  }
-  //}
 }
-
-//.action-btn button:hover {
-//  //color: $heading;
-//}
-//.requested{
-//  background: $heading;
-//}
 
 .user_list_ribbon {
   .flex {

@@ -1,0 +1,4 @@
+<div class="no-community-members-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+    <span *ngIf="notAllowed">(0) Members</span>
+    <span *ngIf="!notAllowed">This information is only accessible to community members.</span>
+</div>

@@ -38,8 +38,8 @@ export class CommunityUsersComponent implements OnInit {
   fetchCommunityMembersSubscriber: Subscription;
   isAllowedIntoCommunity: boolean;
   communityMemberList: User[] = [];
-  loader = false;
-  mobileView = false;
+  loader: boolean = false;
+  mobileView: boolean = false;
   numberOfMembers: number;
   loggedInUserId;
   owned: string = RelationType.OWNED;

@@ -24,6 +24,7 @@ import { CommunityLoaderComponent } from 'community-box/community-loader/communi
 import { NoCommunityComponent } from 'community-box/no-community/no-community.component';
 import { CommunityRelationActionButtonComponent } from 'community-relation-action-button/community-relation-action-button.component';
 import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
+import { NoCommunityMembersComponent } from 'community-users/no-community-members/no-community-members.component';
 import { CommunityHorizontalCardComponent } from 'community/community-horizontal-card/community-horizontal-card.component';
 import { HorizontalOwnerProfileComponent } from 'community/horizontal-owner-profile/horizontal-owner-profile.component';
 import { ConfirmDialogModalComponent } from 'confirm-dialog-modal/confirm-dialog-modal.component';
@@ -270,7 +271,8 @@ export function metaFactory(): MetaLoader {
     NoUserQuestionComponent,
     CommunityHorizontalCardComponent,
     ConfirmDialogComponent,
-    ConfirmDialogModalComponent
+    ConfirmDialogModalComponent,
+    NoCommunityMembersComponent
   ],
   imports: [
     AppRoutingModule,
