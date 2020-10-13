@@ -1,4 +1,4 @@
-<div class="com-members-container box" *ngIf="userListType === communityUsersListViewTypeClass.list">
+<div class="community-users-wrapper box" *ngIf="userListType === communityUsersListViewTypeClass.list">
   <div class="title">
     <div>Members</div>
     <div class="noOfMembers">
@@ -37,7 +37,7 @@
 </div>
 
 
-<div class="user_list_ribbon" *ngIf="userListType === communityUsersListViewTypeClass.ribbon">
+<div class="community-user-ribbon-wrapper" *ngIf="userListType === communityUsersListViewTypeClass.ribbon">
   <div class="flex">
     <!-- <div class="invite" *ngIf="relationshipType===owned" (click)="openUserGroupDialogToInvite()">
       <img src="/assets/add.png" alt="" style="width: 70px">
@@ -49,10 +49,10 @@
         <!--            <mat-icon matBadge="15" matBadgeColor="warn" >group</mat-icon>-->
         <!--          </div>-->
         <!--        </li>-->
-        <li class="ribbon_list" *ngFor="let i of communityMemberList let idx = index">
+        <li class="ribbon_list" *ngFor="let user of communityMemberList let idx = index">
           <div>
-            <div class="ribbon_img" (click)="navigate(i?.slug)">
-              <img [src]="checkImage(i?.avatarDTO?.avatarLink)" [alt]="i?.username" [matTooltip]="i.username">
+            <div class="ribbon_img" (click)="navigate(user?.slug)">
+              <img [src]="checkImage(user?.avatarDTO?.avatarLink)" [alt]="user?.username" [matTooltip]="user.username">
             </div>
           </div>
         </li>
