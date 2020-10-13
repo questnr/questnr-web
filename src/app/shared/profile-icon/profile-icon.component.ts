@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { AvatarDTO, ProfileIconTemplateType } from 'models/common.model';
 import { GlobalConstants } from 'shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
@@ -21,6 +21,7 @@ export class ProfileIconComponent implements OnInit {
   @Input() isCommunityAvatar: boolean = false;
   @ViewChild('elementOnHTML', { static: false }) elementOnHTML: ElementRef;
   defaultPath: string = GlobalConstants.userPath;
+  @Output() clickActionEvent = new EventEmitter();
 
   constructor(private renderer: Renderer2) {
   }
@@ -61,5 +62,9 @@ export class ProfileIconComponent implements OnInit {
     } else {
       return this.defaultSrc;
     }
+  }
+
+  clickAction() {
+    this.clickActionEvent.emit();
   }
 }

@@ -4,13 +4,13 @@
       <div class="profile-icon-container" style="margin: auto; width: fit-content">
         <!--    <img [src]="user?.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';" alt="">-->
         <app-profile-icon [avatar]="user?.avatarDTO" [height]="userListViewVariables.profileIconSize"
-          [sizeRef]="'medium'" [slug]="user?.slug">
+          [sizeRef]="'medium'" [slug]="user?.slug" (clickActionEvent)="clickAction()">
         </app-profile-icon>
         <!--    <div class="link"><a [routerLink]="['/', userPath, user.slug]">{{user.username}}</a></div>-->
       </div>
       <div class="username-container">
         <div class="username">
-          <a [routerLink]="['/', userPath, user.slug]">{{user.username}}</a>
+          <a (click)="clickAction()" [routerLink]="['/', userPath, user.slug]">{{user.username}}</a>
         </div>
       </div>
       <div class="action-button-container align-right">

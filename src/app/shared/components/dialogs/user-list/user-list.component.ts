@@ -1,18 +1,18 @@
-import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {CommunityService} from 'community/community.service';
-import {GlobalService} from 'global.service';
-import {CommunityUsers} from 'models/community.model';
-import {LikeAction} from 'models/like-action.model';
-import {Page} from 'models/page.model';
-import {StaticMediaSrc} from 'shared/constants/static-media-src';
-import {InviteUsetService} from 'shared/user-list-view/invite-user.service';
-import {CommunityMembersService} from '../../../../community-users/community-members.service';
-import {User} from '../../../../models/user.model';
-import {UserFollowersService} from '../../../../user-followers/user-followers.service';
-import {UserProfileCardServiceComponent} from '../../../../user-profile-card/user-profile-card-service.component';
-import {UserListService} from './user-list.service';
-import {UserListData, UserListType} from 'models/user-list.model';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CommunityService } from 'community/community.service';
+import { GlobalService } from 'global.service';
+import { CommunityUsers } from 'models/community.model';
+import { LikeAction } from 'models/like-action.model';
+import { Page } from 'models/page.model';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
+import { CommunityMembersService } from '../../../../community-users/community-members.service';
+import { User } from '../../../../models/user.model';
+import { UserFollowersService } from '../../../../user-followers/user-followers.service';
+import { UserProfileCardServiceComponent } from '../../../../user-profile-card/user-profile-card-service.component';
+import { UserListService } from './user-list.service';
+import { UserListData, UserListType } from 'models/user-list.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -40,15 +40,15 @@ export class UserListComponent implements OnInit {
   @ViewChild('listContainer') listContainer: ElementRef;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: UserListData,
-              public userProfileCardServiceComponent: UserProfileCardServiceComponent,
-              // tslint:disable-next-line:max-line-length
-              public userListService: UserListService,
-              public dialogRef: MatDialogRef<UserListComponent>,
-              public followersService: UserFollowersService,
-              public communityMembersService: CommunityMembersService,
-              public auth: CommunityService,
-              private inviteUserService: InviteUsetService,
-              private _globalService: GlobalService) {
+    public userProfileCardServiceComponent: UserProfileCardServiceComponent,
+    // tslint:disable-next-line:max-line-length
+    public userListService: UserListService,
+    public dialogRef: MatDialogRef<UserListComponent>,
+    public followersService: UserFollowersService,
+    public communityMembersService: CommunityMembersService,
+    public auth: CommunityService,
+    private inviteUserService: InviteUsetService,
+    private _globalService: GlobalService) {
   }
 
   ngOnInit(): void {
@@ -305,5 +305,9 @@ export class UserListComponent implements OnInit {
     this.hasTotalPage = totalPages;
     this.page++;
     this.loading = false;
+  }
+
+  closeActionListener() {
+    this.dialogRef.close();
   }
 }

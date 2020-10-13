@@ -27,6 +27,7 @@ export class UserListViewComponent implements OnInit {
   @Input() communityId;
   @Input() size: UserListViewSizeType = UserListViewSizeType.large;
   @Output() specialActionEvent = new EventEmitter();
+  @Output() clickActionEvent = new EventEmitter();
   userPath: string = GlobalConstants.userPath;
   relation: RelationType;
   screenWidth = window.innerWidth;
@@ -142,5 +143,9 @@ export class UserListViewComponent implements OnInit {
 
   emitSpecialAction($event) {
     this.specialActionEvent.emit(this.user);
+  }
+
+  clickAction() {
+    this.clickActionEvent.emit();
   }
 }
