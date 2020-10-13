@@ -15,7 +15,7 @@ import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { environment } from '../../environments/environment';
 import { LoginService } from '../auth/login.service';
 import { CommunityService } from '../community/community.service';
-import { Community, CommunityProfileMeta, CommunityUsersListViewType } from '../models/community.model';
+import { Community, CommunityPrivacy, CommunityProfileMeta, CommunityUsersListViewType } from '../models/community.model';
 import { User } from '../models/user.model';
 import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
 import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
@@ -79,9 +79,7 @@ export class CommunityUsersComponent implements OnInit {
       this.getCommunityMetaInfo();
     }
     this.isOwner = this.community.communityMeta.relationShipType === RelationType.OWNED;
-    if (this.isOwner) {
-      this.getCommunityJoinRequests();
-    }
+    this.getCommunityJoinRequestsCount();
   }
   restartCommunityMembersList() {
     this.communityMemberList = [];
@@ -169,8 +167,7 @@ export class CommunityUsersComponent implements OnInit {
         if (this.isAllowedIntoCommunity) {
           this.getCommunityMembers();
         }
-        this.getCommunityJoinRequests();
-        this.pendingRequestCount.emit(this.pendingRequests);
+        this.getCommunityJoinRequestsCount();
       }
     });
   }
@@ -187,11 +184,14 @@ export class CommunityUsersComponent implements OnInit {
     window.open([GlobalConstants.userPath, slug].join('/'), '_blank');
   }
 
-  getCommunityJoinRequests() {
-    this.communityService.getCommunityJoinRequests(this.community.communityId, 0).subscribe((res: any) => {
-      this.pendingJoinRequest = res;
-      this.pendingRequests = res.numberOfElements;
-    });
+  getCommunityJoinRequestsCount() {
+    if (this.community.communityPrivacy == CommunityPrivacy.pri
+      && this.isOwner)
+      this.communityService.getCommunityMetaInfoWithParams(this.community.slug, 'totalRequests')
+        .subscribe((data: CommunityProfileMeta) => {
+          this.pendingRequests = data.totalRequests;
+        });
+    this.pendingRequestCount.emit(this.pendingRequests);
   }
 
   loaderItems() {
@@ -213,7 +213,7 @@ export class CommunityUsersComponent implements OnInit {
   confirmDialogCloseActionListener(result) {
     if (result?.data) {
       this.communityMembersService
-        .removeUserFromCommunity(this.community.communityId, this.awaitConfirmDialogData.userId).subscribe(() => {
+        .removeUserFromCommunity(this.community.communityId, this.awaitConfirmDialogData.userId).subscribe((communityMeta) => {
           this.communityMemberList = this.communityMemberList.filter((communityMember: User) => {
             return communityMember.userId !== this.awaitConfirmDialogData.userId
           });

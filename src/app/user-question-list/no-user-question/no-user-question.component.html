@@ -8,6 +8,11 @@
         </div>
     </div>
     <div *ngIf="type==userQuestionListModalTypeClass.community">
-        Community has not asked any questions.
+        <div *ngIf="!notAllowed; else notAllowed">
+            Community has not asked any questions.
+        </div>
+        <ng-template #notAllowed>
+            Community Questions are only available for its members.
+        </ng-template>
     </div>
 </div>

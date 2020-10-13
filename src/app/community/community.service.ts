@@ -5,6 +5,8 @@ import { Community, CommunityPublic, CommunityPrivacy, CommunityRequestActionTyp
 import { Observable, of } from 'rxjs';
 import { MetaTagCard } from 'models/common.model';
 import { RelationType } from 'models/relation-type';
+import { Page } from 'models/page.model';
+import { User } from 'models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -100,7 +102,7 @@ export class CommunityService {
     if (!communityId) {
       return of();
     }
-    return this.http.get(this.baseUrl + 'user/community/' + communityId + '/users/request', { params: { page } });
+    return this.http.get<Page<User>>(this.baseUrl + 'user/community/' + communityId + '/users/request', { params: { page } });
   }
 
   joinRequestResponse(communityId, userId, requestType: CommunityRequestActionType) {

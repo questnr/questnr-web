@@ -46,6 +46,7 @@ export class UserQuestionListComponent implements OnInit {
   pageSize: number = 4;
   fetchingFunc: Function;
   uniqueId: number;
+  notAllowed: boolean = false;
 
   constructor(private userQuestionService: UserQuestionService,
     private loginService: LoginService,
@@ -66,10 +67,9 @@ export class UserQuestionListComponent implements OnInit {
     this.user = user;
     this.type = UserQuestionListModalType.user;
     this.isOwner = this.loginService.isThisLoggedInUser(this.user.userId);
+    this.title = "User's Questions";
     if (this.isOwner) {
       this.title = "Your Questions";
-    } else {
-      this.title = "User's Questions";
     }
     if (!this.mobileView) {
       this.uniqueId = this.user?.userId;
@@ -81,22 +81,26 @@ export class UserQuestionListComponent implements OnInit {
     }
   }
 
-  setCommunityData(community: Community): void {
+  setCommunityData(community: Community, isAllowedIntoCommunity: boolean): void {
     this.community = community;
     this.type = UserQuestionListModalType.community;
-    this.isOwner = this.loginService.isThisLoggedInUser(this.community?.ownerUserDTO?.userId);
-    if (this.isOwner) {
-      this.title = "Your Community's Questions";
+    this.title = "Community's Questions";
+    if (isAllowedIntoCommunity) {
+      this.isOwner = this.loginService.isThisLoggedInUser(this.community?.ownerUserDTO?.userId);
+      if (this.isOwner) {
+        this.title = "Your Community's Questions";
+      }
+      if (!this.mobileView) {
+        this.uniqueId = this.community?.communityId;
+        this.fetchingFunc = (...args) => {
+          if (args.length === 2)
+            return this.userQuestionService.getCommunityQuestions(args[0], args[1]);
+        };
+        this.getQuestions();
+      }
     } else {
-      this.title = "Community's Questions";
-    }
-    if (!this.mobileView) {
-      this.uniqueId = this.community?.communityId;
-      this.fetchingFunc = (...args) => {
-        if (args.length === 2)
-          return this.userQuestionService.getCommunityQuestions(args[0], args[1]);
-      };
-      this.getQuestions();
+      this.loading = false;
+      this.notAllowed = true;
     }
   }
 

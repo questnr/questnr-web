@@ -9,6 +9,7 @@ import { UserQuestionListModalType } from 'models/user-question.model';
 })
 export class NoUserQuestionComponent implements OnInit {
   @Input() isOwner: boolean = false;
+  @Input() notAllowed: boolean = false;
   @Input() type: UserQuestionListModalType = UserQuestionListModalType.user;
   userQuestionListModalTypeClass = UserQuestionListModalType;
   mobileView: boolean = false;

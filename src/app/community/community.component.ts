@@ -53,7 +53,7 @@ export class CommunityComponent implements OnInit {
   communitySlug: string;
   communityDTO: Community;
   description: string;
-  owner: RelationType;
+  relationType: RelationType;
   comUserList: any[];
   ownerDTO: User;
   comUpdatedAvatar: any;
@@ -80,7 +80,6 @@ export class CommunityComponent implements OnInit {
   pendingRequests: number;
   isCommunityPrivate = false;
   explorePath = GlobalConstants.explorePath;
-  relationType = RelationType;
   isAllowedIntoCommunity: boolean;
   fetchCommunityFeedsSubscriber: Subscription;
   userListTypeClass = UserListType;
@@ -179,7 +178,7 @@ export class CommunityComponent implements OnInit {
       this.communitySubject.next(data.community);
       this.communityDTO = data.community;
       this.communityId = this.communityDTO.communityId;
-      this.owner = this.communityDTO.communityMeta.relationShipType;
+      this.relationType = this.communityDTO.communityMeta.relationShipType;
       this.restartCommunityFeeds(true);
       this.description = data.community.description;
       if (data.community.communityPrivacy === CommunityPrivacy.pri) {
@@ -203,7 +202,7 @@ export class CommunityComponent implements OnInit {
   ngAfterViewInit() {
     this.communityFeedRef.nativeElement.addEventListener('scroll', this.onScroll, true);
     this.renderer.setStyle(document.getElementsByTagName('body')[0], 'overflow', 'hidden');
-    this.questionListRef?.setCommunityData(this.communityDTO);
+    this.questionListRef?.setCommunityData(this.communityDTO, this.communityService.isAllowedIntoCommunity(this.communityDTO));
     this.communitySideSections.leftPartInitialHeight = this.communityImageBottomRef.nativeElement.getBoundingClientRect().top > this.communitySideSections.safeScrollTop ?
       this.communitySideSections.safeScrollTop : this.communityImageBottomRef.nativeElement.getBoundingClientRect().top;
     // console.log("this.communitySideSections", this.communitySideSections);
@@ -278,7 +277,7 @@ export class CommunityComponent implements OnInit {
       data: {
         text: this.description,
         communityAvatar: this.communityImage,
-        owner: this.owner,
+        owner: this.relationType,
         communityId: this.communityDTO.communityId,
         descriptionEmit: this.descriptionEmit
       }
@@ -400,19 +399,11 @@ export class CommunityComponent implements OnInit {
   }
 
   actionEvent($event: RelationType) {
-    this.owner = $event;
+    this.relationType = $event;
     this.communityDTO.communityMeta.relationShipType = $event;
     // console.log("actionEvent", $event);
     this.communityUsersComponentRef.ngOnInit();
     this.restartCommunityFeeds();
-  }
-
-  getCommunityJoinRequests() {
-    if (this.communityDTO.communityPrivacy == CommunityPrivacy.pri)
-      this.communityService.getCommunityMetaInfoWithParams(this.communityDTO.slug, 'totalRequests')
-        .subscribe((data: CommunityProfileMeta) => {
-          this.pendingRequests = data.totalRequests;
-        });
   }
 
   getCommunityInfo() {
@@ -422,7 +413,7 @@ export class CommunityComponent implements OnInit {
       this.communityActivityRef.setCommunityInfo(this.communityInfo);
       this.questionListRef.setTotalCounts(this.communityInfo.totalQuestions);
       this.communityHorizontalCardRef?.setCommunityInfo(this.communityInfo);
-      if (this.owner === RelationType.OWNED) {
+      if (this.relationType === RelationType.OWNED) {
         this.pendingRequests = this.communityInfo.totalRequests;
       }
     }, error => {
@@ -464,7 +455,6 @@ export class CommunityComponent implements OnInit {
     const dialogRef = this.dialog.open(UserListComponent, config);
 
     dialogRef.afterClosed().subscribe(result => {
-      this.getCommunityJoinRequests();
     });
   }
 
