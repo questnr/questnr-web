@@ -37,7 +37,10 @@ $margin-top: 20px;
     }
     .profile-feeds {
       // 1% used to let adjust it
-      flex: 69%;
+      flex: 67%;
+    }
+    .profile-feeds.desktop {
+      max-width: 67%;
     }
   }
   .user-meta-info-div {

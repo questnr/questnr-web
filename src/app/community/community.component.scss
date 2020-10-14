@@ -14,6 +14,7 @@ $margin-top: 20px;
 .community-page-wrapper {
   overflow: hidden;
   display: flex;
+  width: 100%;
   section {
     max-height: 100vh;
     top: 0;
@@ -24,8 +25,10 @@ $margin-top: 20px;
   section.community-left-wrapper {
     // 1% used to let adjust it
     flex: 69%;
-    // max-width: 70%;
     margin-right: 10px;
+  }
+  section.community-left-wrapper.desktop {
+    max-width: 69%;
   }
   section.community-right-part {
     flex: 30%;
@@ -42,6 +45,9 @@ $margin-top: 20px;
     }
     .community-feeds {
       flex: 70%;
+    }
+    .community-feeds.desktop {
+      max-width: 70%;
     }
   }
   .mat-menu-item {
@@ -67,6 +73,12 @@ $margin-top: 20px;
     width: calc(100% - 10px);
     margin: 0 auto;
     flex: unset;
+  }
+  .community-feeds-container {
+    .community-feeds {
+      flex: unset;
+      width: 100%;
+    }
   }
 }
 

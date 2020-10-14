@@ -93,7 +93,7 @@
                   <app-floating-footer></app-floating-footer>
                 </div>
               </section>
-              <div class="profile-feeds last-feed">
+              <div class="profile-feeds last-feed" [ngClass]="mobileView ? 'mobile' : 'desktop'">
                 <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]=false *ngIf="relation === 'owned'"
                   [type]="'Create'">
                 </app-post-feeds>
