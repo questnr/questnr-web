@@ -1,6 +1,10 @@
 @import "../variables";
 @import "../app.component.scss";
 
+// .container {
+//   padding: 0 100px;
+// }
+
 .main-wrap {
   overflow: hidden;
   display: flex;
@@ -19,13 +23,17 @@
     max-width: 300px;
   }
 }
-.item {
-  background: $white;
+.container.mobile {
+  padding: 0px !important;
+  .main-wrap {
+    width: calc(100% - 10px);
+    margin: 0 auto;
+  }
+  .feeds {
+    padding: 10px 0px 20px;
+  }
 }
-.card img {
-  max-width: 100%;
-  height: auto;
-}
+
 .feeds {
   flex: 60%;
   width: inherit;
@@ -41,29 +49,6 @@
 }
 .feed-wrap {
   margin: 0.5rem 0;
-}
-@media only screen and (max-width: 800px) {
-  .main-wrap {
-    grid-template-columns: auto;
-  }
-  .btn-wrap button {
-    font-size: 12px;
-    padding: 0 10px;
-    .mat-icon {
-      font-size: 20px;
-    }
-  }
-}
-
-.container.mobile {
-  padding: 0px !important;
-  .main-wrap {
-    width: calc(100% - 10px);
-    margin: 0 auto;
-  }
-  .feeds {
-    padding: 10px 0px 20px;
-  }
 }
 
 .no-feed div {
