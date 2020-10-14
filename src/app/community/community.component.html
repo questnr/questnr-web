@@ -1,23 +1,17 @@
 <app-user-header (notificationEmitter)="notificationListener($event)" #userHeaderElement></app-user-header>
 
-<div [ngClass]="communitySideSections.hasAddedMakeFixedToLeftPart ? 'show-community-header': 'hide-community-header'">
+<!-- <div [ngClass]="communitySideSections.hasAddedMakeFixedToLeftPart ? 'show-community-header': 'hide-community-header'">
   <app-community-horizontal-card (openCommunityDescriptionEmiiter)="openCommunityDesc()" #communityHorizontalCard>
   </app-community-horizontal-card>
-</div>
-
-<div class="community-wrapper page-scroll hide-scrollbar" #communityFeed>
-  <div class="site-body" [ngClass]="[mobileView ? 'mobile' : 'desktop']">
-    <div class="container">
-      <div class="flex-frame">
-        <div class="flex-7" [ngClass]="[mobileView ? 'mobile' : 'desktop']">
-          <div class="community-feeds-container">
-            <div class="com-ban-img-container" [ngClass]="!communityImage ? 'com-avatar-height' : ''">
-              <!--            <div *ngIf="mobileView" class="community_owner">-->
-              <!--              <div class="owner-img" (click)="navigate(communityDTO?.ownerUserDTO?.slug)">-->
-              <!--                <img [src]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink ? communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink: '/assets/default.jpg' "-->
-              <!--                     [alt]="communityDTO?.ownerUserDTO?.username">-->
-              <!--              </div>-->
-              <!--            </div>-->
+</div> -->
+<mat-sidenav-container class="sidenav-container" autosize>
+  <mat-sidenav-content>
+    <div class="container" [ngClass]="[mobileView ? 'mobile' : 'desktop']">
+      <div class="community-page-wrapper">
+        <section class="community-left-wrapper page-scroll hide-scrollbar"
+          [ngClass]="[mobileView ? 'mobile' : 'desktop']" #communityFeed>
+          <div class="community-banner-wrapper">
+            <div class="community-banner-container" [ngClass]="!communityImage ? 'com-avatar-height' : ''">
               <div class="change-comm-img">
                 <mat-icon (click)="previewImage()" *ngIf="relationType == 'owned'">camera</mat-icon>
                 <app-img-cropper-wrapper [isCommunityAvatar]="true" (imageDataEvent)="imageDataReceiver($event)"
@@ -37,25 +31,13 @@
                 </h3>
               </div>
             </div>
+            <div #communityImageBottom></div>
           </div>
-          <div #communityImageBottom></div>
-          <!--        <div class="row">-->
-          <!--          <div class="col-md-3">-->
-          <!--            <div *ngIf="mobileView" class="community_owner">-->
-          <!--              <div class="owner-img" (click)="navigate(communityDTO?.ownerUserDTO?.slug)">-->
-          <!--                <img [src]="communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink ? communityDTO?.ownerUserDTO?.avatarDTO?.avatarLink: '/assets/default.jpg' "-->
-          <!--                     [alt]="communityDTO?.ownerUserDTO?.username">-->
-          <!--              </div>-->
-          <!--            </div>-->
-          <!--          </div>-->
-          <!--          <div class="col-md-9">-->
-          <!--          </div>-->
-          <!--        </div>-->
           <app-community-users [community]="communityDTO"
             [relationshipType]="communityDTO.communityMeta.relationShipType"
             [userListType]="communityUsersListViewTypeClass.ribbon" *ngIf="mobileView" #communityUsersComponentRef>
           </app-community-users>
-          <div *ngIf="mobileView" class="action-mobile-view">
+          <div *ngIf="mobileView" class="community-actions mobile">
             <div class="requests" *ngIf="relationType==='owned'">
               <mat-icon [matBadge]="pendingRequests" *ngIf="pendingRequests!==0" matBadgeColor="warn"
                 (click)="openUserGroupDialog(userListTypeClass.requests)">group</mat-icon>
@@ -114,115 +96,102 @@
               </div>
             </mat-menu>
           </div>
-          <div class="flex-view">
-            <div class="flex-3" *ngIf="!mobileView">
-              <div #leftSection>
-                <div class="fixed-body hide-scrollbar" #leftSectionBody>
-                  <app-user-profile-card [avatar]="communityDTO?.ownerUserDTO?.avatarDTO"
-                    [userBannerImage]="communityDTO.ownerUserDTO?.banner?.avatarLink" [relationship]="relationType"
-                    [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username"
-                    [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
-                  <!-- <horizontal-owner-profile *ngIf="relationType !== 'owned'" [user]="communityDTO?.ownerUserDTO">
+          <div class="community-feeds-container">
+            <section class="feeds-left-part hide-scrollbar" *ngIf="!mobileView">
+              <div>
+                <app-user-profile-card [avatar]="communityDTO?.ownerUserDTO?.avatarDTO"
+                  [userBannerImage]="communityDTO.ownerUserDTO?.banner?.avatarLink" [relationship]="relationType"
+                  [userId]="communityDTO?.ownerUserDTO?.userId" [username]="communityDTO?.ownerUserDTO?.username"
+                  [slug]="communityDTO?.ownerUserDTO?.slug"></app-user-profile-card>
+                <!-- <horizontal-owner-profile *ngIf="relationType !== 'owned'" [user]="communityDTO?.ownerUserDTO">
               </horizontal-owner-profile>
               <app-user-question-list [totalQuestions]="communityInfo?.totalQuestions" #questionList>
               </app-user-question-list> -->
-                </div>
-                <div [ngClass]="communitySideSections.hasAddedMakeFixedToLeftPart ? 'fixed-footer' : ''"
-                  #leftSectionFooter>
-                  <app-floating-footer></app-floating-footer>
-                </div>
+                <app-floating-footer></app-floating-footer>
               </div>
-            </div>
-            <div class="flex-7">
-              <div class="community-feeds last-feed" [ngClass]="mobileView ? 'mobile': 'desktop'">
-                <!--              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true-->
-                <!--                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'">-->
-                <!--              </app-post-feed>-->
-                <horizontal-owner-profile *ngIf="mobileView && relationType !== 'owned'"
-                  [user]="communityDTO?.ownerUserDTO">
-                </horizontal-owner-profile>
-                <div class="community-activity" [ngClass]="mobileView ? 'mobile': 'desktop'">
-                  <app-community-activity [actAlone]="false" #communityActivity></app-community-activity>
-                </div>
-                <app-user-question-list *ngIf="mobileView" [totalQuestions]="communityInfo?.totalQuestions"
-                  #questionList>
-                </app-user-question-list>
-                <div *ngIf="isAllowedIntoCommunity">
-                  <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="true"
-                    [communityId]="communityDTO?.communityId"
-                    *ngIf="relationType === 'owned' || relationType ==='followed'" [type]="'Create'"></app-post-feeds>
-                  <!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
-                  <div id="community-feed"></div>
-                  <ng-container *ngIf="userFeeds?.length; else noFeeds">
-                    <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index; trackBy: trackItem">
-                      <!-- <div *ngIf="mobileView && userFeeds.length > 4 && idx === 2">
+            </section>
+            <div class="community-feeds last-feed" [ngClass]="mobileView ? 'mobile': 'desktop'">
+              <!--              <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=true-->
+              <!--                [communityId]="communityDTO?.communityId" *ngIf="owner === 'owned' || owner ==='followed'">-->
+              <!--              </app-post-feed>-->
+              <horizontal-owner-profile *ngIf="mobileView && relationType !== 'owned'"
+                [user]="communityDTO?.ownerUserDTO">
+              </horizontal-owner-profile>
+              <div class="community-activity" [ngClass]="mobileView ? 'mobile': 'desktop'">
+                <app-community-activity [actAlone]="false" #communityActivity></app-community-activity>
+              </div>
+              <app-user-question-list *ngIf="mobileView" [totalQuestions]="communityInfo?.totalQuestions" #questionList>
+              </app-user-question-list>
+              <div *ngIf="isAllowedIntoCommunity">
+                <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="true"
+                  [communityId]="communityDTO?.communityId"
+                  *ngIf="relationType === 'owned' || relationType ==='followed'" [type]="'Create'"></app-post-feeds>
+                <!--              <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity>-->
+                <div id="community-feed"></div>
+                <ng-container *ngIf="userFeeds?.length; else noFeeds">
+                  <div class="feed-wrap" *ngFor="let feed of userFeeds let idx = index; trackBy: trackItem">
+                    <!-- <div *ngIf="mobileView && userFeeds.length > 4 && idx === 2">
                         <app-joined-community></app-joined-community>
                       </div> -->
-                      <div *ngIf="mobileView && userFeeds.length > 2 && idx === 2">
-                        <app-sponsored></app-sponsored>
-                      </div>
-                      <div *ngIf="mobileView && userFeeds.length > 6 && idx === 6">
-                        <app-suggestion></app-suggestion>
-                      </div>
-                      <div *ngIf="feed.postType !== 'question'">
-                        <app-recommended-feeds [showUserHeader]="showUserHeader"
-                          (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
-                        </app-recommended-feeds>
-                      </div>
-                      <div *ngIf="feed.postType === 'question'">
-                        <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"
-                          [questionParentType]="questionParentTypeClass.communityPage">
-                        </app-question-ui>
-                      </div>
+                    <div *ngIf="mobileView && userFeeds.length > 2 && idx === 2">
+                      <app-sponsored></app-sponsored>
                     </div>
-                    <p class="text-center" *ngIf="userFeeds?.length===1 && userFeeds[0] === null">No Feeds Found...!</p>
-                  </ng-container>
-                  <app-feeds-loader *ngIf="loading"></app-feeds-loader>
-                  <ng-template #noFeeds>
-                    <p class="text-center" style="margin-top :30px"
-                      *ngIf="userFeeds?.length <= 0 && userFeeds[0] === null">
-                      No Feeds Found...!
-                    </p>
-                  </ng-template>
+                    <div *ngIf="mobileView && userFeeds.length > 6 && idx === 6">
+                      <app-suggestion></app-suggestion>
+                    </div>
+                    <div *ngIf="feed.postType !== 'question'">
+                      <app-recommended-feeds [showUserHeader]="showUserHeader"
+                        (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+                      </app-recommended-feeds>
+                    </div>
+                    <div *ngIf="feed.postType === 'question'">
+                      <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"
+                        [questionParentType]="questionParentTypeClass.communityPage">
+                      </app-question-ui>
+                    </div>
+                  </div>
+                  <p class="text-center" *ngIf="userFeeds?.length===1 && userFeeds[0] === null">No Feeds Found...!</p>
+                </ng-container>
+                <app-feeds-loader *ngIf="loading"></app-feeds-loader>
+                <ng-template #noFeeds>
+                  <p class="text-center" style="margin-top :30px"
+                    *ngIf="userFeeds?.length <= 0 && userFeeds[0] === null">
+                    No Feeds Found...!
+                  </p>
+                </ng-template>
 
 
-                </div>
-                <div *ngIf="!isAllowedIntoCommunity" class="error-private">
-                  <mat-icon>report</mat-icon>
-                  <span>
-                    To view community posts, please join the community or&nbsp;
-                    <a [routerLink]="['/',explorePath]">explore</a>&nbsp;trending
-                  </span>
-                </div>
+              </div>
+              <div *ngIf="!isAllowedIntoCommunity" class="error-private">
+                <mat-icon>report</mat-icon>
+                <span>
+                  To view community posts, please join the community or&nbsp;
+                  <a [routerLink]="['/',explorePath]">explore</a>&nbsp;trending
+                </span>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-
-        <div class="flex-3 right-part" *ngIf="!mobileView">
-          <div #rightSection>
-            <div class="fixed-body hide-scrollbar">
-              <!--        <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
-              <app-community-users [community]="communityDTO" (pendingRequestCount)="updatePendingRequestCount($event)"
-                [relationshipType]="communityDTO.communityMeta.relationShipType"
-                [userListType]="communityUsersListViewTypeClass.list" #communityUsersComponentRef>
-              </app-community-users>
-              <app-user-question-list [totalQuestions]="communityInfo?.totalQuestions" #questionList>
-              </app-user-question-list>
-              <!-- <app-trending [mobileView]="mobileView"></app-trending> -->
-              <div [ngClass]="communitySideSections.hasAddedMakeFixedToLeftPart ? 'sponsored' : ''">
-                <app-sponsored></app-sponsored>
-              </div>
-              <!-- <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity> -->
-              <app-suggestion></app-suggestion>
-            </div>
-          </div>
-        </div>
+        <section class="community-right-part hide-scrollbar" *ngIf="!mobileView">
+          <div class="padding-top"></div>
+          <!--        <app-create-community-btn [type]="'card'"></app-create-community-btn>-->
+          <app-community-users [community]="communityDTO" (pendingRequestCount)="updatePendingRequestCount($event)"
+            [relationshipType]="communityDTO.communityMeta.relationShipType"
+            [userListType]="communityUsersListViewTypeClass.list" #communityUsersComponentRef>
+          </app-community-users>
+          <app-user-question-list [totalQuestions]="communityInfo?.totalQuestions" #questionList>
+          </app-user-question-list>
+          <!-- <app-trending [mobileView]="mobileView"></app-trending> -->
+          <app-sponsored></app-sponsored>
+          <!-- <app-usercommunity [userId]="loggedInUserId" [relation]="owner"></app-usercommunity> -->
+          <app-suggestion></app-suggestion>
+        </section>
       </div>
     </div>
-  </div>
-</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
 <app-floating-mobile-nav [url]="communitySlug" *ngIf="mobileView"></app-floating-mobile-nav>
 
 <app-post-notification-container *ngIf="communityDTO" [community]="communityDTO"

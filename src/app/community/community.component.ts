@@ -102,46 +102,18 @@ export class CommunityComponent implements OnInit {
   set communityActivity(communityActivityRef: CommunityActivityComponent) {
     this.communityActivityRef = communityActivityRef;
   }
-  // --- Start of Community side sections references ---
-  communityImageBottomRef: ElementRef;
-  @ViewChild("communityImageBottom")
-  set communityImageBottom(communityImageBottomRef: ElementRef) {
-    this.communityImageBottomRef = communityImageBottomRef;
-  }
-  leftSectionRef: ElementRef;
-  @ViewChild("leftSection")
-  set leftSection(leftSectionRef: ElementRef) {
-    this.leftSectionRef = leftSectionRef;
-  }
-  rightSectionRef: ElementRef;
-  @ViewChild("rightSection")
-  set rightSection(rightSectionRef: ElementRef) {
-    this.rightSectionRef = rightSectionRef;
-  }
-  leftSectionBodyRef: ElementRef;
-  @ViewChild("leftSectionBody")
-  set leftSectionBody(leftSectionBodyRef: ElementRef) {
-    this.leftSectionBodyRef = leftSectionBodyRef;
-  }
-  @ViewChild("leftSectionFooter")
-  set leftSectionFooter(leftSectionFooterRef: ElementRef) {
-    if (leftSectionFooterRef) {
-      this.communitySideSections.footerHeight = leftSectionFooterRef.nativeElement.getBoundingClientRect().height;
-    }
-  }
-  // --- End of Community side sections references ---
-  communitySideSections: any = {
-    initialHeight: 0,
-    hasAddedMakeFixedToLeftPart: false,
-    footerHeight: 0,
-    renderered: false,
-    safeScrollTop: window.innerHeight * 0.8
-  }
-  communityHorizontalCardRef: CommunityHorizontalCardComponent;
-  @ViewChild("communityHorizontalCard")
-  set communityHorizontalCard(communityHorizontalCardRef: CommunityHorizontalCardComponent) {
-    this.communityHorizontalCardRef = communityHorizontalCardRef;
-  }
+  // communitySideSections: any = {
+  //   initialHeight: 0,
+  //   hasAddedMakeFixedToLeftPart: false,
+  //   footerHeight: 0,
+  //   renderered: false,
+  //   safeScrollTop: window.innerHeight * 0.8
+  // }
+  // communityHorizontalCardRef: CommunityHorizontalCardComponent;
+  // @ViewChild("communityHorizontalCard")
+  // set communityHorizontalCard(communityHorizontalCardRef: CommunityHorizontalCardComponent) {
+  //   this.communityHorizontalCardRef = communityHorizontalCardRef;
+  // }
   communityUsersListViewTypeClass = CommunityUsersListViewType;
   isOwner: boolean = false;
 
@@ -204,10 +176,6 @@ export class CommunityComponent implements OnInit {
     this.communityFeedRef.nativeElement.addEventListener('scroll', this.onScroll, true);
     this.renderer.setStyle(document.getElementsByTagName('body')[0], 'overflow', 'hidden');
     this.questionListRef?.setCommunityData(this.communityDTO, this.communityService.isAllowedIntoCommunity(this.communityDTO));
-    this.communitySideSections.leftPartInitialHeight = this.communityImageBottomRef.nativeElement.getBoundingClientRect().top > this.communitySideSections.safeScrollTop ?
-      this.communitySideSections.safeScrollTop : this.communityImageBottomRef.nativeElement.getBoundingClientRect().top;
-    // console.log("this.communitySideSections", this.communitySideSections);
-    this.communityHorizontalCardRef?.setCommunity(this.communityDTO);
   }
 
   ngOnDestroy() {
@@ -222,10 +190,10 @@ export class CommunityComponent implements OnInit {
   }
 
   onScroll = (event): void => {
-    if (!this.mobileView) {
-      // Only available for deskop
-      this.communitySideSectionsInView();
-    }
+    // if (!this.mobileView) {
+    //   // Only available for deskop
+    //   this.communitySideSectionsInView();
+    // }
     if (!this.scrollCached) {
       setTimeout(() => {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
@@ -415,7 +383,7 @@ export class CommunityComponent implements OnInit {
       this.communityInfo = res;
       this.communityActivityRef.setCommunityInfo(this.communityInfo);
       this.questionListRef.setTotalCounts(this.communityInfo.totalQuestions);
-      this.communityHorizontalCardRef?.setCommunityInfo(this.communityInfo);
+      // this.communityHorizontalCardRef?.setCommunityInfo(this.communityInfo);
       if (this.isOwner) {
         this.pendingRequests = this.communityInfo.totalRequests;
       }
@@ -539,52 +507,52 @@ export class CommunityComponent implements OnInit {
     }
   }
 
-  communitySideSectionsInView() {
-    if (this.userFeeds.length <= 0) return;
-    // console.log("this.communitySideSections", this.communitySideSections);
-    var bounding = this.communityImageBottomRef.nativeElement.getBoundingClientRect();
-    // console.log("bouding", bounding);
-    // Sections / Community image are not in view
-    if (bounding.top <= this.communitySideSections.initialHeight * 0.8) {
-      this.makeFixedSections();
-    } else {
-      this.removeFixedSections();
-    }
-  }
+  // communitySideSectionsInView() {
+  //   if (this.userFeeds.length <= 0) return;
+  //   // console.log("this.communitySideSections", this.communitySideSections);
+  //   var bounding = this.communityImageBottomRef.nativeElement.getBoundingClientRect();
+  //   // console.log("bouding", bounding);
+  //   // Sections / Community image are not in view
+  //   if (bounding.top <= this.communitySideSections.initialHeight * 0.8) {
+  //     this.makeFixedSections();
+  //   } else {
+  //     this.removeFixedSections();
+  //   }
+  // }
 
-  makeFixedSections() {
-    // console.log("Adding make-fixed");
-    if (!this.communitySideSections.hasAddedMakeFixedToLeftPart) {
-      this.communitySideSections.hasAddedMakeFixedToLeftPart = true;
-      // console.log("Added make-fixed");
-      this.renderer.setStyle(this.leftSectionRef.nativeElement, "max-width",
-        this.leftSectionBodyRef.nativeElement.getBoundingClientRect().width + "px");
-      if (!this.communitySideSections.renderered) {
-        // One time set up
-        this.communitySideSections.renderered = true;
-      }
-      this.renderer.addClass(this.leftSectionRef.nativeElement, "make-fixed");
-      this.renderer.addClass(this.leftSectionRef.nativeElement, "left");
-      this.renderer.addClass(this.rightSectionRef.nativeElement, "make-fixed");
-      this.renderer.addClass(this.rightSectionRef.nativeElement, "right");
-      if (this.communitySideSections.footerHeight) {
-        // console.log("Setting margin-bottom ", this.communitySideSections.footerHeight)
-        this.renderer.setStyle(this.leftSectionBodyRef.nativeElement, "padding-bottom",
-          this.communitySideSections.footerHeight + "px");
-      }
-    }
-  }
+  // makeFixedSections() {
+  //   // console.log("Adding make-fixed");
+  //   if (!this.communitySideSections.hasAddedMakeFixedToLeftPart) {
+  //     this.communitySideSections.hasAddedMakeFixedToLeftPart = true;
+  //     // console.log("Added make-fixed");
+  //     this.renderer.setStyle(this.leftSectionRef.nativeElement, "max-width",
+  //       this.leftSectionBodyRef.nativeElement.getBoundingClientRect().width + "px");
+  //     if (!this.communitySideSections.renderered) {
+  //       // One time set up
+  //       this.communitySideSections.renderered = true;
+  //     }
+  //     this.renderer.addClass(this.leftSectionRef.nativeElement, "make-fixed");
+  //     this.renderer.addClass(this.leftSectionRef.nativeElement, "left");
+  //     this.renderer.addClass(this.rightSectionRef.nativeElement, "make-fixed");
+  //     this.renderer.addClass(this.rightSectionRef.nativeElement, "right");
+  //     if (this.communitySideSections.footerHeight) {
+  //       // console.log("Setting margin-bottom ", this.communitySideSections.footerHeight)
+  //       this.renderer.setStyle(this.leftSectionBodyRef.nativeElement, "padding-bottom",
+  //         this.communitySideSections.footerHeight + "px");
+  //     }
+  //   }
+  // }
 
-  removeFixedSections() {
-    // console.log("Removing make-fixed");
-    if (this.communitySideSections.hasAddedMakeFixedToLeftPart) {
-      // console.log("Removed make-fixed");
-      this.communitySideSections.hasAddedMakeFixedToLeftPart = false;
-      this.renderer.removeClass(this.leftSectionRef.nativeElement, "make-fixed");
-      this.renderer.removeClass(this.leftSectionRef.nativeElement, "left");
-      this.renderer.removeClass(this.rightSectionRef.nativeElement, "make-fixed");
-      this.renderer.removeClass(this.rightSectionRef.nativeElement, "right");
-      this.renderer.removeStyle(this.leftSectionBodyRef.nativeElement, "padding-bottom");
-    }
-  }
+  // removeFixedSections() {
+  //   // console.log("Removing make-fixed");
+  //   if (this.communitySideSections.hasAddedMakeFixedToLeftPart) {
+  //     // console.log("Removed make-fixed");
+  //     this.communitySideSections.hasAddedMakeFixedToLeftPart = false;
+  //     this.renderer.removeClass(this.leftSectionRef.nativeElement, "make-fixed");
+  //     this.renderer.removeClass(this.leftSectionRef.nativeElement, "left");
+  //     this.renderer.removeClass(this.rightSectionRef.nativeElement, "make-fixed");
+  //     this.renderer.removeClass(this.rightSectionRef.nativeElement, "right");
+  //     this.renderer.removeStyle(this.leftSectionBodyRef.nativeElement, "padding-bottom");
+  //   }
+  // }
 }
