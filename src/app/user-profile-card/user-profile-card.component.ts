@@ -19,17 +19,18 @@ export class UserProfileCardComponent implements OnInit {
   @Input() relationship: RelationType;
   @Input() userId;
   followed: any;
-  owner = false;
+  isOwner = false;
   noOfFollowers: number;
   userInfo: any;
   userPath = GlobalConstants.userPath;
+  relationTypeClass = RelationType;
 
   constructor(public auth: UserProfileCardServiceComponent, public loginAuth: LoginService, public route: ActivatedRoute,
     public userActivity: UserActivityService) { }
 
   ngOnInit(): void {
-    if (this.relationship === 'owned') {
-      this.owner = true;
+    if (this.relationship === RelationType.OWNED) {
+      this.isOwner = true;
     }
     if (!this.userBannerImage) {
       this.userBannerImage = StaticMediaSrc.userBannerFile;
