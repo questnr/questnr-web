@@ -69,12 +69,14 @@ export class ExploreComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.queryString = params['q'];
-      let hashtags: string[] = this.queryString.split(",");
-      hashtags.forEach((hasTag: string) => {
-        if (hasTag)
-          this.seachHashTagBucket.push(new HashTag(hasTag));
-      });
-      this.queryParams = this.queryString;
+      if (this.queryString) {
+        let hashtags: string[] = this.queryString.split(",");
+        hashtags.forEach((hasTag: string) => {
+          if (hasTag)
+            this.seachHashTagBucket.push(new HashTag(hasTag));
+        });
+        this.queryParams = this.queryString;
+      }
     });
     // this.queryString = this.route.snapshot.paramMap.get('hashTag');
 
