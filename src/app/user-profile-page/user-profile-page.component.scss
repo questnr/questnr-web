@@ -1,118 +1,70 @@
 @import "../variables";
 @import "../app.component.scss";
 
-.profile-banner {
-  width: 100%;
-  height: 300px;
-  margin-top: 55px;
-  overflow: hidden;
-  background-image: url("/assets/boat-on-the-water.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  //img {
-  //  width: 100%;
-  //}
-}
-
 .profile-page-container {
-  width: calc(100% - 10px);
-  margin: 0 auto;
 }
 
-.site-body {
-  // overflow: hidden;
-  .make-fixed {
-    position: fixed;
-    // top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: auto;
-    z-index: 1000;
-    background: $fixed-sections;
-    padding: 1vh 0 0;
-    margin: 10px 10px;
-    border-radius: 10px;
-    max-width: inherit;
-    // border: 2px solid $heading;
-    box-shadow: 1px 1px 10px $gray;
-    animation: slide-up-down 0.8s forwards;
-    .fixed-body {
-      overflow-y: scroll;
-      max-height: 90vh;
-      padding: 1rem 1rem 0;
-    }
-    .sponsored {
-      margin: 0px 3vw;
-      display: flex;
-      justify-content: center;
-    }
-    .fixed-footer {
-      border: 1px solid $fixed-sections;
-      border-radius: 0px 0px 10px 10px;
-      position: absolute;
-      bottom: 0;
-      background: $background-transparent;
-      left: 0;
-    }
+// To show content properly below the user-header
+$margin-top: 20px;
+
+.padding-top {
+  padding-top: $margin-top;
+}
+.container {
+  padding: 0 100px;
+}
+
+.profile-page-wrapper {
+  overflow: hidden;
+  display: flex;
+  section {
+    max-height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
-}
-.site-body.desktop {
-  margin-top: 60px;
-}
-.site-body.mobile {
-  .container {
-    padding: 0 !important;
+  section.desktop {
+    top: 0;
+    position: sticky;
   }
-}
-
-//.profile-img:hover .profile-img .mat-icon{
-//  transform: rotateY(-45px);
-//}
-//.profile-actions button:hover {
-//  background: $heading !important;
-//  color: $white;
-//}
-
-.profile-feed-container {
-  max-width: 1290px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.profile-feed-container.desktop {
-  .flex {
+  .profile-feeds-container {
     display: flex;
-    .flex-section-left {
-      padding-right: 8px;
-      flex: 30%;
-      max-width: 30%;
+    section.feeds-left-part.desktop {
+      flex: 32%;
+      max-width: 32%;
+      margin-right: 10px;
+      // To show this padding while scrolling
+      padding: $margin-top 3px;
     }
-    .flex-section-center {
-      flex: 70%;
-      max-width: 70%;
+    .profile-feeds {
+      // 1% used to let adjust it
+      flex: 69%;
     }
+  }
+  .user-meta-info-div {
+    margin: 20px 0px;
+    // margin: 70px auto -25px auto;
+  }
+  .user-meta-info-div.mobile {
+  }
+  .sponsored {
+    margin: 0px 3vw;
+    display: flex;
+    justify-content: center;
   }
 }
 
-.profile-feed-container.mobile {
-  .flex {
-    display: block;
-  }
-  .flex-section-center,
-  .flex-section-left {
+.container.mobile {
+  padding: 0px !important;
+  .profile-page-container {
     width: calc(100% - 10px);
     margin: 0 auto;
-    padding: 0;
+    flex: unset;
+    position: unset;
+    .profile-feeds-container {
+      display: flex;
+      flex-direction: column;
+    }
   }
-}
-
-.user-meta-info-div {
-  margin: 20px 0px;
-  // margin: 70px auto -25px auto;
-}
-.user-meta-info-div.mobile {
 }
 
 @keyframes push-forward {
@@ -138,6 +90,19 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  padding-top: $margin-top;
+  position: relative;
+  width: 100%;
+  .actions {
+    position: absolute;
+    right: 10px;
+    button {
+      background: #ffffff;
+      .mat-icon {
+        font-size: 20px;
+      }
+    }
+  }
   .show-banner {
     .banner-container {
       cursor: pointer;
@@ -159,7 +124,7 @@
       animation: push-forward 2s forwards;
     }
   }
-  .com-ban-img-container {
+  .user-banner-img-container {
     position: relative;
     height: 100%;
     // min-height: 130px;
@@ -260,18 +225,19 @@
       }
     }
   }
-  .com-ban-img-container.desktop {
+  .user-banner-img-container.desktop {
     width: 80%;
     .banner-container {
       img {
         max-height: 270px;
+        width: 100%;
       }
     }
     .profile-img-container {
       .profile-img {
         top: 50%;
         width: 200px;
-        height: auto;
+        height: 200px;
       }
     }
     .profile-section {
@@ -281,20 +247,20 @@
       }
     }
   }
-  .com-ban-img-container.mobile {
+  .user-banner-img-container.mobile {
     width: 100%;
     // height: 164px;
-    margin-top: 55px;
     .banner-container {
       img {
         max-height: 140px;
+        width: 100%;
       }
     }
     .profile-img-container {
       .profile-img {
         top: 40%;
         width: 110px;
-        height: auto;
+        height: 110px;
         padding: 4px;
         .avatar {
           bottom: 0px;
@@ -309,23 +275,23 @@
       }
     }
   }
-}
-
-.user-profile-banner {
-  position: relative;
-  .actions {
+  .change-user-img {
+    color: $heading;
+    opacity: 0.4;
+    width: auto;
     position: absolute;
-    right: 10px;
-    button {
-      background: #ffffff;
-      .mat-icon {
-        font-size: 20px;
-      }
+    bottom: 0%;
+    right: 0%;
+    transition: all 500ms ease-in-out;
+    cursor: pointer;
+    z-index: 100;
+    mat-icon {
+      margin: 14px;
     }
   }
 }
 
-.user-actions {
+.user-actions.mobile {
   display: flex;
   justify-content: flex-end;
   .actions {
@@ -339,27 +305,12 @@
   }
 }
 
-.change-comm-img {
-  color: $heading;
-  opacity: 0.4;
-  width: auto;
-  position: absolute;
-  bottom: 0%;
-  right: 0%;
-  transition: all 500ms ease-in-out;
-  cursor: pointer;
-  z-index: 100;
-  mat-icon {
-    margin: 14px;
-  }
-}
+// @keyframes slide-up-down {
+//   10% {
+//     transform: translate3d(0, -10px, 0);
+//   }
 
-@keyframes slide-up-down {
-  10% {
-    transform: translate3d(0, -10px, 0);
-  }
-
-  90% {
-    transform: translate3d(0, 8px, 0);
-  }
-}
+//   90% {
+//     transform: translate3d(0, 8px, 0);
+//   }
+// }

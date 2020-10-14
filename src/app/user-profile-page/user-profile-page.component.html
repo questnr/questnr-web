@@ -1,140 +1,131 @@
 <app-user-header></app-user-header>
-<!-- <div class="profile-banner" [ngClass]="{'profile-banner-mobile' : mobileView}"> -->
-<!-- </div> -->
-<div class="page-scroll hide-scrollbar" #feedProfile>
-  <div class='site-body hide-scrollbar' [ngClass]="mobileView ? 'mobile': 'desktop'">
-    <div class="container">
-      <div class="profile-page-container hide-scrollbar">
-        <div class="user-profile-banner">
-          <div class="com-ban-img-container"
-            [ngClass]="[mobileView ? 'mobile': 'desktop', showBanner ? 'show-banner' : 'show-avatar']"
-            (click)="toggleUserBanner($event)">
-            <div class="banner-container">
-              <img [src]="userBannerImage" alt="banner" class="comm-ban-img" draggable="false"
-                [ngClass]="[mobileView ? 'mobile': 'desktop', userBannerImage ? '' : 'd-none']" #userBannerImgRef>
-              <div *ngIf="isBannerLoding" class="banner-loading">
-                <app-loader [size]="'md'" [color]="'dark'"></app-loader>
+
+<mat-sidenav-container class="sidenav-container" autosize>
+  <mat-sidenav-content>
+    <div class="container" [ngClass]="[mobileView ? 'mobile' : 'desktop']">
+      <div class="profile-page-wrapper">
+        <section class="profile-page-container hide-scrollbar" [ngClass]="[mobileView ? 'mobile' : 'desktop']"
+          #feedProfile>
+          <div class="user-profile-banner">
+            <div class="user-banner-img-container"
+              [ngClass]="[mobileView ? 'mobile': 'desktop', showBanner ? 'show-banner' : 'show-avatar']"
+              (click)="toggleUserBanner($event)">
+              <div class="banner-container">
+                <img [src]="userBannerImage" alt="banner" class="comm-ban-img" draggable="false"
+                  [ngClass]="[mobileView ? 'mobile': 'desktop', userBannerImage ? '' : 'd-none']" #userBannerImgRef>
+                <div *ngIf="isBannerLoding" class="banner-loading">
+                  <app-loader [size]="'md'" [color]="'dark'"></app-loader>
+                </div>
+                <div class="change-user-img" matTooltip="Change background banner">
+                  <mat-icon (click)="previewImage()" *ngIf="relation == 'owned'">camera</mat-icon>
+                  <app-img-cropper-wrapper (imageDataEvent)="imageDataReceiverOfBanner($event)" [aspectRatio]="12 / 4"
+                    #userBannerImageCropperRef>
+                  </app-img-cropper-wrapper>
+                </div>
               </div>
-              <div class="change-comm-img" matTooltip="Change background banner">
-                <mat-icon (click)="previewImage()" *ngIf="relation == 'owned'">camera</mat-icon>
-                <app-img-cropper-wrapper (imageDataEvent)="imageDataReceiverOfBanner($event)" [aspectRatio]="12 / 4"
-                  #userBannerImageCropperRef>
-                </app-img-cropper-wrapper>
+              <div class="profile-img-container">
+                <div class="profile-img">
+                  <img [src]="userAvatarImage ? userAvatarImage : defaultUserSrc" alt="" draggable="false"
+                    #userAvatarImgRef>
+                  <app-img-cropper-wrapper (imageDataEvent)="imageDataReceiver($event)" [aspectRatio]="4 / 4"
+                    #imageCropperRef>
+                  </app-img-cropper-wrapper>
+                  <!-- <input id="fileInput" type="file" style="display: none" (change)="updateUserAvatar($event)"> -->
+                  <div class="avatar" *ngIf="relation==='owned'" matTooltip="Change avatar">
+                    <mat-icon (click)="triggerFalseClick($event)">camera</mat-icon>
+                  </div>
+                </div>
+                <div class="profile-section" [ngClass]="{'mobile' : mobileView}">
+                  <div class="username" *ngIf="relation ==='owned'" (click)="openEditDialog($event)"
+                    matTooltip="Click to edit profile">
+                    <span>{{user?.username}}&nbsp;<mat-icon>edit</mat-icon></span>
+                  </div>
+                  <div class="username" *ngIf="relation !=='owned'">
+                    <span>{{user?.username}}</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="profile-img-container">
-              <div class="profile-img">
-                <img [src]="userAvatarImage ? userAvatarImage : defaultUserSrc" alt="" draggable="false"
-                  #userAvatarImgRef>
-                <app-img-cropper-wrapper (imageDataEvent)="imageDataReceiver($event)" [aspectRatio]="4 / 4"
-                  #imageCropperRef>
-                </app-img-cropper-wrapper>
-                <!-- <input id="fileInput" type="file" style="display: none" (change)="updateUserAvatar($event)"> -->
-                <div class="avatar" *ngIf="relation==='owned'" matTooltip="Change avatar">
-                  <mat-icon (click)="triggerFalseClick($event)">camera</mat-icon>
-                </div>
-              </div>
-              <div class="profile-section" [ngClass]="{'mobile' : mobileView}">
-                <div class="username" *ngIf="relation ==='owned'" (click)="openEditDialog($event)"
-                  matTooltip="Click to edit profile">
-                  <span>{{user?.username}}&nbsp;<mat-icon>edit</mat-icon></span>
-                </div>
-                <div class="username" *ngIf="relation !=='owned'">
-                  <span>{{user?.username}}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="actions" *ngIf="!mobileView">
-            <!-- <button mat-stroked-button *ngIf="relation ==='owned'&& !mobileView " (click)="openEditDialog()">
+            <div class="actions" *ngIf="!mobileView">
+              <!-- <button mat-stroked-button *ngIf="relation ==='owned'&& !mobileView " (click)="openEditDialog()">
               Edit Profile
             </button>
             <button mat-stroked-button *ngIf="relation ==='owned'&& mobileView " (click)="openEditDialog()">
               <mat-icon>edit</mat-icon>
             </button> -->
-            <app-relation-action-button [username]="user?.username" [relation]="relation" [userId]="userId"
-              [mobileView]="mobileView">
-            </app-relation-action-button>
-          </div>
-        </div>
-        <div class="user-actions" *ngIf="mobileView">
-          <div class="actions">
-            <!-- <button mat-stroked-button *ngIf="relation ==='owned' " (click)="openEditDialog()">
-              Edit Profile
-            </button> -->
-            <!-- <button mat-stroked-button *ngIf="relation ==='owned'&& mobileView " (click)="openEditDialog()">
-              <mat-icon>edit</mat-icon>
-            </button> -->
-            <app-relation-action-button [username]="user?.username" [relation]="relation" [userId]="userId"
-              [mobileView]="mobileView">
-            </app-relation-action-button>
-          </div>
-        </div>
-        <div class="profile-feed-container" [ngClass]="mobileView ? 'mobile': 'desktop'">
-          <div class="user-meta-info-div row" [ngClass]="mobileView ? 'mobile': 'desktop'">
-            <div class="col-md-6">
-              <app-user-description-card [bio]="user?.bio" [relation]="relation" [username]="user?.username">
-              </app-user-description-card>
-            </div>
-            <div class="col-md-6">
-              <app-user-activity [user]="user" [userInfo]="userInfo"></app-user-activity>
+              <app-relation-action-button [username]="user?.username" [relation]="relation" [userId]="userId"
+                [mobileView]="mobileView">
+              </app-relation-action-button>
             </div>
           </div>
-          <div class="flex last-feed">
-            <div class="flex-section-left">
-              <div #userProfileLeftPart>
-                <div class="fixed-body hide-scrollbar" #userProfileLeftPartBody>
-                  <app-user-question-list [totalQuestions]="userInfo?.totalQuestions" #userQuestionList>
-                  </app-user-question-list>
-                  <app-usercommunity [userPageSubject]="userObserver" [ownsCommunities]="userInfo?.ownsCommunities"
-                    [templateStyle]="CommunityListMatCardTypeClass.expansion" #userCommunityBox>
-                  </app-usercommunity>
-                  <app-joined-community [userPageSubject]="userObserver"
-                    [followsCommunities]="userInfo?.followsCommunities"
-                    [templateStyle]="CommunityListMatCardTypeClass.expansion" #joinedCommunityBox>
-                  </app-joined-community>
-                  <div *ngIf="userSideSections.hasAddedMakeFixedToLeftPart" class="sponsored">
-                    <app-sponsored></app-sponsored>
-                  </div>
-                </div>
-                <div *ngIf="!mobileView" [ngClass]="userSideSections.hasAddedMakeFixedToLeftPart ? 'fixed-footer' : ''"
-                  #userProfileLeftPartFooter>
-                  <app-floating-footer></app-floating-footer>
-                </div>
+          <div class="user-actions mobile" *ngIf="mobileView">
+            <div class="actions">
+              <app-relation-action-button [username]="user?.username" [relation]="relation" [userId]="userId"
+                [mobileView]="mobileView">
+              </app-relation-action-button>
+            </div>
+          </div>
+          <div class="profile-details-container" [ngClass]="mobileView ? 'mobile': 'desktop'">
+            <div class="user-meta-info-div row" [ngClass]="mobileView ? 'mobile': 'desktop'">
+              <div class="col-md-6">
+                <app-user-description-card [bio]="user?.bio" [relation]="relation" [username]="user?.username">
+                </app-user-description-card>
+              </div>
+              <div class="col-md-6">
+                <app-user-activity [user]="user" [userInfo]="userInfo"></app-user-activity>
               </div>
             </div>
-            <div class="flex-section-center">
-              <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]=false *ngIf="relation === 'owned'"
-                [type]="'Create'">
-              </app-post-feeds>
-              <div #postFeedBottomContainer></div>
-              <div id="user-feed"></div>
-              <ng-container *ngIf="userFeeds?.length; else noFeeds">
-                <div class="feed-wrap" *ngFor="let feed of userFeeds">
-                  <div *ngIf="feed.postType !== 'question'">
-                    <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
-                    </app-recommended-feeds>
+            <div class="profile-feeds-container">
+              <section class="feeds-left-part hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+                <app-user-question-list [totalQuestions]="userInfo?.totalQuestions" #userQuestionList>
+                </app-user-question-list>
+                <app-usercommunity [userPageSubject]="userObserver" [ownsCommunities]="userInfo?.ownsCommunities"
+                  [templateStyle]="CommunityListMatCardTypeClass.expansion" #userCommunityBox>
+                </app-usercommunity>
+                <app-joined-community [userPageSubject]="userObserver"
+                  [followsCommunities]="userInfo?.followsCommunities"
+                  [templateStyle]="CommunityListMatCardTypeClass.expansion" #joinedCommunityBox>
+                </app-joined-community>
+                <div *ngIf="!mobileView">
+                  <div class="sponsored">
+                    <app-sponsored></app-sponsored>
                   </div>
-                  <div *ngIf="feed.postType === 'question'">
-                    <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"
-                      [questionParentType]="questionParentTypeClass.userPage"></app-question-ui>
-                  </div>
-                  <!--              <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">-->
-                  <!--              </app-recommended-feeds>-->
+                  <app-floating-footer></app-floating-footer>
                 </div>
-                <p class="text-center" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
-              </ng-container>
-              <app-feeds-loader *ngIf="loading"></app-feeds-loader>
-              <ng-template #noFeeds>
-                <p class="text-center" style="margin-top :30px" *ngIf="feeds?.length===1 && feeds[0] === null">No
-                  Feeds
-                  Found...!</p>
-              </ng-template>
+              </section>
+              <div class="profile-feeds last-feed">
+                <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]=false *ngIf="relation === 'owned'"
+                  [type]="'Create'">
+                </app-post-feeds>
+                <div #postFeedBottomContainer></div>
+                <div id="user-feed"></div>
+                <ng-container *ngIf="userFeeds?.length; else noFeeds">
+                  <div class="feed-wrap" *ngFor="let feed of userFeeds">
+                    <div *ngIf="feed.postType !== 'question'">
+                      <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+                      </app-recommended-feeds>
+                    </div>
+                    <div *ngIf="feed.postType === 'question'">
+                      <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"
+                        [questionParentType]="questionParentTypeClass.userPage"></app-question-ui>
+                    </div>
+                    <!--              <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">-->
+                    <!--              </app-recommended-feeds>-->
+                  </div>
+                  <p class="text-center" *ngIf="feeds?.length===1 && feeds[0] === null">No Feeds Found...!</p>
+                </ng-container>
+                <app-feeds-loader *ngIf="loading"></app-feeds-loader>
+                <ng-template #noFeeds>
+                  <p class="text-center" style="margin-top :30px" *ngIf="feeds?.length===1 && feeds[0] === null">No
+                    Feeds
+                    Found...!</p>
+                </ng-template>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
-  </div>
-</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 <app-floating-mobile-nav [url]="url" *ngIf="mobileView"></app-floating-mobile-nav>

@@ -5,6 +5,7 @@ import { GlobalService } from 'global.service';
 import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
 import { JoinedCommunityComponent } from 'joined-community/joined-community.component';
 import { CommunityListMatCardType } from 'models/community-list.model';
+import { Page } from 'models/page.model';
 import { RelationType } from 'models/relation-type';
 import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
 import { Subject } from 'rxjs';
@@ -77,36 +78,6 @@ export class UserProfilePageComponent implements OnInit {
   set userQuestionList(userQuestionListRef: UserQuestionListComponent) {
     this.userQuestionListRef = userQuestionListRef;
   }
-  // ---- Start of User Profile Left part references ----
-  userProfileLeftPartRef: ElementRef;
-  @ViewChild("userProfileLeftPart")
-  set userProfileLeftPart(userProfileLeftPartRef: ElementRef) {
-    this.userProfileLeftPartRef = userProfileLeftPartRef;
-  }
-  postFeedBottomContainerRef: ElementRef;
-  @ViewChild("postFeedBottomContainer")
-  set postFeedBottomContainer(postFeedBottomContainerRef: ElementRef) {
-    this.postFeedBottomContainerRef = postFeedBottomContainerRef;
-  }
-  userProfileLeftPartBodyRef: ElementRef;
-  @ViewChild("userProfileLeftPartBody")
-  set userProfileLeftPartBody(userProfileLeftPartBodyRef: ElementRef) {
-    this.userProfileLeftPartBodyRef = userProfileLeftPartBodyRef;
-  }
-  @ViewChild("userProfileLeftPartFooter")
-  set userProfileLeftPartFooter(userProfileLeftPartFooterRef: ElementRef) {
-    if (userProfileLeftPartFooterRef) {
-      this.userSideSections.footerHeight = userProfileLeftPartFooterRef.nativeElement.getBoundingClientRect().height;
-    }
-  }
-  // ---- End of User Profile Left part references ---
-  userSideSections: any = {
-    leftPartInitialHeight: 0,
-    hasAddedMakeFixedToLeftPart: false,
-    footerHeight: 0,
-    safeScrollTop: window.innerHeight * 0.8
-  }
-
 
   constructor(public userProfilePageService: UserProfilePageService,
     public route: ActivatedRoute,
@@ -141,19 +112,12 @@ export class UserProfilePageComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.renderer.setStyle(this.userBannerImgRef.nativeElement, "min-height", this.mobileView ? "140px" : "270px");
-    this.renderer.setStyle(this.userAvatarImgRef.nativeElement, "min-height", this.mobileView ? "110px" : "200px");
-    this.renderer.setStyle(this.userAvatarImgRef.nativeElement, "min-width", this.mobileView ? "110px" : "200px");
+    // this.renderer.setStyle(this.userAvatarImgRef.nativeElement, "min-height", this.mobileView ? "110px" : "200px");
+    // this.renderer.setStyle(this.userAvatarImgRef.nativeElement, "min-width", this.mobileView ? "110px" : "200px");
     this.feedProfile.nativeElement.addEventListener('scroll', this.onScroll, true);
     this.renderer.setStyle(document.getElementsByTagName("body")[0], "overflow", "hidden");
-    this.userSideSections.leftPartInitialHeight = this.postFeedBottomContainerRef.nativeElement.getBoundingClientRect().top > this.userSideSections.safeScrollTop
-      ? this.userSideSections.safeScrollTop : this.postFeedBottomContainerRef.nativeElement.getBoundingClientRect().top;
-    // console.log("userSideSections", this.userSideSections);
   }
   onScroll = (event): void => {
-    if (!this.mobileView) {
-      // Only available for deskop
-      this.leftSectionInView();
-    }
     if (!this.scrollCached) {
       setTimeout(() => {
         if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight - 300) {
@@ -187,11 +151,11 @@ export class UserProfilePageComponent implements OnInit {
   }
   getUserFeeds() {
     this.loading = true;
-    this.userProfilePageService.getUserFeeds(this.userId, this.page).subscribe((res: any) => {
-      if (res.content.length) {
+    this.userProfilePageService.getUserFeeds(this.userId, this.page).subscribe((postPage: Page<Post>) => {
+      if (postPage.content.length) {
         this.page++;
         this.loading = false;
-        res.content.forEach(post => {
+        postPage.content.forEach(post => {
           this.userFeeds.push(post);
         });
       } else {
@@ -206,7 +170,6 @@ export class UserProfilePageComponent implements OnInit {
     this.userProfilePageService.getUserProfile(this.url).subscribe((res: User) => {
       this.user = res;
       this.userObserver.next(this.user);
-      this.userQuestionListRef.setUserData(this.user);
       if (res?.banner?.avatarLink) {
         this.renderer.removeStyle(this.userBannerImgRef.nativeElement, "min-height");
         this.userBannerImage = res.banner.avatarLink;
@@ -222,6 +185,7 @@ export class UserProfilePageComponent implements OnInit {
         .then((trackerInstance: TrackingInstance) => {
           this.trackerInstance = trackerInstance;
         })
+      this.userQuestionListRef?.setUserData(this.user);
     }, error => {
       // console.log(error.error.errorMessage);
     });
@@ -357,41 +321,5 @@ export class UserProfilePageComponent implements OnInit {
     // setTimeout(() => {
     //   this.showBanner = false;
     // }, 1500);
-  }
-
-  leftSectionInView() {
-    if (this.userFeeds.length <= 0) return;
-    // console.log("this.leftPartInitialHeight", this.userSideSections);
-    var bounding = this.postFeedBottomContainerRef.nativeElement.getBoundingClientRect();
-    // console.log("bouding", bounding);
-    // Left section is not in view
-    if (bounding.top <= this.userSideSections.leftPartInitialHeight * 0.8) {
-      this.makeFixedSections();
-    } else {
-      this.removeFixedSections();
-    }
-  }
-
-  makeFixedSections() {
-    // console.log("Adding make-fixed");
-    if (!this.userSideSections.hasAddedMakeFixedToLeftPart) {
-      // console.log("Added make-fixed");
-      this.userSideSections.hasAddedMakeFixedToLeftPart = true;
-      this.renderer.addClass(this.userProfileLeftPartRef.nativeElement, "make-fixed");
-      if (this.userSideSections.footerHeight) {
-        // console.log("Setting margin-bottom ", this.userSideSections.footerHeight)
-        this.renderer.setStyle(this.userProfileLeftPartBodyRef.nativeElement, "padding-bottom", this.userSideSections.footerHeight + "px");
-      }
-    }
-  }
-
-  removeFixedSections() {
-    // console.log("Removing make-fixed");
-    if (this.userSideSections.hasAddedMakeFixedToLeftPart) {
-      // console.log("Removed make-fixed");
-      this.userSideSections.hasAddedMakeFixedToLeftPart = false;
-      this.renderer.removeClass(this.userProfileLeftPartRef.nativeElement, "make-fixed");
-      this.renderer.removeStyle(this.userProfileLeftPartBodyRef.nativeElement, "padding-bottom");
-    }
   }
 }
