@@ -216,8 +216,11 @@ export class CommunityUsersComponent implements OnInit {
   confirmDialogCloseActionListener(result) {
     if (result?.data) {
       this.communityMembersService
-        .removeUserFromCommunity(this.community.communityId, this.awaitConfirmDialogData.userId).subscribe((communityMeta) => {
-          if (this.userListDialogRef.getState() === MatDialogState.OPEN) {
+        .removeUserFromCommunity(this.community.communityId, this.awaitConfirmDialogData.userId)
+        .subscribe((communityProfileMeta: CommunityProfileMeta) => {
+          this.numberOfMembers = communityProfileMeta.followers;
+          if (this.userListDialogRef &&
+            this.userListDialogRef.getState() === MatDialogState.OPEN) {
             this.userListDialogRef.componentInstance.confirmDialogCloseActionListener(this.awaitConfirmDialogData);
           }
           this.communityMemberList = this.communityMemberList.filter((communityMember: User) => {
