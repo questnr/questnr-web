@@ -1,5 +1,6 @@
 <div class="user-list-view-wrapper" [ngClass]="{'mobile' : mobileView}">
-  <div class="user-wrapper" (mouseover)="showSpecialAction()" (mouseout)="hideSpecialAction()">
+  <div class="user-wrapper" (swipeleft)="onSwipeLeft()" (mouseover)="showSpecialAction()"
+    (mouseout)="hideSpecialAction()">
     <div class="user-container">
       <div class="profile-icon-container" style="margin: auto; width: fit-content">
         <!--    <img [src]="user?.avatarDTO.avatarLink" onerror="this.onerror=null;this.src='assets/default.jpg';" alt="">-->

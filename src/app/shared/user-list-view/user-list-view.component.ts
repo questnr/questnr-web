@@ -148,4 +148,10 @@ export class UserListViewComponent implements OnInit {
   clickAction() {
     this.clickActionEvent.emit();
   }
+
+  onSwipeLeft() {
+    if (!this.mobileView) return;
+    this.showSpecialAction();
+    this.hideSpecialAction();
+  }
 }

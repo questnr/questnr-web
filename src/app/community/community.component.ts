@@ -143,6 +143,7 @@ export class CommunityComponent implements OnInit {
     this.communityHorizontalCardRef = communityHorizontalCardRef;
   }
   communityUsersListViewTypeClass = CommunityUsersListViewType;
+  isOwner: boolean = false;
 
   constructor(public communityService: CommunityService,
     public fb: FormBuilder,
@@ -246,6 +247,8 @@ export class CommunityComponent implements OnInit {
     // this.ngOnInit();
     // this.getCommunityDetailsById();
     this.isAllowedIntoCommunity = this.communityService.isAllowedIntoCommunity(this.communityDTO);
+
+    this.isOwner = this.communityService.isOwner(this.communityDTO);
 
     // No need to re-fetch feeds again if the community is not private.
     if (!callFromConstructor && this.communityDTO.communityPrivacy == CommunityPrivacy.pub) return;
@@ -413,7 +416,7 @@ export class CommunityComponent implements OnInit {
       this.communityActivityRef.setCommunityInfo(this.communityInfo);
       this.questionListRef.setTotalCounts(this.communityInfo.totalQuestions);
       this.communityHorizontalCardRef?.setCommunityInfo(this.communityInfo);
-      if (this.relationType === RelationType.OWNED) {
+      if (this.isOwner) {
         this.pendingRequests = this.communityInfo.totalRequests;
       }
     }, error => {

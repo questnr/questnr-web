@@ -37,6 +37,7 @@ export class UserListComponent implements OnInit {
   hasTotalPage: number;
   scrollCached: boolean = null;
   title: string;
+  isCommunityOwnerActionsAllowed: boolean = false;
   @ViewChild('listContainer') listContainer: ElementRef;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: UserListData,
@@ -48,7 +49,8 @@ export class UserListComponent implements OnInit {
     public communityMembersService: CommunityMembersService,
     public auth: CommunityService,
     private inviteUserService: InviteUsetService,
-    private _globalService: GlobalService) {
+    private _globalService: GlobalService,
+    private communityService: CommunityService) {
   }
 
   ngOnInit(): void {
@@ -109,6 +111,11 @@ export class UserListComponent implements OnInit {
       this.getUserLikedList(this.data.postId);
     } else if (this.data.type === UserListType.members) {
       this.listTitle = 'Members';
+      if (this.communityService.isOwner(this.data.community)) {
+        this.isCommunityOwnerActionsAllowed = true;
+      } else {
+        this.isCommunityOwnerActionsAllowed = false;
+      }
       this.getCommunityMembers(this.data.community.slug);
     } else if (this.data.type === UserListType.requests) {
       this.listTitle = 'Requests';
@@ -309,5 +316,15 @@ export class UserListComponent implements OnInit {
 
   closeActionListener() {
     this.dialogRef.close();
+  }
+
+  removeMemberFromCommunity(user: User) {
+    this.data.communityUsersComponent.removeMemberListener(user);
+  }
+
+  confirmDialogCloseActionListener(removedUser: User) {
+    this.userList = this.userList.filter((communityMember: User) => {
+      return communityMember.userId !== removedUser.userId
+    });
   }
 }

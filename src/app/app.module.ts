@@ -5,7 +5,8 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule } from '@angular/platform-browser';
+import * as Hammer from 'hammerjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
 import { ShareButtonsModule } from '@ngx-share/buttons';
@@ -146,6 +147,13 @@ const config = new AuthServiceConfig([
     provider: new FacebookLoginProvider(environment.fbKey, fbLoginOptions)
   }
 ]);
+
+// hammer config
+export class MyHammerConfig extends HammerGestureConfig {
+  overrides = <any>{
+    swipe: { direction: Hammer.DIRECTION_ALL },
+  };
+}
 
 export function provideConfig() {
   return config;
@@ -299,6 +307,7 @@ export function metaFactory(): MetaLoader {
     ImageCropperModule,
     MDBBootstrapModule.forRoot(),
     CKEditorModule,
+    HammerModule,
     FAQModule,
     SinglePostModule
   ],
@@ -323,6 +332,7 @@ export function metaFactory(): MetaLoader {
       provide: AuthServiceConfig,
       useFactory: provideConfig
     },
+    { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig },
     MatDatepickerModule,
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     MessagingService,

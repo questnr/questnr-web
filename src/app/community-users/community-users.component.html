@@ -17,7 +17,7 @@
   </div>
   <div *ngIf="communityMemberList?.length ; else noMembers" class="members-list">
     <div class="" *ngFor="let user of communityMemberList, let ind = index" [id]="user.userId">
-      <app-user-list-view [isSpecialActionsAllowed]="isOwner" (specialActionEvent)="removeUserListener($event)"
+      <app-user-list-view [isSpecialActionsAllowed]="isOwner" (specialActionEvent)="removeMemberListener($event)"
         [size]="smallUserListViewSize" *ngIf="ind < 4" [user]="user"></app-user-list-view>
     </div>
   </div>

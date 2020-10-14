@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
-import { SnackBarDefaultData } from 'models/snackbar.model';
+import { ActionType, SnackBarDefaultData } from 'models/snackbar.model';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +12,9 @@ export class SnackBarService {
     }
 
     showSnackBar(data: SnackBarDefaultData) {
-        this.snackBarRef = this.snackbar.open(data.message, data.actionType, { duration: data.duration });
+        const duration = data.duration ? data.duration : 5000;
+        const actionType = data.actionType ? data.actionType : ActionType.close;
+        this.snackBarRef = this.snackbar.open(data.message, actionType, { duration: duration });
 
         this.snackBarRef.onAction().subscribe(() => {
             data.onAction();

@@ -143,5 +143,9 @@ export class CommunityService {
     if (!communitySlug) return of();
     return this.http.get<CommunityProfileMeta>(this.baseUrl + `/community/meta/${communitySlug}/info/params`, { params: { params } });
   }
+
+  isOwner(community: Community) {
+    return community.communityMeta.relationShipType === RelationType.OWNED;
+  }
 }
 

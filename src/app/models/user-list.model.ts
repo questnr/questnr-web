@@ -1,5 +1,6 @@
 import { User } from './user.model';
 import { Community } from './community.model';
+import { CommunityUsersComponent } from 'community-users/community-users.component';
 
 export class UserListData {
     user?: User;
@@ -7,6 +8,7 @@ export class UserListData {
     community?: Community;
     postId?: number;
     title?: string;
+    communityUsersComponent?: CommunityUsersComponent;
 }
 
 export enum UserListType {
