@@ -1,5 +1,9 @@
 @import "./src/app/variables";
 
+.container {
+  padding: unset;
+}
+
 .question-card {
   //height: 200px;
   border-radius: 10px;
