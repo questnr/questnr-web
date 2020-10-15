@@ -1,10 +1,11 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommunityService } from 'community/community.service';
+import { ConfirmDialogService } from 'confirm-dialog-modal/confirm-dialog.service';
 import { GlobalService } from 'global.service';
-import { CommunityUsers } from 'models/community.model';
 import { LikeAction } from 'models/like-action.model';
 import { Page } from 'models/page.model';
+import { UserListData, UserListType } from 'models/user-list.model';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
 import { CommunityMembersService } from '../../../../community-users/community-members.service';
@@ -12,7 +13,6 @@ import { User } from '../../../../models/user.model';
 import { UserFollowersService } from '../../../../user-followers/user-followers.service';
 import { UserProfileCardServiceComponent } from '../../../../user-profile-card/user-profile-card-service.component';
 import { UserListService } from './user-list.service';
-import { UserListData, UserListType } from 'models/user-list.model';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -50,7 +50,8 @@ export class UserListComponent implements OnInit {
     public auth: CommunityService,
     private inviteUserService: InviteUsetService,
     private _globalService: GlobalService,
-    private communityService: CommunityService) {
+    private communityService: CommunityService,
+    private confirmDialogService: ConfirmDialogService) {
   }
 
   ngOnInit(): void {
@@ -318,13 +319,18 @@ export class UserListComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  removeMemberFromCommunity(user: User) {
-    this.data.communityUsersComponent.removeMemberListener(user);
-  }
+  removeMemberFromCommunity(processingUser: User) {
+    let closeSubject = this.confirmDialogService.openRemoveMemberConfirmDialog({
+      user: processingUser,
+      community: this.data.community
+    });
 
-  confirmDialogCloseActionListener(removedUser: User) {
-    this.userList = this.userList.filter((communityMember: User) => {
-      return communityMember.userId !== removedUser.userId
+    closeSubject.subscribe((result) => {
+      if (result?.data) {
+        this.userList = this.userList.filter((communityMember: User) => {
+          return communityMember.userId !== processingUser.userId
+        });
+      }
     });
   }
 }

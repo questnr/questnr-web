@@ -5,9 +5,9 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig, HammerModule } from '@angular/platform-browser';
-import * as Hammer from '@egjs/hammerjs';
+import { BrowserModule, HammerGestureConfig, HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import * as Hammer from '@egjs/hammerjs';
 import { MetaLoader, MetaModule, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
 import { ShareButtonsModule } from '@ngx-share/buttons';
 import { ShareButtonsConfig } from '@ngx-share/core';
@@ -28,7 +28,7 @@ import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/co
 import { NoCommunityMembersComponent } from 'community-users/no-community-members/no-community-members.component';
 import { CommunityHorizontalCardComponent } from 'community/community-horizontal-card/community-horizontal-card.component';
 import { HorizontalOwnerProfileComponent } from 'community/horizontal-owner-profile/horizontal-owner-profile.component';
-import { ConfirmDialogModalComponent } from 'confirm-dialog-modal/confirm-dialog-modal.component';
+import { ConfirmDialogService } from 'confirm-dialog-modal/confirm-dialog.service';
 import { ConfirmDialogComponent } from 'confirm-dialog-modal/confirm-dialog/confirm-dialog.component';
 import { CookiePolicyComponent } from 'cookie-policy/cookie-policy.component';
 import { CustomTooltipComponent } from 'custom-tooltip/custom-tooltip.component';
@@ -124,7 +124,6 @@ import { UserActivityComponent } from './user-activity/user-activity.component';
 import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UsercommunityComponent } from './usercommunity/usercommunity.component';
-
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
   theme: 'circles-light',
@@ -279,7 +278,6 @@ export function metaFactory(): MetaLoader {
     NoUserQuestionComponent,
     CommunityHorizontalCardComponent,
     ConfirmDialogComponent,
-    ConfirmDialogModalComponent,
     NoCommunityMembersComponent
   ],
   imports: [
@@ -349,7 +347,8 @@ export function metaFactory(): MetaLoader {
       useValue: []
     },
     GlobalService,
-    FullScreenMediaService
+    FullScreenMediaService,
+    ConfirmDialogService
   ],
   exports: [
     JoinedCommunityComponent

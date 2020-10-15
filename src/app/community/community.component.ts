@@ -175,6 +175,7 @@ export class CommunityComponent implements OnInit {
   ngAfterViewInit() {
     this.communityFeedRef.nativeElement.addEventListener('scroll', this.onScroll, true);
     this.renderer.setStyle(document.getElementsByTagName('body')[0], 'overflow', 'hidden');
+    this.communityActivityRef.setCommunity(this.communityDTO);
     this.questionListRef?.setCommunityData(this.communityDTO, this.communityService.isAllowedIntoCommunity(this.communityDTO));
   }
 
