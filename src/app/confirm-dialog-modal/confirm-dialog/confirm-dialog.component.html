@@ -1,5 +1,5 @@
-<div class="wrapper">
-    <div class="title">{{title}}</div>
+<div class="confirm-dialog-wrapper">
+    <div class="title" [ngClass]="mobileView ? 'mobile' : 'desktop'">{{title}}</div>
     <div class="extra-info">
         <div *ngIf="confirmDialogContentType == ConfirmDialogContentType.makePublicCommunity">
             <ul>

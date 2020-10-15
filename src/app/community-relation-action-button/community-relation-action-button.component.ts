@@ -44,7 +44,7 @@ export class CommunityRelationActionButtonComponent implements OnInit {
     let dialogConfig;
     if (this.mobileView) {
       dialogConfig = {
-        maxWidth: '100vw',
+        maxWidth: '95vw',
         width: '100%',
         data: {
           title,

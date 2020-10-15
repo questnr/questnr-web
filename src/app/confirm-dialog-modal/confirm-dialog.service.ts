@@ -24,7 +24,7 @@ export class ConfirmDialogService {
     this.mobileView = this._globalService.isMobileView();
     if (this.mobileView) {
       this.config = {
-        maxWidth: '100vw',
+        maxWidth: '95vw',
         width: '100%',
         data: null
       };

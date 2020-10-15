@@ -1,6 +1,6 @@
 @import "../../variables";
 
-.wrapper {
+.confirm-dialog-wrapper {
   margin: 15px;
   display: flex;
   flex-direction: column;
@@ -8,6 +8,12 @@
   .title {
     padding-bottom: 15px;
     color: $red;
+  }
+  .title.desktop {
+    font-size: 1.1rem;
+  }
+  .title.mobile {
+    font-size: 0.9rem;
   }
   .action-btn-list {
     margin: 0 40px;
@@ -44,7 +50,7 @@
 }
 
 @media screen and(max-width: 400px) {
-  .wrapper .action-btn-list {
+  .confirm-dialog-wrapper .action-btn-list {
     display: block;
   }
 }
