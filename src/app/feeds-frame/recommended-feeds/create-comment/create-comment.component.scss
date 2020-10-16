@@ -1,0 +1,106 @@
+@import "../../../variables";
+
+.comments {
+    overflow: hidden;
+    .wrap {
+        padding: 1rem;
+        .wrap-items {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+    }
+}
+.comment-box {
+    margin: 1rem 0;
+    width: 80%;
+    .comment-item {
+        .head-wrap {
+            padding: 0.5rem;
+        }
+        .main-body {
+            padding: 1rem;
+            padding-top: 0;
+        }
+        // .profile-icon {
+        //   height: 50px;
+        //   width: 50px;
+        // }
+        .profile-detail {
+            padding: 0.6rem;
+            .head {
+                font-size: 0.8rem;
+            }
+        }
+    }
+}
+.comment-item {
+    display: flex;
+}
+.reply-box {
+    overflow: hidden;
+}
+
+.child-comment-list {
+    margin-left: 40px;
+    .child-comment {
+        width: 80%;
+    }
+}
+
+.comment-wrapper-container {
+    display: flex;
+    flex-direction: column;
+    .profile-icon {
+        width: 40px;
+        margin: auto 10px;
+        height: 40px;
+    }
+    .comment-user-interaction {
+        display: flex;
+        align-items: center;
+        .comment-features {
+            display: flex;
+            align-items: center;
+            margin: 0.6rem;
+            .comment-feature {
+                input[type="file"] {
+                    display: none;
+                }
+                .attach-file {
+                    cursor: pointer;
+                    width: 20px;
+                    height: auto;
+                }
+            }
+        }
+    }
+    app-attached-file {
+    }
+    .comment-wrapper {
+        background: #eee;
+        padding: 0 1rem;
+        border-radius: 50px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex: auto;
+        span {
+            padding: 0.2rem 0.5rem;
+            background: rgba($primary, 0.3);
+            font-weight: 500;
+            border-radius: 5px;
+            max-width: 30%;
+        }
+        input {
+            background: transparent;
+            border: none;
+            padding: 0.5rem;
+            color: #000;
+            width: 100%;
+            letter-spacing: 1px;
+            &::placeholder {
+                color: rgba(0, 0, 0, 0.3);
+            }
+        }
+    }
+}

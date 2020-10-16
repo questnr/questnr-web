@@ -16,6 +16,7 @@ import { FeedTextComponent } from 'feed-text/feed-text.component';
 import { NotificationItemComponent } from 'feeds-frame/notification-item/notification-item.component';
 import { PostMenuOptionsComponent } from 'feeds-frame/post-menu-options/post-menu-options.component';
 import { CommentBoxComponent } from 'feeds-frame/recommended-feeds/comment-box/comment-box.component';
+import { CreateCommentComponent } from 'feeds-frame/recommended-feeds/create-comment/create-comment.component';
 import { UserHeaderComponent } from 'feeds-frame/user-header/user-header.component';
 import { HashTagComponent } from 'hash-tag/hash-tag.component';
 import { HorizontalProfileComponent } from 'horizontal-profile/horizontal-profile.component';
@@ -66,7 +67,8 @@ import { ViewMoreButtonComponent } from './view-more-button/view-more-button.com
     PostNotificationButtonComponent,
     PostNotificationContainerComponent,
     ActionMenuComponent,
-    TrashIconComponent
+    TrashIconComponent,
+    CreateCommentComponent
   ],
   imports: [
     CommonModule,
@@ -128,7 +130,8 @@ import { ViewMoreButtonComponent } from './view-more-button/view-more-button.com
     PostNotificationButtonComponent,
     PostNotificationContainerComponent,
     ActionMenuComponent,
-    TrashIconComponent
+    TrashIconComponent,
+    CreateCommentComponent
   ],
   providers: [
     CommonService,

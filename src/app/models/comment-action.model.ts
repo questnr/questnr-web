@@ -26,3 +26,8 @@ export class ChildCommentAction {
 export class CommentActionMeta {
     liked: boolean;
 }
+
+export enum CommentParentClassType {
+    feed = "feed",
+    singlePost = "singlePost"
+}

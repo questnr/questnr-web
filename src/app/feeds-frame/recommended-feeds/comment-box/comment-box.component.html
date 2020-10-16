@@ -17,7 +17,7 @@
     <app-attached-file-list [attachedFileLinkList]="comment.commentMediaList"></app-attached-file-list>
   </div>
   <!-- </div> -->
-  <div class="commmentActions">
+  <div class="comment-actions">
     <a (click)="likeComment(comment.commentActionId)"
       [innerHTML]="comment?.commentActionMeta?.liked? 'liked':'like'"></a>
     <span></span>

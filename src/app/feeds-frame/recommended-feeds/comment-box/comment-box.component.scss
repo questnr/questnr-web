@@ -24,3 +24,29 @@
   .comment-left-part {
   }
 }
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 0.5rem;
+  font-size: 12px;
+  & > * {
+    margin: 0 5px;
+  }
+  a {
+    text-transform: uppercase;
+    color: $primary;
+    cursor: pointer;
+    font-weight: 500;
+    &:hover {
+      color: darken($primary, 20%);
+    }
+  }
+  span {
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    background: $primary;
+  }
+}

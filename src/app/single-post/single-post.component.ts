@@ -7,6 +7,7 @@ import { AttachedFileListComponent } from 'attached-file-list/attached-file-list
 import { LoginSignupModalComponent } from 'auth/login-signup-modal/login-signup-modal.component';
 import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
+import { CreateCommentComponent } from 'feeds-frame/recommended-feeds/create-comment/create-comment.component';
 import { GlobalService } from 'global.service';
 import { AvatarDTO, CustomError } from 'models/common.model';
 import { PostActionForMedia, PostEditorType, PostMedia, PostType, QuestionParentType, ResourceType } from 'models/post-action.model';
@@ -20,7 +21,7 @@ import { SignInRequiredModalComponent } from 'shared/sign-in-required-modal/sign
 import { UIService } from 'ui/ui.service';
 import { CommonService } from '../common/common.service';
 import { IFramelyService } from '../meta-card/iframely.service';
-import { CommentAction } from '../models/comment-action.model';
+import { CommentAction, CommentParentClassType } from '../models/comment-action.model';
 import { HashTag } from '../models/hashtag.model';
 import { IFramelyData } from '../models/iframely.model';
 import { SharePostComponent } from '../shared/components/dialogs/share-post/share-post.component';
@@ -43,11 +44,6 @@ export class SinglePostComponent implements OnInit {
   loginURL = GlobalConstants.login;
   replyingTo: any;
   fullscreen = false;
-  page = 0;
-  endOfComments = false;
-  isCommenting = false;
-  isSharing = false;
-  isReplying = false;
   isLoading = true;
   isCommentLoading = false;
   feedUrl = GlobalConstants.feedPath;
@@ -123,6 +119,12 @@ export class SinglePostComponent implements OnInit {
     this.signInRequiredModalRef = signInRequiredModalRef;
   }
   loginSignInModalTimeout;
+  commentComponentRef: CreateCommentComponent;
+  @ViewChild("commentComponent")
+  set commentComponent(commentComponentRef: CreateCommentComponent) {
+    this.commentComponentRef = commentComponentRef;
+  }
+  commentParentClassTypeClass = CommentParentClassType;
 
   constructor(private api: FeedsService, private route: ActivatedRoute, private singlePostService: SinglePostService,
     public loginService: LoginService,
@@ -285,89 +287,6 @@ export class SinglePostComponent implements OnInit {
   //   });
   // }
 
-  toggleComments() {
-    this.isSharing = false;
-    this.isCommenting = !this.isCommenting;
-  }
-
-  toggleSharing() {
-    this.isCommenting = false;
-    this.isSharing = !this.isSharing;
-  }
-
-  // getComments() {
-  //   this.singlePostService.getPublicComments(this.postSlug).subscribe(
-  //     (res: any) => {
-  //       this.isCommentLoading = false;
-  //       this.singlePost.commentActionList = res.content;
-  //       const left = document.getElementById('post-media-window').style.height;
-  //       const right = document.getElementById('post-head').style.height;
-  //       if (left > right) {
-  //         // console.log('left', left);
-  //         document.getElementById('rightdiv').style.height = left;
-  //       } else {
-  //         // console.log('right', right);
-  //         document.getElementById('leftdiv').style.height = right;
-  //       }
-  //     }
-  //   );
-  // }
-  getComments() {
-    this.isCommentLoading = true;
-    this.api.getComments(this.singlePost.postActionId, this.page).subscribe(
-      (res: any) => {
-        this.isCommentLoading = false;
-        if (res.content.length) {
-          res.content.forEach(comment => {
-            this.singlePost.commentActionList.push(comment);
-          });
-          ++this.page;
-        } else {
-          this.endOfComments = true;
-        }
-      }
-    );
-  }
-
-  replyTo(event) {
-    this.replyingTo = event;
-    this.commentInputRef.nativeElement.focus();
-  }
-
-  postComment(id) {
-    if (this.comment.value) {
-      this.isCommentLoading = true;
-      const formData = new FormData();
-      formData.append('postId', id);
-      formData.append('parentCommentId', this.replyingTo ? this.replyingTo.parentCommentId || this.replyingTo.commentId : 0);
-      formData.append('commentObject', this.comment.value);
-      if (this.comment.valid) {
-        this.api.postComment(id, formData).subscribe(
-          (res: CommentAction) => {
-            if (this.replyingTo && (this.replyingTo.parentCommentId || this.replyingTo.commentId)) {
-              this.singlePost.commentActionList.forEach(c => {
-                if (c.commentActionId === this.replyingTo.commentId || c.commentActionId === this.replyingTo.parentCommentId) {
-                  if (!c.childCommentDTOSet) {
-                    c.childCommentDTOSet = [];
-                  }
-                  c.childCommentDTOSet.unshift(res);
-                }
-              });
-            } else {
-              this.singlePost.commentActionList.unshift(res);
-            }
-            ++this.singlePost.postActionMeta.totalComments;
-            this.isCommentLoading = false;
-            this.replyingTo = null;
-            this.comment.setValue('');
-          }, err => {
-            this.isCommentLoading = false;
-          }
-        );
-      }
-    }
-  }
-
   likePost(id) {
     this.isLoading = true;
     if (this.singlePost.postActionMeta.liked) {
@@ -405,6 +324,10 @@ export class SinglePostComponent implements OnInit {
     this.isLoading = false;
     this.singlePost.postActionMeta.liked = false;
     --this.singlePost.postActionMeta.totalLikes;
+  }
+
+  toggleComments() {
+    this.commentComponentRef.toggleComments();
   }
 
   openShareDialog() {

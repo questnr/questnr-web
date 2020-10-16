@@ -1,11 +1,8 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
 import { LoginService } from 'auth/login.service';
 import { CommonService } from 'common/common.service';
 import { FeedTextComponent } from 'feed-text/feed-text.component';
@@ -14,44 +11,25 @@ import { IFramelyService } from 'meta-card/iframely.service';
 import { AvatarDTO } from 'models/common.model';
 import { HashTag } from 'models/hashtag.model';
 import { IFramelyData } from 'models/iframely.model';
-import { Page } from 'models/page.model';
 import { UserListData, UserListType } from 'models/user-list.model';
 import { SharePostComponent } from 'shared/components/dialogs/share-post/share-post.component';
 import { GlobalConstants } from 'shared/constants';
 import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
 import { UIService } from 'ui/ui.service';
-import { CommentAction } from '../../models/comment-action.model';
 import { Post, PostEditorType, PostMedia, ResourceType } from '../../models/post-action.model';
 import { UserListComponent } from '../../shared/components/dialogs/user-list/user-list.component';
 import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
+import { CreateCommentComponent } from './create-comment/create-comment.component';
 declare var $: any;
 
 @Component({
   selector: 'app-recommended-feeds',
   templateUrl: './recommended-feeds.component.html',
-  styleUrls: ['./recommended-feeds.component.scss'],
-  animations: [
-    trigger('expand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ]
+  styleUrls: ['./recommended-feeds.component.scss']
 })
 export class RecommendedFeedsComponent implements OnInit, OnDestroy {
   @Input() feed: Post;
-  commentInputRef: ElementRef;
-  @ViewChild('commentInput')
-  set commentInput(commentInputRef: ElementRef) {
-    this.commentInputRef = commentInputRef;
-  }
   @ViewChild('feedTextComponent') feedTextComponent: FeedTextComponent;
-  @ViewChild('commentAttachFileInput')
-  set commentAttachFileInput(commentAttachFileInputRef: any) {
-    this.commentAttachFileInputRef = commentAttachFileInputRef;
-  }
-  commentAttachFileInputRef: ElementRef;
-  @ViewChild('attachedFileListComponent') attachedFileListComponent: AttachedFileListComponent;
   @Output() removePostEvent = new EventEmitter();
   @Input() showUserHeader: boolean = false;
   // @ViewChild("metaCardComponentRef", { static: true }) metaCardComponentRef: MetaCardComponent;
@@ -61,18 +39,10 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
   //   }
   // }
   iFramelyData: IFramelyData;
-  isCommenting = false;
-  replyingTo: any;
   isLoading = false;
-  isSharing = false;
-  isReplying = false;
   isCommentLoading = false;
-  comment = new FormControl('', Validators.required);
-  replyComment = new FormControl('', Validators.required);
   loggedInUsername: string;
   postLink;
-  page = 1;
-  endOfComments = false;
   screenWidth = window.innerWidth;
   mobileView = false;
   loggedInUserId: any;
@@ -85,7 +55,6 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
   isYouTubeVideoLink: boolean = false;
   safeYoutubeLink: SafeResourceUrl;
   youtubeLinkTemplate: string = "https://youtube.com/embed/";
-  attachedFileList = [];
   viewMediaList: PostMedia[] = [];
   applicationMediaList: PostMedia[] = [];
   @ViewChild("feedViewContainer") feedViewContainer: ElementRef;
@@ -96,8 +65,13 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
   set profileIcon(profileIconRef: ProfileIconComponent) {
     this.profileIconRef = profileIconRef;
   }
+  commentComponentRef: CreateCommentComponent;
+  @ViewChild("commentComponent")
+  set commentComponent(commentComponentRef: CreateCommentComponent) {
+    this.commentComponentRef = commentComponentRef;
+  }
 
-  constructor(private api: FeedsService,
+  constructor(private feedsService: FeedsService,
     public login: LoginService,
     private dialog: MatDialog,
     public userProfileCardServiceComponent: UserProfileCardServiceComponent,
@@ -163,6 +137,7 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
       }
     }
   }
+
   ngAfterViewInit() {
     const width = this.screenWidth;
     if (width <= 800) {
@@ -173,86 +148,23 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
       this.mobileView = false;
     }
   }
+
   ngOnDestroy() {
     this.uiService.resetTitle();
-  }
-  toggleComments() {
-    this.isSharing = false;
-    this.isCommenting = !this.isCommenting;
-  }
-  getComments() {
-    this.isCommentLoading = true;
-    this.api.getComments(this.feed.postActionId, this.page).subscribe(
-      (res: Page<CommentAction>) => {
-        this.isCommentLoading = false;
-        if (res.content.length) {
-          res.content.forEach(comment => {
-            this.feed.commentActionList.push(comment);
-          });
-          ++this.page;
-        } else {
-          this.endOfComments = true;
-        }
-      }
-    );
-  }
-  postComment(id) {
-    if (this.comment.value) {
-      this.isCommentLoading = true;
-      const formData = new FormData();
-      formData.append('postId', id);
-      formData.append('parentCommentId', this.replyingTo ? this.replyingTo.parentCommentId || this.replyingTo.commentId : 0);
-      formData.append('commentObject', this.comment.value);
-      if (this.attachedFileList.length > 0) {
-        this.attachedFileList.forEach(attachedFile => {
-          formData.append('files', attachedFile);
-        });
-      }
-      if (this.comment.valid) {
-        this.api.postComment(id, formData).subscribe(
-          (res: CommentAction) => {
-            if (this.replyingTo && (this.replyingTo.parentCommentId || this.replyingTo.commentId)) {
-              this.feed.commentActionList.forEach(c => {
-                if (c.commentActionId === this.replyingTo.commentId || c.commentActionId === this.replyingTo.parentCommentId) {
-                  if (!c.childCommentDTOSet) {
-                    c.childCommentDTOSet = [];
-                  }
-                  c.childCommentDTOSet.unshift(res);
-                }
-              });
-            } else {
-              this.feed.commentActionList.unshift(res);
-            }
-            ++this.feed.postActionMeta.totalComments;
-            this.isCommentLoading = false;
-            this.replyingTo = null;
-            this.comment.setValue('');
-            this.clearAttachedFileList();
-          }, err => {
-            this.isCommentLoading = false;
-          }
-        );
-      }
-    }
-  }
-
-  replyTo(event) {
-    this.replyingTo = event;
-    this.commentInputRef.nativeElement.focus();
   }
 
   likePost(id) {
     this.isLoading = true;
     if (this.feed.postActionMeta.liked) {
       this.dislikedPost();
-      this.api.dislikePost(id).subscribe(
+      this.feedsService.dislikePost(id).subscribe(
         (res: any) => {
           if (res.status !== 200) { this.likedPost(); }
         }, err => { this.likedPost(); }
       );
     } else {
       this.likedPost();
-      this.api.likePost(id).subscribe(
+      this.feedsService.likePost(id).subscribe(
         (res: any) => {
           if (res.status !== 200) { this.dislikedPost(); }
         }, err => { this.dislikedPost(); }
@@ -265,11 +177,17 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
     this.feed.postActionMeta.liked = true;
     ++this.feed.postActionMeta.totalLikes;
   }
+
   dislikedPost() {
     this.isLoading = false;
     this.feed.postActionMeta.liked = false;
     --this.feed.postActionMeta.totalLikes;
   }
+
+  toggleComments() {
+    this.commentComponentRef.toggleComments();
+  }
+
   getUserId() {
     return this.login.getUserId();
   }
@@ -322,12 +240,6 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
     this.removePostEvent.emit($event);
   }
 
-  deleteComment($event) {
-    this.feed.commentActionList = this.feed.commentActionList.filter((comment: CommentAction) =>
-      $event !== comment.commentActionId
-    );
-  }
-
   openShareDialog() {
     let clickAction = this.commonService.getPostSharableLink(this.feed);
     this.dialog.open(SharePostComponent, {
@@ -353,43 +265,10 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
       window.open(url, '_blank');
     }
   }
-  openFileSelector() {
-    this.commentAttachFileInputRef.nativeElement.click();
-  }
-
-  selectFiles(event) {
-    if (event.target.files.length > 0) {
-      this.filesDroppedOnComment(event.target.files);
-    }
-  }
-
-  filesDroppedOnComment(droppedFiles) {
-    this.attachedFileList = [];
-    const files = Object.values(droppedFiles);
-    files.forEach((file: any) => {
-      if (file.type.includes('image') || file.type.includes('application')) {
-        this.attachedFileList.push(file);
-        this.showOnAttachedFileContainer(file);
-      }
-    });
-  }
-
-  showOnAttachedFileContainer(file) {
-    this.attachedFileListComponent.pushFile(file);
-  }
-
-  finalizedAttachedFileListListener($event) {
-    this.attachedFileList = $event;
-  }
-
-  clearAttachedFileList() {
-    this.attachedFileList = [];
-    this.attachedFileListComponent.clearAttachedFileList();
-  }
 
   feedCameInView() {
     this.viewPortPassed = true;
-    this.api.visitPost(this.feed.postActionId).subscribe();
+    this.feedsService.visitPost(this.feed.postActionId).subscribe();
   }
 
   elementInViewport() {
