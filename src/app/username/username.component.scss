@@ -1,12 +1,15 @@
-@import '../variables';
+@import "../variables";
 
 :host {
+    display: block;
+    overflow: hidden;
+    max-width: 100%;
     /* remove blue border ring */
     &:active {
-        outline:0 !important;
+        outline: 0 !important;
     }
     &:focus {
-        outline:0 !important;
+        outline: 0 !important;
     }
 }
 
@@ -14,7 +17,13 @@
     text-decoration: none;
     font-weight: 500;
     &:hover {
-      text-decoration: none;
+        text-decoration: none;
         color: $primary;
     }
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flow-root;
+    -webkit-line-clamp: 1;
+    max-width: 100%;
 }

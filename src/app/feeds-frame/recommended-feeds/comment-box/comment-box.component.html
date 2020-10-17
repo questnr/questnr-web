@@ -1,29 +1,30 @@
-<app-profile-icon [slug]="comment?.userActorDTO?.slug" [isCommunityAvatar]="false"
-  [avatar]="comment.userActorDTO.avatarDTO" [height]="45" [sizeRef]="'small'"></app-profile-icon>
-<div>
-  <!-- <div class="head-wrap"> -->
-  <div class="profile-detail">
-    <div class="head">
-      <app-username [username]="comment.userActorDTO?.username" [slug]="comment.userActorDTO?.slug"></app-username>
-    </div>
-    <div class="comment-object">
-      <div class="comment-left-part">
-        {{comment.commentObject}}
+<div class="comment-box-wrapper">
+  <app-profile-icon [slug]="comment?.userActorDTO?.slug" [isCommunityAvatar]="false"
+    [avatar]="comment.userActorDTO.avatarDTO" [height]="35" [sizeRef]="'small'"></app-profile-icon>
+  <div class="comment-box-body">
+    <div class="profile-detail">
+      <div class="head">
+        <app-username [username]="comment.userActorDTO?.username" [slug]="comment.userActorDTO?.slug"></app-username>
       </div>
-      <div *ngIf="allowDelete()" (click)="deleteComment()">
-        <app-trash-icon [toolTipText]="'Delete comment'"></app-trash-icon>
+      <div class="comment-object">
+        <div class="comment-left-part">
+          {{comment.commentObject}}
+        </div>
+        <div *ngIf="allowDelete()" (click)="deleteComment()">
+          <app-trash-icon [toolTipText]="'Delete comment'"></app-trash-icon>
+        </div>
       </div>
+      <app-attached-file-list [attachedFileLinkList]="comment.commentMediaList"></app-attached-file-list>
     </div>
-    <app-attached-file-list [attachedFileLinkList]="comment.commentMediaList"></app-attached-file-list>
-  </div>
-  <!-- </div> -->
-  <div class="comment-actions">
-    <a (click)="likeComment(comment.commentActionId)"
-      [innerHTML]="comment?.commentActionMeta?.liked? 'liked':'like'"></a>
-    <span></span>
-    <a
-      (click)="replyTo(comment.userActorDTO?.username, comment.commentActionId, parentComment?.commentActionId)">Reply</a>
-    <span></span>
-    <app-time-string [metaData]="comment.metaData"></app-time-string>
+    <!-- </div> -->
+    <div class="comment-actions">
+      <a (click)="likeComment(comment.commentActionId)"
+        [innerHTML]="comment?.commentActionMeta?.liked? 'liked':'like'"></a>
+      <span></span>
+      <a
+        (click)="replyTo(comment.userActorDTO?.username, comment.commentActionId, parentComment?.commentActionId)">Reply</a>
+      <span></span>
+      <app-time-string [metaData]="comment.metaData"></app-time-string>
+    </div>
   </div>
 </div>
