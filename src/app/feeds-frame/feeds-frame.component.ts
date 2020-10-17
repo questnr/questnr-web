@@ -75,12 +75,12 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   onresize(event: any = this.screenWidth) {
     const width = event.target ? event.target.innerWidth : event;
-    if (width <= 800) {
+    if (width <= 900) {
       this.sideConfig = 'over';
       this.mobileView = true;
     } else if (width >= 1368) {
       this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
+    } else if (width >= 900 && width <= 1368) {
       this.mobileView = false;
     }
   }

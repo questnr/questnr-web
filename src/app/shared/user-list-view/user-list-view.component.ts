@@ -30,8 +30,7 @@ export class UserListViewComponent implements OnInit {
   @Output() clickActionEvent = new EventEmitter();
   userPath: string = GlobalConstants.userPath;
   relation: RelationType;
-  screenWidth = window.innerWidth;
-  mobileView = false;
+  mobileView: boolean = false;
   isInvited: boolean = false;
   isResponded = false;
   requestType: CommunityRequestActionType;

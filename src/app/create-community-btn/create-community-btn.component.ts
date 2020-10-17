@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CreateCommunityComponent } from '../shared/components/dialogs/create-community/create-community.component';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-create-community-btn',
@@ -10,19 +11,13 @@ import { MatDialog } from '@angular/material/dialog';
 export class CreateCommunityBtnComponent implements OnInit {
   @Input() type: any;
   mobileView = false;
-  screenWidth = window.innerWidth;
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+    private _globalService: GlobalService) { }
 
   ngOnInit(): void {
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
+    this.mobileView = this._globalService.isMobileView();
   }
+
   createCommunity(): void {
     const dialogRef = this.dialog.open(CreateCommunityComponent, {
       // width: '800px',

@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { GlobalService } from 'global.service';
 import { ImgCropperComponent } from './img-cropper/img-cropper.component';
 
 @Component({
@@ -9,27 +10,19 @@ import { ImgCropperComponent } from './img-cropper/img-cropper.component';
   encapsulation: ViewEncapsulation.None
 })
 export class ImgCropperWrapperComponent implements OnInit {
-
   mobileView: boolean = false;
-  screenWidth = window.innerWidth;
   @Output() imageDataEvent = new EventEmitter();
   @Input() aspectRatio: number;
   @Input() isCommunityAvatar: boolean = false;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog,
+    private _globalService: GlobalService) { }
 
   ngOnInit(): void {
+    this.mobileView = this._globalService.isMobileView();
   }
 
   ngAfterViewInit() {
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
   }
 
   openImageCropper() {

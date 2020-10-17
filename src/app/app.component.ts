@@ -46,11 +46,11 @@ export class AppComponent implements OnInit {
   ngAfterViewInit() {
     if (this.isBrowser) {
       const width = this.screenWidth;
-      if (width <= 800) {
+      if (width <= 900) {
         this.mobileView = true;
       } else if (width >= 1368) {
         this.mobileView = false;
-      } else if (width >= 800 && width <= 1368) {
+      } else if (width >= 900 && width <= 1368) {
         this.mobileView = false;
       }
       this._globalService.setMobileView(this.mobileView);

@@ -15,6 +15,7 @@ import { Tag } from 'models/common.model';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { UserInterest } from 'models/user.model';
 import { CommunitySuggestionGuideService } from 'community-suggestion-guide/community-suggestion-guide.service';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-create-community',
@@ -28,7 +29,6 @@ import { CommunitySuggestionGuideService } from 'community-suggestion-guide/comm
 export class CreateCommunityComponent implements OnInit {
   @Input() communityImage;
   @ViewChild("imageCropperRef") imageCropperRef: ImgCropperWrapperComponent;
-  screenWidth = window.innerWidth;
   mobileView: boolean = false;
   isLinear: boolean = true;
   defaultSrc: string = StaticMediaSrc.communityFile;
@@ -77,10 +77,11 @@ export class CreateCommunityComponent implements OnInit {
     public snackbar: MatSnackBar,
     private dialogRef: MatDialogRef<CreateCommunityComponent>,
     private router: Router,
-    private _communitySuggestionGuideService: CommunitySuggestionGuideService) {
-  }
+    private _communitySuggestionGuideService: CommunitySuggestionGuideService,
+    private _globalService: GlobalService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.mobileView = this._globalService.isMobileView();
     this.communityDetailsForm = this.fb.group({
       communityName: this.communityName,
       description: this.description,
@@ -92,14 +93,6 @@ export class CreateCommunityComponent implements OnInit {
       communityTag: this.communityTag,
       tagsCount: this.tagsCount
     });
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
     this.communityTag.valueChanges
       .pipe(debounceTime(200))
       .pipe(distinctUntilChanged())

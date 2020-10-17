@@ -21,7 +21,6 @@ export class SuggestionComponent implements OnInit {
   @Input() suggestedCommunityList: Community[];
   loadingCommunities = true;
   listItems = Array(5);
-  screenWidth = window.innerWidth;
   mobileView = false;
   communityPath: string = GlobalConstants.communityPath;
   customOptions: OwlOptions = {

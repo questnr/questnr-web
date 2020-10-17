@@ -23,7 +23,6 @@ export class EditUserComponent implements OnInit, AfterViewInit {
   successMsg = '';
   formError = '';
   isLoading: boolean = false;
-  screenWidth = window.innerWidth;
   mobileView: boolean = false;
   isFetchingDetails: boolean = true;
   firstName = new FormControl('',

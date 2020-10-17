@@ -7,6 +7,7 @@ import { CommunityService } from 'community/community.service';
 import { ConfirmDialogComponent } from 'confirm-dialog-modal/confirm-dialog/confirm-dialog.component';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
+import { GlobalService } from 'global.service';
 import { Post, PostEditorType } from 'models/post-action.model';
 import { UserProfileCardServiceComponent } from 'user-profile-card/user-profile-card-service.component';
 import { PostFeedComponent } from '../post-feed/post-feed.component';
@@ -23,7 +24,6 @@ export class PostMenuOptionsComponent implements OnInit {
   @Output() postData = new EventEmitter();
   loggedInUserId: any;
   mobileView = false;
-  screenWidth = window.innerWidth;
   isBlog: boolean = false;
 
   constructor(private api: FeedsService,
@@ -32,22 +32,15 @@ export class PostMenuOptionsComponent implements OnInit {
     private dialog: MatDialog,
     private login: LoginService,
     private userProfileCardService: UserProfileCardServiceComponent,
-    private communityService: CommunityService) {
-  }
+    private communityService: CommunityService,
+    private _globalService: GlobalService) { }
 
   ngOnInit(): void {
+    this.mobileView = this._globalService.isMobileView();
     if (this.feed?.postData?.postEditorType) {
       this.isBlog = this.feed?.postData.postEditorType == PostEditorType.blog;
     }
     this.loggedInUserId = this.login.getLocalUserProfile().id;
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
   }
 
   // openShareDialog() {

@@ -2,6 +2,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { GlobalService } from 'global.service';
 import { Post } from '../../../../models/post-action.model';
 import { AskQuestionService } from './ask-question.service';
 import set = Reflect.set;
@@ -38,22 +39,15 @@ export class AskQuestionComponent implements OnInit {
       Validators.required,
       Validators.minLength(3)
     ]);
-  screenWidth = window.innerWidth;
-  mobileView = false;
+  mobileView: boolean = false;
 
   constructor(private fb: FormBuilder, public askQuestionService: AskQuestionService,
-    public dialogRef: MatDialogRef<AskQuestionComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
-  }
+    public dialogRef: MatDialogRef<AskQuestionComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
+    private _globalService: GlobalService) { }
 
-  ngOnInit() {
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
+  ngOnInit(): void {
+    this.mobileView = this._globalService.isMobileView();
+
     this.answerForm = this.fb.group({
       agreeText: this.agreeText,
       disagreeText: this.disagreeText

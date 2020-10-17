@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -7,20 +8,13 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/co
 })
 export class SignUpPageComponent implements OnInit {
   mobileView: boolean = false;
-  screenWidth = window.innerWidth;
   @ViewChild("elementOnHTML") elementOnHTML: ElementRef;
 
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2,
+    private _globalService: GlobalService) { }
 
   ngOnInit(): void {
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
+    this.mobileView = this._globalService.isMobileView();
   }
 
   ngAfterViewInit() {

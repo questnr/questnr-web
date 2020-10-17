@@ -7,6 +7,7 @@ import { LoginService } from 'auth/login.service';
 import { CommonService } from 'common/common.service';
 import { FeedTextComponent } from 'feed-text/feed-text.component';
 import { FeedsService } from 'feeds-frame/feeds.service';
+import { GlobalService } from 'global.service';
 import { IFramelyService } from 'meta-card/iframely.service';
 import { AvatarDTO } from 'models/common.model';
 import { HashTag } from 'models/hashtag.model';
@@ -42,8 +43,7 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
   isLoading = false;
   isCommentLoading = false;
   loggedInUsername: string;
-  postLink;
-  screenWidth = window.innerWidth;
+  postLink: string;
   mobileView = false;
   loggedInUserId: any;
   hashTagsData: any = {};
@@ -80,14 +80,16 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
     public snackbar: MatSnackBar,
     private router: Router,
     private _sanitizer: DomSanitizer,
-    private uiService: UIService) {
+    private uiService: UIService,
+    private _globalService: GlobalService) {
     this.login.avatarSubject.subscribe((avatar: AvatarDTO) => {
       // console.log("RECOMMENDED FEEDS SUBJECT", avatar);
       this.profileIconRef.setAvatar(avatar);
     });
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.mobileView = this._globalService.isMobileView();
     if (!this.showUserHeader) {
       if (this.feed?.communityDTO) {
         this.showUserHeader = false;
@@ -139,14 +141,6 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    const width = this.screenWidth;
-    if (width <= 800) {
-      this.mobileView = true;
-    } else if (width >= 1368) {
-      this.mobileView = false;
-    } else if (width >= 800 && width <= 1368) {
-      this.mobileView = false;
-    }
   }
 
   ngOnDestroy() {
