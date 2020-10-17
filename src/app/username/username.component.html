@@ -1,3 +1,24 @@
-<a class="no-a" [routerLink]="['/', defaultPath, slug]" #usernameComponentRef>
-    {{username}}
-</a>
+<div *ngIf="disableLink; else withLink">
+    <div *ngIf="slug; else noSlug">
+        <span class="no-a" [routerLink]="['/', defaultPath, slug]" #usernameComponent>
+            {{username}}
+        </span>
+    </div>
+    <ng-template #noSlug>
+        <span class="no-a" #usernameComponent>
+            {{username}}
+        </span>
+    </ng-template>
+</div>
+<ng-template #withLink>
+    <div *ngIf="slug; else noSlug">
+        <a class="no-a hover-class" [routerLink]="['/', defaultPath, slug]" #usernameComponent>
+            {{username}}
+        </a>
+    </div>
+    <ng-template #noSlug>
+        <a class="no-a hover-class" #usernameComponent>
+            {{username}}
+        </a>
+    </ng-template>
+</ng-template>

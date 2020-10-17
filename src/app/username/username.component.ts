@@ -11,7 +11,12 @@ export class UsernameComponent implements OnInit {
   @Input() slug: string;
   @Input() fontSize: string;
   @Input() isCommunity: boolean = false;
-  @ViewChild("usernameComponentRef") usernameComponentRef: ElementRef;
+  @Input() disableLink: boolean = false;
+  usernameComponentRef: ElementRef;
+  @ViewChild("usernameComponent")
+  set usernameComponent(usernameComponentRef: ElementRef) {
+    this.usernameComponentRef = usernameComponentRef;
+  }
   defaultPath: string = GlobalConstants.userPath;
 
   constructor(private renderer2: Renderer2) { }
@@ -23,7 +28,8 @@ export class UsernameComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.fontSize)
+    if (this.fontSize) {
       this.renderer2.setStyle(this.usernameComponentRef.nativeElement, "font-size", this.fontSize);
+    }
   }
 }
