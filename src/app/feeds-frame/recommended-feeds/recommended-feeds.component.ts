@@ -84,7 +84,7 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
     private _globalService: GlobalService) {
     this.login.avatarSubject.subscribe((avatar: AvatarDTO) => {
       // console.log("RECOMMENDED FEEDS SUBJECT", avatar);
-      this.profileIconRef.setAvatar(avatar);
+      this.profileIconRef?.setAvatar(avatar);
     });
   }
 
