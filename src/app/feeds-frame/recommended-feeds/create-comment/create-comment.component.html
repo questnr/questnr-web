@@ -29,7 +29,12 @@
                 <app-profile-icon [avatar]="login.avatar" [height]="30" [sizeRef]="'medium'" #profileIcon>
                 </app-profile-icon>
                 <div class="comment-wrapper">
-                    <span *ngIf="replyingTo">{{replyingTo.username}}</span>
+                    <span class="reply-username-wrapper" *ngIf="replyingTo">
+                        <app-username [username]="replyingTo.username" [disableLink]="true"></app-username>
+                        <span (click)="removeReplying()">
+                            <mat-icon>close</mat-icon>
+                        </span>
+                    </span>
                     <input type="text" [formControl]="comment" #commentInput
                         [placeholder]="replyingTo? 'Reply to ' + replyingTo.username : 'Write a Comment..'"
                         (keyup.enter)="postComment()">

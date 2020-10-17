@@ -117,6 +117,11 @@ export class CreateCommentComponent implements OnInit {
     this.commentInputRef.nativeElement.focus();
   }
 
+  removeReplying() {
+    this.replyingTo = null;
+    this.commentInputRef.nativeElement.focus();
+  }
+
   openFileSelector() {
     this.commentAttachFileInputRef.nativeElement.click();
   }
