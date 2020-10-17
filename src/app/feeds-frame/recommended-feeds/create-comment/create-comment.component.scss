@@ -1,53 +1,30 @@
 @import "../../../variables";
 
-.comments {
+.comment-section-wrapper {
     overflow: hidden;
-    .wrap {
-        padding: 1rem;
+    .comment-section-container {
+        padding: 0rem 1rem 1rem;
         .wrap-items {
             display: flex;
             flex-direction: column-reverse;
         }
-    }
-}
-.comment-box {
-    margin: 1rem 0;
-    width: 80%;
-    .comment-item {
-        .head-wrap {
-            padding: 0.5rem;
-        }
-        .main-body {
-            padding: 1rem;
-            padding-top: 0;
-        }
-        // .profile-icon {
-        //   height: 50px;
-        //   width: 50px;
-        // }
-        .profile-detail {
-            padding: 0.6rem;
-            .head {
-                font-size: 0.8rem;
+        .comment-box {
+            margin: 1rem 0;
+            width: 80%;
+            .comment-item {
+                display: flex;
+            }
+            .child-comment-list {
+                margin-left: 40px;
+                .child-comment {
+                    width: 80%;
+                }
             }
         }
     }
 }
-.comment-item {
-    display: flex;
-}
-.reply-box {
-    overflow: hidden;
-}
 
-.child-comment-list {
-    margin-left: 40px;
-    .child-comment {
-        width: 80%;
-    }
-}
-
-.comment-wrapper-container {
+.comment-user-interaction-container {
     display: flex;
     flex-direction: column;
     .profile-icon {

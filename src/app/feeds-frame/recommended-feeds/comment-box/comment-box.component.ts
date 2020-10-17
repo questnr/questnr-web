@@ -1,17 +1,18 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { CommentAction } from 'models/comment-action.model';
 import { Post } from 'models/post-action.model';
 import { LoginService } from 'auth/login.service';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { GlobalConstants } from 'shared/constants';
+import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-comment-box',
   templateUrl: './comment-box.component.html',
   styleUrls: ['../recommended-feeds.component.scss', './comment-box.component.scss'],
 })
-export class CommentBoxComponent {
+export class CommentBoxComponent implements OnInit {
   isLoading = false;
   isReplying = false;
   @Input() comment: CommentAction;
@@ -20,13 +21,20 @@ export class CommentBoxComponent {
   @Output() reply = new EventEmitter();
   @Output() update = new EventEmitter();
   @Output() deleteEvent = new EventEmitter();
+  @Input() fontSize: string;
+  mobileView: boolean = false;
   loggedInUserId: any;
   defaultUserSrc: string = StaticMediaSrc.userFile;
   userPath: string = GlobalConstants.userPath;
 
   constructor(private api: FeedsService,
-    public loginAuth: LoginService) {
+    public loginAuth: LoginService,
+    private _globalService: GlobalService) {
     this.loggedInUserId = loginAuth.getLocalUserProfile().id;
+  }
+
+  ngOnInit(): void {
+    this.mobileView = this._globalService.isMobileView();
   }
 
   likeComment(id) {

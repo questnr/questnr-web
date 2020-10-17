@@ -4,6 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
 import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
+import { GlobalService } from 'global.service';
 import { CommentAction, CommentParentClassType } from 'models/comment-action.model';
 import { Page } from 'models/page.model';
 import { Post } from 'models/post-action.model';
@@ -43,10 +44,18 @@ export class CreateCommentComponent implements OnInit {
   attachedFileList = [];
   page: number = 0;
   endOfComments: boolean = false;
+  mobileView: boolean = false;
+  fontSize: string = "0.8rem";
 
-  constructor(private feedsService: FeedsService, public login: LoginService) { }
+  constructor(private feedsService: FeedsService,
+    public login: LoginService,
+    private _globalService: GlobalService) { }
 
   ngOnInit(): void {
+    this.mobileView = this._globalService.isMobileView();
+    if (this.mobileView) {
+      this.fontSize = "0.85rem";
+    }
     if (this.parentType === CommentParentClassType.singlePost) {
       this.isCommenting = true;
     }

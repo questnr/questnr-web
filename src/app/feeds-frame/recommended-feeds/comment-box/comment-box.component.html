@@ -4,10 +4,11 @@
   <div class="comment-box-body">
     <div class="profile-detail">
       <div class="head">
-        <app-username [username]="comment.userActorDTO?.username" [slug]="comment.userActorDTO?.slug"></app-username>
+        <app-username [username]="comment.userActorDTO?.username" [slug]="comment.userActorDTO?.slug"
+          [fontSize]="fontSize"></app-username>
       </div>
       <div class="comment-object">
-        <div class="comment-left-part">
+        <div class="comment-left-part" [ngStyle]="{'font-size': fontSize}">
           {{comment.commentObject}}
         </div>
         <div *ngIf="allowDelete()" (click)="deleteComment()">
