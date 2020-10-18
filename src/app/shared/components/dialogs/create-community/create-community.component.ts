@@ -1,21 +1,20 @@
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { CreateCommunityService } from './create-community.servive';
-import { HttpHeaders } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
-import { Community } from 'models/community.model';
-import { Router } from '@angular/router';
-import { GlobalConstants } from 'shared/constants';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatStepper } from '@angular/material/stepper';
-import { Tag } from 'models/common.model';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { UserInterest } from 'models/user.model';
+import { Router } from '@angular/router';
 import { CommunitySuggestionGuideService } from 'community-suggestion-guide/community-suggestion-guide.service';
 import { GlobalService } from 'global.service';
+import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
+import { Tag } from 'models/common.model';
+import { Community } from 'models/community.model';
+import { UserInterest } from 'models/user.model';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { GlobalConstants } from 'shared/constants';
+import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { CreateCommunityService } from './create-community.servive';
 
 @Component({
   selector: 'app-create-community',
@@ -56,7 +55,7 @@ export class CreateCommunityComponent implements OnInit {
   communityTag = new FormControl('', Validators.pattern(/^[A-z0-9 ]*$/));
   tagsCount = new FormControl(0, {
     validators: [
-      Validators.max(4),
+      Validators.max(5),
       Validators.min(2)
     ]
   });
@@ -161,8 +160,9 @@ export class CreateCommunityComponent implements OnInit {
       if (this.userCommunityimage != null) {
         formData.set('avatarFile', this.userCommunityimage, this.userCommunityimage.name);
       }
-      this.auth.createCommunity(formData).subscribe((res: Community) => {
-        this.router.navigate(["/", GlobalConstants.communityPath, res.slug]);
+      this.auth.createCommunity(formData).subscribe((community: Community) => {
+        console.log("community", community);
+        this.router.navigate(["/", GlobalConstants.communityPath, community.slug]);
         this.isCreatingCommunity = false;
         this.dialogRef.close();
         this.snackbar.open('community created successfully', 'close', { duration: 5000 });
@@ -217,7 +217,7 @@ export class CreateCommunityComponent implements OnInit {
   hasTagInTagList(value: string) {
     let doesNotHave = false;
     this.tagList.forEach((tag: Tag) => {
-      if (tag.value === value) {
+      if (tag.value.toLocaleLowerCase() === value.toLocaleLowerCase()) {
         doesNotHave = true;
       }
     });
@@ -227,11 +227,12 @@ export class CreateCommunityComponent implements OnInit {
   addTagToBucket(value: string, isInput: boolean) {
     this.resetTagErrors();
     if (!(value && value.length > 0)) return;
+    value = value.trim();
     if (this.hasTagInTagList(value)) {
       this.tagExistsError = true;
       return;
     }
-    if (this.tagList.length >= 10) {
+    if (this.tagList.length >= 5) {
       this.bucketFullError = true;
     }
     else {
@@ -241,8 +242,8 @@ export class CreateCommunityComponent implements OnInit {
         this.tagsCount.setValue(Number(this.tagsCount.value) + 1);
         if (isInput) {
           this.communityTag.setValue("");
-          this.searchResults = [];
         }
+        this.searchResults = [];
         this.tagList.push(new Tag(value.toLocaleUpperCase()));
       }
     }

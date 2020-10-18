@@ -1,11 +1,11 @@
-<div class="create-community-wrapper">
+<div class="create-community-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
   <mat-horizontal-stepper [linear]=isLinear [disableRipple]="true" #stepper>
     <mat-step [stepControl]="communityDetailsForm">
       <form [formGroup]="communityDetailsForm" id="community-details-form">
         <div *ngIf="!mobileView">
           <ng-template matStepLabel>Community Details</ng-template>
         </div>
-        <div *ngIf="mobileView" class="step-title">
+        <div *ngIf="mobileView" class="step-title mobile">
           Community Details
         </div>
         <mat-form-field appearance="fill" floatLabel="always">
@@ -37,10 +37,10 @@
       <div *ngIf="!mobileView">
         <ng-template matStepLabel>Community Avatar</ng-template>
       </div>
-      <div *ngIf="mobileView" class="step-title">
+      <div *ngIf="mobileView" class="step-title mobile">
         Choose Community Avatar
       </div>
-      <div class="com-img-container">
+      <div class="com-img-container" [ngClass]="mobileView ? 'mobile' : 'desktop'">
         <img [src]="communityImage ? communityImage : defaultSrc" (click)="previewImage()">
       </div>
       <app-img-cropper-wrapper [isCommunityAvatar]="true" (imageDataEvent)="imageDataReceiver($event)"
@@ -60,24 +60,27 @@
       <div *ngIf="!mobileView">
         <ng-template matStepLabel>Community Tags</ng-template>
       </div>
-      <div *ngIf="mobileView" class="step-title">
+      <div *ngIf="mobileView" class="step-title mobile">
         Community Tags
       </div>
       <div class="community-tag-container">
-        <div class="step-title">
+        <div class="step-title" [ngClass]="mobileView ? 'mobile' : 'desktop'">
           Add tags (up to 5) to allow users to search this community
         </div>
         <div class="filter-wrapper">
           <div class="keyword-wrapper">
-            <mat-form-field appearance="fill" floatLabel="always" class="input-control">
+            <mat-form-field appearance="fill" floatLabel="always" class="community-tag-input-control">
               <input type="text" matInput [formControl]="communityTag" autocomplete="off"
                 (keyup.enter)="addTagToBucket(communityTag.value, true)"
                 placeholder="Press Enter Key After Typing Your Interest" autofocus />
             </mat-form-field>
-            <div class="filter-select" [ngClass]="mobileView ? 'mobile' : 'desktop'" *ngIf="searchResults?.length > 0">
-              <div class="filter-select-list" *ngFor="let userInterest of searchResults"
-                (click)="addTagToBucket(userInterest.interest, false)">
-                <span class="user-interest">{{userInterest.interest}}</span>
+            <div class="filter-select-wrapper">
+              <div class="filter-select" [ngClass]="mobileView ? 'mobile' : 'desktop'"
+                *ngIf="searchResults?.length > 0">
+                <div class="filter-select-list" *ngFor="let userInterest of searchResults"
+                  (click)="addTagToBucket(userInterest.interest, false)">
+                  <span class="user-interest">{{userInterest.interest}}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -90,9 +93,9 @@
         <mat-error *ngIf="tagsCount.hasError('min')">At least 2 tags are required</mat-error>
         <mat-error *ngIf="tagMaxLengthError">Tag is too long</mat-error>
         <div class="tag-list-wrapper row">
-          <div class="tag-container row" *ngFor="let tag of tagList, let ind = index">
+          <div class="tag-container row" *ngFor="let tag of tagList, let ind = index" [ngClass]="mobileView ? 'mobile' : 'desktop'">
             <div class="tag">{{tag.value}}</div>
-            <div (click)="removeTagFromBucket(ind)" class="remove">
+            <div (click)="removeTagFromBucket(ind)" class="remove" [ngClass]="mobileView ? 'mobile' : 'desktop'">
               <mat-icon>close</mat-icon>
             </div>
           </div>
