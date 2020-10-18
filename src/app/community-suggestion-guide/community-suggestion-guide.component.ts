@@ -118,6 +118,7 @@ export class CommunitySuggestionGuideComponent implements OnInit {
   addTagToBucket(value: string, isInput: boolean) {
     this.resetTagErrors();
     if (!(value && value.length > 0)) return;
+    value = value.trim();
     if (this.hasTagInTagList(value)) {
       this.tagExistsError = true;
       return;
@@ -126,13 +127,13 @@ export class CommunitySuggestionGuideComponent implements OnInit {
       this.bucketFullError = true;
     }
     else {
+      this.searchResults = [];
       if (value.length > 30 && isInput) {
         this.tagMaxLengthError = true;
       } else if (this.communityTag.valid || !isInput) {
         this.tagsCount.setValue(Number(this.tagsCount.value) + 1);
         if (isInput) {
           this.communityTag.setValue("");
-          this.searchResults = [];
         }
         this.tagList.push(new Tag(value.toLocaleUpperCase()));
       }

@@ -236,6 +236,7 @@ export class CreateCommunityComponent implements OnInit {
       this.bucketFullError = true;
     }
     else {
+      this.searchResults = [];
       if (value.length > 30 && isInput) {
         this.tagMaxLengthError = true;
       } else if (this.communityTag.valid || !isInput) {
@@ -243,7 +244,6 @@ export class CreateCommunityComponent implements OnInit {
         if (isInput) {
           this.communityTag.setValue("");
         }
-        this.searchResults = [];
         this.tagList.push(new Tag(value.toLocaleUpperCase()));
       }
     }

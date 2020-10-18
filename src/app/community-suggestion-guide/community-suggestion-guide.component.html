@@ -1,4 +1,4 @@
-<div class="community-suggestion-guide-wrapper">
+<div class="community-suggestion-guide-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
     <mat-horizontal-stepper [linear]=isLinear [disableRipple]="true" #stepper>
         <mat-step [stepControl]="communityTagsForm">
             <div class="user-interests-container">
@@ -8,16 +8,18 @@
                 </div>
                 <div class="filter-wrapper">
                     <div class="keyword-wrapper">
-                        <mat-form-field appearance="fill" floatLabel="always" class="input-control">
+                        <mat-form-field appearance="fill" floatLabel="always" class="user-interest-input-control">
                             <input type="text" matInput [formControl]="communityTag" autocomplete="off"
                                 (keyup.enter)="addTagToBucket(communityTag.value, true)"
                                 placeholder="Press Enter Key After Typing Your Interest" autofocus />
                         </mat-form-field>
-                        <div class="filter-select" [ngClass]="mobileView ? 'mobile' : 'desktop'"
-                            *ngIf="searchResults?.length > 0">
-                            <div class="filter-select-list" *ngFor="let userInterest of searchResults"
-                                (click)="addTagToBucket(userInterest.interest, false)">
-                                <span class="user-interest">{{userInterest.interest}}</span>
+                        <div class="filter-select-wrapper">
+                            <div class="filter-select" [ngClass]="mobileView ? 'mobile' : 'desktop'"
+                                *ngIf="searchResults?.length > 0">
+                                <div class="filter-select-list" *ngFor="let userInterest of searchResults"
+                                    (click)="addTagToBucket(userInterest.interest, false)">
+                                    <span class="user-interest">{{userInterest.interest}}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
