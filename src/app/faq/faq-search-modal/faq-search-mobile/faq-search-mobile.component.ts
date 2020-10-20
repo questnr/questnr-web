@@ -6,11 +6,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './faq-search-mobile.component.html',
   styleUrls: ['./faq-search-mobile.component.scss']
 })
-export class FAQSearchMobileComponent implements OnInit {
+export class FaqSearchMobileComponent implements OnInit {
   queryString: string
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { queryString: string },
-    public dialogRef: MatDialogRef<FAQSearchMobileComponent>,) {
+    public dialogRef: MatDialogRef<FaqSearchMobileComponent>,) {
     this.queryString = this.data.queryString;
   }
 

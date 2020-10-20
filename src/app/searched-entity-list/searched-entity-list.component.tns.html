@@ -1,0 +1,136 @@
+<StackLayout>
+  <Label text="SearchedEntityListComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="wrapper">
+    <!-- <div *ngIf="title" class="title hr">
+        <div>{{title}}</div>
+        <div class="close-icon" (click)="closeModal($event)">
+            <mat-icon>close</mat-icon>
+        </div>
+    </div> ->
+    <div class="tab-component" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+        <mat-tab-group [(selectedIndex)]="selectedSearchOption" (selectedIndexChange)="selectedIndex.setValue($event)">
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span [innerHTML]="label(userIndex)"></span>
+                </ng-template>
+                <ng-template matTabContent>
+                    <div class="searched-list hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+                        <!-- <div *ngIf="selectedSearchOption==0" id="searched-entity-list_searched-list">
+                        </div> ->
+                        <a class="w-100 no-a" mat-button *ngFor="let user of users"
+                            [routerLink]="['/', currentPath, user?.slug]">
+                            <app-horizontal-profile [avatar]="user?.avatarDTO" [head]="user?.username"
+                                [subhead]="user?.firstName && user?.lastName ? user?.firstName+' '+user?.lastName: ''">
+                            </app-horizontal-profile>
+                        </a>
+                        <div>
+                            <ng-container *ngIf="isDataLoading(userIndex)">
+                                <div class="list-item" *ngFor="let i of listItems">
+                                    <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
+                                    <ngx-skeleton-loader class="w-100" count="1" appearance="line">
+                                    </ngx-skeleton-loader>
+                                </div>
+                            </ng-container>
+                            <div class="load-more" *ngIf="notInList(userIndex)" (click)="fetchEntityList(userIndex)">
+                                <span>{{notInListTemplate}}</span>
+                            </div>
+                            <div *ngIf="endOfResults(userIndex)" class="no-more">
+                                {{endOfResultsTemplate}}
+                            </div>
+                            <div *ngIf="noDataFound(userIndex)" class="no-data">
+                                {{noDataFoundTemplate}}
+                                <span>'{{searchInputValue}}'</span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span [innerHTML]="label(communityIndex)"></span>
+                </ng-template>
+                <ng-template matTabContent>
+                    <div class="searched-list hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+                        <a class="w-100 no-a" mat-button *ngFor="let community of communities"
+                            [routerLink]="['/', currentPath, community?.slug]">
+                            <app-horizontal-profile [isCommunityAvatar]="true" [avatar]="community?.avatarDTO"
+                                [head]="community?.communityName" [subhead]="community?.ownerUserDTO?.username">
+                            </app-horizontal-profile>
+                        </a>
+                        <div>
+                            <ng-container *ngIf="isDataLoading(communityIndex)">
+                                <div class="list-item" *ngFor="let i of listItems">
+                                    <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
+                                    <ngx-skeleton-loader class="w-100" count="1" appearance="line">
+                                    </ngx-skeleton-loader>
+                                </div>
+                            </ng-container>
+                            <div class="load-more" *ngIf="notInList(communityIndex)"
+                                (click)="fetchEntityList(communityIndex)">
+                                <span>{{notInListTemplate}}</span>
+                            </div>
+                            <div *ngIf="endOfResults(communityIndex)" class="no-more">
+                                {{endOfResultsTemplate}}
+                            </div>
+                            <div *ngIf="noDataFound(communityIndex)" class="no-data">
+                                {{noDataFoundTemplate}}
+                                <span>'{{searchInputValue}}'</span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <span [innerHTML]="label(hashTagIndex)"></span>
+                </ng-template>
+                <ng-template matTabContent>
+                    <div class="searched-list hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+                        <a class="hash-tag w-100 no-a" mat-button *ngFor="let hashTag of hashtags"
+                            [routerLink]="['/', currentPath]" [queryParams]="{q: hashTag.hashTagValue}"><span
+                                class="hash-tag-symbol">#</span>{{hashTag.hashTagValue}}</a>
+                        <div>
+                            <ng-container *ngIf="isDataLoading(hashTagIndex)">
+                                <div class="list-item" *ngFor="let i of listItems">
+                                    <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
+                                    <ngx-skeleton-loader class="w-100" count="1" appearance="line">
+                                    </ngx-skeleton-loader>
+                                </div>
+                            </ng-container>
+                            <div class="load-more" *ngIf="notInList(hashTagIndex)"
+                                (click)="fetchEntityList(hashTagIndex)">
+                                <span>{{notInListTemplate}}</span>
+                            </div>
+                            <div *ngIf="endOfResults(hashTagIndex)" class="no-more">
+                                {{endOfResultsTemplate}}
+                            </div>
+                            <div *ngIf="noDataFound(hashTagIndex)" class="no-data">
+                                {{noDataFoundTemplate}}
+                                <span>'{{searchInputValue}}'</span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+        <!-- <div class="search-menu row">
+            <div class="search-option-list row col-md-11">
+                <div *ngFor="let item of filterSearchOptionList;let indexOfelement=index;"
+                    class="search-option col-md-4" 
+                    [ngClass]="{'selected': indexOfelement==selectedSearchOption}">
+                    <app-dot [radius]="7"></app-dot><span>{{item}}</span>
+                </div>
+            </div>
+            <mat-icon class="close-icon col-md-1" (click)="handleClick($event)">close</mat-icon>
+        </div> ->
+
+    </div>
+</div>
+-->

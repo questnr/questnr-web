@@ -1,0 +1,102 @@
+<StackLayout>
+  <Label text="floating-mobile-nav works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<app-floating-communities-bar [activePane]="isLeftVisible ? 'left' : 'right'">
+  <div rightPane>
+    <div class="joined-community-container">
+      <div (click)="isLeftVisible = !isLeftVisible" class="toggle-btn">
+        <div>Owned</div> &nbsp;
+        <span>
+          <mat-icon>arrow_right</mat-icon>
+        </span>
+      </div>
+      <div>
+        <ul>
+          <li *ngFor="let i of joinedCommunity">
+            <div>
+              <app-profile-icon [isCommunityAvatar]="true" [avatar]="i.avatarDTO" [height]="32" [sizeRef]="'small'"
+                [slug]="i?.slug" [matTooltip]="i.communityName">
+              </app-profile-icon>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="view-more" *ngIf="joinedCommunity.length ===5"
+        (click)="openCommunityDialog(joinedCommunity, communityListType.joined)">
+        <button mat-icon-button>
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div leftPane>
+    <div class="owned-community-container" [ngClass]="{'view_all_community': ownedCommunity.length === 5}">
+      <div>
+        <ul>
+          <li *ngFor="let i of ownedCommunity">
+            <div>
+              <app-profile-icon [isCommunityAvatar]="true" [avatar]="i.avatarDTO" [height]="32" [sizeRef]="'small'" [slug]="i?.slug"
+                [matTooltip]="i.communityName">
+              </app-profile-icon>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="view-more" *ngIf="ownedCommunity.length === 5"
+        (click)="openCommunityDialog(ownedCommunity, communityListType.owned)">
+        <button mat-icon-button>
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+      </div>
+      <div (click)="isLeftVisible = !isLeftVisible" class="toggle-btn">
+        <div>Joined</div>&nbsp;
+        <mat-icon>arrow_left</mat-icon>
+      </div>
+    </div>
+  </div>
+</app-floating-communities-bar>
+
+<div style="width: 100%; height: 40px">
+  <div class="quick-nav-container">
+    <div class="quick_nav">
+      <div class="nav-btn" [routerLink]="['/',links.feedPath]" [ngClass]="{'active': home}">
+        <div class="btn-ctn">
+          <img src="/assets/home.svg" alt="">
+        </div>
+        <div class="title">Home</div>
+      </div>
+      <div class="nav-btn" [routerLink]="['/',links.explorePath]" [ngClass]="{'active': explore}">
+        <div class="btn-ctn">
+          <img src="/assets/safari.svg" alt="">
+        </div>
+        <div class="title">Explore</div>
+      </div>
+      <div class="nav-btn" (click)="createCommunity()">
+        <div class="btn-ctn" style="width: 26px; ">
+          <img src="/assets/add.png" alt="">
+        </div>
+        <div class="title">Create</div>
+      </div>
+      <!-- <div class="nav-btn" [ngClass]="{'active': music}" [routerLink]="['/',links.communityPath,'youtube-music--7204285218705300364']">
+        <div class="btn-ctn">
+          <img src="/assets/music.svg" alt="">
+        </div>
+        <div class="title">Music</div>
+      </div> ->
+      <div class="nav-btn" [ngClass]="{'active': profile}" [routerLink]="['/user/',profileLink]">
+        <div class="btn-ctn">
+          <img src="/assets/user.svg" alt="">
+        </div>
+        <div class="title">Profile</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+-->

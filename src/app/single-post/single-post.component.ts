@@ -3,7 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
+import { AttachedFileListComponent } from 'attached-file/attached-file-list.component';
 import { LoginSignupModalComponent } from 'auth/login-signup-modal/login-signup-modal.component';
 import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';

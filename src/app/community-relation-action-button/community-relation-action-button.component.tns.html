@@ -1,0 +1,34 @@
+<StackLayout>
+  <Label text="community-relation-action-button works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<button mat-stroked-button *ngIf="relation ==='followed'; else notOwned" (click)="unfollowThisCommunity()"
+  class="following">
+  <span class="button-content">
+    <mat-icon>check</mat-icon>
+    Joined
+  </span>
+</button>
+<ng-template #notOwned>
+  <button mat-stroked-button class="none" *ngIf="relation==='requested' ; else notFollowed" [disableRipple]="true" (click)="deleteUsersOwnPendingCommunityJoinRequests()">
+    <span class="button-content">
+      <mat-icon>alarm_on</mat-icon>Requested
+    </span>
+  </button>
+  <ng-template #notFollowed>
+    <button mat-stroked-button (click)="followThisCommunty()" class="none">
+      <span class="button-content">
+        <mat-icon *ngIf="communityType===CommunityPrivacy.pub">add</mat-icon>
+        <mat-icon *ngIf="communityType===CommunityPrivacy.pri">lock</mat-icon>
+        Join
+      </span>
+    </button>
+  </ng-template>
+</ng-template>
+
+-->

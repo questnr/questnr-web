@@ -1,6 +1,6 @@
-import { User } from './user.model';
-import { MetaData } from './common.model';
-import { PostMedia } from './post-action.model';
+import { User } from '/Users/brijeshlakkad/Documents/Questnr/questnr-web/src/app/models/user.model';
+import { MetaData } from '/Users/brijeshlakkad/Documents/Questnr/questnr-web/src/app/models/common.model';
+import { PostMedia } from '/Users/brijeshlakkad/Documents/Questnr/questnr-web/src/app/models/post-action.model';
 
 export class CommentAction {
     commentActionId: number;
@@ -28,6 +28,6 @@ export class CommentActionMeta {
 }
 
 export enum CommentParentClassType {
-    feed = "feed",
-    singlePost = "singlePost"
+    feed = 'feed',
+    singlePost = 'singlePost'
 }

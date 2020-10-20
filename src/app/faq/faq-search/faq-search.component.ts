@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit, Renderer2, ViewChild, ViewEncapsulation }
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'auth/login.service';
-import { FAQService } from 'faq/faq.service';
+import { FaqService } from 'faq/faq.service';
 import { GlobalService } from 'global.service';
-import { FAQItemSearchPage } from 'models/faq.model';
+import { FaqItemSearchPage } from 'models/faq.model';
 import { Page, PaginationData } from 'models/page.model';
 import { GlobalConstants } from 'shared/constants';
 import { UIService } from 'ui/ui.service';
@@ -15,11 +15,11 @@ import { UIService } from 'ui/ui.service';
   styleUrls: ['./faq-search.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class FAQSearchComponent implements OnInit, OnDestroy {
+export class FaqSearchComponent implements OnInit, OnDestroy {
   mobileView: boolean = false;
   loading: boolean = false;
   queryString: string;
-  FAQItemSearchedList: FAQItemSearchPage[] = [];
+  FaqItemSearchedList: FaqItemSearchPage[] = [];
   noData: boolean = false;
   paginationData: PaginationData;
   @ViewChild("paginator") paginator: MatPaginator;
@@ -29,7 +29,7 @@ export class FAQSearchComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private _globalService: GlobalService,
     private router: Router,
-    private faqService: FAQService,
+    private faqService: FaqService,
     private renderer: Renderer2,
     public loginService: LoginService,
     private uiService: UIService) {
@@ -39,7 +39,7 @@ export class FAQSearchComponent implements OnInit, OnDestroy {
         this.redirectToErrorPage();
       } else {
         this.clearError();
-        this.searchFAQ();
+        this.searchFaq();
       }
     });
   }
@@ -63,14 +63,14 @@ export class FAQSearchComponent implements OnInit, OnDestroy {
     this.noData = false;
   }
 
-  searchFAQ(page: any = "0") {
+  searchFaq(page: any = "0") {
     this.loading = true;
-    this.FAQItemSearchedList = [];
-    this.faqService.searchFAQItem(this.queryString, page).subscribe((faqItemSearchPage: Page<FAQItemSearchPage>) => {
+    this.FaqItemSearchedList = [];
+    this.faqService.searchFaqItem(this.queryString, page).subscribe((faqItemSearchPage: Page<FaqItemSearchPage>) => {
       this.loading = false;
       if (!faqItemSearchPage.empty) {
         this.paginationData = faqItemSearchPage;
-        this.FAQItemSearchedList = faqItemSearchPage.content;
+        this.FaqItemSearchedList = faqItemSearchPage.content;
       } else {
         this.noData = true;
       }
@@ -87,7 +87,7 @@ export class FAQSearchComponent implements OnInit, OnDestroy {
       return;
     }
     this.currentPage = $event.pageIndex;
-    this.searchFAQ($event.pageIndex);
+    this.searchFaq($event.pageIndex);
   }
 
 }

@@ -1,0 +1,32 @@
+<StackLayout>
+  <Label text="FaqComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<app-header *ngIf="!loginService.loggedIn()"></app-header>
+<app-user-header *ngIf="loginService.loggedIn()"></app-user-header>
+
+<div class="faq-wrapper container hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+    <div class="faq-container hide-scrollbar">
+        <div class="template-container" [ngClass]="mobileView ? 'mobile': 'desktop'" *ngIf="!loading">
+            <app-faq-header [category]="category" #faqHeader></app-faq-header>
+            <div class="template-desciption">{{description}}</div>
+            <div class="template-content" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+                <div *ngFor="let faqItem of faqItemList;">
+                    <faq-item [title]="faqItem.question">
+                        <div [innerHTML]="faqItem.answer"></div>
+                    </faq-item>
+                </div>
+            </div>
+        </div>
+        <faq-loader *ngIf="loading">
+        </faq-loader>
+    </div>
+</div>
+
+<app-footer></app-footer>
+-->

@@ -1,0 +1,28 @@
+<StackLayout>
+  <Label text="ActionMenuComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="menu-container" [ngClass]="[isOpen ? 'expanded' : '', forceHide ? 'force-hide' : '']"
+    (click)="actionMenu?.onClick($event)" (mouseover)="handleToggleOpenState()" (mouseout)="handleClosePopover()"
+    #containerRef>
+    <button class="button main-button" (click)="clickDelayer($event)" #buttonRef>
+        <img class="main-icon" draggable="false" [src]="actionMenu?.mainImg" />
+        {{actionMenu?.mainTitle}}
+    </button>
+    <div class="more-buttons-outer">
+        <div class="more-buttons">
+            <div *ngFor="let actionMenuButton of actionMenuButtons;">
+                <button class="button more-button" (click)="actionMenuButton.onClick($event)">
+                    <img class="more-icon" draggable="false" [src]="actionMenuButton?.img" />
+                    {{actionMenuButton.title}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+-->

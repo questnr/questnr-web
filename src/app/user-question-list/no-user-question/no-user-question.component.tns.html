@@ -1,0 +1,28 @@
+<StackLayout>
+  <Label text="no-user-question works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="no-user-question-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+    <div *ngIf="type==userQuestionListModalTypeClass.user">
+        <div *ngIf="isOwner">
+            You have not asked any questions.
+        </div>
+        <div *ngIf="!isOwner">
+            The user has not asked any questions.
+        </div>
+    </div>
+    <div *ngIf="type==userQuestionListModalTypeClass.community">
+        <div *ngIf="!notAllowed; else notAllowed">
+            Community has not asked any questions.
+        </div>
+        <ng-template #notAllowed>
+            Community Questions are only available for its members.
+        </ng-template>
+    </div>
+</div>
+-->

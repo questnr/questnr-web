@@ -1,0 +1,29 @@
+<StackLayout>
+  <Label text="HeaderComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<header id="extended-nav" class="nav-main-container">
+  <div class="toolbar" role="banner">
+    <div class="logo" [routerLink]="['/']"><img src="../../assets/main.png" /></div>
+    <div class="spacer"></div>
+    <ng-container *ngIf="!loginService.loggedIn()">
+      <app-login-register-btn (activeAuthEmitter)="activeAuthEvent($event)" [openNewTab]="true">
+      </app-login-register-btn>
+    </ng-container>
+    <ng-container *ngIf="loginService.loggedIn()">
+      <!--<<<<<<< HEAD->
+      <!--      <button mat-button class="btn-white" (click)="signOut()">->
+      <!--        Sign Out->
+      <!--=======->
+      <button mat-button class="btn-white" [routerLink]="['/', feedPath]">
+        Go to Feeds
+      </button>
+    </ng-container>
+  </div>
+</header>
+-->

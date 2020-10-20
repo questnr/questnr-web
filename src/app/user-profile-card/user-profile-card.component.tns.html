@@ -1,0 +1,62 @@
+<StackLayout>
+  <Label text="user-profile-card works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="user-profile-card-wrapper box">
+  <div class="user-profile-card-container">
+    <div class="profile-body-container">
+      <div class="profile-background">
+        <img [src]="userBannerImage" alt="banner" class="comm-ban-img" [ngClass]="[userBannerImage ? '' : 'd-none']">
+      </div>
+      <div class="user-icon-username" [id]="userId">
+        <div class="owner-img">
+          <app-profile-icon [avatar]="avatar" [height]="90" [sizeRef]="'medium'" [alt]="username" [slug]="slug">
+          </app-profile-icon>
+        </div>
+        <div>
+          <div class="owner-name" [routerLink]="['/', userPath, slug]">
+            <p class="link" [routerLink]="['/', userPath, slug]"> {{username}}</p>
+          </div>
+        </div>
+      </div>
+      <hr style="margin-top: 0">
+
+      <div class="user-meta-information">
+        <mat-icon>people_outline</mat-icon>
+        <span>{{userInfo?.followers}} Followers</span>
+      </div>
+
+      <div class="user-meta-information">
+        <mat-icon>calendar_view_day</mat-icon>
+        <span>{{userInfo?.posts}} Posts</span>
+      </div>
+      <div class="user-meta-information">
+        <mat-icon>calendar_view_day</mat-icon>
+        <span>{{userInfo?.ownsCommunities}} Communities</span>
+      </div>
+    </div>
+    <div class="user-profile-card-footer" *ngIf="!isOwner">
+      <hr style="margin: 8px">
+      <!-- <a [routerLink]="['/', userPath, slug]" *ngIf="relationship =='owned'; else public">
+        <button mat-button>
+          Profile
+        </button>
+      </a> ->
+      <div *ngIf="relationship=='followed'; else notFollowing">
+        <button mat-stroked-button class="following" (click)="unfollowUser(userId)">
+          <mat-icon>check</mat-icon>
+          Following
+        </button>
+      </div>
+      <ng-template #notFollowing>
+        <button mat-button class="none" (click)="addUser()">Follow</button>
+      </ng-template>
+    </div>
+  </div>
+</div>
+-->

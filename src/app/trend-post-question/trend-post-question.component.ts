@@ -13,7 +13,7 @@ import { ApiService } from '../shared/api.service';
   templateUrl: './trend-post-question.component.html',
   styleUrls: ['./trend-post-question.component.scss']
 })
-export class TrendingPostPollQuestionComponent implements OnInit {
+export class TrendPostQuestionComponent implements OnInit {
   @Input() trendingPostPollQuestionList: Post[];
   loadingTrendingPost = true;
   listItems = Array(5);

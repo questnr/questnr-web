@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
@@ -34,7 +35,7 @@ import { CookiePolicyComponent } from 'cookie-policy/cookie-policy.component';
 import { CustomTooltipComponent } from 'custom-tooltip/custom-tooltip.component';
 import { DragDropDirective } from 'drag-drop.directive';
 import { EditUserComponent } from 'edit-user/edit-user.component';
-import { FAQModule } from 'faq/faq.module';
+import { FaqModule } from 'faq/faq.module';
 import { FeedsFrameComponent } from 'feeds-frame/feeds-frame.component';
 import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
 import { FeedsLoaderComponent } from 'feeds-frame/recommended-feeds/feeds-loader/feeds-loader.component';
@@ -63,14 +64,13 @@ import { UserDescriptionCardComponent } from 'shared/user-description-card/user-
 import { SinglePostModule } from 'single-post/single-post.module';
 import { SinglePostResolve } from 'single-post/single-post.resolve';
 import { TermsComponent } from 'terms/terms.component';
-import { TrendingPostPollQuestionComponent } from 'trend-post-question/trend-post-question.component';
+import { TrendPostQuestionComponent } from 'trend-post-question/trend-post-question.component';
 import { UserActivityBarComponent } from 'user-activity/user-activity-bar/user-activity-bar.component';
 import { NoUserQuestionComponent } from 'user-question-list/no-user-question/no-user-question.component';
 import { UserQuestionListModalComponent } from 'user-question-list/user-question-list-modal/user-question-list-modal.component';
 import { UserQuestionListComponent } from 'user-question-list/user-question-list.component';
 import { UserQuestionLoaderComponent } from 'user-question-list/user-question-loader/user-question-loader.component';
 import { UserQuestionComponent } from 'user-question-list/user-question/user-question.component';
-import { AsyncPipe } from '../../node_modules/@angular/common';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -82,25 +82,21 @@ import { CommunityResolve } from './community/community.resolve';
 import { CreateCommunityBtnComponent } from './create-community-btn/create-community-btn.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { ExploreComponent } from './explore/explore.component';
-import { FeedsComponent } from './feeds-frame/feeds/feeds.component';
-import { PostFeedsComponent } from './feeds-frame/feeds/post-feeds/post-feeds.component';
-import { TrendingFeedsComponent } from './feeds-frame/feeds/trending-feeds/trending-feeds.component';
 import { FloatingAdsComponent } from './feeds-frame/floating-ads/floating-ads.component';
 import { FloatingFooterComponent } from './feeds-frame/floating-footer/floating-footer.component';
 import { PostFeedComponent } from './feeds-frame/post-feed/post-feed.component';
+import { PostFeedsComponent } from './feeds-frame/post-feeds/post-feeds.component';
 import { ProfileRibbonComponent } from './feeds-frame/profile-ribbon/profile-ribbon.component';
 import { RecommendedFeedsComponent } from './feeds-frame/recommended-feeds/recommended-feeds.component';
 import { FloatingCommunitiesBarComponent } from './floating-communities-bar/floating-communities-bar.component';
 import { FloatingMobileNavComponent } from './floating-mobile-nav/floating-mobile-nav.component';
 import { HashTagComponent } from './hash-tag/hash-tag.component';
-import { HomeComponent } from './home/home.component';
 import { InterceptorService } from './interceptor.service';
 import { JoinedCommunityComponent } from './joined-community/joined-community.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { QuickNavComponent } from './quick-nav/quick-nav.component';
 import { RichTextAreaComponent } from './rich-text-area/rich-text-area.component';
 import { MessagingService } from './service/messaging.service';
-import { CardComponent } from './shared/components/card/card.component';
 import { CommunityCardMobileViewComponent } from './shared/components/community-card-mobile-view/community-card-mobile-view.component';
 import { CommunityListComponent } from './shared/components/dialogs/community-list/community-list.component';
 import { CreateCommunityComponent } from './shared/components/dialogs/create-community/create-community.component';
@@ -193,12 +189,10 @@ export function metaFactory(): MetaLoader {
   declarations: [
     AppComponent,
     LandingPageComponent,
-    FeedsComponent,
     ProfileRibbonComponent,
     FloatingFooterComponent,
     RecommendedFeedsComponent,
     FloatingAdsComponent,
-    TrendingFeedsComponent,
     PostFeedsComponent,
     FeedsFrameComponent,
     LandingPageComponent,
@@ -208,8 +202,6 @@ export function metaFactory(): MetaLoader {
     SidenavComponent,
     PostFeedComponent,
     FeedsLoaderComponent,
-    CardComponent,
-    HomeComponent,
     RankCardComponent,
     CommunityComponent,
     CreateCommunityComponent,
@@ -256,7 +248,7 @@ export function metaFactory(): MetaLoader {
     RichTextAreaComponent,
     PostFeedComponent,
     PostReportComponent,
-    TrendingPostPollQuestionComponent,
+    TrendPostQuestionComponent,
     CommunitySuggestionGuideComponent,
     InfoTooltipComponent,
     CustomTooltipComponent,
@@ -306,7 +298,7 @@ export function metaFactory(): MetaLoader {
     MDBBootstrapModule.forRoot(),
     CKEditorModule,
     HammerModule,
-    FAQModule,
+    FaqModule,
     SinglePostModule
   ],
   entryComponents: [

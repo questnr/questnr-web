@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { AppMaterialModule } from 'app-material/app-material.module';
-import { AttachedFileModule } from 'attached-file-list/attached-file.module';
+import { AttachedFileModule } from 'attached-file/attached-file.module';
 import { AuthModule } from 'auth/auth.module';
 import { BlogTitleComponent } from 'blog-title/blog-title.component';
 import { CommonService } from 'common/common.service';

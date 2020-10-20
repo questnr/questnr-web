@@ -1,0 +1,28 @@
+<StackLayout>
+  <Label text="AttachedFileListComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="attached-file-container">
+    <div *ngIf="!useLink" class="scrollable">
+        <div class="caption" *ngFor="let attachedFile of attachedFileList, let ind = index">
+            <app-attached-file (downloadError)="downloadErrorListener($event)" [attachedFile]="attachedFile" [ind]="ind"
+                [useLink]="useLink" (removeAttachedFileListener)="removeAttachedFile($event)"></app-attached-file>
+            <span>{{'('+(ind+1)+'/'+attachedFileList.length+')'}}</span>
+        </div>
+    </div>
+
+    <div *ngIf="useLink" class="scrollable">
+        <div class="caption" *ngFor="let attachedFileLink of attachedFileLinkList, let ind = index">
+            <app-attached-file (downloadError)="downloadErrorListener($event)" [ind]="ind"
+                [attachedFileLink]="attachedFileLink" [useLink]="useLink">
+            </app-attached-file>
+            <span>{{'('+(ind+1)+'/'+attachedFileLinkList.length+')'}}</span>
+        </div>
+    </div>
+</div>
+-->

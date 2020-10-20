@@ -1,0 +1,39 @@
+<StackLayout>
+  <Label text="community-activity works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<mat-card class="community-activity-wrapper"
+  [ngClass]="[mobileView ? 'mobile' : 'desktop', positioning == communityActivityPositionTypeClass.header ? 'header-template' : '']">
+  <div class="activity-items" *ngIf="!loading">
+    <div class="activity-item trend-item" *ngIf="communityInfo?.inTrend == true"
+      [ngClass]="mobileView ? 'mobile' : 'desktop'">
+      <span>{{'#'+communityInfo?.trendRank}}</span>
+      <div>
+        <p>In Trending</p>
+      </div>
+    </div>
+    <div class="vhr" *ngIf="communityInfo?.inTrend == true"></div>
+    <div class="activity-item" (click)="openCommunityMembersDialog()">
+      <span>{{communityInfo?.followers}}</span>
+      <div>
+        <p>Members</p>
+      </div>
+    </div>
+    <div class="vhr"></div>
+    <div class="activity-item" (click)="scrollTo()">
+      <span>{{communityInfo?.posts}}</span>
+      <div>
+        <p>Total Posts</p>
+      </div>
+    </div>
+  </div>
+  <div class="loader" *ngIf="loading">
+    <app-loader [size]="'md'"></app-loader>
+  </div>
+</mat-card>
+-->

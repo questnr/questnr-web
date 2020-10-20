@@ -1,0 +1,41 @@
+<StackLayout>
+  <Label text="CommentBoxComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="comment-box-wrapper">
+  <app-profile-icon [slug]="comment?.userActorDTO?.slug" [isCommunityAvatar]="false"
+    [avatar]="comment.userActorDTO.avatarDTO" [height]="35" [sizeRef]="'small'"></app-profile-icon>
+  <div class="comment-box-body">
+    <div class="profile-detail">
+      <div class="head">
+        <app-username [username]="comment.userActorDTO?.username" [slug]="comment.userActorDTO?.slug"
+          [fontSize]="fontSize"></app-username>
+      </div>
+      <div class="comment-object">
+        <div class="comment-left-part" [ngStyle]="{'font-size': fontSize}">
+          {{comment.commentObject}}
+        </div>
+        <div *ngIf="allowDelete()" (click)="deleteComment()">
+          <app-trash-icon [toolTipText]="'Delete comment'"></app-trash-icon>
+        </div>
+      </div>
+      <app-attached-file-list [attachedFileLinkList]="comment.commentMediaList"></app-attached-file-list>
+    </div>
+    <!-- </div> ->
+    <div class="comment-actions">
+      <a (click)="likeComment(comment.commentActionId)"
+        [innerHTML]="comment?.commentActionMeta?.liked? 'liked':'like'"></a>
+      <span></span>
+      <a
+        (click)="replyTo(comment.userActorDTO?.username, comment.commentActionId, parentComment?.commentActionId)">Reply</a>
+      <span></span>
+      <app-time-string [metaData]="comment.metaData"></app-time-string>
+    </div>
+  </div>
+</div>
+-->

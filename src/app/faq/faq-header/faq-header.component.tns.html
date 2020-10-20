@@ -1,0 +1,35 @@
+<StackLayout>
+  <Label text="FaqHeaderComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="header-wrapper">
+    <div class="header-part">
+        <div class="header" [ngClass]="mobileView ? 'mobile': 'desktop'" *ngIf="category; else noCategory">
+            <div *ngIf="!mobileView; else headerMobile">
+                Questnr FAQs&nbsp;-&nbsp;{{category}}
+            </div>
+            <ng-template #headerMobile>
+                <div>Questnr FAQs -&nbsp;</div>
+                <div>{{category}}</div>
+            </ng-template>
+        </div>
+        <ng-template #noCategory>
+            <div class="header" [ngClass]="mobileView ? 'mobile': 'desktop'">
+                Questnr FAQs
+            </div>
+        </ng-template>
+    </div>
+    <div class="search-control">
+        <app-faq-search-input *ngIf="!mobileView; else showSearchIcon" [queryString]="queryString">
+        </app-faq-search-input>
+        <ng-template #showSearchIcon>
+            <app-faq-search-button [queryString]="queryString"></app-faq-search-button>
+        </ng-template>
+    </div>
+</div>
+-->

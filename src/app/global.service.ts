@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class GlobalService {
-  private mobileView: boolean = false;
+  private mobileView = false;
 
   public isMobileView(): boolean {
     return this.mobileView;

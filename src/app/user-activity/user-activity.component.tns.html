@@ -1,0 +1,60 @@
+<StackLayout>
+  <Label text="user-activity works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<user-activity-bar [activePane]="isLeftVisible ? 'left' : 'right'">
+  <div leftPane>
+    <mat-card class="user-activity" [ngClass]="{'mobile' : mobileView}">
+      <div class="activity-items">
+        <div class="activity-item">
+          <span (click)="openCommunityDialog(communityListTypeClass.owned)">{{userInfo?.ownsCommunities}}</span>
+          <div>
+            <p>Owns Communities</p>
+          </div>
+        </div>
+        <div class="activity-item">
+          <span (click)="openCommunityDialog(communityListTypeClass.joined)">{{userInfo?.followsCommunities}}</span>
+          <div>
+            <p>Joined Communities</p>
+          </div>
+        </div>
+      </div>
+      <div (click)="isLeftVisible = !isLeftVisible" class="toggle-btn arrow-div right">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </div>
+    </mat-card>
+  </div>
+  <div rightPane>
+    <mat-card class="user-activity" [ngClass]="{'mobile' : mobileView}">
+      <div (click)="isLeftVisible = !isLeftVisible" class="toggle-btn arrow-div left">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </div>
+      <div class="activity-items">
+        <div class="activity-item">
+          <span (click)="openUserGroupDialog(userListTypeClass.followers)">{{userInfo?.followers}}</span>
+          <div>
+            <p>Followers</p>
+          </div>
+        </div>
+        <div class="activity-item">
+          <span (click)="openUserGroupDialog(userListTypeClass.following)">{{userInfo?.followingTo}}</span>
+          <div>
+            <p>Following</p>
+          </div>
+        </div>
+        <div class="activity-item">
+          <span (click)="scrollTo()">{{userInfo?.posts}}</span>
+          <div>
+            <p>Total Posts</p>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</user-activity-bar>
+-->

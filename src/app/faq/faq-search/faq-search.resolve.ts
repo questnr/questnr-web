@@ -4,7 +4,7 @@ import { GlobalConstants } from 'shared/constants';
 import { UIService } from 'ui/ui.service';
 
 @Injectable()
-export class FAQSearchResolve implements Resolve<void> {
+export class FaqSearchResolve implements Resolve<void> {
 
   constructor(private uiService: UIService) { }
 

@@ -1,0 +1,32 @@
+<StackLayout>
+  <Label text="AttachedFileComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div *ngIf="!useLink">
+    <div class="attached-file" (mouseover)="hover(ind)" (mouseout)="unhover()">
+        <div class="attached-file-content">
+            <div>{{checkFileExtension(attachedFile) | uppercase}}</div>
+            <div>{{attachedFile.name | slice:0:7}}..</div>
+        </div>
+
+        <button class="action" *ngIf="shouldShow(ind)" (click)="removeAttachedFile(ind)">
+            <mat-icon>delete_forever</mat-icon>
+        </button>
+    </div>
+</div>
+<div *ngIf="useLink">
+    <div class="attached-file" (mouseover)="hover(ind)" (mouseout)="unhover()">
+        <div class="attached-file-content">
+            <div>{{getFileExtension(attachedFileLink) | uppercase}}</div>
+        </div>
+        <button class="action" *ngIf="shouldShow(ind)" (click)="downloadAttachedFile(attachedFileLink?.postMediaLink)">
+            <mat-icon>arrow_downward</mat-icon>
+        </button>
+    </div>
+</div>
+-->

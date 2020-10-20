@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { AttachedFileListComponent } from 'attached-file-list/attached-file-list.component';
+import { AttachedFileListComponent } from 'attached-file/attached-file-list.component';
 import { LoginService } from 'auth/login.service';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { GlobalService } from 'global.service';

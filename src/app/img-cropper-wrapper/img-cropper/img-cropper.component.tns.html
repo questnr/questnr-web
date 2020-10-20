@@ -1,0 +1,40 @@
+<StackLayout>
+  <Label text="img-cropper works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<nav-bar (backAction)="onNoClick()" *ngIf="mobileView"></nav-bar>
+<div class="img-cropper-wrapper hide-scrollbar">
+    <div class="cropper-tool">
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="aspectRatio"
+            format="jpeg" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()" style="max-width:50vw;"
+            class="cropper"></image-cropper>
+    </div>
+
+    <!-- <button mat-button>Rotate</button> ->
+
+    <div class="cropped-image-container" appDragDrop (fileDropped)="filesDropped($event)" (click)="uploadImage()">
+        <img [src]="croppedImage ? croppedImage : defaultSrc" class="cropped-image" />
+        <div class="text-center">
+            <div><span *ngIf="!mobileView">Drop Image/</span>Click Here to Upload</div>
+        </div>
+    </div>
+    <mat-error class="error" *ngIf="hasError">Please select an image to be uploaded</mat-error>
+    <div class="upload-container">
+        <input type="file" style="display: none" (change)="fileChangeEvent($event)" #chooseFileForAvatarRef />
+    </div>
+    <div class="button-row">
+        <div>
+            <button mat-button class="btn-secondary" (click)="actionCancel()">Cancel</button>
+        </div>
+        <div>
+            <button mat-button class="btn-primary" (click)="actionDone()">Select & Upload</button>
+        </div>
+    </div>
+</div>
+-->

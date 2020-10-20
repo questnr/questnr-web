@@ -1,14 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { SinglePostComponent } from './single-post.component';
-
-
-const routes: Routes = [
-    {
-        path: '',
-        component: SinglePostComponent
-    }
-];
+import { RouterModule } from '@angular/router';
+import { routes } from './single-post.common';
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],

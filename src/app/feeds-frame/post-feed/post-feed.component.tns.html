@@ -1,0 +1,127 @@
+<StackLayout>
+  <Label text="post-feed works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="post-feed-wrapper box hide-scrollbar"
+  [ngClass]="[isBlogEditor ? 'blog-editor-view': 'normal-editor-view', mobileView ? 'mobile' : 'desktop']">
+  <div class="loader active" *ngIf="!uploading && isLoading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <div class="loader" *ngIf="uploading" [ngClass]="{'active': isLoading}">
+    <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+  </div>
+  <div class="heading">
+    <div>{{data.editing ? 'Modify' : 'Make'}} a Questnr</div>
+    <div class="close-modal">
+      <button mat-icon-button (click)="closeDialog('')">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <hr style="margin-top: 0">
+  <div class="post-wrap">
+    <app-profile-icon [avatar]="login.avatar" [height]="60" [sizeRef]="'medium'" #profileIcon>
+    </app-profile-icon>
+    <div class="textbox-wrap md-form" style="position:relative;">
+      <div *ngIf="!isBlogEditor">
+        <textarea rows="4" placeholder="Describe Here...." [formControl]="text" (input)="typeCheckOnUserInput($event)"
+          (keyup)="typeCheckOnUserInput($event)" class="md-textarea md-textarea-auto" autofocus mdbInput #userInputRef>
+      </textarea>
+      </div>
+      <div *ngIf="isBlogEditor">
+        <app-loader-text *ngIf="isFetchingPostData" [size]="'sm'" [text]="'Fetching Your Blog'"></app-loader-text>
+        <div *ngIf="!isFetchingPostData">
+          <mat-form-field class="col-md-12" appearance="fill" floatLabel="always">
+            <input class="blog-title-input" [formControl]="blogTitle" type="text" placeholder="Blog Title"
+              autocomplete="off" matInput />
+            <mat-error *ngIf="blogTitle.hasError('required')">Title is required</mat-error>
+            <mat-error *ngIf="blogTitle.hasError('maxLength')">Title has more than 200 words</mat-error>
+          </mat-form-field>
+          <app-rich-text-area (registerEditorEvent)="registerEditor($event)">
+          </app-rich-text-area>
+        </div>
+      </div>
+      <div style="position: relative" *ngIf="!data?.feed?.postData.postEditorType">
+        <span *ngIf="isBlogEditor" (click)="switchEditor(false)" class="editor-mode">switch to normal editor</span>
+        <span *ngIf="!isBlogEditor" (click)="switchEditor(true)" class="editor-mode">switch to blog editor</span>
+        <div *ngIf="!isBlogEditor" class="emoticon-container">
+          <app-emoticons [userInputRef]="userInputRef"></app-emoticons>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <app-meta-card *ngIf="iFramelyData?.url" [iFramelyData]="iFramelyData"></app-meta-card>
+
+  <div class="media" [@expand]="isMediaEnabled ? 'expanded' : 'collapsed'">
+    <div class="media-wrap">
+      <div *ngFor="let item of addedMedias; let i=index">
+        <div class="media-item" *ngIf="!addedMediaSrc[i]?.type.includes('application')">
+          <button mat-icon-button (click)="removeMedia(i)">
+            <mat-icon>close</mat-icon>
+          </button>
+          <img *ngIf="addedMediaSrc[i]?.type.includes('image')" [src]="addedMediaSrc[i]?.src">
+          <video *ngIf="addedMediaSrc[i]?.type.includes('video')">
+            <source [src]="addedMediaSrc[i]?.src" [type]="addedMediaSrc[i].type">
+          </video>
+        </div>
+        <app-attached-file *ngIf="addedMediaSrc[i]?.type.includes('application')" [attachedFile]="addedMediaSrc[i]"
+          [ind]="i" [useLink]="false" (removeAttachedFileListener)="removeMedia($event)">
+        </app-attached-file>
+      </div>
+      <div class="drop-area m-2" appDragDrop (fileDropped)="filesDropped($event)" (click)="fileInput.click()">
+        <input type="file" (change)="selectFiles($event)" #fileInput style="display: none" multiple
+          accept="image/*,video/*,application/*" />
+        <div class="text-center">
+          <mat-icon>add_photo_alternate</mat-icon>
+          <div>Drop Image/Video/Document</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-header" *ngIf="!data.editing">
+    <div class="add-more-option">
+      <div class="row">
+        <div class="col-6">
+          <div style="margin-top: 8px">
+            <h6>Add Media To {{postEditorName}}</h6>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="options">
+            <button mat-icon-button (click)="fileInput.click()">
+              <mat-icon>photo</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn-wrap">
+    <!--    <button mat-button (click)="toggleAddMedia()" [ngClass]="{ active: isMediaEnabled}">->
+    <!--      <mat-icon>add_a_photo</mat-icon>->
+    <!--      <span class="sm-d-none"> &nbsp; Photo/Video </span>->
+    <!--    </button>->
+    <!-- <button mat-button>
+      <mat-icon>help</mat-icon> <span class="sm-d-none"> &nbsp; Ask a Question </span>
+    </button> ->
+    <!--    <div class="space"></div>->
+    <button mat-flat-button class="btn-post" (click)="postFeed()" [disabled]="isPostInvalid() || isLoading">
+      <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
+        <span class="sr-only">Loading...</span>
+      </div> &nbsp; {{data.editing ? 'Edit' : 'Create'}} &nbsp;
+      <!--      <mat-icon>send</mat-icon>->
+    </button>
+  </div>
+</div>
+
+<app-floating-suggestion-box #floatingSuggestionBoxRef>
+</app-floating-suggestion-box>
+-->

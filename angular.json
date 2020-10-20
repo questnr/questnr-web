@@ -185,6 +185,6 @@
   },
   "defaultProject": "questnr-front-end",
   "cli": {
-    "analytics": false
+    "defaultCollection": "@nativescript/schematics"
   }
 }

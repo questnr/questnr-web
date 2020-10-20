@@ -1,0 +1,48 @@
+<StackLayout>
+  <Label text="PostMenuOptionsComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>more_horiz</mat-icon>
+</button>
+<mat-menu #menu="matMenu" xPosition="before">
+  <div *ngIf="feed?.userDTO?.userId === loggedInUserId ; else notComUser">
+    <button mat-menu-item (click)="editPost('','',true, feed)" *ngIf="!feed.pollQuestion && !isBlog">
+      <mat-icon>edit</mat-icon>
+      Edit Post
+    </button>
+    <button mat-menu-item (click)="removePost(feed?.postActionId)">
+      <mat-icon>delete_forever</mat-icon>
+      Delete Post
+    </button>
+    <button mat-menu-item [cdkCopyToClipboard]="commonService.getPostSharableLink(feed)"
+      (cdkCopyToClipboardCopied)="copyLinkOfPost($event)">
+      <mat-icon>content_copy</mat-icon>
+      Copy Link
+    </button>
+    <!-- <button mat-menu-item (click)="openShareDialog()">Share on other platforms</button> ->
+  </div>
+  <ng-template #notComUser>
+    <button mat-menu-item *ngIf="showUnfollowBtn()" (click)="unfollow()">
+      <mat-icon>person_remove</mat-icon>
+      Unfollow
+      {{feed?.communityDTO?.communityName}}
+    </button>
+    <button mat-menu-item (click)="openPostReportDialog()">
+      <mat-icon>report</mat-icon>
+      Report Post
+    </button>
+    <button mat-menu-item [cdkCopyToClipboard]="commonService.getPostSharableLink(feed)"
+      (cdkCopyToClipboardCopied)="copyLinkOfPost($event)">
+      <mat-icon>content_copy</mat-icon>
+      Copy Link
+    </button>
+    <!-- <button mat-menu-item (click)="openShareDialog()">Share on other platforms</button> ->
+  </ng-template>
+</mat-menu>
+-->

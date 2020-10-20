@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FAQSearchModalComponent } from './faq-search-modal.component';
+import { FaqSearchModalComponent } from './faq-search-modal.component';
 
-describe('FAQSearchModalComponent', () => {
-  let component: FAQSearchModalComponent;
-  let fixture: ComponentFixture<FAQSearchModalComponent>;
+describe('FaqSearchModalComponent', () => {
+  let component: FaqSearchModalComponent;
+  let fixture: ComponentFixture<FaqSearchModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FAQSearchModalComponent]
+      declarations: [FaqSearchModalComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FAQSearchModalComponent);
+    fixture = TestBed.createComponent(FaqSearchModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,37 @@
+<StackLayout>
+  <Label text="FaqSearchComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<app-header *ngIf="!loginService.loggedIn()"></app-header>
+<app-user-header *ngIf="loginService.loggedIn()"></app-user-header>
+
+<div class="faq-wrapper container hide-scrollbar" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+    <div class="faq-container hide-scrollbar">
+        <div class="template-container" [ngClass]="mobileView ? 'mobile': 'desktop'">
+            <app-faq-header [queryString]="queryString"></app-faq-header>
+            <div class="template-content" [ngClass]="mobileView ? 'mobile' : 'desktop'" *ngIf="!loading">
+                <div *ngFor="let searchedFAQ of FAQItemSearchedList;">
+                    <searched-faq [faqItemSearchPage]="searchedFAQ"></searched-faq>
+                </div>
+                <div class="no-data" *ngIf="noData">
+                    Sorry, we don't have any questions or topics, matching with&nbsp;<span>'{{queryString}}'</span>
+                </div>
+            </div>
+            <div class="template-footer">
+                <faq-loader [showText]="false" *ngIf="loading">
+                </faq-loader>
+                <mat-paginator *ngIf="!noData && !loading" [length]="paginationData.totalElements"
+                    [pageSize]="paginationData.size" [hidePageSize]="true" (page)="onPageChange($event)" #paginator>
+                </mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>
+-->

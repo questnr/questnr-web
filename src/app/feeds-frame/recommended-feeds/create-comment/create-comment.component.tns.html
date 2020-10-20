@@ -1,0 +1,70 @@
+<StackLayout>
+  <Label text="CreateCommentComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="comment-section-wrapper" [@expand]="isCommenting ? 'expanded' : 'collapsed'">
+    <div class="comment-section-container">
+        <div class="wrap-items">
+            <button mat-button (click)="getComments()">Load more
+                comments</button>
+            <div class="loader" *ngIf="isCommentLoading" style="justify-content: flex-start;">
+                <ngx-skeleton-loader count="1" appearance="circle"
+                    [theme]="{height: '45px', width: '45px','background-color': '#eee'}"> </ngx-skeleton-loader>
+                <ngx-skeleton-loader class="w-50" count="1" appearance="line" [theme]="{'border-radius': '10px',
+            height: '60px','background-color': '#eee'}"></ngx-skeleton-loader>
+            </div>
+            <div *ngIf="feed.commentActionList?.length">
+                <div class="comment-box" *ngFor="let comment of feed.commentActionList">
+                    <app-comment-box class="comment-item" [comment]="comment" (reply)="replyTo($event)" [post]="feed"
+                        (deleteEvent)="deleteComment($event)" [fontSize]="fontSize">
+                    </app-comment-box>
+                    <div class="child-comment-list" *ngIf="comment.childCommentDTOSet?.length">
+                        <div class="child-comment" *ngFor="let item of comment.childCommentDTOSet">
+                            <app-comment-box class="comment-item" [comment]="item" [parentComment]="comment"
+                                (reply)="replyTo($event)" [post]="feed" (deleteEvent)="deleteComment($event)"
+                                [fontSize]="fontSize">
+                            </app-comment-box>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="comment-user-interaction-container">
+            <div class="comment-user-interaction">
+                <app-profile-icon [avatar]="login.avatar" [height]="35" [sizeRef]="'medium'" #profileIcon>
+                </app-profile-icon>
+                <div class="comment-wrapper">
+                    <span class="reply-username-wrapper" *ngIf="replyingTo">
+                        <app-username [username]="replyingTo.username" [disableLink]="true" [fontSize]="fontSize">
+                        </app-username>
+                        <span (click)="removeReplying()">
+                            <mat-icon>close</mat-icon>
+                        </span>
+                    </span>
+                    <input type="text" [formControl]="comment" #commentInput
+                        [placeholder]="replyingTo? 'Reply to ' + replyingTo.username : 'Write a Comment..'"
+                        (keyup.enter)="postComment()">
+                    <app-emoticons [userInputRef]="commentInputRef"></app-emoticons>
+                    <button mat-icon-button color="accent" (click)="postComment()" [disabled]="!comment.valid">
+                        <mat-icon>send</mat-icon>
+                    </button>
+                </div>
+                <div class="comment-features">
+                    <div class="comment-feature">
+                        <input type="file" (change)="selectFiles($event)" multiple accept="image/*,application/*"
+                            #commentAttachFileInput />
+                        <mat-icon class="attach-file" (click)="openFileSelector()">attachment</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <app-attached-file-list (finalizedAttachedFileListListener)="finalizedAttachedFileListListener($event)"
+                #attachedFileListComponent></app-attached-file-list>
+        </div>
+    </div>
+</div>
+-->

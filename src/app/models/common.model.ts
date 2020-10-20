@@ -26,12 +26,12 @@ export class MetaData {
     createdAtTimestamp: number;
     updatedAtTimeInUTC: string;
     updatedAtTimestamp: number;
-    edited: boolean
+    edited: boolean;
 }
 
 export class MetaTagCard {
     title: string;
-    metaList: MetaList[]
+    metaList: MetaList[];
 }
 
 export class Tag {
@@ -52,6 +52,6 @@ export class CustomError {
 }
 
 export enum ProfileIconTemplateType {
-    normal = "normal",
-    heading = "heading"
+    normal = 'normal',
+    heading = 'heading'
 }

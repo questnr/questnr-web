@@ -1,0 +1,129 @@
+<StackLayout>
+  <Label text="create-community works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="create-community-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+  <mat-horizontal-stepper [linear]=isLinear [disableRipple]="true" #stepper>
+    <mat-step [stepControl]="communityDetailsForm">
+      <form [formGroup]="communityDetailsForm" id="community-details-form">
+        <div *ngIf="!mobileView">
+          <ng-template matStepLabel>Community Details</ng-template>
+        </div>
+        <div *ngIf="mobileView" class="step-title mobile">
+          Community Details
+        </div>
+        <mat-form-field appearance="fill" floatLabel="always">
+          <mat-label>Name</mat-label>
+          <input type="text" matInput [formControl]="communityName" required placeholder="Enter name of community">
+          <mat-error *ngIf="communityName.hasError('required')">Community name is required.</mat-error>
+          <mat-error *ngIf="communityName.hasError('minlength')">
+            Field should contain at least 3 characters
+          </mat-error>
+          <mat-error *ngIf="communityName.hasError('maxlength')">
+            Community name is too long
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" floatLabel="always">
+          <mat-label>Description</mat-label>
+          <textarea matInput placeholder="What's your Question." [formControl]="description" required
+            rows="5"></textarea>
+          <mat-error *ngIf="description.hasError('required')">Description is required.</mat-error>
+          <mat-error *ngIf="description.hasError('maxlength')">
+            Community description name is too long
+          </mat-error>
+        </mat-form-field>
+        <div class="actions flex-end">
+          <button mat-button matStepperNext class="btn-primary">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="communityAvatarForm">
+      <div *ngIf="!mobileView">
+        <ng-template matStepLabel>Community Avatar</ng-template>
+      </div>
+      <div *ngIf="mobileView" class="step-title mobile">
+        Choose Community Avatar
+      </div>
+      <div class="com-img-container" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+        <img [src]="communityImage ? communityImage : defaultSrc" (click)="previewImage()">
+      </div>
+      <app-img-cropper-wrapper [isCommunityAvatar]="true" (imageDataEvent)="imageDataReceiver($event)"
+        [aspectRatio]="12 / 4" #imageCropperRef>
+      </app-img-cropper-wrapper>
+      <div class="com-img-error">
+        <mat-error *ngIf="showAvatarNotSet">
+          You have not chosen an avatar for the community
+        </mat-error>
+      </div>
+      <div class="actions space-between">
+        <button mat-button (click)="skipCommunityAvatar()" class="btn-secondary">Skip</button>
+        <button mat-button (click)="nextCommunityAvatar()" class="btn-primary">Next</button>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="communityTagsForm">
+      <div *ngIf="!mobileView">
+        <ng-template matStepLabel>Community Tags</ng-template>
+      </div>
+      <div *ngIf="mobileView" class="step-title mobile">
+        Community Tags
+      </div>
+      <div class="community-tag-container">
+        <div class="step-title" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+          Add tags (up to 5) to allow users to search this community
+        </div>
+        <div class="filter-wrapper">
+          <div class="keyword-wrapper">
+            <mat-form-field appearance="fill" floatLabel="always" class="community-tag-input-control">
+              <input type="text" matInput [formControl]="communityTag" autocomplete="off"
+                (keyup.enter)="addTagToBucket(communityTag.value, true)"
+                placeholder="Press Enter Key After Typing Your Interest" autofocus />
+            </mat-form-field>
+            <div class="filter-select-wrapper">
+              <div class="filter-select" [ngClass]="mobileView ? 'mobile' : 'desktop'"
+                *ngIf="searchResults?.length > 0">
+                <div class="filter-select-list" *ngFor="let userInterest of searchResults"
+                  (click)="addTagToBucket(userInterest.interest, false)">
+                  <span class="user-interest">{{userInterest.interest}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <mat-error *ngIf="communityTag.hasError('pattern')">
+          Use characters and number only
+        </mat-error>
+        <mat-error *ngIf="tagExistsError">Tag already added</mat-error>
+        <mat-error *ngIf="tagsCount.hasError('max')">Up to only 5 tags are allowed</mat-error>
+        <mat-error *ngIf="tagsCount.hasError('min')">At least 2 tags are required</mat-error>
+        <mat-error *ngIf="tagMaxLengthError">Tag is too long</mat-error>
+        <div class="tag-list-wrapper row">
+          <div class="tag-container row" *ngFor="let tag of tagList, let ind = index" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+            <div class="tag">{{tag.value}}</div>
+            <div (click)="removeTagFromBucket(ind)" class="remove" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+              <mat-icon>close</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="actions flex-end">
+        <button mat-button (click)="nextCommunityTags()" class="btn-primary">Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <div *ngIf="!mobileView">
+        <ng-template matStepLabel>Done</ng-template>
+      </div>
+      <div>
+        <div class="success" *ngIf="isCreatingCommunity">
+          <app-loader-text [size]="'md'" [text]="'Creating Your Community'"></app-loader-text>
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+-->

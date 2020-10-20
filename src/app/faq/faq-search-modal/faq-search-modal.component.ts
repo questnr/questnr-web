@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { GlobalService } from 'global.service';
-import { FAQSearchMobileComponent } from './faq-search-mobile/faq-search-mobile.component';
+import { FaqSearchMobileComponent } from './faq-search-mobile/faq-search-mobile.component';
 
 @Component({
   selector: 'app-faq-search-modal',
   templateUrl: './faq-search-modal.component.html',
   styleUrls: ['./faq-search-modal.component.scss']
 })
-export class FAQSearchModalComponent implements OnInit {
-  dialogRef: MatDialogRef<FAQSearchMobileComponent>;
+export class FaqSearchModalComponent implements OnInit {
+  dialogRef: MatDialogRef<FaqSearchMobileComponent>;
   mobileView: boolean = false;
 
   constructor(private dialog: MatDialog,
@@ -47,7 +47,7 @@ export class FAQSearchModalComponent implements OnInit {
         data: { queryString }
       };
     }
-    this.dialogRef = this.dialog.open(FAQSearchMobileComponent, config);
+    this.dialogRef = this.dialog.open(FaqSearchMobileComponent, config);
 
     this.dialogRef.afterClosed().subscribe(result => {
 

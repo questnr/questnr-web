@@ -1,0 +1,68 @@
+<StackLayout>
+  <Label text="suggestion works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<!-- <app-create-community-btn [type]="'card'"></app-create-community-btn> ->
+<div class="link-card box" *ngIf="!mobileView && suggestedCommunityList?.length">
+  <h3 *ngIf="suggestedCommunityList?.length">Communities You Might Like
+  </h3>
+  <ng-container *ngIf="loadingCommunities">
+    <div class="list-item" *ngFor="let i of listItems">
+      <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
+      <ngx-skeleton-loader class="w-100" count="1" appearance="line"></ngx-skeleton-loader>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="suggestedCommunityList?.length">
+    <div class="links" *ngFor="let item of suggestedCommunityList">
+      <app-profile-icon [avatar]="item.avatarDTO" [height]="35" [sizeRef]="'small'" [isCommunityAvatar]="true"
+        [slug]="item?.slug">
+      </app-profile-icon>
+      <a class="link" [routerLink]="['/', communityPath, item.slug]">{{item.communityName}}</a>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!suggestedCommunityList?.length && !loadingCommunities">
+    <p>
+      We don't have enough data
+    </p>
+  </ng-container>
+</div>
+
+<div class="mobile-view-joined-community" *ngIf="mobileView && suggestedCommunityList?.length">
+  <div class="user-owned-community">
+    <h5 *ngIf="suggestedCommunityList?.length">Communities You Might Like
+      <div class="mobile-create-btn">
+        <mat-icon (click)="openCommunityDialog(suggestedCommunityList)" *ngIf="suggestedCommunityList?.length > 2">
+          arrow_forward
+        </mat-icon>
+      </div>
+    </h5>
+    <owl-carousel-o [options]="customOptions">
+      <ng-container *ngFor="let list of suggestedCommunityList;let i=index">
+        <ng-template carouselSlide [id]="i">
+          <app-community-card-mobile-view [community]="list">
+          </app-community-card-mobile-view>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+    <!--    <div class="mobile_action_btn" *ngIf="!loadingCommunities" >->
+    <!--      <button mat-stroked-button (click)="openCommunityDialog(suggestedCommunityList)">Load more</button>->
+    <!--    </div>->
+    <!--loader->
+    <div class="row card-loader" *ngIf="loadingCommunities">
+      <div class="col">
+        <app-community-card-loader></app-community-card-loader>
+      </div>
+      <div class="col">
+        <app-community-card-loader></app-community-card-loader>
+      </div>
+    </div>
+    <!--loader ends->
+  </div>
+
+</div>
+-->

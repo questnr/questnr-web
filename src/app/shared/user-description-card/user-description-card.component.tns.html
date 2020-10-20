@@ -1,0 +1,32 @@
+<StackLayout>
+  <Label text="user-description-card works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="description-card-wrapper" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+    <mat-card class="user-description-flex">
+        <h3>Description</h3>
+        <div *ngIf="!isLoading">
+            <div class="user-description">
+                <div *ngIf="bio" class="description">
+                    <dynamic-html class="pre" [content]="bio"></dynamic-html>
+                </div>
+                <div *ngIf="!bio && relation === 'owned'">
+                    You haven't set a description of yourself yet
+                    <br />
+                    Please describe yourself by going to Edit Profile Section
+                </div>
+                <div *ngIf="!bio && relation !== 'owned'"><span *ngIf="username">{{username}}</span><span
+                        *ngIf="!username">User</span> hasn't set the description yet.</div>
+            </div>
+        </div>
+        <div *ngIf="isLoading">
+            <app-loader [size]="'sm'"></app-loader>
+        </div>
+    </mat-card>
+</div>
+-->

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FAQItemSearchPage, FAQItemType } from 'models/faq.model';
+import { FaqItemSearchPage, FaqItemType } from 'models/faq.model';
 import { GlobalConstants } from 'shared/constants';
 
 @Component({
@@ -8,8 +8,8 @@ import { GlobalConstants } from 'shared/constants';
   styleUrls: ['./searched-faq.component.scss']
 })
 export class SearchedFaqComponent implements OnInit {
-  @Input() faqItemSearchPage: FAQItemSearchPage;
-  faqItemTypeClass = FAQItemType;
+  @Input() faqItemSearchPage: FaqItemSearchPage;
+  faqItemTypeClass = FaqItemType;
   helpPath: string = GlobalConstants.helpPath;
   questnrPath: string = GlobalConstants.questnrPath;
 

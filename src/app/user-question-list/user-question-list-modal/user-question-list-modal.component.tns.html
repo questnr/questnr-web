@@ -1,0 +1,26 @@
+<StackLayout>
+  <Label text="user-question-list-modal works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<nav-bar [title]="title" (backAction)="backActionListener()" *ngIf="mobileView"></nav-bar>
+<div class="header" *ngIf="!mobileView && title">{{title}}</div>
+<div class="user-question-list-modal-container hide-scrollbar" [ngClass]="{'mobile': mobileView}">
+    <div class="user-question-list hide-scrollbar" [ngClass]="[mobileView ? 'mobile' : 'desktop']" #listContainer>
+        <div class="user-question-list-template">
+            <div *ngIf="questionList?.length">
+                <div class="links" *ngFor="let question of questionList">
+                    <app-user-question (clickEmitter)="backActionListener()" [question]="question"></app-user-question>
+                </div>
+            </div>
+            <app-user-question-loader *ngIf="loading" #questionLoader></app-user-question-loader>
+        </div>
+    </div>
+    <app-no-user-question *ngIf="!loading && !questionList?.length" [isOwner]="isOwner" [type]="type">
+    </app-no-user-question>
+</div>
+-->

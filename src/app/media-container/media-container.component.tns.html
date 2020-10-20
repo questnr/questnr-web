@@ -1,0 +1,32 @@
+<StackLayout>
+  <Label text="MediaContainerComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="media-container">
+    <owl-carousel-o [options]="customOptions">
+        <ng-container *ngFor="let media of viewMediaList;let i=index">
+            <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'image'">
+                <div class="media" (click)="showFullScreenMedia(i)">
+                    <div *ngIf="viewMediaList.length > 1" class="media-count">
+                        {{'('+(i+1)+'/'+(viewMediaList.length)+')'}}
+                    </div>
+                    <img class="post-media" [src]="media.postMediaLink" alt="" (error)="onError(i)" (load)="onLoad(i)">
+                    <button class="reload-btn" *ngIf="errorOnImageIndexList.indexOf(i) > -1"
+                        (click)="onRefreshImageAtIndex(i)">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                    <div class="background-blur" [style.backgroundImage]="'url(' + media.postMediaLink + ')'"></div>
+                </div>
+            </ng-template>
+            <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'video'">
+                <mat-video color="accent" [src]="media.postMediaLink" [keyboard]="false"> </mat-video>
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+</div>
+-->

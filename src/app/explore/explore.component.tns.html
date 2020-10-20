@@ -1,0 +1,124 @@
+<StackLayout>
+  <Label text="explore works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<app-user-header></app-user-header>
+
+<div class="container" [ngClass]="mobileView ? 'mobile': 'desktop'">
+  <div class="explore-wrapper">
+    <aside class="left-part" *ngIf="!mobileView">
+      <!--        <app-joined-community></app-joined-community>->
+      <div class="hashtags-container">
+        <div class="hashtags">
+          <mat-chip-list aria-label="hashtags">
+            <mat-chip class="hash-tag-chip" *ngFor="let h of hasTags" (click)="toggleHashTagToSearchingBucket(h)">
+              <span>#{{h?.hashTagValue}}</span>
+              <button class="searched-hash-tag" *ngIf="isInListofSeachingBucket(h)">
+                <!-- <mat-icon>close</mat-icon> ->
+              </button>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
+      </div>
+      <hr>
+      <app-floating-footer></app-floating-footer>
+    </aside>
+    <div class="explore-section hide-scrollbar" #exploreFeeds>
+      <div *ngIf="!queryString">
+        <app-trending [mobileView]="mobileView" [type]="'slider'"></app-trending>
+      </div>
+      <!-- <div *ngIf="queryString">
+        <h4><span class="queryString">#{{queryString}}</span></h4>
+      </div> ->
+      <div *ngIf="queryString">
+        <div class="filter-wrapper">
+          <div class="keyword-wrapper">
+            <mat-card>
+              <mat-form-field class="input-control">
+                <input type="text" matInput [formControl]="hashTagControl" autocomplete="off"
+                  (keyup.enter)="addHashTagToSearchingBucketUsingInput(hashTagControl.value)"
+                  placeholder="Enter Hash Tag Here" autofocus />
+              </mat-form-field>
+              <div>
+                <mat-error *ngIf="hashTagControl.hasError('pattern')">
+                  Use characters and number only
+                </mat-error>
+                <mat-error *ngIf="tagExistsError">Hash Tag already has been added</mat-error>
+                <mat-error *ngIf="tagsCount.hasError('max')">Limit reached</mat-error>
+                <mat-error *ngIf="tagMaxLengthError">Text is too long</mat-error>
+              </div>
+            </mat-card>
+            <div class="filter-select-wrapper">
+              <div class="filter-select" [ngClass]="mobileView ? 'mobile' : 'desktop'"
+                *ngIf="searchResults?.length > 0">
+                <div class="filter-select-list" *ngFor="let hashTag of searchResults"
+                  (click)="addHashTagToSearchingBucket(hashTag, true)">
+                  <span class="user-interest">{{hashTag.hashTagValue}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <mat-chip-list class="searched-hash-tag-list" aria-label="hashtags">
+          <mat-chip *ngFor="let h of seachHashTagBucket" class="active_tag" [routerLink]="['/', hashTagUrl]"
+            [queryParams]="{ q: h?.hashTagValue }">
+            <span>#{{h?.hashTagValue}}</span>
+            <mat-icon (click)="removeHashTagToSearchingBucketEvent($event, h)">
+              close
+            </mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+      <div class="last-feed">
+        <ng-container *ngIf="explore?.length; else noFeeds">
+          <h5 style="margin: 20px 0" *ngIf="!queryString">Trending Posts</h5>
+          <div class="feed-wrap" *ngFor="let feed of explore let idx =index">
+            <div *ngIf="feed.postType !== 'question'">
+              <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+              </app-recommended-feeds>
+            </div>
+            <div *ngIf="feed.postType === 'question'">
+              <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"
+                [questionParentType]="questionParentTypeClass.explorePage"></app-question-ui>
+            </div>
+            <div *ngIf="((explore?.length && idx === 3) || (explore?.length < 2 && idx === 0))&& mobileView">
+              <app-suggestion></app-suggestion>
+            </div>
+            <div *ngIf="(explore?.length && idx === 2) || (explore?.length < 2 && idx == 0)">
+              <div class="hashtags-container">
+                <h5>Popular HashTags</h5>
+                <div class="hashtags">
+                  <mat-chip class="hash-tag-chip" *ngFor="let h of hasTags" (click)="toggleHashTagToSearchingBucket(h)">
+                    <span>#{{h?.hashTagValue}}</span>
+                    <button class="searched-hash-tag" *ngIf="isInListofSeachingBucket(h)">
+                      <!-- <mat-icon>close</mat-icon> ->
+                    </button>
+                  </mat-chip>
+                </div>
+              </div>
+              <app-create-community-btn [type]="'card'"></app-create-community-btn>
+            </div>
+          </div>
+        </ng-container>
+        <app-feeds-loader *ngIf="loading"></app-feeds-loader>
+        <ng-template #noFeeds>
+          <p class="text-center" style="margin-top :30px" *ngIf="explore?.length===1 && explore[0] === null">No
+            Feeds
+            Found...!</p>
+        </ng-template>
+      </div>
+    </div>
+    <aside class="right-part" *ngIf="!mobileView">
+      <app-suggestion></app-suggestion>
+      <app-sponsored></app-sponsored>
+    </aside>
+  </div>
+</div>
+
+<app-floating-mobile-nav [url]="pathLink" *ngIf="mobileView"></app-floating-mobile-nav>
+-->

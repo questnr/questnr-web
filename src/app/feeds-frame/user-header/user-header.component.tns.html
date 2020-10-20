@@ -1,0 +1,176 @@
+<StackLayout>
+  <Label text="UserHeaderComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<!--header->
+
+<header id="extended-nav" class="nav-main-container">
+  <div class="toolbar" role="banner">
+    <div style="width: 32px; height: 32px; margin: auto 8px;" class="mobile_logo" [routerLink]="['/', feedPath]">
+      <img src="/assets/logo.png" alt="logo" style="width: 100%" draggable="false" />
+    </div>
+    <!--    <button class="toggle" mat-button (click)="toggleMenu()">->
+    <!--&lt;!&ndash;      <mat-icon>menu</mat-icon>&ndash;&gt;->
+    <!--      ->
+    <!--    </button>->
+    <div class="logo" [routerLink]="['/', feedPath]"><img src="../../assets/main.png" draggable="false" /></div>
+    <div class="spacer"></div>
+
+    <div class="search-wrapper">
+      <input type="text" placeholder="Type here to search..." [formControl]="searchInput" (focus)="handleFocus($event)"
+        #searchInputRef>
+      <mat-icon class="search-icon" (click)="searchEntity(searchInput.value)">search</mat-icon>
+      <div class="suggestions" #suggestionBoxRef>
+        <mat-progress-bar mode="indeterminate" color="accent" *ngIf="isLoading" style="height: 2px"></mat-progress-bar>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+    <button *ngIf="!mobileView" mat-button class="d-none d-sm-block d-md-block d-lg-block profile-btn"
+      [routerLink]="['/', userPath, userDetails?.slug]">
+      <div>
+        <app-profile-icon [avatar]="login.avatar" [height]="35" [sizeRef]="'medium'" #profileIcon>
+        </app-profile-icon>
+        <app-username [username]="profile?.sub" [disableLink]="true"></app-username>
+      </div>
+    </button>
+    <button mat-button class="d-none d-sm-block d-md-block d-lg-block h-100 explore-header"
+      [routerLink]="['/', explorePath]">
+      <img src="/assets/safari.svg" style=" width: 23px; margin-right: 10px; ">&nbsp;Explore
+    </button>
+    <button mat-button class="d-none d-sm-block d-md-block d-lg-block h-100 explore-header" (click)="createCommunity()">
+      <img src="/assets/add.png" style=" width: 23px; margin-right: 10px; ">&nbsp;Create
+    </button>
+    <button *ngIf="!mobileView" mat-button class="d-none d-sm-block d-md-block d-lg-block h-100"
+      [matMenuTriggerFor]="notificationsMenu" [style.color]="notificationAnswerColor"
+      (click)="readNewNotificationAnswer()">
+
+      <mat-icon *ngIf="!hasNewNotificationAnswers && unReadNotificationAnswerCount <= 0">
+        contact_support
+      </mat-icon>
+
+      <mat-icon *ngIf="!hasNewNotificationAnswers && unReadNotificationAnswerCount > 0"
+        matBadge="{{unReadNotificationAnswerCount}}" matBadgeColor="warn">
+        contact_support
+      </mat-icon>
+
+      <mat-icon matBadge="{{unReadNotificationAnswerCount}}" matBadgeColor="warn" *ngIf="hasNewNotificationAnswers">
+        contact_support
+      </mat-icon>
+      <!-- <div class="notification-answer-icon" *ngIf="!hasNewNotificationAnswers && unReadNotificationAnswerCount <= 0">
+      <img src="/assets/question-mark-ios.png" />
+    </div>
+
+    <div class="notification-answer-icon" *ngIf="!hasNewNotificationAnswers && unReadNotificationAnswerCount > 0"
+      matBadge="{{unReadNotificationAnswerCount}}" matBadgeColor="warn">
+      <img src="/assets/question-mark-ios.png" />
+    </div>
+
+    <div class="notification-answer-icon" matBadge="{{unReadNotificationAnswerCount}}" matBadgeColor="warn"
+      *ngIf="hasNewNotifications">
+      <img src="/assets/question-mark-ios.png" />
+    </div> ->
+    </button>
+
+    <button *ngIf="!mobileView" mat-button class="d-none d-sm-block d-md-block d-lg-block h-100"
+      [matMenuTriggerFor]="notificationsMenu" [style.color]="notificationColor" (click)="readNewNotification()">
+      <mat-icon *ngIf="!hasNewNotifications && unReadNotificationCount <= 0">notifications
+      </mat-icon>
+
+      <mat-icon *ngIf="!hasNewNotifications && unReadNotificationCount > 0" matBadge="{{unReadNotificationCount}}"
+        matBadgeColor="warn">
+        notifications
+      </mat-icon>
+
+      <mat-icon matBadge="{{unReadNotificationCount}}" matBadgeColor="warn" *ngIf="hasNewNotifications">
+        notifications_active</mat-icon>
+    </button>
+
+    <!-- notifications_active, notifications_none ->
+    <mat-menu #notificationsMenu="matMenu" [overlapTrigger]="false" xPosition="before">
+      <ng-template matMenuContent>
+        <div class="notification-wrap hide-scrollbar" *ngIf="!isNotificationLoading">
+          <div *ngIf="notifications?.length > 0">
+            <app-notification-item *ngFor="let item of notifications" [notification]="item"
+              (remove)="removeNotification($event)"></app-notification-item>
+          </div>
+          <div *ngIf="notifications?.length == 0" class="no-notification">
+            (0) Notifications
+          </div>
+          <button *ngIf="notifications?.length > 0 && !endOfNotifications" mat-button class="w-100"
+            (click)="loadMoreNotifications(); $event.stopPropagation();"> Load more</button>
+          <p *ngIf="endOfNotifications" style="justify-content: center;display: flex;cursor: pointer;">
+            No more Notifications
+          </p>
+        </div>
+        <div class="notification-wrap" *ngIf="isNotificationLoading">
+          <app-loader [size]="'sm'" class="notification-loader" [text]="'Fetching Notifications...'"></app-loader>
+        </div>
+      </ng-template>
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" [style.color]="notificationAnswerColor"
+      *ngIf="mobileView" (click)="readNewNotificationAnswer()">
+
+      <mat-icon *ngIf="!hasNewNotificationAnswers && unReadNotificationAnswerCount <= 0">
+        contact_support
+      </mat-icon>
+
+      <mat-icon *ngIf="!hasNewNotificationAnswers && unReadNotificationAnswerCount > 0"
+        matBadge="{{unReadNotificationAnswerCount}}" matBadgeColor="warn">
+        contact_support
+      </mat-icon>
+
+      <mat-icon matBadge="{{unReadNotificationAnswerCount}}" matBadgeColor="warn" *ngIf="hasNewNotificationAnswers">
+        contact_support
+      </mat-icon>
+    </button>
+
+    <button mat-icon-button [matMenuTriggerFor]="notificationsMenu" [style.color]="notificationColor" *ngIf="mobileView"
+      (click)="readNewNotification()">
+      <mat-icon *ngIf="!hasNewNotifications && unReadNotificationCount <= 0">notifications
+      </mat-icon>
+
+      <mat-icon *ngIf="!hasNewNotifications && unReadNotificationCount > 0" matBadge="{{unReadNotificationCount}}"
+        matBadgeColor="warn">
+        notifications
+      </mat-icon>
+
+      <mat-icon matBadge="{{unReadNotificationCount}}" matBadgeColor="warn" *ngIf="hasNewNotifications">
+        notifications_active</mat-icon>
+    </button>
+
+    <!-- <app-profile-icon *ngIf="mobileView" [avatar]="login.avatar" [height]="32" [sizeRef]="'small'"
+      [slug]="userDetails?.slug" #profileIcon>
+    </app-profile-icon> ->
+    <button mat-icon-button [matMenuTriggerFor]="info">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #info="matMenu" [overlapTrigger]="false" xPosition="before">
+      <button mat-menu-item [routerLink]="['/', termsPath]">Terms & Conditions</button>
+      <button mat-menu-item [routerLink]="['/', policyPath]">Privacy Policy</button>
+      <button (click)="login.logOut()" mat-menu-item>Log Out</button>
+      <!--      <button mat-menu-item>FAQ</button>->
+    </mat-menu>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false" xPosition="before">
+      <button mat-menu-item [routerLink]="['/', userPath, userDetails?.slug]">
+        <mat-icon>account_circle</mat-icon>
+        <span>Profile</span>
+      </button>
+      <!--      <button mat-menu-item [matMenuTriggerFor]="settings">->
+      <!--        <mat-icon>settings</mat-icon>->
+      <!--        <span>Settings</span>->
+      <!--      </button>->
+    </mat-menu>
+  </div>
+</header>
+
+<app-search-overlay [mobileView]="mobileView" (closeSearchOverlay)="handleCloseSearchOverlay($event)"
+  #searchOverlayComponentRef>
+</app-search-overlay>
+-->

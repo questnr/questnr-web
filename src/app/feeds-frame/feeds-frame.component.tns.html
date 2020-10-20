@@ -1,0 +1,106 @@
+<StackLayout>
+  <Label text="feeds-frame works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<!-- <app-user-header [mobileView]="mobileView" (menuToggle)="toggle(drawer)"></app-user-header> ->
+<app-user-header (notificationEmitter)="notificationListener($event)"></app-user-header>
+
+<mat-sidenav-container class="sidenav-container" autosize>
+  <!-- <mat-sidenav #drawer class="side" [mode]="sideConfig" [opened]="isSidenavopen">
+    <app-sidenav></app-sidenav>
+  </mat-sidenav> ->
+
+  <mat-sidenav-content>
+    <div class="container" [ngClass]="{'mobile': mobileView}">
+      <div class="main-wrap">
+        <aside *ngIf="!mobileView" class="left-part hide-scrollbar">
+          <div class="stick">
+            <!--            <app-quick-nav></app-quick-nav>->
+            <app-sidenav></app-sidenav>
+          </div>
+        </aside>
+        <div class="feeds hide-scrollbar" #feedFrame>
+          <!--          <app-post-feed (postData)="postFeed($event)" [isCommunityPost]=false></app-post-feed>->
+          <app-post-feeds (postData)="postFeed($event)" [isCommunityPost]="false" [type]="'Create'"></app-post-feeds>
+          <h5>Trending Communities</h5>
+          <owl-carousel-o [options]="customOptions" *ngIf="!trendingCommunitiesLoader">
+            <ng-container *ngFor="let community of trendingCommunities;let i=index">
+              <ng-template carouselSlide [id]="i">
+                <app-community-card-mobile-view [allowAction]="false" [community]="community">
+                </app-community-card-mobile-view>
+              </ng-template>
+            </ng-container>
+          </owl-carousel-o>
+          <div>
+            <div class="row card-loader" *ngIf="trendingCommunitiesLoader">
+              <div class="col">
+                <app-community-card-loader [showActionBtn]="false"></app-community-card-loader>
+              </div>
+              <div class="col">
+                <app-community-card-loader [showActionBtn]="false"></app-community-card-loader>
+              </div>
+              <div class="col" *ngIf="!mobileView">
+                <app-community-card-loader [showActionBtn]="false"></app-community-card-loader>
+              </div>
+            </div>
+          </div>
+          <div class="last-feed">
+            <ng-container *ngIf="userFeeds.length; else noFeeds">
+              <div class="feed-wrap" *ngFor="let feed of userFeeds;let idx = index">
+                <div *ngIf="userFeeds?.length && idx % 4 == 0 && mobileView">
+                  <app-trend-post-question></app-trend-post-question>
+                </div>
+                <div *ngIf="feed.postType !== 'question'">
+                  <app-recommended-feeds (removePostEvent)="removePostNotify($event)" *ngIf="feed" [feed]="feed">
+                  </app-recommended-feeds>
+                </div>
+                <div *ngIf="feed.postType === 'question'">
+                  <app-question-ui [question]="feed" (removePostEvent)="removePostNotify($event)"
+                    [questionParentType]="questionParentTypeClass.feedPage"></app-question-ui>
+                </div>
+              </div>
+              <p class="text-center" style="margin-top :30px" *ngIf="userFeeds.length===1 && userFeeds[0] === null">
+                <mat-chip>We couldn't find more post for you!</mat-chip>
+              </p>
+            </ng-container>
+            <app-feeds-loader *ngIf="loading"></app-feeds-loader>
+
+            <!-- <div class="loader">
+            <mat-spinner *ngIf="loading" color="accent"></mat-spinner>
+          </div> ->
+            <ng-template #noFeeds>
+              <div class="text-center no-feed" *ngIf="!loading">
+                <div>It seems you don’t have any post yet.</div>
+                <div>
+                  <a class="primary-link" (click)="createCommunity()">
+                    Create your community</a> and make everyone amazed by the things you love
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+        <aside class="right-part hide-scrollbar" *ngIf="!mobileView">
+          <div class="stick">
+            <div class="" style="padding: 20px 0px">
+              <!--              <app-create-community-btn [type]="'card'"></app-create-community-btn>->
+              <app-trend-post-question></app-trend-post-question>
+              <app-sponsored></app-sponsored>
+              <app-suggestion></app-suggestion>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+<app-floating-mobile-nav [url]="pathLink" *ngIf="mobileView"></app-floating-mobile-nav>
+
+<app-post-notification-container (fetchNewPostsFromNotification)="postFeed($event)" #feedNotification>
+</app-post-notification-container>
+-->

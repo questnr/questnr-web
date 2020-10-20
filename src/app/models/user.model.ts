@@ -1,5 +1,5 @@
-import { AvatarDTO } from './common.model';
-import { RelationType } from './relation-type';
+import { AvatarDTO } from '/Users/brijeshlakkad/Documents/Questnr/questnr-web/src/app/models/common.model';
+import { RelationType } from '/Users/brijeshlakkad/Documents/Questnr/questnr-web/src/app/models/relation-type';
 
 export class User {
     userId: number;

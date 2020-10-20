@@ -3,12 +3,11 @@ import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'auth/login.service';
 import { GlobalService } from 'global.service';
-import { FAQItem, FAQItemPage } from 'models/faq.model';
+import { FaqItem, FaqItemPage } from 'models/faq.model';
 import { KnowMoreLinkType } from 'models/know-more-type';
 import { GlobalConstants } from 'shared/constants';
 import { UIService } from 'ui/ui.service';
-import { FAQHeaderComponent } from './faq-header/faq-header.component';
-import { FAQService } from './faq.service';
+import { FaqHeaderComponent } from './faq-header/faq-header.component';
 
 @Component({
   selector: 'app-faq',
@@ -16,18 +15,18 @@ import { FAQService } from './faq.service';
   styleUrls: ['./faq.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class FAQComponent implements OnInit, OnDestroy {
+export class FaqComponent implements OnInit, OnDestroy {
   KnowMoreLinkTypeClass = KnowMoreLinkType;
   faqType: string;
   mobileView: boolean = false;
   loading: boolean = true;
   category: string;
   description: string;
-  faqItemList: FAQItem[];
-  searchFAQControl: FormControl = new FormControl("");
-  faqHeaderRef: FAQHeaderComponent;
+  faqItemList: FaqItem[];
+  searchFaqControl: FormControl = new FormControl("");
+  faqHeaderRef: FaqHeaderComponent;
   @ViewChild("faqHeader")
-  set faqHeader(faqHeaderRef: FAQHeaderComponent) {
+  set faqHeader(faqHeaderRef: FaqHeaderComponent) {
     this.faqHeaderRef = faqHeaderRef;
   }
 
@@ -38,7 +37,7 @@ export class FAQComponent implements OnInit, OnDestroy {
     public loginService: LoginService,
     private uiService: UIService) {
     this.loading = true;
-    this.route.data.subscribe((data: { faq: FAQItemPage }) => {
+    this.route.data.subscribe((data: { faq: FaqItemPage }) => {
       this.category = data.faq.category;
       this.description = data.faq.description;
       this.faqItemList = data.faq.faqItemPage.content;

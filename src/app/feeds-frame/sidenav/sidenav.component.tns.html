@@ -1,0 +1,38 @@
+<StackLayout>
+  <Label text="sidenav works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<app-joined-community [templateStyle]="CommunityListMatCardTypeClass.simple"></app-joined-community>
+<div class="link-card ">
+  <h3>Hashtags</h3>
+  <ng-container *ngIf="loadingHashtags">
+    <div class="list-item" *ngFor="let i of listItems">
+      <ngx-skeleton-loader count="1" appearance="circle"> </ngx-skeleton-loader>
+      <ngx-skeleton-loader class="w-100" count="1" appearance="line"> </ngx-skeleton-loader>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="userHashtags.length && !loadingHashtags">
+    <div class="links" *ngFor="let item of userHashtags">
+      <a [routerLink]="['/', hashTagPath]" [queryParams]="{ q: item?.hashTagValue}"
+        class="link">#{{item.hashTagValue}}</a>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!userHashtags.length && !loadingHashtags">
+    <p>
+      No Hashtags Found. Create your own hastag now.
+    </p>
+  </ng-container>
+</div>
+<div class="link-card d-none d-sm-block d-md-none">
+  <app-suggestion></app-suggestion>
+</div>
+<!--<app-sponsored></app-sponsored>->
+<footer>
+  <app-floating-footer></app-floating-footer>
+</footer>
+-->

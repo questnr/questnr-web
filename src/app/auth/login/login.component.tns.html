@@ -1,0 +1,47 @@
+<StackLayout>
+  <Label text="LoginComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="login-signup-wrapper">
+  <form [formGroup]="group">
+    <div class="alert alert-danger" *ngIf="errMsg"> <strong>Error! </strong> {{errMsg }}</div>
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Username/Email</mat-label>
+      <mat-icon matPrefix>email</mat-icon>
+      <input type="text" matInput [formControl]="email" placeholder="Enter your Email">
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Password</mat-label>
+      <mat-icon matPrefix>vpn_key</mat-icon>
+      <input type="password" matInput [formControl]="password" placeholder="Enter your Password">
+      <mat-error *ngIf="password.hasError('required')">Password is required.</mat-error>
+    </mat-form-field>
+    <a [routerLink]="['/',forgotPassword]" (click)="handleForgetPassword($event)" class="forgot">Forgot your
+      Password?</a>
+    <button mat-flat-button color="accent" (click)="login()" [disabled]="isLoading">
+      <div *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status">
+        <span class="sr-only">Loading...</span>
+      </div> &nbsp;
+      Login
+    </button>
+  </form>
+
+  <p class="or">OR</p>
+  <div class="social-logins">
+    <button mat-button (click)="googleLogin()">
+      <img src="assets/google.png" alt="Google">
+      <span class="text">Continue with Google </span>
+    </button>
+    <button mat-button (click)="facebookLogin()">
+      <img src="assets/facebook.png" alt="Facebook">
+      <span class="text">Continue with Facebook</span>
+    </button>
+  </div>
+</div>
+-->

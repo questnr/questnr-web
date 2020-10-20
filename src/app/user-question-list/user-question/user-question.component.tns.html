@@ -1,0 +1,20 @@
+<StackLayout>
+  <Label text="user-question works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="user-question-wrapper">
+    <div class="question-container" [matBadge]="question?.pollQuestionMeta.totalAnswered" matBadgePosition="after"
+        matBadgeOverlap="true">
+        <a class="question" [ngClass]="mobileView ? 'mobile' : 'desktop'" (click)="handleClick($event)"
+            [routerLink]="['/', questionPath, question?.slug]">
+            {{question.questionText}}
+        </a>
+        <!-- <span *ngIf="question?.pollQuestionMeta">&nbsp;{{question?.pollQuestionMeta.totalAnswered}}</span> ->
+    </div>
+</div>
+-->

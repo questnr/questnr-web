@@ -1,6 +1,6 @@
-import { AvatarDTO, MetaList, MetaTagCard } from './common.model';
-import { User } from './user.model';
-import { RelationType } from './relation-type';
+import { AvatarDTO, MetaList, MetaTagCard } from '/Users/brijeshlakkad/Documents/Questnr/questnr-web/src/app/models/common.model';
+import { User } from '/Users/brijeshlakkad/Documents/Questnr/questnr-web/src/app/models/user.model';
+import { RelationType } from '/Users/brijeshlakkad/Documents/Questnr/questnr-web/src/app/models/relation-type';
 
 export class Community {
   communityId: number;
@@ -68,11 +68,11 @@ export enum CommunityPrivacy {
 }
 
 export enum CommunityRequestActionType {
-  reject = "reject", accept = "accept"
+  reject = 'reject', accept = 'accept'
 }
 
 export enum CommunityActivityPositionType {
-  header = "header", communityPage = "communityPage"
+  header = 'header', communityPage = 'communityPage'
 }
 
 export enum CommunityUsersListViewType {

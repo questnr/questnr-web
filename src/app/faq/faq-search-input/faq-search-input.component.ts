@@ -9,10 +9,10 @@ import { GlobalConstants } from 'shared/constants';
   templateUrl: './faq-search-input.component.html',
   styleUrls: ['./faq-search-input.component.scss']
 })
-export class FAQSearchInputComponent implements OnInit {
+export class FaqSearchInputComponent implements OnInit {
   @Input() queryString: string;
   mobileView: boolean = false;
-  searchFAQControl: FormControl = new FormControl("");
+  searchFaqControl: FormControl = new FormControl("");
   @Output() closeEmitter = new EventEmitter();
   placeholder: string;
 
@@ -30,10 +30,10 @@ export class FAQSearchInputComponent implements OnInit {
 
   ngAfterViewInit(): void {
     if (this.queryString)
-      this.searchFAQControl.setValue(this.queryString);
+      this.searchFaqControl.setValue(this.queryString);
   }
 
-  handleSearchFAQ(inputVal: string) {
+  handleSearchFaq(inputVal: string) {
     if (inputVal && inputVal.length > 0) {
       const queryParams: Params = { q: inputVal };
       this.router.navigate(

@@ -1,0 +1,34 @@
+<StackLayout>
+  <Label text="community-card-mobile-view works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="community-slider-card" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+  <div (click)="routeToCommunity(community?.slug)">
+    <app-community-banner [avatar]="community?.avatarDTO" [optimise]="true" [alt]="community?.description">
+    </app-community-banner>
+    <div class="details">
+      <div>{{community?.communityName}}</div>
+      <p>{{community?.description}}</p>
+    </div>
+  </div>
+  <app-community-relation-action-button class="action-btn" *ngIf="allowAction && relation !== 'owned'"
+    [relation]="relation" [mobileView]="mobileView" [communityName]="community.communityName"
+    [communityId]="community.communityId" (actionEvent)="actionEvent($event)">
+  </app-community-relation-action-button>
+  <!-- <div class="action-btn"> ->
+
+  <!-- <button mat-button *ngIf="relation ==='none'" (click)="followThisCommunty(community?.communityId)">Follow</button> ->
+  <!--    <button mat-button *ngIf="community?.communityMeta?.relationShipType ==='owned'" disabled>Owner</button>->
+  <!-- <button mat-button *ngIf="relation==='followed'" style="background: green; color: #ffffff"
+      (click)="unfollowThisCommunity(community?.communityId)">Following</button> ->
+  <!--    <button mat-button *ngIf="community?.communityMeta?.relationShipType ==='none'" (click)="followThisCommunty(community?.communityId)">Follow</button>->
+  <!--    &lt;!&ndash;    <button mat-button *ngIf="community?.communityMeta?.relationShipType ==='owned'" disabled>Owner</button>&ndash;&gt;->
+  <!--    <button mat-button *ngIf="community?.communityMeta?.relationShipType==='followed'" style="background: green; color: #ffffff" (click)="unfollowThisCommunity(community?.communityId)">Following</button>->
+  <!-- </div> ->
+</div>
+-->

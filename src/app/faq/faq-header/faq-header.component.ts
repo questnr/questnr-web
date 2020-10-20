@@ -6,7 +6,7 @@ import { GlobalService } from 'global.service';
   templateUrl: './faq-header.component.html',
   styleUrls: ['./faq-header.component.scss']
 })
-export class FAQHeaderComponent implements OnInit, AfterViewInit {
+export class FaqHeaderComponent implements OnInit, AfterViewInit {
   @Input() queryString: string;
   @Input() category: string;
   mobileView: boolean = false;

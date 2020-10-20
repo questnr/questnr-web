@@ -1,0 +1,77 @@
+<StackLayout>
+  <Label text="community-users works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="community-users-wrapper box" *ngIf="userListType === communityUsersListViewTypeClass.list">
+  <div class="title">
+    <div>Members</div>
+    <div class="noOfMembers">
+      <div style="line-height: 26px" *ngIf="numberOfMembers">
+        &nbsp;{{numberOfMembers}} &nbsp;
+      </div>
+      <div>
+        <mat-icon [matBadge]="pendingRequests" *ngIf="pendingRequests!==0" matBadgeColor="warn"
+          (click)="openUserGroupDialog(userListTypeClass.requests)" style="cursor: pointer">
+          group
+        </mat-icon>
+        <mat-icon *ngIf="pendingRequests===0">group</mat-icon>
+
+      </div>
+    </div>
+  </div>
+  <div *ngIf="communityMemberList?.length ; else noMembers" class="members-list">
+    <div class="" *ngFor="let user of communityMemberList, let ind = index" [id]="user.userId">
+      <app-user-list-view [isSpecialActionsAllowed]="isOwner" (specialActionEvent)="removeMemberListener($event)"
+        [size]="smallUserListViewSize" *ngIf="ind < 4" [user]="user"></app-user-list-view>
+    </div>
+  </div>
+
+  <ng-template #noMembers>
+    <app-no-community-members *ngIf="!loader" [notAllowed]="isAllowedIntoCommunity"></app-no-community-members>
+  </ng-template>
+
+  <div *ngIf="loader">
+    <div *ngFor="let i of loaderItems()">
+      <app-user-list-loader></app-user-list-loader>
+    </div>
+  </div>
+  <app-view-more-button (click)="openUserGroupDialog(userListTypeClass.members)"
+    *ngIf="communityMemberList?.length >= 4">
+  </app-view-more-button>
+</div>
+
+
+<div class="community-user-ribbon-wrapper" *ngIf="userListType === communityUsersListViewTypeClass.ribbon">
+  <div class="flex">
+    <!-- <div class="invite" *ngIf="relationshipType===owned" (click)="openUserGroupDialogToInvite()">
+      <img src="/assets/add.png" alt="" style="width: 70px">
+    </div> ->
+    <div class="col-sm-10">
+      <ul class="ribbon">
+        <!--        <li class="ribbon_list">->
+        <!--          <div class="ribbon_img" style="padding: 0;display: flex; justify-content: center; align-items: center;">->
+        <!--            <mat-icon matBadge="15" matBadgeColor="warn" >group</mat-icon>->
+        <!--          </div>->
+        <!--        </li>->
+        <li class="ribbon_list" *ngFor="let user of communityMemberList let idx = index">
+          <div>
+            <div class="ribbon_img" (click)="navigate(user?.slug)">
+              <img [src]="checkImage(user?.avatarDTO?.avatarLink)" [alt]="user?.username" [matTooltip]="user.username">
+            </div>
+          </div>
+        </li>
+        <li class="ribbon_list">
+          <div class="ribbon_img" style="padding: 0" (click)="openUserGroupDialog(userListTypeClass.members)">
+            <img src="/assets/next.png" alt="default">
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+-->

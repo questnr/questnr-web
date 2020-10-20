@@ -1,0 +1,38 @@
+<StackLayout>
+  <Label text="NotificationItemComponent works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="profile-icon col-md-2">
+  <app-profile-icon [avatar]="notification.userActor?.avatarDTO" [height]="50" [sizeRef]="'small'"
+    [slug]="notification?.userActor?.slug">
+  </app-profile-icon>
+  <div class="type" *ngIf="notification.notificationType !== 'post' && notification.notificationType !== 'invitation'
+  && notification.notificationType !== 'requestedCommunity'
+  && notification.notificationType !== 'communityAccepted'">
+    <img *ngIf="notification.notificationType === 'like'" src="assets/like.svg">
+    <img *ngIf="notification.notificationType === 'comment'" src="assets/comment.svg">
+    <img *ngIf="notification.notificationType === 'followedUser'
+        || notification.notificationType === 'followedCommunity'" src="assets/follow.svg">
+    <img *ngIf="notification.notificationType === 'pollAnswer'" src="assets/question-mark.png">
+  </div>
+  <!-- <div class="type" *ngIf="notification.postMedia.postMediaLink">
+    <img *ngIf="notification.notificationType === 'post'" [src]="notification.postMedia.postMediaLink">
+  </div> ->
+</div>
+<div class="col-md-9 notification-content">
+  <div class="profile-detail">
+    <app-username [username]="notification.userActor?.username" [slug]="notification?.userActor?.slug"></app-username>
+    <div class="message" (click)="handleNotificationClick()"> {{notification.message}} </div>
+  </div>
+  <app-time-string class="meta-data" [metaData]="notification?.metaData"></app-time-string>
+</div>
+<button mat-icon-button color="warn" class="remove col-md-1"
+  (click)="removeNotification(notification.notificationId); $event.stopPropagation();">
+  <mat-icon>clear</mat-icon>
+</button>
+-->

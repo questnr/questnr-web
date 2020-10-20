@@ -1,0 +1,91 @@
+<StackLayout>
+  <Label text="ask-question works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="ask-question-wrapper">
+  <div class="container">
+    <div class="stepper">
+      <mat-horizontal-stepper [linear]=isLinear [disableRipple]="true">
+        <mat-step state="help" [stepControl]="questionForm">
+
+          <form [formGroup]="questionForm" id="questionText">
+            <div *ngIf="!mobileView">
+              <ng-template matStepLabel>Your Question?</ng-template>
+            </div>
+            <mat-form-field>
+              <mat-label>Question</mat-label>
+              <textarea matInput placeholder="What's your Question." formControlName="text" required
+                rows="5"></textarea>
+            </mat-form-field>
+            <div class="actions">
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step state="question_answer" [stepControl]="answerForm">
+          <form [formGroup]="answerForm" id="answerOptions">
+            <div *ngIf="!mobileView">
+              <ng-template matStepLabel>Options</ng-template>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-label>Option 1</mat-label>
+                  <input matInput placeholder="Option 1" formControlName="agreeText" required>
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-label>Option 2</mat-label>
+                  <input matInput placeholder="Option 2" formControlName="disagreeText" required>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="actions">
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext (click)="postQuestion()">Next</button>
+              <!--              <button mat-button (click)="postQuestion()"> Get value</button>->
+            </div>
+          </form>
+        </mat-step>
+        <mat-step state="check">
+          <div *ngIf="!mobileView">
+            <ng-template matStepLabel>Done</ng-template>
+          </div>
+          <div class="actions">
+            <div class="success" *ngIf="loader">
+              <div>
+                <img class="loader" src="/assets/logo.png" alt="">
+              </div>
+              <p style="text-align: center"> Please wait.....</p>
+            </div>
+            <div class="success" *ngIf="!loader">
+              <div>
+                <img src="/assets/logo.png" alt="">
+              </div>
+              <p style="text-align: center">
+                Question Posted successfully.</p>
+            </div>
+          </div>
+        </mat-step>
+
+        <!-- Icon overrides. ->
+        <ng-template matStepperIcon="check">
+          <mat-icon>more_horiz</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="chat">
+          <mat-icon>forum</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="edit">
+          <mat-icon>check</mat-icon>
+        </ng-template>
+      </mat-horizontal-stepper>
+    </div>
+  </div>
+</div>
+-->

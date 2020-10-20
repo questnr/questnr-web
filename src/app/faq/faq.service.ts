@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FAQItemPage, FAQItemSearchPage } from 'models/faq.model';
+import { FaqItemPage, FaqItemSearchPage } from 'models/faq.model';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Page } from 'models/page.model';
@@ -9,7 +9,7 @@ import { Page } from 'models/page.model';
   providedIn: 'root'
 })
 
-export class FAQService {
+export class FaqService {
 
   baseUrl = environment.baseUrl;
 
@@ -17,14 +17,14 @@ export class FAQService {
   constructor(private http: HttpClient) {
   }
 
-  getFAQItems(classificationId): Observable<FAQItemPage> {
+  getFaqItems(classificationId): Observable<FaqItemPage> {
     if (!classificationId) return of();
-    return this.http.get<FAQItemPage>(this.baseUrl + `/faq/${classificationId}`);
+    return this.http.get<FaqItemPage>(this.baseUrl + `/faq/${classificationId}`);
   }
 
-  searchFAQItem(inputVal: string, page: string = "0"): Observable<Page<FAQItemSearchPage>> {
+  searchFaqItem(inputVal: string, page: string = "0"): Observable<Page<FaqItemSearchPage>> {
     if (!inputVal) return of();
-    return this.http.get<Page<FAQItemSearchPage>>(this.baseUrl + `/search/faq`, { params: { page: page, q: inputVal } });
+    return this.http.get<Page<FaqItemSearchPage>>(this.baseUrl + `/search/faq`, { params: { page: page, q: inputVal } });
   }
 }
 

@@ -10,7 +10,7 @@ import { GlobalService } from 'global.service';
 @Component({
   selector: 'app-comment-box',
   templateUrl: './comment-box.component.html',
-  styleUrls: ['../recommended-feeds.component.scss', './comment-box.component.scss'],
+  styleUrls: ['./comment-box.component.scss'],
 })
 export class CommentBoxComponent implements OnInit {
   isLoading = false;

@@ -1,0 +1,86 @@
+<StackLayout>
+  <Label text="recommended-feeds works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="recommended-post-wrapper box">
+  <div class="head-wrap" *ngIf="!showUserHeader">
+    <div class="profile-icon">
+      <app-profile-icon [isCommunityAvatar]="true" [avatar]="feed?.communityDTO.avatarDTO" [height]="50"
+        [sizeRef]="'small'" [slug]="feed?.communityDTO?.slug">
+      </app-profile-icon>
+    </div>
+    <div class="profile-detail" *ngIf="feed.communityDTO">
+      <div class="head">
+        <app-username [username]="feed?.userDTO?.username" [slug]="feed.userDTO.slug"></app-username>
+      </div>
+      <div class="subhead"> Posted in <a
+          [routerLink]="['/', communityPath, feed?.communityDTO.slug]">{{feed?.communityDTO?.communityName}}</a>
+      </div>
+      <app-time-string [metaData]="feed.metaData"></app-time-string>
+    </div>
+
+    <div class="spacer"></div>
+    <app-post-menu-options [isCommunityPost]="!showUserHeader" (postData)="updatePostEvent($event)"
+      [feed]="editableFeed" (removePostEvent)="removePost($event)"></app-post-menu-options>
+  </div>
+  <div class="head-wrap" *ngIf="showUserHeader">
+    <app-profile-icon [avatar]="feed.userDTO.avatarDTO" [height]="50" [sizeRef]="'small'" [slug]="feed?.userDTO?.slug">
+    </app-profile-icon>
+    <div class="profile-detail">
+      <div class="head" *ngIf="feed?.userDTO?.username">
+        <app-username [username]="feed?.userDTO?.username" [slug]="feed.userDTO.slug"></app-username>
+      </div>
+      <app-time-string [metaData]="feed.metaData"></app-time-string>
+    </div>
+    <div class="spacer"></div>
+    <app-post-menu-options [isCommunityPost]="!showUserHeader" (postData)="updatePostEvent($event)"
+      [feed]="editableFeed" (removePostEvent)="removePost($event)"></app-post-menu-options>
+  </div>
+  <div #feedViewContainer></div>
+  <!-- <div [ngClass]="viewPortPassed ? 'txt-underline' : ''"></div> ->
+  <div class="mb-2" *ngIf="feed.postData.postEditorType!='blog'">
+    <media-container [postActionId]="feed?.postActionId" [viewMediaList]="viewMediaList" *ngIf="viewMediaList?.length">
+    </media-container>
+    <app-attached-file-list [attachedFileLinkList]="applicationMediaList"></app-attached-file-list>
+    <app-feed-text [text]="displayText" [hashTagsData]="hashTagsData" #feedTextComponent></app-feed-text>
+    <app-meta-card *ngIf="!isYouTubeVideoLink && iFramelyData?.url" [iFramelyData]="iFramelyData"></app-meta-card>
+    <div *ngIf="isYouTubeVideoLink" class="y-video-container">
+      <iframe [src]="safeYoutubeLink" width="100%" height="100%" frameborder="0" webkitallowfullscreen
+        mozallowfullscreen allowfullscreen></iframe>
+    </div>
+  </div>
+  <app-blog-title class="mb-2 link-hide-border" *ngIf="feed.postData.postEditorType=='blog'"
+    [blogTitle]="feed.postData.blogTitle" (click)="openBlog()">
+  </app-blog-title>
+  <div class="count-box">
+    <div (click)="openUserGroupDialog(userListTypeClass.like)">
+      <span>{{feed.postActionMeta.totalLikes? feed.postActionMeta.totalLikes: 0}}
+      </span>
+      {{feed.postActionMeta.totalLikes>1? 'Likes': 'Like'}}</div>
+    <div class="dot"></div>
+    <div> <span> {{feed.postActionMeta.totalComments ? feed.postActionMeta.totalComments : 0}} </span>
+      {{feed.postActionMeta.totalComments> 1? 'Comments': 'Comment'}} </div>
+  </div>
+  <div class="footer-wrap">
+    <button mat-button [disabled]="isLoading" (click)="likePost(feed.postActionId)"
+      [ngClass]="feed?.postActionMeta?.liked? 'liked':''">
+      <mat-icon [innerHtml]="feed?.postActionMeta?.liked?'favorite' :'favorite_border'"></mat-icon> &nbsp;
+      <span [innerHtml]="feed?.postActionMeta?.liked?'Liked' :'Like'"> Like </span>
+    </button>
+    <button mat-button (click)="toggleComments()">
+      <mat-icon>insert_comment</mat-icon> &nbsp;
+      <span> Comment </span>
+    </button>
+    <button mat-button (click)="openShareDialog()">
+      <mat-icon>share</mat-icon> &nbsp;
+      <span> Share </span>
+    </button>
+  </div>
+  <app-create-comment [feed]="feed" #commentComponent></app-create-comment>
+</div>
+-->

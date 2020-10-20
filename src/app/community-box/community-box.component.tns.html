@@ -1,0 +1,105 @@
+<StackLayout>
+  <Label text="community-box works" textWrap="true"></Label>
+  <Label text="This is a migrated component" textWrap="true"></Label>
+  <Label text="Update it to provide the UI elements required in your mobile app" textWrap="true"></Label>
+</StackLayout>
+
+<!--
+Original Web template:
+
+<div class="joined-community-wrapper">
+    <div class="link-card box" *ngIf="!mobileView && templateStyle == CommunityListMatCardTypeClass.simple">
+        <app-card-header [title]="communityBoxTitle" [count]="totalCommunityCount"></app-card-header>
+        <ng-container *ngIf="!loadingCommunities && communityList?.length; else noCommunities">
+            <div class="links" *ngFor="let item of communityList">
+                <app-profile-icon [isCommunityAvatar]="true" [avatar]="item.avatarDTO" [height]="35" [sizeRef]="'small'"
+                    [slug]="item?.slug">
+                </app-profile-icon>
+                <app-username [isCommunity]="true" [username]="item.communityName" [slug]="item.slug"></app-username>
+            </div>
+            <div class="row" *ngIf="communityList?.length >= 5">
+                <div class="col-4">
+                </div>
+                <div class="col-8">
+                    <app-view-more-button (click)="openCommunityDialog()">
+                    </app-view-more-button>
+                </div>
+            </div>
+        </ng-container>
+        <app-community-loader *ngIf="loadingCommunities" [rows]="totalCommunityCount" #communityLoader>
+        </app-community-loader>
+        <ng-template #noCommunities>
+            <div *ngIf="!loadingCommunities">
+                <app-no-community [isOwner]="isOwner" [communityListType]="communityListType"></app-no-community>
+            </div>
+        </ng-template>
+    </div>
+    <div *ngIf="!mobileView && templateStyle == CommunityListMatCardTypeClass.expansion">
+        <mat-expansion-panel class="user-community-expansion-panel">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <app-card-header [title]="communityBoxTitle">
+                    </app-card-header>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngIf="communityList?.length; else noCommunities">
+                <div *ngIf="!loadingCommunities">
+                    <ng-container *ngIf="communityList?.length">
+                        <div class="links" *ngFor="let item of communityList">
+                            <app-profile-icon [isCommunityAvatar]="true" [avatar]="item.avatarDTO" [height]="35"
+                                [sizeRef]="'small'" [slug]="item.slug">
+                            </app-profile-icon>
+                            <app-username [isCommunity]="true" [username]="item.communityName" [slug]="item.slug">
+                            </app-username>
+                        </div>
+                    </ng-container>
+                    <div class="row" *ngIf="communityList?.length >= 5">
+                        <div class="col">
+                            <app-view-more-button (click)="openCommunityDialog()">
+                            </app-view-more-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <app-community-loader *ngIf="loadingCommunities" [rows]="totalCommunityCount" #communityLoader>
+            </app-community-loader>
+            <ng-template #noCommunities>
+                <div *ngIf="!loadingCommunities">
+                    <app-no-community [isOwner]="isOwner" [communityListType]="communityListType"></app-no-community>
+                </div>
+            </ng-template>
+        </mat-expansion-panel>
+    </div>
+
+    <div *ngIf="mobileView">
+        <div class="user-joined-community" [ngClass]="mobileView ? 'mobile' : 'desktop'">
+            <app-card-header [title]="communityBoxTitle" [count]="totalCommunityCount"
+                [showArrow]="communityList?.length > 2" (arrowClickEmitter)="openCommunityDialog()"></app-card-header>
+            <owl-carousel-o [options]="customOptions">
+                <ng-container *ngFor="let list of communityList;let i=index">
+                    <ng-template carouselSlide [id]="i">
+                        <app-community-card-mobile-view [community]="list">
+                        </app-community-card-mobile-view>
+                    </ng-template>
+                </ng-container>
+            </owl-carousel-o>
+            <!--    <div class="mobile_action_btn" *ngIf="!loadingCommunities" >->
+            <!--      <button mat-stroked-button (click)="openCommunityDialog()">Load more</button>->
+            <!--    </div>->
+            <!--loader->
+            <div class="row card-loader" *ngIf="loadingCommunities">
+                <div class="col">
+                    <app-community-card-loader></app-community-card-loader>
+                </div>
+                <div class="col">
+                    <app-community-card-loader></app-community-card-loader>
+                </div>
+            </div>
+            <!--loader ends->
+        </div>
+        <div class="no-community mobile box" *ngIf="!communityList?.length && !loadingCommunities">
+            <app-no-community [isOwner]="isOwner" [communityListType]="communityListType"></app-no-community>
+        </div>
+    </div>
+</div>
+-->

@@ -1,29 +1,29 @@
-import { Page } from './page.model';
+import { Page } from '/Users/brijeshlakkad/Documents/Questnr/questnr-web/src/app/models/page.model';
 
-export class FAQItemPage {
+export class FaqItemPage {
     category: string;
     description: string;
-    faqItemPage: Page<FAQItem>;
+    faqItemPage: Page<FaqItem>;
 }
 
-export class FAQItem {
+export class FaqItem {
     question: string;
     answer: string;
 }
 
-export class FAQClassificationSearchDTO {
+export class FaqClassificationSearchDTO {
     category: string;
     description: string;
     publicId: string;
 }
 
-export class FAQItemSearchPage {
-    faqClassification: FAQClassificationSearchDTO;
+export class FaqItemSearchPage {
+    faqClassification: FaqClassificationSearchDTO;
     question: string;
     answer: string;
 }
 
-export enum FAQItemType {
-    classified = "classified",
-    searched = "searched"
+export enum FaqItemType {
+    classified = 'classified',
+    searched = 'searched'
 }

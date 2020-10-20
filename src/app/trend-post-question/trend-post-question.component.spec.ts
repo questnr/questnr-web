@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TrendingPostPollQuestionComponent } from './trend-post-question.component';
+import { TrendPostQuestionComponent } from './trend-post-question.component';
 
-describe('TrendingPostPollQuestionComponent', () => {
-  let component: TrendingPostPollQuestionComponent;
-  let fixture: ComponentFixture<TrendingPostPollQuestionComponent>;
+describe('TrendPostQuestionComponent', () => {
+  let component: TrendPostQuestionComponent;
+  let fixture: ComponentFixture<TrendPostQuestionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TrendingPostPollQuestionComponent]
+      declarations: [TrendPostQuestionComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TrendingPostPollQuestionComponent);
+    fixture = TestBed.createComponent(TrendPostQuestionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
