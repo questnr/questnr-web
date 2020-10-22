@@ -12,7 +12,7 @@ import { GlobalConstants } from 'shared/constants';
 export class FaqSearchInputComponent implements OnInit {
   @Input() queryString: string;
   mobileView: boolean = false;
-  searchFaqControl: FormControl = new FormControl("");
+  searchFAQControl: FormControl = new FormControl("");
   @Output() closeEmitter = new EventEmitter();
   placeholder: string;
 
@@ -30,10 +30,10 @@ export class FaqSearchInputComponent implements OnInit {
 
   ngAfterViewInit(): void {
     if (this.queryString)
-      this.searchFaqControl.setValue(this.queryString);
+      this.searchFAQControl.setValue(this.queryString);
   }
 
-  handleSearchFaq(inputVal: string) {
+  handleSearchFAQ(inputVal: string) {
     if (inputVal && inputVal.length > 0) {
       const queryParams: Params = { q: inputVal };
       this.router.navigate(

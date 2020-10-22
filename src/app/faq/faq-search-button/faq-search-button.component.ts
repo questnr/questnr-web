@@ -15,7 +15,7 @@ export class FaqSearchButtonComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openFaqSearchPage($event) {
+  openFAQSearchPage($event) {
     $event.preventDefault();
     this.faqSearchModalRef.open(this.queryString);
   }

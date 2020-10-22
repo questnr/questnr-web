@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>836632017511-e3f5736idi2d5909l0u34n8m61uijpkc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.836632017511-e3f5736idi2d5909l0u34n8m61uijpkc</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDG1CZgHqcVQSfr2HARjQZdiFN0xi_75D4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>836632017511</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.questnr.ios</string>
+	<key>PROJECT_ID</key>
+	<string>questnr-web-1586188588294</string>
+	<key>STORAGE_BUCKET</key>
+	<string>questnr-web-1586188588294.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:836632017511:ios:54675673e1196244aa72c2</string>
+	<key>DATABASE_URL</key>
+	<string>https://questnr-web-1586188588294.firebaseio.com</string>
+</dict>
+</plist>

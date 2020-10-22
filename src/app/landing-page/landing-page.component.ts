@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { loggedIn } from '@angular/fire/auth-guard';
 // import {TranslateService} from '@ngx-translate/core';
 import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';

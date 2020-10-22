@@ -9,6 +9,15 @@
 		"karma.conf.js",
 		"package.json",
 		"tsconfig.tns.json",
+		"karma.conf.js",
+		"hooks",
+		"webpack.config.js",
+		"package.json",
+		"package-lock.json",
+		"tsconfig.tns.json",
+		"karma.conf.js",
+		"package.json",
+		"tsconfig.tns.json",
 		"karma.conf.js"
 	]
 }

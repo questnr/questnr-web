@@ -19,7 +19,7 @@ export class FaqSearchComponent implements OnInit, OnDestroy {
   mobileView: boolean = false;
   loading: boolean = false;
   queryString: string;
-  FaqItemSearchedList: FaqItemSearchPage[] = [];
+  FAQItemSearchedList: FaqItemSearchPage[] = [];
   noData: boolean = false;
   paginationData: PaginationData;
   @ViewChild("paginator") paginator: MatPaginator;
@@ -65,12 +65,12 @@ export class FaqSearchComponent implements OnInit, OnDestroy {
 
   searchFaq(page: any = "0") {
     this.loading = true;
-    this.FaqItemSearchedList = [];
+    this.FAQItemSearchedList = [];
     this.faqService.searchFaqItem(this.queryString, page).subscribe((faqItemSearchPage: Page<FaqItemSearchPage>) => {
       this.loading = false;
       if (!faqItemSearchPage.empty) {
         this.paginationData = faqItemSearchPage;
-        this.FaqItemSearchedList = faqItemSearchPage.content;
+        this.FAQItemSearchedList = faqItemSearchPage.content;
       } else {
         this.noData = true;
       }

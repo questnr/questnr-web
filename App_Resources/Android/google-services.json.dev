@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "836632017511",
+    "firebase_url": "https://questnr-web-1586188588294.firebaseio.com",
+    "project_id": "questnr-web-1586188588294",
+    "storage_bucket": "questnr-web-1586188588294.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836632017511:android:2ff43dcf212ba316aa72c2",
+        "android_client_info": {
+          "package_name": "com.questnr.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836632017511-nkrl53pnt2v2epkitdk02tgo9vlra486.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApFZQuJzUURiM46JbwEfOzy-sd07EAaP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836632017511-nkrl53pnt2v2epkitdk02tgo9vlra486.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "836632017511-e3f5736idi2d5909l0u34n8m61uijpkc.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.questnr.ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

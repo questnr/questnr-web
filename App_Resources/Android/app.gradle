@@ -5,19 +5,22 @@
 //	compile 'com.android.support:recyclerview-v7:+'
 //}
 
-android {  
-  defaultConfig {  
+android {
+  defaultConfig {
     generatedDensities = []
-    applicationId = "__PACKAGE__" 
-    
+    applicationId = "__PACKAGE__"
+
     //override supported platforms
     // ndk {
     //       abiFilters.clear()
     //   		abiFilters "armeabi-v7a"
  		// }
-  
-  }  
-  aaptOptions {  
-    additionalParameters "--no-version-vectors"  
-  }  
-} 
+
+  }
+  aaptOptions {
+    additionalParameters "--no-version-vectors"
+  }
+  project.ext {
+    googlePlayServicesVersion = "15.0.0"
+  }
+}

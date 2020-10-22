@@ -85,6 +85,59 @@ import { UsercommunityComponent } from './usercommunity/usercommunity.component'
 
 // Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
 import { NativeScriptFormsModule, NativeScriptHttpClientModule } from '@nativescript/angular';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { SharedModule } from 'shared/shared.module';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { FaqModule } from 'faq/faq.module';
+import { SinglePostModule } from 'single-post/single-post.module';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { ShareButtonsModule } from '@ngx-share/buttons';
+import { AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, LoginOpt, SocialLoginModule } from 'angularx-social-login';
+import { ShareButtonsConfig } from '@ngx-share/core';
+import { AsyncPipe } from '@angular/common';
+import { AuthGuard } from 'auth/auth.guard';
+import { LoginService } from 'auth/login.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from 'interceptor.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MessagingService } from 'service/messaging.service';
+import { CommunityResolve } from 'community/community.resolve';
+import { LandingPageResolve } from 'landing-page/landing-page.resolve';
+import { SinglePostResolve } from 'single-post/single-post.resolve';
+import { RecommendedFeedsResolve } from 'feeds-frame/recommended-feeds/recommended-feeds.resolve';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FullScreenMediaService } from 'media-container/full-screen-media.service';
+import { GlobalService } from 'global.service';
+import { ConfirmDialogService } from 'confirm-dialog-modal/confirm-dialog.service';
+
+const customConfig: ShareButtonsConfig = {
+  include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
+  theme: 'circles-light',
+  autoSetMeta: true,
+};
+
+const fbLoginOptions: LoginOpt = {
+  scope: 'email,birthday,first_name,last_name',
+  return_scopes: true,
+  enable_profile_selector: true
+};
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider(environment.googleKey)
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider(environment.fbKey, fbLoginOptions)
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -172,9 +225,48 @@ import { NativeScriptFormsModule, NativeScriptHttpClientModule } from '@nativesc
     NativeScriptModule,
     NativeScriptFormsModule,
     NativeScriptHttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SharedModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    FaqModule,
+    SinglePostModule,
+    MDBBootstrapModule.forRoot(),
+    SocialLoginModule,
+    ShareButtonsModule.withConfig(customConfig),
   ],
-  providers: [],
+  providers: [
+    AsyncPipe,
+    AuthGuard,
+    LoginService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    },
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    },
+    MatDatepickerModule,
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    MessagingService,
+    CommunityResolve,
+    LandingPageResolve,
+    SinglePostResolve,
+    RecommendedFeedsResolve,
+    {
+      provide: MatDialogRef,
+      useValue: []
+    },
+    {
+      provide: MAT_DIALOG_DATA,
+      useValue: []
+    },
+    GlobalService,
+    FullScreenMediaService,
+    ConfirmDialogService
+  ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA]
 })

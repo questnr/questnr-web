@@ -19,7 +19,7 @@ export class FaqResolve implements Resolve<Observable<FaqItemPage | void>> {
     if (faqType) {
       return this.faqService.getFaqItems(faqType).pipe(map((faqItemClassPage: FaqItemPage) => {
         if (faqItemClassPage?.category && faqItemClassPage.faqItemPage?.content?.length > 0) {
-          this.uiService.setFaqMetaTags(faqItemClassPage);
+          this.uiService.setFAQMetaTags(faqItemClassPage);
           return faqItemClassPage;
         } else {
           this.redirectToErrorPage();
