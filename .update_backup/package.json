@@ -25,7 +25,6 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/schematics": "^10.1.7",
     "@angular/animations": "~10.1.0",
     "@angular/cdk": "9.2.2",
     "@angular/common": "~10.1.0",
@@ -83,7 +82,8 @@
     "tippy.js": "^6.2.6",
     "tslib": "^1.10.0",
     "web-animations-js": "^2.3.2",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "@nativescript/webpack": "3.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.3",
@@ -114,8 +114,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "3.9.7",
-    "@nativescript/webpack": "~3.0.0"
+    "typescript": "3.9.7"
   },
   "main": "main.tns.js"
 }
