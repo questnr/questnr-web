@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { GlobalService } from 'global.service';
-import { HashTag } from 'models/hashtag.model';
-import { Page } from 'models/page.model';
+import { GlobalService } from '../global.service';
+import { HashTag } from '../models/hashtag.model';
+import { Page } from '../models/page.model';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { StaticMediaSrc } from '../shared/constants/static-media-src';
 import { Community } from '../models/community.model';
 import { Post, QuestionParentType } from '../models/post-action.model';
 import { ApiService } from '../shared/api.service';

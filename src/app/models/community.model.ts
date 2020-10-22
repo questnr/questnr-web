@@ -1,6 +1,6 @@
-import { AvatarDTO, MetaList, MetaTagCard } from '/Users/brijeshlakkad/Documents/Questnr/questnr-web/src/app/models/common.model';
-import { User } from '/Users/brijeshlakkad/Documents/Questnr/questnr-web/src/app/models/user.model';
-import { RelationType } from '/Users/brijeshlakkad/Documents/Questnr/questnr-web/src/app/models/relation-type';
+import { AvatarDTO, MetaTagCard } from './common.model';
+import { RelationType } from './relation-type';
+import { User } from './user.model';
 
 export class Community {
   communityId: number;

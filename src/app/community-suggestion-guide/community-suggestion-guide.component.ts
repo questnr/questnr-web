@@ -2,10 +2,10 @@ import { Component, Inject, OnInit, ViewChild, ViewEncapsulation } from '@angula
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { Tag } from 'models/common.model';
-import { Community } from 'models/community.model';
-import { Page } from 'models/page.model';
-import { UserInterest } from 'models/user.model';
+import { Tag } from '../models/common.model';
+import { Community } from '../models/community.model';
+import { Page } from '../models/page.model';
+import { UserInterest } from '../models/user.model';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CommunitySuggestionGuideService } from './community-suggestion-guide.service';
 

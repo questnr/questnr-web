@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { GlobalService } from 'global.service';
-import { CommunityListType, CommunityListData } from 'models/community-list.model';
-import { UserListData, UserListType } from 'models/user-list.model';
-import { User, UserInfo } from 'models/user.model';
-import { CommunityListComponent } from 'shared/components/dialogs/community-list/community-list.component';
+import { GlobalService } from '../global.service';
+import { CommunityListData, CommunityListType } from '../models/community-list.model';
+import { UserListData, UserListType } from '../models/user-list.model';
+import { User, UserInfo } from '../models/user.model';
+import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
 import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
 import { UserFollowersService } from '../user-followers/user-followers.service';
 import { UserActivityService } from './user-activity.service';

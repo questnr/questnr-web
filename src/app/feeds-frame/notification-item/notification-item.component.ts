@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NotificationDTO } from '../../models/notification.model';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { GlobalConstants } from 'shared/constants';
+import { GlobalConstants } from '../../shared/constants';
+import { StaticMediaSrc } from '../../shared/constants/static-media-src';
+
 @Component({
   selector: 'app-notification-item',
   templateUrl: './notification-item.component.html',

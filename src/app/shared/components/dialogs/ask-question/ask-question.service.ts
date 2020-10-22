@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PollQuestionMeta } from 'models/post-action.model';
+import { PollQuestionMeta } from '../../../../models/post-action.model';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 

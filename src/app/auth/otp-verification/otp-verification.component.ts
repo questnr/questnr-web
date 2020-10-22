@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { OTPVerificationService } from './otp-verification.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CommonService } from 'common/common.service';
+import { CommonService } from '../../common/common.service';
 
 @Component({
   selector: 'app-otp-verification',

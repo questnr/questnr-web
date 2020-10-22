@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserProfileCardServiceComponent } from './user-profile-card-service.component';
-import { LoginService } from '../auth/login.service';
-import { UserActivityService } from '../user-activity/user-activity.service';
 import { ActivatedRoute } from '@angular/router';
+import { LoginService } from '../auth/login.service';
+import { RelationType } from '../models/relation-type';
 import { GlobalConstants } from '../shared/constants';
-import { RelationType } from 'models/relation-type';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { StaticMediaSrc } from '../shared/constants/static-media-src';
+import { UserActivityService } from '../user-activity/user-activity.service';
+import { UserProfileCardServiceComponent } from './user-profile-card-service.component';
+
 @Component({
   selector: 'app-user-profile-card',
   templateUrl: './user-profile-card.component.html',

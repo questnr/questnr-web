@@ -1,12 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { CustomError } from 'models/common.model';
-import { SimplifiedPostType, SinglePost } from 'models/single-post.model';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { GlobalConstants } from 'shared/constants';
-import { UIService } from 'ui/ui.service';
+import { CustomError } from '../models/common.model';
+import { SimplifiedPostType, SinglePost } from '../models/single-post.model';
+import { GlobalConstants } from '../shared/constants';
+import { UIService } from '../ui/ui.service';
 import { SinglePostService } from './single-post.service';
 
 @Injectable()

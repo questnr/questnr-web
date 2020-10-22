@@ -2,8 +2,8 @@ import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild, ViewEn
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { EmoticonsComponent } from 'emoticons/emoticons.component';
-import { GlobalService } from 'global.service';
+import { EmoticonsComponent } from '../emoticons/emoticons.component';
+import { GlobalService } from '../global.service';
 import { LoginService } from '../auth/login.service';
 import { CommonService } from '../common/common.service';
 import { AsyncValidator } from '../custom-validations';

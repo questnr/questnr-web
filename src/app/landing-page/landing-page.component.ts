@@ -1,16 +1,16 @@
-import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 // import {TranslateService} from '@ngx-translate/core';
 import { FormControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MetaList } from 'models/common.model';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
-import { ApiService } from 'shared/api.service';
-import { UIService } from 'ui/ui.service';
-import { GlobalConstants } from '../shared/constants';
-import { LoginService } from 'auth/login.service';
 import { Title } from '@angular/platform-browser';
-import { Page } from 'models/page.model';
-import { HashTag } from 'models/hashtag.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { LoginService } from '../auth/login.service';
+import { MetaList } from '../models/common.model';
+import { HashTag } from '../models/hashtag.model';
+import { Page } from '../models/page.model';
+import { ApiService } from '../shared/api.service';
+import { GlobalConstants } from '../shared/constants';
+import { UIService } from '../ui/ui.service';
 
 @Component({
   selector: 'app-landing-page',

@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService } from 'auth/login.service';
-import { GlobalService } from 'global.service';
-import { FaqItem, FaqItemPage } from 'models/faq.model';
-import { KnowMoreLinkType } from 'models/know-more-type';
-import { GlobalConstants } from 'shared/constants';
-import { UIService } from 'ui/ui.service';
+import { LoginService } from '../auth/login.service';
+import { GlobalService } from '../global.service';
+import { FaqItem, FaqItemPage } from '../models/faq.model';
+import { KnowMoreLinkType } from '../models/know-more-type';
+import { GlobalConstants } from '../shared/constants';
+import { UIService } from '../ui/ui.service';
 import { FaqHeaderComponent } from './faq-header/faq-header.component';
 
 @Component({

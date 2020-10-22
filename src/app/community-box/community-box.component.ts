@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { GlobalService } from 'global.service';
-import { CommunityListData, CommunityListMatCardType, CommunityListType } from 'models/community-list.model';
-import { User } from 'models/user.model';
+import { GlobalService } from '../global.service';
+import { CommunityListData, CommunityListMatCardType, CommunityListType } from '../models/community-list.model';
+import { User } from '../models/user.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { GlobalConstants } from 'shared/constants';
+import { GlobalConstants } from '../shared/constants';
 import { LoginService } from '../auth/login.service';
 import { Community } from '../models/community.model';
 import { ApiService } from '../shared/api.service';

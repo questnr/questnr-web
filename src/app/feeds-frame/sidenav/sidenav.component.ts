@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CommunityListMatCardType } from 'models/community-list.model';
-import { User } from 'models/user.model';
-import { ApiService } from 'shared/api.service';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { CommunityListMatCardType } from '../../models/community-list.model';
+import { User } from '../../models/user.model';
+import { ApiService } from '../../shared/api.service';
 import { GlobalConstants } from '../../shared/constants';
+import { StaticMediaSrc } from '../../shared/constants/static-media-src';
 
 @Component({
   selector: 'app-sidenav',

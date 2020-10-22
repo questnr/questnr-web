@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { CommunityProfileMeta } from 'models/community.model';
+import { CommunityProfileMeta } from '../models/community.model';
 
 @Injectable({
   providedIn: 'root'

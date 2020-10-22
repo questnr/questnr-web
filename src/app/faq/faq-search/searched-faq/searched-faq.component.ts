@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FaqItemSearchPage, FaqItemType } from 'models/faq.model';
-import { GlobalConstants } from 'shared/constants';
+import { FaqItemSearchPage, FaqItemType } from '../../../models/faq.model';
+import { GlobalConstants } from '../../../shared/constants';
 
 @Component({
   selector: 'searched-faq',

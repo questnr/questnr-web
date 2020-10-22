@@ -2,7 +2,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { GlobalService } from 'global.service';
+import { GlobalService } from '../../../../global.service';
 import { Post } from '../../../../models/post-action.model';
 import { AskQuestionService } from './ask-question.service';
 import set = Reflect.set;

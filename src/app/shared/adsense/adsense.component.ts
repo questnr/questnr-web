@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AdsenseConstants } from 'shared/constants/adsense-constants';
-import { GlobalConstants } from 'shared/constants';
+import { AdsenseConstants } from '../../shared/constants/adsense-constants';
+import { GlobalConstants } from '../../shared/constants';
 declare var window: any;
 declare var $: any;
 

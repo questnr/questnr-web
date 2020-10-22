@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SearchedEntityListComponent } from 'searched-entity-list/searched-entity-list.component';
+import { SearchedEntityListComponent } from '../../searched-entity-list/searched-entity-list.component';
 
 @Component({
   selector: 'app-search-overlay',

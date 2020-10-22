@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FeedsService } from 'feeds-frame/feeds.service';
-import { PostActionForMedia, PostMedia, ResourceType } from 'models/post-action.model';
+import { FeedsService } from '../feeds-frame/feeds.service';
+import { PostActionForMedia, PostMedia, ResourceType } from '../models/post-action.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { FullScreenMediaService } from './full-screen-media.service';
 

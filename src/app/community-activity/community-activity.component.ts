@@ -1,12 +1,12 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { GlobalService } from 'global.service';
-import { CommunityProfileMeta, Community, CommunityActivityPositionType } from 'models/community.model';
+import { GlobalService } from '../global.service';
+import { CommunityProfileMeta, Community, CommunityActivityPositionType } from '../models/community.model';
 import { UserListComponent } from '../shared/components/dialogs/user-list/user-list.component';
 import { UserFollowersService } from '../user-followers/user-followers.service';
 import { CommunityActivityService } from './community-activity.service';
-import { UserListData, UserListType } from 'models/user-list.model';
+import { UserListData, UserListType } from '../models/user-list.model';
 
 @Component({
   selector: 'app-community-activity',

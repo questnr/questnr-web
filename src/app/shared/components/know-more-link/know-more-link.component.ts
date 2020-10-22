@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { KnowMoreLinkType } from 'models/know-more-type';
-import { GlobalConstants } from 'shared/constants';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { KnowMoreLinkType } from '../../../models/know-more-type';
+import { GlobalConstants } from '../../../shared/constants';
 
 @Component({
   selector: 'know-more-link',

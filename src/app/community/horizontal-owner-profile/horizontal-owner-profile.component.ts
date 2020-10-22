@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from 'models/user.model';
-import { GlobalService } from 'global.service';
-import { GlobalConstants } from 'shared/constants';
+import { User } from '../../models/user.model';
+import { GlobalService } from '../../global.service';
+import { GlobalConstants } from '../../shared/constants';
 import { Router } from '@angular/router';
 
 @Component({

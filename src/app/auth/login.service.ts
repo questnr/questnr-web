@@ -2,12 +2,12 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as jwtDecode from 'jwt-decode';
-import { AvatarDTO } from 'models/common.model';
-import { LoginResponse } from 'models/login.model';
-import { LocalUser, User } from 'models/user.model';
+import { AvatarDTO } from '../models/common.model';
+import { LoginResponse } from '../models/login.model';
+import { LocalUser, User } from '../models/user.model';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { StaticMediaSrc } from '../shared/constants/static-media-src';
 import { environment } from '../../environments/environment';
 
 @Injectable({

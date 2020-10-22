@@ -1,11 +1,11 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { FeedsService } from 'feeds-frame/feeds.service';
-import { CommentAction } from 'models/comment-action.model';
-import { Post } from 'models/post-action.model';
-import { LoginService } from 'auth/login.service';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { GlobalConstants } from 'shared/constants';
-import { GlobalService } from 'global.service';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LoginService } from '../../../auth/login.service';
+import { FeedsService } from '../../../feeds-frame/feeds.service';
+import { GlobalService } from '../../../global.service';
+import { CommentAction } from '../../../models/comment-action.model';
+import { Post } from '../../../models/post-action.model';
+import { GlobalConstants } from '../../../shared/constants';
+import { StaticMediaSrc } from '../../../shared/constants/static-media-src';
 
 @Component({
   selector: 'app-comment-box',

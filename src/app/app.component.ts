@@ -2,10 +2,11 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { GlobalService } from './global.service';
 import { GlobalConstants } from './shared/constants';
-import { GlobalService } from 'global.service';
 // import { TranslateService } from '@ngx-translate/core';
 declare var gtag;
+
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'app-root',

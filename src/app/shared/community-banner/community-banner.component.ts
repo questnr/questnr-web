@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Renderer2, ViewChild, ElementRef } from '@angular/core';
-import { AvatarDTO } from 'models/common.model';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AvatarDTO } from '../../models/common.model';
+import { StaticMediaSrc } from '../../shared/constants/static-media-src';
 
 @Component({
   selector: 'app-community-banner',

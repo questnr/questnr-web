@@ -1,14 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from 'auth/login.service';
-import { SnackBarService } from 'common/snackbar.service';
-import { KnowMoreLinkType } from 'models/know-more-type';
-import { ActionType } from 'models/snackbar.model';
-import { Message } from 'shared/constants/messages';
+import { LoginService } from '../auth/login.service';
+import { SnackBarService } from '../common/snackbar.service';
+import { KnowMoreLinkType } from '../models/know-more-type';
 import { PollQuestionMeta, Post, QuestionParentType } from '../models/post-action.model';
+import { ActionType } from '../models/snackbar.model';
 import { AskQuestionService } from '../shared/components/dialogs/ask-question/ask-question.service';
 import { GlobalConstants } from '../shared/constants';
+import { Message } from '../shared/constants/messages';
 
 @Component({
   selector: 'app-question-ui',

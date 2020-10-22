@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GlobalService } from 'global.service';
-import { CommunityListType } from 'models/community.model';
+import { GlobalService } from '../../global.service';
+import { CommunityListType } from '../../models/community.model';
 
 @Component({
   selector: 'app-no-community',

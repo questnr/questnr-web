@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { GlobalConstants } from 'shared/constants';
+import { GlobalConstants } from '../shared/constants';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { Community } from 'models/community.model';
-import { Page } from 'models/page.model';
+import { Community } from '../models/community.model';
+import { Page } from '../models/page.model';
 
 @Component({
   selector: 'app-trending',

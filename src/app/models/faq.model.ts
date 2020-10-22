@@ -1,4 +1,4 @@
-import { Page } from '/Users/brijeshlakkad/Documents/Questnr/questnr-web/src/app/models/page.model';
+import { Page } from './page.model';
 
 export class FaqItemPage {
     category: string;

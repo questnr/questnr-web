@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { CommunityActivityComponent } from 'community-activity/community-activity.component';
-import { ProfileIconTemplateType } from 'models/common.model';
-import { Community, CommunityActivityPositionType, CommunityProfileMeta } from 'models/community.model';
+import { CommunityActivityComponent } from '../../community-activity/community-activity.component';
+import { ProfileIconTemplateType } from '../../models/common.model';
+import { Community, CommunityActivityPositionType, CommunityProfileMeta } from '../../models/community.model';
 
 @Component({
   selector: 'app-community-horizontal-card',

@@ -1,5 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, Renderer2, Input } from '@angular/core';
-import { SocialMediaConstants } from 'shared/constants/social-media-constant';
+import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { SocialMediaConstants } from '../../shared/constants/social-media-constant';
 
 @Component({
   selector: 'app-social-media-links',

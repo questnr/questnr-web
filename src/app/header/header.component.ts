@@ -1,5 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { LoginService } from 'auth/login.service';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { LoginService } from '../auth/login.service';
 import { GlobalConstants } from '../shared/constants';
 
 @Component({

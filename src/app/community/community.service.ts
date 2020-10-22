@@ -3,10 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Community, CommunityPublic, CommunityPrivacy, CommunityRequestActionType, CommunityProfileMeta } from '../models/community.model';
 import { Observable, of } from 'rxjs';
-import { MetaTagCard } from 'models/common.model';
-import { RelationType } from 'models/relation-type';
-import { Page } from 'models/page.model';
-import { User } from 'models/user.model';
+import { MetaTagCard } from '../models/common.model';
+import { RelationType } from '../models/relation-type';
+import { Page } from '../models/page.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'

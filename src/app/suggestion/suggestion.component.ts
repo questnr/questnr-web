@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { GlobalService } from 'global.service';
-import { CommunityListType, CommunityListData } from 'models/community-list.model';
-import { Page } from 'models/page.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { CommunityListComponent } from 'shared/components/dialogs/community-list/community-list.component';
-import { GlobalConstants } from 'shared/constants';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { LoginService } from '../auth/login.service';
+import { GlobalService } from '../global.service';
+import { CommunityListData, CommunityListType } from '../models/community-list.model';
 import { Community } from '../models/community.model';
+import { Page } from '../models/page.model';
 import { ApiService } from '../shared/api.service';
+import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
+import { GlobalConstants } from '../shared/constants';
+import { StaticMediaSrc } from '../shared/constants/static-media-src';
 
 @Component({
   // tslint:disable-next-line:component-selector

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { GlobalConstants } from 'shared/constants';
+import { GlobalConstants } from '../shared/constants';
 import { FaqSearchComponent } from './faq-search/faq-search.component';
 import { FaqSearchResolve } from './faq-search/faq-search.resolve';
 import { FaqComponent } from './faq.component';

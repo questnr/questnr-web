@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { GlobalService } from 'global.service';
+import { GlobalService } from '../global.service';
 import { ImgCropperComponent } from './img-cropper/img-cropper.component';
 
 @Component({

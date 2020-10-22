@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, ViewEncapsulation, ViewChild, Renderer2, ElementRef, AfterViewInit } from '@angular/core';
-import { GlobalService } from 'global.service';
-import { FaqItemType } from 'models/faq.model';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatExpansionPanel } from '@angular/material/expansion';
+import { GlobalService } from '../../global.service';
+import { FaqItemType } from '../../models/faq.model';
 
 @Component({
   selector: 'faq-item',

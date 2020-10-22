@@ -1,8 +1,7 @@
 
-import { Component, OnInit, Input } from '@angular/core';
-import { IFramelyData } from 'models/iframely.model';
+import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { IFramelyData } from '../models/iframely.model';
 
 @Component({
   selector: 'app-meta-card',

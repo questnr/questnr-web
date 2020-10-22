@@ -5,15 +5,15 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatStepper } from '@angular/material/stepper';
 import { Router } from '@angular/router';
-import { CommunitySuggestionGuideService } from 'community-suggestion-guide/community-suggestion-guide.service';
-import { GlobalService } from 'global.service';
-import { ImgCropperWrapperComponent } from 'img-cropper-wrapper/img-cropper-wrapper.component';
-import { Tag } from 'models/common.model';
-import { Community } from 'models/community.model';
-import { UserInterest } from 'models/user.model';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { GlobalConstants } from 'shared/constants';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { CommunitySuggestionGuideService } from '../../../../community-suggestion-guide/community-suggestion-guide.service';
+import { GlobalService } from '../../../../global.service';
+import { ImgCropperWrapperComponent } from '../../../../img-cropper-wrapper/img-cropper-wrapper.component';
+import { Tag } from '../../../../models/common.model';
+import { Community } from '../../../../models/community.model';
+import { UserInterest } from '../../../../models/user.model';
+import { GlobalConstants } from '../../../../shared/constants';
+import { StaticMediaSrc } from '../../../../shared/constants/static-media-src';
 import { CreateCommunityService } from './create-community.servive';
 
 @Component({

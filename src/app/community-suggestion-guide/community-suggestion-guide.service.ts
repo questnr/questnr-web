@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Community } from 'models/community.model';
-import { Page } from 'models/page.model';
-import { UserInterest } from 'models/user.model';
+import { Community } from '../models/community.model';
+import { Page } from '../models/page.model';
+import { UserInterest } from '../models/user.model';
 import { of } from 'rxjs';
 import { environment } from '../../environments/environment';
 

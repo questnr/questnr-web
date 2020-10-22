@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Page } from 'models/page.model';
-import { Community } from 'models/community.model';
+import { environment } from '../../environments/environment';
+import { Community } from '../models/community.model';
+import { Page } from '../models/page.model';
 
 @Injectable({
   providedIn: 'root'

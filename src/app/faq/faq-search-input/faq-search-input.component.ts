@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Params, Router } from '@angular/router';
-import { GlobalService } from 'global.service';
-import { GlobalConstants } from 'shared/constants';
+import { GlobalService } from '../../global.service';
+import { GlobalConstants } from '../../shared/constants';
 
 @Component({
   selector: 'app-faq-search-input',

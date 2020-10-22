@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MetaData } from 'models/common.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { MetaData } from '../models/common.model';
 
 @Component({
   selector: 'app-time-string',

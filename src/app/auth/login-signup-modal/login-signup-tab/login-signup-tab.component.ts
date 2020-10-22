@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { GlobalService } from 'global.service';
-import { LoginSignUpComponentType } from 'models/login.model';
+import { GlobalService } from '../../../global.service';
+import { LoginSignUpComponentType } from '../../../models/login.model';
 
 @Component({
   selector: 'app-login-signup-tab',

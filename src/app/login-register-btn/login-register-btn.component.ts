@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { GlobalConstants } from 'shared/constants';
+import { GlobalConstants } from '../shared/constants';
 
 @Component({
   selector: 'app-login-register-btn',
   templateUrl: './login-register-btn.component.html',
-  styleUrls: ['./login-register-btn.component.scss', '/src/app/header/header.component.scss']
+  styleUrls: ['./login-register-btn.component.scss', '../header/header.component.scss']
 })
 export class LoginRegisterBtnComponent implements OnInit {
   @Output() activeAuthEmitter = new EventEmitter();

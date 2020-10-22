@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { MetaService } from '@ngx-meta/core';
-import { MetaList } from 'models/common.model';
-import { FaqItemPage } from 'models/faq.model';
-import { GlobalConstants } from 'shared/constants';
+import { MetaList } from '../models/common.model';
+import { FaqItemPage } from '../models/faq.model';
+import { GlobalConstants } from '../shared/constants';
 
 @Injectable({
   providedIn: 'root'

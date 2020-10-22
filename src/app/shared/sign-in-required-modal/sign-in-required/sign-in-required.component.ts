@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Params, Router } from '@angular/router';
-import { GlobalService } from 'global.service';
-import { GlobalConstants } from 'shared/constants';
+import { GlobalService } from '../../../global.service';
+import { GlobalConstants } from '../../../shared/constants';
 
 @Component({
   selector: 'app-sign-in-required',

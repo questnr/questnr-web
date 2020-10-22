@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { GlobalService } from 'global.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { GlobalService } from '../../global.service';
 
 @Component({
   selector: 'app-user-description-card',

@@ -1,17 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ConfirmDialogComponent } from 'confirm-dialog-modal/confirm-dialog/confirm-dialog.component';
-import { GlobalService } from 'global.service';
-import { RelationType } from 'models/relation-type';
-import { GlobalConstants } from 'shared/constants';
 import { LoginService } from '../../auth/login.service';
 import { CommunityService } from '../../community/community.service';
+import { ConfirmDialogComponent } from '../../confirm-dialog-modal/confirm-dialog/confirm-dialog.component';
+import { GlobalService } from '../../global.service';
+import { CommunityRequestActionType } from '../../models/community.model';
+import { RelationType } from '../../models/relation-type';
+import { UserListViewSizeType, UserListViewVariables } from '../../models/user-list.model';
 import { User } from '../../models/user.model';
+import { GlobalConstants } from '../../shared/constants';
 import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
 import { InviteUsetService } from './invite-user.service';
-import { UserListViewSizeType, UserListViewVariables } from 'models/user-list.model';
-import { CommunityRequestActionType } from 'models/community.model';
 
 @Component({
   selector: 'app-user-list-view',

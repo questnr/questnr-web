@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { AvatarDTO } from 'models/common.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { AvatarDTO } from '../models/common.model';
+import { StaticMediaSrc } from '../shared/constants/static-media-src';
 
 @Component({
   selector: 'app-horizontal-profile',

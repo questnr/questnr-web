@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService } from 'auth/login.service';
-import { FaqService } from 'faq/faq.service';
-import { GlobalService } from 'global.service';
-import { FaqItemSearchPage } from 'models/faq.model';
-import { Page, PaginationData } from 'models/page.model';
-import { GlobalConstants } from 'shared/constants';
-import { UIService } from 'ui/ui.service';
+import { LoginService } from '../../auth/login.service';
+import { FaqService } from '../../faq/faq.service';
+import { GlobalService } from '../../global.service';
+import { FaqItemSearchPage } from '../../models/faq.model';
+import { Page, PaginationData } from '../../models/page.model';
+import { GlobalConstants } from '../../shared/constants';
+import { UIService } from '../../ui/ui.service';
 
 @Component({
   selector: 'app-faq-search',

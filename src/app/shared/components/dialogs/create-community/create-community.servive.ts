@@ -1,7 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
-import { Community } from 'models/community.model';
+import { Community } from '../../../../models/community.model';
 
 @Injectable({
   providedIn: 'root'

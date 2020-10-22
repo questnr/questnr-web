@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserActivity, TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
+import { UserActivity, TrackingEntityType, TrackingInstance } from '../models/user-activity.model';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 

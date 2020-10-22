@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Page } from 'models/page.model';
 import { LoginService } from '../auth/login.service';
+import { GlobalService } from '../global.service';
+import { CommunityListData, CommunityListType } from '../models/community-list.model';
 import { Community } from '../models/community.model';
+import { Page } from '../models/page.model';
 import { ApiService } from '../shared/api.service';
 import { CommunityListComponent } from '../shared/components/dialogs/community-list/community-list.component';
 import { CreateCommunityComponent } from '../shared/components/dialogs/create-community/create-community.component';
 import { GlobalConstants } from '../shared/constants';
 import { UsercommunityService } from '../usercommunity/usercommunity.service';
-import { CommunityListType, CommunityListData } from 'models/community-list.model';
-import { GlobalService } from 'global.service';
 
 @Component({
   selector: 'app-floating-mobile-nav',

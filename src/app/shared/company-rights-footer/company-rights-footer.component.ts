@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalConstants } from 'shared/constants';
+import { GlobalConstants } from '../constants';
 
 @Component({
   selector: 'app-company-rights-footer',

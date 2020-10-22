@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { SnackBarService } from 'common/snackbar.service';
-import { CommunityMembersService } from 'community-users/community-members.service';
-import { GlobalService } from 'global.service';
-import { Community, CommunityProfileMeta } from 'models/community.model';
-import { ActionType } from 'models/snackbar.model';
-import { User } from 'models/user.model';
+import { SnackBarService } from '../common/snackbar.service';
+import { CommunityMembersService } from '../community-users/community-members.service';
+import { GlobalService } from '../global.service';
+import { Community, CommunityProfileMeta } from '../models/community.model';
+import { ActionType } from '../models/snackbar.model';
+import { User } from '../models/user.model';
 import { Subject } from 'rxjs';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { GlobalService } from 'global.service';
-import { Post } from 'models/post-action.model';
-import { GlobalConstants } from 'shared/constants';
+import { GlobalService } from '../../global.service';
+import { Post } from '../../models/post-action.model';
+import { GlobalConstants } from '../../shared/constants';
 
 @Component({
   selector: 'app-user-question',

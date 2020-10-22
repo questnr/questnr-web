@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LikeAction } from 'models/like-action.model';
-import { Page } from 'models/page.model';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { LikeAction } from '../models/like-action.model';
+import { Page } from '../models/page.model';
 
 @Injectable({
   providedIn: 'root'

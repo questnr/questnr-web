@@ -1,18 +1,18 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Output, Renderer2, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginService } from 'auth/login.service';
-import { GlobalService } from 'global.service';
-import { AvatarDTO } from 'models/common.model';
-import { NotificationDTO, NotificationType, PushNotificationDTO } from 'models/notification.model';
-import { User } from 'models/user.model';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { SearchOverlayComponent } from 'search/search-overlay/search-overlay.component';
-import { ApiService } from 'shared/api.service';
-import { GlobalConstants } from 'shared/constants';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
+import { LoginService } from '../../auth/login.service';
+import { GlobalService } from '../../global.service';
+import { AvatarDTO } from '../../models/common.model';
+import { NotificationDTO } from '../../models/notification.model';
+import { User } from '../../models/user.model';
+import { SearchOverlayComponent } from '../../search/search-overlay/search-overlay.component';
+import { ApiService } from '../../shared/api.service';
 import { CreateCommunityComponent } from '../../shared/components/dialogs/create-community/create-community.component';
+import { GlobalConstants } from '../../shared/constants';
+import { StaticMediaSrc } from '../../shared/constants/static-media-src';
+import { ProfileIconComponent } from '../../shared/profile-icon/profile-icon.component';
 
 @Component({
     selector: 'app-user-header',

@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HashTag } from 'models/hashtag.model';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
-import { Page } from 'models/page.model';
+import { FloatingSuggestionBoxComponent } from '../floating-suggestion-box/floating-suggestion-box.component';
+import { HashTag } from '../models/hashtag.model';
+import { Page } from '../models/page.model';
 
 @Injectable({
   providedIn: 'root'

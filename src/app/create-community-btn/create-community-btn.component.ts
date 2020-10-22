@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CreateCommunityComponent } from '../shared/components/dialogs/create-community/create-community.component';
 import { MatDialog } from '@angular/material/dialog';
-import { GlobalService } from 'global.service';
+import { GlobalService } from '../global.service';
 
 @Component({
   selector: 'app-create-community-btn',

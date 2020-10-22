@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { MetaInformation, MetaList } from 'models/common.model';
-import { GlobalConstants } from 'shared/constants';
-import { UIService } from 'ui/ui.service';
+import { GlobalConstants } from '../shared/constants';
+import { UIService } from '../ui/ui.service';
 
 @Injectable()
 export class LandingPageResolve implements Resolve<Promise<string>> {

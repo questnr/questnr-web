@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { GlobalService } from 'global.service';
-import { RelationType } from 'models/relation-type';
-import { GlobalConstants } from 'shared/constants';
 import { LoginService } from '../../../auth/login.service';
 import { CommunityService } from '../../../community/community.service';
+import { GlobalService } from '../../../global.service';
 import { Community } from '../../../models/community.model';
+import { RelationType } from '../../../models/relation-type';
+import { GlobalConstants } from '../../../shared/constants';
 
 @Component({
   selector: 'app-community-card-mobile-view',

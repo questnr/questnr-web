@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from 'shared/api.service';
-import { GlobalConstants } from 'shared/constants';
-import { UIService } from 'ui/ui.service';
 import { LoginService } from '../auth/login.service';
+import { ApiService } from '../shared/api.service';
+import { GlobalConstants } from '../shared/constants';
+import { UIService } from '../ui/ui.service';
 
 @Component({
   templateUrl: './policy.component.html',

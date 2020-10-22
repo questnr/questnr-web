@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { CommonService } from 'common/common.service';
-import { PostMedia } from 'models/post-action.model';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CommonService } from '../../common/common.service';
+import { PostMedia } from '../../models/post-action.model';
 
 @Component({
   selector: 'app-attached-file',

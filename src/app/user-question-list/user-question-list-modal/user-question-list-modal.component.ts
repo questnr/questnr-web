@@ -1,14 +1,14 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { GlobalService } from 'global.service';
-import { Community } from 'models/community.model';
-import { Page } from 'models/page.model';
-import { Post } from 'models/post-action.model';
-import { UserQuestionListModalData, UserQuestionListModalType } from 'models/user-question.model';
-import { User } from 'models/user.model';
+import { GlobalService } from '../../global.service';
+import { Community } from '../../models/community.model';
+import { Page } from '../../models/page.model';
+import { Post } from '../../models/post-action.model';
+import { UserQuestionListModalData, UserQuestionListModalType } from '../../models/user-question.model';
+import { User } from '../../models/user.model';
 import { Subscription } from 'rxjs';
-import { UserQuestionLoaderComponent } from 'user-question-list/user-question-loader/user-question-loader.component';
-import { UserQuestionService } from 'user-question-list/user-question.service';
+import { UserQuestionLoaderComponent } from '../../user-question-list/user-question-loader/user-question-loader.component';
+import { UserQuestionService } from '../../user-question-list/user-question.service';
 
 @Component({
   selector: 'app-user-question-list-modal',

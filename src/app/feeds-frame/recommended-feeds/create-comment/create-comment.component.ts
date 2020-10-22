@@ -1,13 +1,13 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { AttachedFileListComponent } from 'attached-file/attached-file-list.component';
-import { LoginService } from 'auth/login.service';
-import { FeedsService } from 'feeds-frame/feeds.service';
-import { GlobalService } from 'global.service';
-import { CommentAction, CommentParentClassType } from 'models/comment-action.model';
-import { Page } from 'models/page.model';
-import { Post } from 'models/post-action.model';
+import { AttachedFileListComponent } from '../../../attached-file/attached-file-list.component';
+import { LoginService } from '../../../auth/login.service';
+import { FeedsService } from '../../../feeds-frame/feeds.service';
+import { GlobalService } from '../../../global.service';
+import { CommentAction, CommentParentClassType } from '../../../models/comment-action.model';
+import { Page } from '../../../models/page.model';
+import { Post } from '../../../models/post-action.model';
 
 @Component({
   selector: 'app-create-comment',

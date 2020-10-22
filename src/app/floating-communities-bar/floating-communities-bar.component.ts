@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, HostBinding, AfterViewInit, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 type PaneType = 'left' | 'right';
 @Component({
   selector: 'app-floating-communities-bar',

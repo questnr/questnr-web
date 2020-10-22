@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Community } from 'models/community.model';
-import { GlobalConstants } from 'shared/constants';
-import { GlobalService } from 'global.service';
-import { Message } from 'shared/constants/messages';
+import { Component, Input, OnInit } from '@angular/core';
+import { GlobalService } from '../../global.service';
+import { Community } from '../../models/community.model';
+import { GlobalConstants } from '../../shared/constants';
+import { Message } from '../../shared/constants/messages';
 
 @Component({
   selector: 'app-not-authorized',

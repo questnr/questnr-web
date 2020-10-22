@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { LoginSignupTabComponent } from './login-signup-tab/login-signup-tab.component';
-import { GlobalService } from 'global.service';
+import { GlobalService } from '../../global.service';
 
 @Component({
   selector: 'login-signup-modal',

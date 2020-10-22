@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FaqSearchModalComponent } from 'faq/faq-search-modal/faq-search-modal.component';
+import { FaqSearchModalComponent } from '../../faq/faq-search-modal/faq-search-modal.component';
 
 @Component({
   selector: 'app-faq-search-button',

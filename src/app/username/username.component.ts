@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Renderer2, ViewChild, ElementRef } from '@angular/core';
-import { GlobalConstants } from 'shared/constants';
+import { Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { GlobalConstants } from '../shared/constants';
 
 @Component({
   selector: 'app-username',

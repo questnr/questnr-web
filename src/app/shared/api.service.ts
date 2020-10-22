@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Community } from 'models/community.model';
-import { HashTag } from 'models/hashtag.model';
-import { NotificationDTO } from 'models/notification.model';
-import { Page } from 'models/page.model';
-import { User } from 'models/user.model';
 import { of } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Community } from '../models/community.model';
+import { HashTag } from '../models/hashtag.model';
+import { NotificationDTO } from '../models/notification.model';
+import { Page } from '../models/page.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'

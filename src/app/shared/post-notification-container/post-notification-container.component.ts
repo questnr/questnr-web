@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
-import { GlobalService } from 'global.service';
-import { Community } from 'models/community.model';
-import { NewPostRequest, PostNotificationType } from 'models/notification.model';
-import { Page } from 'models/page.model';
-import { Post } from 'models/post-action.model';
-import { ApiService } from 'shared/api.service';
-import { PostNotificationButtonComponent } from 'shared/post-notification-button/post-notification-button.component';
+import { GlobalService } from '../../global.service';
+import { Community } from '../../models/community.model';
+import { NewPostRequest, PostNotificationType } from '../../models/notification.model';
+import { Page } from '../../models/page.model';
+import { Post } from '../../models/post-action.model';
+import { ApiService } from '../../shared/api.service';
+import { PostNotificationButtonComponent } from '../../shared/post-notification-button/post-notification-button.component';
 
 @Component({
   selector: 'app-post-notification-container',

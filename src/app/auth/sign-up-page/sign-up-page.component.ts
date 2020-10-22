@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { GlobalService } from 'global.service';
+import { GlobalService } from '../../global.service';
 
 @Component({
   selector: 'app-sign-up-page',

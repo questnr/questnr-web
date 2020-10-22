@@ -1,7 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest } from '@angular/common/http';
-import { IFramelyData } from 'models/iframely.model';
-
+import { IFramelyData } from '../models/iframely.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +8,7 @@ import { IFramelyData } from 'models/iframely.model';
 export class IFramelyService {
 
   // Two API Keys. Change to other if one expires
-  // 1: b45f06cd090f9e75148e93 
+  // 1: b45f06cd090f9e75148e93
   // 2: 95939a19484a6828ab8ae8
   apiKey = 'b45f06cd090f9e75148e93';
   iframelyLink = 'https://iframe.ly/api/iframely';

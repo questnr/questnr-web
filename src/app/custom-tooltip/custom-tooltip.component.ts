@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-import { CustomTooltipType } from 'models/custom-tooltip.model';
-import tippy, { animateFill } from 'tippy.js';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import tippy from 'tippy.js';
+import { CustomTooltipType } from '../models/custom-tooltip.model';
 
 @Component({
   selector: 'custom-tooltip',

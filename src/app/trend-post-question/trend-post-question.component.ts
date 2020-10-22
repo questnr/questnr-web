@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { GlobalService } from 'global.service';
-import { Post } from 'models/post-action.model';
-import { GlobalConstants } from 'shared/constants';
 import { LoginService } from '../auth/login.service';
+import { GlobalService } from '../global.service';
+import { Post } from '../models/post-action.model';
 import { ApiService } from '../shared/api.service';
+import { GlobalConstants } from '../shared/constants';
 
 @Component({
   // tslint:disable-next-line:component-selector

@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { GlobalService } from 'global.service';
-import { ConfirmDialogContentType, ConfirmDialogData } from 'models/confirm-dialog.model';
-import { KnowMoreLinkType } from 'models/know-more-type';
+import { GlobalService } from '../../global.service';
+import { ConfirmDialogContentType, ConfirmDialogData } from '../../models/confirm-dialog.model';
+import { KnowMoreLinkType } from '../../models/know-more-type';
 
 @Component({
   selector: 'app-confirm-dialog',

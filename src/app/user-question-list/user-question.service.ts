@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Page } from 'models/page.model';
-import { Post } from 'models/post-action.model';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Page } from '../models/page.model';
+import { Post } from '../models/post-action.model';
 
 @Injectable({
   providedIn: 'root'

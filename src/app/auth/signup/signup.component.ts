@@ -3,12 +3,12 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
-import { LoginService } from 'auth/login.service';
-import { CommonService } from 'common/common.service';
-import { LoginResponse, LoginSignUpComponentType } from 'models/login.model';
-import { GlobalConstants, REGEX } from 'shared/constants';
-import { UIService } from 'ui/ui.service';
+import { LoginService } from '../../auth/login.service';
+import { CommonService } from '../../common/common.service';
 import { AsyncValidator } from '../../custom-validations';
+import { LoginResponse, LoginSignUpComponentType } from '../../models/login.model';
+import { GlobalConstants, REGEX } from '../../shared/constants';
+import { UIService } from '../../ui/ui.service';
 
 @Component({
   selector: 'app-signup',

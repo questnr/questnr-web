@@ -1,6 +1,5 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { GlobalService } from 'global.service';
-import { Observable } from 'rxjs';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { GlobalService } from '../../global.service';
 
 @Component({
   selector: 'app-post-notification-button',

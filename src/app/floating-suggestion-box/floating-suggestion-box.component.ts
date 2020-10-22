@@ -1,6 +1,6 @@
-import { Component, ElementRef, Input, OnInit, Output, Renderer2, ViewChild, EventEmitter } from '@angular/core';
-import { HashTag } from 'models/hashtag.model';
-import { Subscription, Subject } from 'rxjs';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Subject } from 'rxjs';
+import { HashTag } from '../models/hashtag.model';
 
 @Component({
   selector: 'app-floating-suggestion-box',

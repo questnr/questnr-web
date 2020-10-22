@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { GlobalService } from 'global.service';
+import { GlobalService } from '../../global.service';
 import { SignInRequiredComponent } from './sign-in-required/sign-in-required.component';
 
 @Component({

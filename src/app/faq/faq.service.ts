@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FaqItemPage, FaqItemSearchPage } from 'models/faq.model';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Page } from 'models/page.model';
+import { FaqItemPage, FaqItemSearchPage } from '../models/faq.model';
+import { Page } from '../models/page.model';
 
 @Injectable({
   providedIn: 'root'

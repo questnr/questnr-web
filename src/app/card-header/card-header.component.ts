@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { GlobalService } from 'global.service';
-import { CardHeaderType } from 'models/card-header.model';
+import { GlobalService } from '../global.service';
+import { CardHeaderType } from '../models/card-header.model';
 
 @Component({
   selector: 'app-card-header',

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
-import { FaqItemPage } from 'models/faq.model';
+import { FaqItemPage } from '../models/faq.model';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { GlobalConstants } from 'shared/constants';
-import { UIService } from 'ui/ui.service';
+import { GlobalConstants } from '../shared/constants';
+import { UIService } from '../ui/ui.service';
 import { FaqService } from './faq.service';
 
 @Injectable()

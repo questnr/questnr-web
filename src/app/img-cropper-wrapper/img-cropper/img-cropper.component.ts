@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
-import { GlobalService } from 'global.service';
+import { GlobalService } from '../../global.service';
+import { StaticMediaSrc } from '../../shared/constants/static-media-src';
 
 @Component({
   selector: 'app-img-cropper',

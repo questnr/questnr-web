@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { GlobalService } from 'global.service';
-import { AvatarDTO } from 'models/common.model';
-import { GlobalConstants } from 'shared/constants';
-import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
 import { LoginService } from '../../auth/login.service';
+import { GlobalService } from '../../global.service';
+import { AvatarDTO } from '../../models/common.model';
+import { GlobalConstants } from '../../shared/constants';
+import { ProfileIconComponent } from '../../shared/profile-icon/profile-icon.component';
 import { PostFeedComponent } from '../post-feed/post-feed.component';
 
 @Component({

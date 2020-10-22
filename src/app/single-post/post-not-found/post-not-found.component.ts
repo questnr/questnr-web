@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { GlobalService } from 'global.service';
-import { CustomError } from 'models/common.model';
-import { GlobalConstants } from 'shared/constants';
-import { Message } from 'shared/constants/messages';
+import { GlobalService } from '../../global.service';
+import { CustomError } from '../../models/common.model';
+import { GlobalConstants } from '../../shared/constants';
+import { Message } from '../../shared/constants/messages';
 
 @Component({
   selector: 'app-post-not-found',

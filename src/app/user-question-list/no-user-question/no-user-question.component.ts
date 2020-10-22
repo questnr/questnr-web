@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GlobalService } from 'global.service';
-import { UserQuestionListModalType } from 'models/user-question.model';
+import { GlobalService } from '../../global.service';
+import { UserQuestionListModalType } from '../../models/user-question.model';
 
 @Component({
   selector: 'app-no-user-question',

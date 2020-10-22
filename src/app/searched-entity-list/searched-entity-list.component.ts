@@ -1,15 +1,15 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Community } from 'models/community.model';
-import { HashTag } from 'models/hashtag.model';
-import { Page } from 'models/page.model';
-import { User } from 'models/user.model';
 import { Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { ApiService } from 'shared/api.service';
-import { GlobalConstants } from 'shared/constants';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { Community } from '../models/community.model';
+import { HashTag } from '../models/hashtag.model';
+import { Page } from '../models/page.model';
+import { User } from '../models/user.model';
+import { ApiService } from '../shared/api.service';
+import { GlobalConstants } from '../shared/constants';
+import { StaticMediaSrc } from '../shared/constants/static-media-src';
 declare var $: any;
 
 class FilterOption {

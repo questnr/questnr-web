@@ -1,6 +1,6 @@
-import { User } from './user.model';
+import { CommunityUsersComponent } from '../community-users/community-users.component';
 import { Community } from './community.model';
-import { CommunityUsersComponent } from 'community-users/community-users.component';
+import { User } from './user.model';
 
 export class UserListData {
     user?: User;

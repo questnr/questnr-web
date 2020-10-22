@@ -1,18 +1,18 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
-import { GlobalService } from 'global.service';
-import { NotificationPurposeType, NotificationType, PostNotificationType, PushNotificationDTO } from 'models/notification.model';
-import { Post, QuestionParentType } from 'models/post-action.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ApiService } from 'shared/api.service';
-import { CreateCommunityComponent } from 'shared/components/dialogs/create-community/create-community.component';
-import { PostNotificationContainerComponent } from 'shared/post-notification-container/post-notification-container.component';
+import { CommunitySuggestionGuideComponent } from '../community-suggestion-guide/community-suggestion-guide.component';
+import { GlobalService } from '../global.service';
+import { NotificationPurposeType, NotificationType, PostNotificationType, PushNotificationDTO } from '../models/notification.model';
+import { Post, QuestionParentType } from '../models/post-action.model';
 import { MessagingService } from '../service/messaging.service';
+import { ApiService } from '../shared/api.service';
+import { CreateCommunityComponent } from '../shared/components/dialogs/create-community/create-community.component';
 import { GlobalConstants } from '../shared/constants';
+import { PostNotificationContainerComponent } from '../shared/post-notification-container/post-notification-container.component';
 import { FeedsService } from './feeds.service';
 import { RecommendedFeedsComponent } from './recommended-feeds/recommended-feeds.component';
 

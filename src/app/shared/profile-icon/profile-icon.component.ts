@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
-import { AvatarDTO, ProfileIconTemplateType } from 'models/common.model';
-import { GlobalConstants } from 'shared/constants';
-import { StaticMediaSrc } from 'shared/constants/static-media-src';
+import { AvatarDTO, ProfileIconTemplateType } from '../../models/common.model';
+import { GlobalConstants } from '../../shared/constants';
+import { StaticMediaSrc } from '../../shared/constants/static-media-src';
 
 @Component({
   selector: 'app-profile-icon',

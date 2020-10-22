@@ -2,10 +2,10 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
-import { LoginResponse, LoginSignUpComponentType } from 'models/login.model';
-import { GlobalConstants } from 'shared/constants';
-import { UIService } from 'ui/ui.service';
+import { LoginResponse, LoginSignUpComponentType } from '../../models/login.model';
 import { ApiService } from '../../shared/api.service';
+import { GlobalConstants } from '../../shared/constants';
+import { UIService } from '../../ui/ui.service';
 import { LoginService } from '../login.service';
 
 @Component({

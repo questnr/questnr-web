@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalService } from 'global.service';
-import { GlobalConstants } from 'shared/constants';
+import { GlobalService } from '../../global.service';
+import { GlobalConstants } from '../../shared/constants';
 
 @Component({
   selector: 'app-company-footer-span',

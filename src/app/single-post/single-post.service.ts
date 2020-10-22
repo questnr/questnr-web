@@ -1,8 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { SimplifiedPostType, SinglePost } from 'models/single-post.model';
 import { of } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { SimplifiedPostType, SinglePost } from '../models/single-post.model';
 
 @Injectable({
   providedIn: 'root'

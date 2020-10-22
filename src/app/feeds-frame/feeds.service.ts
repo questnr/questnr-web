@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NormalPostData, PostActionForMedia } from 'models/post-action.model';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { NormalPostData, PostActionForMedia } from '../models/post-action.model';
 
 @Injectable({
   providedIn: 'root'

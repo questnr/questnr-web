@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { SharedModule } from 'shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { FaqHeaderComponent } from './faq-header/faq-header.component';
 import { FaqItemComponent } from './faq-item/faq-item.component';
 import { FaqLoaderComponent } from './faq-loader/faq-loader.component';

@@ -4,18 +4,18 @@ import { Component, ElementRef, Inject, Input, OnInit, Renderer2, ViewChild, Vie
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoginService } from 'auth/login.service';
-import { CommonService } from 'common/common.service';
-import { FeedsService } from 'feeds-frame/feeds.service';
-import { HashTagService } from 'feeds-frame/hash-tag-service';
-import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
-import { GlobalService } from 'global.service';
-import { IFramelyService } from 'meta-card/iframely.service';
-import { AvatarDTO } from 'models/common.model';
-import { IFramelyData } from 'models/iframely.model';
-import { NormalPostData, Post, PostEditorType } from 'models/post-action.model';
 import Quill from 'quill';
-import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
+import { LoginService } from '../../auth/login.service';
+import { CommonService } from '../../common/common.service';
+import { FeedsService } from '../../feeds-frame/feeds.service';
+import { HashTagService } from '../../feeds-frame/hash-tag-service';
+import { FloatingSuggestionBoxComponent } from '../../floating-suggestion-box/floating-suggestion-box.component';
+import { GlobalService } from '../../global.service';
+import { IFramelyService } from '../../meta-card/iframely.service';
+import { AvatarDTO } from '../../models/common.model';
+import { IFramelyData } from '../../models/iframely.model';
+import { NormalPostData, Post, PostEditorType } from '../../models/post-action.model';
+import { ProfileIconComponent } from '../../shared/profile-icon/profile-icon.component';
 
 @Component({
   selector: 'app-post-feed',
