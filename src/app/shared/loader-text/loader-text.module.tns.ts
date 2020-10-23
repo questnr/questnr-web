@@ -1,19 +1,25 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NativeScriptCommonModule } from '@nativescript/angular';
 import { LoaderTextComponent } from './loader-text.component';
 import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
+  imports: [
+    NativeScriptCommonModule
+  ],
   declarations: [
     LoaderComponent,
     LoaderTextComponent
   ],
-  imports: [
-    CommonModule
+  providers: [
+
   ],
   exports: [
     LoaderComponent,
     LoaderTextComponent
+  ],
+  schemas: [
+    NO_ERRORS_SCHEMA
   ]
 })
-export class LoaderModule { }
+export class LoaderTextModule { }

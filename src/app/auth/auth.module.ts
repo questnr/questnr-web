@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CarouselModule } from 'angular-bootstrap-md';
 import { AppMaterialModule } from '../app-material/app-material.module';
-import { LoaderModule } from '../shared/loader-text/loader.module';
+import { LoaderTextModule } from '../shared/loader-text/loader-text.module';
 import { componentDeclarations, providerDeclarations } from './auth.common';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { componentDeclarations, providerDeclarations } from './auth.common';
     ReactiveFormsModule,
     CarouselModule,
     ClipboardModule,
-    LoaderModule
+    LoaderTextModule
   ],
   declarations: [
     ...componentDeclarations

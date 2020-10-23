@@ -9,6 +9,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginSignupModalComponent } from './login-signup-modal/login-signup-modal.component';
 import { LoginSignupTabComponent } from './login-signup-modal/login-signup-tab/login-signup-tab.component';
+import { LoginService } from './login.service';
 import { LoginComponent } from './login/login.component';
 import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -34,6 +35,7 @@ export const componentDeclarations: any[] = [
 ];
 
 export const providerDeclarations: any[] = [
+  LoginService
 ];
 
 export const routes: Routes = [

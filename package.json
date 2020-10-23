@@ -1,12 +1,6 @@
 {
   "name": "questnr-web",
   "version": "1.0.0",
-  "nativescript": {
-    "id": {
-      "ios": "com.questnr.ios",
-      "android": "com.questnr.android"
-    }
-  },
   "scripts": {
     "android": "ns run android --no-hmr",
     "ios": "ns run ios --no-hmr",

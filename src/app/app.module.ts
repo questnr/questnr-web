@@ -110,6 +110,7 @@ import { SuggestionComponent } from './suggestion/suggestion.component';
 import { TermsComponent } from './terms/terms.component';
 import { TrendPostQuestionComponent } from './trend-post-question/trend-post-question.component';
 import { TrendingComponent } from './trending/trending.component';
+import { UIService } from './ui/ui.service';
 import { UserActivityBarComponent } from './user-activity/user-activity-bar/user-activity-bar.component';
 import { UserActivityComponent } from './user-activity/user-activity.component';
 import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
@@ -340,7 +341,8 @@ export function metaFactory(): MetaLoader {
     },
     GlobalService,
     FullScreenMediaService,
-    ConfirmDialogService
+    ConfirmDialogService,
+    UIService
   ],
   exports: [
     JoinedCommunityComponent

@@ -3,17 +3,14 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NativeScriptFormsModule, NativeScriptHttpClientModule, NativeScriptModule } from '@nativescript/angular';
+import { NativeScriptHttpClientModule, NativeScriptModule } from '@nativescript/angular';
 import { ShareButtonsModule } from '@ngx-share/buttons';
 import { ShareButtonsConfig } from '@ngx-share/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, LoginOpt, SocialLoginModule } from 'angularx-social-login';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module.tns';
-import { AppComponent } from './app.component';
+import { App2Component } from './app2.component';
 import { AskQuestionBtnComponent } from './ask-question-btn/ask-question-btn.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginService } from './auth/login.service';
@@ -81,8 +78,6 @@ import { UserListComponent } from './shared/components/dialogs/user-list/user-li
 import { ViewImageComponent } from './shared/components/dialogs/view-image/view-image.component';
 import { DotComponent } from './shared/components/dot/dot.component';
 import { MoreOptionComponent } from './shared/components/more-option/more-option.component';
-import { LoaderTextComponent } from './shared/loader-text/loader-text.component';
-import { LoaderComponent } from './shared/loader-text/loader/loader.component';
 import { CommunityCardLoaderComponent } from './shared/loaders/community-card-loader/community-card-loader.component';
 import { CommunityListLoaderComponent } from './shared/loaders/community-list-loader/community-list-loader.component';
 import { UserListLoaderComponent } from './shared/loaders/user-list-loader/user-list-loader.component';
@@ -96,6 +91,7 @@ import { SuggestionComponent } from './suggestion/suggestion.component';
 import { TermsComponent } from './terms/terms.component';
 import { TrendPostQuestionComponent } from './trend-post-question/trend-post-question.component';
 import { TrendingComponent } from './trending/trending.component';
+import { UIService } from './ui/ui.service';
 import { UserActivityBarComponent } from './user-activity/user-activity-bar/user-activity-bar.component';
 import { UserActivityComponent } from './user-activity/user-activity.component';
 import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
@@ -139,7 +135,7 @@ export function provideConfig() {
 
 @NgModule({
   declarations: [
-    AppComponent,
+    App2Component,
     FeedsFrameComponent,
     AskQuestionBtnComponent,
     CardHeaderComponent,
@@ -196,8 +192,6 @@ export function provideConfig() {
     ViewImageComponent,
     DotComponent,
     MoreOptionComponent,
-    LoaderTextComponent,
-    LoaderComponent,
     UserListLoaderComponent,
     CommunityListLoaderComponent,
     CommunityCardLoaderComponent,
@@ -221,7 +215,6 @@ export function provideConfig() {
   ],
   imports: [
     NativeScriptModule,
-    NativeScriptFormsModule,
     NativeScriptHttpClientModule,
     AppRoutingModule,
     SharedModule,
@@ -246,26 +239,17 @@ export function provideConfig() {
       provide: AuthServiceConfig,
       useFactory: provideConfig
     },
-    MatDatepickerModule,
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     MessagingService,
     CommunityResolve,
     LandingPageResolve,
     SinglePostResolve,
     RecommendedFeedsResolve,
-    {
-      provide: MatDialogRef,
-      useValue: []
-    },
-    {
-      provide: MAT_DIALOG_DATA,
-      useValue: []
-    },
     GlobalService,
     FullScreenMediaService,
-    ConfirmDialogService
+    ConfirmDialogService,
+    UIService
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [App2Component],
   schemas: [NO_ERRORS_SCHEMA]
 })
 /*

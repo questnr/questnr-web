@@ -56,6 +56,13 @@ export class AppComponent implements OnInit {
       }
       this._globalService.setMobileView(this.mobileView);
     }
+//     <!-- Global site tag (gtag.js) - Google Analytics -->
+// <script async src="https://www.googletagmanager.com/gtag/js?id=UA-168117128-1"></script>
+// <script>
+//   window.dataLayer = window.dataLayer || [];
+//   function gtag() { dataLayer.push(arguments); }
+//   gtag('js', new Date());
+// </script>
   }
   ngOnDestroy() {
     this.routerSubscription.unsubscribe();
