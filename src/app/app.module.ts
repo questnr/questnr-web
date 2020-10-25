@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
@@ -70,7 +71,6 @@ import { UserQuestionListModalComponent } from 'user-question-list/user-question
 import { UserQuestionListComponent } from 'user-question-list/user-question-list.component';
 import { UserQuestionLoaderComponent } from 'user-question-list/user-question-loader/user-question-loader.component';
 import { UserQuestionComponent } from 'user-question-list/user-question/user-question.component';
-import { AsyncPipe } from '../../node_modules/@angular/common';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -131,7 +131,7 @@ const customConfig: ShareButtonsConfig = {
 };
 
 const fbLoginOptions: LoginOpt = {
-  scope: 'email,birthday,first_name,last_name',
+  scope: 'public_profile',
   return_scopes: true,
   enable_profile_selector: true
 };
