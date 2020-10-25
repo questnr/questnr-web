@@ -131,7 +131,7 @@ const customConfig: ShareButtonsConfig = {
 };
 
 const fbLoginOptions: LoginOpt = {
-  scope: 'public_profile',
+  scope: 'public_profile,email',
   return_scopes: true,
   enable_profile_selector: true
 };

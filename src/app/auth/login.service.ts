@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'angularx-social-login';
 import * as jwtDecode from 'jwt-decode';
 import { AvatarDTO } from 'models/common.model';
 import { LoginResponse } from 'models/login.model';
@@ -21,7 +22,7 @@ export class LoginService {
   private baseUrl = environment.baseUrl;
   profileImg: string;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
   checkUsernameExists(val: string) {
     return this.http.post(this.baseUrl + 'check-username', { username: val });
@@ -115,6 +116,13 @@ export class LoginService {
     this.avatarSubject.next(null);
     localStorage.clear();
     this.router.navigate(['/']);
+
+    // Logout from Social Login APIs
+    try {
+      this.authService.signOut();
+    } catch (e) {
+
+    }
   }
 
   loggedIn() {

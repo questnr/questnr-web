@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { LoginResponse, LoginSignUpComponentType } from 'models/login.model';
 import { GlobalConstants } from 'shared/constants';
 import { UIService } from 'ui/ui.service';
@@ -42,6 +42,20 @@ export class LoginComponent implements OnInit {
     this.group = this.fb.group({
       emailId: this.email,
       password: this.password
+    });
+    // @todo: Do this for Google users as well
+    this.socialAuth.authState.subscribe((user: SocialUser) => {
+      if (user != null && user.authToken) {
+        const obj = { authToken: user.authToken, source: "WEB" };
+        this.auth.loginWithFacebook(obj).subscribe(
+          (res: LoginResponse) => {
+            if (res.accessToken && res.loginSuccess) {
+              localStorage.setItem('token', res.accessToken);
+              this.loginThread(res);
+            }
+          }, err => { }
+        );
+      }
     });
   }
 
@@ -99,7 +113,6 @@ export class LoginComponent implements OnInit {
 
   facebookLogin() {
     this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID, { scope: "email" }).then(user => {
-      // console.log("user", user);
       const obj = { authToken: user.authToken, source: "WEB" };
       this.auth.loginWithFacebook(obj).subscribe(
         (res: LoginResponse) => {
