@@ -44,19 +44,19 @@ export class LoginComponent implements OnInit {
       password: this.password
     });
     // @todo: Do this for Google users as well
-    this.socialAuth.authState.subscribe((user: SocialUser) => {
-      if (user != null && user.authToken) {
-        const obj = { authToken: user.authToken, source: "WEB" };
-        this.auth.loginWithFacebook(obj).subscribe(
-          (res: LoginResponse) => {
-            if (res.accessToken && res.loginSuccess) {
-              localStorage.setItem('token', res.accessToken);
-              this.loginThread(res);
-            }
-          }, err => { }
-        );
-      }
-    });
+    // this.socialAuth.authState.subscribe((user: SocialUser) => {
+    //   if (user != null && user.authToken) {
+    //     const obj = { authToken: user.authToken, source: "WEB" };
+    //     this.auth.loginWithFacebook(obj).subscribe(
+    //       (res: LoginResponse) => {
+    //         if (res.accessToken && res.loginSuccess) {
+    //           localStorage.setItem('token', res.accessToken);
+    //           this.loginThread(res);
+    //         }
+    //       }, err => { }
+    //     );
+    //   }
+    // });
   }
 
   ngOnDestroy() {
