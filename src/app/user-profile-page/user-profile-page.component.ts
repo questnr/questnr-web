@@ -181,10 +181,13 @@ export class UserProfilePageComponent implements OnInit {
       this.userId = res.userId;
       this.getUserFeeds();
       this.isBannerLoding = false;
-      this._activityService.start(this.user.userId, TrackingEntityType.user)
-        .then((trackerInstance: TrackingInstance) => {
-          this.trackerInstance = trackerInstance;
-        })
+
+      // NOTE: DO NOT REMOVE THE BELOW CODE. COMMENTED TO REDUCE THE NUMBER OF REQUEST BEING SENT TO THE SERVER.
+      // this._activityService.start(this.user.userId, TrackingEntityType.user)
+      //   .then((trackerInstance: TrackingInstance) => {
+      //     this.trackerInstance = trackerInstance;
+      //   });
+
       this.userQuestionListRef?.setUserData(this.user);
     }, error => {
       // console.log(error.error.errorMessage);

@@ -262,7 +262,9 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
 
   feedCameInView() {
     this.viewPortPassed = true;
-    this.feedsService.visitPost(this.feed.postActionId).subscribe();
+    if (!this.feed.postActionMeta.visited) {
+      this.feedsService.visitPost(this.feed.postActionId).subscribe();
+    }
   }
 
   elementInViewport() {

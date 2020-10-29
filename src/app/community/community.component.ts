@@ -162,10 +162,12 @@ export class CommunityComponent implements OnInit {
       }
       this.ownerDTO = this.communityDTO.ownerUserDTO;
       this.getCommunityInfo();
-      this._activityService.start(this.communityDTO.communityId, TrackingEntityType.community)
-        .then((trackerInstance: TrackingInstance) => {
-          this.trackerInstance = trackerInstance;
-        });
+
+      // NOTE: DO NOT REMOVE THE BELOW CODE. COMMENTED TO REDUCE THE NUMBER OF REQUEST BEING SENT TO THE SERVER.
+      // this._activityService.start(this.communityDTO.communityId, TrackingEntityType.community)
+      //   .then((trackerInstance: TrackingInstance) => {
+      //     this.trackerInstance = trackerInstance;
+      //   });
     });
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
