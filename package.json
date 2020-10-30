@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
+    "nativescript": "ng build --prod --output-hashing=none",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -15,6 +16,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/schematics": "^10.2.0",
     "@angular/animations": "~9.1.3",
     "@angular/cdk": "9.2.2",
     "@angular/common": "~9.1.3",

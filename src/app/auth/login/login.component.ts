@@ -57,6 +57,15 @@ export class LoginComponent implements OnInit {
     //     );
     //   }
     // });
+
+    window.addEventListener('LOGIN_WITN_TOKEN', (e: any) => {
+      console.log("LOGIN_WITN_TOKEN");
+      const { loginResponse } = e.data;
+      console.log(loginResponse.accessToken);
+      localStorage.setItem('token', loginResponse.accessToken);
+      this.router.navigate(["/", GlobalConstants.feedPath],
+        { state: { communitySuggestion: loginResponse.communitySuggestion ? true : false } });
+    });
   }
 
   ngOnDestroy() {
@@ -70,7 +79,6 @@ export class LoginComponent implements OnInit {
       this.auth.login(this.group.value).subscribe(
         (res: LoginResponse) => {
           if (res.accessToken && res.loginSuccess) {
-            localStorage.setItem('token', res.accessToken);
             // register token for this user
             this.angularFireMessaging.getToken.subscribe(token => {
               this.apiService.registerPushNotificationToken(token).subscribe();
@@ -80,6 +88,7 @@ export class LoginComponent implements OnInit {
               this.redirectURL = params.redirectURL;
             }
             if (this.redirectURL) {
+              localStorage.setItem('token', res.accessToken);
               this.router.navigateByUrl(this.redirectURL)
                 .catch(() => this.loginThread(res));
             } else {
@@ -103,7 +112,6 @@ export class LoginComponent implements OnInit {
       this.auth.loginWithGoogle(obj).subscribe(
         (res: LoginResponse) => {
           if (res.accessToken && res.loginSuccess) {
-            localStorage.setItem('token', res.accessToken);
             this.loginThread(res);
           }
         }, err => { }
@@ -117,7 +125,6 @@ export class LoginComponent implements OnInit {
       this.auth.loginWithFacebook(obj).subscribe(
         (res: LoginResponse) => {
           if (res.accessToken && res.loginSuccess) {
-            localStorage.setItem('token', res.accessToken);
             this.loginThread(res);
           }
         }, err => { }
@@ -126,6 +133,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginThread(res: LoginResponse) {
+    localStorage.setItem('token', res.accessToken);
     // If component has been opened in a modal
     if (this.closeModal && this.componentType == LoginSignUpComponentType.modal) {
       this.closeModal.emit();

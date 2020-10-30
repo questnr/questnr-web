@@ -85,6 +85,14 @@ export class LandingPageComponent implements OnInit, OnDestroy {
           this.searchHashtag();
         }
       });
+
+    var registerUserTokenEvent: any = new CustomEvent('LOGIN_WITN_TOKEN');
+    registerUserTokenEvent.data = {
+      loginResponse: {
+        accessToken: "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJicmlqZXNobGFra2FkMjIiLCJyb2xlIjpbeyJhdXRob3JpdHkiOiJST0xFX1VTRVIifSx7ImF1dGhvcml0eSI6IlJPTEVfQURNSU4ifV0sImNyZWF0ZWQiOjE2MDQwNTg5MTE4OTAsIm5hbWUiOiJicmlqZXNobGFra2FkMjIiLCJlbWFpbElkIjoiZHVtbXkxQGR1bW15LnF1ZXN0bnIuY29tIiwiaWQiOjEsImV4cCI6MTYwNDY2MzcxMSwiaWF0IjoxNjA0MDU4OTExLCJzbHVnIjoiYnJpamVzaGxha2thZDIyLTMwMTk4MjUwMzMifQ.e0ajsruUPLMJjtVAtT6-g5sdgd-gVRDrg9Ue0_3DfSdT2Jdbee2QNOQOqI8bmBqqrQTKe0FnzJ5CTrMMiFBV8w"
+      }
+    }
+    window.dispatchEvent(registerUserTokenEvent);
   }
 
   getImgSrc(user) {
