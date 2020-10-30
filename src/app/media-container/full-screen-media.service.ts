@@ -21,7 +21,7 @@ export class FullScreenMediaService {
       this.closeButtonDiv.onclick = () => {
         this.close();
       }
-      this.closeButtonDiv.innerHTML = "<img src='/assets/close.svg' />";
+      this.closeButtonDiv.innerHTML = "<img src='assets/close.svg' />";
       this.wrapper.appendChild(this.closeButtonDiv);
 
       this.mediaContainer = document.createElement("div");

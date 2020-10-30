@@ -32,8 +32,8 @@
         <ul>
           <li *ngFor="let i of ownedCommunity">
             <div>
-              <app-profile-icon [isCommunityAvatar]="true" [avatar]="i.avatarDTO" [height]="32" [sizeRef]="'small'" [slug]="i?.slug"
-                [matTooltip]="i.communityName">
+              <app-profile-icon [isCommunityAvatar]="true" [avatar]="i.avatarDTO" [height]="32" [sizeRef]="'small'"
+                [slug]="i?.slug" [matTooltip]="i.communityName">
               </app-profile-icon>
             </div>
           </li>
@@ -58,31 +58,31 @@
     <div class="quick_nav">
       <div class="nav-btn" [routerLink]="['/',links.feedPath]" [ngClass]="{'active': home}">
         <div class="btn-ctn">
-          <img src="/assets/home.svg" alt="">
+          <img src="assets/home.svg" alt="">
         </div>
         <div class="title">Home</div>
       </div>
       <div class="nav-btn" [routerLink]="['/',links.explorePath]" [ngClass]="{'active': explore}">
         <div class="btn-ctn">
-          <img src="/assets/safari.svg" alt="">
+          <img src="assets/safari.svg" alt="">
         </div>
         <div class="title">Explore</div>
       </div>
       <div class="nav-btn" (click)="createCommunity()">
         <div class="btn-ctn" style="width: 26px; ">
-          <img src="/assets/add.png" alt="">
+          <img src="assets/add.png" alt="">
         </div>
         <div class="title">Create</div>
       </div>
       <!-- <div class="nav-btn" [ngClass]="{'active': music}" [routerLink]="['/',links.communityPath,'youtube-music--7204285218705300364']">
         <div class="btn-ctn">
-          <img src="/assets/music.svg" alt="">
+          <img src="assets/music.svg" alt="">
         </div>
         <div class="title">Music</div>
       </div> -->
       <div class="nav-btn" [ngClass]="{'active': profile}" [routerLink]="['/user/',profileLink]">
         <div class="btn-ctn">
-          <img src="/assets/user.svg" alt="">
+          <img src="assets/user.svg" alt="">
         </div>
         <div class="title">Profile</div>
       </div>

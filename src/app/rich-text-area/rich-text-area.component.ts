@@ -80,9 +80,9 @@ export class RichTextAreaComponent implements OnInit {
   handleFullScreen(isFullscreen) {
     this.isFullscreen = isFullscreen;
     if (this.isFullscreen) {
-      this.maximiseMinimizeButton.innerHTML = "<img src='/assets/minimize.svg' />";
+      this.maximiseMinimizeButton.innerHTML = "<img src='assets/minimize.svg' />";
     } else {
-      this.maximiseMinimizeButton.innerHTML = "<img src='/assets/maximize.svg' />";
+      this.maximiseMinimizeButton.innerHTML = "<img src='assets/maximize.svg' />";
     }
   }
 

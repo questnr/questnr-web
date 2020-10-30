@@ -22,7 +22,7 @@ export class ActionMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     if (!this.actionMenu) {
       this.actionMenu = new ActionMenu();
-      this.actionMenu.mainImg = "/assets/facebook.svg";
+      this.actionMenu.mainImg = "assets/facebook.svg";
       this.actionMenu.mainTitle = "FaceBook";
       this.actionMenu.onClick = ($event) => {
         $event.preventDefault();
@@ -30,7 +30,7 @@ export class ActionMenuComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       let actionMenuButtons: ActionMenuButton[] = [];
       let actionMenuButton = new ActionMenuButton();
-      actionMenuButton.img = "/assets/facebook.svg";
+      actionMenuButton.img = "assets/facebook.svg";
       actionMenuButton.title = "sub-menu";
       actionMenuButton.onClick = ($event) => {
         $event.preventDefault();
