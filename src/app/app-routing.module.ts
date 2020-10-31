@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { MetaGuard } from '@ngx-meta/core';
 import { AuthGuard } from 'auth/auth.guard';
 import { ForgotPasswordComponent } from 'auth/forgot-password/forgot-password.component';
@@ -83,8 +83,11 @@ export interface Tile {
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
+      // @todo: uncomment below line while exporting the build for nativescript
+      useHash: true,
+      preloadingStrategy: PreloadAllModules,
       initialNavigation: 'enabled',
-      onSameUrlNavigation: 'reload'
+      onSameUrlNavigation: 'reload',
       // enableTracing: true // <-- debugging purposes only
     })],
   exports: [RouterModule]

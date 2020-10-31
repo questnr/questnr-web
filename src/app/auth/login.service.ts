@@ -10,6 +10,7 @@ import { Observable, of, Subject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { environment } from '../../environments/environment';
+declare var window: any;
 
 @Injectable({
   providedIn: 'root'
@@ -116,13 +117,7 @@ export class LoginService {
     this.avatarSubject.next(null);
     localStorage.clear();
     this.router.navigate(['/']);
-
-    // Logout from Social Login APIs
-    try {
-      this.authService.signOut();
-    } catch (e) {
-
-    }
+    window.nsWebViewInterface.emit('LOGOUT');
   }
 
   loggedIn() {

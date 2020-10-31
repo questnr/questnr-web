@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { GlobalConstants } from 'shared/constants';
 import { UIService } from 'ui/ui.service';
 import { ApiService } from '../../shared/api.service';
 import { LoginService } from '../login.service';
-
+declare var window: any;
 
 @Component({
   selector: 'app-login',
@@ -57,6 +57,12 @@ export class LoginComponent implements OnInit {
     //     );
     //   }
     // });
+
+    window.nsWebViewInterface.on('LOGIN_WITN_TOKEN', (loginResponse) => {
+      console.log("LOGIN_WITN_TOKEN");
+      console.log(loginResponse);
+      this.loginThread(loginResponse);
+    });
   }
 
   ngOnDestroy() {
@@ -70,7 +76,6 @@ export class LoginComponent implements OnInit {
       this.auth.login(this.group.value).subscribe(
         (res: LoginResponse) => {
           if (res.accessToken && res.loginSuccess) {
-            localStorage.setItem('token', res.accessToken);
             // register token for this user
             this.angularFireMessaging.getToken.subscribe(token => {
               this.apiService.registerPushNotificationToken(token).subscribe();
@@ -80,6 +85,7 @@ export class LoginComponent implements OnInit {
               this.redirectURL = params.redirectURL;
             }
             if (this.redirectURL) {
+              localStorage.setItem('token', res.accessToken);
               this.router.navigateByUrl(this.redirectURL)
                 .catch(() => this.loginThread(res));
             } else {
@@ -103,7 +109,6 @@ export class LoginComponent implements OnInit {
       this.auth.loginWithGoogle(obj).subscribe(
         (res: LoginResponse) => {
           if (res.accessToken && res.loginSuccess) {
-            localStorage.setItem('token', res.accessToken);
             this.loginThread(res);
           }
         }, err => { }
@@ -117,7 +122,6 @@ export class LoginComponent implements OnInit {
       this.auth.loginWithFacebook(obj).subscribe(
         (res: LoginResponse) => {
           if (res.accessToken && res.loginSuccess) {
-            localStorage.setItem('token', res.accessToken);
             this.loginThread(res);
           }
         }, err => { }
@@ -126,6 +130,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginThread(res: LoginResponse) {
+    localStorage.setItem('token', res.accessToken);
     // If component has been opened in a modal
     if (this.closeModal && this.componentType == LoginSignUpComponentType.modal) {
       this.closeModal.emit();
