@@ -1,14 +1,13 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { LoginResponse, LoginSignUpComponentType } from 'models/login.model';
 import { GlobalConstants } from 'shared/constants';
 import { UIService } from 'ui/ui.service';
 import { ApiService } from '../../shared/api.service';
 import { LoginService } from '../login.service';
-declare var window: any;
 
 @Component({
   selector: 'app-login',
@@ -57,12 +56,6 @@ export class LoginComponent implements OnInit {
     //     );
     //   }
     // });
-
-    window.nsWebViewInterface.on('LOGIN_WITN_TOKEN', (loginResponse) => {
-      console.log("LOGIN_WITN_TOKEN");
-      console.log(loginResponse);
-      this.loginThread(loginResponse);
-    });
   }
 
   ngOnDestroy() {

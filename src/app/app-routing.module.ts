@@ -9,24 +9,41 @@ import { SignUpPageComponent } from 'auth/sign-up-page/sign-up-page.component';
 import { CookiePolicyComponent } from 'cookie-policy/cookie-policy.component';
 import { FeedsFrameComponent } from 'feeds-frame/feeds-frame.component';
 import { RecommendedFeedsResolve } from 'feeds-frame/recommended-feeds/recommended-feeds.resolve';
+import { LandingPageComponent } from 'landing-page/landing-page.component';
 import { LandingPageResolve } from 'landing-page/landing-page.resolve';
+import { LoadingPageMobileComponent } from 'loading-page-mobile/loading-page-mobile.component';
 import { PolicyComponent } from 'policy/policy.component';
 import { GlobalConstants } from 'shared/constants';
 import { SinglePostResolve } from 'single-post/single-post.resolve';
 import { TermsComponent } from 'terms/terms.component';
+import { environment } from '../environments/environment';
 import { CommunityComponent } from './community/community.component';
 import { CommunityResolve } from './community/community.resolve';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { ExploreComponent } from './explore/explore.component';
 import { HeaderComponent } from './header/header.component';
-import { LandingPageComponent } from './landing-page/landing-page.component';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 
-const routes: Routes = [
+const desktopRoutes = [
   {
     path: '', component: LandingPageComponent, pathMatch: 'full',
     resolve: { landingPage: LandingPageResolve }
-  },
+  }
+];
+
+const mobileRoutes = [
+  {
+    path: '', component: LoadingPageMobileComponent, pathMatch: 'full'
+  }
+];
+
+const getRoutes = () => {
+  return environment.production ?
+    mobileRoutes : desktopRoutes;
+};
+
+const routes: Routes = [
+  ...getRoutes(),
   { path: GlobalConstants.termsPath, component: TermsComponent },
   { path: GlobalConstants.policyPath, component: PolicyComponent },
   { path: GlobalConstants.cookiePath, component: CookiePolicyComponent },

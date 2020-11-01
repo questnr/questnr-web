@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { GlobalService } from 'global.service';
 import { Subscription } from 'rxjs';
@@ -19,11 +19,9 @@ export class AppComponent implements OnInit {
   routerSubscription: Subscription;
   GTAG_ID = GlobalConstants.gtagId;
   mobileView = false;
-  screenWidth = window.innerWidth;
 
   constructor(@Inject(PLATFORM_ID) platformId: Object,
-    private router: Router,
-    private _globalService: GlobalService
+    private router: Router
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
     // this.translate.addLangs(['en', 'hn']);
@@ -35,30 +33,12 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.routerSubscription = this.router.events
       .subscribe(event => {
-        if (this.isBrowser) {
-          if (event instanceof NavigationEnd) {
-            document.body.scrollTop = 0;
-            gtag('config', this.GTAG_ID, {
-              page_path: event.urlAfterRedirects
-            });
-          }
-
-
+        if (event instanceof NavigationEnd) {
+          document.body.scrollTop = 0;
         }
       });
   }
   ngAfterViewInit() {
-    if (this.isBrowser) {
-      const width = this.screenWidth;
-      if (width <= 900) {
-        this.mobileView = true;
-      } else if (width >= 1368) {
-        this.mobileView = false;
-      } else if (width >= 900 && width <= 1368) {
-        this.mobileView = false;
-      }
-      this._globalService.setMobileView(this.mobileView);
-    }
   }
   ngOnDestroy() {
     this.routerSubscription.unsubscribe();

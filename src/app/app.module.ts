@@ -125,6 +125,7 @@ import { UserActivityComponent } from './user-activity/user-activity.component';
 import { UserProfileCardComponent } from './user-profile-card/user-profile-card.component';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UsercommunityComponent } from './usercommunity/usercommunity.component';
+import { LoadingPageMobileComponent } from './loading-page-mobile/loading-page-mobile.component';
 const customConfig: ShareButtonsConfig = {
   include: ['facebook', 'twitter', 'linkedin', 'whatsapp', 'email'],
   theme: 'circles-light',
@@ -280,7 +281,8 @@ export function metaFactory(): MetaLoader {
     NoUserQuestionComponent,
     CommunityHorizontalCardComponent,
     ConfirmDialogComponent,
-    NoCommunityMembersComponent
+    NoCommunityMembersComponent,
+    LoadingPageMobileComponent
   ],
   imports: [
     AppRoutingModule,
@@ -322,6 +324,7 @@ export function metaFactory(): MetaLoader {
   providers: [
     AsyncPipe,
     AuthGuard,
+    GlobalService,
     LoginService,
     {
       provide: HTTP_INTERCEPTORS,
@@ -348,7 +351,6 @@ export function metaFactory(): MetaLoader {
       provide: MAT_DIALOG_DATA,
       useValue: []
     },
-    GlobalService,
     FullScreenMediaService,
     ConfirmDialogService,
     AWSService
