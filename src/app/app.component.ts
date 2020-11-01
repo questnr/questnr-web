@@ -4,6 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { GlobalService } from 'global.service';
 import { Subscription } from 'rxjs';
 import { GlobalConstants } from './shared/constants';
+
 // import { TranslateService } from '@ngx-translate/core';
 declare var gtag;
 
@@ -41,6 +42,8 @@ export class AppComponent implements OnInit {
               page_path: event.urlAfterRedirects
             });
           }
+
+
         }
       });
   }

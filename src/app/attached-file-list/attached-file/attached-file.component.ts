@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonService } from 'common/common.service';
 import { PostMedia } from 'models/post-action.model';
+import { AWSService } from 'service/aws.service';
 
 @Component({
   selector: 'app-attached-file',
@@ -17,7 +18,8 @@ export class AttachedFileComponent implements OnInit {
   hoveredIndex: number = -1;
   noneFileExtension: string = "unrecognised file";
 
-  constructor(public commonService: CommonService) { }
+  constructor(public commonService: CommonService,
+    private awsService: AWSService) { }
 
   ngOnInit(): void {
   }
@@ -57,9 +59,10 @@ export class AttachedFileComponent implements OnInit {
     return this.noneFileExtension;
   }
 
-  downloadAttachedFile(mediaLink: string) {
-    if (mediaLink) {
+  downloadAttachedFile(mediaKey: string) {
+    if (mediaKey) {
       let a = document.createElement('a')
+      const mediaLink = this.awsService.getObjectURL(mediaKey);
       a.href = mediaLink;
       a.download = mediaLink.split('/').pop()
       document.body.appendChild(a)

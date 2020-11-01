@@ -15,7 +15,7 @@
         <div class="attached-file-content">
             <div>{{getFileExtension(attachedFileLink) | uppercase}}</div>
         </div>
-        <button class="action" *ngIf="shouldShow(ind)" (click)="downloadAttachedFile(attachedFileLink?.postMediaLink)">
+        <button class="action" *ngIf="shouldShow(ind)" (click)="downloadAttachedFile(attachedFileLink?.postMediaKey)">
             <mat-icon>arrow_downward</mat-icon>
         </button>
     </div>

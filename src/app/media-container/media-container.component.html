@@ -11,7 +11,7 @@
                         (click)="onRefreshImageAtIndex(i)">
                         <mat-icon>refresh</mat-icon>
                     </button>
-                    <div class="background-blur" [style.backgroundImage]="'url(' + media.postMediaLink + ')'"></div>
+                    <div class="background-blur" [style.backgroundImage]="'url(' + getMediaLink(media) + ')'"></div>
                 </div>
             </ng-template>
             <ng-template carouselSlide [id]="i" *ngIf="media.resourceType === 'video'">

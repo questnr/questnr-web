@@ -16,6 +16,11 @@ export class AvatarDTO {
     iconLink: string;
     smallLink: string;
     mediumLink: string;
+
+    avatarKey: string;
+    iconKey: string;
+    smallKey: string;
+    mediumKey: string;
 }
 
 export class MetaData {

@@ -54,6 +54,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { PolicyComponent } from 'policy/policy.component';
 import { RelationActionButtonComponent } from 'relation-action-button/relation-action-button.component';
+import { AWSService } from 'service/aws.service';
 import { AdsenseComponent } from 'shared/adsense/adsense.component';
 import { CommunityBannerComponent } from 'shared/community-banner/community-banner.component';
 import { AskQuestionComponent } from 'shared/components/dialogs/ask-question/ask-question.component';
@@ -349,7 +350,8 @@ export function metaFactory(): MetaLoader {
     },
     GlobalService,
     FullScreenMediaService,
-    ConfirmDialogService
+    ConfirmDialogService,
+    AWSService
   ],
   exports: [
     JoinedCommunityComponent

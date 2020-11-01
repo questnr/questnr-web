@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { AvatarDTO, ProfileIconTemplateType } from 'models/common.model';
+import { AWSService } from 'service/aws.service';
 import { GlobalConstants } from 'shared/constants';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
@@ -23,7 +24,8 @@ export class ProfileIconComponent implements OnInit {
   defaultPath: string = GlobalConstants.userPath;
   @Output() clickActionEvent = new EventEmitter();
 
-  constructor(private renderer: Renderer2) {
+  constructor(private renderer: Renderer2,
+    private awsService: AWSService) {
   }
 
   ngOnInit(): void {
@@ -44,14 +46,14 @@ export class ProfileIconComponent implements OnInit {
   setAvatar(avatar: AvatarDTO) {
     this.avatar = avatar;
     if (this.avatar) {
-      if (this.sizeRef === "icon" && this.avatar.iconLink) {
-        this.avatarLink = this.avatar.iconLink;
-      } else if (this.sizeRef === "small" && this.avatar.smallLink) {
-        this.avatarLink = this.avatar.smallLink;
-      } else if (this.sizeRef === "medium" && this.avatar.mediumLink) {
-        this.avatarLink = this.avatar.mediumLink;
-      } else {
-        this.avatarLink = this.avatar.avatarLink;
+      if (this.sizeRef === "icon" && this.avatar.iconKey) {
+        this.avatarLink = this.awsService.getObjectURL(this.avatar.iconKey);
+      } else if (this.sizeRef === "small" && this.avatar.smallKey) {
+        this.avatarLink = this.awsService.getObjectURL(this.avatar.smallKey);
+      } else if (this.sizeRef === "medium" && this.avatar.mediumKey) {
+        this.avatarLink = this.awsService.getObjectURL(this.avatar.mediumKey);
+      } else if (this.avatar.avatarKey) {
+        this.avatarLink = this.awsService.getObjectURL(this.avatar.avatarKey);
       }
     }
   }

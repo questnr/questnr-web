@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { AvatarDTO } from 'models/common.model';
+import { AWSService } from 'service/aws.service';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 
 @Component({
@@ -19,7 +20,8 @@ export class CommunityBannerComponent implements OnInit {
   showTemporaryImage: boolean = false;
   tempAvatarLink: string;
 
-  constructor(private renderer: Renderer2) {
+  constructor(private renderer: Renderer2,
+    private awsService: AWSService) {
   }
 
   ngOnInit(): void {
@@ -27,22 +29,23 @@ export class CommunityBannerComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    if (this.optimise && this.avatar.mediumLink) {
+    console.log("this.avatar", this.avatar);
+    if (this.optimise && this.avatar.mediumKey) {
       this.showTemporaryImage = true;
       this.renderer.setStyle(this.imageOnHTML.nativeElement, 'visibility', 'hidden');
-      this.tempAvatarLink = this.avatar.mediumLink;
+      this.tempAvatarLink = this.awsService.getObjectURL(this.avatar.mediumKey);
     }
-    if (!this.avatar.mediumLink) {
+    if (!this.avatar.mediumKey) {
       this.avatarLink = StaticMediaSrc.communityFile;
     } else {
-      if (this.sizeRef === "icon" && this.avatar.iconLink) {
-        this.avatarLink = this.avatar.iconLink;
-      } else if (this.sizeRef === "small" && this.avatar.smallLink) {
-        this.avatarLink = this.avatar.smallLink;
-      } else if (this.sizeRef === "medium" && this.avatar.mediumLink) {
-        this.avatarLink = this.avatar.mediumLink;
-      } else {
-        this.avatarLink = this.avatar.avatarLink;
+      if (this.sizeRef === "icon" && this.avatar.iconKey) {
+        this.avatarLink = this.awsService.getObjectURL(this.avatar.iconKey);
+      } else if (this.sizeRef === "small" && this.avatar.smallKey) {
+        this.avatarLink = this.awsService.getObjectURL(this.avatar.smallKey);
+      } else if (this.sizeRef === "medium" && this.avatar.mediumKey) {
+        this.avatarLink = this.awsService.getObjectURL(this.avatar.mediumKey);
+      } else if (this.avatar.avatarKey) {
+        this.avatarLink = this.awsService.getObjectURL(this.avatar.avatarKey);
       }
     }
     // this.renderer.setStyle(this.imageOnHTML.nativeElement, 'height', this.height + "px");

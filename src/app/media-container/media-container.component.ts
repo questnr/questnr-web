@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { PostActionForMedia, PostMedia, ResourceType } from 'models/post-action.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { AWSService } from 'service/aws.service';
 import { FullScreenMediaService } from './full-screen-media.service';
 
 @Component({
@@ -40,7 +41,8 @@ export class MediaContainerComponent implements OnInit {
   };
 
   constructor(private api: FeedsService,
-    private _fullScreenMediaService: FullScreenMediaService) { }
+    private _fullScreenMediaService: FullScreenMediaService,
+    private awsService: AWSService) { }
 
   ngOnInit(): void {
   }
@@ -51,7 +53,9 @@ export class MediaContainerComponent implements OnInit {
   ngOnDestroy(): void {
     this._fullScreenMediaService.close();
   }
-
+  getMediaLink(media: PostMedia): string {
+    return this.awsService.getObjectURL(media.postMediaKey);
+  }
   onError(index: number) {
     this.errorOnImageIndexList.push(index);
   }
