@@ -1,9 +1,10 @@
 <div class="icon" #elementOnHTML>
-    <ng-container *ngIf="slug; else noSlug">
-        <a (click)="clickAction()" [routerLink]="['/', defaultPath, slug]"><img [src]="checkImageSrc(avatarLink)"
-                [alt]="alt" draggable="false"></a>
-    </ng-container>
-    <ng-template #noSlug>
-        <img [src]="checkImageSrc(avatarLink)" [alt]="alt" draggable="false">
-    </ng-template>
+  <ng-container *ngIf="slug; else noSlug">
+    <a (click)="clickAction()" [routerLink]="['/', defaultPath, slug]">
+      <img [src]="getAvatarLink()" [alt]="alt" draggable="false">
+    </a>
+  </ng-container>
+  <ng-template #noSlug>
+    <img [src]="getAvatarLink()" [alt]="alt" draggable="false">
+  </ng-template>
 </div>

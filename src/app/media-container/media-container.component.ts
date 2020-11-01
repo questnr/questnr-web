@@ -13,6 +13,7 @@ import { FullScreenMediaService } from './full-screen-media.service';
 export class MediaContainerComponent implements OnInit {
   @Input() postActionId: number;
   @Input() viewMediaList: PostMedia[];
+  signedURLs = {};
   errorOnImageIndexList: number[] = [];
   customOptions: OwlOptions = {
     loop: false,
@@ -53,8 +54,13 @@ export class MediaContainerComponent implements OnInit {
   ngOnDestroy(): void {
     this._fullScreenMediaService.close();
   }
-  getMediaLink(media: PostMedia): string {
-    return this.awsService.getObjectURL(media.postMediaKey);
+  getMediaLink(index: number): string {
+    if (!this.signedURLs || (!this.signedURLs.hasOwnProperty(index) &&
+      this.viewMediaList.length)) {
+      this.signedURLs[index] = this.awsService.getObjectURL(this.viewMediaList[index].postMediaKey);
+      return this.signedURLs[index];
+    }
+    return this.signedURLs[index];
   }
   onError(index: number) {
     this.errorOnImageIndexList.push(index);

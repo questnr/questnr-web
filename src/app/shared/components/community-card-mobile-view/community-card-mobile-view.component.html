@@ -1,12 +1,12 @@
 <div class="community-slider-card" [ngClass]="mobileView ? 'mobile' : 'desktop'">
-  <div (click)="routeToCommunity(community?.slug)">
+  <a [routerLink]="['/', globalConstantsClass.communityPath, community?.slug]">
     <app-community-banner [avatar]="community?.avatarDTO" [optimise]="true" [alt]="community?.description">
     </app-community-banner>
     <div class="details">
       <div>{{community?.communityName}}</div>
       <p>{{community?.description}}</p>
     </div>
-  </div>
+  </a>
   <app-community-relation-action-button class="action-btn" *ngIf="allowAction && relation !== 'owned'"
     [relation]="relation" [mobileView]="mobileView" [communityName]="community.communityName"
     [communityId]="community.communityId" (actionEvent)="actionEvent($event)">

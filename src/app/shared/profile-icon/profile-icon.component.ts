@@ -58,9 +58,9 @@ export class ProfileIconComponent implements OnInit {
     }
   }
 
-  checkImageSrc(src) {
-    if (src) {
-      return src;
+  getAvatarLink() {
+    if (this.avatarLink) {
+      return this.avatarLink;
     } else {
       return this.defaultSrc;
     }

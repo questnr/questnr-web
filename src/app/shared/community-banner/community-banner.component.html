@@ -1,9 +1,9 @@
 <div class="icon">
-    <div *ngIf="showTemporaryImage">
-        <img [src]="checkImageSrc(tempAvatarLink)" [alt]="alt">
-    </div>
-    <img [src]="checkImageSrc(avatarLink)" [alt]="alt" (error)="onError()" (load)="onLoad()" #imageOnHTML>
-    <!-- <div *ngIf="isBannerLoding" class="banner-loading">
+  <div *ngIf="showTemporaryImage">
+    <img [src]="getTemporaryCommunityBanner()" [alt]="alt">
+  </div>
+  <img [src]="getCommunityBanner()" [alt]="alt" (error)="onError()" (load)="onLoad()" #imageOnHTML>
+  <!-- <div *ngIf="isBannerLoding" class="banner-loading">
         <app-loader [size]="'md'" [color]="'dark'"></app-loader>
     </div> -->
 </div>

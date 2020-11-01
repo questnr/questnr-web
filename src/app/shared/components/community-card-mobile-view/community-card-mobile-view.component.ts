@@ -18,6 +18,7 @@ export class CommunityCardMobileViewComponent implements OnInit {
   relation: RelationType;
   communityPath: string = GlobalConstants.communityPath;
   mobileView: boolean = false;
+  globalConstantsClass = GlobalConstants;
 
   constructor(public communityService: CommunityService,
     public loginService: LoginService,
@@ -39,9 +40,9 @@ export class CommunityCardMobileViewComponent implements OnInit {
     this.relation = this.community?.communityMeta?.relationShipType;
   }
 
-  routeToCommunity(slug) {
-    window.open([GlobalConstants.communityPath, slug].join("/"), '_blank');
-  }
+  // routeToCommunity(slug) {
+  //   window.open([GlobalConstants.communityPath, slug].join("/"), '_blank');
+  // }
 
   actionEvent($event) {
     this.relation = $event;
