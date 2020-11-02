@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { PostActionForMedia, PostMedia, ResourceType } from 'models/post-action.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -43,7 +43,8 @@ export class MediaContainerComponent implements OnInit {
 
   constructor(private api: FeedsService,
     private _fullScreenMediaService: FullScreenMediaService,
-    private awsService: AWSService) { }
+    private awsService: AWSService,
+    private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
