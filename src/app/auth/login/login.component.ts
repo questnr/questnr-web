@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { LoginResponse, LoginSignUpComponentType } from 'models/login.model';
 import { GlobalConstants } from 'shared/constants';
 import { UIService } from 'ui/ui.service';
@@ -30,7 +29,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private uiService: UIService,
     private fb: FormBuilder, private auth: LoginService,
-    private router: Router, private socialAuth: AuthService, private route: ActivatedRoute,
+    private router: Router, private route: ActivatedRoute,
     private angularFireMessaging: AngularFireMessaging, private apiService: ApiService) {
     if (this.router.routerState.snapshot.url == ['/', GlobalConstants.login].join("")) {
       this.uiService.setTitle(GlobalConstants.loginTitle);
@@ -96,30 +95,9 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin() {
-    this.socialAuth.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
-      // console.log("user", user);
-      const obj = { idToken: user.idToken, source: 'WEB' };
-      this.auth.loginWithGoogle(obj).subscribe(
-        (res: LoginResponse) => {
-          if (res.accessToken && res.loginSuccess) {
-            this.loginThread(res);
-          }
-        }, err => { }
-      );
-    });
   }
 
   facebookLogin() {
-    this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID, { scope: "email" }).then(user => {
-      const obj = { authToken: user.authToken, source: "WEB" };
-      this.auth.loginWithFacebook(obj).subscribe(
-        (res: LoginResponse) => {
-          if (res.accessToken && res.loginSuccess) {
-            this.loginThread(res);
-          }
-        }, err => { }
-      );
-    });
   }
 
   loginThread(res: LoginResponse) {

@@ -43,7 +43,6 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "angular-bootstrap-md": "^10.0.0",
     "angular-emoji": "^0.1.45",
-    "angularx-social-login": "^2.2.1",
     "aws-sdk": "^2.783.0",
     "classlist": "^2.0.0",
     "classlist.js": "^1.1.20150312",

@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { LoginService } from 'auth/login.service';
 import { CommonService } from 'common/common.service';
 import { LoginResponse, LoginSignUpComponentType } from 'models/login.model';
@@ -69,7 +68,7 @@ export class SignupComponent implements OnInit {
   constructor(
     private uiService: UIService,
     private fb: FormBuilder, private auth: LoginService, private dialog: MatDialog,
-    private socialAuth: AuthService, private router: Router, private commonService: CommonService) {
+    private router: Router, private commonService: CommonService) {
     if (this.router.routerState.snapshot.url == ['/', GlobalConstants.signUp].join("")) {
       this.uiService.setTitle(GlobalConstants.signupTitle);
     }
@@ -124,32 +123,13 @@ export class SignupComponent implements OnInit {
   openWelcomeDialog() {
     // this.dialog.open(WelcomeSlidesComponent, { width: '500px', });
   }
+
   googleLogin() {
-    this.socialAuth.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
-      const obj = { idToken: user.idToken, source: 'WEB' };
-      this.auth.loginWithGoogle(obj).subscribe(
-        (res: any) => {
-          if (res.loginSuccess) {
-            this.signUpSuccess(res);
-          }
-        }, err => { }
-      );
-    });
   }
 
   facebookLogin() {
-    this.socialAuth.signIn(FacebookLoginProvider.PROVIDER_ID).then(user => {
-      // console.log("user", user);
-      const obj = { authToken: user.authToken, source: "WEB" };
-      this.auth.loginWithFacebook(obj).subscribe(
-        (res: any) => {
-          if (res.loginSuccess) {
-            this.signUpSuccess(res);
-          }
-        }, err => { }
-      );
-    });
   }
+
   signUp(user) {
     this.auth.signUp(user).subscribe(
       (res: LoginResponse) => {

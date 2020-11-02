@@ -15,7 +15,6 @@ import { ShareButtonsConfig } from '@ngx-share/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-import { AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, LoginOpt, SocialLoginModule } from 'angularx-social-login';
 import { AskQuestionBtnComponent } from 'ask-question-btn/ask-question-btn.component';
 import { AuthGuard } from 'auth/auth.guard';
 import { LoginService } from 'auth/login.service';
@@ -132,33 +131,12 @@ const customConfig: ShareButtonsConfig = {
   autoSetMeta: true,
 };
 
-const fbLoginOptions: LoginOpt = {
-  scope: 'public_profile,email',
-  return_scopes: true,
-  enable_profile_selector: true
-};
-
-const config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider(environment.googleKey)
-  },
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider(environment.fbKey, fbLoginOptions)
-  }
-]);
-
 // hammer config
 @Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
     swipe: { direction: Hammer.DIRECTION_ALL },
   };
-}
-
-export function provideConfig() {
-  return config;
 }
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -292,7 +270,6 @@ export function metaFactory(): MetaLoader {
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     HttpClientModule,
-    SocialLoginModule,
     ShareButtonsModule.withConfig(customConfig),
     TranslateModule.forRoot({
       loader: {
@@ -330,10 +307,6 @@ export function metaFactory(): MetaLoader {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
       multi: true
-    },
-    {
-      provide: AuthServiceConfig,
-      useFactory: provideConfig
     },
     { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig },
     MatDatepickerModule,
