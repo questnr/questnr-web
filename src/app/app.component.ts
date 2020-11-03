@@ -1,12 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { GlobalService } from 'global.service';
+import { LoginResponse } from 'models/login.model';
 import { Subscription } from 'rxjs';
+import { environment } from '../environments/environment';
 import { GlobalConstants } from './shared/constants';
-
-// import { TranslateService } from '@ngx-translate/core';
-declare var gtag;
+declare var window: any;
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -37,13 +36,25 @@ export class AppComponent implements OnInit {
           document.body.scrollTop = 0;
         }
       });
+
+    window.nsWebViewInterface.on('LOAD_DATA', (data) => {
+      environment.setData(data.environment);
+    });
+
+    window.nsWebViewInterface.on('LOGIN_WITN_TOKEN', (loginResponse) => {
+      console.log("LOGIN_WITN_TOKEN");
+      console.log(loginResponse);
+      this.loginThread(loginResponse);
+    });
   }
   ngAfterViewInit() {
   }
   ngOnDestroy() {
     this.routerSubscription.unsubscribe();
   }
-  test() {
-    alert('parent');
+  loginThread(res: LoginResponse) {
+    localStorage.setItem('token', res.accessToken);
+    this.router.navigate(["/", GlobalConstants.feedPath],
+      { state: { communitySuggestion: res.communitySuggestion ? true : false } });
   }
 }
