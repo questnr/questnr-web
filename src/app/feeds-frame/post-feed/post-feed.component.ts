@@ -6,6 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from 'auth/login.service';
 import { CommonService } from 'common/common.service';
+import { promises } from 'dns';
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { HashTagService } from 'feeds-frame/hash-tag-service';
 import { FloatingSuggestionBoxComponent } from 'floating-suggestion-box/floating-suggestion-box.component';
@@ -16,6 +17,7 @@ import { IFramelyData } from 'models/iframely.model';
 import { NormalPostData, Post, PostEditorType } from 'models/post-action.model';
 import Quill from 'quill';
 import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component';
+declare var window: any;
 
 @Component({
   selector: 'app-post-feed',
@@ -104,7 +106,9 @@ export class PostFeedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log(this.data);
+    window.nsWebViewInterface.on('FILES_TO_BE_UPLOADED', (e) => {
+      this.filesDetected(e);
+    });
   }
 
   ngAfterViewInit(key: string): void {
@@ -129,8 +133,7 @@ export class PostFeedComponent implements OnInit {
       this.userInputRef.nativeElement.dispatchEvent(event);
     }
     if (this.data.addMediaAction) {
-      const el = this.fileInput.nativeElement;
-      el.click();
+      this.openMediaPicker();
     }
   }
 
@@ -172,15 +175,65 @@ export class PostFeedComponent implements OnInit {
     return true;
   }
 
-  filesDropped(droppedFiles) {
-    const files = Object.values(droppedFiles);
-    files.forEach((file: any) => {
-      if (file.type.includes('image') || file.type.includes('video') || file.type.includes('application')) {
-        this.addedMedias.push(file);
-        this.loadPreview(file);
-        this.isMediaEnabled = true;
+  openMediaPicker(): void {
+    console.log("OPEN_MEDIA_PICKER");
+    // @todo: open media file picker
+    window.nsWebViewInterface.emit('OPEN_MEDIA_PICKER');
+  }
+
+  filesDetected(results) {
+    console.log("FILES_TO_BE_UPLOADED", results);
+    // 0: {
+    //   "type": "image",
+    //     "file": "/storage/emulated/0/DCIM/Screenshots/Screenshot_2020-08-17-18-33-02-304_io.stempedia.pictoblox.png",
+    //       "rawData": { }
+    // }
+
+    let _this = this;
+    let fileKeys = Object.keys(results)
+    fileKeys.map((key, index) => {
+      let fileObj = results[key];
+      let filePath = "file://" + fileObj['file'];
+      if (fileObj.hasOwnProperty("type")
+        && fileObj.type.includes('image')
+        || fileObj.type.includes('video')
+        || fileObj.type.includes('application')) {
       }
+      _this.getFile({ url: filePath }).then((file) => {
+        console.log("file " + index, file);
+      });
     });
+    this.getFile({ url: results[0].file }).then((file) => {
+      console.log("file outsite", file);
+    });
+    // const files = Object.values(droppedFiles);
+    // files.forEach((file: any) => {
+    //   if (file.type.includes('image') || file.type.includes('video') || file.type.includes('application')) {
+    //     this.addedMedias.push(file);
+    //     this.loadPreview(file);
+    //     this.isMediaEnabled = true;
+    //   }
+    // });
+  }
+
+  getFile({ url }): Promise<Uint8Array> {
+    return fetch(url,
+      {
+        method: 'GET',
+        mode: 'cors', // no-cors, *cors, same-origin
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': '*'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      })
+      .then(result => {
+        return result ? result.arrayBuffer() : null;
+      })
+      .then(body => {
+        return new Uint8Array(body)
+      });
   }
 
   loadPreview(file) {
@@ -198,9 +251,9 @@ export class PostFeedComponent implements OnInit {
   }
 
   selectFiles(event) {
-    if (event.target.files.length > 0) {
-      this.filesDropped(event.target.files);
-    }
+    // if (event.target.files.length > 0) {
+    //   this.filesDropped(event.target.files);
+    // }
   }
 
   removeMedia(index) {
