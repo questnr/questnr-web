@@ -1,6 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule, Injectable } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
@@ -148,7 +148,6 @@ const config = new AuthServiceConfig([
 ]);
 
 // hammer config
-@Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
     swipe: { direction: Hammer.DIRECTION_ALL },
