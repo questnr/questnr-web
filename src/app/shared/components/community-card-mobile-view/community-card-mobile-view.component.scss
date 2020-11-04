@@ -55,6 +55,16 @@
     //   margin-bottom: 20px;
     // }
   }
+
+  a {
+    text-decoration: none;
+    &:active {
+      color: $primary;
+    }
+    &:hover {
+      color: $primary;
+    }
+  }
 }
 
 .community-slider-card.desktop {
