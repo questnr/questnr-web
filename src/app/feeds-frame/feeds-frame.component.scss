@@ -1,9 +1,9 @@
 @import "../variables";
 @import "../app.component.scss";
 
-// .container {
-//   padding: 0 100px;
-// }
+.container {
+  padding: 0 100px;
+}
 
 .main-wrap {
   overflow: hidden;
@@ -15,12 +15,12 @@
     overflow-y: scroll;
   }
   .left-part {
-    flex: 30%;
-    max-width: 300px;
+    flex: 28%;
+    max-width: 28%;
   }
   .right-part {
-    flex: 30%;
-    max-width: 300px;
+    flex: 28%;
+    max-width: 28%;
   }
 }
 .container.mobile {
@@ -37,7 +37,7 @@
 .feeds {
   flex: 60%;
   width: inherit;
-  max-width: 800px;
+  // max-width: 800px;
   height: calc(100vh + 1px);
   margin: 0 auto;
   overflow-x: hidden;
