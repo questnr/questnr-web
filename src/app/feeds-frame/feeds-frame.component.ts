@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
 import { GlobalService } from 'global.service';
 import { NotificationPurposeType, NotificationType, PostNotificationType, PushNotificationDTO } from 'models/notification.model';
+import { Page } from 'models/page.model';
 import { Post, QuestionParentType } from 'models/post-action.model';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Observable } from 'rxjs';
@@ -170,10 +171,11 @@ export class FeedsFrameComponent implements OnInit, OnDestroy {
   getUserFeeds() {
     this.loading = true;
     this.service.getFeeds(this.page).subscribe(
-      (res: any) => {
-        if (res.content.length) {
+      (feedPage: Page<Post>) => {
+        if (!feedPage.empty && feedPage.content.length) {
           this.page++;
-          res.content.forEach(post => {
+
+          feedPage.content.forEach(post => {
             this.userFeeds.push(post);
           });
 

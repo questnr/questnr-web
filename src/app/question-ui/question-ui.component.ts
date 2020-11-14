@@ -6,7 +6,7 @@ import { SnackBarService } from 'common/snackbar.service';
 import { KnowMoreLinkType } from 'models/know-more-type';
 import { ActionType } from 'models/snackbar.model';
 import { Message } from 'shared/constants/messages';
-import { PollQuestionMeta, Post, QuestionParentType } from '../models/post-action.model';
+import { PollQuestionMeta, Post, QuestionAnswerType, QuestionParentType } from '../models/post-action.model';
 import { AskQuestionService } from '../shared/components/dialogs/ask-question/ask-question.service';
 import { GlobalConstants } from '../shared/constants';
 
@@ -35,6 +35,7 @@ export class QuestionUIComponent implements OnInit {
   message: string;
   shouldHideMessage: boolean = true;
   knowMoreTypeClass = KnowMoreLinkType;
+  questionAnswerTypeClass = QuestionAnswerType;
 
   constructor(public askQuestionService: AskQuestionService,
     private renderer: Renderer2,
@@ -70,16 +71,16 @@ export class QuestionUIComponent implements OnInit {
     // console.log("question", this.question)
   }
 
-  respondToQuestion(postId, pollAnswer) {
+  respondToQuestion(pollAnswer: QuestionAnswerType) {
     if (!this.loginService.loggedIn()) {
       return this.respondingActionEvetnt.emit({ signInRequiredError: true });
     }
     if (this.isOwner) {
       return this.openSnackBar(Message.PPA101);
     }
-    if (postId != null && !this.question.pollQuestionMeta.pollAnswer) {
+    if (this.question.postActionId != null && !this.question.pollQuestionMeta.pollAnswer) {
       this.loading = true;
-      this.askQuestionService.respondToQuestion(postId, pollAnswer).subscribe((pollQuestionMeta: PollQuestionMeta) => {
+      this.askQuestionService.respondToQuestion(this.question.postActionId, pollAnswer).subscribe((pollQuestionMeta: PollQuestionMeta) => {
         this.totalAnswered = pollQuestionMeta.totalAnswered;
         this.progressIndicator(pollQuestionMeta);
       }, (error: HttpErrorResponse) => {
@@ -116,8 +117,8 @@ export class QuestionUIComponent implements OnInit {
     } else {
       // this.renderer.setStyle(this.respondedAgree.nativeElement, 'background', 'linear-gradient(to right, green, #82b77685)');
       // this.renderer.setStyle(this.respondedDisagree.nativeElement, 'background', 'linear-gradient(to right, green, #82b77685)');
-      this.renderer.setStyle(this.agree.nativeElement, 'background', 'linear-gradient(to right, green, #82b77685)');
-      this.renderer.setStyle(this.disagree.nativeElement, 'background', 'linear-gradient(to right, green, #82b77685)');
+      this.renderer.setStyle(this.agree.nativeElement, 'background', 'linear-gradient(to right, yellow, #82b77685)');
+      this.renderer.setStyle(this.disagree.nativeElement, 'background', 'linear-gradient(to right, yellow, #82b77685)');
     }
   }
 

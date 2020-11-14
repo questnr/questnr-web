@@ -41,10 +41,8 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
   // }
   iFramelyData: IFramelyData;
   isLoading = false;
-  isCommentLoading = false;
   loggedInUsername: string;
-  postLink: string;
-  mobileView = false;
+  mobileView: boolean = false;
   loggedInUserId: any;
   hashTagsData: any = {};
   userPath: string = GlobalConstants.userPath;
@@ -97,7 +95,7 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
         this.showUserHeader = true;
       }
     }
-    for (let mediaIndex = 0; mediaIndex < this.feed.postMediaList.length; mediaIndex++) {
+    for (let mediaIndex = 0; mediaIndex < this.feed.postMediaList?.length; mediaIndex++) {
       if (this.feed.postMediaList[mediaIndex]?.resourceType === ResourceType.application) {
         this.applicationMediaList.push(this.feed.postMediaList[mediaIndex]);
       } else {
@@ -105,7 +103,6 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
       }
     }
     this.editableFeed = Object.assign({}, this.feed);
-    this.loggedInUsername = this.login.getLocalUserProfile().sub;
     this.loggedInUserId = this.login.getLocalUserProfile().id;
     this.parseFeedText();
   }
