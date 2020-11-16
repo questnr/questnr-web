@@ -73,12 +73,9 @@ export class CommunityService {
       of();
     }
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: { userId }
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: {}
     };
-    if (!communityId) {
-      return of();
-    }
-    return this.http.delete(this.baseUrl + 'user/join/community/' + communityId, httpOptions);
+    return this.http.delete(this.baseUrl + `user/${userId}/join/community/${communityId}`, httpOptions);
   }
 
   getCommunityMetaCard(communitySlug: string): Observable<MetaTagCard> {

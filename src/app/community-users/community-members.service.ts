@@ -20,8 +20,8 @@ export class CommunityMembersService {
   removeUserFromCommunity(communityId, userId) {
     if (!communityId || !userId) return of();
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: { userId: userId }
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: {}
     };
-    return this.http.delete(this.baseUrl + `/user/join/community/${communityId}`, httpOptions);
+    return this.http.delete(this.baseUrl + `/user/${userId}/join/community/${communityId}`, httpOptions);
   }
 }

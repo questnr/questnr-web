@@ -22,7 +22,7 @@ export class UserProfileCardService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }), body: { userId: ownerId }
     };
-    return this.http.delete(this.baseUrl + 'user/follow/user/' + userId, httpOptions);
+    return this.http.delete(this.baseUrl + `user/${ownerId}/follow/user/${userId}`, httpOptions);
   }
   fetchUserFollowing(slug: string) {
     if (!slug) return of();
