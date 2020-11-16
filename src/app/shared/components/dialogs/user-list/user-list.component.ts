@@ -11,7 +11,7 @@ import { InviteUsetService } from 'shared/user-list-view/invite-user.service';
 import { CommunityMembersService } from '../../../../community-users/community-members.service';
 import { User } from '../../../../models/user.model';
 import { UserFollowersService } from '../../../../user-followers/user-followers.service';
-import { UserProfileCardServiceComponent } from '../../../../user-profile-card/user-profile-card-service.component';
+import { UserProfileCardService } from '../../../../user-profile-card/user-profile-card.service';
 import { UserListService } from './user-list.service';
 
 @Component({
@@ -41,7 +41,7 @@ export class UserListComponent implements OnInit {
   @ViewChild('listContainer') listContainer: ElementRef;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: UserListData,
-    public userProfileCardServiceComponent: UserProfileCardServiceComponent,
+    public userProfileCardService: UserProfileCardService,
     // tslint:disable-next-line:max-line-length
     public userListService: UserListService,
     public dialogRef: MatDialogRef<UserListComponent>,
@@ -142,7 +142,7 @@ export class UserListComponent implements OnInit {
   }
 
   follow(id) {
-    this.userProfileCardServiceComponent.followMe(id).subscribe((res: any) => {
+    this.userProfileCardService.followMe(id).subscribe((res: any) => {
       // console.log(res);
     }, error => {
       // console.log(error.error.errorMessage);

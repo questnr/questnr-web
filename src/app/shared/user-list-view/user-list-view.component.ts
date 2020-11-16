@@ -8,7 +8,7 @@ import { GlobalConstants } from 'shared/constants';
 import { LoginService } from '../../auth/login.service';
 import { CommunityService } from '../../community/community.service';
 import { User } from '../../models/user.model';
-import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
+import { UserProfileCardService } from '../../user-profile-card/user-profile-card.service';
 import { InviteUsetService } from './invite-user.service';
 import { UserListViewSizeType, UserListViewVariables } from 'models/user-list.model';
 import { CommunityRequestActionType } from 'models/community.model';
@@ -41,7 +41,7 @@ export class UserListViewComponent implements OnInit {
   @Input() isSpecialActionsAllowed: boolean = false;
   toolTipText: string;
 
-  constructor(public userProfileCardServiceComponent: UserProfileCardServiceComponent,
+  constructor(public userProfileCardService: UserProfileCardService,
     public loginService: LoginService,
     private dialog: MatDialog,
     private inviteUserService: InviteUsetService,
@@ -89,7 +89,7 @@ export class UserListViewComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result?.data == true) {
         const ownerId = this.loginService.getLocalUserProfile().id;
-        this.userProfileCardServiceComponent.unfollowMe(ownerId, this.user.userId).subscribe((res: any) => {
+        this.userProfileCardService.unfollowMe(ownerId, this.user.userId).subscribe((res: any) => {
           this.relation = RelationType.NONE;
         }, error => {
           // console.log(error.error.errorMessage);
@@ -99,7 +99,7 @@ export class UserListViewComponent implements OnInit {
   }
 
   follow() {
-    this.userProfileCardServiceComponent.followMe(this.user.userId).subscribe((res: any) => {
+    this.userProfileCardService.followMe(this.user.userId).subscribe((res: any) => {
       this.relation = RelationType.FOLLOWED;
     }, error => {
       // console.log(error.error.errorMessage);

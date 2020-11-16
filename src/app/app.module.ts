@@ -28,6 +28,7 @@ import { CommunityRelationActionButtonComponent } from 'community-relation-actio
 import { CommunitySuggestionGuideComponent } from 'community-suggestion-guide/community-suggestion-guide.component';
 import { NoCommunityMembersComponent } from 'community-users/no-community-members/no-community-members.component';
 import { CommunityHorizontalCardComponent } from 'community/community-horizontal-card/community-horizontal-card.component';
+import { CommunityService } from 'community/community.service';
 import { HorizontalOwnerProfileComponent } from 'community/horizontal-owner-profile/horizontal-owner-profile.component';
 import { ConfirmDialogService } from 'confirm-dialog-modal/confirm-dialog.service';
 import { ConfirmDialogComponent } from 'confirm-dialog-modal/confirm-dialog/confirm-dialog.component';
@@ -37,6 +38,7 @@ import { DragDropDirective } from 'drag-drop.directive';
 import { EditUserComponent } from 'edit-user/edit-user.component';
 import { FAQModule } from 'faq/faq.module';
 import { FeedsFrameComponent } from 'feeds-frame/feeds-frame.component';
+import { FeedsService } from 'feeds-frame/feeds.service';
 import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
 import { FeedsLoaderComponent } from 'feeds-frame/recommended-feeds/feeds-loader/feeds-loader.component';
 import { RecommendedFeedsResolve } from 'feeds-frame/recommended-feeds/recommended-feeds.resolve';
@@ -66,6 +68,7 @@ import { SinglePostResolve } from 'single-post/single-post.resolve';
 import { TermsComponent } from 'terms/terms.component';
 import { TrendingPostPollQuestionComponent } from 'trend-post-question/trend-post-question.component';
 import { UserActivityBarComponent } from 'user-activity/user-activity-bar/user-activity-bar.component';
+import { UserProfileCardService } from 'user-profile-card/user-profile-card.service';
 import { NoUserQuestionComponent } from 'user-question-list/no-user-question/no-user-question.component';
 import { UserQuestionListModalComponent } from 'user-question-list/user-question-list-modal/user-question-list-modal.component';
 import { UserQuestionListComponent } from 'user-question-list/user-question-list.component';
@@ -348,7 +351,10 @@ export function metaFactory(): MetaLoader {
     },
     GlobalService,
     FullScreenMediaService,
-    ConfirmDialogService
+    ConfirmDialogService,
+    UserProfileCardService,
+    CommunityService,
+    FeedsService
   ],
   exports: [
     JoinedCommunityComponent

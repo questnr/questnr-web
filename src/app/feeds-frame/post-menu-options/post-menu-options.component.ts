@@ -8,8 +8,9 @@ import { ConfirmDialogComponent } from 'confirm-dialog-modal/confirm-dialog/conf
 import { FeedsService } from 'feeds-frame/feeds.service';
 import { PostReportComponent } from 'feeds-frame/post-report/post-report.component';
 import { GlobalService } from 'global.service';
-import { Post, PostEditorType } from 'models/post-action.model';
-import { UserProfileCardServiceComponent } from 'user-profile-card/user-profile-card-service.component';
+import { Post, PostEditorType, PostType, SimplifiedPostType } from 'models/post-action.model';
+import { RelationType } from 'models/relation-type';
+import { UserProfileCardService } from 'user-profile-card/user-profile-card.service';
 import { PostFeedComponent } from '../post-feed/post-feed.component';
 
 @Component({
@@ -22,25 +23,46 @@ export class PostMenuOptionsComponent implements OnInit {
   @Input() isCommunityPost: boolean = false;
   @Output() removePostEvent = new EventEmitter();
   @Output() postData = new EventEmitter();
+  simplifiedPostType: SimplifiedPostType;
+  simplifiedPostTypeClass = SimplifiedPostType;
   loggedInUserId: any;
   mobileView = false;
-  isBlog: boolean = false;
+  isOwner: boolean = false;
+  displayNameOfEntity: string;
 
   constructor(private api: FeedsService,
     public commonService: CommonService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private login: LoginService,
-    private userProfileCardService: UserProfileCardServiceComponent,
+    private userProfileCardService: UserProfileCardService,
     private communityService: CommunityService,
     private _globalService: GlobalService) { }
 
   ngOnInit(): void {
     this.mobileView = this._globalService.isMobileView();
-    if (this.feed?.postData?.postEditorType) {
-      this.isBlog = this.feed?.postData.postEditorType == PostEditorType.blog;
-    }
     this.loggedInUserId = this.login.getLocalUserProfile().id;
+    if (this.login.isThisLoggedInUser(this.feed.userDTO.userId)) {
+      this.isOwner = true;
+    } else {
+      this.isOwner = false;
+    }
+    if (typeof this.feed?.communityDTO.communityId != 'undefined') {
+      this.isCommunityPost = true;
+      this.displayNameOfEntity = this.feed.communityDTO.communityName;
+    }
+    else {
+      this.displayNameOfEntity = this.feed.userDTO.username;
+    }
+    if (this.feed?.postData?.postEditorType) {
+      if (this.feed?.postData.postEditorType === PostEditorType.blog) {
+        this.simplifiedPostType = SimplifiedPostType.blog;
+      } else if (this.feed?.postType === PostType.question) {
+        this.simplifiedPostType = SimplifiedPostType.question;
+      } else if (this.feed?.postType === PostType.simple) {
+        this.simplifiedPostType = SimplifiedPostType.post;
+      }
+    }
   }
 
   // openShareDialog() {
@@ -97,7 +119,7 @@ export class PostMenuOptionsComponent implements OnInit {
     // });
   }
 
-  editPost(communityId, isCommunityPost, editing, feed): void {
+  editPost(): void {
     const dialogRef = this.dialog.open(PostFeedComponent, {
       // width: '550px',
       // maxWidth: "90vw",
@@ -108,7 +130,7 @@ export class PostMenuOptionsComponent implements OnInit {
       // backdropClass: 'custom-dialog-backdrop-class',
       // panelClass: 'custom-dialog-panel-class',
       // disableClose:true
-      data: { communityId, isCommunityPost, editing, feed }
+      data: { editing: true, feed: this.feed }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -135,21 +157,15 @@ export class PostMenuOptionsComponent implements OnInit {
 
   showUnfollowBtn() {
     if (this.feed.communityDTO?.communityId) {
-      return this.feed.communityDTO?.ownerUserDTO?.userId !== this.loggedInUserId;
+      return !this.login.isThisLoggedInUser(this.feed.communityDTO?.ownerUserDTO?.userId) &&
+        (!this.isOwner && this.feed.communityDTO.communityMeta.relationShipType === RelationType.FOLLOWED);
     }
     return true;
   }
 
   unfollow() {
-    let unfollowingName;
-    if (this.isCommunityPost) {
-      unfollowingName = this.feed.communityDTO.communityName;
-    }
-    else {
-      unfollowingName = this.feed.userDTO.username;
-    }
     let dialogConfig;
-    let title = "Do you want to unfollow " + unfollowingName + "?";
+    let title = "Do you want to unfollow " + this.displayNameOfEntity + "?";
     if (this.mobileView) {
       dialogConfig = {
         maxWidth: '100vw',

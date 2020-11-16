@@ -19,7 +19,7 @@ import { ProfileIconComponent } from 'shared/profile-icon/profile-icon.component
 import { UIService } from 'ui/ui.service';
 import { Post, PostEditorType, PostMedia, ResourceType } from '../../models/post-action.model';
 import { UserListComponent } from '../../shared/components/dialogs/user-list/user-list.component';
-import { UserProfileCardServiceComponent } from '../../user-profile-card/user-profile-card-service.component';
+import { UserProfileCardService } from '../../user-profile-card/user-profile-card.service';
 import { CreateCommentComponent } from './create-comment/create-comment.component';
 declare var $: any;
 
@@ -72,7 +72,7 @@ export class RecommendedFeedsComponent implements OnInit, OnDestroy {
   constructor(private feedsService: FeedsService,
     public login: LoginService,
     private dialog: MatDialog,
-    public userProfileCardServiceComponent: UserProfileCardServiceComponent,
+    public userProfileCardServiceComponent: UserProfileCardService,
     private commonService: CommonService,
     private iFramelyService: IFramelyService,
     public snackbar: MatSnackBar,

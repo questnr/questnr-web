@@ -3,7 +3,7 @@
 </button>
 <mat-menu #menu="matMenu" xPosition="before">
   <div *ngIf="feed?.userDTO?.userId === loggedInUserId ; else notComUser">
-    <button mat-menu-item (click)="editPost('','',true, feed)" *ngIf="!feed.pollQuestion && !isBlog">
+    <button mat-menu-item (click)="editPost()" *ngIf="simplifiedPostType === simplifiedPostTypeClass.post">
       <mat-icon>edit</mat-icon>
       Edit Post
     </button>
@@ -22,7 +22,7 @@
     <button mat-menu-item *ngIf="showUnfollowBtn()" (click)="unfollow()">
       <mat-icon>person_remove</mat-icon>
       Unfollow
-      {{feed?.communityDTO?.communityName}}
+      {{displayNameOfEntity}}
     </button>
     <button mat-menu-item (click)="openPostReportDialog()">
       <mat-icon>report</mat-icon>

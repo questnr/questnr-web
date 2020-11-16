@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
+import { UserProfileCardService } from '../user-profile-card/user-profile-card.service';
 import { LoginService } from 'auth/login.service';
 import { ConfirmDialogComponent } from 'confirm-dialog-modal/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,7 +17,7 @@ export class RelationActionButtonComponent implements OnInit {
   @Input() primary: boolean = true;
   @Input() size: string = "large";
   @Input() username: string;
-  constructor(private userFollowersService: UserProfileCardServiceComponent,
+  constructor(private userFollowersService: UserProfileCardService,
     private loginService: LoginService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar) { }

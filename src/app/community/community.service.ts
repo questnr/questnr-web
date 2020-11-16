@@ -1,21 +1,18 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { Community, CommunityPublic, CommunityPrivacy, CommunityRequestActionType, CommunityProfileMeta } from '../models/community.model';
-import { Observable, of } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { MetaTagCard } from 'models/common.model';
-import { RelationType } from 'models/relation-type';
 import { Page } from 'models/page.model';
+import { RelationType } from 'models/relation-type';
 import { User } from 'models/user.model';
+import { Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { Community, CommunityPrivacy, CommunityProfileMeta, CommunityPublic, CommunityRequestActionType } from '../models/community.model';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class CommunityService {
-
   baseUrl = environment.baseUrl;
-
 
   constructor(private http: HttpClient) {
   }

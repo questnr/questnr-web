@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserProfileCardServiceComponent } from './user-profile-card-service.component';
+import { UserProfileCardService } from './user-profile-card.service';
 import { LoginService } from '../auth/login.service';
 import { UserActivityService } from '../user-activity/user-activity.service';
 import { ActivatedRoute } from '@angular/router';
@@ -25,7 +25,7 @@ export class UserProfileCardComponent implements OnInit {
   userPath = GlobalConstants.userPath;
   relationTypeClass = RelationType;
 
-  constructor(public auth: UserProfileCardServiceComponent, public loginAuth: LoginService, public route: ActivatedRoute,
+  constructor(public userProfileService: UserProfileCardService, public loginAuth: LoginService, public route: ActivatedRoute,
     public userActivity: UserActivityService) { }
 
   ngOnInit(): void {
@@ -40,8 +40,8 @@ export class UserProfileCardComponent implements OnInit {
     this.getUserActivity();
   }
   addUser() {
-    const res = this.auth.followMe(this.userId);
-    this.auth.followMe(this.userId).subscribe((response: any) => {
+    const res = this.userProfileService.followMe(this.userId);
+    this.userProfileService.followMe(this.userId).subscribe((response: any) => {
       this.relationship = response.userMeta.relationShipType;
     }, error => {
       this.relationship = RelationType.NONE;
@@ -51,7 +51,7 @@ export class UserProfileCardComponent implements OnInit {
   unfollowUser(userId) {
     const ownerId = this.loginAuth.getLocalUserProfile().id;
     // console.log(ownerId, userId);
-    this.auth.unfollowMe(ownerId, userId).subscribe((res: any) => {
+    this.userProfileService.unfollowMe(ownerId, userId).subscribe((res: any) => {
       // console.log('sucess');
       this.relationship = RelationType.NONE;
     }, error => {

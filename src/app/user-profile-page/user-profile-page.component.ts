@@ -7,7 +7,7 @@ import { JoinedCommunityComponent } from 'joined-community/joined-community.comp
 import { CommunityListMatCardType } from 'models/community-list.model';
 import { Page } from 'models/page.model';
 import { RelationType } from 'models/relation-type';
-import { TrackingEntityType, TrackingInstance } from 'models/user-activity.model';
+import { TrackingInstance } from 'models/user-activity.model';
 import { Subject } from 'rxjs';
 import { StaticMediaSrc } from 'shared/constants/static-media-src';
 import { QuestnrActivityService } from 'shared/questnr-activity.service';
@@ -20,7 +20,7 @@ import { EditUserComponent } from '../edit-user/edit-user.component';
 import { Post, QuestionParentType } from '../models/post-action.model';
 import { User, UserInfo } from '../models/user.model';
 import { ApiService } from '../shared/api.service';
-import { UserProfileCardServiceComponent } from '../user-profile-card/user-profile-card-service.component';
+import { UserProfileCardService } from '../user-profile-card/user-profile-card.service';
 import { UserProfilePageService } from './user-profile-page.service';
 
 @Component({
@@ -81,7 +81,7 @@ export class UserProfilePageComponent implements OnInit {
 
   constructor(public userProfilePageService: UserProfilePageService,
     public route: ActivatedRoute,
-    public userFollowersService: UserProfileCardServiceComponent,
+    public userFollowersService: UserProfileCardService,
     public loginService: LoginService,
     public api: ApiService,
     private uiService: UIService,
